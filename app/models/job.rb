@@ -8,12 +8,27 @@ class Job < ActiveRecord::Base
 	belongs_to :shipping_address, :class_name => 'Address'
 	has_many :job_items
 
-  DAVINCI_CUSTOM_ATTRIBUTES = [
-		'Part Number' => 'CutRite Product ID',
+  has_attached_file :davinci_xml
+
+  DAVINCI_CUSTOM_ATTRIBUTES = {
 		'Cut Width' => 'width',
 		'Cut Height' => 'height',
 		'Cut Depth' => 'depth'
-	]
+	}
+
+  CUTRITE_BASIC_ATTRIBUTES = ['qty', 'comment', 'width', 'height', 'depth']
+
+	CUTRITE_CUSTOM_ATTRIBUTES = [
+    'CutRite Product ID',
+    'Cabinet Color',
+    'Case Material',
+    'Case Edge',
+    'Case Edge 2',
+    'Door Material',
+    'Door Edge',
+    'Shipping Method',
+    'Weight'
+  ]
 
 	def job_contact
 		primary_contact || franchisee.primary_contact
@@ -23,31 +38,81 @@ class Job < ActiveRecord::Base
 		shipping_address || franchisee.shipping_address
 	end
 
-	def add_itemsfrom_davinci(xml)
+	def add_items_from_davinci(xml)
 		doc = REXML::Document.new(xml)
-		labels = doc.elements["//Row[@ss:StyleID='s30']/Cell/Data"].map{|d| d.text}
-		label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 		rows = doc.elements["//Row"].inject([]) do |m, row|
-			if row.attributes['ss:StyleID'] != 's30'
-				m << row.elements["Cell/Data"].map{|cell| cell.text}
-			end
+      m << row.elements["Cell/Data"].map{|cell| cell.text}
 		end
 
-		rows.each do |row|
-			cutrite_product_id = row[label_columns['Part Number']]
-			item = Item.find_by_cutrite_product_prefix(cutrite_product_id[/\d/])
+    labels, data_rows = rows.partition do |row|
+      row[0] == 'Description'
+    end
+
+    raise "Unexpected number of label rows in XML document: #{labels.size}; expected 1" unless labels.size == 1
+    labels.flatten!
+
+		label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
+
+		data_rows.each do |row|
+      davinci_product_id = row[label_columns['Part Number']]
+			t1, t2, t3, color_key, t5 = davinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/).captures
+			item = Item.find_by_cutrite_id(cutrite_id)
+
+      job_item = job_items.create(
+        :item      => item,
+        :ingest_id => davinci_product_id,
+        :quantity  => row[label_columns['# of Items in Design']],
+        :comment   => row[label_columns['Description']]
+      )
+
+      attribute_labels = labels - ['Part Number','# of Items in Design', 'Description']
+
+      # Find the item attributes for the imported columns, standardizing from any non-standard names
+      attributes = attribute_labels.inject({}) do |m, name|
+        attr = item.attributes.find_by_name(DAVINCI_CUSTOM_ATTRIBUTES[name] || name)
+        m[name] = attr unless attr.nil?
+        m
+      end
+
+      attribute_labels.each do |name|
+        if attributes.has_key?(name)
+          # for attributes where the attribute is already known in relation to the item,
+          # reference it when creating the job attribute
+          job_item.job_item_attributes.create(
+            :attribute => attribute[name],
+            :ingest_key => name,
+            :value_str => row[label_columns[name]]
+          )
+        else
+          # otherwise, just attach the information as an opaque key/value pair
+          job_item.job_item_attributes.create(
+            :ingest_key => name,
+            :value_str => row[label_columns[name]]
+          )
+        end
+      end
+
+      # Attach color information to the item if the item is something that has a color
+      # and specifies a color for the color key; if the color key is not known
+      # then the value of this attribute will be nil
+      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
+        attr = item.attributes.find_by_name(name)
+        if !attr.nil?
+          job_item.job_item_attributes.create(
+            :attribute => attr,
+            :ingest_key => color_key,
+            :value_str => attr.find_attribute_option_by_cutrite_ref(color_key)
+          )
+        end
+      end
 		end
 	end
 
 	def to_cutrite_csv
-		lines = [
-			cutrite_job_header,
-			to_csv_line(cutrite_job_data),
-			cutrite_items_header
-		]
+		job_lines  = [cutrite_job_header,     to_csv_line(cutrite_job_data)]
+		item_lines = [cutrite_items_header] + (job_items.map{|item| to_csv_line(cutrite_item_data(job_item))})
 
-		lines += job_items.map{|item| cutrite_item_line(item)}
-		lines.join("\n")
+		(job_lines + item_lines).join("\n")
 	end
 
 	private
@@ -74,27 +139,20 @@ class Job < ActiveRecord::Base
 	end
 
 	def cutrite_items_header
-		['qty', 'comment', 'width', 'height', 'depth'] + cutrite_custom_attributes
+		 to_csv_line(CUTRITE_BASIC_ATTRIBUTES + CUTRITE_CUSTOM_ATTRIBUTES)
 	end
 
-	def cutrite_custom_attributes
-		[
-			'CutRite Product ID',
-			'Cabinet Color',
-			'Case Material',
-			'Case Edge',
-			'Case Edge 2',
-			'Door Material',
-			'Door Edge',
-			'Shipping Method',
-			'Weight'
-		]
-	end
+	def cutrite_item_data(job_item)
+		basic_attr_values = [
+      job_item.quantity,
+      job_item.comment,
+      job_item['width'],
+      job_item['height'],
+      job_item['depth']
+    ]
 
-	def cutrite_item_line(item)
-		columns = [item.design_qty, item.comment, item.attr_value('Cut Width'), item.attr_value('Cut Height'), item.attr_value('Cut Depth')] +
-							cutrite_custom_attributes.map{|name| item.attr_value(name)}
+		custom_attr_values = cutrite_custom_attributes.map { |name| job_item[name] }
 
-		to_csv_line(columns)
+		basic_attr_values + custom_attr_values
 	end
 end

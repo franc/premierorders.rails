@@ -11,11 +11,11 @@ class CreateDatabase < ActiveRecord::Migration
       t.timestamps
     end
 
-		create table :roles do |t|
+		create_table :roles do |t|
 			t.string :name
 		end
 
-		create table :user_roles do |t|
+		create_table :user_roles do |t|
 			t.references :user
 			t.references :role
 
@@ -33,10 +33,10 @@ class CreateDatabase < ActiveRecord::Migration
       t.timestamps
     end
 
-		create table :address_books do |t|
+		create_table :address_books do |t|
 			t.string :address_type
-			t.references :user
-			t.references :address
+			t.references :user, :null => false
+			t.references :address, :null => false
 		end
 
     create_table :franchisees do |t|
@@ -54,16 +54,16 @@ class CreateDatabase < ActiveRecord::Migration
 
 		create_table :franchisee_contacts do |t|
 			t.string :contact_type
-			t.references :user
-			t.references :franchisee
+			t.references :franchisee, :null => false
+			t.references :user, :null => false
 
       t.timestamps
 		end
 
 		create_table :franchisee_addresses do |t|
+			t.references :franchisee, :null => false
+			t.references :address, :null => false
 			t.string :address_type
-			t.references :franchisee
-			t.references :address
 
       t.timestamps
 		end
@@ -73,86 +73,83 @@ class CreateDatabase < ActiveRecord::Migration
       t.string :description
 			t.string :sku
 			t.string :units
-			t.string :cutrite_product_prefix
+			t.string :cutrite_id
 
       t.timestamps
     end
 
-    create_table :ivars do |t|
+    create_table :attribute do |t|
       t.string :name
 			t.string :value_type
 
       t.timestamps
     end
 
-    create_table :ivar_values do |t|
-      t.references :ivar
+    create_table :attribute_options do |t|
+      t.references :attribute
 			t.string :cutrite_ref
-      t.string :value
+      t.string :value_str
 
       t.timestamps
     end
 
-		create_table :ivar_sets do |t|
-			t.string :name
-
-      t.timestamps
-		end
-
-		create_table :ivar_set_variables do |t|
-			t.references :ivar_set
-			t.references :ivar
-
-			t.timestamps
-		end
+    create_table :items_attributes do |t|
+      t.references :item, :null => false
+      t.references :attribute, :null => false
+    end
 
 		create_table :item_cutrite_refs do |t|
-			t.references :item
+			t.references :item, :null => false
 			t.string :cutrite_ref
 		end
 
     create_table :jobs do |t|
-			t.references :franchisee
-			t.int :customer_id
-			t.int :shipping_address_id
+			t.references :franchisee, :null => false
+			t.integer :customer_id
+			t.integer :shipping_address_id
       t.string :name
       t.string :job_number
-      t.int :salesperson_id
+      t.integer :salesperson_id
 
       t.timestamps
     end
 
     create_table :job_items do |t|
-			t.references :job
+			t.references :job, :null => false
       t.references :item
+      t.string :ingest_id
 			t.float :quantity
 			t.string :comment
 
       t.timestamps
     end
 
-    create_table :job_item_ivars do |t|
-      t.references :job_item
-      t.references :ivar
-      t.string :value
+    create_table :job_item_attributes do |t|
+      t.references :job_item, :null => false
+      t.references :attribute
+      t.string :ingest_key
+      t.string :value_str
 
       t.timestamps
     end
   end
 
   def self.down
-		drop_table :job_item_ivars
-		drop_table :job_items
+    drop_table :job_item_attributes
+    drop_table :job_items
     drop_table :jobs
-    drop_table :item_attribute_values
-    drop_table :item_attributes
+    drop_table :item_cutrite_refs
+    drop_table :items_attributes
+    drop_table :attribute_options
+    drop_table :attribute
     drop_table :items
+    drop_table :franchisee_addresses
     drop_table :franchisee_contacts
     drop_table :franchisees
-    drop_table :address_books
+    drop table :address_books
     drop_table :addresses
-    drop_table :user_roles
-    drop_table :roles
+    drop table :user_roles
+    drop table :roles
     drop_table :users
   end
 end
