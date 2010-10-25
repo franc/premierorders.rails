@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101018180548) do
+ActiveRecord::Schema.define(:version => 20101024182704) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(:version => 20101018180548) do
   end
 
   create_table "jobs", :force => true do |t|
-    t.integer  "franchisee_id",       :null => false
+    t.integer  "franchisee_id",            :null => false
     t.integer  "customer_id"
     t.integer  "shipping_address_id"
     t.string   "name"
@@ -121,6 +121,10 @@ ActiveRecord::Schema.define(:version => 20101018180548) do
     t.integer  "salesperson_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "davinci_xml_file_name"
+    t.string   "davinci_xml_content_type"
+    t.integer  "davinci_xml_file_size"
+    t.datetime "davinci_xml_updated_at"
   end
 
   create_table "roles", :force => true do |t|

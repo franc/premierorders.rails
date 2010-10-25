@@ -1,4 +1,4 @@
-<%= form_for(@job) do |f| %>
+<%= form_for @job, :html => { :multipart => true } do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
@@ -11,7 +11,24 @@
     </div>
   <% end %>
 
-  Upload your DaVinci XML export: <%= f.file_field :davinci_xml %>
+  <div class="field">
+    <%= f.label :franchisee %><br />
+    <%= collection_select(:job, :franchisee_id, @franchisees, :id, :franchise_name) %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :job_number %><br />
+    <%= f.text_field :job_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :davinci_xml %><br />
+    <%= f.file_field :davinci_xml %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

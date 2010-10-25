@@ -53,9 +53,9 @@ class CreateDatabase < ActiveRecord::Migration
     end
 
 		create_table :franchisee_contacts do |t|
-			t.string :contact_type
 			t.references :franchisee, :null => false
 			t.references :user, :null => false
+			t.string :contact_type
 
       t.timestamps
 		end
