@@ -40,8 +40,8 @@ class Job < ActiveRecord::Base
 
 	def add_items_from_davinci(xml)
 		doc = REXML::Document.new(xml)
-		rows = doc.elements["//Row"].inject([]) do |m, row|
-      m << row.elements["Cell/Data"].map{|cell| cell.text}
+		rows = doc.get_elements("//Row").inject([]) do |rows, row_element|
+      rows << row_element.get_elements("Cell/Data").map{|cell| cell.text}
 		end
 
     labels, data_rows = rows.partition do |row|
@@ -53,25 +53,38 @@ class Job < ActiveRecord::Base
 
 		label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
-		data_rows.each do |row|
+		data_rows.select{|r| r.size == label_columns.size}.each do |row|
+      logger.info "Processing data row: #{row.inspect}"
       davinci_product_id = row[label_columns['Part Number']]
-			t1, t2, t3, color_key, t5 = davinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/).captures
-			item = Item.find_by_cutrite_id(cutrite_id)
+			product_code_matchdata = davinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
+      item = if product_code_matchdata
+        t1, t2, t3, color_key, t5 = product_code_matchdata.captures
+        Item.find_by_davinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}")
+      else 
+        nil
+      end
 
-      job_item = job_items.create(
-        :item      => item,
-        :ingest_id => davinci_product_id,
-        :quantity  => row[label_columns['# of Items in Design']],
-        :comment   => row[label_columns['Description']]
-      )
-
-      attribute_labels = labels - ['Part Number','# of Items in Design', 'Description']
+      job_item = if (item.nil?)
+        job_items.create(
+          :ingest_id => davinci_product_id,
+          :quantity  => row[label_columns['# of Items in Design']],
+          :comment   => row[label_columns['Description']]
+        )
+      else
+        job_items.create(
+          :item      => item,
+          :ingest_id => davinci_product_id,
+          :quantity  => row[label_columns['# of Items in Design']],
+          :comment   => row[label_columns['Description']]
+        )
+      end
 
       # Find the item attributes for the imported columns, standardizing from any non-standard names
-      attributes = attribute_labels.inject({}) do |m, name|
+      attribute_labels = labels - ['Part Number', '# of Items in Design', 'Description']
+      attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
         attr = item.attributes.find_by_name(DAVINCI_CUSTOM_ATTRIBUTES[name] || name)
-        m[name] = attr unless attr.nil?
-        m
+        attr_map[name] = attr unless attr.nil?
+        attr_map
       end
 
       attribute_labels.each do |name|
@@ -79,14 +92,14 @@ class Job < ActiveRecord::Base
           # for attributes where the attribute is already known in relation to the item,
           # reference it when creating the job attribute
           job_item.job_item_attributes.create(
-            :attribute => attribute[name],
-            :ingest_key => name,
+            :attribute => attributes[name],
+            :ingest_id => name,
             :value_str => row[label_columns[name]]
           )
         else
           # otherwise, just attach the information as an opaque key/value pair
           job_item.job_item_attributes.create(
-            :ingest_key => name,
+            :ingest_id => name,
             :value_str => row[label_columns[name]]
           )
         end
@@ -96,16 +109,16 @@ class Job < ActiveRecord::Base
       # and specifies a color for the color key; if the color key is not known
       # then the value of this attribute will be nil
       ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
-        attr = item.attributes.find_by_name(name)
+        attr = item.nil? ? nil : item.attributes.find_by_name(name)
         if !attr.nil?
           job_item.job_item_attributes.create(
             :attribute => attr,
-            :ingest_key => color_key,
+            :ingest_id => color_key,
             :value_str => attr.find_attribute_option_by_cutrite_ref(color_key)
           )
         end
       end
-		end
+    end
 	end
 
 	def to_cutrite_csv
@@ -139,7 +152,7 @@ class Job < ActiveRecord::Base
 	end
 
 	def cutrite_items_header
-		 to_csv_line(CUTRITE_BASIC_ATTRIBUTES + CUTRITE_CUSTOM_ATTRIBUTES)
+    to_csv_line(CUTRITE_BASIC_ATTRIBUTES + CUTRITE_CUSTOM_ATTRIBUTES)
 	end
 
 	def cutrite_item_data(job_item)

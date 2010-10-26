@@ -14,13 +14,13 @@ class JobItem < ActiveRecord::Base
 		end
 	end
 
-	def method_missing(symbol, *args)
-		if (item.respond_to?(symbol))
-			item.send(symbol, *args)
-		else
-			super(symbol, *args)
-		end
-	end
+	#def method_missing(symbol, *args)
+	#	if (item.respond_to?(symbol))
+	#		item.send(symbol, *args)
+	#	else
+	#		super(symbol, *args)
+	#	end
+	#end
 end
 
 class JobItemAttribute < ActiveRecord::Base

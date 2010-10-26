@@ -73,6 +73,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.string :description
 			t.string :sku
 			t.string :units
+			t.string :davinci_id
 			t.string :cutrite_id
 
       t.timestamps
@@ -127,7 +128,7 @@ class CreateDatabase < ActiveRecord::Migration
     create_table :job_item_attributes do |t|
       t.references :job_item, :null => false
       t.references :attribute
-      t.string :ingest_key
+      t.string :ingest_id
       t.string :value_str
 
       t.timestamps

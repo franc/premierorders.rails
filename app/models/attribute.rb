@@ -1,6 +1,6 @@
 # Independent variables that may be associated with an item
 class Attribute < ActiveRecord::Base
-  belongs_to :item
+  has_and_belongs_to_many :items
 	has_many :attribute_options
 
 	def default_value

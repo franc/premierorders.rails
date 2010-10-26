@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.string   "description"
     t.string   "sku"
     t.string   "units"
+    t.string   "davinci_id"
     t.string   "cutrite_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -96,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
   create_table "job_item_attributes", :force => true do |t|
     t.integer  "job_item_id",  :null => false
     t.integer  "attribute_id"
-    t.string   "ingest_key"
+    t.string   "ingest_id"
     t.string   "value_str"
     t.datetime "created_at"
     t.datetime "updated_at"

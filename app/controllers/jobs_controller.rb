@@ -46,7 +46,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.save
 				File.open(@job.davinci_xml.path) do |f|
-					@job.add_items_from_davinci(f.to_s)
+					@job.add_items_from_davinci(f)
 				end
 				@job.save
         format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
