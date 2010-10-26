@@ -7,11 +7,11 @@ Job Name: <%= @job.name %><br/>
 <table>
 	<% @job.job_items.each do |item| %>
 	<tr>
-		<td><%= item.name %></td>
+		<td><%= item.item && item.item.name %></td>
+		<td><%= item.comment %></td>
 		<td><%= item.ingest_id %></td>
-		<td><%= item.description %></td>
 		<% item.job_item_attributes.each do |attr| %>
-		<td><%= attr.value %></td>
+		<td><%= attr.value_str %></td>
 		<% end %>
 	</tr>
 	<% end %>
