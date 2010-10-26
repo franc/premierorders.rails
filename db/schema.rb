@@ -53,9 +53,9 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
   end
 
   create_table "franchisee_contacts", :force => true do |t|
-    t.string   "contact_type"
     t.integer  "franchisee_id", :null => false
     t.integer  "user_id",       :null => false
+    t.string   "contact_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
