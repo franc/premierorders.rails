@@ -1,8 +1,4 @@
 class Item < ActiveRecord::Base
-	has_and_belongs_to_many :item_attrs, :join_table => :items_item_attrs
-  has_one :cutrite_refs
-end
-
-class CutriteRef < ActiveRecord::Base
-  belongs_to :item
+  has_many :item_attr_options
+	has_many :item_attrs, :through => :item_attr_options, :uniq => true
 end

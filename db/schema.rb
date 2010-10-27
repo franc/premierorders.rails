@@ -29,14 +29,6 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.datetime "updated_at"
   end
 
-  create_table "attribute_options", :force => true do |t|
-    t.integer  "item_attr_id"
-    t.string   "dvinci_id"
-    t.string   "value_str"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "franchisee_addresses", :force => true do |t|
     t.integer  "franchisee_id", :null => false
     t.integer  "address_id",    :null => false
@@ -66,6 +58,16 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.datetime "updated_at"
   end
 
+  create_table "item_attr_options", :force => true do |t|
+    t.integer  "item_id",      :null => false
+    t.integer  "item_attr_id", :null => false
+    t.string   "dvinci_id"
+    t.string   "value_str"
+    t.boolean  "default"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "item_attrs", :force => true do |t|
     t.string   "name"
     t.string   "value_type"
@@ -82,11 +84,6 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.string   "cutrite_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "items_item_attrs", :id => false, :force => true do |t|
-    t.integer "item_id",      :null => false
-    t.integer "item_attr_id", :null => false
   end
 
   create_table "job_item_attributes", :force => true do |t|

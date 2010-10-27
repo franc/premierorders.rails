@@ -86,17 +86,14 @@ class CreateDatabase < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :attribute_options do |t|
-      t.references :item_attr
-			t.string :dvinci_id
-      t.string :value_str
-
-      t.timestamps
-    end
-
-    create_table :items_item_attrs, :id => false do |t|
+    create_table :item_attr_options do |t|
       t.references :item, :null => false
       t.references :item_attr, :null => false
+			t.string :dvinci_id
+      t.string :value_str
+      t.boolean :default
+
+      t.timestamps
     end
 
     create_table :jobs do |t|
@@ -134,8 +131,7 @@ class CreateDatabase < ActiveRecord::Migration
     drop_table :job_item_attributes
     drop_table :job_items
     drop_table :jobs
-    drop_table :items_item_attrs
-    drop_table :attribute_options
+    drop_table :item_attr_options
     drop_table :item_attrs
     drop_table :items
     drop_table :franchisee_addresses

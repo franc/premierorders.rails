@@ -61,35 +61,48 @@ dv_materials = data_map("#{seed_data_dir}/dvinci_materials.csv")
 dv_edgeband  = data_map("#{seed_data_dir}/dvinci_edgeband.csv")
 dv_edgeband2 = data_map("#{seed_data_dir}/dvinci_edgeband2.csv")
 
+color_attr = ItemAttr.find_or_create_by_name('Cabinet Color', :value_type => 'string')
+material_attr = ItemAttr.find_or_create_by_name('Case Material', :value_type => 'string')
+edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :value_type => 'string')
+edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge2', :value_type => 'string')
+
 CSV.open("#{seed_data_dir}/parts_closettailors.csv", "r") do |row|
   part_id, catalog_id, dvinci_id, description, *xs = row
   next if part_id == 'PartID'
 
 	product_code_matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
-  t1, t2, t3, color_key, t5 = product_code_matchdata.captures
-  item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}"
-  item = Item.find_or_create_by_dvinci_id(
-    item_dvinci_key,
-    :name => description,
-    :description => description
-  )
+  if product_code_matchdata.nil?
+    puts "Could not determine product information for row: #{row.inspect}"
+  else
+    t1, t2, t3, color_key, t5 = product_code_matchdata.captures
+    item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}"
+    description_parts = description.match(/(.*),(.*)/)
+    base_description = description_parts.nil? ? description : description_parts[1]
+    described_color  = description_parts.nil? ? nil : description_parts[2]
 
-  color_attr = item.item_attrs.find_or_create_by_name('Cabinet Color') {|a| a.value_type = 'string'}
-  described_color = description[/.*,(.*)/, 1]
-  color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : described_color
-  if (!color.nil? && !described_color.nil? && color.strip.casecmp(described_color.strip) != 0)
-    raise "color/key mismatch for item #{dvinci_id}; expected #{color} but got #{described_color}"
+    item = Item.find_or_create_by_dvinci_id(
+      item_dvinci_key,
+      :name => base_description,
+      :description => base_description
+    )
+
+    color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : described_color
+    if (color.nil? || described_color.nil? || color.strip.casecmp(described_color.strip) != 0)
+      unless (color.nil? && described_color.nil?)
+        puts "color/key mismatch for item #{dvinci_id}; expected #{color.to_s.strip} but got #{described_color.to_s.strip}"
+      end
+    else
+      ItemAttrOption.find_or_create_by_item_id_and_item_attr_id(item.id, color_attr.id, :dvinci_id => color_key, :value_str => color)
+
+      add_item_attr_option = lambda do |attr, from|
+        value = from.has_key?(color_key) ? from[color_key].call(description) : nil
+        ItemAttrOption.find_or_create_by_item_id_and_item_attr_id(item.id, attr.id, :dvinci_id => color_key, :value_str => value) if value
+      end
+
+      add_item_attr_option.call(material_attr,  dv_materials)
+      add_item_attr_option.call(edgeband_attr,  dv_edgeband)
+      add_item_attr_option.call(edgeband2_attr, dv_edgeband2)
+    end
   end
-  color_attr.attribute_options.find_or_create_by_dvinci_id(color_key) {|a| a.value_str = color}
-
-  add_item_attr_option = lambda do |name, from|
-    value = from.has_key?(color_key) ? from[color_key].call(description) : nil
-    material_attr = item.item_attrs.find_or_create_by_name(name) {|a| a.value_type = 'string'}
-    material_attr.attribute_options.find_or_create_by_dvinci_id(color_key) {|a| a.value_str = value}
-  end
-
-  add_item_attr_option.call('Case Material', dv_materials)
-  add_item_attr_option.call('Case Edge',     dv_edgeband)
-  add_item_attr_option.call('Case Edge2',    dv_edgeband2)
 end
 

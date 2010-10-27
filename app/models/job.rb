@@ -114,7 +114,7 @@ class Job < ActiveRecord::Base
           job_item.job_item_attributes.create(
             :attribute => attr,
             :ingest_id => color_key,
-            :value_str => attr.find_attribute_option_by_cutrite_ref(color_key)
+            :value_str => item.item_attr_options.find_by_item_attr_id_and_cutrite_ref(attr.id, color_key)
           )
         end
       end
