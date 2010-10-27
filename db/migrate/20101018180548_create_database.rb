@@ -73,13 +73,13 @@ class CreateDatabase < ActiveRecord::Migration
       t.string :description
 			t.string :sku
 			t.string :units
-			t.string :davinci_id
+			t.string :dvinci_id
 			t.string :cutrite_id
 
       t.timestamps
     end
 
-    create_table :attribute do |t|
+    create_table :item_attrs do |t|
       t.string :name
 			t.string :value_type
 
@@ -87,22 +87,17 @@ class CreateDatabase < ActiveRecord::Migration
     end
 
     create_table :attribute_options do |t|
-      t.references :attribute
-			t.string :cutrite_ref
+      t.references :item_attr
+			t.string :dvinci_id
       t.string :value_str
 
       t.timestamps
     end
 
-    create_table :items_attributes do |t|
+    create_table :items_item_attrs, :id => false do |t|
       t.references :item, :null => false
-      t.references :attribute, :null => false
+      t.references :item_attr, :null => false
     end
-
-		create_table :item_cutrite_refs do |t|
-			t.references :item, :null => false
-			t.string :cutrite_ref
-		end
 
     create_table :jobs do |t|
 			t.references :franchisee, :null => false
@@ -127,7 +122,7 @@ class CreateDatabase < ActiveRecord::Migration
 
     create_table :job_item_attributes do |t|
       t.references :job_item, :null => false
-      t.references :attribute
+      t.references :item_attr
       t.string :ingest_id
       t.string :value_str
 
@@ -139,18 +134,17 @@ class CreateDatabase < ActiveRecord::Migration
     drop_table :job_item_attributes
     drop_table :job_items
     drop_table :jobs
-    drop_table :item_cutrite_refs
-    drop_table :items_attributes
+    drop_table :items_item_attrs
     drop_table :attribute_options
-    drop_table :attribute
+    drop_table :item_attrs
     drop_table :items
     drop_table :franchisee_addresses
     drop_table :franchisee_contacts
     drop_table :franchisees
-    drop table :address_books
+    drop_table :address_books
     drop_table :addresses
-    drop table :user_roles
-    drop table :roles
+    drop_table :user_roles
+    drop_table :roles
     drop_table :users
   end
 end

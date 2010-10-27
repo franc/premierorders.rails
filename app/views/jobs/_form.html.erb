@@ -1,3 +1,19 @@
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #search field changes
+  $("#job_franchisee_id").change(function() {
+    // make a POST call and replace the content
+    var franchisee_id = $("#job_franchisee_id option:selected").val();
+    $.get("/franchisees/"+franchisee_id+"/addresses", function(data) {
+      $("#job_shipping_address_id option").remove()
+      for (var id in data) {
+        $("#job_shipping_address_id").append("<option value=\""+id+"\">"+data[id]+"</option>")
+      }
+    }, "json");
+  });
+})
+</script>
+
 <%= form_for @job, :html => { :multipart => true } do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
@@ -16,6 +32,10 @@
     <%= collection_select(:job, :franchisee_id, @franchisees, :id, :franchise_name) %>
   </div>
   <div class="field">
+    <%= f.label :shipping_address %><br/>
+    <%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %>
+  </div>
+  <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
@@ -25,8 +45,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :davinci_xml %><br />
-    <%= f.file_field :davinci_xml %>
+    <%= f.label :dvinci_xml %><br />
+    <%= f.file_field :dvinci_xml %>
   </div>
 
   <div class="actions">

@@ -29,16 +29,9 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.datetime "updated_at"
   end
 
-  create_table "attribute", :force => true do |t|
-    t.string   "name"
-    t.string   "value_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "attribute_options", :force => true do |t|
-    t.integer  "attribute_id"
-    t.string   "cutrite_ref"
+    t.integer  "item_attr_id"
+    t.string   "dvinci_id"
     t.string   "value_str"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -73,9 +66,11 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.datetime "updated_at"
   end
 
-  create_table "item_cutrite_refs", :force => true do |t|
-    t.integer "item_id",     :null => false
-    t.string  "cutrite_ref"
+  create_table "item_attrs", :force => true do |t|
+    t.string   "name"
+    t.string   "value_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "items", :force => true do |t|
@@ -83,20 +78,20 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.string   "description"
     t.string   "sku"
     t.string   "units"
-    t.string   "davinci_id"
+    t.string   "dvinci_id"
     t.string   "cutrite_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "items_attributes", :force => true do |t|
+  create_table "items_item_attrs", :id => false, :force => true do |t|
     t.integer "item_id",      :null => false
-    t.integer "attribute_id", :null => false
+    t.integer "item_attr_id", :null => false
   end
 
   create_table "job_item_attributes", :force => true do |t|
     t.integer  "job_item_id",  :null => false
-    t.integer  "attribute_id"
+    t.integer  "item_attr_id"
     t.string   "ingest_id"
     t.string   "value_str"
     t.datetime "created_at"
@@ -114,7 +109,7 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
   end
 
   create_table "jobs", :force => true do |t|
-    t.integer  "franchisee_id",            :null => false
+    t.integer  "franchisee_id",           :null => false
     t.integer  "customer_id"
     t.integer  "shipping_address_id"
     t.string   "name"
@@ -122,10 +117,10 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.integer  "salesperson_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "davinci_xml_file_name"
-    t.string   "davinci_xml_content_type"
-    t.integer  "davinci_xml_file_size"
-    t.datetime "davinci_xml_updated_at"
+    t.string   "dvinci_xml_file_name"
+    t.string   "dvinci_xml_content_type"
+    t.integer  "dvinci_xml_file_size"
+    t.datetime "dvinci_xml_updated_at"
   end
 
   create_table "roles", :force => true do |t|

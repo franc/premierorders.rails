@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class DaVinciJobHelperTest < ActionView::TestCase
+class dvinciJobHelperTest < ActionView::TestCase
 end

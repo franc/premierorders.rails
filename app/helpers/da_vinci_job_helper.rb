@@ -1,2 +1,2 @@
-module DaVinciJobHelper
+module dvinciJobHelper
 end

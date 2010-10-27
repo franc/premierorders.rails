@@ -8,9 +8,9 @@ class Job < ActiveRecord::Base
 	belongs_to :shipping_address, :class_name => 'Address'
 	has_many :job_items
 
-  has_attached_file :davinci_xml
+  has_attached_file :dvinci_xml
 
-  DAVINCI_CUSTOM_ATTRIBUTES = {
+  DVINCI_CUSTOM_ATTRIBUTES = {
 		'Cut Width' => 'width',
 		'Cut Height' => 'height',
 		'Cut Depth' => 'depth'
@@ -38,7 +38,7 @@ class Job < ActiveRecord::Base
 		shipping_address || franchisee.shipping_address
 	end
 
-	def add_items_from_davinci(xml)
+	def add_items_from_dvinci(xml)
 		doc = REXML::Document.new(xml)
 		rows = doc.get_elements("//Row").inject([]) do |rows, row_element|
       rows << row_element.get_elements("Cell/Data").map{|cell| cell.text}
@@ -55,25 +55,25 @@ class Job < ActiveRecord::Base
 
 		data_rows.select{|r| r.size == label_columns.size}.each do |row|
       logger.info "Processing data row: #{row.inspect}"
-      davinci_product_id = row[label_columns['Part Number']]
-			product_code_matchdata = davinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
+      dvinci_product_id = row[label_columns['Part Number']]
+			product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
       item = if product_code_matchdata
         t1, t2, t3, color_key, t5 = product_code_matchdata.captures
-        Item.find_by_davinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}")
+        Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}")
       else 
         nil
       end
 
       job_item = if (item.nil?)
         job_items.create(
-          :ingest_id => davinci_product_id,
+          :ingest_id => dvinci_product_id,
           :quantity  => row[label_columns['# of Items in Design']],
           :comment   => row[label_columns['Description']]
         )
       else
         job_items.create(
           :item      => item,
-          :ingest_id => davinci_product_id,
+          :ingest_id => dvinci_product_id,
           :quantity  => row[label_columns['# of Items in Design']],
           :comment   => row[label_columns['Description']]
         )
@@ -82,7 +82,7 @@ class Job < ActiveRecord::Base
       # Find the item attributes for the imported columns, standardizing from any non-standard names
       attribute_labels = labels - ['Part Number', '# of Items in Design', 'Description']
       attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
-        attr = item.attributes.find_by_name(DAVINCI_CUSTOM_ATTRIBUTES[name] || name)
+        attr = item.item_attrs.find_by_name(DVINCI_CUSTOM_ATTRIBUTES[name] || name)
         attr_map[name] = attr unless attr.nil?
         attr_map
       end
@@ -109,7 +109,7 @@ class Job < ActiveRecord::Base
       # and specifies a color for the color key; if the color key is not known
       # then the value of this attribute will be nil
       ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
-        attr = item.nil? ? nil : item.attributes.find_by_name(name)
+        attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
         if !attr.nil?
           job_item.job_item_attributes.create(
             :attribute => attr,
@@ -141,7 +141,7 @@ class Job < ActiveRecord::Base
 	def cutrite_job_data
 		[
 			'',
-			job_name,
+			name,
 			'', '', '',
 			franchisee.franchise_name,
 			shipping_address.address1 + (shipping_address.address2 || ''),

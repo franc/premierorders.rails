@@ -1,5 +1,15 @@
 PgRails::Application.routes.draw do
-  resources :jobs
+  resources :jobs do
+    member do
+      get 'cutrite'
+    end
+  end
+
+  resources :franchisees do
+    member do
+      get 'addresses'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

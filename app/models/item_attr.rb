@@ -1,6 +1,6 @@
 # Independent variables that may be associated with an item
-class Attribute < ActiveRecord::Base
-  has_and_belongs_to_many :items
+class ItemAttr < ActiveRecord::Base
+  has_and_belongs_to_many :items, :join_table => :items_item_attrs
 	has_many :attribute_options
 
 	def default_value
@@ -12,7 +12,7 @@ class Attribute < ActiveRecord::Base
 		if (value_str.nil?)
 			nil
 		else
-			case (value_type.to_sym)
+			case (self.value_type.to_sym)
         when :string then value_str
         when :int    then value_str.to_i
         when :float  then value_str.to_f
@@ -23,9 +23,9 @@ end
 
 # Values that the independent variable may take on
 class AttributeOption < ActiveRecord::Base
-	belongs_to :attribute
+	belongs_to :item_attr
 
   def value
-    attribute.value(value_str)
+    item_attr.value(value_str)
   end
 end

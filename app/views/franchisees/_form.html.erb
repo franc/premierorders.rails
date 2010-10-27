@@ -1,0 +1,17 @@
+<%= form_for(@franchisee) do |f| %>
+  <% if @franchisee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@franchisee.errors.count, "error") %> prohibited this franchisee from being saved:</h2>
+
+      <ul>
+      <% @franchisee.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

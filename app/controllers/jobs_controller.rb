@@ -26,6 +26,7 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
     @franchisees = Franchisee.find(:all)
+    @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,8 +46,8 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-				File.open(@job.davinci_xml.path) do |f|
-					@job.add_items_from_davinci(f)
+				File.open(@job.dvinci_xml.path) do |f|
+					@job.add_items_from_dvinci(f)
 				end
 				@job.save
         format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
@@ -73,6 +74,14 @@ class JobsController < ApplicationController
       end
     end
   end
+
+  def cutrite
+    @job = Job.find(params[:id])
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @job }
+    end
+end
 
   # DELETE /jobs/1
   # DELETE /jobs/1.xml
