@@ -1,4 +1,5 @@
 require 'rexml/document'
+require 'csv'
 
 class Job < ActiveRecord::Base
 	belongs_to :franchisee
@@ -61,7 +62,7 @@ class Job < ActiveRecord::Base
         t1, t2, t3, color_key, t5 = product_code_matchdata.captures
         Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}")
       else 
-        nil
+        Item.find_by_dvinci_id(dvinci_product_id)
       end
 
       job_item = if (item.nil?)
@@ -111,31 +112,41 @@ class Job < ActiveRecord::Base
       ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
         attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
         if !attr.nil?
-          job_item.job_item_attributes.create(
-            :attribute => attr,
-            :ingest_id => color_key,
-            :value_str => item.item_attr_options.find_by_item_attr_id_and_cutrite_ref(attr.id, color_key)
-          )
+          attr_option = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(attr.id, color_key)
+          if !attr_option.nil?
+            job_item.job_item_attributes.create(
+              :item_attr_id => attr.id,
+              :ingest_id => color_key,
+              :value_str => attr_option.value_str
+            )
+          end
         end
       end
     end
 	end
 
 	def to_cutrite_csv
-		job_lines  = [cutrite_job_header,     to_csv_line(cutrite_job_data)]
-		item_lines = [cutrite_items_header] + (job_items.map{|item| to_csv_line(cutrite_item_data(job_item))})
+		job_lines  = [cutrite_job_header, cutrite_job_data]
+		item_lines = [cutrite_items_header] + (job_items.map{|job_item| cutrite_item_data(job_item)})
 
-		(job_lines + item_lines).join("\n")
+		(job_lines + item_lines).map{|l| CSV.generate_line(l)}.join("\n")
 	end
 
 	private
 
-	def to_csv_line(arr)
-		arr.map{|l| l.gsub(/,/, ' ')}.join(",")
-	end
-
 	def cutrite_job_header
-		",Job Name,,,,Account Name,Shipping Address,Shipping City Shipping State Shipping Postal Code,Phone,Fax"
+    [
+      '',
+      'Job Name',
+      '',
+      '',
+      '',
+      'Account Name',
+      'Shipping Address',
+      'Shipping City Shipping State Shipping Postal Code',
+      'Phone',
+      'Fax'
+    ]
 	end
 
 	def cutrite_job_data
@@ -152,19 +163,19 @@ class Job < ActiveRecord::Base
 	end
 
 	def cutrite_items_header
-    to_csv_line(CUTRITE_BASIC_ATTRIBUTES + CUTRITE_CUSTOM_ATTRIBUTES)
+    CUTRITE_BASIC_ATTRIBUTES + CUTRITE_CUSTOM_ATTRIBUTES
 	end
 
 	def cutrite_item_data(job_item)
 		basic_attr_values = [
       job_item.quantity,
       job_item.comment,
-      job_item['width'],
-      job_item['height'],
-      job_item['depth']
+      job_item.item_attr('Cut Width'),
+      job_item.item_attr('Cut Height'),
+      job_item.item_attr('Cut Depth')
     ]
 
-		custom_attr_values = cutrite_custom_attributes.map { |name| job_item[name] }
+		custom_attr_values = CUTRITE_CUSTOM_ATTRIBUTES.map { |name| job_item.item_attr(name) }
 
 		basic_attr_values + custom_attr_values
 	end

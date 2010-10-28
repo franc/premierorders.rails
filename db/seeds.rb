@@ -45,18 +45,18 @@ def data_map(filename)
     if m.has_key?(id)
       delegate = m[id]
       m[id] = lambda do |description|
-        (prefixes.empty? || prefix_match(description, prefixes)) ? new_value : delegate.call(description)
+        (prefixes.empty? || prefix_match(description, prefixes)) ? new_value.strip : delegate.call(description)
       end
     else
       m[id] = lambda do |description|
-        (prefixes.empty? || prefix_match(description, prefixes)) ? new_value : nil
+        (prefixes.empty? || prefix_match(description, prefixes)) ? new_value.strip : nil
       end
     end
     m
   end
 end
 
-dv_colors    = data_map("#{seed_data_dir}/dvinci_cabinet_color.csv")
+dv_colors    = data_map("#{seed_data_dir}/dvinci_colors.csv")
 dv_materials = data_map("#{seed_data_dir}/dvinci_materials.csv")
 dv_edgeband  = data_map("#{seed_data_dir}/dvinci_edgeband.csv")
 dv_edgeband2 = data_map("#{seed_data_dir}/dvinci_edgeband2.csv")
@@ -78,7 +78,29 @@ CSV.open("#{seed_data_dir}/parts_closettailors.csv", "r") do |row|
     item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}"
     description_parts = description.match(/(.*),(.*)/)
     base_description = description_parts.nil? ? description : description_parts[1]
-    described_color  = description_parts.nil? ? nil : description_parts[2]
+
+    described_color = description_parts.nil? ? nil : description_parts[2].strip
+    color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : nil
+
+    skip_attrs = if (color.nil? || described_color.nil? || color.casecmp(described_color) != 0)
+      if (color && described_color && color.casecmp(described_color.gsub(/\(3 Week Lead Time\)/, '').strip) == 0)
+        # restore the lead time information to the base description
+        # maybe this needs to be an item attribute also?
+        base_description += " (3 Week Lead Time)"
+        false
+      else
+        # restore the original description and 15-digit id
+        base_description = description
+        item_dvinci_key = dvinci_id
+
+        unless (color.nil? && described_color.nil?)
+          puts "color/key mismatch for item #{dvinci_id}; expected #{color.to_s} but got #{described_color.to_s}"
+        end
+        true
+      end
+    else
+      false
+    end
 
     item = Item.find_or_create_by_dvinci_id(
       item_dvinci_key,
@@ -86,19 +108,13 @@ CSV.open("#{seed_data_dir}/parts_closettailors.csv", "r") do |row|
       :description => base_description
     )
 
-    color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : described_color
-    if (color.nil? || described_color.nil? || color.strip.casecmp(described_color.strip) != 0)
-      unless (color.nil? && described_color.nil?)
-        puts "color/key mismatch for item #{dvinci_id}; expected #{color.to_s.strip} but got #{described_color.to_s.strip}"
-      end
-    else
-      ItemAttrOption.find_or_create_by_item_id_and_item_attr_id(item.id, color_attr.id, :dvinci_id => color_key, :value_str => color)
-
+    unless skip_attrs
       add_item_attr_option = lambda do |attr, from|
         value = from.has_key?(color_key) ? from[color_key].call(description) : nil
-        ItemAttrOption.find_or_create_by_item_id_and_item_attr_id(item.id, attr.id, :dvinci_id => color_key, :value_str => value) if value
+        ItemAttrOption.find_or_create_by_item_id_and_item_attr_id_and_dvinci_id(item.id, attr.id, color_key, :value_str => value) if value
       end
 
+      add_item_attr_option.call(color_attr,     dv_colors)
       add_item_attr_option.call(material_attr,  dv_materials)
       add_item_attr_option.call(edgeband_attr,  dv_edgeband)
       add_item_attr_option.call(edgeband2_attr, dv_edgeband2)
