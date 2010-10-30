@@ -28,10 +28,10 @@ ct_allen.franchisee_addresses.create(
   :address_type => 'shipping'
 )
 
-ct_allen.franchisee_contacts.create(
-  :user_id => ct_allen_contact.id,
-  :contact_type => 'primary'
-)
+#ct_allen.franchisee_contacts.create(
+#  :user_id => ct_allen_contact.id,
+#  :contact_type => 'primary'
+#)
 
 seed_data_dir = "#{File.dirname(__FILE__)}/seed_data"
 
@@ -76,30 +76,15 @@ CSV.open("#{seed_data_dir}/parts_closettailors.csv", "r") do |row|
   else
     t1, t2, t3, color_key, t5 = product_code_matchdata.captures
     item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}"
-    description_parts = description.match(/(.*),(.*)/)
-    base_description = description_parts.nil? ? description : description_parts[1]
 
-    described_color = description_parts.nil? ? nil : description_parts[2].strip
     color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : nil
+    base_description = color.nil? ? description : description.gsub(/,\s*#{color}/i, '')
+    skip_attrs = base_description == description
 
-    skip_attrs = if (color.nil? || described_color.nil? || color.casecmp(described_color) != 0)
-      if (color && described_color && color.casecmp(described_color.gsub(/\(3 Week Lead Time\)/, '').strip) == 0)
-        # restore the lead time information to the base description
-        # maybe this needs to be an item attribute also?
-        base_description += " (3 Week Lead Time)"
-        false
-      else
-        # restore the original description and 15-digit id
-        base_description = description
-        item_dvinci_key = dvinci_id
-
-        unless (color.nil? && described_color.nil?)
-          puts "color/key mismatch for item #{dvinci_id}; expected #{color.to_s} but got #{described_color.to_s}"
-        end
-        true
-      end
-    else
-      false
+    # restore the original description and 15-digit id if the color was not found in the description
+    if skip_attrs
+      item_dvinci_key = dvinci_id
+      puts "Unknown product color; using original dvinci id #{dvinci_id} for #{description}"
     end
 
     item = Item.find_or_create_by_dvinci_id(
@@ -122,3 +107,20 @@ CSV.open("#{seed_data_dir}/parts_closettailors.csv", "r") do |row|
   end
 end
 
+
+CSV.open("#{seed_data_dir}/vtiger_products.csv", "r") do |row|
+  next if row[0] == "Product Name"
+
+  cutrite_id = row[8]
+  dvinci_id = row[3]
+	matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
+  if matchdata
+    t1, t2, color_key, t3 = matchdata.captures
+    item = Item.find_by_dvinci_id("000.#{t1}.#{t2}.#{color_key}.#{t3}") || Item.find_by_dvinci_id("000.#{t1}.#{t2}.x.#{t3}")
+
+    if (item)
+      item.cutrite_id = cutrite_id
+      item.save
+    end
+  end
+end
