@@ -1,10 +1,11 @@
 class CreateDatabase < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
+      t.string :title
       t.string :first_name
       t.string :last_name
-      t.string :title
       t.string :phone
+      t.string :phone2
       t.string :fax
       t.database_authenticatable :null => false
       t.recoverable
@@ -47,6 +48,8 @@ class CreateDatabase < ActiveRecord::Migration
 
     create_table :franchisees do |t|
 			t.string :franchise_name
+      t.string :phone
+      t.string :fax
 			t.string :website
       t.float  :margin_cabinets
       t.float  :margin_accessoried
