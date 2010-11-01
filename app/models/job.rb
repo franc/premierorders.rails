@@ -20,7 +20,6 @@ class Job < ActiveRecord::Base
   CUTRITE_BASIC_ATTRIBUTES = ['qty', 'comment', 'width', 'height', 'depth']
 
 	CUTRITE_CUSTOM_ATTRIBUTES = [
-    'CutRite Product ID',
     'Cabinet Color',
     'Case Material',
     'Case Edge',
@@ -30,10 +29,6 @@ class Job < ActiveRecord::Base
     'Shipping Method',
     'Weight'
   ]
-
-	def job_contact
-		primary_contact || franchisee.primary_contact
-	end
 
 	def ship_to
 		shipping_address || franchisee.shipping_address
@@ -157,8 +152,8 @@ class Job < ActiveRecord::Base
 			franchisee.franchise_name,
 			shipping_address.address1 + (shipping_address.address2 || ''),
 			"#{ship_to.city} #{ship_to.state} #{ship_to.postal_code}",
-			job_contact.phone,
-			job_contact.fax
+			franchisee.phone,
+			franchisee.fax
 		]
 	end
 
@@ -172,7 +167,8 @@ class Job < ActiveRecord::Base
       job_item.comment,
       job_item.item_attr('Cut Width'),
       job_item.item_attr('Cut Height'),
-      job_item.item_attr('Cut Depth')
+      job_item.item_attr('Cut Depth'),
+      job_item.item.nil? ? nil : job_item.item.cutrite_id
     ]
 
 		custom_attr_values = CUTRITE_CUSTOM_ATTRIBUTES.map { |name| job_item.item_attr(name) }

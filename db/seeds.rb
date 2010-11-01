@@ -164,5 +164,16 @@ def load_product_data
   end
 end
 
-load_franchisees
-load_product_data
+def fix_cutrite_codes
+  CSV.open("#{@seed_data_dir}/cutrite_codes.csv", "r") do |row|
+    item = Item.find_by_dvinci_id(row[5])
+    if (item && !row[6].nil?)
+      item.cutrite_id = row[6]
+      item.save
+    end
+  end
+end
+
+#load_franchisees
+#load_product_data
+fix_cutrite_codes
