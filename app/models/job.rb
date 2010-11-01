@@ -44,8 +44,11 @@ class Job < ActiveRecord::Base
       row[0] == 'Description'
     end
 
-    raise "Unexpected number of label rows in XML document: #{labels.size}; expected 1" unless labels.size == 1
+    raise FormatException, "Unexpected number of label rows in XML document: #{labels.size}; expected 1" unless labels.size == 1
     labels.flatten!
+
+    missing_columns = ['# of Items in Design', 'Description', 'Part Number'] - labels
+    raise FormatException, "Did not find required columns in XML document: #{missing_columns.inspect}" unless missing_columns.empty?
 
 		label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
@@ -175,4 +178,11 @@ class Job < ActiveRecord::Base
 
 		basic_attr_values + custom_attr_values
 	end
+end
+
+class FormatException < RuntimeError
+  attr :message
+  def initialize(message)
+    @message = message
+  end
 end

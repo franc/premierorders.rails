@@ -42,20 +42,25 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.xml
   def create
-    @job = Job.new(params[:job])
+    begin
+      @job = Job.new(params[:job])
 
-    respond_to do |format|
-      if @job.save
-				File.open(@job.dvinci_xml.path) do |f|
-					@job.add_items_from_dvinci(f)
-				end
-				@job.save
-        format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
-        format.xml  { render :xml => @job, :status => :created, :location => @job }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+      respond_to do |format|
+        if @job.save
+          File.open(@job.dvinci_xml.path) do |f|
+            @job.add_items_from_dvinci(f)
+          end
+          @job.save
+          format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
+          format.xml  { render :xml => @job, :status => :created, :location => @job }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+        end
       end
+    rescue FormatException => ex
+      flash[:error] = ex.message
+      redirect_to :back
     end
   end
 
@@ -81,7 +86,7 @@ class JobsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @job }
     end
-end
+  end
 
   # DELETE /jobs/1
   # DELETE /jobs/1.xml
