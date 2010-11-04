@@ -14,8 +14,7 @@ class Job < ActiveRecord::Base
   DVINCI_CUSTOM_ATTRIBUTES = {
 		'Cut Width' => 'width',
 		'Cut Height' => 'height',
-		'Cut Depth' => 'depth',
-    'Description' => 'Description from import'
+		'Cut Depth' => 'depth'
 	}
 
 	def ship_to
@@ -182,7 +181,7 @@ class Job < ActiveRecord::Base
       to_mm(job_item.item_attr('Cut Height')),
       to_mm(job_item.item_attr('Cut Depth')),
       job_item.item.nil? ? nil : job_item.item.cutrite_id,
-      job_item.item.nil? ? job_item.item_attr('Description from import') : job_item.item.name
+      job_item.item.nil? ? job_item.item_attr('Description') : job_item.item.name
     ]
 
 		custom_attr_values = CUTRITE_CUSTOM_ATTRIBUTES.map { |name| job_item.item_attr(name) }
