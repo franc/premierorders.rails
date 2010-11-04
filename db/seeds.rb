@@ -10,63 +10,64 @@ require 'csv'
 @seed_data_dir = "#{File.dirname(__FILE__)}/seed_data"
 
 def load_franchisees
-  columns = [
-    "Account Name",
-    "Phone",
-    "Fax",
-    "Contact Name",
-    "Email",
-    "Other Phone",
-    "Billing Address",
-    "Shipping Address",
-    "Billing City",
-    "Shipping City",
-    "Billing State",
-    "Shipping State",
-    "Billing Postal Code",
-    "Shipping Postal Code",
-    "Billing Country",
-    "Shipping Country"
-  ]
-
+  columns = []
   CSV.open("#{@seed_data_dir}/franchisee_accounts.csv", "r") do |row|
-    next if row[0] == "Account Name"
-    
+    if row[0] == "Account Name"
+      columns = row
+    else
+      create_franchisee_account(row, columns)
+    end
+  end
+end
+
+def load_franchisees2
+  columns = []
+  CSV.open("#{@seed_data_dir}/franchisee_accounts2.csv", "r") do |row|
+    if row[0] == "Account Name"
+      columns = row
+    else
+      create_franchisee_account(row, columns)
+    end
+  end
+end
+
+def create_franchisee_account(row, cols)
+  unless Franchisee.find_by_franchise_name(row[cols.index("Account Name")])
     shipping_address = Address.create(
-      :address1 => row[columns.index("Shipping Address")],
-      :city => row[columns.index("Shipping City")],
-      :state => row[columns.index("Shipping State")],
-      :postal_code => row[columns.index("Shipping Postal Code")],
-      :country => row[columns.index("Shipping Country")]
+      :address1 => row[cols.index("Shipping Address")],
+      :city => row[cols.index("Shipping City")],
+      :state => row[cols.index("Shipping State")],
+      :postal_code => row[cols.index("Shipping Postal Code")],
+      :country => row[cols.index("Shipping Country")]
     )
 
     billing_address = Address.new(
-      :address1 => row[columns.index("Billing Address")],
-      :city => row[columns.index("Billing City")],
-      :state => row[columns.index("Billing State")],
-      :postal_code => row[columns.index("Billing Postal Code")],
-      :country => row[columns.index("Billing Country")]
+      :address1 => row[cols.index("Billing Address")],
+      :city => row[cols.index("Billing City")],
+      :state => row[cols.index("Billing State")],
+      :postal_code => row[cols.index("Billing Postal Code")],
+      :country => row[cols.index("Billing Country")]
     )
 
-    if (shipping_address.address1 == billing_address.address1 && shipping_address.city == billing_address.city && shipping_address.postal_code == billing_address.postal_code) 
+    if (shipping_address.same_as(billing_address))
       billing_address = shipping_address
     else
       billing_address.save
     end
 
     contact = User.create(
-      :first_name => row[columns.index("Contact Name")][/(.*) (.*)/,1],
-      :last_name => row[columns.index("Contact Name")][/(.*) (.*)/,2],
-      :email => row[columns.index("Email")],
-      :phone => row[columns.index("Other Phone")]
+      :first_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,1],
+      :last_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,2],
+      :email => row[cols.index("Email")],
+      :phone => row[cols.index("Other Phone")]
     )
 
     franchisee = Franchisee.create(
-      :franchise_name => row[columns.index("Account Name")],
-      :phone => row[columns.index("Phone")],
-      :fax => row[columns.index("Fax")]
+      :franchise_name => row[cols.index("Account Name")],
+      :phone => row[cols.index("Phone")],
+      :fax => row[cols.index("Fax")]
     )
-    
+
     FranchiseeContact.create(:franchisee_id => franchisee.id, :user_id => contact.id, :contact_type => 'primary')
     FranchiseeAddress.create(:franchisee_id => franchisee.id, :address_id => billing_address.id, :address_type => 'billing')
     FranchiseeAddress.create(:franchisee_id => franchisee.id, :address_id => shipping_address.id, :address_type => 'shipping')
@@ -104,6 +105,8 @@ def load_product_data
   material_attr = ItemAttr.find_or_create_by_name('Case Material', :value_type => 'string')
   edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :value_type => 'string')
   edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge2', :value_type => 'string')
+  doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :value_type => 'string')
+  dooredge_attr = ItemAttr.find_or_create_by_name('Door Edge', :value_type => 'string')
 
   CSV.open("#{@seed_data_dir}/parts_closettailors.csv", "r") do |row|
     part_id, catalog_id, dvinci_id, description, *xs = row
@@ -142,6 +145,8 @@ def load_product_data
         add_item_attr_option.call(material_attr,  dv_materials)
         add_item_attr_option.call(edgeband_attr,  dv_edgeband)
         add_item_attr_option.call(edgeband2_attr, dv_edgeband2)
+        add_item_attr_option.call(doormatr_attr,  dv_materials)
+        add_item_attr_option.call(dooredge_attr,  dv_edgeband)
       end
     end
   end
@@ -175,5 +180,6 @@ def fix_cutrite_codes
 end
 
 #load_franchisees
+load_franchisees2
 #load_product_data
-fix_cutrite_codes
+#fix_cutrite_codes
