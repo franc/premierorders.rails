@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104035806) do
+ActiveRecord::Schema.define(:version => 20101104200620) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20101104035806) do
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "unit_price"
   end
 
   create_table "jobs", :force => true do |t|

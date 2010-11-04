@@ -21,6 +21,12 @@ class Job < ActiveRecord::Base
 		shipping_address || franchisee.shipping_address
 	end
 
+  def item_attributes
+    job_items.inject([]) do |attrs, job_item|
+      attrs + job_item.job_item_attributes.map{|a| a.attr_name}
+    end
+  end
+
 	def add_items_from_dvinci(xml)
 		doc = REXML::Document.new(xml)
 		rows = doc.get_elements("//Row").inject([]) do |rows, row_element|
@@ -55,23 +61,36 @@ class Job < ActiveRecord::Base
         Item.find_by_dvinci_id(dvinci_product_id)
       end
 
+      item_quantity = row[label_columns['# of Items in Design']].to_i
       job_item = if (item.nil?)
         job_items.create(
           :ingest_id => dvinci_product_id,
-          :quantity  => row[label_columns['# of Items in Design']],
-          :comment   => row[label_columns.size]
+          :quantity  => item_quantity,
+          :comment   => row[label_columns.size],
+          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity
         )
       else
         job_items.create(
           :item      => item,
           :ingest_id => dvinci_product_id,
-          :quantity  => row[label_columns['# of Items in Design']],
-          :comment   => row[label_columns.size]
+          :quantity  => item_quantity,
+          :comment   => row[label_columns.size],
+          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity
         )
       end
 
+      ignored_attributes = [
+        'Part Number', # Ignored since it's handled specifically above
+        '# of Packages',
+        '# of Items in Pkgs',
+        '# of Items in Design', # Ignored since it's handled specifically above
+        'Material Charge', # Ignored since it's handled specifically above
+        'Labor Charge',
+        'Total Charge'
+      ]
+
       # Find the item attributes for the imported columns, standardizing from any non-standard names
-      attribute_labels = labels - ['Part Number', '# of Items in Design']
+      attribute_labels = labels - ignored_attributes
       attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
         attr = item.item_attrs.find_by_name(DVINCI_CUSTOM_ATTRIBUTES[name] || name)
         attr_map[name] = attr unless attr.nil?

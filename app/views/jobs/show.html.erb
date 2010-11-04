@@ -1,20 +1,47 @@
 <p id="notice"><%= notice %></p>
 
 
-Franchisee: <%= @job.franchisee.franchise_name %><br/>
-Job Name: <%= @job.name %><br/>
+<dl class="job_attributes">
+  <dt>Franchisee</dt>
+  <dd><%= @job.franchisee.franchise_name -%></dd>
+
+  <dt>Job Number</dt>
+  <dd><%= @job.job_number -%></dd>
+
+  <dt>Job Name</dt>
+  <dd><%= @job.name -%></dd>
+
+  <dt>MFG Plant</dt>
+  <dd><%= @job.mfg_plant -%></dd>
+
+  <dt>Shipping Address</dt>
+  <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+</dl>
 
 <table>
-	<% @job.job_items.each do |item| %>
-	<tr>
-		<td><%= item.item && item.item.name %></td>
-		<td><%= item.quantity %></td>
-		<td><%= item.comment %></td>
-		<td><%= item.ingest_id %></td>
-		<% item.job_item_attributes.each do |attr| %>
-		<td><%= attr.value_str %></td>
-		<% end %>
-	</tr>
+  <tr>
+    <th>Item Name</th>
+    <th>Color</th>
+    <th>Quantity</th>
+    <th>Width</th>
+    <th>Height</th>
+    <th>Depth</th>
+    <th>Unit Price</th>
+    <th>Total</th>
+    <th>Special Instructions</th>
+  </tr>
+  <% @job.job_items.each do |job_item| %>
+    <tr>
+      <td><%= (job_item.item ? job_item.item.name : job_item.ingest_id) %></td>
+      <td><%= job_item.item_attr('Cabinet Color') %></td>
+      <td><%= job_item.quantity.to_i %></td>
+      <td><%= job_item.item_attr('Cut Width') %></td>
+      <td><%= job_item.item_attr('Cut Height') %></td>
+      <td><%= job_item.item_attr('Cut Depth') %></td>
+      <td><%= "$%.2f" % job_item.unit_price.to_f %></td>
+      <td><%= "$%.2f" % (job_item.unit_price.to_f * job_item.quantity) %></td>
+      <td><%= job_item.comment %></td>
+    </tr>
 	<% end %>
 </table>
 
