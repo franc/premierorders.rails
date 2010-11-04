@@ -1,3 +1,4 @@
+require 'date'
 class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
@@ -81,11 +82,11 @@ class JobsController < ApplicationController
   end
 
   def cutrite
-    @job = Job.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @job }
-    end
+    job = Job.find(params[:id])
+    d = DateTime.now
+    send_data job.to_cutrite_csv,
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=#{job.name}-#{d.strftime("%Y%m%d")}.csv"
   end
 
   # DELETE /jobs/1
