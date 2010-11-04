@@ -14,7 +14,8 @@ class Job < ActiveRecord::Base
   DVINCI_CUSTOM_ATTRIBUTES = {
 		'Cut Width' => 'width',
 		'Cut Height' => 'height',
-		'Cut Depth' => 'depth'
+		'Cut Depth' => 'depth',
+    'Description' => 'Description from import'
 	}
 
 	def ship_to
@@ -39,7 +40,7 @@ class Job < ActiveRecord::Base
 
 		label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
-    item_rows = data_rows.select{|r| r.size == label_columns.size}
+    item_rows = data_rows.select{|r| r.size == label_columns.size || r.size == label_columns.size + 1}
     #if data_rows - item_rows
     #  flash[:warning] = "It looks like some of your data may not have been imported correctly. Please check the format of the input file."
     #end
@@ -59,19 +60,19 @@ class Job < ActiveRecord::Base
         job_items.create(
           :ingest_id => dvinci_product_id,
           :quantity  => row[label_columns['# of Items in Design']],
-          :comment   => row[label_columns['Description']]
+          :comment   => row[label_columns.size]
         )
       else
         job_items.create(
           :item      => item,
           :ingest_id => dvinci_product_id,
           :quantity  => row[label_columns['# of Items in Design']],
-          :comment   => row[label_columns['Description']]
+          :comment   => row[label_columns.size]
         )
       end
 
       # Find the item attributes for the imported columns, standardizing from any non-standard names
-      attribute_labels = labels - ['Part Number', '# of Items in Design', 'Description']
+      attribute_labels = labels - ['Part Number', '# of Items in Design']
       attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
         attr = item.item_attrs.find_by_name(DVINCI_CUSTOM_ATTRIBUTES[name] || name)
         attr_map[name] = attr unless attr.nil?
@@ -167,7 +168,7 @@ class Job < ActiveRecord::Base
 
 	def cutrite_items_header
     [
-      'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID',
+      'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID', 'Description',
       'Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2',
       'Door Material', 'Door Edge'
     ]
@@ -175,18 +176,23 @@ class Job < ActiveRecord::Base
 
 	def cutrite_item_data(job_item)
 		basic_attr_values = [
-      job_item.quantity,
+      job_item.quantity.to_i,
       job_item.comment,
-      job_item.item_attr('Cut Width'),
-      job_item.item_attr('Cut Height'),
-      job_item.item_attr('Cut Depth'),
-      job_item.item.nil? ? nil : job_item.item.cutrite_id
+      to_mm(job_item.item_attr('Cut Width')),
+      to_mm(job_item.item_attr('Cut Height')),
+      to_mm(job_item.item_attr('Cut Depth')),
+      job_item.item.nil? ? nil : job_item.item.cutrite_id,
+      job_item.item.nil? ? job_item.item_attr('Description from import') : job_item.item.name
     ]
 
 		custom_attr_values = CUTRITE_CUSTOM_ATTRIBUTES.map { |name| job_item.item_attr(name) }
 
 		basic_attr_values + custom_attr_values
 	end
+
+  def to_mm(value)
+    value.nil? ? nil : value.to_f * 25.4
+  end
 end
 
 class FormatException < RuntimeError
