@@ -115,14 +115,16 @@ class Job < ActiveRecord::Base
     end
 	end
 
-	def to_cutrite_csv
+  def to_cutrite_data
 		job_lines  = [cutrite_job_header, cutrite_job_data]
-		item_lines = [cutrite_items_header] + (job_items.map{|job_item| cutrite_item_data(job_item)})
+		item_lines = [cutrite_items_header] + cutrite_items_data
 
-		(job_lines + item_lines).map{|l| CSV.generate_line(l)}.join("\n")
+		(job_lines + item_lines)
+  end
+
+	def to_cutrite_csv
+    to_cutrite_data.map{|l| CSV.generate_line(l)}.join("\n")
 	end
-
-	private
 
 	def cutrite_job_header
     [
@@ -154,17 +156,6 @@ class Job < ActiveRecord::Base
 		]
 	end
 
-  CUTRITE_BASIC_ATTRIBUTES =
-
-	CUTRITE_CUSTOM_ATTRIBUTES = [
-    'Cabinet Color',
-    'Case Material',
-    'Case Edge',
-    'Case Edge 2',
-    'Case Material',
-    'Case Edge'
-  ]
-
 	def cutrite_items_header
     [
       'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID', 'Description',
@@ -172,6 +163,12 @@ class Job < ActiveRecord::Base
       'Door Material', 'Door Edge'
     ]
 	end
+
+  def cutrite_items_data
+    job_items.map{|job_item| cutrite_item_data(job_item)}
+  end
+
+	private
 
 	def cutrite_item_data(job_item)
 		basic_attr_values = [
@@ -184,7 +181,16 @@ class Job < ActiveRecord::Base
       job_item.item.nil? ? job_item.item_attr('Description') : job_item.item.name
     ]
 
-		custom_attr_values = CUTRITE_CUSTOM_ATTRIBUTES.map { |name| job_item.item_attr(name) }
+    cutrite_custom_attributes = [
+      'Cabinet Color',
+      'Case Material',
+      'Case Edge',
+      'Case Edge 2',
+      'Case Material',
+      'Case Edge'
+    ]
+
+		custom_attr_values = cutrite_custom_attributes.map { |name| job_item.item_attr(name) }
 
 		basic_attr_values + custom_attr_values
 	end

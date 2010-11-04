@@ -4,6 +4,7 @@ PgRails::Application.routes.draw do
   resources :jobs do
     member do
       get 'cutrite'
+      get 'download'
     end
   end
 
