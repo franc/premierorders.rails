@@ -17,19 +17,6 @@ class Job < ActiveRecord::Base
 		'Cut Depth' => 'depth'
 	}
 
-  CUTRITE_BASIC_ATTRIBUTES = ['qty', 'comment', 'width', 'height', 'depth']
-
-	CUTRITE_CUSTOM_ATTRIBUTES = [
-    'Cabinet Color',
-    'Case Material',
-    'Case Edge',
-    'Case Edge 2',
-    'Door Material',
-    'Door Edge',
-    'Shipping Method',
-    'Weight'
-  ]
-
 	def ship_to
 		shipping_address || franchisee.shipping_address
 	end
@@ -52,7 +39,12 @@ class Job < ActiveRecord::Base
 
 		label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
-		data_rows.select{|r| r.size == label_columns.size}.each do |row|
+    item_rows = data_rows.select{|r| r.size == label_columns.size}
+    #if data_rows - item_rows
+    #  flash[:warning] = "It looks like some of your data may not have been imported correctly. Please check the format of the input file."
+    #end
+
+		item_rows.each do |row|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[label_columns['Part Number']]
 			product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
@@ -136,6 +128,7 @@ class Job < ActiveRecord::Base
     [
       '',
       'Job Name',
+      'MFG Plant',
       '',
       '',
       '',
@@ -151,6 +144,7 @@ class Job < ActiveRecord::Base
 		[
 			'',
 			name,
+			mfg_plant,
 			'', '', '',
 			franchisee.franchise_name,
 			shipping_address.address1 + (shipping_address.address2 || ''),
@@ -160,8 +154,23 @@ class Job < ActiveRecord::Base
 		]
 	end
 
+  CUTRITE_BASIC_ATTRIBUTES =
+
+	CUTRITE_CUSTOM_ATTRIBUTES = [
+    'Cabinet Color',
+    'Case Material',
+    'Case Edge',
+    'Case Edge 2',
+    'Case Material',
+    'Case Edge'
+  ]
+
 	def cutrite_items_header
-    CUTRITE_BASIC_ATTRIBUTES + CUTRITE_CUSTOM_ATTRIBUTES
+    [
+      'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID',
+      'Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2',
+      'Door Material', 'Door Edge'
+    ]
 	end
 
 	def cutrite_item_data(job_item)

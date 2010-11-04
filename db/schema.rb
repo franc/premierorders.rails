@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101024182704) do
+ActiveRecord::Schema.define(:version => 20101104035806) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20101024182704) do
     t.string   "dvinci_xml_content_type"
     t.integer  "dvinci_xml_file_size"
     t.datetime "dvinci_xml_updated_at"
+    t.string   "mfg_plant"
   end
 
   create_table "roles", :force => true do |t|

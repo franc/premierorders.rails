@@ -49,6 +49,11 @@ jQuery(function($) {
     <%= f.file_field :dvinci_xml %>
   </div>
 
+  <div class="field">
+    <%= f.label :mfg_plant %><br />
+    <%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
