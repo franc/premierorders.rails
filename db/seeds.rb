@@ -151,22 +151,22 @@ def load_product_data
     end
   end
 
-  CSV.open("#{@seed_data_dir}/vtiger_products.csv", "r") do |row|
-    next if row[0] == "Product Name"
+  #CSV.open("#{@seed_data_dir}/vtiger_products.csv", "r") do |row|
+  #  next if row[0] == "Product Name"
 
-    cutrite_id = row[8]
-    dvinci_id = row[3]
-    matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
-    if matchdata
-      t1, t2, color_key, t3 = matchdata.captures
-      item = Item.find_by_dvinci_id("000.#{t1}.#{t2}.#{color_key}.#{t3}") || Item.find_by_dvinci_id("000.#{t1}.#{t2}.x.#{t3}")
+  #  cutrite_id = row[8]
+  #  dvinci_id = row[3]
+  #  matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
+  #  if matchdata
+  #    t1, t2, color_key, t3 = matchdata.captures
+  #    item = Item.find_by_dvinci_id("000.#{t1}.#{t2}.#{color_key}.#{t3}") || Item.find_by_dvinci_id("000.#{t1}.#{t2}.x.#{t3}")
 
-      if (item)
-        item.cutrite_id = cutrite_id
-        item.save
-      end
-    end
-  end
+  #    if (item)
+  #      item.cutrite_id = cutrite_id
+  #      item.save
+  #    end
+  #  end
+  #end
 end
 
 def fix_cutrite_codes
@@ -180,6 +180,6 @@ def fix_cutrite_codes
 end
 
 #load_franchisees
-load_franchisees2
+#load_franchisees2
 #load_product_data
-#fix_cutrite_codes
+fix_cutrite_codes
