@@ -9,20 +9,9 @@ require 'csv'
 
 @seed_data_dir = "#{File.dirname(__FILE__)}/seed_data"
 
-def load_franchisees
+def load_franchisees(filename)
   columns = []
-  CSV.open("#{@seed_data_dir}/franchisee_accounts.csv", "r") do |row|
-    if row[0] == "Account Name"
-      columns = row
-    else
-      create_franchisee_account(row, columns)
-    end
-  end
-end
-
-def load_franchisees2
-  columns = []
-  CSV.open("#{@seed_data_dir}/franchisee_accounts2.csv", "r") do |row|
+  CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
     if row[0] == "Account Name"
       columns = row
     else
@@ -59,7 +48,8 @@ def create_franchisee_account(row, cols)
       :first_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,1],
       :last_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,2],
       :email => row[cols.index("Email")],
-      :phone => row[cols.index("Other Phone")]
+      :phone => row[cols.index("Other Phone")],
+      :password => rand(100000000).to_s
     )
 
     franchisee = Franchisee.create(
@@ -74,7 +64,7 @@ def create_franchisee_account(row, cols)
   end
 end
 
-def load_product_data
+def load_product_data(filename)
   def prefix_match(string, prefixes)
     string.match("^(#{prefixes.map{|p| "(#{p})"}.join("|")})")
   end
@@ -108,16 +98,22 @@ def load_product_data
   doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :value_type => 'string')
   dooredge_attr = ItemAttr.find_or_create_by_name('Door Edge', :value_type => 'string')
 
-  CSV.open("#{@seed_data_dir}/parts_closettailors.csv", "r") do |row|
+  purchase_types = {
+    'P' => 'Purchased',
+    'I' => 'Inventory',
+    'M' => 'Manufactured'
+  }
+
+  CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
     part_id, catalog_id, dvinci_id, description, *xs = row
     next if part_id == 'PartID'
 
-    product_code_matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
+    product_code_matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{2})(\w)/)
     if product_code_matchdata.nil?
       puts "Could not determine product information for row: #{row.inspect}"
     else
-      t1, t2, t3, color_key, t5 = product_code_matchdata.captures
-      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}"
+      t1, t2, t3, color_key, t5, purchasing = product_code_matchdata.captures
+      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
 
       color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : nil
       base_description = color.nil? ? description : description.gsub(/,\s*#{color}/i, '')
@@ -132,7 +128,8 @@ def load_product_data
       item = Item.find_or_create_by_dvinci_id(
         item_dvinci_key,
         :name => base_description,
-        :description => base_description
+        :description => base_description,
+        :purchasing => purchase_types[purchasing]
       )
 
       unless skip_attrs
@@ -179,7 +176,7 @@ def fix_cutrite_codes
   end
 end
 
-#load_franchisees
-#load_franchisees2
-#load_product_data
+load_franchisees("franchisee_accounts.csv")
+load_franchisees("franchisee_accounts2.csv")
+load_product_data("parts_closettailors_r1.csv")
 fix_cutrite_codes

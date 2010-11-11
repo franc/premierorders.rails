@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101104200620) do
+ActiveRecord::Schema.define(:version => 20101111173725) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -77,16 +77,8 @@ ActiveRecord::Schema.define(:version => 20101104200620) do
     t.datetime "updated_at"
   end
 
-  create_table "items", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "sku"
-    t.string   "units"
-    t.string   "dvinci_id"
-    t.string   "cutrite_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "items" because of following StandardError
+#   Unknown type 'purchase_type' for column 'purchasing'
 
   create_table "job_item_attributes", :force => true do |t|
     t.integer  "job_item_id",  :null => false
