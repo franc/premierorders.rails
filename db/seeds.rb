@@ -116,7 +116,7 @@ def load_product_data(filename)
     part_id, catalog_id, dvinci_id, description, *xs = row
     next if part_id == 'PartID'
 
-    product_code_matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{2})(\w)/)
+    product_code_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
     if product_code_matchdata.nil?
       puts "Could not determine product information for row: #{row.inspect}"
     else
