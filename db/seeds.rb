@@ -9,6 +9,11 @@ require 'csv'
 
 @seed_data_dir = "#{File.dirname(__FILE__)}/seed_data"
 
+PASSWORD_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
+def random_password(len)
+  Array.new(len){|i| PASSWORD_SYMBOLS[rand(PASSWORD_SYMBOLS.size)]}.join
+end
+
 def load_franchisees(filename)
   columns = []
   CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
@@ -49,7 +54,7 @@ def create_franchisee_account(row, cols)
       :last_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,2],
       :email => row[cols.index("Email")],
       :phone => row[cols.index("Other Phone")],
-      :password => rand(100000000).to_s
+      :password => random_password(10)
     )
 
     franchisee = Franchisee.create(
