@@ -17,6 +17,19 @@ class Job < ActiveRecord::Base
 		'Cut Depth' => 'depth'
 	}
 
+  STATUS_OPTIONS = [
+    ["Created" , "Created"],
+    ["In Review" , "In Review"],
+    ["Confirmed" , "Confirmed"],
+    ["On Hold" , "On Hold"],
+    ["Ready For Production" , "Ready For Production"],
+    ["In Production" , "In Production"],
+    ["Ready to Ship" , "Ready to Ship"],
+    ["Hold Shipment" , "Hold Shipment"],
+    ["Shipped" , "Shipped"],
+    ["Cancelled" , "Cancelled"]
+  ]
+
 	def ship_to
 		shipping_address || franchisee.shipping_address
 	end

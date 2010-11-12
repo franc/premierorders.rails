@@ -1,5 +1,17 @@
-<p id="notice"><%= notice %></p>
+<script type="text/javascript">
+jQuery(function($) {
+  // when the #search field changes
+  $("#job_status").change(function() {
+    // make a POST call and replace the content
+    var status = $("#job_status option:selected").val();
+    $.post("/jobs/<%=  @job.id -%>", { '_method': 'PUT', 'status': status}, function(data) {
+      $("#notice").html("Job status updated.")
+    }, "json");
+  });
+})
+</script>
 
+<p id="notice"><%= notice %></p>
 
 <dl class="job_attributes">
   <dt>Franchisee</dt>
@@ -12,7 +24,7 @@
   <dd><%= @job.name -%></dd>
 
   <dt>Status</dt>
-  <dd><%= @job.status -%></dd>
+  <dd><%= select(:job, :status, Job::STATUS_OPTIONS, {:id => 'job_status'}) -%></dd>
 
   <dt>MFG Plant</dt>
   <dd><%= @job.mfg_plant -%></dd>

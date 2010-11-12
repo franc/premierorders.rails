@@ -56,18 +56,7 @@ jQuery(function($) {
 
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.select(:status, {
-      "Created" => "Created",
-      "In Review" => "In Review",
-      "Confirmed" => "Confirmed",
-      "On Hold" => "On Hold",
-      "Ready For Production" => "Ready For Production",
-      "In Production" => "In Production",
-      "Ready to Ship" => "Ready to Ship",
-      "Hold Shipment" => "Hold Shipment",
-      "Shipped" => "Shipped",
-      "Cancelled" => "Cancelled"
-    }) %>
+    <%= f.select(:status, Job::STATUS_OPTIONS) -%>
   </div>
 
   <div class="actions">
