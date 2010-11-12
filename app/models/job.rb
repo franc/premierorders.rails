@@ -66,7 +66,7 @@ class Job < ActiveRecord::Base
 		item_rows.each do |row|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[label_columns['Part Number']]
-			product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
+			product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})\.(\d{2})(\w)/)
       item = if product_code_matchdata
         t1, t2, t3, color_key, t5 = product_code_matchdata.captures
         Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}")
