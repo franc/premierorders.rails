@@ -3,9 +3,9 @@ jQuery(function($) {
   // when the #search field changes
   $("#job_status").change(function() {
     // make a POST call and replace the content
-    var status = $("#job_status option:selected").val();
-    $.post("/jobs/<%=  @job.id -%>", { '_method': 'PUT', 'status': status}, function(data) {
-      $("#notice").html("Job status updated.")
+    var status = $("#job_status").val();
+    $.post("/jobs/<%=  @job.id -%>", { '_method': 'PUT', 'job[status]': status}, function(data) {
+      $("#notice").html("Job status updated: "+data['updated'])
     }, "json");
   });
 })

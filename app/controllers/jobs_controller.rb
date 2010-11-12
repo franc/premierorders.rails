@@ -70,13 +70,22 @@ class JobsController < ApplicationController
   def update
     @job = Job.find(params[:id])
 
-    respond_to do |format|
+    if request.xhr?
+      logger.info("Got parameters for job update: #{params[:job].inspect}")
       if @job.update_attributes(params[:job])
-        format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
-        format.xml  { head :ok }
+        render :json => {:updated => @job.status}
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+        render :json => {:updated => 'error'}
+      end
+    else
+      respond_to do |format|
+        if @job.update_attributes(params[:job])
+          format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
