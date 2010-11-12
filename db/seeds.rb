@@ -70,6 +70,9 @@ def create_franchisee_account(row, cols)
 end
 
 def load_product_data(filename)
+  ItemAttrOption.delete_all
+  Item.delete_all
+
   def prefix_match(string, prefixes)
     string.match("^(#{prefixes.map{|p| "(#{p})"}.join("|")})")
   end
@@ -181,7 +184,7 @@ def fix_cutrite_codes
   end
 end
 
-load_franchisees("franchisee_accounts.csv")
-load_franchisees("franchisee_accounts2.csv")
+#load_franchisees("franchisee_accounts.csv")
+#load_franchisees("franchisee_accounts2.csv")
 load_product_data("parts_closettailors_r1.csv")
 fix_cutrite_codes

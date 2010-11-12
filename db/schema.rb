@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101112145539) do
+ActiveRecord::Schema.define(:version => 20101112154444) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -45,20 +45,8 @@ ActiveRecord::Schema.define(:version => 20101112145539) do
     t.datetime "updated_at"
   end
 
-  create_table "franchisees", :force => true do |t|
-    t.string   "franchise_name"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "website"
-    t.float    "margin_cabinets"
-    t.float    "margin_accessoried"
-    t.float    "margin_flooring"
-    t.string   "job_number_prefix"
-    t.float    "variance_max"
-    t.float    "variance_min"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "franchisees" because of following StandardError
+#   Unknown type 'credit_status_type' for column 'credit_status'
 
   create_table "item_attr_options", :force => true do |t|
     t.integer  "item_id",      :null => false
