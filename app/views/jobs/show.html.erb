@@ -47,7 +47,7 @@ jQuery(function($) {
   </tr>
   <% @job.job_items.each do |job_item| %>
     <tr>
-      <td><%= (job_item.item ? job_item.item.name : job_item.ingest_id) %></td>
+      <td><%= (job_item.item ? job_item.item.name : " #{job_item.item_attr('Description')} (#{job_item.ingest_id})") %></td>
       <td><%= job_item.item_attr('Cabinet Color') %></td>
       <td><%= job_item.quantity.to_i %></td>
       <td><%= job_item.item_attr('Cut Width') %></td>
