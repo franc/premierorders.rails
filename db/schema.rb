@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101111173725) do
+ActiveRecord::Schema.define(:version => 20101111203310) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -100,21 +100,8 @@ ActiveRecord::Schema.define(:version => 20101111173725) do
     t.float    "unit_price"
   end
 
-  create_table "jobs", :force => true do |t|
-    t.integer  "franchisee_id",           :null => false
-    t.integer  "customer_id"
-    t.integer  "shipping_address_id"
-    t.string   "name"
-    t.string   "job_number"
-    t.integer  "salesperson_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "dvinci_xml_file_name"
-    t.string   "dvinci_xml_content_type"
-    t.integer  "dvinci_xml_file_size"
-    t.datetime "dvinci_xml_updated_at"
-    t.string   "mfg_plant"
-  end
+# Could not dump table "jobs" because of following StandardError
+#   Unknown type 'status_type' for column 'status'
 
   create_table "roles", :force => true do |t|
     t.string "name"
