@@ -15,7 +15,7 @@ jQuery(function($) {
 
 <dl class="job_attributes">
   <dt>Franchisee</dt>
-  <dd><%= @job.franchisee.franchise_name -%></dd>
+  <dd><%= @job.franchisee.franchise_name -%> (Credit status: <span style="color: <%= @job.franchisee.credit_status -%>"><%= @job.franchisee.credit_status -%></span>) </dd>
 
   <dt>Job Number</dt>
   <dd><%= @job.job_number -%></dd>
