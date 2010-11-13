@@ -176,15 +176,18 @@ end
 
 def fix_cutrite_codes
   CSV.open("#{@seed_data_dir}/cutrite_codes.csv", "r") do |row|
-    item = Item.find_by_dvinci_id(row[5])
-    if (item && !row[6].nil?)
-      item.cutrite_id = row[6]
-      item.save
+    if (!row[5].nil?)
+      dvinci_id = row[5].strip.gsub(/\w$/, 'M')
+      item = Item.find_by_dvinci_id(dvinci_id)
+      if (item && !row[6].nil?)
+        item.cutrite_id = row[6]
+        item.save
+      end
     end
   end
 end
 
 #load_franchisees("franchisee_accounts.csv")
 #load_franchisees("franchisee_accounts2.csv")
-load_product_data("parts_closettailors_r1.csv")
+#load_product_data("parts_closettailors_r1.csv")
 fix_cutrite_codes
