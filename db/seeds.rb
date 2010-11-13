@@ -124,7 +124,7 @@ def load_product_data(filename)
       item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
 
       color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : nil
-      base_description = color.nil? ? description : description.gsub(/,\s*#{color}/i, '')
+      base_description = color.nil? ? description : description.gsub(/,?\s*#{color}/i, '')
       skip_attrs = base_description == description
 
       # restore the original description and 15-digit id if the color was not found in the description
