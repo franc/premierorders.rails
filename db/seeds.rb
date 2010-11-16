@@ -116,31 +116,29 @@ def load_product_data(filename)
     part_id, catalog_id, dvinci_id, description, *xs = row
     next if part_id == 'PartID'
 
-    product_code_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-    if product_code_matchdata.nil?
+    dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
+    if dvinci_id_matchdata.nil?
       puts "Could not determine product information for row: #{row.inspect}"
     else
-      t1, t2, t3, color_key, t5, purchasing = product_code_matchdata.captures
-      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
+      t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
 
       color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : nil
       base_description = color.nil? ? description : description.gsub(/,?\s*#{color}/i, '')
-      skip_attrs = base_description == description
+      color_match = base_description != description
 
       # restore the original description and 15-digit id if the color was not found in the description
-      if skip_attrs
-        item_dvinci_key = dvinci_id
-        puts "Unknown product color; using original dvinci id #{dvinci_id} for #{description}"
-      end
+      # rewrite the item name only for manufactured products; need distinct purchasing skus for different manufactured products.
+      item_dvinci_key = (purchasing == 'M' && color_match) ? "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}" : dvinci_id
+      item_desc = (purchasing == 'M' && color_match) ? base_description : description
 
       item = Item.find_or_create_by_dvinci_id(
         item_dvinci_key,
-        :name => base_description,
-        :description => base_description,
+        :name => item_desc,
+        :description => item_desc,
         :purchasing => purchase_types[purchasing]
       )
 
-      unless skip_attrs
+      if color_match
         add_item_attr_option = lambda do |attr, from|
           value = from.has_key?(color_key) ? from[color_key].call(description) : nil
           ItemAttrOption.find_or_create_by_item_id_and_item_attr_id_and_dvinci_id(item.id, attr.id, color_key, :value_str => value) if value
@@ -175,13 +173,68 @@ def load_product_data(filename)
 end
 
 def fix_cutrite_codes
+  column_index = {}
   CSV.open("#{@seed_data_dir}/cutrite_codes.csv", "r") do |row|
-    if (!row[5].nil?)
-      dvinci_id = row[5].strip.gsub(/\w$/, 'M')
-      item = Item.find_by_dvinci_id(dvinci_id)
-      if (item && !row[6].nil?)
-        item.cutrite_id = row[6]
+    if row[0] && row[0].strip == 'id'
+      row.each_with_index do |v, i|
+        column_index[v.strip] = i
+      end
+      puts column_index.inspect
+    else
+      update_item = lambda do |item|
+        # use the original names for purchased parts, since due to the mismatch they've lost color info.
+        # otherwise, use the description from the deduped file.
+        item.name = row[column_index['description']].strip if row[column_index['purchase_part_id']].nil? 
+        item.description = item.name
+        item.cutrite_id  = row[column_index['cutrite_id']].strip if !row[column_index['cutrite_id']].nil?
+        item.purchase_part_id = row[column_index['purchase_part_id']].strip if !row[column_index['purchase_part_id']].nil?
         item.save
+      end
+
+      dvinci_id = row[column_index['dvinci_id']].strip
+      if (!dvinci_id.nil?)
+        item = Item.find_by_dvinci_id(dvinci_id)
+        if item
+          update_item.call(item)
+        else
+          items = Item.find_by_sql("SELECT * FROM items WHERE dvinci_id LIKE '#{dvinci_id.gsub(/x/, '%')}'") if item.nil?
+          if items && !items.empty?
+            items.each {|i| update_item.call(i)}
+          else
+            items = Item.find_by_sql("SELECT * FROM items WHERE dvinci_id LIKE '#{dvinci_id.gsub(/\w$/, '%')}'") 
+            if items && !items.empty?
+              items.each {|i| update_item.call(i)}
+            else
+              puts "Could not find item #{row[column_index['description']]} with dvinci id #{dvinci_id}"
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+def dump_tab_file(filename)
+  color_attr = ItemAttr.find_by_name('Cabinet Color')
+  File.open("generated_tab.csv", "w") do |out|
+    CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
+      part_id, catalog_id, dvinci_id, description, *xs = row
+      next if part_id == 'PartID'
+
+      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
+      t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
+
+      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
+      item = Item.find_by_dvinci_id(item_dvinci_key) || Item.find_by_dvinci_id(dvinci_id)
+      if item.nil? 
+        puts "Could not find item with dvinci id: " + item_dvinci_key
+      else
+        color = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(color_attr.id, color_key)
+        if color.nil? 
+          out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
+        else
+          out.puts(CSV.generate_line([part_id, catalog_id, item.dvinci_id.gsub(/x/, color.dvinci_id), "#{item.description}, #{color.value_str}"] + xs))
+        end
       end
     end
   end
@@ -190,4 +243,7 @@ end
 #load_franchisees("franchisee_accounts.csv")
 #load_franchisees("franchisee_accounts2.csv")
 #load_product_data("parts_closettailors_r1.csv")
-fix_cutrite_codes
+#fix_cutrite_codes
+dump_tab_file("parts_closettailors_r1.csv")
+
+
