@@ -162,7 +162,6 @@ class Job < ActiveRecord::Base
     [
       '',
       'Job Name',
-      'MFG Plant',
       '',
       '',
       '',
@@ -170,7 +169,8 @@ class Job < ActiveRecord::Base
       'Shipping Address',
       'Shipping City Shipping State Shipping Postal Code',
       'Phone',
-      'Fax'
+      'Fax',
+      'MFG Plant'
     ]
   end
 
@@ -178,13 +178,13 @@ class Job < ActiveRecord::Base
     [
       '',
       name,
-      mfg_plant,
       '', '', '',
       franchisee.franchise_name,
       shipping_address.address1 + (shipping_address.address2 || ''),
       "#{ship_to.city} #{ship_to.state} #{ship_to.postal_code}",
       franchisee.phone,
-      franchisee.fax
+      franchisee.fax,
+      mfg_plant
     ]
   end
 
