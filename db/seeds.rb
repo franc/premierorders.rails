@@ -114,7 +114,7 @@ def load_product_data(filename)
 
   CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
     part_id, catalog_id, dvinci_id, description, *xs = row
-    next if part_id == 'PartID'
+    next if part_id == 'PartID' || dvinci_id.nil?
 
     dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
     if dvinci_id_matchdata.nil?
