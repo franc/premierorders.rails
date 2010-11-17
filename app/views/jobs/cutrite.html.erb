@@ -12,13 +12,14 @@
   <tr>
     <% @job.cutrite_items_header.each do |label| -%><th><%= label -%></th><% end %>
   </tr>
-  <% @job.cutrite_items_data.each do |row| -%>
-    <tr>
+  <% @job.cutrite_items_data.each_with_index do |row, i| -%>
+    <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" %>">
       <% row.each do |col| -%><td><%= col -%></td><% end %>
     </tr>
   <% end %>
 </table>
 
+<%= link_to 'Show', job_path(@job) %> |
 <%= link_to 'Edit', edit_job_path(@job) %> |
 <%= link_to 'Download', download_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+<%= link_to 'Job List', jobs_path %>

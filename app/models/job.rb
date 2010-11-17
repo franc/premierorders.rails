@@ -131,7 +131,7 @@ class Job < ActiveRecord::Base
       # Attach color information to the item if the item is something that has a color
       # and specifies a color for the color key; if the color key is not known
       # then the value of this attribute will be nil
-      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
+      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge2', 'Door Material', 'Door Edge'].each do |name|
         attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
         if !attr.nil?
           attr_option = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(attr.id, color_key)
@@ -197,7 +197,7 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.select{|job_item| job_item.item && job_item.item.cutrite_id}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.order('items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id}.map{|job_item| cutrite_item_data(job_item)}
   end
 
   private
@@ -217,7 +217,7 @@ class Job < ActiveRecord::Base
       'Cabinet Color',
       'Case Material',
       'Case Edge',
-      'Case Edge 2',
+      'Case Edge2',
       'Case Material',
       'Case Edge'
     ]
