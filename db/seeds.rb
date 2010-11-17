@@ -27,16 +27,16 @@ end
 
 def create_franchisee_account(row, cols)
   unless Franchisee.find_by_franchise_name(row[cols.index("Account Name")])
-    shipping_address = Address.create(
-      :address1 => row[cols.index("Shipping Address")],
+    shipping_address = Address.find_or_create_by_address1(
+      row[cols.index("Shipping Address")],
       :city => row[cols.index("Shipping City")],
       :state => row[cols.index("Shipping State")],
       :postal_code => row[cols.index("Shipping Postal Code")],
       :country => row[cols.index("Shipping Country")]
     )
 
-    billing_address = Address.new(
-      :address1 => row[cols.index("Billing Address")],
+    billing_address = Address.find_or_create_by_address1(
+      row[cols.index("Billing Address")],
       :city => row[cols.index("Billing City")],
       :state => row[cols.index("Billing State")],
       :postal_code => row[cols.index("Billing Postal Code")],
@@ -49,25 +49,57 @@ def create_franchisee_account(row, cols)
       billing_address.save
     end
 
-    contact = User.create(
-      :first_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,1],
-      :last_name => cols.index("Contact Name") && row[cols.index("Contact Name")][/(.*) (.*)/,2],
-      :email => row[cols.index("Email")],
-      :phone => row[cols.index("Other Phone")],
-      :password => random_password(10)
-    )
-
-    franchisee = Franchisee.create(
-      :franchise_name => row[cols.index("Account Name")],
+    franchisee = Franchisee.find_or_create_by_franchise_name(row[cols.index("Account Name")].strip)
+    franchisee.update_attributes(
       :phone => row[cols.index("Phone")],
       :fax => row[cols.index("Fax")]
     )
 
-    FranchiseeContact.create(:franchisee_id => franchisee.id, :user_id => contact.id, :contact_type => 'primary')
-    FranchiseeAddress.create(:franchisee_id => franchisee.id, :address_id => billing_address.id, :address_type => 'billing')
-    FranchiseeAddress.create(:franchisee_id => franchisee.id, :address_id => shipping_address.id, :address_type => 'shipping')
+    unless row[cols.index("Email")].nil?
+      contact = User.find_or_create_by_email(row[cols.index("Email")].strip, :password => random_password(10), :phone => row[cols.index("Other Phone")])
+      FranchiseeContact.find_or_create_by_franchisee_id_and_user_id(franchisee.id, contact.id, :contact_type => 'primary')
+    end
+
+    FranchiseeAddress.find_or_create_by_franchisee_id_and_address_id(franchisee.id, billing_address.id, :address_type => 'billing')
+    FranchiseeAddress.find_or_create_by_franchisee_id_and_address_id(franchisee.id, shipping_address.id, :address_type => 'shipping')
   end
 end
+
+def load_users(filename)
+  columns = []
+  CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
+    if row[0] == "Salutation"
+      columns = row
+    else
+      create_user(row, columns)
+    end
+  end
+end
+
+def create_user(row, cols) 
+  unless row[cols.index("Email")].nil? || row[cols.index("Email")].strip.empty?
+    password = random_password(10)
+    user = User.find_by_email(row[cols.index("Email")].strip.downcase)
+    puts "#{row[cols.index("First Name")]} #{row[cols.index("Last Name")]} not found; creating new" if user.nil?
+
+    user ||= User.create(:email => row[cols.index("Email")].strip.downcase, :password => password)
+    user.update_attributes(
+      :title => row[cols.index("Salutation")],
+      :first_name => row[cols.index("First Name")],
+      :last_name => row[cols.index("Last Name")],
+      :phone => row[cols.index("Office Phone")],
+      :phone2 => row[cols.index("Mobile")],
+      :fax => row[cols.index("Fax")]
+    )
+    puts user.inspect
+
+    franchisee = Franchisee.find_by_franchise_name(row[cols.index("Account Name")])
+    if franchisee
+      FranchiseeContact.find_or_create_by_franchisee_id_and_user_id(franchisee.id, user.id, :contact_type => 'associate')
+    end
+  end
+end
+
 
 def load_product_data(filename)
   ItemAttrOption.delete_all
@@ -240,10 +272,10 @@ def dump_tab_file(filename)
   end
 end
 
-#load_franchisees("franchisee_accounts.csv")
-#load_franchisees("franchisee_accounts2.csv")
+load_franchisees("franchisee_accounts.csv")
+load_users("franchisee_contacts.csv")
 #load_product_data("parts_closettailors.csv")
-fix_cutrite_codes
+#fix_cutrite_codes
 #dump_tab_file("parts_closettailors.csv")
 
 
