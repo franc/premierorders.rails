@@ -2,7 +2,7 @@ class FranchiseesController < ApplicationController
   # GET /franchisees
   # GET /franchisees.xml
   def index
-    @franchisees = Franchisee.all
+    @franchisees = Franchisee.order(:franchise_name).all
 
     respond_to do |format|
       format.html # index.html.erb
