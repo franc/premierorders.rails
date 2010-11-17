@@ -242,8 +242,8 @@ end
 
 #load_franchisees("franchisee_accounts.csv")
 #load_franchisees("franchisee_accounts2.csv")
-#load_product_data("parts_closettailors.csv")
-#fix_cutrite_codes
-dump_tab_file("parts_closettailors.csv")
+load_product_data("parts_closettailors.csv")
+fix_cutrite_codes
+#dump_tab_file("parts_closettailors.csv")
 
 

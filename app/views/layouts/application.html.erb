@@ -8,17 +8,19 @@
   <%= yield(:head) %>
 </head>
 <body>
+  <div id="auth_nav">
+    <% if user_signed_in? %>
+      Signed in as <%= current_user.email -%>. <%= link_to "Sign out", destroy_user_session_path %>
+    <% else %>
+      <%= link_to "Sign in", new_user_session_path %>
+    <% end %>
+  </div>
   <div id="nav">
     <ul>
       <li><%= link_to "Jobs", jobs_path %></li>
+      <li><%= link_to "Franchisees", franchisees_path %></li>
+      <li><%= link_to "Items", items_path %></li>
     </ul>
-  </div>
-  <div id="auth_nav">
-    <% if user_signed_in? %>
-      Signed in as <%= current_user.email -%>. <%= link_to "Sign out", destroy_user_session_path -%>
-    <% else %>
-      <%= link_to "Sign in", new_user_session_path -%>
-    <% end %>
   </div>
 
   <div id="content">

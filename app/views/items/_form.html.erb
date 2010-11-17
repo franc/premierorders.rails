@@ -1,0 +1,34 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form_fields">
+    <dl>
+      <dt><%= f.label :name %></dt>
+      <dd><%= f.text_field :name %></dd>
+      <dt><%= f.label :description %></dt>
+      <dd><%= f.text_area :description %></dd>
+      <dt><%= f.label :sku %></dt>
+      <dd><%= f.text_field :sku %></dd>
+      <dt><%= f.label :dvinci_id %></dt>
+      <dd><%= f.text_field :dvinci_id %></dd>
+      <dt><%= f.label :cutrite_id %></dt>
+      <dd><%= f.text_field :cutrite_id %></dd>
+      <dt><%= f.label :purchasing %></dt>
+      <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Purchased" => "Purchased", "Inventory" => "Inventory"}) %></dd>
+    </dl>
+  </div>
+
+  <div class="form_actions">
+    <%= f.submit %>
+  </div>
+<% end %>
