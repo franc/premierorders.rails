@@ -197,7 +197,7 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.select{|job_item| job_item.item && job_item.item.purchasing == 'Manufactured'}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.select{|job_item| job_item.item && job_item.item.cutrite_id}.map{|job_item| cutrite_item_data(job_item)}
   end
 
   private
