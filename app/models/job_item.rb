@@ -1,6 +1,6 @@
 class JobItem < ActiveRecord::Base
 	belongs_to :job
-  belongs_to :item
+  belongs_to :item, :include => :item_attrs
 	has_many :job_item_attributes
 
 	def item_attr(name)
