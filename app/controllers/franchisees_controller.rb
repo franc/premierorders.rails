@@ -1,6 +1,4 @@
 class FranchiseesController < ApplicationController
-   layout "standard", :except => [:ajax_addresses]
-
   # GET /franchisees
   # GET /franchisees.xml
   def index

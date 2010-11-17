@@ -1,5 +1,56 @@
 <h1>New job</h1>
 
-<%= render 'form' %>
+<script type="text/javascript">
+  jQuery(function($) {
+    // when the #search field changes
+    $("#job_franchisee_id").change(function() {
+      // make a POST call and replace the content
+      var franchisee_id = $("#job_franchisee_id option:selected").val();
+      $.get("/franchisees/"+franchisee_id+"/addresses", function(data) {
+        $("#job_shipping_address_id option").remove()
+        for (var id in data) {
+          $("#job_shipping_address_id").append("<option value=\""+id+"\">"+data[id]+"</option>")
+        }
+      }, "json");
+    });
+  })
+</script>
+
+<%= form_for @job, :html => { :multipart => true } do |f| %>
+  <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+        <% @job.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form_fields">
+    <dl>
+      <dt><%= f.label :franchisee %></dt>
+      <dd><%= collection_select(:job, :franchisee_id, @franchisees, :id, :franchise_name) %></dd>
+      <dt><%= f.label :shipping_address %></dt>
+      <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
+      <dt><%= f.label :name %></dt>
+      <dd><%= f.text_field :name %></dd>
+      <dt><%= f.label :job_number %></dt>
+      <dd><%= f.text_field :job_number %></dd>
+      <dt><%= f.label :dvinci_xml %></dt>
+      <dd><%= f.file_field :dvinci_xml %></dd>
+      <dt><%= f.label :mfg_plant %></dt>
+      <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
+      <dt><%= f.label :status %></dt>
+      <dd><%= f.select(:status, Job::STATUS_OPTIONS) -%></dd>
+    </dl>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Back', jobs_path %>

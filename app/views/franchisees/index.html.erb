@@ -2,16 +2,16 @@
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Franchisee Name</th>
+    <th>Edit</th>
+    <th>Delete</th>
   </tr>
 
 <% @franchisees.each do |franchisee| %>
   <tr>
-    <td><%= link_to 'Show', franchisee %></td>
+    <td><%= link_to franchisee.franchise_name, franchisee %></td>
     <td><%= link_to 'Edit', edit_franchisee_path(franchisee) %></td>
-    <td><%= link_to 'Destroy', franchisee, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', franchisee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

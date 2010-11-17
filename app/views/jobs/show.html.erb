@@ -45,8 +45,8 @@ jQuery(function($) {
     <th>Total</th>
     <th>Special Instructions</th>
   </tr>
-  <% @job.job_items.order('items.purchasing', 'items.name').all.each do |job_item| %>
-    <tr>
+  <% @job.job_items.order('items.purchasing', 'items.name').all.each_with_index do |job_item, i| %>
+    <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" -%>">
       <td><%= (job_item.item ? job_item.item.name : " #{job_item.item_attr('Description')} (#{job_item.ingest_id})") %></td>
       <td><%= job_item.item_attr('Cabinet Color') %></td>
       <td><%= job_item.quantity.to_i %></td>

@@ -37,8 +37,6 @@
       <dd><%= f.text_field :name %></dd>
       <dt><%= f.label :job_number %></dt>
       <dd><%= f.text_field :job_number %></dd>
-      <dt><%= f.label :dvinci_xml %></dt>
-      <dd><%= f.file_field :dvinci_xml %></dd>
       <dt><%= f.label :mfg_plant %></dt>
       <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
       <dt><%= f.label :status %></dt>
@@ -50,3 +48,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<%= link_to 'Back', jobs_path %>
+

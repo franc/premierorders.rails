@@ -38,6 +38,8 @@ class JobsController < ApplicationController
   # GET /jobs/1/edit
   def edit
     @job = Job.find(params[:id])
+    @franchisees = Franchisee.find(:all)
+    @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
   end
 
   # POST /jobs
