@@ -1,0 +1,20 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      $("#job_due_date").datepicker();
+      $("#job_ship_date").datepicker();
+      $("#job_franchisee_id").change(function() {
+        // make a POST call and replace the content
+        var franchisee_id = $("#job_franchisee_id option:selected").val();
+        $.get("/franchisees/"+franchisee_id+"/addresses", function(data) {
+          $("#job_shipping_address_id option").remove()
+          for (var id in data) {
+            $("#job_shipping_address_id").append("<option value=\""+id+"\">"+data[id]+"</option>")
+          }
+        }, "json");
+      });
+    })
+  </script>
+<% end %>
+
