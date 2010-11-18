@@ -3,7 +3,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = Job.all
+    @jobs = Job.order(:due_date).all
 
     respond_to do |format|
       format.html # index.html.erb

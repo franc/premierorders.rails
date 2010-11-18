@@ -20,6 +20,7 @@
 <table>
   <tr>
     <th>Job Name</th>
+    <th>Due Date</th>
     <th>Status</th>
     <th>Cutrite</th>
     <th>Edit</th>
@@ -29,6 +30,7 @@
 <% @jobs.each do |job| %>
   <tr>
     <td><%= link_to job.name, job %></td>
+    <td><%= job.due_date %></td>
     <td><%= select_tag("job[#{job.id}][job_status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>
     <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
     <td><%= link_to 'Edit', edit_job_path(job) %></td>
