@@ -1,20 +1,38 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      // when the #search field changes
+      $(".job_status").change(function() {
+        // make a POST call and replace the content
+        var status = $(this).val();
+        var job_id = /job\[([0-9]+)\]\[job_status\]/.exec($(this).attr('name'))[1];
+        $.post("/jobs/"+job_id, { '_method': 'PUT', 'job[status]': status}, function(data) {
+          $("#notice").html("Job status updated: "+data['updated'])
+        }, "json");
+      });
+    })
+  </script>
+<% end %>
+
 <h1>Listing jobs</h1>
+<p id="notice"><%= notice %></p>
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Job Name</th>
+    <th>Status</th>
+    <th>Cutrite</th>
+    <th>Edit</th>
+    <th>Delete</th>
   </tr>
 
 <% @jobs.each do |job| %>
   <tr>
-    <td><%= job.name %></td>
-    <td><%= link_to 'Show', job %></td>
+    <td><%= link_to job.name, job %></td>
+    <td><%= select_tag("job[#{job.id}][job_status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>
     <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
     <td><%= link_to 'Edit', edit_job_path(job) %></td>
-    <td><%= link_to 'Destroy', job, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
