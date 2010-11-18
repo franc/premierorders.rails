@@ -19,19 +19,29 @@
 
 <table>
   <tr>
+    <th>Job Number</th>
     <th>Job Name</th>
     <th>Due Date</th>
+    <th>Ship Date</th>
     <th>Status</th>
+    <th>Special Instructions</th>
+    <th>Franchise Name</th>
+    <th>Franchisee Credit Status</th>
     <th>Cutrite</th>
     <th>Edit</th>
     <th>Delete</th>
   </tr>
-
+Comment Field (special instructions at the order level)
 <% @jobs.each do |job| %>
   <tr>
-    <td><%= link_to job.name, job %></td>
+    <td><%= link_to job.job_number, job %></td>
+    <td><%= job.name %></td>
     <td><%= job.due_date %></td>
+    <td><%= job.ship_date %></td>
     <td><%= select_tag("job[#{job.id}][job_status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>
+    <td><%= job.comment %></td>
+    <td><%= job.franchisee.franchise_name %></td>
+    <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
     <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
     <td><%= link_to 'Edit', edit_job_path(job) %></td>
     <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
