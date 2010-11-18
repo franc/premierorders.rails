@@ -1,18 +1,23 @@
-<script type="text/javascript">
-  jQuery(function($) {
-    // when the #search field changes
-    $("#job_franchisee_id").change(function() {
-      // make a POST call and replace the content
-      var franchisee_id = $("#job_franchisee_id option:selected").val();
-      $.get("/franchisees/"+franchisee_id+"/addresses", function(data) {
-        $("#job_shipping_address_id option").remove()
-        for (var id in data) {
-          $("#job_shipping_address_id").append("<option value=\""+id+"\">"+data[id]+"</option>")
-        }
-      }, "json");
-    });
-  })
-</script>
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      // when the #search field changes
+      $("#job_due_date").datepicker();
+      $("#job_ship_date").datepicker();
+      $("#job_franchisee_id").change(function() {
+        // make a POST call and replace the content
+        var franchisee_id = $("#job_franchisee_id option:selected").val();
+        $.get("/franchisees/"+franchisee_id+"/addresses", function(data) {
+          $("#job_shipping_address_id option").remove()
+          for (var id in data) {
+            $("#job_shipping_address_id").append("<option value=\""+id+"\">"+data[id]+"</option>")
+          }
+        }, "json");
+      });
+    })
+  </script>
+<% end %>
 
 <%= form_for @job, :html => { :multipart => true } do |f| %>
   <% if @job.errors.any? %>
@@ -41,6 +46,10 @@
       <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
       <dt><%= f.label :status %></dt>
       <dd><%= f.select(:status, Job::STATUS_OPTIONS) -%></dd>
+      <dt><%= f.label :due_date %></dt>
+      <dd><%= f.text_field :due_date %></dd>
+      <dt><%= f.label :ship_date %></dt>
+      <dd><%= f.text_field :ship_date %></dd>
     </dl>
   </div>
 

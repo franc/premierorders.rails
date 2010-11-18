@@ -26,6 +26,12 @@ jQuery(function($) {
   <dt>Status</dt>
   <dd><%= select(:job, :status, Job::STATUS_OPTIONS, {:id => 'job_status'}) -%></dd>
 
+  <dt>Due Date</dt>
+  <dd><%= @job.due_date -%></dd>
+
+  <dt>Ship Date</dt>
+  <dd><%= @job.ship_date -%></dd>
+
   <dt>MFG Plant</dt>
   <dd><%= @job.mfg_plant -%></dd>
 
