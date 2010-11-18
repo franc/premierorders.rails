@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 
-<%= link_to 'Edit', edit_franchisee_path(@franchisee) %> |
-<%= link_to 'Back', franchisees_path %>
+<% content_for :local_nav do %>
+  <%= link_to 'Edit', edit_franchisee_path(@franchisee) %> |
+  <%= link_to 'Back', franchisees_path %>
+<% end %>

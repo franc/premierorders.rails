@@ -2,6 +2,8 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @job %> |
-<%= link_to 'Cutrite', cutrite_job_path(@job) %>
-<%= link_to 'Back', jobs_path %>
+<% content_for :local_nav do %>
+  <%= link_to 'Show', @job %> |
+  <%= link_to 'Cutrite', cutrite_job_path(@job) %>
+  <%= link_to 'Back', jobs_path %>
+<% end %>

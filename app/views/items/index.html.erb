@@ -20,4 +20,6 @@
 
 <br />
 
-<%= link_to 'New Item', new_item_path %>
+<% content_for :local_nav do %>
+  <%= link_to 'New Item', new_item_path %>
+<% end %>
