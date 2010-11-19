@@ -61,9 +61,9 @@
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
           <td><%= job_item.item_attr('Cabinet Color') %></td>
           <td><%= job_item.quantity.to_i %></td>
-          <td><%= job_item.item_attr('Cut Width') %></td>
-          <td><%= job_item.item_attr('Cut Height') %></td>
-          <td><%= job_item.item_attr('Cut Depth') %></td>
+          <td><%= job_item.item_attr('Cut Width') ? "%.3f" % job_item.item_attr('Cut Width').to_f : '' %></td>
+          <td><%= job_item.item_attr('Cut Height') ? "%.3f" % job_item.item_attr('Cut Depth').to_f : '' %></td>
+          <td><%= job_item.item_attr('Cut Depth') ? "%.3f" % job_item.item_attr('Cut Depth').to_f : '' %></td>
           <td><%= "$%.2f" % job_item.unit_price.to_f %></td>
           <td><%= "$%.2f" % (job_item.unit_price.to_f * job_item.quantity) %></td>
           <td><%= job_item.comment %></td>
