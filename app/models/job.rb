@@ -197,7 +197,7 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.order('items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.order('items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
   end
 
   private
