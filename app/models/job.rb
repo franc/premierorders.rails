@@ -63,7 +63,7 @@ class Job < ActiveRecord::Base
     #  flash[:warning] = "It looks like some of your data may not have been imported correctly. Please check the format of the input file."
     #end
 
-    item_rows.each do |row|
+    item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[label_columns['Part Number']]
       product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
@@ -80,7 +80,8 @@ class Job < ActiveRecord::Base
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => row[label_columns.size],
-          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity
+          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity,
+          :tracking_id => i
         )
       else
         job_items.create(
@@ -88,7 +89,8 @@ class Job < ActiveRecord::Base
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => row[label_columns.size],
-          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity
+          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity,
+          :tracking_id => i
         )
       end
 
@@ -197,7 +199,7 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.order('items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.order('tracking_id', 'items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
   end
 
   private

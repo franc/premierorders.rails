@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101118174336) do
+ActiveRecord::Schema.define(:version => 20101119173404) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20101118174336) do
   end
 
   create_table "job_items", :force => true do |t|
-    t.integer  "job_id",     :null => false
+    t.integer  "job_id",      :null => false
     t.integer  "item_id"
     t.string   "ingest_id"
     t.float    "quantity"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20101118174336) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "unit_price"
+    t.integer  "tracking_id"
   end
 
 # Could not dump table "jobs" because of following StandardError
