@@ -37,21 +37,20 @@ var ajax_date = function(node) {
     function() {
       var enclosure = $(this);
       var current = $(this).html();
-      var process = function(node) {
-      }
-
       var input = $('<input name="'+$(this).attr('id')+'" type="text"/>').attr('size', current.length + 1).val(current);
 
-      $(this).html(input);
       input.datepicker({
         dateFormat: 'yy-mm-dd',
         defaultDate: current,
         onClose : function(dateText, node) {
           if (dateText && dateText !== current) post_update($(this));
           enclosure.html(dateText); //restore the value irrespective if it has changed.
+	  ajax_date(enclosure);
         }
       });
 
+      $(this).unbind('click');
+      $(this).html(input);
       input.focus();
     }
   );
