@@ -107,8 +107,9 @@ class Job < ActiveRecord::Base
       # Find the item attributes for the imported columns, standardizing from any non-standard names
       attribute_labels = labels - ignored_attributes
       attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
-        attr = item.item_attrs.find_by_name(DVINCI_CUSTOM_ATTRIBUTES[name] || name)
-        attr_map[name] = attr unless attr.nil?
+        attr_name = DVINCI_CUSTOM_ATTRIBUTES[name] || name
+        attr = item.item_attrs.find_by_name(attr_name)
+        attr_map[attr_name] = attr unless attr.nil?
         attr_map
       end
 
@@ -208,11 +209,11 @@ class Job < ActiveRecord::Base
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
-      to_mm(job_item.item_attr('Cut Width')),
-      to_mm(job_item.item_attr('Cut Height')),
-      to_mm(job_item.item_attr('Cut Depth')),
+      to_mm(job_item.item_attr('width')),
+      to_mm(job_item.item_attr('height')),
+      to_mm(job_item.item_attr('depth')),
       job_item.item.nil? ? nil : job_item.item.cutrite_id,
-      job_item.item.nil? ? job_item.item_attr('Description') : job_item.item.name
+      job_item.item.nil? ? job_item.item_attr('description') : job_item.item.name
     ]
 
     cutrite_custom_attributes = [

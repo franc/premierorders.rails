@@ -3,7 +3,11 @@ class JobItem < ActiveRecord::Base
   belongs_to :item, :include => :item_attrs
 	has_many :job_item_attributes
 
-	def item_attr(name)
+  def compute_price
+    item.nil? ? (unit_price * quantity) : item.compute_price(this)
+  end
+
+	def attr_value(name)
     attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
     if attr
       job_attr = job_item_attributes.find_by_item_attr_id(attr.id)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101119173404) do
+ActiveRecord::Schema.define(:version => 20101201231042) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(:version => 20101119173404) do
     t.string   "state"
     t.string   "postal_code"
     t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attr_set_members", :id => false, :force => true do |t|
+    t.integer "attr_set_id"
+    t.integer "item_attr_id"
+  end
+
+  create_table "attr_sets", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,19 +59,44 @@ ActiveRecord::Schema.define(:version => 20101119173404) do
 # Could not dump table "franchisees" because of following StandardError
 #   Unknown type 'credit_status_type' for column 'credit_status'
 
-  create_table "item_attr_options", :force => true do |t|
-    t.integer  "item_id",      :null => false
-    t.integer  "item_attr_id", :null => false
+  create_table "item_attr_sets", :id => false, :force => true do |t|
+    t.integer "item_id"
+    t.integer "attr_set_id"
+  end
+
+  create_table "item_attrs", :force => true do |t|
     t.string   "dvinci_id"
     t.string   "value_str"
     t.boolean  "default"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
-  create_table "item_attrs", :force => true do |t|
-    t.string   "name"
-    t.string   "value_type"
+  create_table "item_components", :force => true do |t|
+    t.integer  "item_id",      :null => false
+    t.integer  "component_id"
+    t.integer  "quantity"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "item_item_pricings", :id => false, :force => true do |t|
+    t.integer "item_id"
+    t.integer "item_pricing_id"
+  end
+
+  add_index "item_item_pricings", ["item_id", "item_pricing_id"], :name => "index_item_item_pricings_on_item_id_and_item_pricing_id", :unique => true
+
+  create_table "item_pricings", :force => true do |t|
+    t.string   "type"
+    t.float    "cost"
+    t.string   "pricing_units"
+    t.float    "option_cost"
+    t.string   "option_pricing_units"
+    t.float    "handling_cost"
+    t.string   "handling_pricing_units"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,6 +127,11 @@ ActiveRecord::Schema.define(:version => 20101119173404) do
 
 # Could not dump table "jobs" because of following StandardError
 #   Unknown type 'status_type' for column 'status'
+
+  create_table "pricing_attr_options", :id => false, :force => true do |t|
+    t.integer "item_pricing_id"
+    t.integer "item_attr_option_id"
+  end
 
   create_table "roles", :force => true do |t|
     t.string "name"

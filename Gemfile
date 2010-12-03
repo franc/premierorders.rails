@@ -9,6 +9,7 @@ gem 'pg', '0.9.0'
 gem 'paperclip'
 gem 'jquery-rails'
 gem 'devise'
+gem 'json'
 
 # Use unicorn as the web server
 # gem 'unicorn'

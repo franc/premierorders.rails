@@ -1,4 +1,6 @@
 require 'csv'
+require 'item_attr.rb'
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -131,11 +133,11 @@ def load_product_data(filename)
   dv_edgeband  = data_map("#{@seed_data_dir}/dvinci_edgeband.csv")
   dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
 
-  color_attr = ItemAttr.find_or_create_by_name('Cabinet Color', :value_type => 'string')
-  material_attr = ItemAttr.find_or_create_by_name('Case Material', :value_type => 'string')
-  edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :value_type => 'string')
-  edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge2', :value_type => 'string')
-  doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :value_type => 'string')
+  color_attr = ItemAttr.find_or_create_by_name('Cabinet Color', :type => 'Color')
+  material_attr = ItemAttr.find_or_create_by_name('Case Material', :type => 'Material')
+  edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :type => 'EdgeBand')
+  edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge 2', :type => 'EdgeBand')
+  doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :type => 'Material')
   dooredge_attr = ItemAttr.find_or_create_by_name('Door Edge', :value_type => 'string')
 
   purchase_types = {
@@ -143,6 +145,8 @@ def load_product_data(filename)
     'I' => 'Inventory',
     'M' => 'Manufactured'
   }
+
+  
 
   CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
     part_id, catalog_id, dvinci_id, description, *xs = row
@@ -159,7 +163,8 @@ def load_product_data(filename)
       color_match = base_description != description
 
       # restore the original description and 15-digit id if the color was not found in the description
-      # rewrite the item name only for manufactured products; need distinct purchasing skus for different manufactured products.
+      # rewrite the item name only for manufactured products; need distinct purchasing skus for different 
+      # purchased products, even though this means a lot of data duplication
       item_dvinci_key = (purchasing == 'M' && color_match) ? "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}" : dvinci_id
       item_desc = (purchasing == 'M' && color_match) ? base_description : description
 
@@ -173,7 +178,7 @@ def load_product_data(filename)
       if color_match
         add_item_attr_option = lambda do |attr, from|
           value = from.has_key?(color_key) ? from[color_key].call(description) : nil
-          ItemAttrOption.find_or_create_by_item_id_and_item_attr_id_and_dvinci_id(item.id, attr.id, color_key, :value_str => value) if value
+          ItemAttrOption.find_or_create_by_item_id_and_item_attr_id_and_dvinci_id(attr.id, color_key, :value_str => value) if value
         end
 
         add_item_attr_option.call(color_attr,     dv_colors)
@@ -274,8 +279,8 @@ end
 
 load_franchisees("franchisee_accounts.csv")
 load_users("franchisee_contacts.csv")
-#load_product_data("parts_closettailors.csv")
-#fix_cutrite_codes
+load_product_data("parts_closettailors.csv")
+fix_cutrite_codes
 #dump_tab_file("parts_closettailors.csv")
 
 
