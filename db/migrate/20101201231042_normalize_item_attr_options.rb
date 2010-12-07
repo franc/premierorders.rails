@@ -7,10 +7,14 @@ class NormalizeItemAttrOptions < ActiveRecord::Migration
   class ItemAttrOption < ActiveRecord::Base
   end
 
-  class AttrSet < ActiveRecord::Base
+  class Property < ActiveRecord::Base
   end
 
   def self.up
+    execute "alter table franchisees alter column credit_status type varchar(32);"
+    execute "alter table items alter column purchasing type varchar(32);"
+    execute "alter table jobs alter column status type varchar(32);"
+
     dvinci_ids = {}
     attr_map = {} 
     execute("select distinct item_id, item_attr_id, dvinci_id, value_str from item_attr_options").each do |row|
@@ -38,24 +42,24 @@ class NormalizeItemAttrOptions < ActiveRecord::Migration
       "Door Edge" => ['Door Edge', 'EdgeBand'],
     }
 
-    create_table :item_attr_sets, :id => false do |t|
+    create_table :items_properties, :id => false do |t|
       t.references :item
-      t.references :attr_set 
+      t.references :property 
     end
 
-    create_table :attr_sets do |t|
+    create_table :properties do |t|
       t.string :name
+      t.string :modules
       t.timestamps
     end
 
-    create_table :attr_set_members, :id => false do |t|
-      t.references :attr_set
-      t.references :item_attr
+    create_table :property_value_selection, :id => false do |t|
+      t.references :property
+      t.references :property_value
     end
 
     remove_column :item_attr_options, :item_id
     remove_column :item_attr_options, :item_attr_id
-    add_column :item_attr_options, :value_type, :string
 
     ItemAttrOption.delete_all
 
@@ -70,27 +74,33 @@ class NormalizeItemAttrOptions < ActiveRecord::Migration
       old_attr_ids.each do |id|
         old_attr = ItemAttr.find_by_id(id)
         unless attr_values.empty?
-          attr_set = AttrSet.create(:name => attr_translation[old_attr.name][0])
+          property = Property.create(:name => attr_translation[old_attr.name][0], :modules => attr_translation[old_attr.name][1])
 
           attr_values.each do |value|
             dvinci_id_key = [id, value]
             puts old_attr.name, attr_translation[old_attr.name][1]
-            option = (new_attr_options[dvinci_id_key] || ItemAttrOption.create(:value_type => attr_translation[old_attr.name][1], :value_str => value, :dvinci_id => dvinci_ids[dvinci_id_key]))
+            option = (new_attr_options[dvinci_id_key] || ItemAttrOption.create(:value_str => value, :dvinci_id => dvinci_ids[dvinci_id_key]))
             new_attr_options[dvinci_id_key] ||= option
-            execute "insert into attr_set_members (attr_set_id, item_attr_id) values (#{attr_set.id}, #{option.id});"
+            execute "insert into property_value_selection (property_id, property_value_id) values (#{property.id}, #{option.id});"
           end
 
           items.map{|v| v[0]}.uniq.each do |item_id|
-            execute "insert into item_attr_sets (item_id, attr_set_id) values (#{item_id}, #{attr_set.id});"
+            execute "insert into items_properties (item_id, property_id) values (#{item_id}, #{property.id});"
           end
         end
       end 
     end
 
-    drop_table :item_attrs
-    rename_table :item_attr_options, :item_attrs
-    rename_column :item_attrs, :value_type, :type
-    drop_column :item_attrs, :default
+    drop_table    :item_attrs
+    rename_table  :item_attr_options, :property_values
+    add_column    :property_values, :name, :string
+    remove_column :property_values, :default
+
+    rename_table  :job_item_attributes, :job_item_properties
+    rename_column :job_item_properties, :item_attr_id, :property_id
+
+    rename_table  :pricing_attr_options, :pricing_property_values
+    rename_column :pricing_property_values, :item_attr_option_id, :property_value_id
   end
 
   def self.down

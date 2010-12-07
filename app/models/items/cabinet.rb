@@ -4,10 +4,8 @@ class Cabinet < Item
       raise "Illegal call to compute price for job item #{job_item} by logic for Shell"
     end
 
-    width  = job_item.attr_value("width")
-    height = job_item.attr_value("height")
-    depth  = job_item.attr_value("depth")
-    color  = job_item.attr_value("Cabinet Color")
+    dimensions  = job_item.property("Dimensions")
+    color       = job_item.property("Cabinet Color")
 
     item_components.inject(0.0) do |total, conf|
       total + conf.calculate_price(width, height, depth, color)

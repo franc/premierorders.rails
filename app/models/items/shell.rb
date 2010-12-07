@@ -11,18 +11,18 @@ end
 
 class ShellTopPanel < ItemComponent
   def calculate_price(width, height, depth, color)
-    quantity * component.calculate_price(width, depth, color)
+    quantity * component.calculate_price(width, depth, color, edge_banding)
   end
 end
 
 class ShellBottomPanel < ItemComponent
   def calculate_price(width, height, depth, color)
-    quantity * component.calculate_price(width, depth, color)
+    quantity * component.calculate_price(width, depth, color, edge_banding)
   end
 end
 
 class ShellSidePanel < ItemComponent
   def calculate_price(width, height, depth, color)
-    quantity * component.calculate_price(height, depth, color)
+    quantity * component.calculate_price(height, depth, color, edge_banding)
   end
 end

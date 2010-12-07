@@ -1,12 +1,13 @@
 module ItemMaterials
-    def material_attr
-      item_attrs.find_by_type('Material')
+    def material_property(name)
+      properties.find_by_name_and_type(name, 'Material')
     end
 
-    def material(attributes)
-      item_attr_options.find_all_by_item_attr_id(material_attr.id).find do |opt|
-        (attributes[:color] ? material_attr.color(opt) == attributes[:color] : true) &&
-        (attributes[:thickness] ? material_attr.thickness(opt) == attributes[:thickness] : true)
+    def material(name, attributes)
+      mprop = material_property(name)
+      mprop.property_values.select do |prop|
+        (attributes[:color] ? mprop.color(prop) == attributes[:color] : true) &&
+        (attributes[:thickness] ? mprop.thickness(prop) == attributes[:thickness] : true)
       end
     end
 end

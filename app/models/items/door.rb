@@ -8,6 +8,8 @@ class PremiumDoor < Item
 
       style_options.any?{||opt| opt.value_str == style} && color_options.any?{||opt| opt.value_str == color}
     end
+
+
   end
 end
 

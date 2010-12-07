@@ -29,17 +29,6 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.datetime "updated_at"
   end
 
-  create_table "attr_set_members", :id => false, :force => true do |t|
-    t.integer "attr_set_id"
-    t.integer "item_attr_id"
-  end
-
-  create_table "attr_sets", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "franchisee_addresses", :force => true do |t|
     t.integer  "franchisee_id", :null => false
     t.integer  "address_id",    :null => false
@@ -56,21 +45,20 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "franchisees" because of following StandardError
-#   Unknown type 'credit_status_type' for column 'credit_status'
-
-  create_table "item_attr_sets", :id => false, :force => true do |t|
-    t.integer "item_id"
-    t.integer "attr_set_id"
-  end
-
-  create_table "item_attrs", :force => true do |t|
-    t.string   "dvinci_id"
-    t.string   "value_str"
-    t.boolean  "default"
+  create_table "franchisees", :force => true do |t|
+    t.string   "franchise_name"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "website"
+    t.float    "margin_cabinets"
+    t.float    "margin_accessoried"
+    t.float    "margin_flooring"
+    t.string   "job_number_prefix"
+    t.float    "variance_max"
+    t.float    "variance_min"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "credit_status",      :limit => 32
   end
 
   create_table "item_components", :force => true do |t|
@@ -101,12 +89,28 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "items" because of following StandardError
-#   Unknown type 'purchase_type' for column 'purchasing'
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "sku"
+    t.string   "units"
+    t.string   "dvinci_id"
+    t.string   "cutrite_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "purchasing",       :limit => 32
+    t.string   "purchase_part_id"
+    t.string   "type"
+  end
 
-  create_table "job_item_attributes", :force => true do |t|
-    t.integer  "job_item_id",  :null => false
-    t.integer  "item_attr_id"
+  create_table "items_properties", :id => false, :force => true do |t|
+    t.integer "item_id"
+    t.integer "property_id"
+  end
+
+  create_table "job_item_properties", :force => true do |t|
+    t.integer  "job_item_id", :null => false
+    t.integer  "property_id"
     t.string   "ingest_id"
     t.string   "value_str"
     t.datetime "created_at"
@@ -125,12 +129,49 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.integer  "tracking_id"
   end
 
-# Could not dump table "jobs" because of following StandardError
-#   Unknown type 'status_type' for column 'status'
+  create_table "jobs", :force => true do |t|
+    t.integer  "franchisee_id",                         :null => false
+    t.integer  "customer_id"
+    t.integer  "shipping_address_id"
+    t.string   "name"
+    t.string   "job_number"
+    t.integer  "salesperson_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "dvinci_xml_file_name"
+    t.string   "dvinci_xml_content_type"
+    t.integer  "dvinci_xml_file_size"
+    t.datetime "dvinci_xml_updated_at"
+    t.string   "mfg_plant"
+    t.string   "status",                  :limit => 32
+    t.date     "due_date"
+    t.date     "ship_date"
+    t.text     "comment"
+  end
 
-  create_table "pricing_attr_options", :id => false, :force => true do |t|
+  create_table "pricing_property_values", :id => false, :force => true do |t|
     t.integer "item_pricing_id"
-    t.integer "item_attr_option_id"
+    t.integer "property_value_id"
+  end
+
+  create_table "properties", :force => true do |t|
+    t.string   "name"
+    t.string   "modules"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "property_value_selection", :id => false, :force => true do |t|
+    t.integer "property_id"
+    t.integer "property_value_id"
+  end
+
+  create_table "property_values", :force => true do |t|
+    t.string   "dvinci_id"
+    t.string   "value_str"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "roles", :force => true do |t|

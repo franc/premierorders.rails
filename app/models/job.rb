@@ -11,12 +11,6 @@ class Job < ActiveRecord::Base
 
   has_attached_file :dvinci_xml
 
-  DVINCI_CUSTOM_ATTRIBUTES = {
-    'Cut Width' => 'width',
-    'Cut Height' => 'height',
-    'Cut Depth' => 'depth'
-  }
-
   STATUS_OPTIONS = [
     ["Created" , "Created"],
     ["In Review" , "In Review"],
@@ -34,13 +28,19 @@ class Job < ActiveRecord::Base
     shipping_address || franchisee.shipping_address
   end
 
-  def item_attributes
-    job_items.inject([]) do |attrs, job_item|
-      attrs + job_item.job_item_attributes.map{|a| a.attr_name}
+  def property_names
+    job_items.inject([]) do |names, job_item|
+      names + job_item.job_item_properties.map{|a| a.name}
     end
   end
 
   def add_items_from_dvinci(xml)
+    dvinci_custom_properties = {
+      'Cut Height' => Property.find_or_create_by_name_and_modules('Height', 'Height'),
+      'Cut Width'  => Property.find_or_create_by_name_and_modules('Width', 'Width'),
+      'Cut Depth'  => Property.find_or_create_by_name_and_modules('Depth', 'Depth')
+    }
+
     doc = REXML::Document.new(xml)
     rows = doc.get_elements("//Row").inject([]) do |rows, row_element|
       rows << row_element.get_elements("Cell/Data").map{|cell| cell.text}
@@ -94,7 +94,7 @@ class Job < ActiveRecord::Base
         )
       end
 
-      ignored_attributes = [
+      ignored_labels = [
         'Part Number', # Ignored since it's handled specifically above
         '# of Packages',
         '# of Items in Pkgs',
@@ -102,47 +102,30 @@ class Job < ActiveRecord::Base
         'Material Charge', # Ignored since it's handled specifically above
         'Labor Charge',
         'Total Charge'
-      ]
+      ] 
 
-      # Find the item attributes for the imported columns, standardizing from any non-standard names
-      attribute_labels = labels - ignored_attributes
-      attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
-        attr_name = DVINCI_CUSTOM_ATTRIBUTES[name] || name
-        attr = item.item_attrs.find_by_name(attr_name)
-        attr_map[attr_name] = attr unless attr.nil?
-        attr_map
-      end
-
-      attribute_labels.each do |name|
-        if attributes.has_key?(name)
-          # for attributes where the attribute is already known in relation to the item,
-          # reference it when creating the job attribute
-          job_item.job_item_attributes.create(
-            :attribute => attributes[name],
-            :ingest_id => name,
-            :value_str => row[label_columns[name]]
-          )
-        else
-          # otherwise, just attach the information as an opaque key/value pair
-          job_item.job_item_attributes.create(
-            :ingest_id => name,
-            :value_str => row[label_columns[name]]
-          )
-        end
+      # Find the item properties for the imported columns, standardizing from any non-standard names
+      (labels - ignored_labels).each do |name|
+        property = (item && item.properties.find_by_name(name)) || dvinci_custom_properties[name]
+        job_item.job_item_properties.create(
+          :property_id => property ? property.id : nil,
+          :ingest_id => name,
+          :value_str => row[label_columns[name]]
+        )
       end
 
       # Attach color information to the item if the item is something that has a color
       # and specifies a color for the color key; if the color key is not known
-      # then the value of this attribute will be nil
-      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge2', 'Door Material', 'Door Edge'].each do |name|
-        attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
-        if !attr.nil?
-          attr_option = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(attr.id, color_key)
-          if !attr_option.nil?
-            job_item.job_item_attributes.create(
-              :item_attr_id => attr.id,
+      # then the value of this property will be nil
+      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
+        property = item.nil? ? nil : item.properties.find_by_name(name)
+        unless property.nil?
+          value = property.property_values.find_by_dvinci_id(color_key)
+          unless value.nil?
+            job_item.job_item_properties.create(
+              :property_id => property.id,
               :ingest_id => color_key,
-              :value_str => attr_option.value_str
+              :value_str => value.value_str
             )
           end
         end
@@ -209,9 +192,9 @@ class Job < ActiveRecord::Base
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
-      to_mm(job_item.item_attr('width')),
-      to_mm(job_item.item_attr('height')),
-      to_mm(job_item.item_attr('depth')),
+      job_item.property('Width').width(:mm),
+      job_item.property('Height').height(:mm),
+      job_item.property('Depth').depth(:mm),
       job_item.item.nil? ? nil : job_item.item.cutrite_id,
       job_item.item.nil? ? job_item.item_attr('description') : job_item.item.name
     ]
@@ -228,10 +211,6 @@ class Job < ActiveRecord::Base
     custom_attr_values = cutrite_custom_attributes.map { |name| job_item.item_attr(name) }
 
     basic_attr_values + custom_attr_values
-  end
-
-  def to_mm(value)
-    value.nil? ? nil : value.to_f * 25.4
   end
 end
 
