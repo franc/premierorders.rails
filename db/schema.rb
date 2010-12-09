@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101201231042) do
+ActiveRecord::Schema.define(:version => 20101207180158) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.string   "credit_status",      :limit => 32
   end
 
+  create_table "item_component_properties", :force => true do |t|
+    t.integer "item_component_id"
+    t.integer "property_id"
+    t.string  "qualifier"
+  end
+
   create_table "item_components", :force => true do |t|
     t.integer  "item_id",      :null => false
     t.integer  "component_id"
@@ -89,6 +95,12 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.datetime "updated_at"
   end
 
+  create_table "item_properties", :force => true do |t|
+    t.integer "item_id"
+    t.integer "property_id"
+    t.string  "qualifier"
+  end
+
   create_table "items", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -101,11 +113,6 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.string   "purchasing",       :limit => 32
     t.string   "purchase_part_id"
     t.string   "type"
-  end
-
-  create_table "items_properties", :id => false, :force => true do |t|
-    t.integer "item_id"
-    t.integer "property_id"
   end
 
   create_table "job_item_properties", :force => true do |t|
@@ -127,6 +134,14 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
     t.datetime "updated_at"
     t.float    "unit_price"
     t.integer  "tracking_id"
+  end
+
+  create_table "job_properties", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "property_id"
+    t.string   "value_str"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "jobs", :force => true do |t|
@@ -156,9 +171,10 @@ ActiveRecord::Schema.define(:version => 20101201231042) do
 
   create_table "properties", :force => true do |t|
     t.string   "name"
-    t.string   "modules"
+    t.string   "module_names"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "family"
   end
 
   create_table "property_value_selection", :id => false, :force => true do |t|

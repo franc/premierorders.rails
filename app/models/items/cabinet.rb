@@ -1,10 +1,9 @@
 class Cabinet < Item
   def price_job_item(job_item)
-    if !job_item.item.kind_of?(Shell)
-      raise "Illegal call to compute price for job item #{job_item} by logic for Shell"
-    end
-
-    dimensions  = job_item.property("Dimensions")
+    units       = job_item.job.job_property("Units").units
+    width       = job_item.property("Width").width
+    height      = job_item.property("Height").height
+    height      = job_item.property("Depth").depth
     color       = job_item.property("Cabinet Color")
 
     item_components.inject(0.0) do |total, conf|

@@ -7,7 +7,8 @@ class Job < ActiveRecord::Base
   belongs_to :customer, :class_name => 'User'
   belongs_to :billing_address, :class_name => 'Address'
   belongs_to :shipping_address, :class_name => 'Address'
-  has_many :job_items, :include => :item
+  has_many   :job_items, :include => :item
+  has_many   :job_properties, :include => :property
 
   has_attached_file :dvinci_xml
 
@@ -36,9 +37,9 @@ class Job < ActiveRecord::Base
 
   def add_items_from_dvinci(xml)
     dvinci_custom_properties = {
-      'Cut Height' => Property.find_or_create_by_name_and_modules('Height', 'Height'),
-      'Cut Width'  => Property.find_or_create_by_name_and_modules('Width', 'Width'),
-      'Cut Depth'  => Property.find_or_create_by_name_and_modules('Depth', 'Depth')
+      'Cut Height' => Property.find_or_create_by_name_and_module_names('Height', 'Height'),
+      'Cut Width'  => Property.find_or_create_by_name_and_module_names('Width', 'Width'),
+      'Cut Depth'  => Property.find_or_create_by_name_and_module_names('Depth', 'Depth')
     }
 
     doc = REXML::Document.new(xml)

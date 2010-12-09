@@ -2,6 +2,7 @@ class JobItem < ActiveRecord::Base
 	belongs_to :job
   belongs_to :item, :include => :properties
 	has_many   :job_item_properties
+  has_many   :job_properties
 
   def compute_price
     item.nil? ? (unit_price * quantity) : item.compute_price(this)

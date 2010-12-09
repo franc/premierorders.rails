@@ -1,7 +1,7 @@
 class JobItemProperty < ActiveRecord::Base
   belongs_to :job_item
   belongs_to :property
-  after_find :enrich
+  after_find :hydrate
 
   def hydrate
     property.hydrate(self) unless property.nil?

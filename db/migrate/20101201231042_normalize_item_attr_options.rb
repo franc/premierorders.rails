@@ -7,6 +7,9 @@ class NormalizeItemAttrOptions < ActiveRecord::Migration
   class ItemAttrOption < ActiveRecord::Base
   end
 
+  class ItemProperty < ActiveRecord::Base
+  end
+
   class Property < ActiveRecord::Base
   end
 
@@ -42,9 +45,10 @@ class NormalizeItemAttrOptions < ActiveRecord::Migration
       "Door Edge" => ['Door Edge', 'EdgeBand'],
     }
 
-    create_table :items_properties, :id => false do |t|
+    create_table :item_properties do |t|
       t.references :item
       t.references :property 
+      t.string :qualifier
     end
 
     create_table :properties do |t|
@@ -85,7 +89,7 @@ class NormalizeItemAttrOptions < ActiveRecord::Migration
           end
 
           items.map{|v| v[0]}.uniq.each do |item_id|
-            execute "insert into items_properties (item_id, property_id) values (#{item_id}, #{property.id});"
+            ItemProperty.create(:item_id => item_id, :property_id => property.id)
           end
         end
       end 

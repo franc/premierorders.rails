@@ -1,6 +1,8 @@
+require 'property.rb'
+
 class Item < ActiveRecord::Base
-	has_and_belongs_to_many :properties
-  has_many :property_values, :through => :properties
+  has_many :item_properties
+	has_many :properties, :through => :item_properties, :extend => Properties::Association
 
   has_many :item_components
   has_many :components, :through => :item_components, :class_name => 'Item'

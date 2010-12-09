@@ -1,15 +1,9 @@
 require 'json'
 
-module PropertyUtil
-  module Extensible
-    def self.extended(mod)
-      mod.module_eval do
-        alias old_find find
-      end
-    end
-
-    def find(*args)
-      old_find(*args).map{|value| proxy_owner.hydrate(value)}
+module Properties
+  module Association
+    def find_by_family_with_qualifier(family, qualifier)
+      find(:all, :conditions => ['properties.family = ? and item_properties.qualifier = ?', family, qualifier])
     end
   end
 
@@ -31,18 +25,26 @@ module PropertyUtil
         case to
         when :mm then value
         when :in then value / 25.4
+        when :ft then (value / 25.4) / 12
         end
       when :in
         case to
         when :in then value
         when :mm then value * 25.4
+        when :ft then value / 12
+        end
+      when :ft
+        case to
+        when :in then value * 12
+        when :mm then value * 12 * 25.4
+        when :ft then value
         end
       end
     end
   end
 
   module Dimensions
-    include JSONProperty, LinearConversions
+    include Properties::JSONProperty, Properties::LinearConversions
 
     def dimension_value(property, in_units, out_units)
       convert(value(property).to_f, in_units, out_units)
@@ -50,9 +52,26 @@ module PropertyUtil
   end
 end
 
-module Properties
+# Each item may have a number of properties. Each property for a given
+# item may take on one or more of a number of possible values.
+class Property < ActiveRecord::Base
+  has_and_belongs_to_many :items
+	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' 
+  has_many :job_item_properties 
+
+  def hydrate(value)
+    modules.each {|mod| value.extend(mod) unless value.kind_of?(mod)}
+    value
+  end
+
+  def modules
+    module_names.split(/\s*,\s*/).map do |mod_name|
+      Property.const_get(mod_name.to_sym)
+    end
+  end
+
   module Length
-    include PropertyUtil::Dimensions
+    include Properties::Dimensions
 
     def self.value_structure
       {
@@ -61,13 +80,13 @@ module Properties
       }
     end
 
-    def length(units = :mm)
+    def length(units)
       dimension_value(:length, value(:length_units), units)
     end
   end
 
   module Height
-    include PropertyUtil::Dimensions
+    include Properties::Dimensions
 
     def self.value_structure
       {
@@ -76,14 +95,14 @@ module Properties
       }
     end
 
-    def height(units = :mm)
+    def height(units)
       dimension_value(:width, value(:height_units), units)
     end
   end
 
 
   module Width
-    include PropertyUtil::Dimensions
+    include Properties::Dimensions
 
     def self.value_structure
       {
@@ -92,13 +111,13 @@ module Properties
       }
     end
 
-    def width(units = :mm)
+    def width(units)
       dimension_value(:width, value(:width_units), units)
     end
   end
 
   module Depth
-    include PropertyUtil::Dimensions
+    include Properties::Dimensions
 
     def self.value_structure
       {
@@ -107,23 +126,24 @@ module Properties
       }
     end
 
-    def depth(units = :mm)
+    def depth(units)
       dimension_value(:depth, value(:depth_units), units)
     end
   end
 
   module Color
+    include Properties::JSONProperty
     def self.value_structure
-      :string
+      {:color => :string}
     end
 
     def color
-      value_str
+      value(:color)
     end
   end
 
   module Material
-    include PropertyUtil::JSONProperty, PropertyUtil::LinearConversions
+    include Properties::JSONProperty, Properties::LinearConversions
 
     def self.value_structure
       {
@@ -139,17 +159,19 @@ module Properties
       value(:color)
     end
 
-    def thickness(units = :mm)
+    def thickness(units)
       convert(value(:thickness).to_f, value(:thickness_units).to_sym, units)
     end
 
-    def price(length, width, units = :mm)
-      convert(length, units, value(:price_units).to_sym) * convert(width, units, value(:price_units).to_sym) * value(:price).to_f
+    def price(length, width, units )
+      l = convert(length, units, value(:price_units).to_sym) 
+      w =  convert(width, units, value(:price_units).to_sym) 
+      l * w * value(:price).to_f
     end
   end
 
   module EdgeBand
-    include PropertyUtil::JSONProperty, PropertyUtil::LinearConversions
+    include Properties::JSONProperty, Properties::LinearConversions
     def self.value_structure
       {
         :color => :string,
@@ -167,24 +189,30 @@ module Properties
       value(:width)
     end
 
-    def price(length, length_units = :mm)
+    def price(length, length_units)
       convert(length, length_units, value(:price_units).to_sym) * value(:price)
+    end
+  end
+
+  module Units
+    include Properties::JSONProperty
+
+    def self.value_structure
+      {:units => [:in, :mm]}
+    end
+
+    def units
+      value(:units).to_sym
     end
   end
 end
 
-# Each item may have a number of properties. Each property for a given
-# item may take on one or more of a number of possible values.
-class Property < ActiveRecord::Base
-  has_and_belongs_to_many :items
-	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' #, :extend => PropertyUtil::Extensible
-  has_many :job_item_properties #, :extend => PropertyUtil::Extensible
-
-  def hydrate(value)
-    modules.split(/\s*,\s*/).each do |mod_name|
-      mod = Properties.const_get(mod_name.to_sym)
-      value.extend(mod) unless value.kind_of?(mod)
-    end
+class PropertyDescriptor
+  attr_reader :family, :qualifiers, :modules
+  def initialize(family, qualifiers, modules)
+    @family = family
+    @qualifier = qualifier
+    @modules = modules
   end
 end
 

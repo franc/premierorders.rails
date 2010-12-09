@@ -1,16 +1,28 @@
 dimensions2d: 
   name: dimensions2d
-  modules: Length, Width
+  module_names: Length, Width
 
 dimensions3d: 
   name: dimensions3d
-  modules: Height, Width, Depth
+  module_names: Height, Width, Depth
 
 color: 
   name: color
-  modules: Color
+  family: color
+  module_names: Color
 
 panel_materials: 
-  name: Panel Materials
-  modules: Material
+  name: Panel Material
+  family: panel_material
+  module_names: Material
   property_values: panel_material_5_white, panel_material_75_white
+
+half_in_edgeband:
+  name: Edge Banding, top panel all sides
+  family: edge_band
+  module_names: EdgeBand
+  property_values: eb_5_white
+
+units:
+  name: Units
+  module_names: Units

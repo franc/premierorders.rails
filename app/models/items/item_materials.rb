@@ -1,13 +1,11 @@
 module ItemMaterials
-    def material_property(name)
-      properties.find_by_name_and_type(name, 'Material')
-    end
+  def material_property
+    properties.find_by_family(:panel_material)
+  end
 
-    def material(name, attributes)
-      mprop = material_property(name)
-      mprop.property_values.select do |prop|
-        (attributes[:color] ? mprop.color(prop) == attributes[:color] : true) &&
-        (attributes[:thickness] ? mprop.thickness(prop) == attributes[:thickness] : true)
-      end
-    end
+  # retrieve the material property values by color.
+  def material(color)
+    mprop = material_property
+    mprop.property_values.detect{|prop| mprop.hydrate(prop).color == color}
+  end
 end
