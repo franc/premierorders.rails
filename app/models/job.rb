@@ -42,33 +42,39 @@ class Job < ActiveRecord::Base
 
   def decompose_xml(xml)
     doc = REXML::Document.new(xml)
-    rows = doc.get_elements("//Row").inject([]) do |rows, row_element|
+    doc.get_elements("//Row").inject([]) do |rows, row_element|
       rows << row_element.get_elements("Cell/Data").map{|cell| cell.text}
     end
+  end 
 
-    labels, data_rows = rows.partition do |row|
-      row[0] == 'Description'
+  def decompose_csv(csv)
+    rows = []
+    CSV.open(csv) do |row|
+        rows << row
     end
 
-    raise FormatException, "Unexpected number of label rows in XML document: #{labels.size}; expected 1" unless labels.size == 1
+    rows
+  end 
+
+  def add_items_from_dvinci(file)
+    rows = case File.extname(file.path)
+      when '.xml' then decompose_xml(file)
+      when '.csv' then decompose_csv(file)
+      else raise "Did not recognize file type for #{File.extname(file.path)}"
+    end
+
+    labels, data_rows = rows.partition {|row| row[0] == 'Description'}
+
+    raise FormatException, "Unexpected number of label rows in document: #{labels.size}; expected 1" unless labels.size == 1
     labels.flatten!
 
     missing_columns = ['# of Items in Design', 'Description', 'Part Number'] - labels
-    raise FormatException, "Did not find required columns in XML document: #{missing_columns.inspect}" unless missing_columns.empty?
+    raise FormatException, "Did not find required columns in document: #{missing_columns.inspect}" unless missing_columns.empty?
 
     column_indices = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
     min_columns = labels.any? {|l| l =~ /Notes/} ? labels.size - 1 : labels.size
     item_rows = data_rows.select{|r| r.size >= min_columns}
-
-    [column_indices, item_rows]
-  end 
-
-  def add_items_from_dvinci(file)
-    column_indices, item_rows = case File.extname(file.path)
-      when '.xml' then decompose_xml(file)
-      else raise "Did not recognize file type for #{File.extname(file.path)}"
-    end
 
     item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
