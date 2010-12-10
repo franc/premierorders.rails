@@ -95,12 +95,13 @@ class Job < ActiveRecord::Base
       end
 
       item_quantity = row[column_indices['# of Items in Design']].to_i
+      unit_price = row[column_indices['Material Charge']].gsub(/\$/,'').to_f / item_quantity,
       job_item = if (item.nil?)
         job_items.create(
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => special_instructions,
-          :unit_price => row[column_indices['Material Charge']].to_f / item_quantity,
+          :unit_price => unit_price,
           :tracking_id => i
         )
       else
@@ -109,7 +110,7 @@ class Job < ActiveRecord::Base
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => special_instructions,
-          :unit_price => row[column_indices['Material Charge']].to_f / item_quantity,
+          :unit_price => unit_price,
           :tracking_id => i
         )
       end
@@ -121,7 +122,8 @@ class Job < ActiveRecord::Base
         '# of Items in Design', # Ignored since it's handled specifically above
         'Material Charge', # Ignored since it's handled specifically above
         'Labor Charge',
-        'Total Charge'
+        'Total Charge',
+        'Notes'
       ]
 
       # Find the item attributes for the imported columns, standardizing from any non-standard names
