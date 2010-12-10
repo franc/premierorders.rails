@@ -51,6 +51,15 @@ class Job < ActiveRecord::Base
     rows
   end 
 
+  SKIP_ROWS = [
+    /Subtotals/,
+    /Taxes/,
+    /Material Tax/,
+    /Totals/,
+    /Final Totals/,
+    /RPM Products Total Weight/
+  ]
+
   def add_items_from_dvinci(file)
     dvinci_custom_properties = {
       'Cut Height' => Property.find_or_create_by_name_and_module_names('Height', 'Height'),
@@ -75,7 +84,11 @@ class Job < ActiveRecord::Base
     column_indices = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
     min_columns = labels.any? {|l| l =~ /Notes/} ? labels.size - 1 : labels.size
-    item_rows = data_rows.select{|r| r.size >= min_columns}
+    item_rows = data_rows.select do |r| 
+      r.size >= min_columns && 
+      r[column_indices['Part Number']] && 
+      !SKIP_ROWS.any?{|l| r[0].to_s =~ l}
+    end
 
     item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
@@ -96,12 +109,13 @@ class Job < ActiveRecord::Base
       end
 
       item_quantity = row[column_indices['# of Items in Design']].to_i
+      unit_price = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
       job_item = if (item.nil?)
         job_items.create(
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => special_instructions,
-          :unit_price => row[column_indices['Material Charge']].to_f / item_quantity,
+          :unit_price => unit_price,
           :tracking_id => i
         )
       else
@@ -110,7 +124,7 @@ class Job < ActiveRecord::Base
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => special_instructions,
-          :unit_price => row[column_indices['Material Charge']].to_f / item_quantity,
+          :unit_price => unit_price,
           :tracking_id => i
         )
       end

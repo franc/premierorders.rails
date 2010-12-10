@@ -1,4 +1,6 @@
 require 'date'
+require 'job.rb'
+
 class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
