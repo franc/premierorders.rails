@@ -49,7 +49,7 @@ class Job < ActiveRecord::Base
 
   def decompose_csv(csv)
     rows = []
-    CSV.open(csv) do |row|
+    CSV.open(csv.path, "r") do |row|
         rows << row
     end
 
