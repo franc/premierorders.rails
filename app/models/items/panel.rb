@@ -1,8 +1,8 @@
 class Panel < Item
   include ItemMaterials
 
-  def required_properties 
-    { 'Case Material' => ['Material'] }
+  def self.required_properties 
+    PropertyDescriptor.new(:material, [], [Material])
   end
 
   # The panels associated with a shell will vary only with respect to width, length,
