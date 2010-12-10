@@ -3,7 +3,7 @@ require 'json'
 module Properties
   module Association
     def find_by_family_with_qualifier(family, qualifier)
-      find(:all, :conditions => ['properties.family = ? and item_properties.qualifier = ?', family, qualifier])
+      find(:all, :conditions => ['family = ? and qualifier = ?', family, qualifier])
     end
   end
 

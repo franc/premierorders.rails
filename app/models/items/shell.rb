@@ -22,7 +22,7 @@ class ShellTopPanel < ItemComponent
 
   def calculate_price(width, height, depth, color, units )
     edge_banding = EB_SIDES.inject({}) do |result, side|
-      properties.find_all_by_family_with_qualifier(:edge_band, side).each do |prop|
+      properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
         result[side] = prop.property_values.map{|p| prop.hydrate(p)}.find do |v|
           v.color == color
         end
