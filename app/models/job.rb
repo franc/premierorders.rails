@@ -95,7 +95,7 @@ class Job < ActiveRecord::Base
       end
 
       item_quantity = row[column_indices['# of Items in Design']].to_i
-      unit_price = row[column_indices['Material Charge']].gsub(/\$/,'').to_f / item_quantity,
+      unit_price = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
       job_item = if (item.nil?)
         job_items.create(
           :ingest_id => dvinci_product_id,
