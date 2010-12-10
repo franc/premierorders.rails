@@ -56,6 +56,15 @@ class Job < ActiveRecord::Base
     rows
   end 
 
+  SKIP_ROWS = [
+    /Subtotals/,
+    /Taxes/,
+    /Material Tax/,
+    /Totals/,
+    /Final Totals/,
+    /RPM Products Total Weight/
+  ]
+
   def add_items_from_dvinci(file)
     rows = case File.extname(file.path)
       when '.xml' then decompose_xml(file)
@@ -74,7 +83,11 @@ class Job < ActiveRecord::Base
     column_indices = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
     min_columns = labels.any? {|l| l =~ /Notes/} ? labels.size - 1 : labels.size
-    item_rows = data_rows.select{|r| r.size >= min_columns}
+    item_rows = data_rows.select do |r| 
+      r.size >= min_columns && 
+      r[column_indices['Part Number']] && 
+      !SKIP_ROWS.any?{|l| r[0].to_s =~ l}
+    end
 
     item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
