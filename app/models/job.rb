@@ -122,7 +122,8 @@ class Job < ActiveRecord::Base
         '# of Items in Design', # Ignored since it's handled specifically above
         'Material Charge', # Ignored since it's handled specifically above
         'Labor Charge',
-        'Total Charge'
+        'Total Charge',
+        'Notes'
       ] 
 
       # Find the item properties for the imported columns, standardizing from any non-standard names
@@ -131,7 +132,7 @@ class Job < ActiveRecord::Base
         job_item.job_item_properties.create(
           :property_id => property ? property.id : nil,
           :ingest_id => name,
-          :value_str => row[label_columns[name]]
+          :value_str => row[column_indices[name]]
         )
       end
 
