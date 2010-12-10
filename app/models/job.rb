@@ -35,38 +35,51 @@ class Job < ActiveRecord::Base
     end
   end
 
-  def add_items_from_dvinci(xml)
+  def decompose_xml(xml)
+    doc = REXML::Document.new(xml)
+    doc.get_elements("//Row").inject([]) do |rows, row_element|
+      rows << row_element.get_elements("Cell/Data").map{|cell| cell.text}
+    end
+  end 
+
+  def decompose_csv(csv)
+    rows = []
+    CSV.open(csv.path, "r", nil, "\r") do |row|
+        rows << row
+    end
+
+    rows
+  end 
+
+  def add_items_from_dvinci(file)
     dvinci_custom_properties = {
       'Cut Height' => Property.find_or_create_by_name_and_module_names('Height', 'Height'),
       'Cut Width'  => Property.find_or_create_by_name_and_module_names('Width', 'Width'),
       'Cut Depth'  => Property.find_or_create_by_name_and_module_names('Depth', 'Depth')
     }
 
-    doc = REXML::Document.new(xml)
-    rows = doc.get_elements("//Row").inject([]) do |rows, row_element|
-      rows << row_element.get_elements("Cell/Data").map{|cell| cell.text}
+    rows = case File.extname(file.path)
+      when '.xml' then decompose_xml(file)
+      when '.csv' then decompose_csv(file)
+      else raise "Did not recognize file type for #{File.extname(file.path)}"
     end
 
-    labels, data_rows = rows.partition do |row|
-      row[0] == 'Description'
-    end
+    labels, data_rows = rows.partition {|row| row[0] == 'Description'}
 
-    raise FormatException, "Unexpected number of label rows in XML document: #{labels.size}; expected 1" unless labels.size == 1
+    raise FormatException, "Unexpected number of label rows in document: #{labels.size}; expected 1" unless labels.size == 1
     labels.flatten!
 
     missing_columns = ['# of Items in Design', 'Description', 'Part Number'] - labels
-    raise FormatException, "Did not find required columns in XML document: #{missing_columns.inspect}" unless missing_columns.empty?
+    raise FormatException, "Did not find required columns in document: #{missing_columns.inspect}" unless missing_columns.empty?
 
-    label_columns = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
+    column_indices = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
 
-    item_rows = data_rows.select{|r| r.size == label_columns.size || r.size == label_columns.size + 1}
-    #if data_rows - item_rows
-    #  flash[:warning] = "It looks like some of your data may not have been imported correctly. Please check the format of the input file."
-    #end
+    min_columns = labels.any? {|l| l =~ /Notes/} ? labels.size - 1 : labels.size
+    item_rows = data_rows.select{|r| r.size >= min_columns}
 
     item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
-      dvinci_product_id = row[label_columns['Part Number']]
+      dvinci_product_id = row[column_indices['Part Number']]
       product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
       item = if product_code_matchdata
         t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
@@ -75,13 +88,20 @@ class Job < ActiveRecord::Base
         Item.find_by_dvinci_id(dvinci_product_id)
       end
 
-      item_quantity = row[label_columns['# of Items in Design']].to_i
+      unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
+      special_instructions = if column_indices['Notes'] 
+        (unlabeled_col_values << row[column_indices['Notes']]).join("; ")
+      else
+        unlabeled_col_values.join("; ")
+      end
+
+      item_quantity = row[column_indices['# of Items in Design']].to_i
       job_item = if (item.nil?)
         job_items.create(
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
-          :comment   => row[label_columns.size],
-          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity,
+          :comment   => special_instructions,
+          :unit_price => row[column_indices['Material Charge']].to_f / item_quantity,
           :tracking_id => i
         )
       else
@@ -89,8 +109,8 @@ class Job < ActiveRecord::Base
           :item      => item,
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
-          :comment   => row[label_columns.size],
-          :unit_price => row[label_columns['Material Charge']].to_f / item_quantity,
+          :comment   => special_instructions,
+          :unit_price => row[column_indices['Material Charge']].to_f / item_quantity,
           :tracking_id => i
         )
       end
