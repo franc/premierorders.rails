@@ -1,6 +1,18 @@
 require 'json'
 
 module Properties
+  module Polymorphic
+    def morph
+      modules.each {|mod| self.extend(mod) unless self.kind_of?(mod)}
+    end
+
+    def modules
+      module_names.split(/\s*,\s*/).map do |mod_name|
+        Property.const_get(mod_name.to_sym)
+      end
+    end
+  end
+
   module Association
     def find_by_family_with_qualifier(family, qualifier)
       find(:all, :conditions => ['family = ? and qualifier = ?', family, qualifier])
@@ -59,17 +71,6 @@ class Property < ActiveRecord::Base
 	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' 
   has_many :job_item_properties 
 
-  def hydrate(value)
-    modules.each {|mod| value.extend(mod) unless value.kind_of?(mod)}
-    value
-  end
-
-  def modules
-    module_names.split(/\s*,\s*/).map do |mod_name|
-      Property.const_get(mod_name.to_sym)
-    end
-  end
-
   module Length
     include Properties::Dimensions
 
@@ -99,7 +100,6 @@ class Property < ActiveRecord::Base
       dimension_value(:width, value(:height_units), units)
     end
   end
-
 
   module Width
     include Properties::Dimensions

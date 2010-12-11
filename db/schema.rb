@@ -76,25 +76,6 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
     t.datetime "updated_at"
   end
 
-  create_table "item_item_pricings", :id => false, :force => true do |t|
-    t.integer "item_id"
-    t.integer "item_pricing_id"
-  end
-
-  add_index "item_item_pricings", ["item_id", "item_pricing_id"], :name => "index_item_item_pricings_on_item_id_and_item_pricing_id", :unique => true
-
-  create_table "item_pricings", :force => true do |t|
-    t.string   "type"
-    t.float    "cost"
-    t.string   "pricing_units"
-    t.float    "option_cost"
-    t.string   "option_pricing_units"
-    t.float    "handling_cost"
-    t.string   "handling_pricing_units"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "item_properties", :force => true do |t|
     t.integer "item_id"
     t.integer "property_id"
@@ -116,12 +97,14 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
   end
 
   create_table "job_item_properties", :force => true do |t|
-    t.integer  "job_item_id", :null => false
-    t.integer  "property_id"
+    t.integer  "job_item_id",  :null => false
     t.string   "ingest_id"
     t.string   "value_str"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "family"
+    t.string   "qualifier"
+    t.string   "module_names"
   end
 
   create_table "job_items", :force => true do |t|
@@ -138,7 +121,9 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
 
   create_table "job_properties", :force => true do |t|
     t.integer  "job_id"
-    t.integer  "property_id"
+    t.string   "family"
+    t.string   "qualifier"
+    t.string   "module_names"
     t.string   "value_str"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -164,17 +149,12 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
     t.text     "comment"
   end
 
-  create_table "pricing_property_values", :id => false, :force => true do |t|
-    t.integer "item_pricing_id"
-    t.integer "property_value_id"
-  end
-
   create_table "properties", :force => true do |t|
     t.string   "name"
-    t.string   "module_names"
+    t.string   "family"
+    t.string   "modules"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "family"
   end
 
   create_table "property_value_selection", :id => false, :force => true do |t|
@@ -188,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
+    t.string   "module_names"
   end
 
   create_table "roles", :force => true do |t|

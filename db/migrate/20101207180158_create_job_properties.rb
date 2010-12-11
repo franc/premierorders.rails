@@ -2,7 +2,9 @@ class CreateJobProperties < ActiveRecord::Migration
   def self.up
     create_table :job_properties do |t|
       t.references :job
-      t.references :property
+      t.string :family
+      t.string :qualifier
+      t.string :module_names
       t.string :value_str
 
       t.timestamps
@@ -13,9 +15,6 @@ class CreateJobProperties < ActiveRecord::Migration
       t.references :property
       t.string :qualifier
     end
-
-    add_column :properties, :family, :string
-    rename_column :properties, :modules, :module_names
   end
 
   def self.down

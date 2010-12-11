@@ -1,8 +1,7 @@
-class JobProperty < ActiveRecord::Base
-  belongs_to :job
-  after_find :hydrate
+require 'property.rb'
 
-  def hydrate
-    property.hydrate(self) unless property.nil?
-  end
+class JobProperty < ActiveRecord::Base
+  include Properties::Polymorphic
+  belongs_to :job
+  after_find :morph
 end
