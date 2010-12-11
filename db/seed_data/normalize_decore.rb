@@ -58,7 +58,7 @@ end
 
 #disp_h(price_refs, 0, 4)
 price_refs.map{ |k, v| v.map{|s| s.to_a} + k }.sort.each do |v|
-  puts v.inspect
+  puts [v[5], v[4], v[3], v[0], v[2], v[1]].inspect
 end
 
 

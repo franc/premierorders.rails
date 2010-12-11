@@ -142,6 +142,28 @@ class Property < ActiveRecord::Base
     end
   end
 
+  module IntegerProperty
+    include Properties::JSONProperty
+    def self.value_structure
+      {:value => :int}
+    end
+
+    def color
+      value(:value).to_i
+    end
+  end
+
+  module Surcharge
+    include Properties::JSONProperty
+    def self.value_structure
+      {:price => :float}
+    end
+
+    def price
+      value(:price).to_f
+    end
+  end
+
   module Material
     include Properties::JSONProperty, Properties::LinearConversions
 
@@ -177,7 +199,7 @@ class Property < ActiveRecord::Base
         :color => :string,
         :width => :float,
         :price => :float,
-        :price_units => [:in, :mm]
+        :price_units => [:in, :mm, :ft]
       }
     end
 
@@ -197,8 +219,12 @@ class Property < ActiveRecord::Base
   module Units
     include Properties::JSONProperty
 
+    def self.default_descriptor
+      PropertyDescriptor.new(:units,  [], [Units], lambda{|item| [:in, :mm, :ft]})
+    end
+
     def self.value_structure
-      {:units => [:in, :mm]}
+      {:units => [:in, :mm, :ft]}
     end
 
     def units
@@ -209,10 +235,15 @@ end
 
 class PropertyDescriptor
   attr_reader :family, :qualifiers, :modules
-  def initialize(family, qualifiers, modules)
+  def initialize(family, qualifiers, modules, options = nil)
     @family = family
     @qualifier = qualifier
     @modules = modules
+    @options = options
+  end
+
+  def options(item)
+    @options.nil? [] : @options.call(item)
   end
 end
 
