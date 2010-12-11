@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ShellTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  test "Shell top panel pricing" do
+  test "shell pricing" do
     shell = Shell.find_by_name('shell')
     assert_not_nil shell
 

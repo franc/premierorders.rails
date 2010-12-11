@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101207180158) do
+ActiveRecord::Schema.define(:version => 20101211051916) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -99,12 +99,12 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
   create_table "job_item_properties", :force => true do |t|
     t.integer  "job_item_id",  :null => false
     t.string   "ingest_id"
-    t.string   "value_str"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "family"
     t.string   "qualifier"
     t.string   "module_names"
+    t.string   "value_str"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "job_items", :force => true do |t|
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
   create_table "properties", :force => true do |t|
     t.string   "name"
     t.string   "family"
-    t.string   "modules"
+    t.string   "module_names"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -164,11 +164,11 @@ ActiveRecord::Schema.define(:version => 20101207180158) do
 
   create_table "property_values", :force => true do |t|
     t.string   "dvinci_id"
+    t.string   "name"
+    t.string   "module_names"
     t.string   "value_str"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "module_names"
   end
 
   create_table "roles", :force => true do |t|

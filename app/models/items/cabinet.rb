@@ -1,23 +1,24 @@
+require 'property.rb'
+
 class Cabinet < Item
+  DIMENSIONS_DESCRIPTOR = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height, Property::Depth])
+
   def self.conf_properties
     []
   end
 
   def self.job_properties
-    [PropertyDescriptor.new(:units,  [], [Units])]
+    [LinearUnits::DESCRIPTOR]
   end
 
   def self.job_item_properties
-    [
-      PropertyDescriptor.new(:dimensions,  [], [Width, Height, Depth]),
-      PropertyDescriptor.new(:color,  [], [Color])
-    ]
+    [DIMENSIONS_DESCRIPTOR, Color::DESCRIPTOR]
   end
 
   def price_job_item(job_item)
-    units       = job_item.job.property(:units)
-    dimensions  = job_item.property(:dimensions)
-    color       = job_item.property(:color)
+    units       = job_item.job.job_property.find_by_descriptor(LinearUnits::DESCRIPTOR)
+    dimensions  = job_item.job_item_properties.find_by_descriptor(DIMENSIONS_DESCRIPTOR)
+    color       = job_item.job_item_properties(find_by_descriptor(Color::DESCRIPTOR))
 
     item_components.inject(0.0) do |total, component|
       total + component.calculate_price(dimensions.width, dimensions.height, dimensions.depth, units.units, color.color)
@@ -27,7 +28,7 @@ end
 
 class CabinetShell < ItemComponent
   def calculate_price(width, height, depth, units, color)
-    quantity * component.calculate_price(width, height, depth, units color)
+    quantity * component.calculate_price(width, height, depth, units, color)
   end
 end
 

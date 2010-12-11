@@ -1,5 +1,8 @@
 require 'rexml/document'
 require 'csv'
+require 'json'
+require 'property.rb'
+require 'util/option.rb'
 
 class Job < ActiveRecord::Base
   belongs_to :franchisee
@@ -8,7 +11,7 @@ class Job < ActiveRecord::Base
   belongs_to :billing_address, :class_name => 'Address'
   belongs_to :shipping_address, :class_name => 'Address'
   has_many   :job_items, :include => :item
-  has_many   :job_properties, :include => :property
+  has_many   :job_properties, :extend => Properties::Association
 
   has_attached_file :dvinci_xml
 
@@ -61,11 +64,6 @@ class Job < ActiveRecord::Base
   ]
 
   def add_items_from_dvinci(file)
-    dvinci_custom_properties = {
-      'Cut Height' => Property.find_or_create_by_name_and_module_names('Height', 'Height'),
-      'Cut Width'  => Property.find_or_create_by_name_and_module_names('Width', 'Width'),
-      'Cut Depth'  => Property.find_or_create_by_name_and_module_names('Depth', 'Depth')
-    }
 
     rows = case File.extname(file.path)
       when '.xml' then decompose_xml(file)
@@ -94,12 +92,14 @@ class Job < ActiveRecord::Base
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
       product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-      item = if product_code_matchdata
-        t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
-        Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}#{t6}") || Item.find_by_dvinci_id(dvinci_product_id)
-      else 
-        Item.find_by_dvinci_id(dvinci_product_id)
-      end
+      item = Option.new(
+        if product_code_matchdata
+          t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
+          Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}#{t6}") || Item.find_by_dvinci_id(dvinci_product_id)
+        else 
+          Item.find_by_dvinci_id(dvinci_product_id)
+        end
+      )
 
       unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
       special_instructions = if column_indices['Notes'] 
@@ -109,61 +109,40 @@ class Job < ActiveRecord::Base
       end
 
       item_quantity = row[column_indices['# of Items in Design']].to_i
-      unit_price = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
-      job_item = if (item.nil?)
-        job_items.create(
+      unit_price    = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
+      job_item_properties = {
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => special_instructions,
           :unit_price => unit_price,
           :tracking_id => i
-        )
-      else
-        job_items.create(
-          :item      => item,
-          :ingest_id => dvinci_product_id,
-          :quantity  => item_quantity,
-          :comment   => special_instructions,
-          :unit_price => unit_price,
-          :tracking_id => i
-        )
-      end
+      }
 
-      ignored_labels = [
-        'Part Number', # Ignored since it's handled specifically above
-        '# of Packages',
-        '# of Items in Pkgs',
-        '# of Items in Design', # Ignored since it's handled specifically above
-        'Material Charge', # Ignored since it's handled specifically above
-        'Labor Charge',
-        'Total Charge',
-        'Notes'
-      ] 
+      # Add the item reference to the job item, if an item is known
+      item.each{|i| job_item_properties[:item] = i}
 
-      # Find the item properties for the imported columns, standardizing from any non-standard names
-      (labels - ignored_labels).each do |name|
-        property = (item && item.properties.find_by_name(name)) || dvinci_custom_properties[name]
+      job_item = job_items.create(job_item_properties)
+
+      dimensions_data = { }
+      Option.fromString(row[column_indices['Cut Height']]).each{|v| dimensions_data[:height] = v}
+      Option.fromString(row[column_indices['Cut Width']]).each{|v| dimensions_data[:width] = v}
+      Option.fromString(row[column_indices['Cut Depth']]).each{|v| dimensions_data[:depth] = v}
+
+      item.bind{|i| Option.new(i.class.job_item_properties.find{|d| d.family == :dimensions})}.each do |descriptor|
         job_item.job_item_properties.create(
-          :property_id => property ? property.id : nil,
-          :ingest_id => name,
-          :value_str => row[column_indices[name]]
+          :family => descriptior.family,
+          :module_names => descriptor.module_names,
+          :value_str => dimensions_data.to_json 
         )
       end
 
-      # Attach color information to the item if the item is something that has a color
-      # and specifies a color for the color key; if the color key is not known
-      # then the value of this property will be nil
-      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2', 'Door Material', 'Door Edge'].each do |name|
-        property = item.nil? ? nil : item.properties.find_by_name(name)
-        unless property.nil?
-          value = property.property_values.find_by_dvinci_id(color_key)
-          unless value.nil?
-            job_item.job_item_properties.create(
-              :property_id => property.id,
-              :ingest_id => color_key,
-              :value_str => value.value_str
-            )
-          end
+      item.bind{|i| Option.new(i.class.job_item_properties.find{|d| d.family == :color})}.each do |descriptor|
+        Option.fromString(row[column_indices['Cabinet Color']]).each do |color|
+          job_item.job_item_properties.create(
+            :family => descriptor.family,
+            :module_names => descriptor.module_names,
+            :value_str => {:color => color}.to_json
+          )    
         end
       end
     end

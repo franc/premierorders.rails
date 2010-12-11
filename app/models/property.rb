@@ -1,5 +1,23 @@
 require 'json'
 
+class PropertyDescriptor
+  attr_reader :family, :qualifiers, :modules
+  def initialize(family, qualifiers, modules, options = nil)
+    @family = family
+    @qualifiers = qualifiers
+    @modules = modules
+    @options = options
+  end
+
+  def options(item)
+    @options.nil? ? [] : @options.call(item)
+  end
+
+  def module_names
+    modules.map{|m| m.to_s}.join(", ")
+  end
+end
+
 module Properties
   module Polymorphic
     def morph
@@ -17,6 +35,11 @@ module Properties
     def find_by_family_with_qualifier(family, qualifier)
       find(:all, :conditions => ['family = ? and qualifier = ?', family, qualifier])
     end
+
+    def find_by_descriptor(descriptor)
+      conditions = descriptor.qualifiers.empty? ? ['family = ?', descriptor.family] : ['family = ? and qualifier in (?)', descriptor.family, descriptor.qualifiers]
+      find(:first, :conditions => conditions)
+    end
   end
 
   module JSONProperty
@@ -31,6 +54,8 @@ module Properties
   end
 
   module LinearConversions
+    UNITS = [:mm, :in, :ft]
+
     def convert(value, from, to)
       case from
       when :mm
@@ -77,12 +102,12 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :length => :float,
-        :length_units => [:in, :mm]
+        :linear_units => LinearConversion::UNITS
       }
     end
 
     def length(units)
-      dimension_value(:length, value(:length_units), units)
+      dimension_value(:length, value(:linear_units), units)
     end
   end
 
@@ -92,12 +117,12 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :height => :float,
-        :height_units => [:in, :mm]
+        :linear_units => LinearConversions::UNITS
       }
     end
 
     def height(units)
-      dimension_value(:width, value(:height_units), units)
+      dimension_value(:width, value(:linear_units), units)
     end
   end
 
@@ -107,12 +132,12 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :width => :float,
-        :width_units => [:in, :mm]
+        :linear_units => LinearConversions::UNITS
       }
     end
 
     def width(units)
-      dimension_value(:width, value(:width_units), units)
+      dimension_value(:width, value(:linear_units), units)
     end
   end
 
@@ -122,17 +147,40 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :depth => :float,
-        :depth_units => [:in, :mm]
+        :linear_units => LinearConversions::UNITS
       }
     end
 
     def depth(units)
-      dimension_value(:depth, value(:depth_units), units)
+      dimension_value(:depth, value(:linear_units), units)
+    end
+  end
+
+  module SizeRange
+    include Properties::Dimensions
+
+    def self.value_structure
+      {
+        :min_width => :float,
+        :max_width => :float,
+        :min_height => :float,
+        :max_height => :float,
+        :min_depth => :float,
+        :max_depth => :float,
+        :linear_units => LinearConversions::UNITS
+      }
+    end
+
+    def value(property, units)
+      dimension_value(property, value(:linear_units), units)
     end
   end
 
   module Color
     include Properties::JSONProperty
+
+    DESCRIPTOR = PropertyDescriptor.new(:color, [], [Color])
+
     def self.value_structure
       {:color => :string}
     end
@@ -199,7 +247,7 @@ class Property < ActiveRecord::Base
         :color => :string,
         :width => :float,
         :price => :float,
-        :price_units => [:in, :mm, :ft]
+        :price_units => LinearConversions::UNITS
       }
     end
 
@@ -216,34 +264,17 @@ class Property < ActiveRecord::Base
     end
   end
 
-  module Units
+  module LinearUnits
     include Properties::JSONProperty
 
-    def self.default_descriptor
-      PropertyDescriptor.new(:units,  [], [Units], lambda{|item| [:in, :mm, :ft]})
-    end
+    DESCRIPTOR = PropertyDescriptor.new(:linear_units, [], [LinearUnits])
 
     def self.value_structure
-      {:units => [:in, :mm, :ft]}
+      {:linear_units => LinearConversions::UNITS}
     end
 
     def units
-      value(:units).to_sym
+      value(:linear_units).to_sym
     end
   end
 end
-
-class PropertyDescriptor
-  attr_reader :family, :qualifiers, :modules
-  def initialize(family, qualifiers, modules, options = nil)
-    @family = family
-    @qualifier = qualifier
-    @modules = modules
-    @options = options
-  end
-
-  def options(item)
-    @options.nil? [] : @options.call(item)
-  end
-end
-
