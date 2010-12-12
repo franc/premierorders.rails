@@ -161,12 +161,12 @@ class Property < ActiveRecord::Base
 
     def self.value_structure
       {
-        :min_width => :float,
-        :max_width => :float,
+        :min_width  => :float,
+        :max_width  => :float,
         :min_height => :float,
         :max_height => :float,
-        :min_depth => :float,
-        :max_depth => :float,
+        :min_depth  => :float,
+        :max_depth  => :float,
         :linear_units => LinearConversions::UNITS
       }
     end
@@ -256,11 +256,11 @@ class Property < ActiveRecord::Base
     end
 
     def width
-      extract(:width)
+      extract(:width).to_f
     end
 
     def price(length, length_units)
-      convert(length, length_units, extract(:price_units).to_sym) * extract(:price)
+      convert(length, length_units, extract(:price_units).to_sym) * extract(:price).to_f
     end
   end
 

@@ -27,6 +27,14 @@ module PremiumDoorM
   def color_options 
     properties.find_by_descriptor(DOOR_MATERIAL).property_values.map{|m| m.color}
   end
+
+  def handling_surcharge 
+    properties.find_by_descriptor(HANDLING_CHARGE).property_values.first.price
+  end
+
+  def material_charge(width, height, units, color)
+    material(DOOR_MATERIAL, color).price(height, width, units)
+  end
 end
 
 class PremiumDoor < Item
@@ -45,11 +53,8 @@ class PremiumDoor < Item
   end
 
   def calculate_price(width, height, units, color)
-    style_surcharge    = properties.find_by_descriptor(STYLE_CHARGE).property_values.first.price
-    handling_surcharge = properties.find_by_descriptor(HANDLING_CHARGE).property_values.first.price
-
-    material_charge = material(DOOR_MATERIAL, color).price(length, width, units)
-    material_charge + style_surcharge + handling_surcharge
+    style_surcharge = properties.find_by_descriptor(STYLE_CHARGE).property_values.first.price
+    material_charge(width, height, units, color) + style_surcharge + handling_surcharge
   end
 end
 
@@ -72,10 +77,7 @@ class FrenchLiteDoor < Item
   end
 
   def calculate_price(width, height, units, color, divisions)
-    style_surcharge    = (properties.find_by_descriptor(STYLE_CHARGE).property_values.first.price * divisions)
-    handling_surcharge = properties.find_by_descriptor(HANDLING_CHARGE).property_values.first.price
-    material_charge    = material(DOOR_MATERIAL, color).price(height, width, units)
-
-    material_charge + style_surcharge + handling_surcharge
+    style_surcharge = (properties.find_by_descriptor(STYLE_CHARGE).property_values.first.price * divisions)
+    material_charge(width, height, units, color) + style_surcharge + handling_surcharge
   end
 end
