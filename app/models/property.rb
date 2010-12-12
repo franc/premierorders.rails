@@ -43,7 +43,7 @@ module Properties
   end
 
   module JSONProperty
-    def value(json_property = nil)
+    def extract(json_property = nil)
       value_hash = JSON.parse(value_str)
       if json_property
         value_hash[json_property.to_s]
@@ -57,21 +57,21 @@ module Properties
     UNITS = [:mm, :in, :ft]
 
     def convert(value, from, to)
-      case from
+      case from.to_sym
       when :mm
-        case to
+        case to.to_sym
         when :mm then value
         when :in then value / 25.4
         when :ft then (value / 25.4) / 12
         end
       when :in
-        case to
+        case to.to_sym
         when :in then value
         when :mm then value * 25.4
         when :ft then value / 12
         end
       when :ft
-        case to
+        case to.to_sym
         when :in then value * 12
         when :mm then value * 12 * 25.4
         when :ft then value
@@ -84,7 +84,7 @@ module Properties
     include Properties::JSONProperty, Properties::LinearConversions
 
     def dimension_value(property, in_units, out_units)
-      convert(value(property).to_f, in_units, out_units)
+      convert(extract(property).to_f, in_units, out_units)
     end
   end
 end
@@ -107,7 +107,7 @@ class Property < ActiveRecord::Base
     end
 
     def length(units)
-      dimension_value(:length, value(:linear_units), units)
+      dimension_value(:length, extract(:linear_units), units)
     end
   end
 
@@ -122,7 +122,7 @@ class Property < ActiveRecord::Base
     end
 
     def height(units)
-      dimension_value(:width, value(:linear_units), units)
+      dimension_value(:height, extract(:linear_units), units)
     end
   end
 
@@ -137,7 +137,7 @@ class Property < ActiveRecord::Base
     end
 
     def width(units)
-      dimension_value(:width, value(:linear_units), units)
+      dimension_value(:width, extract(:linear_units), units)
     end
   end
 
@@ -152,7 +152,7 @@ class Property < ActiveRecord::Base
     end
 
     def depth(units)
-      dimension_value(:depth, value(:linear_units), units)
+      dimension_value(:depth, extract(:linear_units), units)
     end
   end
 
@@ -172,7 +172,7 @@ class Property < ActiveRecord::Base
     end
 
     def value(property, units)
-      dimension_value(property, value(:linear_units), units)
+      dimension_value(property, extract(:linear_units), units)
     end
   end
 
@@ -186,7 +186,7 @@ class Property < ActiveRecord::Base
     end
 
     def color
-      value(:color)
+      extract(:color)
     end
   end
 
@@ -196,8 +196,8 @@ class Property < ActiveRecord::Base
       {:value => :int}
     end
 
-    def color
-      value(:value).to_i
+    def value
+      extract(:value).to_i
     end
   end
 
@@ -208,7 +208,7 @@ class Property < ActiveRecord::Base
     end
 
     def price
-      value(:price).to_f
+      extract(:price).to_f
     end
   end
 
@@ -226,17 +226,17 @@ class Property < ActiveRecord::Base
     end
 
     def color
-      value(:color)
+      extract(:color)
     end
 
     def thickness(units)
-      convert(value(:thickness).to_f, value(:thickness_units).to_sym, units)
+      convert(extract(:thickness).to_f, extract(:thickness_units).to_sym, units)
     end
 
     def price(length, width, units )
-      l = convert(length, units, value(:price_units).to_sym) 
-      w =  convert(width, units, value(:price_units).to_sym) 
-      l * w * value(:price).to_f
+      l = convert(length, units, extract(:price_units).to_sym) 
+      w =  convert(width, units, extract(:price_units).to_sym) 
+      l * w * extract(:price).to_f
     end
   end
 
@@ -252,15 +252,15 @@ class Property < ActiveRecord::Base
     end
 
     def color
-      value(:color)
+      extract(:color)
     end
 
     def width
-      value(:width)
+      extract(:width)
     end
 
     def price(length, length_units)
-      convert(length, length_units, value(:price_units).to_sym) * value(:price)
+      convert(length, length_units, extract(:price_units).to_sym) * extract(:price)
     end
   end
 
@@ -274,7 +274,7 @@ class Property < ActiveRecord::Base
     end
 
     def units
-      value(:linear_units).to_sym
+      extract(:linear_units).to_sym
     end
   end
 end

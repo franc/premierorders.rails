@@ -1,19 +1,9 @@
 class JobItem < ActiveRecord::Base
 	belongs_to :job
   belongs_to :item, :include => :properties
-	has_many   :job_item_properties
-  has_many   :job_properties
+	has_many   :job_item_properties, :extend => Properties::Association
 
   def compute_price
-    item.nil? ? (unit_price * quantity) : item.compute_price(this)
+    (!item.nil? && item.respond_to?(:price_job_item)) ? item.price_job_item(self) : unit_price * quantity
   end
-
-	def property(name)
-    property = item.nil? ? nil : item.properties.find_by_name(name)
-    if property
-      job_item_properties.find_by_property_id(property.id)
-    else
-      job_item_properties.find_by_ingest_id(name)
-    end
-	end
 end
