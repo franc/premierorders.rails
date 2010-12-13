@@ -16,6 +16,10 @@ class PropertyDescriptor
   def module_names
     modules.map{|m| m.to_s}.join(", ")
   end
+
+  def value_structure
+    modules.inject({}) {|vs, mod| vs.merge(mod.value_structure)}  
+  end
 end
 
 module Properties
@@ -25,7 +29,7 @@ module Properties
     end
 
     def modules
-      module_names.split(/\s*,\s*/).map do |mod_name|
+      (module_names || '').split(/\s*,\s*/).map do |mod_name|
         Property.const_get(mod_name.to_sym)
       end
     end
@@ -43,12 +47,17 @@ module Properties
   end
 
   module JSONProperty
-    def extract(json_property = nil)
-      value_hash = JSON.parse(value_str)
+    def extract(json_property = nil, type = nil)
+      @value_hash ||= JSON.parse(value_str)
       if json_property
-        value_hash[json_property.to_s]
+        string_value = @value_hash[json_property.to_s]
+        case type
+          when :int   then string_value.to_i
+          when :float then string_value.to_f
+          else string_value
+        end
       else
-        value_hash
+        @value_hash
       end
     end
   end
@@ -95,6 +104,10 @@ class Property < ActiveRecord::Base
   has_and_belongs_to_many :items
 	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' 
   has_many :job_item_properties 
+
+  def self.search(family, term)
+    Property.find_by_sql(["SELECT * FROM properties WHERE family = ? and name ILIKE ?", family, "%#{term}%"]);
+  end
 
   module Length
     include Properties::Dimensions

@@ -1,5 +1,5 @@
 require 'csv'
-require 'item_attr.rb'
+require 'property.rb'
 
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
@@ -104,9 +104,6 @@ end
 
 
 def load_product_data(filename)
-  ItemAttrOption.delete_all
-  Item.delete_all
-
   def prefix_match(string, prefixes)
     string.match("^(#{prefixes.map{|p| "(#{p})"}.join("|")})")
   end
@@ -129,24 +126,22 @@ def load_product_data(filename)
   end
 
   dv_colors    = data_map("#{@seed_data_dir}/dvinci_colors.csv")
-  dv_materials = data_map("#{@seed_data_dir}/dvinci_materials.csv")
-  dv_edgeband  = data_map("#{@seed_data_dir}/dvinci_edgeband.csv")
-  dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
+  #dv_materials = data_map("#{@seed_data_dir}/dvinci_materials.csv")
+  #dv_edgeband  = data_map("#{@seed_data_dir}/dvinci_edgeband.csv")
+  #dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
 
-  color_attr = ItemAttr.find_or_create_by_name('Cabinet Color', :type => 'Color')
-  material_attr = ItemAttr.find_or_create_by_name('Case Material', :type => 'Material')
-  edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :type => 'EdgeBand')
-  edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge 2', :type => 'EdgeBand')
-  doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :type => 'Material')
-  dooredge_attr = ItemAttr.find_or_create_by_name('Door Edge', :value_type => 'string')
+  color_prop = Property.find_or_create_by_name('Cabinet Color', :family => 'color')
+  #material_attr = ItemAttr.find_or_create_by_name('Case Material', :type => 'Material')
+  #edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :type => 'EdgeBand')
+  #edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge 2', :type => 'EdgeBand')
+  #doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :type => 'Material')
+  #dooredge_attr = ItemAttr.find_or_create_by_name('Door Edge', :value_type => 'string')
 
   purchase_types = {
     'P' => 'Purchased',
     'I' => 'Inventory',
     'M' => 'Manufactured'
   }
-
-  
 
   CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
     part_id, catalog_id, dvinci_id, description, *xs = row
@@ -176,17 +171,15 @@ def load_product_data(filename)
       )
 
       if color_match
-        add_item_attr_option = lambda do |attr, from|
-          value = from.has_key?(color_key) ? from[color_key].call(description) : nil
-          ItemAttrOption.find_or_create_by_item_id_and_item_attr_id_and_dvinci_id(attr.id, color_key, :value_str => value) if value
-        end
+        color_value = color_prop.property_values.find_or_create_by_name_and_dvinci_id(color, color_key)
+        color_value.update_attributes(:module_names => 'Color', :value_str => "{\"color\": \"#{color}\"}")
 
-        add_item_attr_option.call(color_attr,     dv_colors)
-        add_item_attr_option.call(material_attr,  dv_materials)
-        add_item_attr_option.call(edgeband_attr,  dv_edgeband)
-        add_item_attr_option.call(edgeband2_attr, dv_edgeband2)
-        add_item_attr_option.call(doormatr_attr,  dv_materials)
-        add_item_attr_option.call(dooredge_attr,  dv_edgeband)
+        #add_property_value.call(color_prop,     dv_colors)
+        #add_property_value.call(material_attr,  dv_materials)
+        #add_property_value.call(edgeband_attr,  dv_edgeband)
+        #add_property_value.call(edgeband2_attr, dv_edgeband2)
+        #add_property_value.call(doormatr_attr,  dv_materials)
+        #add_property_value.call(dooredge_attr,  dv_edgeband)
       end
     end
   end
@@ -251,31 +244,31 @@ def fix_cutrite_codes
   end
 end
 
-def dump_tab_file(filename)
-  color_attr = ItemAttr.find_by_name('Cabinet Color')
-  File.open("generated_tab.csv", "w") do |out|
-    CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
-      part_id, catalog_id, dvinci_id, description, *xs = row
-      next if part_id == 'PartID'
-
-      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-      t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
-
-      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
-      item = Item.find_by_dvinci_id(item_dvinci_key) || Item.find_by_dvinci_id(dvinci_id)
-      if item.nil? 
-        puts "Could not find item with dvinci id: " + item_dvinci_key
-      else
-        color = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(color_attr.id, color_key)
-        if color.nil? 
-          out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
-        else
-          out.puts(CSV.generate_line([part_id, catalog_id, item.dvinci_id.gsub(/x/, color.dvinci_id), "#{item.description}, #{color.value_str}"] + xs))
-        end
-      end
-    end
-  end
-end
+#def dump_tab_file(filename)
+#  color_attr = ItemAttr.find_by_name('Cabinet Color')
+#  File.open("generated_tab.csv", "w") do |out|
+#    CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
+#      part_id, catalog_id, dvinci_id, description, *xs = row
+#      next if part_id == 'PartID'
+#
+#      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
+#      t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
+#
+#      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
+#      item = Item.find_by_dvinci_id(item_dvinci_key) || Item.find_by_dvinci_id(dvinci_id)
+#      if item.nil? 
+#        puts "Could not find item with dvinci id: " + item_dvinci_key
+#      else
+#        color = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(color_attr.id, color_key)
+#        if color.nil? 
+#          out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
+#        else
+#          out.puts(CSV.generate_line([part_id, catalog_id, item.dvinci_id.gsub(/x/, color.dvinci_id), "#{item.description}, #{color.value_str}"] + xs))
+#        end
+#      end
+#    end
+#  end
+#end
 
 load_franchisees("franchisee_accounts.csv")
 load_users("franchisee_contacts.csv")

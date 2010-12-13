@@ -1,6 +1,22 @@
 require 'property.rb'
+#require 'items/cabinet.rb'
+#require 'items/shell.rb'
+#require 'items/panel.rb'
+#require 'items/door.rb'
+#require 'items/drawer.rb'
 
 class Item < ActiveRecord::Base
+  def self.item_types 
+    [
+      Cabinet,
+      Shell,
+      Panel,
+      PremiumDoor,
+      FrenchLiteDoor,
+      Drawer
+    ]
+  end
+
   has_many :item_properties
 	has_many :properties, :through => :item_properties, :extend => Properties::Association
 

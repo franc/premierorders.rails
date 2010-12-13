@@ -1,0 +1,33 @@
+        <table class="properties" id="<%= id -%>">
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Qualifier</th>
+            <th>Values</th>
+            <th>Delete</th>
+          </tr>
+          <% properties.each_with_index do |prop, i| %>
+            <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%>">
+              <td><%= prop.property.name %></td>
+              <td><%= prop.property.family.titlecase %></td>
+              <td><%= prop.qualifier %></td>
+              <td>
+                <dl>
+                  <% prop.property.property_values.each do |opt| %>
+                    <dt><%= opt.dvinci_id %></dt>
+                    <dd>
+                      <dl>
+                        <% opt.extract.each do |k, v| %>
+                          <dt><%= k.titlecase -%></dt>
+                          <dd><%= v -%></dd>
+                        <% end %>
+                      </dl>
+                    </dd>
+                  <% end %>
+                </dl>
+              </td>
+              <td><span class="delete_prop_assoc" onclick="">X</span></td>
+            </tr>
+          <% end %>
+        </table>
+

@@ -1,3 +1,19 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
+  <%= javascript_include_tag 'jqModal.js' %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      $("#add_property").hover(editIn, editOut).click(
+        function() {
+          $("#add_property_form").jqmShow();
+        }
+      );
+      $("#add_component").hover(editIn, editOut).click(add_component(<%= @item.id -%>));
+      $(".add_item_component_property").hover(editIn, editOut);
+    });
+  </script>
+<% end %>
+
 <%= form_for(@item) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
@@ -15,6 +31,8 @@
     <dl>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
+      <dt><%= f.label :type %></dt>
+      <dd><%= f.select(:type, Item::TYPES) %></dd>
       <dt><%= f.label :description %></dt>
       <dd><%= f.text_area :description %></dd>
       <dt><%= f.label :sku %></dt>
@@ -27,27 +45,28 @@
       <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Purchased" => "Purchased", "Inventory" => "Inventory"}) %></dd>
       <dt><%= f.label :purchase_part_id %></dt>
       <dd><%= f.text_field :purchase_part_id %></dd>
-      <dt>Attributes</dt>
+      <dt>Properties <span id="add_property">(+)</span></dt>
+      <dd><%= render :partial => 'properties', 
+                     :object => @item.item_properties 
+                     :locals => {:id => 'item_properties'} %></dd>
+      <dt>Components <span id="add_component">(+)</span></dt>
       <dd>
-        <table class="item_attributes">
+        <table class="item_components">
           <tr>
-            <th>Name</th>
             <th>Type</th>
-            <th>Values</th>
+            <th>Quantity</th>
+            <th>Properties</th>
+            <th>Add Property</th>
           </tr>
-          <% @item.item_attrs.order(:name).each_with_index do |a, i| %>
-          <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%>">
-            <td><%= a.name %></td>
-            <td><%= a.value_type %></td>
-            <td>
-              <dl>
-                <% @item.item_attr_options.find_all_by_item_attr_id(a.id).each do |opt| %>
-                  <dt><%= opt.value_str %></dt>
-                  <dd><%= opt.dvinci_id %></dd>
-                <% end %>
-              </dl>
-            </td>
-          </tr>
+          <% @item.item_components.each_with_index do |comp, i| %>
+            <tr>
+              <td><%= comp.component.type %></td>
+              <td><%= comp.quantity %></td>
+              <td><%= render :partial => 'properties', 
+                             :object => comp.item_component_properties, 
+                             :locals => {:id => 'component_relationship_properties'} %></td>
+              <td><span class="add_component_property" onclick="add_item_component_property(<%= comp.id %>)">(+)</span></td>
+            </tr>
           <% end %>
         </table>
       </dd>
@@ -58,3 +77,5 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<% render :partial => 'add_property', :locals => {:item => @item} %>

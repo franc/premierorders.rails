@@ -2,17 +2,17 @@
 // This file is automatically included by javascript_include_tag :defaults
 var editIn = function() {
   $(this).css('color','red');
-}
+};
 
 var editOut = function() {
   $(this).css('color', 'black');
-}
+};
 
 var update_notice = function(data) {
   if (data['updated'] === 'success') {
     $("#notice").html("Update successful.")
   } else {
-    $("#notice").html('<span style="color:red">Update error! Please file a bug with a complete description.</span>')
+    $("#notice").html('<span style="color:red">Update error! Please file a bug describing what happened.</span>')
   }
 };
 
@@ -54,5 +54,5 @@ var ajax_date = function(node) {
       input.focus();
     }
   );
-}
+};
 

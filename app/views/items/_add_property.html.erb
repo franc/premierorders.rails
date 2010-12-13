@@ -1,0 +1,166 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    var add_method = function() {
+      return $('#add_property_form input:radio[name=add_property_method]:checked').val();
+    };
+
+    var selected_descriptor_id = function() {
+      return $("#descriptor_select option:selected").val();
+    };
+
+    var descriptors = <%= descriptors_json(item) %>;
+
+    jQuery(function($) {
+      $("#add_property_form input:radio[name=add_property_method]").change(
+        function() {
+          if (add_method() === "new") {
+            $("#add_existing_property").hide();
+            $("#add_new_property").show();
+          } else {
+            $("#add_new_property").hide();
+            $("#add_existing_property").show();
+          }
+        }
+      );
+
+      $("#descriptor_select").change(
+        function() {
+          var did = selected_descriptor_id();
+
+          // replace the options for the property qualifier select in both the new and existing microforms
+          $(".property_qualifiers_select option").remove();
+          $(".property_qualifiers_select").append($("#property_qualifiers_select_"+did+" option"));
+
+          if (add_method() === "new") {
+            $("#new_property_values .property_value_field").hide();
+            $("#new_property_values .descriptor_"+did).show();
+          } else {
+            // just hide the display and remove the value from the hidden field.
+            // it will be repopulated when the user selects a new value from 
+            // a search
+            $("#existing_property_id").val(null);
+            $("#existing_property_display").hide();
+          }
+        }
+      );
+
+      $("#add_value_click").click(
+        function() {
+          var did = selected_descriptor_id();
+          var new_value_form = $("#add_new_property .prototype.property_value_field.descriptor_"+did).clone().removeClass("prototype");
+          var new_li = $("#new_property_values li.prototype").clone().removeClass("prototype").append(new_value_form);
+          $("#new_property_values").append(new_li);
+        }
+      );
+
+      $("#remove_value_click").click(
+        function(ev) {
+          $(ev.target).parent("li").remove();
+        }
+      );
+
+      $("#add_existing_property_search").autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          var did = selected_descriptor_id();
+          $.get("/properties/search", { family: descriptors[did].family, term: request.term }, response, "json");
+        },
+        select: function( event, ui ) {
+          // ui.item.value is an object with the following structure:
+          //{
+          //  property_id: int,
+          //  property_name: string,
+          //  property_values: [object]
+          //}
+          
+          $("#add_existing_property_search" ).val( ui.item.label );
+          $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
+          $("#selected_property_name").html(ui.item.value.property_name);
+          for (value in ui.item.value.property_values) {
+            $("#selected_property_values dl").append('<li>'+property_value_html(value)+'</li>');
+          }
+
+          return false;
+        }
+      });
+
+      $("#add_property_submit").click(
+        function() {
+          alert("Clicked submit");
+//          var request = {
+//            'item_id': '<%=item.id%>'
+//          };
+//          
+//          $(".property_value_field", selected_property_node()).each(
+//            function(index, element) {
+//              request[element.attr('name')] = element.val();
+//            }
+//          );
+//         
+//          $.post("/item_properties/add_property", request, update_notice, "json");
+        } 
+      );
+    });
+  </script>
+<% end %>
+
+<div id="add_property_form" style="display: none">
+  <ul>
+    <li><input type="radio" name="add_property_method" value="existing"/> Add Existing</li>
+    <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
+  </ul>
+
+  Choose a property type: <%= descriptor_select @item, :id => :descriptor_select %>
+
+  <!-- microform to create a new property -->
+  <div id="add_new_property" style="display: none">
+    <!-- a prototype microform for each descriptor, to be cloned into the new_property_values list -->
+    <% descriptors(@item).each_with_index do |descriptor, i| %>
+      <%= property_qualifiers_select_tag(descriptor, :id => "property_qualifiers_select_#{i}", :class => "prototype") %>
+      <div class="prototype property_value_field descriptor_<%=i%>">
+        <dl>
+          <dt>Value Name:</dt>
+          <dd><%= text_field :value_name %></dd> 
+          <% descriptor.value_structure.each do |name, type| %>
+            <dt><%= name.titlecase %>:</dt>
+            <dd><%= property_value_field_tag(name, type) %></dd>
+          <% end %>
+        </dl>
+      </div>
+    <% end %>
+
+    <!-- the visible property creation form -->
+    <dl>
+      <dt>Property Name:</dt>
+      <dd><%= text_field :property_name %></dd>
+      <dt>Qualifiers:</dt>
+      <dd><select class="property_qualifiers_select" name="property_qualifiers" multiple="true"></select></dd>
+      <dt>Possible Values: <span id="add_value_click">(+)</span></dt>
+      <dd>
+        <ul id="new_property_values">
+          <li class="prototype"><span class="remove_value_click">(-)</span></li>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+
+  <!-- microform to create a new association between the item and an existing property -->
+  <div id="add_existing_property" style="display: none">
+    Search Properties: <input id="add_existing_property_search" type="text"/>
+    <input type="hidden" name="property_id"/>
+    <dl id="existing_property_display">
+      <dt>Property Name:</dt>
+      <dd id="selected_property_name"></dd>
+      <dt>Qualifiers:</dt>
+      <dd><select class="property_qualifiers_select" name="property_qualifiers" multiple="true"></select></dd>
+      <dt>Possible Values:</dt>
+      <dd>
+        <ul id="selected_property_values">
+          <dl></dl>
+        </ul>
+      </dd>
+    </dl>
+  </div>
+
+  <button id="add_property_submit">Submit</button>
+</div>

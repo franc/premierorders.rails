@@ -38,7 +38,7 @@ class ShellHorizontalPanel < ItemComponent
   EB_SIDES = [:left, :right, :rear, :front]
 
   def self.optional_properties
-    PropertyDescriptor.new(:edge_band, EB_SIDES, [EdgeBand])
+    [PropertyDescriptor.new(:edge_band, EB_SIDES, [EdgeBand])]
   end
 
   def calculate_price(width, height, depth, color, units)
@@ -58,7 +58,7 @@ class ShellVerticalPanel < ItemComponent
   EB_SIDES = [:top, :bottom, :rear, :front]
 
   def self.optional_properties
-    PropertyDescriptor.new(:edge_band, EB_SIDES, [EdgeBand])
+    [PropertyDescriptor.new(:edge_band, EB_SIDES, [EdgeBand])]
   end
 
   def calculate_price(width, height, depth, color, units)
