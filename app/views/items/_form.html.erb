@@ -1,8 +1,26 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
+  <style>
+    #add_property_form {
+        display: none;
+        
+        position: fixed;
+        top: 17%;
+        left: 50%;
+        
+        margin-left: -300px;
+        width: 600px;
+        
+        background-color: #EEE;
+        color: #333;
+        border: 1px solid black;
+        padding: 12px;
+    }
+  </style>
   <script type="text/javascript">
     jQuery(function($) {
+      $("#add_property_form").jqm();
       $("#add_property").hover(editIn, editOut).click(
         function() {
           $("#add_property_form").jqmShow();
