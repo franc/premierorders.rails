@@ -14,7 +14,7 @@
   </script>
 <% end %>
 
-<%= form_for(@item) do |f| %>
+<%= form_for(@item, :url => item_path(@item)) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -32,7 +32,7 @@
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
       <dt><%= f.label :type %></dt>
-      <dd><%= f.select(:type, Item::TYPES) %></dd>
+      <dd><%= f.select(:type, Item.item_types.map{|t| t.to_s}) %></dd>
       <dt><%= f.label :description %></dt>
       <dd><%= f.text_area :description %></dd>
       <dt><%= f.label :sku %></dt>
@@ -47,8 +47,7 @@
       <dd><%= f.text_field :purchase_part_id %></dd>
       <dt>Properties <span id="add_property">(+)</span></dt>
       <dd><%= render :partial => 'properties', 
-                     :object => @item.item_properties 
-                     :locals => {:id => 'item_properties'} %></dd>
+                     :locals => {:id => 'item_properties', :properties => @item.item_properties} %></dd>
       <dt>Components <span id="add_component">(+)</span></dt>
       <dd>
         <table class="item_components">
@@ -78,4 +77,4 @@
   </div>
 <% end %>
 
-<% render :partial => 'add_property', :locals => {:item => @item} %>
+<%= render :partial => 'add_property', :locals => {:item => @item} %>

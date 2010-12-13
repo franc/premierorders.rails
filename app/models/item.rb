@@ -1,11 +1,11 @@
 require 'property.rb'
-#require 'items/cabinet.rb'
-#require 'items/shell.rb'
-#require 'items/panel.rb'
-#require 'items/door.rb'
-#require 'items/drawer.rb'
 
 class Item < ActiveRecord::Base
+  def self.execute_sql(array)     
+    sql = self.send(:sanitize_sql_array, array)
+    self.connection.execute(sql)
+  end
+
   def self.item_types 
     [
       Cabinet,
@@ -27,3 +27,10 @@ class Item < ActiveRecord::Base
     job_item.quantity * job_item.unit_price
   end
 end
+
+require 'items/cabinet.rb'
+require 'items/shell.rb'
+require 'items/panel.rb'
+require 'items/door.rb'
+require 'items/drawer.rb'
+

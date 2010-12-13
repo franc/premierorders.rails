@@ -1,12 +1,27 @@
 require 'json'
 
+module ModularProperty
+  def value_structure
+    modules.inject({}) {|vs, mod| vs.merge(mod.value_structure)}  
+  end
+end
+
+module NamedModules
+  def modules
+    (module_names || '').split(/\s*,\s*/).map do |mod_name|
+      Property.const_get(mod_name.to_sym)
+    end
+  end
+end
+
 class PropertyDescriptor
+  include ModularProperty
   attr_reader :family, :qualifiers, :modules
   def initialize(family, qualifiers, modules, options = nil)
     @family = family
     @qualifiers = qualifiers
     @modules = modules
-    @options = options
+    @options = options # a list of lambdas that can extract value options from an item or item_component
   end
 
   def options(item)
@@ -16,22 +31,14 @@ class PropertyDescriptor
   def module_names
     modules.map{|m| m.to_s}.join(", ")
   end
-
-  def value_structure
-    modules.inject({}) {|vs, mod| vs.merge(mod.value_structure)}  
-  end
 end
 
 module Properties
   module Polymorphic
+    include NamedModules, ModularProperty
+
     def morph
       modules.each {|mod| self.extend(mod) unless self.kind_of?(mod)}
-    end
-
-    def modules
-      (module_names || '').split(/\s*,\s*/).map do |mod_name|
-        Property.const_get(mod_name.to_sym)
-      end
     end
   end
 
@@ -101,6 +108,8 @@ end
 # Each item may have a number of properties. Each property for a given
 # item may take on one or more of a number of possible values.
 class Property < ActiveRecord::Base
+  include NamedModules, ModularProperty
+
   has_and_belongs_to_many :items
 	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' 
   has_many :job_item_properties 

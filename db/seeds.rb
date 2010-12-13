@@ -110,15 +110,15 @@ def load_product_data(filename)
 
   def data_map(filename)
     IO.readlines(filename).inject({}) do |m, line|
-      id, old_value, new_value, *prefixes = line.split(",")
+      id, category, new_value, *prefixes = line.split(",")
       if m.has_key?(id)
         delegate = m[id]
         m[id] = lambda do |description|
-          (prefixes.empty? || prefix_match(description, prefixes)) ? new_value.strip : delegate.call(description)
+          (prefixes.empty? || prefix_match(description, prefixes)) ? [category, new_value.strip] : delegate.call(description)
         end
       else
         m[id] = lambda do |description|
-          (prefixes.empty? || prefix_match(description, prefixes)) ? new_value.strip : nil
+          (prefixes.empty? || prefix_match(description, prefixes)) ? [category, new_value.strip] : nil
         end
       end
       m
@@ -130,7 +130,14 @@ def load_product_data(filename)
   #dv_edgeband  = data_map("#{@seed_data_dir}/dvinci_edgeband.csv")
   #dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
 
-  color_prop = Property.find_or_create_by_name('Cabinet Color', :family => 'color')
+  color_props = {
+      "Cabinet" => Property.find_or_create_by_name('Cabinet Color', :family => 'color'),
+      "Premium Cabinet" => Property.find_or_create_by_name('Premium Cabinet Color', :family => 'color'),
+      "Home Office Cabinet" => Property.find_or_create_by_name('Home Office Cabinet Color', :family => 'color'),
+      "Hardware" => Property.find_or_create_by_name('Hardware Color', :family => 'color'),
+      "Countertop" => Property.find_or_create_by_name('Countertop Color', :family => 'color')
+  }
+
   #material_attr = ItemAttr.find_or_create_by_name('Case Material', :type => 'Material')
   #edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :type => 'EdgeBand')
   #edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge 2', :type => 'EdgeBand')
@@ -153,7 +160,7 @@ def load_product_data(filename)
     else
       t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
 
-      color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : nil
+      category, color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : [nil, nil]
       base_description = color.nil? ? description : description.gsub(/,?\s*#{color}/i, '')
       color_match = base_description != description
 
@@ -170,7 +177,9 @@ def load_product_data(filename)
         :purchasing => purchase_types[purchasing]
       )
 
-      if color_match
+      color_prop = color_props[category]
+      if color_match && color_prop
+        item.item_properties.find_or_create_by_item_id_and_property_id(item.id, color_prop.id)
         color_value = color_prop.property_values.find_or_create_by_name_and_dvinci_id(color, color_key)
         color_value.update_attributes(:module_names => 'Color', :value_str => "{\"color\": \"#{color}\"}")
 

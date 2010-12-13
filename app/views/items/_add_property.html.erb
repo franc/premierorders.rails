@@ -120,7 +120,7 @@
       <div class="prototype property_value_field descriptor_<%=i%>">
         <dl>
           <dt>Value Name:</dt>
-          <dd><%= text_field :value_name %></dd> 
+          <dd><%= text_field_tag :value_name %></dd>
           <% descriptor.value_structure.each do |name, type| %>
             <dt><%= name.titlecase %>:</dt>
             <dd><%= property_value_field_tag(name, type) %></dd>
@@ -132,7 +132,7 @@
     <!-- the visible property creation form -->
     <dl>
       <dt>Property Name:</dt>
-      <dd><%= text_field :property_name %></dd>
+      <dd><%= text_field_tag :property_name %></dd>
       <dt>Qualifiers:</dt>
       <dd><select class="property_qualifiers_select" name="property_qualifiers" multiple="true"></select></dd>
       <dt>Possible Values: <span id="add_value_click">(+)</span></dt>

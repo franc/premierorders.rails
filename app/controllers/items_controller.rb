@@ -58,6 +58,10 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
 
+    if @item && params[:item][:type] 
+      Item.execute_sql(["UPDATE items SET type = ? WHERE id = ?", params[:item][:type], @item.id]);
+    end
+
     respond_to do |format|
       if @item.update_attributes(params[:item])
         format.html { redirect_to(@item, :notice => 'Item was successfully updated.') }
