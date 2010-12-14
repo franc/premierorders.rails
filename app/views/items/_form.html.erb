@@ -20,12 +20,13 @@
   </style>
   <script type="text/javascript">
     jQuery(function($) {
-      $("#add_property_form").jqm();
-      $("#add_property").hover(editIn, editOut).click(
-        function() {
-          $("#add_property_form").jqmShow();
-        }
-      );
+      <% if descriptors(@item).empty? %>
+      $("#add_property").hide();
+      <% end %>
+      $("#add_property").hover(editIn, editOut);
+      $("#add_property_form").jqm({trigger: "#add_property"});
+      $("#add_property_cancel").click(function() { $("#add_property_form").jqmHide(); });
+
       $("#add_component").hover(editIn, editOut).click(add_component(<%= @item.id -%>));
       $(".add_item_component_property").hover(editIn, editOut);
     });
@@ -95,4 +96,4 @@
   </div>
 <% end %>
 
-<%= render :partial => 'add_property', :locals => {:item => @item} %>
+<%= render :partial => 'add_property', :locals => {:item => @item, :form_css_id => 'add_property_form'} %>

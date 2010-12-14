@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <script type="text/javascript">
     var add_method = function() {
-      return $('#add_property_form input:radio[name=add_property_method]:checked').val();
+      return $('#<%= form_css_id %> input:radio[name=add_property_method]:checked').val();
     };
 
     var selected_descriptor_id = function() {
@@ -11,7 +11,7 @@
     var descriptors = <%= descriptors_json(item) %>;
 
     jQuery(function($) {
-      $("#add_property_form input:radio[name=add_property_method]").change(
+      $("#<%= form_css_id %> input:radio[name=add_property_method]").change(
         function() {
           if (add_method() === "new") {
             $("#add_existing_property").hide();
@@ -104,7 +104,7 @@
   </script>
 <% end %>
 
-<div id="add_property_form" style="display: none">
+<div id="<%= form_css_id %>">
   <ul>
     <li><input type="radio" name="add_property_method" value="existing"/> Add Existing</li>
     <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
@@ -163,4 +163,5 @@
   </div>
 
   <button id="add_property_submit">Submit</button>
+  <button id="add_property_cancel">Cancel</button>
 </div>

@@ -3,10 +3,6 @@ require 'property.rb'
 class Cabinet < Item
   DIMENSIONS_DESCRIPTOR = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height, Property::Depth])
 
-  def self.conf_properties
-    []
-  end
-
   def self.job_properties
     [LinearUnits::DESCRIPTOR]
   end
