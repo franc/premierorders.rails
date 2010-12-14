@@ -1,0 +1,19 @@
+        <table class="item_components" id="<%= id %>">
+          <tr>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Properties</th>
+            <th>Add Property</th>
+          </tr>
+          <% components.each_with_index do |comp, i| %>
+            <tr>
+              <td><%= comp.component.type %></td>
+              <td><%= comp.quantity %></td>
+              <td><%= render :partial => 'properties', 
+                             :object => comp.item_component_properties, 
+                             :locals => {:id => 'component_relationship_properties'} %></td>
+              <td><span class="add_component_property" onclick="add_item_component_property(<%= comp.id %>)">(+)</span></td>
+            </tr>
+          <% end %>
+        </table>
+

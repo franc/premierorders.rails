@@ -1,0 +1,41 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    var add_method = function() {
+      return $('#<%= form_css_id %> input:radio[name=add_component_method]:checked').val();
+    };
+
+    var selected_component_type = function() {
+      return $("#component_type_select option:selected").val();
+    };
+
+    var component_types = <%= component_types_json(item) %>;
+
+    
+  </script>
+<% end %>
+
+<div id="<%= form_css_id %>">
+  <ul>
+    <li><input type="radio" name="add_property_method" value="existing"/> Add Existing</li>
+    <!--<li><input type="radio" name="add_property_method" value="new"/> Add New</li>-->
+  </ul>
+
+  Choose a component type: <%= component_select @item, :id => :component_select %>
+
+  <div id="component_p" style="display:none">
+  </div>
+
+  <div id="add_existing_component" style="display:none">
+    Search Items: <input id="add_existing_component_search" type="text"/>
+    <input type="hidden" name="component_id"/>
+    <dl id="existing_component_display">
+      <dt>Item Name:</dt>
+      <dd id="selected_component_name"></dd>
+      <dt>Properties:</dt>
+      <dd>
+        <%= render :partial => 'add_property', :locals => {} %>
+      </dd>
+    </dl>
+  </div>
+</div>
+

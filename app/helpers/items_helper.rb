@@ -1,20 +1,36 @@
 require 'json'
 
 module ItemsHelper
-  def descriptors(value)
+  def component_types(mod)
+    types = []
+    types += mod.component_association_types if (mod.respond_to?(:component_association_types)
+    types
+  end
+
+  def component_types_json(mod)
+    component_types(mod).to_json
+  end
+
+  def component_select(mod, options = {})
+    option_values = []
+    component_types(mod).each_with_index{|c, i| option_values << [c.to_s.demodulize, i]}
+    select_tag :component, option_values, options
+  end
+
+  def descriptors(mod)
     descriptors = []
-    descriptors += value.class.required_properties if (value.class.respond_to?(:required_properties))
-    descriptors += value.class.optional_properties if (value.class.respond_to?(:optional_properties))
+    descriptors += mod.required_properties if (mod.respond_to?(:required_properties))
+    descriptors += mod.optional_properties if (mod.respond_to?(:optional_properties))
     descriptors
   end
 
-  def descriptors_json(value)
-    descriptors(value).to_json
+  def descriptors_json(mod)
+    descriptors(mod).to_json
   end
 
-  def descriptor_select(value, options = {}) 
+  def descriptor_select(mod, options = {}) 
     option_values = []
-    descriptors(value).each_with_index{|d, i| option_values << [d.family.titlecase, i]}
+    descriptors(mod).each_with_index{|d, i| option_values << [d.family.titlecase, i]}
     select_tag :descriptor, option_values, options
   end
 

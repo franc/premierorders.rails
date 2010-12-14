@@ -26,6 +26,14 @@
       $("#add_property").hover(editIn, editOut);
       $("#add_property_form").jqm({trigger: "#add_property"});
       $("#add_property_cancel").click(function() { $("#add_property_form").jqmHide(); });
+      $("#add_property_submit").click(
+        function() { 
+          var req = request_data();
+          $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, update_notice, "json");
+          $("#add_property_form").jqmHide(); 
+        }
+      );
+
 
       $("#add_component").hover(editIn, editOut).click(add_component(<%= @item.id -%>));
       $(".add_item_component_property").hover(editIn, editOut);
@@ -68,26 +76,8 @@
       <dd><%= render :partial => 'properties', 
                      :locals => {:id => 'item_properties', :properties => @item.item_properties} %></dd>
       <dt>Components <span id="add_component">(+)</span></dt>
-      <dd>
-        <table class="item_components">
-          <tr>
-            <th>Type</th>
-            <th>Quantity</th>
-            <th>Properties</th>
-            <th>Add Property</th>
-          </tr>
-          <% @item.item_components.each_with_index do |comp, i| %>
-            <tr>
-              <td><%= comp.component.type %></td>
-              <td><%= comp.quantity %></td>
-              <td><%= render :partial => 'properties', 
-                             :object => comp.item_component_properties, 
-                             :locals => {:id => 'component_relationship_properties'} %></td>
-              <td><span class="add_component_property" onclick="add_item_component_property(<%= comp.id %>)">(+)</span></td>
-            </tr>
-          <% end %>
-        </table>
-      </dd>
+      <dd><%= render :partial => 'components', 
+                     :locals => {:id => 'item_components', :components => @item.components} %></dd>
     </dl>
   </div>
 
