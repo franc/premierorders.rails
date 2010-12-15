@@ -1,8 +1,8 @@
 <% content_for :head do %>
   <script type="text/javascript">
-    var add_property_form = $('#<%= form_css_id %>');
     var add_method = function() {
-      return $('input:radio[name=add_property_method]:checked', add_property_form).val();
+
+      return $('#add_property_form input:radio[name=add_property_method]:checked').val();
     };
 
     var selected_descriptor_id = function() {
@@ -55,12 +55,25 @@
         return request;
     };
 
+    // replaces the options for the property qualifier select in both the new and existing microforms
+    var update_qualifier_lists = function(did) {
+      $("select[name=property_qualifiers] > option").remove();
+      if ($("#property_qualifier_options_"+did+" > option").length === 0) {
+        $(".qualifier_select").hide(); 
+      } else {
+        $("select[name=property_qualifiers]").append($("#property_qualifier_options_"+did+" > option"));
+        $(".qualifier_select").show(); 
+      }
+    };
+
     jQuery(function($) {
-      $("input:radio[name=add_property_method]", add_property_form).change(
-        function() {
-          if (add_method() === "new") {
+      $("#add_property_form input:radio[name=add_property_method]").change(
+        function(ev) {
+          if ($(ev.target).val() === "new") {
             $("#add_existing_property").hide();
             $("#add_new_property").show();
+            $("#add_property_submit" ).show();
+            update_qualifier_lists(selected_descriptor_id());
           } else {
             $("#add_new_property").hide();
             $("#add_existing_property").show();
@@ -69,15 +82,11 @@
       );
 
       $("#descriptor_select").change(
-        function() {
+        function(ev) {
           var did = selected_descriptor_id();
 
-          // replace the options for the property qualifier select in both the new and existing microforms
-          $(".property_qualifiers_select option").remove();
-          $(".property_qualifiers_select").append($("#property_qualifiers_select_"+did+" option"));
-
+          update_qualifier_lists(did);
           if (add_method() === "new") {
-            $("#add_property_submit" ).show();
             $("#new_property_values div.property_value").hide();
             $("#new_property_values div.descriptor_"+did).show();
           } else {
@@ -106,8 +115,19 @@
       $("#add_existing_property_search").autocomplete({
         minLength: 0,
         source: function( request, response ) {
-          var did = selected_descriptor_id();
-          $.get("/properties/search", { family: descriptors[did].family, term: request.term }, response, "json");
+          var request_body = {
+            family: descriptors[selected_descriptor_id()].family, 
+            term: request.term
+          };
+
+          var response_wrapper = function(data) {
+            if (data.length == 0) $(".search_notice").html('(no results returned)');
+            return response(data);
+          };
+
+          $(".search_notice").html('');
+          $("#existing_property_display").hide();
+          $.get("/properties/search", request_body, response_wrapper, "json");
         },
         select: function( event, ui ) {
           // ui.item.value is an object with the following structure:
@@ -117,13 +137,14 @@
           //  property_values: [object]
           //}
           
-          $("#add_property_submit" ).show();
-          $("#add_existing_property_search" ).val( ui.item.label );
+          $("#add_property_submit").show();
+          $("#add_existing_property_search").val( ui.item.label );
           $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
           $("#selected_property_name").html(ui.item.value.property_name);
           for (value in ui.item.value.property_values) {
             $("#selected_property_values").append('<li>'+property_value_html(value)+'</li>');
           }
+          $("#existing_property_display").show();
 
           return false;
         }
@@ -134,7 +155,7 @@
 
 <div id="<%= form_css_id %>" class="<%= form_css_class %>">
   <ul>
-    <li><input type="radio" name="add_property_method" value="existing" checked/> Add Existing</li>
+    <li><input type="radio" name="add_property_method" value="existing" checked /> Add Existing</li>
     <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
   </ul>
 
@@ -144,13 +165,13 @@
   <div id="add_new_property" style="display: none">
     <!-- a prototype microform for each descriptor, to be cloned into the new_property_values list -->
     <% descriptors(item.class).each_with_index do |descriptor, i| %>
-      <%= property_qualifiers_select_tag(descriptor, :id => "property_qualifiers_select_#{i}", :class => "prototype") %>
+      <%= property_qualifiers_select_tag(descriptor, :id => "property_qualifier_options_#{i}", :class => "prototype") %>
       <div class="prototype property_value descriptor_<%=i%>">
         <dl>
           <dt>Value Name:</dt>
           <dd><%= text_field_tag :value_name %></dd>
           <% descriptor.value_structure.each do |name, type| %>
-            <dt><%= name.titlecase %>:</dt>
+            <dt><%= name.to_s.titlecase %>:</dt>
             <dd><%= property_value_field_tag(name, type) %></dd>
           <% end %>
         </dl>
@@ -161,8 +182,8 @@
     <dl>
       <dt>Property Name:</dt>
       <dd><%= text_field_tag :property_name %></dd>
-      <dt>Qualifiers:</dt>
-      <dd><select name="property_qualifiers" multiple="true"></select></dd>
+      <dt class="qualifier_select">Qualifiers:</dt>
+      <dd class="qualifier_select"><select name="property_qualifiers" multiple="true"></select></dd>
       <dt>Possible Values: <span id="add_value_click">(+)</span></dt>
       <dd>
         <ul id="new_property_values">
@@ -174,13 +195,14 @@
 
   <!-- microform to create a new association between the item and an existing property -->
   <div id="add_existing_property">
-    Search Properties: <input id="add_existing_property_search" type="text"/>
+    Search Properties: <input id="add_existing_property_search" type="text"/><br/>
     <input type="hidden" name="property_id"/>
-    <dl id="existing_property_display">
+    <span class="search_notice"></span>
+    <dl id="existing_property_display" style="display: none">
       <dt>Property Name:</dt>
       <dd id="selected_property_name"></dd>
-      <dt>Qualifiers:</dt>
-      <dd><select name="property_qualifiers" multiple="true"></select></dd>
+      <dt class="qualifier_select">Qualifiers:</dt>
+      <dd class="qualifier_select"><select name="property_qualifiers" multiple="true"></select></dd>
       <dt>Values:</dt>
       <dd id="selected_property_values"><ul></ul></dd>
     </dl>
