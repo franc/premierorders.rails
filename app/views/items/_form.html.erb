@@ -66,21 +66,21 @@
 
   <div class="form_fields">
     <dl>
-      <dt><%= f.label :name %></dt>
-      <dd><%= f.text_field :name %></dd>
       <dt><%= f.label :type %></dt>
       <dd><%= f.select(:type, Item.item_types.map{|t| t.to_s}) %></dd>
+      <dt><%= f.label :name %></dt>
+      <dd><%= f.text_field :name %></dd>
       <dt><%= f.label :description %></dt>
       <dd><%= f.text_area :description %></dd>
-      <dt><%= f.label :sku %></dt>
-      <dd><%= f.text_field :sku %></dd>
+      <dt><%= f.label :purchasing %></dt>
+      <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Purchased" => "Purchased", "Inventory" => "Inventory"}) %></dd>
       <dt><%= f.label :dvinci_id %></dt>
       <dd><%= f.text_field :dvinci_id %></dd>
       <dt><%= f.label :cutrite_id %></dt>
       <dd><%= f.text_field :cutrite_id %></dd>
-      <dt><%= f.label :purchasing %></dt>
-      <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Purchased" => "Purchased", "Inventory" => "Inventory"}) %></dd>
-      <dt><%= f.label :purchase_part_id %></dt>
+      <dt><%= f.label :vendor_sku %></dt>
+      <dd><%= f.text_field :sku %></dd>
+      <dt><%= f.label :qb_item_id %></dt>
       <dd><%= f.text_field :purchase_part_id %></dd>
       <dt>Properties <span id="add_property">(+)</span></dt>
       <dd><%= render :partial => 'properties', 
