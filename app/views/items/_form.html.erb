@@ -52,7 +52,7 @@
 
           window_contents.find("#property_receiver").val($("#item_type option:selected").val());
 
-          //manually trigger the change handler
+          //manually trigger the change handler - finding the right incantation was hell.
           dialog.w.find(".jqm_content").each(function() {
             this.contentWindow.receiver_change_reaction($("#item_type option:selected").val()); 
           });

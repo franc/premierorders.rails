@@ -10,7 +10,7 @@
     };
 
     var with_descriptors = function(mod, cont) {
-      $.get("/items/"+mod+"/property_descriptors", {}, cont, "json");
+      $.get("/items/"+mod+"/property_descriptors", cont, "json");
     };
 
     var add_property_data = function() {
@@ -67,6 +67,12 @@
           $("select[name=property_qualifiers]").append('<option value="'+qualifier+'">'+qualifier+'</option>');
         }
         $(".qualifier_select").show(); 
+      }
+    };
+
+    var update_descriptor_select = function(descriptors) {
+      for (i = 0; i < descriptors.length; i++) {
+        $("#descriptor_select").append('<option value="'+i+'">'+descriptors[i].family+'</option>');
       }
     };
 
@@ -146,11 +152,11 @@
     };
 
     var receiver_change_reaction = function(receiver_type) {
-      alert("Changing reactions for form");
       with_descriptors(
         receiver_type, 
         function(descriptors) {
           add_method_change_reaction(descriptors);
+          update_descriptor_select(descriptors);
           add_descriptor_change_reaction(descriptors);
           enable_autocomplete(descriptors);
         }
