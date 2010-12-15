@@ -115,7 +115,7 @@ class ItemsController < ApplicationController
 
   def property_form_fragment
     @descriptor = Property.descriptors(Items.const_get(params[:mod]))[params[:id].to_i]
-    render '_property_descriptor'
+    render :partial => 'property_descriptor', :layout => false
   end
   
   def component_types

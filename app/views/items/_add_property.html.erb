@@ -157,6 +157,7 @@
         function(descriptors) {
           add_method_change_reaction(descriptors);
           update_descriptor_select(descriptors);
+          if (descriptors.length > 0) update_qualifier_lists(descriptors[0].qualifiers);
           add_descriptor_change_reaction(descriptors);
           enable_autocomplete(descriptors);
         }
@@ -169,8 +170,8 @@
       });
 
       $("#add_value_click").click(function() {
+        var mod = $("#property_receiver").val();
         var did = selected_descriptor_id();
-        var mod = property_receiver();
         
         $.get(
           "/items/"+mod+"/property_form_fragment/"+did, 
