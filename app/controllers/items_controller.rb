@@ -102,4 +102,38 @@ class ItemsController < ApplicationController
       end
     end
   end
+
+  def add_property_form
+    render '_add_property', :layout => 'minimal'
+  end
+
+  def property_descriptors
+    if request.xhr?
+      render :json => Property.descriptors(Items.const_get(params[:mod])).to_json
+    end
+  end
+
+  def property_form_fragment
+    @descriptor = Property.descriptors(Items.const_get(params[:mod]))[params[:id].to_i]
+    render '_property_descriptor'
+  end
+  
+  def component_types
+    if request.xhr?
+      render :json => Item.component_types(Items.const_get(params[:mod])).to_json
+    end
+  end
+
+  def component_association_types
+    type_map = Item.component_association_modules(Items.const_get(params[:mod])).inject([]) do |result, cmod|
+      result << { 
+        :association_type => cmod.to_s.demodulize,
+        :component_types  => component_types(cmod).map{|ct| ct.to_s.demodulize} 
+      }
+    end
+
+    if request.xhr?
+      render :json => type_map.to_json
+    end
+  end
 end

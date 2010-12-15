@@ -17,23 +17,61 @@
         border: 1px solid black;
         padding: 12px;
     }
+
+    .jqm_form iframe { 
+      width:99%; height:40%; 
+      display: block; clear:both; 
+      margin:auto; background:#111; border:1px dotted #444; 
+    }
   </style>
   <script type="text/javascript">
     jQuery(function($) {
-      <% if descriptors(@item.class).empty? %>
-      $("#add_property").hide();
+      $("select[name=item_type]").change(function(ev) {
+        $.get(
+          "/items/"+ev.target.val()+"/property_descriptors",
+          function(data) { 
+            if (data.length == 0) {
+              $("#add_property").hide();
+            } else {
+              $("#add_property").show();
+            }
+          },
+          'json'
+        );
+      });
+
+      <% if Property.descriptors(@item.class).empty? %>
+        $("#add_property").hide();
       <% end %>
       $("#add_property").hover(editIn, editOut);
-      $("#add_property_form").jqm({trigger: "#add_property"}).jqmAddClose("#add_property_cancel");
-      $("#add_property_submit").click(
-        function() { 
-          var req = add_property_data();
-          $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, update_notice, "json");
-          $("#add_property_form").jqmHide(); 
-        }
-      );
+      $("#add_property_window").jqm({
+        //modal: true,
+        trigger: "#add_property",
+        onShow: function(dialog) {
+          var window_contents = dialog.w.find(".jqm_content").contents();
 
-      <% if component_association_types(@item.class).empty? %>
+          window_contents.find("#property_receiver").val($("#item_type option:selected").val());
+
+          //manually trigger the change handler
+          dialog.w.find(".jqm_content").each(function() {
+            this.contentWindow.receiver_change_reaction($("#item_type option:selected").val()); 
+          });
+
+          window_contents.find("#add_property_submit").click(function() { 
+            var req = this.add_property_data();
+            $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, update_notice, "json");
+            dialog.w.hide();
+          });
+
+          window_contents.find("#add_property_cancel").click(function() { 
+            dialog.w.hide();
+          });
+
+          dialog.w.show();
+        }
+      });
+
+      <% if Item.component_association_modules(@item.class).empty? %>
         $("#add_component").hide();
       <% end %>
       $("#add_component").hover(editIn, editOut);
@@ -51,7 +89,7 @@
   </script>
 <% end %>
 
-<%= form_for(@item, :url => item_path(@item)) do |f| %>
+<%= form_for(@item, :as => :item, :url => item_path(@item)) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -96,5 +134,8 @@
   </div>
 <% end %>
 
-<%= render :partial => 'add_property',  :locals => {:item => @item, :form_css_id => 'add_property_form',  :form_css_class => 'jqm_form'} %>
-<%= render :partial => 'add_component', :locals => {:item => @item, :form_css_id => 'add_component_form', :form_css_class => 'jqm_form'} %>
+<div id="add_property_window" class="jqm_form">
+  <iframe src="/items/add_property_form" class="jqm_content"></iframe>
+</div>
+<%#= render :partial => 'add_property',  :locals => {:item => @item, :form_css_class => 'jqm_form'} %>
+<%#= render :partial => 'add_component', :locals => {:item => @item, :form_css_class => 'jqm_form'} %>

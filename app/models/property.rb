@@ -110,6 +110,13 @@ end
 class Property < ActiveRecord::Base
   include NamedModules, ModularProperty
 
+  def self.descriptors(mod)
+    descriptors = []
+    descriptors += mod.required_properties if (mod.respond_to?(:required_properties))
+    descriptors += mod.optional_properties if (mod.respond_to?(:optional_properties))
+    descriptors
+  end
+
   has_and_belongs_to_many :items
 	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' 
   has_many :job_item_properties 

@@ -1,5 +1,8 @@
 PgRails::Application.routes.draw do
   match 'items/search' => 'items#search'
+  match 'items/:mod/property_descriptors'  => 'items#property_descriptors'
+  match 'items/:mod/component_descriptors' => 'items#component_descriptors'
+  match 'items/add_property_form'          => 'items#add_property_form'
   resources :items
 
   devise_for :users
