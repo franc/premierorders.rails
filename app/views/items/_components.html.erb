@@ -9,10 +9,15 @@
             <tr>
               <td><%= comp.component.type %></td>
               <td><%= comp.quantity %></td>
-              <td><%= render :partial => 'properties', 
-                             :object => comp.item_component_properties, 
-                             :locals => {:id => 'component_relationship_properties'} %></td>
-              <td><span class="add_component_property" onclick="add_item_component_property(<%= comp.id %>)">(+)</span></td>
+              <td>
+                <span class="add_component_property">(+)</span>
+                <%= render :partial => 'properties', 
+                           :locals => {
+                             :id => 'component_relationship_properties', 
+                             :properties => comp.item_component_properties
+                            } 
+                %>
+              </td>
             </tr>
           <% end %>
         </table>

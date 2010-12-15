@@ -1,7 +1,8 @@
 <% content_for :head do %>
   <script type="text/javascript">
+    var add_property_form = $('#<%= form_css_id %>');
     var add_method = function() {
-      return $('#<%= form_css_id %> input:radio[name=add_property_method]:checked').val();
+      return $('input:radio[name=add_property_method]:checked', add_property_form).val();
     };
 
     var selected_descriptor_id = function() {
@@ -26,36 +27,36 @@
         };
         
         if (add_method() === "new") {
-          add_qualifiers($("#add_new_property"));
+          var form_element = $("#add_new_property");
+          add_qualifiers(form_element);
 
-          var did = selected_descriptor_id();
-          request.data['name'] = $("#add_new_property input:text[name=property_name]").val();
-          request.data['descriptor_id'] = did;
-          request.data['values'] = [];
+          request.data.name = $("input:text[name=property_name]", form_element).val();
+          request.data.descriptor_id = selected_descriptor_id();
+          request.data.values = [];
 
-          $("#new_property_values div.property_value.descriptor_"+did).each(
-            function(index, element) {
+          $("#new_property_values div.property_value.descriptor_"+request.data.descriptor_id).each(
+            function(index, pv_element) {
               var new_value = {};
-              $(".property_value_field", element).each(
-                function(vfi, vfelem) {
-                  new_value[$(vfelem).attr('name')] = vfelem.val();
+              $(".property_value_field", pv_element).each(
+                function(vfi, vf_element) {
+                  new_value[$(vf_element).attr('name')] = vf_element.val();
                 }
               );
               
-              request.data['values'].push(new_value);
+              request.data.values.push(new_value);
             }
           );
         } else {
           var form_element = $("#add_existing_property");
           add_qualifiers(form_element);
-          request.data['property_id'] = $("input:hidden[name=property_id]", form_element).val();
+          request.data.property_id = $("input:hidden[name=property_id]", form_element).val();
         }
 
         return request;
     };
 
     jQuery(function($) {
-      $("#<%= form_css_id %> input:radio[name=add_property_method]").change(
+      $("input:radio[name=add_property_method]", add_property_form).change(
         function() {
           if (add_method() === "new") {
             $("#add_existing_property").hide();
@@ -82,7 +83,8 @@
             // just hide the display and remove the value from the hidden field.
             // it will be repopulated when the user selects a new value from 
             // a search
-            $("#existing_property_id").val(null);
+            $("#add_existing_property_search").val('');
+            $("#add_existing_property input:hidden[name=property_id]").val(null);
             $("#existing_property_display").hide();
           }
         }
@@ -117,7 +119,7 @@
           $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
           $("#selected_property_name").html(ui.item.value.property_name);
           for (value in ui.item.value.property_values) {
-            $("#selected_property_values dl").append('<li>'+property_value_html(value)+'</li>');
+            $("#selected_property_values").append('<li>'+property_value_html(value)+'</li>');
           }
 
           return false;
@@ -129,7 +131,7 @@
 
 <div id="<%= form_css_id %>">
   <ul>
-    <li><input type="radio" name="add_property_method" value="existing"/> Add Existing</li>
+    <li><input type="radio" name="add_property_method" value="existing" checked/> Add Existing</li>
     <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
   </ul>
 
@@ -168,7 +170,7 @@
   </div>
 
   <!-- microform to create a new association between the item and an existing property -->
-  <div id="add_existing_property" style="display: none">
+  <div id="add_existing_property">
     Search Properties: <input id="add_existing_property_search" type="text"/>
     <input type="hidden" name="property_id"/>
     <dl id="existing_property_display">
@@ -176,12 +178,8 @@
       <dd id="selected_property_name"></dd>
       <dt>Qualifiers:</dt>
       <dd><select name="property_qualifiers" multiple="true"></select></dd>
-      <dt>Possible Values:</dt>
-      <dd>
-        <ul id="selected_property_values">
-          <dl></dl>
-        </ul>
-      </dd>
+      <dt>Values:</dt>
+      <dd id="selected_property_values"><ul></ul></dd>
     </dl>
   </div>
 

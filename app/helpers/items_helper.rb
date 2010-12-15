@@ -3,7 +3,7 @@ require 'json'
 module ItemsHelper
   def component_types(mod)
     types = []
-    types += mod.component_association_types if (mod.respond_to?(:component_association_types)
+    types += mod.component_association_types if mod.respond_to?(:component_association_types)
     types
   end
 

@@ -24,19 +24,29 @@
       $("#add_property").hide();
       <% end %>
       $("#add_property").hover(editIn, editOut);
-      $("#add_property_form").jqm({trigger: "#add_property"});
-      $("#add_property_cancel").click(function() { $("#add_property_form").jqmHide(); });
+      $("#add_property_form").jqm({trigger: "#add_property"}).jqmAddClose("#add_property_cancel");
       $("#add_property_submit").click(
         function() { 
-          var req = request_data();
+          var req = add_property_data();
           $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, update_notice, "json");
           $("#add_property_form").jqmHide(); 
         }
       );
 
+      <% if component_types(@item).empty? %>
+        $("#add_component").hide();
+      <% end %>
+      $("#add_component").hover(editIn, editOut);
+      $("#add_component_form").jqm({trigger: "#add_component"}).jqmAddClose("#add_component_cancel");
+      $("#add_component_submit").click(
+        function() { 
+          var req = add_component_data();
+          $.post("/items/<%=@item.id%>/add_"+req.type+"_component", req.data, update_notice, "json");
+          $("#add_component_form").jqmHide(); 
+        }
+      );
 
-      $("#add_component").hover(editIn, editOut).click(add_component(<%= @item.id -%>));
-      $(".add_item_component_property").hover(editIn, editOut);
+      $(".add_component_property").hover(editIn, editOut);
     });
   </script>
 <% end %>
@@ -86,4 +96,5 @@
   </div>
 <% end %>
 
-<%= render :partial => 'add_property', :locals => {:item => @item, :form_css_id => 'add_property_form'} %>
+<%= render :partial => 'add_property',  :locals => {:item => @item, :form_css_id => 'add_property_form'} %>
+<%= render :partial => 'add_component', :locals => {:item => @item, :form_css_id => 'add_component_form'} %>
