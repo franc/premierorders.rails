@@ -42,15 +42,15 @@ module ItemsHelper
 
   def descriptor_select(mod, options = {}) 
     option_values = []
-    descriptors(mod).each_with_index{|d, i| option_values << [d.family.titlecase, i]}
+    descriptors(mod).each_with_index{|d, i| option_values << [d.family.to_s.titlecase, i]}
     select_tag :descriptor, options_for_select(option_values), options
   end
 
   def property_value_field_tag(name, type)
     if type.kind_of?(Array)
-      select_tag name, options_for_select(type.map{|t| [t, t]}), :class => 'property_value_field'
+      select_tag(name, options_for_select(type.map{|t| [t, t]}), {:class => 'property_value_field'})
     else
-      text_field_tag name, :class => 'property_value_field'
+      text_field_tag(name, nil, {:class => 'property_value_field'})
     end
   end
 

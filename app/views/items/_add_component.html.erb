@@ -37,18 +37,18 @@
       //     })
       $("#add_existing_component_search").autocomplete({
         source: function( request, response ) {
-          var ct = selected_component_type();
           var request_body = { 
-            types: component_types[ct].component_types,
+            types: component_types[selected_component_type()].component_types,
             term: request.term 
           };
 
           var response_wrapper = function(data) {
-            if (data.length == 0) $("#search_notice").html('(no results returned)');
+            if (data.length == 0) $(".search_notice").html('(no results returned)');
             return response(data);
           };
 
-          $("#search_notice").html('');
+          $(".search_notice").html('');
+          $("#existing_component_display").hide();
           $.get("/items/search", request_body, response_wrapper, "json");
         },
         select: function( event, ui ) {
@@ -64,6 +64,7 @@
           $("#add_existing_component input:hidden[name=component_id]").val( ui.item.value.item_id );
           $("#selected_component_name").html(ui.item.value.item_name);
           $("#selected_component_dvinci_id").html(ui.item.value.item_dvinci_id);
+          $("#existing_component_display").show();
 
           return false;
         }
@@ -83,7 +84,7 @@
   <div id="add_existing_component">
     Search Items: <input id="add_existing_component_search" type="text"/><br/>
     <input type="hidden" name="component_id"/>
-    <span id="search_notice"></span>
+    <span class="search_notice"></span>
     <dl id="existing_component_display" style="display: none">
       <dt>Item Name:</dt>
       <dd id="selected_component_name"></dd>
