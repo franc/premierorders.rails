@@ -9,7 +9,7 @@
       return $("#descriptor_select option:selected").val();
     };
 
-    var descriptors = <%= descriptors_json(item.class) %>;
+    var descriptors = <%= raw descriptors_json(item.class) %>;
 
     var add_property_data = function() {
         var request = {
@@ -77,12 +77,14 @@
           $(".property_qualifiers_select").append($("#property_qualifiers_select_"+did+" option"));
 
           if (add_method() === "new") {
+            $("#add_property_submit" ).show();
             $("#new_property_values div.property_value").hide();
             $("#new_property_values div.descriptor_"+did).show();
           } else {
             // just hide the display and remove the value from the hidden field.
             // it will be repopulated when the user selects a new value from 
             // a search
+            $("#add_property_submit" ).hide();
             $("#add_existing_property_search").val('');
             $("#add_existing_property input:hidden[name=property_id]").val(null);
             $("#existing_property_display").hide();
@@ -115,6 +117,7 @@
           //  property_values: [object]
           //}
           
+          $("#add_property_submit" ).show();
           $("#add_existing_property_search" ).val( ui.item.label );
           $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
           $("#selected_property_name").html(ui.item.value.property_name);
@@ -129,7 +132,7 @@
   </script>
 <% end %>
 
-<div id="<%= form_css_id %>">
+<div id="<%= form_css_id %>" class="<%= form_css_class %>">
   <ul>
     <li><input type="radio" name="add_property_method" value="existing" checked/> Add Existing</li>
     <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
@@ -183,6 +186,6 @@
     </dl>
   </div>
 
-  <button id="add_property_submit">Submit</button>
+  <button id="add_property_submit" style="display:none">Submit</button>
   <button id="add_property_cancel">Cancel</button>
 </div>

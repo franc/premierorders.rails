@@ -84,4 +84,22 @@ class ItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def search
+    logger.info "Got types: #{params[:types].inspect}"
+    @items = Item.search(params[:types], params[:term])
+
+    if request.xhr?
+      render :json => @items.map do |item|
+        {
+          :label => item.name,
+          :value => {
+            :item_id => item.id,
+            :item_name => item.name,
+            :dvinci_id => item.dvinci_id
+          }
+        }
+      end
+    end
+  end
 end

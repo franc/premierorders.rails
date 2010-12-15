@@ -1,4 +1,5 @@
 PgRails::Application.routes.draw do
+  match 'items/search' => 'items#search'
   resources :items
 
   devise_for :users

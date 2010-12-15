@@ -1,8 +1,8 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
   <style>
-    #add_property_form {
+    .jqm_form {
         display: none;
         
         position: fixed;
@@ -20,7 +20,7 @@
   </style>
   <script type="text/javascript">
     jQuery(function($) {
-      <% if descriptors(@item).empty? %>
+      <% if descriptors(@item.class).empty? %>
       $("#add_property").hide();
       <% end %>
       $("#add_property").hover(editIn, editOut);
@@ -33,7 +33,7 @@
         }
       );
 
-      <% if component_types(@item).empty? %>
+      <% if component_association_types(@item.class).empty? %>
         $("#add_component").hide();
       <% end %>
       $("#add_component").hover(editIn, editOut);
@@ -96,5 +96,5 @@
   </div>
 <% end %>
 
-<%= render :partial => 'add_property',  :locals => {:item => @item, :form_css_id => 'add_property_form'} %>
-<%= render :partial => 'add_component', :locals => {:item => @item, :form_css_id => 'add_component_form'} %>
+<%= render :partial => 'add_property',  :locals => {:item => @item, :form_css_id => 'add_property_form',  :form_css_class => 'jqm_form'} %>
+<%= render :partial => 'add_component', :locals => {:item => @item, :form_css_id => 'add_component_form', :form_css_class => 'jqm_form'} %>

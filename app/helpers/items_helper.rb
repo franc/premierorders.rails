@@ -3,18 +3,30 @@ require 'json'
 module ItemsHelper
   def component_types(mod)
     types = []
+    types += mod.component_types if mod.respond_to?(:component_types)
+    types
+  end
+
+  def component_association_types(mod)
+    types = []
     types += mod.component_association_types if mod.respond_to?(:component_association_types)
     types
   end
 
   def component_types_json(mod)
-    component_types(mod).to_json
+    type_map = component_association_types(mod).inject([]) do |result, cmod|
+      result << { 
+        :association_type => cmod.to_s.demodulize,
+        :component_types  => component_types(cmod).map{|ct| ct.to_s.demodulize} 
+      }
+    end
+    type_map.to_json
   end
 
   def component_select(mod, options = {})
     option_values = []
-    component_types(mod).each_with_index{|c, i| option_values << [c.to_s.demodulize, i]}
-    select_tag :component, option_values, options
+    component_association_types(mod).each_with_index{|c, i| option_values << [c.to_s.demodulize, i]}
+    select_tag :component, options_for_select(option_values), options
   end
 
   def descriptors(mod)
@@ -31,7 +43,7 @@ module ItemsHelper
   def descriptor_select(mod, options = {}) 
     option_values = []
     descriptors(mod).each_with_index{|d, i| option_values << [d.family.titlecase, i]}
-    select_tag :descriptor, option_values, options
+    select_tag :descriptor, options_for_select(option_values), options
   end
 
   def property_value_field_tag(name, type)

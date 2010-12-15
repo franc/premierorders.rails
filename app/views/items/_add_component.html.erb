@@ -10,44 +10,60 @@
       return $("#component_type_select option:selected").val();
     };
 
-    var component_types = <%= component_types_json(item) %>;
+    var component_types = <%= raw component_types_json(item.class) %>;
 
     var add_component_data = function() {
-      return {
-        component_id: $("#existing_component_display").val();
+      var data = {
+        component_id: $("#existing_component_display").val()
       };
-    }
 
-    jQuery(function($)) {
+      return data;
+    };
+
+    jQuery(function($) {
       $("#component_type_select").change(
         function() {
           var ct = selected_component_type();
+          $("#add_component_submit").hide();
           $("#add_existing_component_search").val('');
           $("#add_existing_component input:hidden[name=component_id]").val(null);
         }
       ); 
 
+      //.bind( "keydown", function( event ) {
+      //       if ( event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active ) {
+      //         event.preventDefault();
+      //       }
+      //     })
       $("#add_existing_component_search").autocomplete({
-        minLength: 0,
         source: function( request, response ) {
           var ct = selected_component_type();
-          $.get("/items/search", { type: component_types[ct], term: request.term }, response, "json");
+          var request_body = { 
+            types: component_types[ct].component_types,
+            term: request.term 
+          };
+
+          var response_wrapper = function(data) {
+            if (data.length == 0) $("#search_notice").html('(no results returned)');
+            return response(data);
+          };
+
+          $("#search_notice").html('');
+          $.get("/items/search", request_body, response_wrapper, "json");
         },
         select: function( event, ui ) {
           // ui.item.value is an object with the following structure:
           //{
-          //  property_id: int,
-          //  property_name: string,
+          //  item_id: int,
+          //  item_name: string,
+          //  dvinci_id: string,
           //  property_values: [object]
           //}
-          
+          $("#add_component_submit").show();
           $("#add_existing_component_search" ).val( ui.item.label );
           $("#add_existing_component input:hidden[name=component_id]").val( ui.item.value.item_id );
           $("#selected_component_name").html(ui.item.value.item_name);
           $("#selected_component_dvinci_id").html(ui.item.value.item_dvinci_id);
-          for (value in ui.item.value.property_values) {
-            $("#selected_component_properties ul").append('<li>'+property_value_html(value)+'</li>');
-          }
 
           return false;
         }
@@ -56,18 +72,19 @@
   </script>
 <% end %>
 
-<div id="<%= form_css_id %>">
-  <ul>
+<div id="<%= form_css_id %>" class="<%= form_css_class %>">
+  <ul style="display: none">
     <li><input type="radio" name="add_property_method" value="existing" checked/> Add Existing</li>
-    <!--<li><input type="radio" name="add_property_method" value="new"/> Add New</li>-->
+    <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
   </ul>
 
-  Choose a component type: <%= component_select @item, :id => :component_type_select %>
+  Choose a component type: <%= component_select item.class, :id => :component_type_select %>
 
-  <div id="add_existing_component" style="display:none">
-    Search Items: <input id="add_existing_component_search" type="text"/>
+  <div id="add_existing_component">
+    Search Items: <input id="add_existing_component_search" type="text"/><br/>
     <input type="hidden" name="component_id"/>
-    <dl id="existing_component_display">
+    <span id="search_notice"></span>
+    <dl id="existing_component_display" style="display: none">
       <dt>Item Name:</dt>
       <dd id="selected_component_name"></dd>
       <dt>D'Vinci ID:</dt>
@@ -77,7 +94,7 @@
     </dl>
   </div>
 
-  <button id="add_component_submit">Submit</button>
+  <button id="add_component_submit" style="display: none">Submit</button>
   <button id="add_component_cancel">Cancel</button>
 </div>
 

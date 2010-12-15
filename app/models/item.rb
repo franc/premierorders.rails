@@ -23,6 +23,10 @@ class Item < ActiveRecord::Base
   has_many :item_components
   has_many :components, :through => :item_components, :class_name => 'Item'
 
+  def self.search(types, term)
+    Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
+  end
+
   def compute_price(job_item)
     job_item.quantity * job_item.unit_price
   end
