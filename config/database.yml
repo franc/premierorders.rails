@@ -1,7 +1,7 @@
 development: 
   adapter: postgresql
   encoding: utf8 
-  database: pg_orders 
+  database: pg_dev 
   pool: 5 
   username: pg_orders 
   password: pg_orders
@@ -15,8 +15,10 @@ test:
   pool: 5
   timeout: 5000
 
-#production:
-#  adapter: sqlite3
-#  database: db/production.sqlite3
-#  pool: 5
-#  timeout: 5000
+production: 
+  adapter: postgresql
+  encoding: utf8 
+  database: pg_orders 
+  pool: 5 
+  username: pg_orders 
+  password: pg_orders
