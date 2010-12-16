@@ -127,7 +127,7 @@ class ItemsController < ApplicationController
         ItemProperty.create(:item => item, :property => property)
       end
 
-      render :nothing
+      render :nothing => true
     end
   end
 
@@ -135,7 +135,7 @@ class ItemsController < ApplicationController
     if request.xhr?
       logger.info(params.inspect)
 
-      render :nothing
+      render :nothing => true
     end
   end
 

@@ -67,8 +67,8 @@
       if (qualifiers.length === 0) {
         $(".qualifier_select").hide(); 
       } else {
-        for (qualifier in qualifiers) {
-          $("select[name=property_qualifiers]").append('<option value="'+qualifier+'">'+qualifier+'</option>');
+        for (i = 0; i < qualifiers.length; i++) {
+          $("select[name=property_qualifiers]").append('<option value="'+qualifiers[i]+'">'+qualifiers[i]+'</option>');
         }
         $(".qualifier_select").show(); 
       }
