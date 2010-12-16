@@ -108,8 +108,24 @@ class ItemsController < ApplicationController
       item = Item.find(params[:id])
       render :partial => 'properties', :layout => false, :locals => {
         :id => 'item_properties',
-        :properties => item.properties
+        :properties => item.item_properties
       }
+    end
+  end
+
+  def add_property
+    if request.xhr?
+      item = Item.find(params[:item_id])
+      property = Property.find(params[:property_id])
+      if (params[:qualifiers] && !params[:qualifiers].empty?)
+        params[:qualifiers].each do |idx, q|
+          ItemProperty.create(:item => item, :property => property, :qualifier => q)
+        end
+      else
+        ItemProperty.create(:item => item, :property => property)
+      end
+
+      render :nothing
     end
   end
 

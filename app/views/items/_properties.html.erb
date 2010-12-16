@@ -4,11 +4,10 @@
             <th>Type</th>
             <th>Qualifier</th>
             <th>Values</th>
-            <th>Delete</th>
           </tr>
           <% properties.each_with_index do |prop, i| %>
             <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%>">
-              <td><%= prop.property.name %></td>
+              <td><%= prop.property.name %> <span class="delete_prop_assoc" onclick="">X</span></td>
               <td><%= prop.property.family.titlecase %></td>
               <td><%= prop.qualifier %></td>
               <td>
@@ -26,7 +25,6 @@
                   <% end %>
                 </dl>
               </td>
-              <td><span class="delete_prop_assoc" onclick="">X</span></td>
             </tr>
           <% end %>
         </table>

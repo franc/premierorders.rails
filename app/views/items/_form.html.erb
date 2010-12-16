@@ -25,6 +25,8 @@
     }
   </style>
   <script type="text/javascript">
+    var property_associations = {};
+
     jQuery(function($) {
       $("select[name=item_type]").change(function(ev) {
         $.get(
@@ -62,9 +64,17 @@
               var req = this.contentWindow.add_property_data();
               if (req.type === "new") {
                 handler = function(data) { 
-                  $("#item_properties").replaceWith(data); 
+                  property_associations[data.property_id] = req.data.qualifiers;
+                  if (<%=@item.id%> !== "nil") {
+                    $.get("/items/<%=@item.id%>/properties", function(data) {
+                      $("#item_properties").replaceWith(data); 
+                    });
+                  }
                 };
-                $.post("/properties", req.data, handler, "html");
+
+                req.data.item_id = <%=@item.id%>
+                req.data.qualifiers = req.qualifiers
+                $.post("/properties", req.data, handler, "json");
               }
             });
 

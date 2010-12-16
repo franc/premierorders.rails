@@ -3,7 +3,6 @@ class PropertiesController < ApplicationController
     if request.xhr?
       descriptor = Property.descriptors(Items.const_get(params[:descriptor_mod]))[params[:descriptor_id].to_i]
       property = descriptor.create_property(params[:name])
-
       params[:values].values.each do |v|
         property.property_values.create(
           :name => v[:name],
@@ -11,6 +10,22 @@ class PropertiesController < ApplicationController
           :module_names => descriptor.module_names,
           :value_str => JSON.generate(v[:fields])
         )
+      end
+
+      # go ahead and create the association to the item if data is provided
+      item_id = params[:item_id]
+      qualifiers = params[:qualifiers]
+      if (item_id)
+        item = Item.find_by_id(item_id)
+        if (item) 
+          if qualifiers.nil? || qualifiers.empty?
+            ItemProperty.create(:item => item, :property => property)  
+          else
+            qualifiers.each do |q|
+              ItemProperty.create(:item => item, :property => property, :qualifier => q)  
+            end
+          end
+        end
       end
 
       render :json => property_json(property)
