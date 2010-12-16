@@ -10,7 +10,7 @@
     };
 
     var with_descriptors = function(mod, cont) {
-      $.get("/items/"+mod+"/property_descriptors", cont, "json");
+      $.get("/<%=receiver_root%>/"+mod+"/property_descriptors", cont, "json");
     };
 
     var add_property_data = function() {
@@ -155,7 +155,9 @@
       });
     };
 
-    var receiver_change_reaction = function(receiver_type) {
+    // fired when the item type that the property will be attached to changes,
+    // resulting in a different set of property descriptors being applicable
+    var property_receiver_change = function(receiver_type) {
       with_descriptors(
         receiver_type, 
         function(descriptors) {
@@ -174,7 +176,7 @@
 
     jQuery(function($) {
       $("#property_receiver").change(function() {
-        receiver_change_reaction($("#property_receiver").val());
+        property_receiver_change($("#property_receiver").val());
       });
 
       $("#add_value_click").click(function() {
@@ -182,7 +184,7 @@
         var did = selected_descriptor_id();
         
         $.get(
-          "/items/"+mod+"/property_form_fragment/"+did, 
+          "/<%=receiver_root%>/"+mod+"/property_form_fragment/"+did, 
           function(data) { 
             $("#new_property_values").append(
               $("#new_property_values li.prototype").clone(true).removeClass().append(data) 
@@ -220,7 +222,7 @@
       </dl>
     </li>
 
-    <!-- microform to create a new association between the item and an existing property -->
+    <!-- microform to create a new association between the receiver and an existing property -->
     <li id="add_existing_property">
       Search Properties: <input id="add_existing_property_search" type="text"/><br/>
       <input type="hidden" name="property_id"/>

@@ -1,6 +1,6 @@
 class JobItem < ActiveRecord::Base
 	belongs_to :job
-  belongs_to :item, :include => :properties
+  belongs_to :item, :polymorphic => true
 	has_many   :job_item_properties, :extend => Properties::Association
 
   def compute_price

@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    @items = Item.order(:name).all
+    @items = Item.order(:name, :dvinci_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -86,7 +86,6 @@ class ItemsController < ApplicationController
   end
 
   def search
-    logger.info "Got types: #{params[:types].inspect}"
     @items = Item.search(params[:types], params[:term])
 
     if request.xhr?
@@ -115,7 +114,7 @@ class ItemsController < ApplicationController
 
   def add_property
     if request.xhr?
-      item = Item.find(params[:item_id])
+      item = Item.find(params[:receiver_id])
       property = Property.find(params[:property_id])
       if (params[:qualifiers] && !params[:qualifiers].empty?)
         params[:qualifiers].each do |idx, q|
@@ -130,7 +129,13 @@ class ItemsController < ApplicationController
   end
 
   def add_property_form
-    render '_add_property', :layout => 'minimal'
+    render '_add_property', :layout => 'minimal', :locals => {
+      :receiver_root => 'items'
+    }
+  end
+
+  def add_component_form
+    render '_add_component', :layout => 'minimal'
   end
 
   def property_descriptors
@@ -152,7 +157,7 @@ class ItemsController < ApplicationController
   
   def component_types
     if request.xhr?
-      render :json => Item.component_types(Items.const_get(params[:mod])).to_json
+      render :json => Item.component_modules(Items.const_get(params[:mod])).to_json
     end
   end
 
@@ -160,7 +165,7 @@ class ItemsController < ApplicationController
     type_map = Item.component_association_modules(Items.const_get(params[:mod])).inject([]) do |result, cmod|
       result << { 
         :association_type => cmod.to_s.demodulize,
-        :component_types  => component_types(cmod).map{|ct| ct.to_s.demodulize} 
+        :component_types  => Item.component_modules(cmod).map{|ct| ct.to_s.demodulize} 
       }
     end
 

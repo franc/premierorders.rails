@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
+  <%= javascript_include_tag 'item_editing.js' %>
   <style>
     .jqm_form {
         display: none;
@@ -26,17 +27,16 @@
   </style>
   <script type="text/javascript">
     var property_associations = {};
+    var selected_item_type = function() {
+      return $("#item_type option:selected").val();
+    };
 
     jQuery(function($) {
       $("select[name=item_type]").change(function(ev) {
         $.get(
           "/items/"+ev.target.val()+"/property_descriptors",
           function(data) { 
-            if (data.length == 0) {
-              $("#add_property").hide();
-            } else {
-              $("#add_property").show();
-            }
+            if (data.length == 0) { $("#add_property").hide(); } else { $("#add_property").show(); }
           },
           'json'
         );
@@ -52,11 +52,10 @@
         onShow: function(dialog) {
           var window_contents = dialog.w.find(".jqm_content").contents();
 
-          window_contents.find("#property_receiver").val($("#item_type option:selected").val());
-
           //manually trigger the change handler - finding the right incantation was hell.
+          window_contents.find("#property_receiver").val(selected_item_type());
           dialog.w.find(".jqm_content").each(function() {
-            this.contentWindow.receiver_change_reaction($("#item_type option:selected").val()); 
+            this.contentWindow.property_receiver_change(selected_item_type());
           });
 
           window_contents.find("#add_property_submit").click(function() { 
@@ -65,14 +64,14 @@
               if (req.type === "new") {
                 handler = function(data) { 
                   property_associations[data.property_id] = req.data.qualifiers;
-                  if (<%=@item.id%> !== "nil") {
+                  if (<%= @item.id%> !== "nil") {
                     $.get("/items/<%=@item.id%>/properties", function(data) {
-                      $("#item_properties").replaceWith(data); 
+                      $("#properties_list").replaceWith(data); 
                     });
                   }
                 };
 
-                req.data.item_id = <%=@item.id%>
+                req.data.receiver_id = <%=@item.id%>,
                 req.data.qualifiers = req.qualifiers
                 $.post("/properties", req.data, handler, "json");
               }
@@ -81,9 +80,7 @@
             dialog.w.hide();
           });
 
-          window_contents.find("#add_property_cancel").click(function() { 
-            dialog.w.hide();
-          });
+          window_contents.find("#add_property_cancel").click(function() { dialog.w.hide(); });
 
           dialog.w.show();
         }
@@ -93,16 +90,29 @@
         $("#add_component").hide();
       <% end %>
       $("#add_component").hover(editIn, editOut);
-      $("#add_component_form").jqm({trigger: "#add_component"}).jqmAddClose("#add_component_cancel");
-      $("#add_component_submit").click(
-        function() { 
-          var req = add_component_data();
-          $.post("/items/<%=@item.id%>/add_"+req.type+"_component", req.data, update_notice, "json");
-          $("#add_component_form").jqmHide(); 
-        }
-      );
+      $("#add_component_window").jqm({
+        trigger: "#add_component",
+        onShow: function(dialog) {
+          var window_contents = dialog.w.find(".jqm_content").contents();
 
-      $(".add_component_property").hover(editIn, editOut);
+          //manually trigger the change handler - finding the right incantation was hell.
+          window_contents.find("#component_receiver").val(selected_item_type());
+          dialog.w.find(".jqm_content").each(function() {
+            this.contentWindow.component_receiver_change(selected_item_type());
+          });
+
+          window_contents.find("#add_component_submit").click(function() { 
+            alert("Submit!");
+            //var req = add_component_data();
+            //$.post("/items/<%=@item.id%>/add_"+req.type+"_component", req.data, update_notice, "json");
+            //$("#add_component_window").jqmHide(); 
+          });
+
+          window_contents.find("#add_component_cancel").click(function() { dialog.w.hide(); });
+
+          dialog.w.show();
+        }
+      });
     });
   </script>
 <% end %>
@@ -140,7 +150,7 @@
       <dd><%= f.text_field :purchase_part_id %></dd>
       <dt>Properties <span id="add_property">(+)</span></dt>
       <dd><%= render :partial => 'properties', 
-                     :locals => {:id => 'item_properties', :properties => @item.item_properties} %></dd>
+                     :locals => {:id => 'properties_list', :properties => @item.item_properties} %></dd>
       <dt>Components <span id="add_component">(+)</span></dt>
       <dd><%= render :partial => 'components', 
                      :locals => {:id => 'item_components', :components => @item.components} %></dd>
@@ -155,5 +165,6 @@
 <div id="add_property_window" class="jqm_form">
   <iframe src="/items/add_property_form" class="jqm_content"></iframe>
 </div>
-<%#= render :partial => 'add_property',  :locals => {:item => @item, :form_css_class => 'jqm_form'} %>
-<%#= render :partial => 'add_component', :locals => {:item => @item, :form_css_class => 'jqm_form'} %>
+<div id="add_component_window" class="jqm_form">
+  <iframe src="/items/add_component_form" class="jqm_content"></iframe>
+</div>

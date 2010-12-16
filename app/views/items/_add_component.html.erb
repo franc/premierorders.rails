@@ -1,45 +1,36 @@
 <% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'jqModal.js' %>
+  <%= javascript_include_tag 'item_editing.js' %>
   <script type="text/javascript">
-    var add_component_form = $('#<%= form_css_id %>');
-
-    var add_method = function() {
-      return $("input:radio[name=add_component_method]:checked", add_component_form).val();
+    var selected_association_type = function() {
+      return $("#association_select option:selected").val();
     };
 
-    var selected_component_type = function() {
-      return $("#component_type_select option:selected").val();
+    var with_association_types = function(mod, cont) {
+      $.get("/items/"+mod+"/component_association_types", cont, "json")
     };
-
-    var component_types = <%= raw component_types_json(item.class) %>;
-
+    
     var add_component_data = function() {
       var data = {
-        component_id: $("#existing_component_display").val()
+        component_id: $("#add_existing_component input:hidden[name=component_id]").val()
       };
 
       return data;
     };
 
-    jQuery(function($) {
-      $("#component_type_select").change(
-        function() {
-          var ct = selected_component_type();
-          $("#add_component_submit").hide();
-          $("#add_existing_component_search").val('');
-          $("#add_existing_component input:hidden[name=component_id]").val(null);
-        }
-      ); 
+    var update_association_select = function(association_types) {
+      for (i = 0; i < association_types.length; i++) {
+        $("#association_select").append('<option value="'+i+'">'+association_types[i].association_type+'</option>');
+      }
+    };
 
-      //.bind( "keydown", function( event ) {
-      //       if ( event.keyCode === $.ui.keyCode.TAB && $(this).data("autocomplete").menu.active ) {
-      //         event.preventDefault();
-      //       }
-      //     })
+    var enable_cs_autocomplete = function(association_types) {
       $("#add_existing_component_search").autocomplete({
         source: function( request, response ) {
           var request_body = { 
-            types: component_types[selected_component_type()].component_types,
-            term: request.term 
+            types: association_types[selected_association_type()].component_types,
+            term:  request.term 
           };
 
           var response_wrapper = function(data) {
@@ -59,41 +50,67 @@
           //  dvinci_id: string,
           //  property_values: [object]
           //}
-          $("#add_component_submit").show();
           $("#add_existing_component_search" ).val( ui.item.label );
           $("#add_existing_component input:hidden[name=component_id]").val( ui.item.value.item_id );
           $("#selected_component_name").html(ui.item.value.item_name);
           $("#selected_component_dvinci_id").html(ui.item.value.item_dvinci_id);
           $("#existing_component_display").show();
+          $("#add_component_submit").show();
 
           return false;
         }
       });
+    };
+
+    var component_receiver_change = function(receiver_type) {
+      with_association_types(
+        receiver_type,
+        function(association_types) {
+          update_association_select(association_types);
+          enable_cs_autocomplete(association_types);
+        }
+      );
+    }
+
+    jQuery(function($) {
+      $("#component_receiver").change(function() {
+        component_receiver_change($("#component_receiver").val());
+      });
+
+      $("#association_select").change(
+        function(ev) {
+          $("#add_component_submit").hide();
+          $("#add_existing_component_search").val('');
+          $("#add_existing_component input:hidden[name=component_id]").val(null);
+        }
+      ); 
     });
   </script>
 <% end %>
 
-<div id="<%= form_css_id %>" class="<%= form_css_class %>">
-  <ul style="display: none">
-    <li><input type="radio" name="add_property_method" value="existing" checked/> Add Existing</li>
-    <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
+<div id="add_component_form">
+  <input id="component_receiver" type="text" style="display:none"/>
+  
+  <ul>
+    <li>Choose a component type: <select id="association_select"></select></li>
+    <li id="add_existing_component">
+      Search Items: <input id="add_existing_component_search" type="text"/><br/>
+      <input type="hidden" name="component_id"/>
+      <span class="search_notice"></span>
+      <dl id="existing_component_display" style="display: none">
+        <dt>Item Name:</dt>
+        <dd id="selected_component_name"></dd>
+        <dt>D'Vinci ID:</dt>
+        <dd id="selected_component_dvinci_id"></dd>
+        <dt>Properties:</dt>
+        <dd id="selected_component_properties"><ul></ul></dd>
+        <dt>Configuration:</dt>
+        <dd id="component_association_properties">
+          <%= render :partial => 'add_property', :locals => {:receiver_root => 'item_component'} %>
+        </dd>
+      </dl>
+    </li>
   </ul>
-
-  Choose a component type: <%= component_select item.class, :id => :component_type_select %>
-
-  <div id="add_existing_component">
-    Search Items: <input id="add_existing_component_search" type="text"/><br/>
-    <input type="hidden" name="component_id"/>
-    <span class="search_notice"></span>
-    <dl id="existing_component_display" style="display: none">
-      <dt>Item Name:</dt>
-      <dd id="selected_component_name"></dd>
-      <dt>D'Vinci ID:</dt>
-      <dd id="selected_component_dvinci_id"></dd>
-      <dt>Properties:</dt>
-      <dd id="selected_component_properties"><ul></ul></dd>
-    </dl>
-  </div>
 
   <button id="add_component_submit" style="display: none">Submit</button>
   <button id="add_component_cancel">Cancel</button>

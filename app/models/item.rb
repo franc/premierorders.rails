@@ -8,6 +8,7 @@ class Item < ActiveRecord::Base
 
   def self.item_types 
     [
+      Item,
       Cabinet,
       Shell,
       Panel,
