@@ -114,8 +114,14 @@ class ItemsController < ApplicationController
   end
 
   def property_form_fragment
-    @descriptor = Property.descriptors(Items.const_get(params[:mod]))[params[:id].to_i]
-    render :partial => 'property_descriptor', :layout => false
+    descriptor_id = params[:id].to_i
+    descriptor = Property.descriptors(Items.const_get(params[:mod]))[descriptor_id]
+    logger.info descriptor.inspect
+
+    render :partial => 'property_descriptor', :layout => false, :locals => {
+      :descriptor => descriptor,
+      :descriptor_id => descriptor_id
+    }
   end
   
   def component_types

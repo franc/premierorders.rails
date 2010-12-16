@@ -58,8 +58,16 @@
           });
 
           window_contents.find("#add_property_submit").click(function() { 
-            var req = this.add_property_data();
-            $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, update_notice, "json");
+            dialog.w.find(".jqm_content").each(function() {
+              var req = this.contentWindow.add_property_data();
+              var handler = function(result) {
+                alert("Got result " + result);
+                update_notice(result);
+              }
+
+              $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, handler, "json");
+            });
+
             dialog.w.hide();
           });
 
