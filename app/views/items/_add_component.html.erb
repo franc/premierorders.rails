@@ -20,6 +20,7 @@
     };
 
     var update_association_select = function(association_types) {
+      $("#association_select > option").remove();
       for (i = 0; i < association_types.length; i++) {
         $("#association_select").append('<option value="'+i+'">'+association_types[i].association_type+'</option>');
       }
@@ -40,6 +41,7 @@
 
           $(".search_notice").html('');
           $("#existing_component_display").hide();
+          $(".component_properties_conf").hide();
           $.get("/items/search", request_body, response_wrapper, "json");
         },
         select: function( event, ui ) {
@@ -62,11 +64,29 @@
       });
     };
 
+    var association_select_change_reaction = function(association_types) {
+      $("#association_select").change(
+        function(ev) {
+          property_receiver_change(
+            association_types[$(ev.target).val()].association_type, 
+            function(descriptors) { 
+              alert("Found descriptors with length " + descriptors.length + " for " + $(ev.target).val());
+              if (descriptors.length == 0) $(".component_property_conf").hide(); 
+            }
+          );
+          $("#add_component_submit").hide();
+          $("#add_existing_component_search").val('');
+          $("#add_existing_component input:hidden[name=component_id]").val(null);
+        }
+      ); 
+    };
+
     var component_receiver_change = function(receiver_type) {
       with_association_types(
         receiver_type,
         function(association_types) {
           update_association_select(association_types);
+          association_select_change_reaction(association_types);
           enable_cs_autocomplete(association_types);
         }
       );
@@ -76,14 +96,6 @@
       $("#component_receiver").change(function() {
         component_receiver_change($("#component_receiver").val());
       });
-
-      $("#association_select").change(
-        function(ev) {
-          $("#add_component_submit").hide();
-          $("#add_existing_component_search").val('');
-          $("#add_existing_component input:hidden[name=component_id]").val(null);
-        }
-      ); 
     });
   </script>
 <% end %>
@@ -104,9 +116,9 @@
         <dd id="selected_component_dvinci_id"></dd>
         <dt>Properties:</dt>
         <dd id="selected_component_properties"><ul></ul></dd>
-        <dt>Configuration:</dt>
-        <dd id="component_association_properties">
-          <%= render :partial => 'add_property', :locals => {:receiver_root => 'item_component'} %>
+        <dt class="component_property_conf">Configuration:</dt>
+        <dd class="component_property_conf" id="component_association_properties">
+          <%= render :partial => 'add_property', :locals => {:receiver_root => 'items'} %>
         </dd>
       </dl>
     </li>

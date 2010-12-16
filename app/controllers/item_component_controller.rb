@@ -1,0 +1,2 @@
+class ItemComponentController < ApplicationController
+end

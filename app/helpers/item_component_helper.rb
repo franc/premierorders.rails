@@ -1,0 +1,2 @@
+module ItemComponentHelper
+end

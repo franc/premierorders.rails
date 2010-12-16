@@ -89,17 +89,20 @@ class ItemsController < ApplicationController
     @items = Item.search(params[:types], params[:term])
 
     if request.xhr?
-      render :json => @items.map do |item|
-        {
-          :label => item.name,
-          :value => {
-            :item_id => item.id,
-            :item_name => item.name,
-            :dvinci_id => item.dvinci_id
-          }
-        }
-      end
+      render :json => @items.map{|item| item_select_json(item)}
     end
+  end
+
+  def item_select_json(item)
+    {
+      :label => item.name,
+      :value => {
+        :item_id => item.id,
+        :item_name => item.name,
+        :item_type => item.class.to_s.demodulize,
+        :dvinci_id => item.dvinci_id
+      }
+    }
   end
 
   def properties
