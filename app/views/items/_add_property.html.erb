@@ -159,7 +159,6 @@
     // resulting in a different set of property descriptors being applicable
     var property_receiver_change = function(receiver_type) {
       var args = arguments;
-      alert("Got " + args.length + " arguments.");
       var cont = function(descriptors) {
         if (args.length > 1) args[1](descriptors);
       };
@@ -245,6 +244,8 @@
     </li>
   </ul>
 
-  <button id="add_property_submit" style="display:none">Submit</button>
-  <button id="add_property_cancel">Cancel</button>
+  <% if include_submit %>
+    <button id="add_property_submit" style="display:none">Submit</button>
+    <button id="add_property_cancel">Cancel</button>
+  <% end %>
 </div>

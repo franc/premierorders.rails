@@ -133,7 +133,8 @@ class ItemsController < ApplicationController
 
   def add_property_form
     render '_add_property', :layout => 'minimal', :locals => {
-      :receiver_root => 'items'
+      :receiver_root => 'items',
+      :include_submit => true
     }
   end
 
