@@ -64,7 +64,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        format.html { redirect_to(@item, :notice => 'Item was successfully updated.') }
+        format.html { redirect_to(item_path(@item), :notice => 'Item was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -134,6 +134,9 @@ class ItemsController < ApplicationController
   def add_component
     if request.xhr?
       logger.info(params.inspect)
+
+      {"action"=>"add_component", "id"=>"1118", "controller"=>"items", "component_id"=>"1117", "component_properties"=>{"qualifiers"=>["front"], "data"=>{"name"=>"Front Edge Banding", "descriptor_id"=>"0", "values"=>{"0"=>{"name"=>"Folkstone Gray Edge", "fields"=>{"price"=>"1.23", "color"=>"Folkstone Gray", "price_units"=>"ft", "width"=>""}, "dvinci_id"=>""}}, "descriptor_mod"=>"ShellVerticalPanel"}, "type"=>"new"}}
+
 
       render :nothing => true
     end
