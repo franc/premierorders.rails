@@ -29,7 +29,15 @@ class PropertyDescriptor
   end
 
   def module_names
-    modules.map{|m| m.to_s}.join(", ")
+    modules.map{|m| m.to_s.demodulize}.join(", ")
+  end
+
+  def create_property(name)
+    Property.create(
+      :name => name,
+      :family => family,
+      :module_names => module_names
+    )
   end
 end
 
