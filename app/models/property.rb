@@ -154,7 +154,7 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :height => :float,
-        :linear_units => LinearConversions::UNITS
+        :linear_units => Properties::LinearConversions::UNITS
       }
     end
 
@@ -169,7 +169,7 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :width => :float,
-        :linear_units => LinearConversions::UNITS
+        :linear_units => Properties::LinearConversions::UNITS
       }
     end
 
@@ -184,7 +184,7 @@ class Property < ActiveRecord::Base
     def self.value_structure
       {
         :depth => :float,
-        :linear_units => LinearConversions::UNITS
+        :linear_units => Properties::LinearConversions::UNITS
       }
     end
 
@@ -204,7 +204,7 @@ class Property < ActiveRecord::Base
         :max_height => :float,
         :min_depth  => :float,
         :max_depth  => :float,
-        :linear_units => LinearConversions::UNITS
+        :linear_units => Properties::LinearConversions::UNITS
       }
     end
 
@@ -284,7 +284,7 @@ class Property < ActiveRecord::Base
         :color => :string,
         :width => :float,
         :price => :float,
-        :price_units => LinearConversions::UNITS
+        :price_units => Properties::LinearConversions::UNITS
       }
     end
 
@@ -307,7 +307,7 @@ class Property < ActiveRecord::Base
     DESCRIPTOR = PropertyDescriptor.new(:linear_units, [], [LinearUnits])
 
     def self.value_structure
-      {:linear_units => LinearConversions::UNITS}
+      {:linear_units => Properties::LinearConversions::UNITS}
     end
 
     def units

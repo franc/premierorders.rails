@@ -2,121 +2,124 @@
   <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
   <%= javascript_include_tag 'item_editing.js' %>
-  <style>
-    .jqm_form {
-        display: none;
-        
-        position: fixed;
-        top: 17%;
-        left: 50%;
-        
-        margin-left: -300px;
-        width: 600px;
-        
-        background-color: #EEE;
-        color: #333;
-        border: 1px solid black;
-        padding: 12px;
-    }
+  <% if @item.id %>
+    <style>
+      .jqm_form {
+          display: none;
+          
+          position: fixed;
+          top: 17%;
+          left: 50%;
+          
+          margin-left: -300px;
+          width: 600px;
+          
+          background-color: #EEE;
+          color: #333;
+          border: 1px solid black;
+          padding: 12px;
+      }
 
-    .jqm_form iframe { 
-      width:99%; height:40%; 
-      display: block; clear:both; 
-      margin:auto; background:#111; border:1px dotted #444; 
-    }
-  </style>
-  <script type="text/javascript">
-    var property_associations = {};
-    var selected_item_type = function() {
-      return $("#item_type option:selected").val();
-    };
+      .jqm_form iframe { 
+        width:99%; height:40%; 
+        display: block; clear:both; 
+        margin:auto; background:#111; border:1px dotted #444; 
+      }
+    </style>
+    <script type="text/javascript">
+      var property_associations = {};
+      var selected_item_type = function() {
+        return $("#item_type option:selected").val();
+      };
 
-    var toggle_add_property = function(data) {
-      (data.length == 0) ? $("#add_property").hide() : $("#add_property").show(); 
-    };
+      var toggle_add_property = function(data) {
+        (data.length == 0) ? $("#add_property").hide() : $("#add_property").show(); 
+      };
 
-    var toggle_add_component = function(data) {
-      (data.length == 0) ? $("#add_component").hide() : $("#add_component").show(); 
-    };
+      var toggle_add_component = function(data) {
+        (data.length == 0) ? $("#add_component").hide() : $("#add_component").show(); 
+      };
 
-    jQuery(function($) {
-      $("#item_type").change(function(ev) {
-        $.get("/items/"+$(ev.target).val()+"/property_descriptors", toggle_add_property, "json");
-        $.get("/items/"+$(ev.target).val()+"/component_association_types", toggle_add_component, "json");
-      });
+      jQuery(function($) {
+        $("#item_type").change(function(ev) {
+          $.get("/items/"+$(ev.target).val()+"/property_descriptors", toggle_add_property, "json");
+          $.get("/items/"+$(ev.target).val()+"/component_association_types", toggle_add_component, "json");
+        });
 
-      <% if Property.descriptors(@item.class).empty? %>
-        $("#add_property").hide();
-      <% end %>
-      $("#add_property").hover(editIn, editOut);
-      $("#add_property_window").jqm({
-        //modal: true,
-        trigger: "#add_property",
-        onShow: function(dialog) {
-          var window_contents = dialog.w.find(".jqm_content").contents();
+        <% if Property.descriptors(@item.class).empty? %>
+          $("#add_property").hide();
+        <% end %>
+        $("#add_property").hover(editIn, editOut);
+        $("#add_property_window").jqm({
+          //modal: true,
+          trigger: "#add_property",
+          onShow: function(dialog) {
+            var window_contents = dialog.w.find(".jqm_content").contents();
 
-          //manually trigger the change handler - finding the right incantation was hell.
-          dialog.w.find(".jqm_content").each(function() {
-            this.contentWindow.change_property_receiver(selected_item_type());
-          });
-
-          window_contents.find("#add_property_submit").click(function() { 
+            //manually trigger the change handler - finding the right incantation was hell.
             dialog.w.find(".jqm_content").each(function() {
-              var req = this.contentWindow.add_property_data();
-              if (req.type === "new") {
-                handler = function(data) { 
-                  property_associations[data.property_id] = req.data.qualifiers;
-                  var numeric = /^[0-9]$/;
-                  if ("<%= @item.id%>".match(numeric).length > 0) {
-                    $.get("/items/<%=@item.id%>/properties", function(data) {
-                      $("#properties_list").replaceWith(data); 
-                    });
-                  }
-                };
-
-                req.data.receiver_id = "<%=@item.id%>",
-                req.data.qualifiers = req.qualifiers
-                $.post("/properties", req.data, handler, "json");
-              }
+              this.contentWindow.change_property_receiver(selected_item_type());
             });
 
-            dialog.w.hide();
-          });
+            window_contents.find("#add_property_submit").click(function() { 
+              dialog.w.find(".jqm_content").each(function() {
+                var req = this.contentWindow.add_property_data();
+                if (req.type === "new") {
+                  handler = function(data) { 
+                    property_associations[data.property_id] = req.data.qualifiers;
+                    var numeric = /^[0-9]$/;
+                    if ("<%= @item.id%>".match(numeric).length > 0) {
+                      $.get("/items/<%=@item.id%>/properties", function(data) {
+                        $("#properties_list").replaceWith(data); 
+                      });
+                    }
+                  };
 
-          window_contents.find("#add_property_cancel").click(function() { dialog.w.hide(); });
+                  req.data.receiver_id = "<%=@item.id%>",
+                  req.data.qualifiers = req.qualifiers
+                  $.post("/properties", req.data, handler, "json");
+                }
+              });
 
-          dialog.w.show();
-        }
+              dialog.w.hide();
+            });
+
+            window_contents.find("#add_property_cancel").click(function() { dialog.w.hide(); });
+
+            dialog.w.show();
+          }
+        });
+
+        <% if Item.component_association_modules(@item.class).empty? %>
+          $("#add_component").hide();
+        <% end %>
+        $("#add_component").hover(editIn, editOut);
+        $("#add_component_window").jqm({
+          trigger: "#add_component",
+          onShow: function(dialog) {
+            var window_contents = dialog.w.find(".jqm_content").contents();
+
+            //manually trigger the change handler - finding the right incantation was hell.
+            dialog.w.find(".jqm_content").each(function() {
+              this.contentWindow.change_component_receiver(selected_item_type());
+            });
+
+            window_contents.find("#add_component_submit").click(function() { 
+              dialog.w.find(".jqm_content").each(function() {
+                var req = this.contentWindow.add_component_data();
+                $.post("/items/<%=@item.id%>/add_component", req.data, update_notice, "json");
+                dialog.w.hide();
+              });
+            });
+
+            window_contents.find("#add_component_cancel").click(function() { dialog.w.hide(); });
+
+            dialog.w.show();
+          }
+        });
       });
-
-      <% if Item.component_association_modules(@item.class).empty? %>
-        $("#add_component").hide();
-      <% end %>
-      $("#add_component").hover(editIn, editOut);
-      $("#add_component_window").jqm({
-        trigger: "#add_component",
-        onShow: function(dialog) {
-          var window_contents = dialog.w.find(".jqm_content").contents();
-
-          //manually trigger the change handler - finding the right incantation was hell.
-          dialog.w.find(".jqm_content").each(function() {
-            this.contentWindow.change_component_receiver(selected_item_type());
-          });
-
-          window_contents.find("#add_component_submit").click(function() { 
-            alert("Submit!");
-            var req = add_component_data();
-            $.post("/items/<%=@item.id%>/add_component", req.data, update_notice, "json");
-            $("#add_component_window").jqmHide(); 
-          });
-
-          window_contents.find("#add_component_cancel").click(function() { dialog.w.hide(); });
-
-          dialog.w.show();
-        }
-      });
-    });
-  </script>
+    </script>
+  <% end %>
 <% end %>
 
 <%= form_for(:item, @item) do |f| %>
@@ -150,12 +153,14 @@
       <dd><%= f.text_field :sku %></dd>
       <dt><%= f.label :qb_item_id %></dt>
       <dd><%= f.text_field :purchase_part_id %></dd>
-      <dt>Properties <span id="add_property">(+)</span></dt>
-      <dd><%= render :partial => 'properties', 
-                     :locals => {:id => 'properties_list', :properties => @item.item_properties} %></dd>
-      <dt>Components <span id="add_component">(+)</span></dt>
-      <dd><%= render :partial => 'components', 
-                     :locals => {:id => 'item_components', :components => @item.components} %></dd>
+      <% if @item.id %>
+        <dt>Properties <span id="add_property">(+)</span></dt>
+        <dd><%= render :partial => 'properties', 
+                       :locals => {:id => 'properties_list', :properties => @item.item_properties} %></dd>
+        <dt>Components <span id="add_component">(+)</span></dt>
+        <dd><%= render :partial => 'components', 
+                       :locals => {:id => 'item_components', :components => @item.components} %></dd>
+      <% end %>
     </dl>
   </div>
 
@@ -164,9 +169,11 @@
   </div>
 <% end %>
 
-<div id="add_property_window" class="jqm_form">
-  <iframe src="/items/add_property_form" class="jqm_content"></iframe>
-</div>
-<div id="add_component_window" class="jqm_form">
-  <iframe src="/items/add_component_form" class="jqm_content"></iframe>
-</div>
+<% if @item.id %>
+  <div id="add_property_window" class="jqm_form">
+    <iframe src="/items/add_property_form" class="jqm_content"></iframe>
+  </div>
+  <div id="add_component_window" class="jqm_form">
+    <iframe src="/items/add_component_form" class="jqm_content"></iframe>
+  </div>
+<% end %>
