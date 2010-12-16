@@ -162,6 +162,8 @@ class ItemsController < ApplicationController
   end
 
   def component_association_types
+    logger.info("Looking for module #{params[:mod]}")
+    logger.info("Found module #{Items.const_get(params[:mod])}")
     type_map = Item.component_association_modules(Items.const_get(params[:mod])).inject([]) do |result, cmod|
       result << { 
         :association_type => cmod.to_s.demodulize,

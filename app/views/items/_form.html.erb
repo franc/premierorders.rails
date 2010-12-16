@@ -31,15 +31,20 @@
       return $("#item_type option:selected").val();
     };
 
+    var toggle_add_property = function(data) {
+      alert("Got property data of length: "+data.length);
+      (data.length == 0) ? $("#add_property").hide() : $("#add_property").show(); 
+    };
+
+    var toggle_add_component = function(data) {
+      alert("Got component association data of length: "+data.length);
+      (data.length == 0) ? $("#add_component").hide() : $("#add_component").show(); 
+    };
+
     jQuery(function($) {
-      $("select[name=item_type]").change(function(ev) {
-        $.get(
-          "/items/"+ev.target.val()+"/property_descriptors",
-          function(data) { 
-            if (data.length == 0) { $("#add_property").hide(); } else { $("#add_property").show(); }
-          },
-          'json'
-        );
+      $("#item_type").change(function(ev) {
+        $.get("/items/"+$(ev.target).val()+"/property_descriptors", toggle_add_property, "json");
+        $.get("/items/"+$(ev.target).val()+"/component_association_types", toggle_add_component, "json");
       });
 
       <% if Property.descriptors(@item.class).empty? %>
@@ -64,14 +69,15 @@
               if (req.type === "new") {
                 handler = function(data) { 
                   property_associations[data.property_id] = req.data.qualifiers;
-                  if (<%= @item.id%> !== "nil") {
+                  var numeric = /^[0-9]$/;
+                  if ("<%= @item.id%>".match(numeric).length > 0) {
                     $.get("/items/<%=@item.id%>/properties", function(data) {
                       $("#properties_list").replaceWith(data); 
                     });
                   }
                 };
 
-                req.data.receiver_id = <%=@item.id%>,
+                req.data.receiver_id = "<%=@item.id%>",
                 req.data.qualifiers = req.qualifiers
                 $.post("/properties", req.data, handler, "json");
               }
