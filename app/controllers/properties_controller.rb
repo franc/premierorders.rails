@@ -28,6 +28,15 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def show
+    @property = Property.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @item }
+    end
+  end
+
   def search
     @properties = Property.search(params[:family], params[:term])
 

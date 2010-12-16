@@ -61,10 +61,10 @@
             dialog.w.find(".jqm_content").each(function() {
               var req = this.contentWindow.add_property_data();
               if (req.type === "new") {
-                handler = function(data) {
-                  alert(data);
+                handler = function(data) { 
+                  $("#item_properties").replaceWith(data); 
                 };
-                $.post("/properties", req.data, handler, "json");
+                $.post("/properties", req.data, handler, "html");
               }
             });
 

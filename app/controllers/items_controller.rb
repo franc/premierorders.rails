@@ -103,6 +103,16 @@ class ItemsController < ApplicationController
     end
   end
 
+  def properties
+    if request.xhr?
+      item = Item.find(params[:id])
+      render :partial => 'properties', :layout => false, :locals => {
+        :id => 'item_properties',
+        :properties => item.properties
+      }
+    end
+  end
+
   def add_property_form
     render '_add_property', :layout => 'minimal'
   end

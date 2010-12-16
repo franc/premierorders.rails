@@ -21,7 +21,9 @@ PgRails::Application.routes.draw do
     end
   end
 
-  resources :properties
+  match 'properties/search' => 'properties#search'
+  resources :properties 
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
