@@ -60,12 +60,12 @@
           window_contents.find("#add_property_submit").click(function() { 
             dialog.w.find(".jqm_content").each(function() {
               var req = this.contentWindow.add_property_data();
-              var handler = function(result) {
-                alert("Got result " + result);
-                update_notice(result);
+              if (req.type === "new") {
+                handler = function(data) {
+                  alert(data);
+                };
+                $.post("/properties", req.data, handler, "json");
               }
-
-              $.post("/items/<%=@item.id%>/add_"+req.type+"_property", req.data, handler, "json");
             });
 
             dialog.w.hide();

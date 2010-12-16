@@ -33,15 +33,22 @@
           add_qualifiers(form_element);
 
           request.data.name = $("input:text[name=property_name]", form_element).val();
+          request.data.descriptor_mod = $("#property_receiver").val();
           request.data.descriptor_id = selected_descriptor_id();
           request.data.values = [];
 
           $("#new_property_values div.property_value.descriptor_"+request.data.descriptor_id).each(
             function(index, pv_element) {
-              var new_value = {};
+              var new_value = {
+                name: $("input:text[name=value_name]", pv_element).val(),
+                dvinci_id: $("input:text[name=dvinci_id]", pv_element).val(),
+                fields: {}
+              };
+
               $(".property_value_field", pv_element).each(function(vfi, vf_element) {
-                new_value[$(vf_element).attr('name')] = $(vf_element).val();
+                new_value.fields[$(vf_element).attr('name')] = $(vf_element).val();
               });
+
               request.data.values.push(new_value);
             }
           );
