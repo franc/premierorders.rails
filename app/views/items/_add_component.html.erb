@@ -18,7 +18,8 @@
     
     var add_component_data = function() {
       var data = {
-        component_id: $("#add_existing_component input:hidden[name=component_id]").val()
+        component_id: $("#add_existing_component input:hidden[name=component_id]").val(),
+        component_properties: add_property_data()
       };
 
       return data;
@@ -73,7 +74,7 @@
     };
 
     var reset_properties_form = function(association_types, index) {
-      property_receiver_change(
+      change_property_receiver(
         association_types[index].association_type, 
         function(descriptors) { 
           if (descriptors.length == 0) $(".component_property_conf").hide(); 
@@ -92,7 +93,7 @@
       ); 
     };
 
-    var component_receiver_change = function(receiver_type) {
+    var change_component_receiver = function(receiver_type) {
       with_association_types(
         receiver_type,
         function(association_types) {
@@ -102,12 +103,6 @@
         }
       );
     }
-
-    jQuery(function($) {
-      $("#component_receiver").change(function() {
-        component_receiver_change($("#component_receiver").val());
-      });
-    });
   </script>
 <% end %>
 

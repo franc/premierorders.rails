@@ -131,6 +131,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  def add_component
+    if request.xhr?
+      logger.info(params.inspect)
+
+      render :nothing
+    end
+  end
+
+
   def add_property_form
     render '_add_property', :layout => 'minimal', :locals => {
       :receiver_root => 'items',

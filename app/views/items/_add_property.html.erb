@@ -157,7 +157,8 @@
 
     // fired when the item type that the property will be attached to changes,
     // resulting in a different set of property descriptors being applicable
-    var property_receiver_change = function(receiver_type) {
+    var change_property_receiver = function(receiver_type) {
+      $("#property_receiver").val(receiver_type);
       var args = arguments;
       var cont = function(descriptors) {
         if (args.length > 1) args[1](descriptors);
@@ -181,10 +182,6 @@
     };
 
     jQuery(function($) {
-      $("#property_receiver").change(function() {
-        property_receiver_change($("#property_receiver").val());
-      });
-
       $("#add_value_click").click(function() {
         var mod = $("#property_receiver").val();
         var did = selected_descriptor_id();

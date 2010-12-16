@@ -56,9 +56,8 @@
           var window_contents = dialog.w.find(".jqm_content").contents();
 
           //manually trigger the change handler - finding the right incantation was hell.
-          window_contents.find("#property_receiver").val(selected_item_type());
           dialog.w.find(".jqm_content").each(function() {
-            this.contentWindow.property_receiver_change(selected_item_type());
+            this.contentWindow.change_property_receiver(selected_item_type());
           });
 
           window_contents.find("#add_property_submit").click(function() { 
@@ -100,16 +99,15 @@
           var window_contents = dialog.w.find(".jqm_content").contents();
 
           //manually trigger the change handler - finding the right incantation was hell.
-          window_contents.find("#component_receiver").val(selected_item_type());
           dialog.w.find(".jqm_content").each(function() {
-            this.contentWindow.component_receiver_change(selected_item_type());
+            this.contentWindow.change_component_receiver(selected_item_type());
           });
 
           window_contents.find("#add_component_submit").click(function() { 
             alert("Submit!");
-            //var req = add_component_data();
-            //$.post("/items/<%=@item.id%>/add_"+req.type+"_component", req.data, update_notice, "json");
-            //$("#add_component_window").jqmHide(); 
+            var req = add_component_data();
+            $.post("/items/<%=@item.id%>/add_component", req.data, update_notice, "json");
+            $("#add_component_window").jqmHide(); 
           });
 
           window_contents.find("#add_component_cancel").click(function() { dialog.w.hide(); });
