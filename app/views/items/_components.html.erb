@@ -3,20 +3,18 @@
             <th>Type</th>
             <th>Quantity</th>
             <th>Properties</th>
-            <th>Add Property</th>
           </tr>
           <% item_components.each_with_index do |comp, i| %>
             <tr>
               <td><%= comp.component.type %></td>
               <td><%= comp.quantity %></td>
               <td>
-                <span class="add_component_property">(+)</span>
                 <%= render :partial => 'properties', 
                            :locals => {
                              :id => 'component_relationship_properties', 
                              :properties => comp.item_component_properties
-                            } 
-                %>
+                            } %>
+                <span class="add_component_property">(+)</span>
               </td>
             </tr>
           <% end %>

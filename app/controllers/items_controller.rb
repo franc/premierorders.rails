@@ -102,8 +102,8 @@ class ItemsController < ApplicationController
       :value => {
         :item_id => item.id,
         :item_name => item.name,
-        :item_type => item.class.to_s.demodulize,
-        :dvinci_id => item.dvinci_id
+        :dvinci_id => item.dvinci_id,
+        :properties => item.properties.map{|p| {:name => p.name, :family => p.family}}
       }
     }
   end

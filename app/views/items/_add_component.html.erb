@@ -51,7 +51,7 @@
           };
 
           $(".search_notice").html('');
-          $("#existing_component_display").hide();
+          $("#selected_component_display").hide();
           $(".component_properties_conf").hide();
           $.get("/items/search", request_body, response_wrapper, "json");
         },
@@ -61,13 +61,25 @@
           //  item_id: int,
           //  item_name: string,
           //  dvinci_id: string,
-          //  property_values: [object]
+          //  properties: [object]
           //}
           $("#add_existing_component_search" ).val( ui.item.label );
           $("#add_existing_component input:hidden[name=component_id]").val( ui.item.value.item_id );
           $("#selected_component_name").html(ui.item.value.item_name);
           $("#selected_component_dvinci_id").html(ui.item.value.item_dvinci_id);
-          $("#existing_component_display").show();
+          if (ui.item.value.properties.length == 0) {
+            $("#selected_component_display .elidable").hide();
+          } else {
+            $("#selected_component_display .elidable").show();
+            $("#selected_component_properties ul").empty();
+            for (obj in ui.item.value.properties) {
+              $("#selected_component_properties tbody").append(
+                "<tr><td>"+obj.family+"</td><td>"+obj.name+"</td></tr>"
+              );
+            }
+          }
+
+          $("#selected_component_display").show();
           $("#add_component_submit").show();
 
           return false;
@@ -117,13 +129,18 @@
       Search Items: <input id="add_existing_component_search" type="text"/><br/>
       <input type="hidden" name="component_id"/>
       <span class="search_notice"></span>
-      <dl id="existing_component_display" style="display: none">
+      <dl id="selected_component_display" style="display: none">
         <dt>Item Name:</dt>
         <dd id="selected_component_name"></dd>
         <dt>D'Vinci ID:</dt>
         <dd id="selected_component_dvinci_id"></dd>
-        <dt>Properties:</dt>
-        <dd id="selected_component_properties"><ul></ul></dd>
+        <dt class="elidable">Properties:</dt>
+        <dd class="elidable" id="selected_component_properties">
+          <table>
+            <thead><tr><th>Family</th><th>Property Name</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </dd>
         <dt>Quantity:</dt>
         <dd><%= text_field_tag :quantity %></dd>
         <dt class="component_property_conf">Configuration:</dt>
