@@ -1,3 +1,5 @@
+require 'properties_helper.rb'
+
 class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
@@ -41,6 +43,7 @@ class ItemsController < ApplicationController
   # POST /items.xml
   def create
     @item = Item.new(params[:item])
+    @item.type = params[:item][:type]
 
     respond_to do |format|
       if @item.save
@@ -133,10 +136,28 @@ class ItemsController < ApplicationController
 
   def add_component
     if request.xhr?
-      logger.info(params.inspect)
+      receiver = Item.find_by_id(params[:id])
+      association_type = Item.component_association_modules(receiver.class)[params[:association_id].to_i]
+      component = Item.find_by_id(params[:component_id])
+      quantity = params[:quantity]
 
-      {"action"=>"add_component", "id"=>"1118", "controller"=>"items", "component_id"=>"1117", "component_properties"=>{"qualifiers"=>["front"], "data"=>{"name"=>"Front Edge Banding", "descriptor_id"=>"0", "values"=>{"0"=>{"name"=>"Folkstone Gray Edge", "fields"=>{"price"=>"1.23", "color"=>"Folkstone Gray", "price_units"=>"ft", "width"=>""}, "dvinci_id"=>""}}, "descriptor_mod"=>"ShellVerticalPanel"}, "type"=>"new"}}
+      association = ItemComponent.new(:item => receiver, :component => component, :quantity => quantity)
+      association.type = association_type.to_s
+      association.save
 
+      properties = params[:component_properties]
+      qualifiers = properties[:qualifiers]
+      if properties[:type] == "new"
+        property = PropertiesHelper.create_property(properties)
+        if qualifiers.empty?
+          ItemComponentProperty.create(:item_component => association, :property => property)
+        else
+          qualifiers.each do |q|
+            ItemComponentProperty.create(:item_component => association, :property => property, :qualifier => q)
+          end
+        end
+      else
+      end
 
       render :nothing => true
     end

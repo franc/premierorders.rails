@@ -1,17 +1,7 @@
 class PropertiesController < ApplicationController
   def create
     if request.xhr?
-      descriptor = Property.descriptors(Items.const_get(params[:descriptor_mod]))[params[:descriptor_id].to_i]
-      property = descriptor.create_property(params[:name])
-      params[:values].values.each do |v|
-        property.property_values.create(
-          :name => v[:name],
-          :dvinci_id => v[:dvinci_id],
-          :module_names => descriptor.module_names,
-          :value_str => JSON.generate(v[:fields])
-        )
-      end
-
+      property = create_property(params)
       # go ahead and create the association to the item if data is provided
       item_id = params[:item_id]
       qualifiers = params[:qualifiers]

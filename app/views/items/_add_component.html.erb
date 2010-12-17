@@ -18,7 +18,9 @@
     
     var add_component_data = function() {
       var data = {
+        association_id: $("#association_select option:selected").val(),
         component_id: $("#add_existing_component input:hidden[name=component_id]").val(),
+        quantity: $("#add_existing_component input:text[name=quantity]").val(),
         component_properties: add_property_data()
       };
 
@@ -122,6 +124,8 @@
         <dd id="selected_component_dvinci_id"></dd>
         <dt>Properties:</dt>
         <dd id="selected_component_properties"><ul></ul></dd>
+        <dt>Quantity:</dt>
+        <dd><%= text_field_tag :quantity %></dd>
         <dt class="component_property_conf">Configuration:</dt>
         <dd class="component_property_conf" id="component_association_properties">
           <%= render :partial => 'add_property', :locals => {:receiver_root => 'items', :include_submit => false } %>
