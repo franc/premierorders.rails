@@ -1,5 +1,33 @@
 <p id="notice"><%= notice %></p>
 
+  <div class="form_fields">
+    <dl>
+      <dt><%= label :item, :type %></dt>
+      <dd><%= @item.class.to_s.demodulize %></dd>
+      <dt><%= label :item, :name %></dt>
+      <dd><%= @item.name %></dd>
+      <dt><%= label :item, :description %></dt>
+      <dd><%= @item.description %></dd>
+      <dt><%= label :item, :purchasing %></dt>
+      <dd><%= @item.purchasing %></dd>
+      <dt><%= label :item, :dvinci_id %></dt>
+      <dd><%= @item.dvinci_id %></dd>
+      <dt><%= label :item, :cutrite_id %></dt>
+      <dd><%= @item.cutrite_id %></dd>
+      <dt><%= label :item, :vendor_sku %></dt>
+      <dd><%= @item.sku %></dd>
+      <dt><%= label :item, :qb_item_id %></dt>
+      <dd><%= @item.purchase_part_id %></dd>
+      <dt><%= label :item, :properties %></dt>
+      <dd><%= render :partial => 'properties', 
+                     :locals => {:id => 'properties_list', :properties => @item.item_properties} %></dd>
+      <% if @item.id %>
+        <dt><%= label :item, :components %></dt>
+        <dd><%= render :partial => 'components', 
+                       :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
+      <% end %>
+    </dl>
+  </div>
 
 <% content_for :local_nav do %>
   <%= link_to 'Edit', edit_item_path(@item) %> |
