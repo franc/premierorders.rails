@@ -6,15 +6,17 @@
           </tr>
           <% item_components.each_with_index do |comp, i| %>
             <tr>
-              <td><%= comp.component.type %></td>
+              <td><%= comp.component.class.to_s.demodulize %></td>
               <td><%= comp.quantity %></td>
               <td>
-                <%= render :partial => 'properties', 
-                           :locals => {
-                             :id => 'component_relationship_properties', 
-                             :properties => comp.item_component_properties
-                            } %>
-                <span class="add_component_property">(+)</span>
+                <% unless Property.descriptors(comp.component.class).empty? %>
+                  <%= render :partial => 'properties', 
+                             :locals => {
+                               :id => 'component_relationship_properties', 
+                               :properties => comp.item_component_properties
+                              } %>
+                  <span class="add_component_property">(+)</span>
+                <% end %>
               </td>
             </tr>
           <% end %>

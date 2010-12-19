@@ -1,3 +1,4 @@
+require 'properties.rb'
 require 'properties_helper.rb'
 
 class ItemsController < ApplicationController
