@@ -1,11 +1,13 @@
         <table class="item_components" id="<%= id %>">
           <tr>
+            <th>Name</th>
             <th>Type</th>
             <th>Quantity</th>
             <th>Properties</th>
           </tr>
           <% item_components.each_with_index do |comp, i| %>
             <tr>
+              <td><%= link_to comp.component.name, item_path(comp.component) %></td>
               <td><%= comp.component.class.to_s.demodulize %></td>
               <td><%= comp.quantity %></td>
               <td>
