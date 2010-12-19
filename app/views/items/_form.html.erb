@@ -122,7 +122,7 @@
   </script>
 <% end %>
 
-<%= form_for(@item, :as => :item, :url => @item.id.nil? ? item_path : item_path(@item)) do |f| %>
+<%= form_for(@item, :as => :item, :url => @item.id.nil? ? '/items' : item_path(@item)) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
