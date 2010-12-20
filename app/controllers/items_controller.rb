@@ -45,9 +45,20 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(params[:item])
     @item.type = params[:item][:type]
+    @property_associations = JSON.parse(params[:property_associations])
 
     respond_to do |format|
       if @item.save
+        @property_associations.each do |key, qualifiers|
+          if qualifiers.empty?
+            ItemProperty.create(:item_id => @item.id, :property_id => key)
+          else
+            qualifiers.each do |q|
+              ItemProperty.create(:item_id => @item.id, :property_id => key, :qualifier => q)
+            end
+          end
+        end
+
         format.html { redirect_to(@item, :notice => 'Item was successfully created.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
