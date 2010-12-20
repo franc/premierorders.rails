@@ -149,9 +149,9 @@
       <% else %>
         $("#item_submit").click(function(ev) {
           //render the property associations data into a hidden field.
-          $("#item_form_fields").append(
-            '<input type="hidden" name="property_associations" value="'+JSON.stringify(property_associations)+'"/>'
-          );
+          var input = $('<input type="hidden" name="property_associations"/>').val(JSON.stringify(property_associations));
+
+          $("#item_form_fields").append(input);
         });
       <% end %>
     });
