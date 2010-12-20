@@ -146,7 +146,7 @@
           $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
           $("#selected_property_name").html(ui.item.value.property_name);
           for (value in ui.item.value.property_values) {
-            $("#selected_property_values").append('<li>'+property_value_html(value)+'</li>');
+            $("#selected_property_values dl").append('<dt>'+value.value_name+'</dt><dd>'+value.data+'</dd>');
           }
           $("#existing_property_display").show();
 
@@ -236,7 +236,7 @@
         <dt class="qualifier_select">Qualifiers:</dt>
         <dd class="qualifier_select"><select name="property_qualifiers" multiple="true"></select></dd>
         <dt>Values:</dt>
-        <dd id="selected_property_values"><ul></ul></dd>
+        <dd id="selected_property_values"><dl></dl></dd>
       </dl>
     </li>
   </ul>
