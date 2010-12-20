@@ -114,7 +114,8 @@ class ItemsController < ApplicationController
       item = Item.find(params[:id])
       render :partial => 'properties', :layout => false, :locals => {
         :id => 'item_properties',
-        :properties => item.item_properties
+        :properties => item.item_properties,
+        :resource_path => lambda {|item_prop| item_property_path(item_prop)}
       }
     end
   end

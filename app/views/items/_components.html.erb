@@ -43,8 +43,9 @@
           <%= render :partial => 'properties', 
                      :locals => {
                        :id => 'component_relationship_properties', 
-                       :properties => comp.item_component_properties
-                      } %>
+                       :properties => comp.item_component_properties,
+                       :resource_path => lambda {|icp| item_component_properties_path(icp)}
+                     } %>
           <span class="add_component_property" style="display:none">(+)</span>
         <% end %>
       </td>
