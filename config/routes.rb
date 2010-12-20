@@ -13,6 +13,8 @@ PgRails::Application.routes.draw do
     end
   end
 
+  resources :item_components
+
   devise_for :users
 
   resources :jobs do

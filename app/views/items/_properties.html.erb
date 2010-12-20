@@ -11,19 +11,11 @@
               <td><%= prop.property.family.titlecase %></td>
               <td><%= prop.qualifier %></td>
               <td>
-                <dl>
+                <ul>
                   <% prop.property.property_values.each do |opt| %>
-                    <dt><%= opt.dvinci_id %></dt>
-                    <dd>
-                      <dl>
-                        <% opt.extract.each do |k, v| %>
-                          <dt><%= k.titlecase -%></dt>
-                          <dd><%= v -%></dd>
-                        <% end %>
-                      </dl>
-                    </dd>
+                    <li><%= opt.name %> (<%= opt.dvinci_id %>)</dt>
                   <% end %>
-                </dl>
+                </ul>
               </td>
             </tr>
           <% end %>
