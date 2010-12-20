@@ -4,7 +4,7 @@ class ItemComponentsController < ApplicationController
     @component.destroy
     
     if request.xhr?
-      render :nothing => true
+      render :json => {:updated => 'success'}
     else
       respond_to do |format|
         format.html { redirect_to items_url }
