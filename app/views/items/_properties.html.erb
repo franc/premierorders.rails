@@ -1,23 +1,72 @@
-        <table class="properties" id="<%= id -%>">
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Qualifier</th>
-            <th>Values</th>
-          </tr>
-          <% properties.each_with_index do |prop, i| %>
-            <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%>">
-              <td><%= prop.property.name %> <span class="delete_prop_assoc" onclick="">X</span></td>
-              <td><%= prop.property.family.titlecase %></td>
-              <td><%= prop.qualifier %></td>
-              <td>
-                <ul>
-                  <% prop.property.property_values.each do |opt| %>
-                    <li><%= opt.name %> (<%= opt.dvinci_id %>)</dt>
-                  <% end %>
-                </ul>
-              </td>
-            </tr>
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <script type="text/javascript">
+    var add_property_row = function(property, qualifiers) {
+      var new_entry = $("#<%=id-%> tr.property_row.prototype").clone().removeClass('prototype');
+      $(".property_name", new_entry).html(property.property_name);
+      $(".property_family", new_entry).html(property.property_family);
+      $(".property_qualifier", new_entry).html(qualifiers);
+      var values = property.property_values;
+      for (i = 0; i < values.length; i++) {
+        $(".property_values ul", new_entry).append(
+          "<li>"+values[i].value_name+" ("+values[i].dvinci_id+")</li>"  
+        );
+      }
+
+      $("#properties_list").append(new_entry);
+    };
+
+    jQuery(function($) {
+      $(".property_delete_link").click(function(ev) {
+        if ( confirm('Are you sure you want to delete this property association?' ) ) {
+          $.ajax({
+            type: 'delete',
+            url: $(ev.target).attr("href"), 
+            success: function(data) { 
+              $(ev.target).parents(".property_row").remove(); 
+              update_notice(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+              alert("Ooooops!, request failed with status: " + XMLHttpRequest.status + ' ' + XMLHttpRequest.responseText);
+            }
+          });
+        }
+
+        return false;
+      });
+    });
+  </script> 
+<% end %>
+
+<table class="properties" id="<%= id -%>">
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Qualifier</th>
+    <th>Values</th>
+  </tr>
+  <tr class="property_row prototype">
+      <td class="property_name"></td>
+      <td class="property_family"></td>
+      <td class="property_qualifier"></td>
+      <td class="property_values"><ul></ul></td>
+  </tr>
+  <% properties.each_with_index do |prop, i| %>
+    <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%> property_row">
+      <td class="property_name">
+        <%= prop.property.name %> 
+        <%= link_to '(X)', resource_path.call(prop), :method => :delete, :class => 'property_delete_link' %>
+      </td>
+      <td class="property_family"><%= prop.property.family.titlecase %></td>
+      <td class="property_qualifier"><%= prop.qualifier %></td>
+      <td class="property_values">
+        <ul>
+          <% prop.property.property_values.each do |opt| %>
+            <li><%= opt.name %> (<%= opt.dvinci_id %>)</dt>
           <% end %>
-        </table>
+        </ul>
+      </td>
+    </tr>
+  <% end %>
+</table>
 

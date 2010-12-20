@@ -20,7 +20,10 @@
       <dd><%= @item.purchase_part_id %></dd>
       <dt><%= label :item, :properties %></dt>
       <dd><%= render :partial => 'properties', 
-                     :locals => {:id => 'properties_list', :properties => @item.item_properties} %></dd>
+                     :locals => {
+                       :id => 'properties_list', :properties => @item.item_properties,
+                       :resource_path => lambda {|item_prop| item_property_path(item_prop)}
+                     } %></dd>
       <% if @item.id %>
         <dt><%= label :item, :components %></dt>
         <dd><%= render :partial => 'components', 

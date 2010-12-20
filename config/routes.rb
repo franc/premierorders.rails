@@ -1,4 +1,6 @@
 PgRails::Application.routes.draw do
+  devise_for :users
+
   match 'items/search' => 'items#search'
   match 'items/add_property_form'               => 'items#add_property_form'
   match 'items/add_component_form'              => 'items#add_component_form'
@@ -13,9 +15,13 @@ PgRails::Application.routes.draw do
     end
   end
 
-  resources :item_components
+  resources :item_properties
 
-  devise_for :users
+  resources :item_components
+  resources :item_component_properties
+
+  match 'properties/search' => 'properties#search'
+  resources :properties 
 
   resources :jobs do
     member do
@@ -29,9 +35,6 @@ PgRails::Application.routes.draw do
       get 'addresses'
     end
   end
-
-  match 'properties/search' => 'properties#search'
-  resources :properties 
 
 
   # The priority is based upon order of creation:

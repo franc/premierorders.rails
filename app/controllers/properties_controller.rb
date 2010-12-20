@@ -1,7 +1,7 @@
 class PropertiesController < ApplicationController
   def create
     if request.xhr?
-      property = create_property(params)
+      property = PropertiesHelper.create_property(params)
       # go ahead and create the association to the item if data is provided
       item_id = params[:item_id]
       qualifiers = params[:qualifiers]
@@ -36,9 +36,13 @@ class PropertiesController < ApplicationController
   def show
     @property = Property.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @item }
+    if request.xhr?
+      render :json => property_json(@property)
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @item }
+      end
     end
   end
 
@@ -50,14 +54,17 @@ class PropertiesController < ApplicationController
     end
   end
 
+  private 
+
   def property_json(p)
     {
       :label => p.name,
       :value => {
         :property_id => p.id,
-        :property_name => p.name.demodulize,
+        :property_name => p.name,
+        :property_family => p.family,
         :property_values => p.property_values.map do |v| 
-          {:value_name => v.name, :data => JSON.parse(v.value_str)}
+          {:value_name => v.name, :dvinci_id => (v.dvinci_id || ''), :data => JSON.parse(v.value_str)}
         end
       }
     }

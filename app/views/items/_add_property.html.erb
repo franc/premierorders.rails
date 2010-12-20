@@ -145,8 +145,9 @@
           $("#add_existing_property_search").val( ui.item.label );
           $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
           $("#selected_property_name").html(ui.item.value.property_name);
-          for (value in ui.item.value.property_values) {
-            $("#selected_property_values dl").append('<dt>'+value.value_name+'</dt><dd>'+value.data+'</dd>');
+          var values = ui.item.value.property_values
+          for (i = 0; i < values.length; i++) {
+            $("#selected_property_values ul").append('<li>'+values[i].value_name+' ('+values[i].dvinci_id+')');
           }
           $("#existing_property_display").show();
 
@@ -236,7 +237,7 @@
         <dt class="qualifier_select">Qualifiers:</dt>
         <dd class="qualifier_select"><select name="property_qualifiers" multiple="true"></select></dd>
         <dt>Values:</dt>
-        <dd id="selected_property_values"><dl></dl></dd>
+        <dd id="selected_property_values"><ul></ul></dd>
       </dl>
     </li>
   </ul>
