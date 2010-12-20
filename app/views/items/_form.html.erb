@@ -1,7 +1,6 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
-  <%= javascript_include_tag 'item_editing.js' %>
   <style>
     .jqm_form {
         display: none;
@@ -65,7 +64,13 @@
               var req = this.contentWindow.add_property_data();
               if (req.type === "new") {
                 handler = function(data) { 
+                  // save the property ids and qualifiers so that if this is a new record,
+                  // the data can be included in the form submission
                   property_associations[data.property_id] = req.data.qualifiers;
+
+                  // using a match on the item id to determine that the form is in edit 
+                  // mode, reload the properties list by querying for the properties 
+                  // associated with the object.
                   var numeric = /^[0-9]$/;
                   if ("<%= @item.id%>".match(numeric).length > 0) {
                     $.get("/items/<%=@item.id%>/properties", function(data) {
@@ -107,7 +112,16 @@
             window_contents.find("#add_component_submit").click(function() { 
               dialog.w.find(".jqm_content").each(function() {
                 var req = this.contentWindow.add_component_data();
-                $.post("/items/<%=@item.id%>/add_component", req, update_notice, "json");
+                var handler = function(data) {
+                  var numeric = /^[0-9]$/;
+                  if ("<%= @item.id%>".match(numeric).length > 0) {
+                    $.get("/items/<%=@item.id%>/components", function(data) {
+                      $("#item_components").replaceWith(data); 
+                    });
+                  }
+                };
+
+                $.post("/items/<%=@item.id%>/add_component", req, handler, "json");
                 dialog.w.hide();
               });
             });

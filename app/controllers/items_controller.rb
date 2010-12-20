@@ -91,7 +91,7 @@ class ItemsController < ApplicationController
 
   def search
     @items = Item.search(params[:types], params[:term])
-
+    logger.info @items.map{|item| item_select_json(item)}.inspect
     if request.xhr?
       render :json => @items.map{|item| item_select_json(item)}
     end
@@ -104,7 +104,7 @@ class ItemsController < ApplicationController
         :item_id => item.id,
         :item_name => item.name,
         :dvinci_id => item.dvinci_id,
-        :properties => item.properties.map{|p| {:name => p.name, :family => p.family}}
+        :properties => item.properties.map{|p| {:name => p.name, :family => p.family.titlecase}}
       }
     }
   end
@@ -135,21 +135,32 @@ class ItemsController < ApplicationController
     end
   end
 
+  def components
+    if request.xhr?
+      item = Item.find(params[:id])
+      render :partial => 'components', :layout => false, :locals => {
+        :id => 'item_components',
+        :item_components => item.item_components
+      }
+    end
+  end
+
   def add_component
+    logger.info params.inspect
     if request.xhr?
       receiver = Item.find_by_id(params[:id])
       association_type = Item.component_association_modules(receiver.class)[params[:association_id].to_i]
       component = Item.find_by_id(params[:component_id])
       quantity = params[:quantity]
 
-      association = ItemComponent.new(:item => receiver, :component => component, :quantity => quantity)
+      association = ItemComponent.new(:item_id => receiver.id, :component_id => component.id, :quantity => quantity)
       association.type = association_type.to_s
       association.save
 
       properties = params[:component_properties]
       qualifiers = properties[:qualifiers]
       if properties[:type] == "new"
-        property = PropertiesHelper.create_property(properties)
+        property = PropertiesHelper.create_property(properties[:data])
         if qualifiers.empty?
           ItemComponentProperty.create(:item_component => association, :property => property)
         else

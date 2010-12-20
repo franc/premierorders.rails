@@ -2,7 +2,7 @@ module PropertiesHelper
   def self.create_property(params)
     descriptor = Property.descriptors(Items.const_get(params[:descriptor_mod]))[params[:descriptor_id].to_i]
     property = descriptor.create_property(params[:name])
-    params[:values].values.each do |id, v|
+    params[:values].values.each do |v|
       property.property_values.create(
         :name => v[:name],
         :dvinci_id => v[:dvinci_id],
