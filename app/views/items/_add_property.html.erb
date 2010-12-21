@@ -13,14 +13,9 @@
       $.get("/<%=receiver_root%>/"+mod+"/property_descriptors", cont, "json");
     };
 
-    var add_property_data = function() {
-        var request = {
-          type: add_method(),
-          qualifiers: [],
-          data: { }
-        };
 
-        var add_qualifiers = function(element) {
+    var add_property_data = function() {
+        var add_qualifiers = function(request, element) {
           $("select[name=property_qualifiers] > option:selected", element).each(
             function(index, element) {
               request.qualifiers.push($(element).val());
@@ -30,14 +25,19 @@
         
         if (add_method() === "new") {
           var form_element = $("#add_new_property");
-          add_qualifiers(form_element);
+          var request = {
+            type: add_method(),
+            qualifiers: [],
+            property: { 
+              name: $("input:text[name=property_name]", form_element).val(),
+              descriptor_mod: $("#property_receiver").val(),
+              descriptor_id: selected_descriptor_id(),
+              values: []
+            }
+          };
 
-          request.data.name = $("input:text[name=property_name]", form_element).val();
-          request.data.descriptor_mod = $("#property_receiver").val();
-          request.data.descriptor_id = selected_descriptor_id();
-          request.data.values = [];
-
-          $("#new_property_values div.property_value.descriptor_"+request.data.descriptor_id).each(
+          add_qualifiers(request, form_element);
+          $("#new_property_values div.property_value.descriptor_"+request.property.descriptor_id).each(
             function(index, pv_element) {
               var new_value = {
                 name: $("input:text[name=value_name]", pv_element).val(),
@@ -49,16 +49,23 @@
                 new_value.fields[$(vf_element).attr('name')] = $(vf_element).val();
               });
 
-              request.data.values.push(new_value);
+              request.property.values.push(new_value);
             }
           );
+
+          return request;
         } else {
           var form_element = $("#add_existing_property");
-          add_qualifiers(form_element);
-          request.data.property_id = $("input:hidden[name=property_id]", form_element).val();
-        }
+          var request = {
+            type: add_method(),
+            qualifiers: [],
+            property_id: $("input:hidden[name=property_id]", form_element).val()
+          };
 
-        return request;
+          add_qualifiers(request, form_element);
+
+          return request;
+        }
     };
 
     // replaces the options for the property qualifier select in both the new and existing microforms
@@ -124,9 +131,9 @@
             term: request.term
           };
 
-          var response_wrapper = function(data) {
-            if (data.length == 0) $(".search_notice").html('(no results returned)');
-            return response(data);
+          var response_wrapper = function(search_results) {
+            if (search_results.length == 0) $(".search_notice").html('(no results returned)');
+            return response(search_results);
           };
 
           $(".search_notice").html('');
@@ -189,9 +196,9 @@
         
         $.get(
           "/<%=receiver_root%>/"+mod+"/property_form_fragment/"+did, 
-          function(data) { 
+          function(form_html) { 
             $("#new_property_values").append(
-              $("#new_property_values li.prototype").clone(true).removeClass().append(data) 
+              $("#new_property_values li.prototype").clone(true).removeClass().append(form_html) 
             );
           }
         );

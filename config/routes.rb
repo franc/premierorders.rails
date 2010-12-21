@@ -8,9 +8,11 @@ PgRails::Application.routes.draw do
   match 'items/:mod/component_descriptors'      => 'items#component_descriptors'
   match 'items/:mod/component_association_types' => 'items#component_association_types'
   match 'items/:mod/property_form_fragment/:id' => 'items#property_form_fragment'
+  match 'items/add_property'                    => 'items#add_property'
   resources :items do
     member do
       get 'properties'
+      get 'components'
       post 'add_component'
     end
   end

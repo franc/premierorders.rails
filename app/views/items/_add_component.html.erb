@@ -16,14 +16,17 @@
     };
     
     var add_component_data = function() {
-      var data = {
+      var component_data = {
         association_id: $("#association_select option:selected").val(),
         component_id: $("#add_existing_component input:hidden[name=component_id]").val(),
-        quantity: $("#add_existing_component input:text[name=quantity]").val(),
-        component_properties: add_property_data()
+        quantity: $("#add_existing_component input:text[name=quantity]").val()
       };
 
-      return data;
+      if ($("#configurable").val() === "true") {
+        component_data.component_properties = add_property_data();
+      }
+
+      return component_data;
     };
 
     var update_association_select = function(association_types) {
@@ -44,14 +47,13 @@
             term:  request.term 
           };
 
-          var response_wrapper = function(data) {
-            if (data.length == 0) $(".search_notice").html('(no results returned)');
-            return response(data);
+          var response_wrapper = function(search_results) {
+            if (search_results.length == 0) $(".search_notice").html('(no results returned)');
+            return response(search_results);
           };
 
           $(".search_notice").html('');
           $("#selected_component_display").hide();
-          $(".component_properties_conf").hide();
           $.get("/items/search", request_body, response_wrapper, "json");
         },
         select: function( event, ui ) {
@@ -66,10 +68,11 @@
           $("#add_existing_component input:hidden[name=component_id]").val( ui.item.value.item_id );
           $("#selected_component_name").html(ui.item.value.item_name);
           $("#selected_component_dvinci_id").html(ui.item.value.item_dvinci_id);
+
           if (ui.item.value.properties.length == 0) {
-            $("#selected_component_display .elidable").hide();
+            $(".component_props").hide();
           } else {
-            $("#selected_component_display .elidable").show();
+            $(".component_props").show();
             $("#selected_component_properties ul").empty();
             var props = ui.item.value.properties;
             for (i = 0; i < props.length; i++) {
@@ -91,7 +94,13 @@
       change_property_receiver(
         association_types[index].association_type, 
         function(descriptors) { 
-          if (descriptors.length == 0) $(".component_property_conf").hide(); 
+          if (descriptors.length == 0) {
+            $(".association_props").hide(); 
+            $("#configurable").val("false");
+          } else {
+            $(".association_props").show(); 
+            $("#configurable").val("true");
+          }
         }
       );
     };
@@ -121,7 +130,8 @@
 <% end %>
 
 <div id="add_component_form">
-  <input id="component_receiver" type="text" style="display:none"/>
+  <input id="component_receiver" type="hidden"/>
+  <input id="configurable" type="hidden"/>
   
   <ul>
     <li>Choose a component type: <select id="association_select"></select></li>
@@ -134,8 +144,8 @@
         <dd id="selected_component_name"></dd>
         <dt>D'Vinci ID:</dt>
         <dd id="selected_component_dvinci_id"></dd>
-        <dt class="elidable">Properties:</dt>
-        <dd class="elidable" id="selected_component_properties">
+        <dt class="component_props">Properties:</dt>
+        <dd class="component_props" id="selected_component_properties">
           <table>
             <thead><tr><th>Family</th><th>Property Name</th></tr></thead>
             <tbody></tbody>
@@ -143,8 +153,8 @@
         </dd>
         <dt>Quantity:</dt>
         <dd><%= text_field_tag :quantity %></dd>
-        <dt class="component_property_conf">Configuration:</dt>
-        <dd class="component_property_conf" id="component_association_properties">
+        <dt class="association_props">Configuration:</dt>
+        <dd class="association_props" id="component_association_properties">
           <%= render :partial => 'add_property', :locals => {:receiver_root => 'items', :include_submit => false } %>
         </dd>
       </dl>

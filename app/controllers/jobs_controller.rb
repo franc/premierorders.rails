@@ -75,7 +75,6 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
 
     if request.xhr?
-      logger.info("Got parameters for job update: #{params[:job].inspect}")
       if @job.update_attributes(params[:job])
         render :json => {:updated => 'success'}
       else

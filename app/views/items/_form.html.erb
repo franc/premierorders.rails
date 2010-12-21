@@ -63,41 +63,32 @@
           window_contents.find("#add_property_submit").click(function() { 
             dialog.w.find(".jqm_content").each(function() {
               var req = this.contentWindow.add_property_data();
+              var update_properties_list = function(property) { 
+                // Save the property ids and qualifiers so that if this is a new record,
+                // the data can be included in the form submission
+                property_associations[property.property_id] = req.qualifiers;
 
-              if (req.type === "new") {
-                handler = function(data) { 
-                  // Save the property ids and qualifiers so that if this is a new record,
-                  // the data can be included in the form submission
-                  property_associations[data.property_id] = req.qualifiers;
+                // Using a match on the item id to determine that the form is in edit 
+                // mode, reload the properties list by querying for the properties 
+                // associated with the object.
+                var matches = "<%= @item.id%>".match(/[0-9]+/);
+                if (matches != null && matches.length > 0) {
+                  $.get("/items/<%=@item.id%>/properties", function(properties_list_html) {
+                    $("#properties_list").replaceWith(properties_list_html); 
+                  });
+                } else {
+                  // Since there is no persistent entity to retrieve properties for, but 
+                  // we want to show the property in the list,
+                  // just go ahead and render the returned property data into the properties list.
+                  // The property that has been created is stored in the property_associations
+                  // object, which will be used to create the actual association upon submit of
+                  // the form as a whole.
+                  add_property_row(property, req.qualifiers)
+                }
+              };
 
-                  // Using a match on the item id to determine that the form is in edit 
-                  // mode, reload the properties list by querying for the properties 
-                  // associated with the object.
-                  var numeric = /^[0-9]$/;
-                  var item_id_match = "<%= @item.id%>".match(numeric);
-                  if (item_id_match != null && item_id_match.length > 0) {
-                    $.get("/items/<%=@item.id%>/properties", function(data) {
-                      $("#properties_list").replaceWith(data); 
-                    });
-                  } else {
-                    // Since there is no persisted property, but we want to show the property in the list,
-                    // just go ahead and render the returned property data into the properties list.
-                    // The property that has been created is stored in the property_associations
-                    // object, which will be used to create the actual association upon submit of
-                    // the form as a whole.
-                    add_property_row(data.value, req.qualifiers)
-                  }
-                };
-
-                req.data.receiver_id = "<%=@item.id%>",
-                req.data.qualifiers = req.qualifiers
-                $.post("/properties", req.data, handler, "json");
-              } else {
-                property_associations[req.data.property_id] = req.qualifiers;
-                $.get("/properties/"+req.data.property_id, function(data) {
-                  add_property_row(data.value, req.qualifiers); 
-                });
-              }
+              req.receiver_id = "<%=@item.id%>",
+              $.post("/items/add_property", req, update_properties_list, "json");
             });
 
             dialog.w.hide();
@@ -128,8 +119,8 @@
               dialog.w.find(".jqm_content").each(function() {
                 var req = this.contentWindow.add_component_data();
                 var handler = function(data) {
-                  var numeric = /^[0-9]$/;
-                  if ("<%= @item.id%>".match(numeric).length > 0) {
+                  var matches = "<%= @item.id%>".match(/[0-9]+/);
+                  if (matches != null & matches.length > 0) {
                     $.get("/items/<%=@item.id%>/components", function(data) {
                       $("#item_components").replaceWith(data); 
                     });
@@ -152,6 +143,7 @@
           var input = $('<input type="hidden" name="property_associations"/>').val(JSON.stringify(property_associations));
 
           $("#item_form_fields").append(input);
+          return true; //continue with form submission.
         });
       <% end %>
     });

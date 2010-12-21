@@ -22,13 +22,11 @@
           $.ajax({
             type: 'delete',
             url: $(ev.target).attr("href"), 
-            success: function(data) { 
+            success: function(update_response) { 
               $(ev.target).parents(".property_row").remove(); 
-              update_notice(data);
+              update_notice(update_response);
             },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-              alert("Ooooops!, request failed with status: " + XMLHttpRequest.status + ' ' + XMLHttpRequest.responseText);
-            }
+            error: ajax_error_alert
           });
         }
 
