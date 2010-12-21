@@ -16,14 +16,12 @@
     };
     
     var add_component_data = function() {
-      var data = {
+      return {
         association_id: $("#association_select option:selected").val(),
         component_id: $("#add_existing_component input:hidden[name=component_id]").val(),
         quantity: $("#add_existing_component input:text[name=quantity]").val(),
         component_properties: add_property_data()
       };
-
-      return data;
     };
 
     var update_association_select = function(association_types) {
@@ -44,9 +42,9 @@
             term:  request.term 
           };
 
-          var response_wrapper = function(data) {
-            if (data.length == 0) $(".search_notice").html('(no results returned)');
-            return response(data);
+          var response_wrapper = function(search_results) {
+            if (search_results.length == 0) $(".search_notice").html('(no results returned)');
+            return response(search_results);
           };
 
           $(".search_notice").html('');

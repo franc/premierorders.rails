@@ -11,6 +11,7 @@ PgRails::Application.routes.draw do
   resources :items do
     member do
       get 'properties'
+      get 'components'
       post 'add_component'
     end
   end

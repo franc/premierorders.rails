@@ -50,13 +50,8 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.save
         @property_associations.each do |key, qualifiers|
-          if qualifiers.empty?
-            ItemProperty.create(:item_id => @item.id, :property_id => key)
-          else
-            qualifiers.each do |q|
-              ItemProperty.create(:item_id => @item.id, :property_id => key, :qualifier => q)
-            end
-          end
+          property = Property.find(key)
+          PropertiesHelper.create_item_properties(@item, property, qualifiers)
         end
 
         format.html { redirect_to(@item, :notice => 'Item was successfully created.') }
@@ -131,22 +126,6 @@ class ItemsController < ApplicationController
     end
   end
 
-  def add_property
-    if request.xhr?
-      item = Item.find(params[:receiver_id])
-      property = Property.find(params[:property_id])
-      if (params[:qualifiers] && !params[:qualifiers].empty?)
-        params[:qualifiers].each do |idx, q|
-          ItemProperty.create(:item => item, :property => property, :qualifier => q)
-        end
-      else
-        ItemProperty.create(:item => item, :property => property)
-      end
-
-      render :nothing => true
-    end
-  end
-
   def components
     if request.xhr?
       item = Item.find(params[:id])
@@ -158,11 +137,10 @@ class ItemsController < ApplicationController
   end
 
   def add_component
-    logger.info params.inspect
     if request.xhr?
       receiver = Item.find_by_id(params[:id])
-      association_type = Item.component_association_modules(receiver.class)[params[:association_id].to_i]
       component = Item.find_by_id(params[:component_id])
+      association_type = Item.component_association_modules(receiver.class)[params[:association_id].to_i]
       quantity = params[:quantity]
 
       association = ItemComponent.new(:item_id => receiver.id, :component_id => component.id, :quantity => quantity)
@@ -170,20 +148,15 @@ class ItemsController < ApplicationController
       association.save
 
       properties = params[:component_properties]
-      qualifiers = properties[:qualifiers]
-      if properties[:type] == "new"
-        property = PropertiesHelper.create_property(properties[:data])
-        if qualifiers.empty?
-          ItemComponentProperty.create(:item_component => association, :property => property)
-        else
-          qualifiers.each do |q|
-            ItemComponentProperty.create(:item_component => association, :property => property, :qualifier => q)
-          end
-        end
+      property = if properties[:type] == "new"
+        PropertiesHelper.create_property(properties[:property])
       else
+        Property.find(properties[:property_id])
       end
 
-      render :nothing => true
+      PropertiesHelper.create_item_component_properties(association, property, properties[:qualifiers])
+
+      render :json => {:updated => 'success'}
     end
   end
 
@@ -236,4 +209,6 @@ class ItemsController < ApplicationController
       render :json => type_map.to_json
     end
   end
+
+
 end

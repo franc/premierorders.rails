@@ -16,6 +16,11 @@ var update_notice = function(data) {
   }
 };
 
+var ajax_error_alert = function (XMLHttpRequest, textStatus, errorThrown) {
+  alert("Ooooops!, request failed with status: " + XMLHttpRequest.status + ' ' + XMLHttpRequest.responseText);
+}
+
+
 var post_this_update = function() {
   post_update($(this));
 };
