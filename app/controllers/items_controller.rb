@@ -136,6 +136,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def add_component_form
+    render '_add_component', :layout => 'minimal'
+  end
+
   def add_component
     if request.xhr?
       receiver = Item.find_by_id(params[:id])
@@ -148,18 +152,18 @@ class ItemsController < ApplicationController
       association.save
 
       properties = params[:component_properties]
-      property = if properties[:type] == "new"
-        PropertiesHelper.create_property(properties[:property])
-      else
-        Property.find(properties[:property_id])
-      end
+      unless properties.nil?
+        property = case properties[:type] 
+          when "new"      then PropertiesHelper.create_property(properties[:property])
+          when "existing" then Property.find(properties[:property_id])
+        end
 
-      PropertiesHelper.create_item_component_properties(association, property, properties[:qualifiers])
+        PropertiesHelper.create_item_component_properties(association, property, properties[:qualifiers])
+      end
 
       render :json => {:updated => 'success'}
     end
   end
-
 
   def add_property_form
     render '_add_property', :layout => 'minimal', :locals => {
@@ -168,8 +172,20 @@ class ItemsController < ApplicationController
     }
   end
 
-  def add_component_form
-    render '_add_component', :layout => 'minimal'
+  def add_property
+    property = case params[:type]
+      when "new"      then PropertiesHelper.create_property(params[:property])
+      when "existing" then Property.find(params[:property_id])
+    end    
+
+    if params[:receiver_id]
+      item = Item.find(params[:receiver_id])
+      PropertiesHelper.create_item_properties(item, property, params[:qualifiers])
+    end
+
+    if request.xhr?
+      render :json => PropertiesHelper.property_json(property)
+    end
   end
 
   def property_descriptors
