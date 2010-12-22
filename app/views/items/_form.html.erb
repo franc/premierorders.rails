@@ -74,7 +74,9 @@
                 var matches = "<%= @item.id%>".match(/[0-9]+/);
                 if (matches != null && matches.length > 0) {
                   $.get("/items/<%=@item.id%>/properties", function(properties_list_html) {
-                    $("#properties_list").replaceWith(properties_list_html); 
+                    var elem = $(properties_list_html);
+                    $(".property_delete_link", elem).click(item_prop_delete_clicked);
+                    $("#properties_list").replaceWith(elem); 
                   });
                 } else {
                   // Since there is no persistent entity to retrieve properties for, but 
@@ -121,8 +123,10 @@
                 var handler = function(data) {
                   var matches = "<%= @item.id%>".match(/[0-9]+/);
                   if (matches != null & matches.length > 0) {
-                    $.get("/items/<%=@item.id%>/components", function(data) {
-                      $("#item_components").replaceWith(data); 
+                    $.get("/items/<%=@item.id%>/components", function(component_html) {
+                      var elem = $(component_html);
+                      $(".component_delete_link", elem).click(item_comp_delete_clicked);
+                      $("#item_components").replaceWith(elem); 
                     });
                   }
                 };
