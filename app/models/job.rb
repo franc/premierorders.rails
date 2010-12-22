@@ -115,7 +115,7 @@ class Job < ActiveRecord::Base
           :quantity  => item_quantity,
           :comment   => special_instructions,
           :unit_price => unit_price,
-          :tracking_id => i
+          :tracking_id => i + 1
       }
 
       # Add the item reference to the job item, if an item is known
