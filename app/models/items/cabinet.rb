@@ -1,3 +1,4 @@
+require 'properties.rb'
 require 'property.rb'
 require 'items/cabinet_components.rb'
 
