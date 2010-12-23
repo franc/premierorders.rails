@@ -13,7 +13,6 @@
       $.get("/<%=receiver_root%>/"+mod+"/property_descriptors", cont, "json");
     };
 
-
     var add_property_data = function() {
         var add_qualifiers = function(request, element) {
           $("select[name=property_qualifiers] > option:selected", element).each(
@@ -210,7 +209,7 @@
 <% end %>
 
 <div id="add_property_form">
-  <input id="property_receiver" type="text" style="display:none"/>
+  <input id="property_receiver" type="hidden"/>
 
   <ul>
     <li><input type="radio" name="add_property_method" value="existing" checked /> Add Existing</li>

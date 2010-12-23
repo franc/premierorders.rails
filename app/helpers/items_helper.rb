@@ -16,11 +16,11 @@ module ItemsHelper
     select_tag :descriptor, options_for_select(option_values), options
   end
 
-  def property_value_field_tag(name, type)
+  def property_value_field_tag(name, type, value = nil)
     if type.kind_of?(Array)
-      select_tag(name, options_for_select(type.map{|t| [t, t]}), {:class => 'property_value_field'})
+      select_tag(name, options_for_select(type.map{|t| [t, t]}, value), {:class => 'property_value_field'})
     else
-      text_field_tag(name, nil, {:class => 'property_value_field'})
+      text_field_tag(name, value, {:class => 'property_value_field'})
     end
   end
 

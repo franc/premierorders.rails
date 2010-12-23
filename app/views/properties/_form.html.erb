@@ -1,0 +1,79 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <script type="text/javascript">
+    var new_value_fields_generator = function() {
+      var new_value_index = 0;
+      return function() {
+        new_value_index += 1;
+        return $(".property_value.prototype").clone().removeClass("prototype")
+                                      .html().replace(/\[new\]/g, "[new]["+new_value_index+"]");
+
+      }
+    };
+
+    jQuery(function($) {
+      var new_value_fields = new_value_fields_generator();
+      $("#add_property_value").click(function() {
+        $("#property_values").append(new_value_fields()).append("<hr/>");
+      });
+    });
+  </script>
+<% end %>
+
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div id="property_form_fields">
+    <dl>
+      <dt><%= f.label :name %></dt>
+      <dd><%= f.text_field :name %></dd>
+      <dt><%= f.label :family %></dt>
+      <dd><%= @property.family %></dd>
+      <dt><%= f.label :values %> <span id="add_property_value">(+)</span></dt>
+      <dd id="property_values"> 
+        <% @property.property_values.each do |v| %>
+          <dl class="property_value">
+            <dt>Value Name:</dt>
+            <dd><%= text_field_tag "property_value[#{v.id}][name]", v.name, {:class => 'property_value_field'} %></dd>
+            <dt>D'Vinci ID:</dt>
+            <dd><%= text_field_tag "property_value[#{v.id}][dvinci_id]", v.dvinci_id, {:class => 'property_value_field'} %></dd>
+            <% v.field_values.each do |name, details| %>
+              <dt><%= name.to_s.titlecase %>:</dt>
+              <dd><%= property_value_field_tag("property_value[#{v.id}][fields][#{name}]", details[:type], details[:value]) %></dd>
+            <% end %>
+          </dl>
+          <hr/>
+        <% end %>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<!-- This prototype must remain outside of the form, so that it is not picked up inadvertently -->
+<dl class="property_value prototype">
+  <dl class="property_value">
+    <dt>Value Name:</dt>
+    <dd><%= text_field_tag "property_value[new][name]", nil, {:class => 'property_value_field'} %></dd>
+    <dt>D'Vinci ID:</dt>
+    <dd><%= text_field_tag "property_value[new][dvinci_id]", nil, {:class => 'property_value_field'} %></dd>
+    <% @property.value_structure.each do |name, type| %>
+      <dt><%= name.to_s.titlecase %>:</dt>
+      <dd><%= property_value_field_tag("property_value[new][fields][#{name}]", type) %></dd>
+    <% end %>
+  </dl>
+</dl>
+

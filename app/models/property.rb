@@ -40,7 +40,9 @@ class Property < ActiveRecord::Base
     descriptors
   end
 
-  has_and_belongs_to_many :items
+  has_many :item_properties
+  has_many :items, :through => :item_properties
+
 	has_and_belongs_to_many :property_values, :join_table => 'property_value_selection' 
   has_many :job_item_properties 
 
@@ -171,9 +173,9 @@ class Property < ActiveRecord::Base
       {
         :color => :string,
         :thickness => :float,
-        :thickness_units => [:in, :mm],
+        :thickness_units => Properties::LinearConversions::UNITS,
         :price => :float,
-        :price_units => [:in, :mm]
+        :price_units => Properties::LinearConversions::UNITS
       }
     end
 
@@ -198,6 +200,7 @@ class Property < ActiveRecord::Base
       {
         :color => :string,
         :width => :float,
+        :width_units => Properties::LinearConversions::UNITS, 
         :price => :float,
         :price_units => Properties::LinearConversions::UNITS
       }
