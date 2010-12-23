@@ -1,4 +1,5 @@
 require 'items/panel.rb'
+require 'properties.rb'
 require 'property.rb'
 
 module ShellPanel
