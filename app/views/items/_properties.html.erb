@@ -39,7 +39,7 @@
   <% properties.each_with_index do |prop, i| %>
     <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%> property_row">
       <td class="property_name">
-        <%= prop.property.name %> 
+        <%= link_to prop.property.name, property_path(prop.property) %> 
         <%= link_to '(X)', resource_path.call(prop), :method => :delete, :class => 'property_delete_link' %>
       </td>
       <td class="property_family"><%= prop.property.family.titlecase %></td>

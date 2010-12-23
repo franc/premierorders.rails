@@ -5,6 +5,17 @@ class PropertyValue < ActiveRecord::Base
   has_and_belongs_to_many :properties, :join_table => 'property_value_selection'
   after_find :morph
 
+  def field_values
+    values = extract()
+    logger.info(values.inspect)
+    logger.info(value_structure.inspect)
+    result = {}
+    value_structure.each do |name, type|
+      result[name] = {:type => type, :value => values[name.to_s]}
+    end
+    result
+  end
+
   def to_s
     "#{name}: #{value_str}"
   end
