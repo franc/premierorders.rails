@@ -37,19 +37,21 @@ class ShellHorizontalPanel < ItemComponent
   include ShellPanel
 
   EB_SIDES = [:left, :right, :rear, :front]
+  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
 
   def self.optional_properties
-    [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand])]
+    [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]
   end
 
   def calculate_price(width, height, depth, color, units)
     edgeband_price = edge_banding_price(
-      color,
-      {:left => depth, :right => depth, :rear => width, :front => width},
-      units
+      color, {:left => depth, :right => depth, :rear => width, :front => width}, units
     )
 
-    quantity * (component.calculate_price(width, depth, color, units) + edgeband_price)
+    margin_property = properties.find_by_descriptor(MARGIN)
+    margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
+
+    quantity * (component.calculate_price(width, depth, color, units) + edgeband_price) * margin_factor
   end
 end
 
@@ -57,19 +59,21 @@ class ShellVerticalPanel < ItemComponent
   include ShellPanel
 
   EB_SIDES = [:top, :bottom, :rear, :front]
+  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
 
   def self.optional_properties
-    [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand])]
+    [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]
   end
 
   def calculate_price(width, height, depth, color, units)
     edgeband_price = edge_banding_price(
-      color,
-      {:top => depth, :bottom => depth, :rear => height, :front => height},
-      units
+      color, {:top => depth, :bottom => depth, :rear => height, :front => height}, units
     )
 
-    quantity * (component.calculate_price(height, depth, color, units) + edgeband_price)
+    margin_property = properties.find_by_descriptor(MARGIN)
+    margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
+
+    quantity * (component.calculate_price(height, depth, color, units) + edgeband_price) * margin_factor
   end
 end
 

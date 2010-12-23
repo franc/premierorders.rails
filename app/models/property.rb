@@ -155,6 +155,17 @@ class Property < ActiveRecord::Base
     end
   end
 
+  module Margin
+    include Properties::JSONProperty
+    def self.value_structure
+      {:factor => :float}
+    end
+
+    def factor
+      extract(:factor).to_f
+    end
+  end
+
   module Surcharge
     include Properties::JSONProperty
     def self.value_structure
