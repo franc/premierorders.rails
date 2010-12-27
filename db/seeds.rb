@@ -161,7 +161,7 @@ def load_product_data(filename)
       t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
 
       category, color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : [nil, nil]
-      base_description = color.nil? ? description : description.gsub(/,?\s*#{color}/i, '')
+      base_description = color.nil? ? description : description.gsub(/[,|]?\s*#{color}/i, '')
       color_match = base_description != description
 
       # restore the original description and 15-digit id if the color was not found in the description
@@ -253,36 +253,56 @@ def fix_cutrite_codes
   end
 end
 
-#def dump_tab_file(filename)
-#  color_attr = ItemAttr.find_by_name('Cabinet Color')
-#  File.open("generated_tab.csv", "w") do |out|
-#    CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
-#      part_id, catalog_id, dvinci_id, description, *xs = row
-#      next if part_id == 'PartID'
-#
-#      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-#      t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
-#
-#      item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
-#      item = Item.find_by_dvinci_id(item_dvinci_key) || Item.find_by_dvinci_id(dvinci_id)
-#      if item.nil? 
-#        puts "Could not find item with dvinci id: " + item_dvinci_key
-#      else
-#        color = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(color_attr.id, color_key)
-#        if color.nil? 
-#          out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
-#        else
-#          out.puts(CSV.generate_line([part_id, catalog_id, item.dvinci_id.gsub(/x/, color.dvinci_id), "#{item.description}, #{color.value_str}"] + xs))
-#        end
-#      end
-#    end
-#  end
-#end
+def dump_tab_file(filename)
+  File.open("generated_tab.csv", "w") do |out|
+    CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
+      part_id, catalog_id, dvinci_id, description, *xs = row
+      next if part_id == 'PartID' || dvinci_id.nil?
+
+      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
+      if dvinci_id_matchdata.nil?
+        puts "Could not parse dvinci id: " + dvinci_id
+      else
+        t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
+
+        item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
+        item = Item.find_by_dvinci_id(item_dvinci_key) || Item.find_by_dvinci_id(dvinci_id)
+        if item.nil? 
+          puts "Could not find item with dvinci id: " + item_dvinci_key
+        else
+          color_prop = item.properties.find_by_family(:color)
+          if color_prop.nil? 
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
+          else
+      color = color_prop.property_values.detect{|v| !v.nil? && v.dvinci_id == color_key}
+            if color.nil?
+              out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
+            else
+        out.puts(CSV.generate_line([part_id, catalog_id, item.dvinci_id.gsub(/x/, color.dvinci_id), "#{item.description}, #{color.color}"] + xs))
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+def dump_items
+  File.open("generated.csv", 'w') do |f|
+    CSV::Writer.generate(f, ",") do |csv|
+     Item.find(:all).each do |i|
+      csv << [i.name, i.dvinci_id, i.cutrite_id]
+     end
+    end
+  end
+end
+
 
 load_franchisees("franchisee_accounts.csv")
 load_users("franchisee_contacts.csv")
 load_product_data("parts_closettailors.csv")
 fix_cutrite_codes
 #dump_tab_file("parts_closettailors.csv")
+#dump_items
 
 
