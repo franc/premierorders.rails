@@ -1,4 +1,4 @@
-require 'properties.rb'
+require 'property.rb'
 require 'properties_helper.rb'
 
 class ItemsController < ApplicationController
@@ -225,6 +225,4 @@ class ItemsController < ApplicationController
       render :json => type_map.to_json
     end
   end
-
-
 end

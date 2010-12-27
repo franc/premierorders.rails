@@ -1,4 +1,3 @@
-require 'properties.rb'
 require 'property.rb'
 require 'items/cabinet_components.rb'
 
@@ -22,12 +21,8 @@ class Cabinet < Item
     dimensions  = job_item.job_item_properties.find_by_descriptor(DIMENSIONS_DESCRIPTOR)
     color       = job_item.job_item_properties.find_by_descriptor(Property::Color::DESCRIPTOR)
 
-    logger.info("units: #{units.inspect}")
-    logger.info("dimensions: #{dimensions.inspect}")
-    logger.info("color: #{color.inspect}")
-
+    logger.info("Calculating price given units: #{units.units}")
     item_components.inject(0.0) do |total, component|
-      logger.info component.inspect
       component_price = component.calculate_price(
         dimensions.width,
         dimensions.height,

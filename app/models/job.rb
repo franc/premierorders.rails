@@ -77,7 +77,7 @@ class Job < ActiveRecord::Base
     job_properties.create(
       :family => :linear_units,
       :module_names => Property::LinearUnits,
-      :value_str => {:linear_units => :ft}.to_json
+      :value_str => {:linear_units => :in}.to_json
     )
 
     raise FormatException, "Unexpected number of label rows in document: #{labels.size}; expected 1" unless labels.size == 1
@@ -99,7 +99,6 @@ class Job < ActiveRecord::Base
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
       product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-      logger.info product_code_matchdata.inspect
       item = Option.new(
         if product_code_matchdata
           t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
@@ -109,8 +108,6 @@ class Job < ActiveRecord::Base
           Item.find_by_dvinci_id(dvinci_product_id)
         end
       )
-
-      logger.info "Item: #{item.inspect}"
 
       unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
       special_instructions = if column_indices['Notes'] 

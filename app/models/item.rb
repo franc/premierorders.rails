@@ -1,6 +1,14 @@
 require 'property.rb'
 
 class Item < ActiveRecord::Base
+  has_many :item_properties
+	has_many :properties, :through => :item_properties, :extend => Properties::Association
+
+  has_many :item_components
+  has_many :components, :through => :item_components, :class_name => 'Item'
+
+  has_many :job_items
+
   def self.execute_sql(array)     
     sql = self.send(:sanitize_sql_array, array)
     self.connection.execute(sql)
@@ -31,16 +39,12 @@ class Item < ActiveRecord::Base
     types
   end
 
-  has_many :item_properties
-	has_many :properties, :through => :item_properties, :extend => Properties::Association
-
-  has_many :item_components
-  has_many :components, :through => :item_components, :class_name => 'Item'
-
-  has_many :job_items
-
   def self.search(types, term)
     Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
+  end
+
+  def unique_value(descriptor)
+    properties.find_by_descriptor(descriptor).property_values.first
   end
 
   def price_job_item(job_item)

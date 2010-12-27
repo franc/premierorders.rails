@@ -56,6 +56,7 @@
         <th>Special Instructions</th>
       </tr>
       <% @job.job_items.order('tracking_id').all.each_with_index do |job_item, i| %>
+        <% dimensions_property = job_item.job_item_properties.find_by_family(:dimensions) %>
         <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" -%>">
           <td><%= job_item.tracking_id %></td>
           <td><%= job_item.inspect %><br/><%= job_item.item.inspect %></td>
@@ -63,9 +64,9 @@
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
           <td><%#= job_item.item_attr('Cabinet Color') %></td>
           <td><%= job_item.quantity.to_i %></td>
-          <td><%#= job_item.item_attr('Cut Width') ? "%.3f" % job_item.item_attr('Cut Width').to_f : '' %></td>
-          <td><%#= job_item.item_attr('Cut Height') ? "%.3f" % job_item.item_attr('Cut Height').to_f : '' %></td>
-          <td><%#= job_item.item_attr('Cut Depth') ? "%.3f" % job_item.item_attr('Cut Depth').to_f : '' %></td>
+          <td><%= dimensions_property ? "%.3f" % dimensions_property.width : '' %></td>
+          <td><%= dimensions_property ? "%.3f" % dimensions_property.height : '' %></td>
+          <td><%= dimensions_property ? "%.3f" % dimensions_property.depth : '' %></td>
           <td><%= "$%.2f" % job_item.compute_unit_price %></td>
           <td><%= "$%.2f" % job_item.compute_total %></td>
           <td><%= job_item.comment %></td>

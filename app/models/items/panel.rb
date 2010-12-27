@@ -1,5 +1,4 @@
 require 'property.rb'
-require 'properties.rb'
 require 'items/item_materials.rb'
 
 class Panel < Item

@@ -1,6 +1,5 @@
-require 'items/panel.rb'
-require 'properties.rb'
 require 'property.rb'
+require 'items/panel.rb'
 
 module ShellPanel
   def self.included(mod)
@@ -49,9 +48,12 @@ class ShellHorizontalPanel < ItemComponent
     )
 
     margin_property = properties.find_by_descriptor(MARGIN)
-    margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
+    margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.property_values.first.factor
 
-    quantity * (component.calculate_price(width, depth, units, color) + edgeband_price) * margin_factor
+    unit_price = component.calculate_price(width, depth, units, color)
+
+    logger.info("Calculating price for horizontal panel; unit_price: #{unit_price}, edgeband_price: #{edgeband_price}")
+    quantity * (unit_price + edgeband_price) * margin_factor
   end
 end
 
@@ -73,7 +75,10 @@ class ShellVerticalPanel < ItemComponent
     margin_property = properties.find_by_descriptor(MARGIN)
     margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
 
-    quantity * (component.calculate_price(depth, height, units, color) + edgeband_price) * margin_factor
+    unit_price = component.calculate_price(depth, height, units, color)
+
+    logger.info("Calculating price for vertical panel; unit_price: #{unit_price}, edgeband_price: #{edgeband_price}")
+    quantity * (unit_price + edgeband_price) * margin_factor
   end
 end
 
