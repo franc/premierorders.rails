@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <script type="text/javascript">
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
@@ -55,23 +55,26 @@
         <th>Total</th>
         <th>Special Instructions</th>
       </tr>
-      <% @job.job_items.order('tracking_id', 'items.purchasing', 'items.name').all.each_with_index do |job_item, i| %>
+      <% @job.job_items.order('tracking_id').all.each_with_index do |job_item, i| %>
         <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" -%>">
           <td><%= job_item.tracking_id %></td>
-          <td><%= job_item.item ? job_item.item.name : " #{job_item.item_attr('Description')} (#{job_item.ingest_id})" %></td>
+          <td><%= job_item.inspect %><br/><%= job_item.item.inspect %></td>
+          <!--td><%= job_item.item ? job_item.item.name : job_item.ingest_id %></td-->
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
-          <td><%= job_item.item_attr('Cabinet Color') %></td>
+          <td><%#= job_item.item_attr('Cabinet Color') %></td>
           <td><%= job_item.quantity.to_i %></td>
-          <td><%= job_item.item_attr('Cut Width') ? "%.3f" % job_item.item_attr('Cut Width').to_f : '' %></td>
-          <td><%= job_item.item_attr('Cut Height') ? "%.3f" % job_item.item_attr('Cut Height').to_f : '' %></td>
-          <td><%= job_item.item_attr('Cut Depth') ? "%.3f" % job_item.item_attr('Cut Depth').to_f : '' %></td>
-          <td><%= "$%.2f" % job_item.unit_price.to_f %></td>
-          <td><%= "$%.2f" % (job_item.unit_price.to_f * job_item.quantity) %></td>
+          <td><%#= job_item.item_attr('Cut Width') ? "%.3f" % job_item.item_attr('Cut Width').to_f : '' %></td>
+          <td><%#= job_item.item_attr('Cut Height') ? "%.3f" % job_item.item_attr('Cut Height').to_f : '' %></td>
+          <td><%#= job_item.item_attr('Cut Depth') ? "%.3f" % job_item.item_attr('Cut Depth').to_f : '' %></td>
+          <td><%= "$%.2f" % job_item.compute_unit_price %></td>
+          <td><%= "$%.2f" % job_item.compute_total %></td>
           <td><%= job_item.comment %></td>
         </tr>
       <% end %>
     </table>
   </dd>
+  <dt>Job Total</dt>
+  <dd><%= "$%.2f" % @total -%></dd>
 </dl>
 
 <% content_for :local_nav do %>

@@ -1,4 +1,5 @@
 require 'json'
+require 'property.rb'
 
 module ModularProperty
   def value_structure
@@ -9,7 +10,7 @@ end
 module NamedModules
   def modules
     (module_names || '').split(/\s*,\s*/).map do |mod_name|
-      Property.const_get(mod_name.to_sym)
+      Property.const_get(mod_name.demodulize.to_sym)
     end
   end
 end

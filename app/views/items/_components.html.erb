@@ -10,6 +10,7 @@
 <table class="item_components" id="<%= id %>">
   <tr>
     <th>Name</th>
+    <th>Association</th>
     <th>Type</th>
     <th>Quantity</th>
     <th>Properties</th>
@@ -20,10 +21,11 @@
         <%= link_to comp.component.name, item_path(comp.component) %> 
         <%= link_to '(X)', item_component_path(comp), :method => :delete, :class => 'component_delete_link' %>
       </td>
+      <td><%= comp.class.to_s.demodulize %></td>
       <td><%= comp.component.class.to_s.demodulize %></td>
       <td><%= comp.quantity %></td>
       <td>
-        <% unless Property.descriptors(comp.component.class).empty? %>
+        <%# unless Property.descriptors(comp.class).empty? %>
           <%= render :partial => 'properties', 
                      :locals => {
                        :id => 'component_relationship_properties', 
@@ -31,7 +33,7 @@
                        :resource_path => lambda {|icp| item_component_properties_path(icp)}
                      } %>
           <span class="add_component_property" style="display:none">(+)</span>
-        <% end %>
+        <%# end %>
       </td>
     </tr>
   <% end %>

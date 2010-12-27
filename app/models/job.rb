@@ -10,7 +10,7 @@ class Job < ActiveRecord::Base
   belongs_to :customer, :class_name => 'User'
   belongs_to :billing_address, :class_name => 'Address'
   belongs_to :shipping_address, :class_name => 'Address'
-  has_many   :job_items, :include => :item
+  has_many   :job_items
   has_many   :job_properties, :extend => Properties::Association
 
   has_attached_file :dvinci_xml
@@ -49,6 +49,7 @@ class Job < ActiveRecord::Base
     rows = []
     CSV.open(csv.path, "r", nil, "\r") do |row|
         rows << row
+      logger.info("Got row: #{row.inspect}")
     end
 
     rows
@@ -73,6 +74,12 @@ class Job < ActiveRecord::Base
 
     labels, data_rows = rows.partition {|row| row[0] == 'Description'}
 
+    job_properties.create(
+      :family => :linear_units,
+      :module_names => Property::LinearUnits,
+      :value_str => {:linear_units => :ft}.to_json
+    )
+
     raise FormatException, "Unexpected number of label rows in document: #{labels.size}; expected 1" unless labels.size == 1
     labels.flatten!
 
@@ -92,14 +99,18 @@ class Job < ActiveRecord::Base
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
       product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
+      logger.info product_code_matchdata.inspect
       item = Option.new(
         if product_code_matchdata
           t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
+          logger.info "Find: #{t1}.#{t2}.#{t3}.x.#{t5}#{t6}"
           Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}#{t6}") || Item.find_by_dvinci_id(dvinci_product_id)
         else 
           Item.find_by_dvinci_id(dvinci_product_id)
         end
       )
+
+      logger.info "Item: #{item.inspect}"
 
       unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
       special_instructions = if column_indices['Notes'] 
@@ -119,7 +130,7 @@ class Job < ActiveRecord::Base
       }
 
       # Add the item reference to the job item, if an item is known
-      item.each{|i| job_item_properties[:item] = i}
+      item.each{|i| job_item_properties[:item_id] = i.id}
 
       job_item = job_items.create(job_item_properties)
 
@@ -130,20 +141,20 @@ class Job < ActiveRecord::Base
 
       item.bind{|i| Option.new(i.class.job_item_properties.find{|d| d.family == :dimensions})}.each do |descriptor|
         job_item.job_item_properties.create(
-          :family => descriptior.family,
+          :family => descriptor.family,
           :module_names => descriptor.module_names,
           :value_str => dimensions_data.to_json 
         )
       end
 
-      item.bind{|i| Option.new(i.class.job_item_properties.find{|d| d.family == :color})}.each do |descriptor|
-        Option.fromString(row[column_indices['Cabinet Color']]).each do |color|
-          job_item.job_item_properties.create(
-            :family => descriptor.family,
-            :module_names => descriptor.module_names,
-            :value_str => {:color => color}.to_json
-          )    
-        end
+      item.each do |i|
+        color_pv = i.properties.find_by_descriptor(Property::Color::DESCRIPTOR).property_values.detect{|pv| pv.dvinci_id == color_key}
+        logger.info color_pv.inspect
+        job_item.job_item_properties.create(
+          :family => Property::Color::DESCRIPTOR.family,
+          :module_names => Property::Color::DESCRIPTOR.module_names,
+          :value_str => {:color => color_pv.color}.to_json
+        )    
       end
     end
   end
