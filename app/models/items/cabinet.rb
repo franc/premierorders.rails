@@ -10,20 +10,34 @@ class Cabinet < Item
   DIMENSIONS_DESCRIPTOR = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height, Property::Depth])
 
   def self.job_properties
-    [LinearUnits::DESCRIPTOR]
+    [Property::LinearUnits::DESCRIPTOR]
   end
 
   def self.job_item_properties
-    [DIMENSIONS_DESCRIPTOR, Color::DESCRIPTOR]
+    [DIMENSIONS_DESCRIPTOR, Property::Color::DESCRIPTOR]
   end
 
   def price_job_item(job_item)
-    units       = job_item.job.job_property.find_by_descriptor(LinearUnits::DESCRIPTOR)
+    units       = job_item.job.job_properties.find_by_descriptor(Property::LinearUnits::DESCRIPTOR)
     dimensions  = job_item.job_item_properties.find_by_descriptor(DIMENSIONS_DESCRIPTOR)
-    color       = job_item.job_item_properties(find_by_descriptor(Color::DESCRIPTOR))
+    color       = job_item.job_item_properties.find_by_descriptor(Property::Color::DESCRIPTOR)
+
+    logger.info("units: #{units.inspect}")
+    logger.info("dimensions: #{dimensions.inspect}")
+    logger.info("color: #{color.inspect}")
 
     item_components.inject(0.0) do |total, component|
-      total + component.calculate_price(dimensions.width, dimensions.height, dimensions.depth, units.units, color.color)
+      logger.info component.inspect
+      component_price = component.calculate_price(
+        dimensions.width,
+        dimensions.height,
+        dimensions.depth,
+        units.units, 
+        color.color
+      )
+
+      logger.info("#{component.inspect}: #{component_price}") 
+      total + component_price
     end
   end
 end

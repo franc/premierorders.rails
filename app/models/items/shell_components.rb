@@ -28,8 +28,8 @@ module ShellPanel
 end
 
 class ShellBackPanel < ItemComponent
-  def calculate_price(width, height, depth, color, units )
-    quantity * component.calculate_price(height, width, color, units)
+  def calculate_price(width, height, depth, units, color)
+    quantity * component.calculate_price(height, width, units, color)
   end
 end
 
@@ -43,7 +43,7 @@ class ShellHorizontalPanel < ItemComponent
     [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]
   end
 
-  def calculate_price(width, height, depth, color, units)
+  def calculate_price(width, height, depth, units, color)
     edgeband_price = edge_banding_price(
       color, {:left => depth, :right => depth, :rear => width, :front => width}, units
     )
@@ -51,7 +51,7 @@ class ShellHorizontalPanel < ItemComponent
     margin_property = properties.find_by_descriptor(MARGIN)
     margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
 
-    quantity * (component.calculate_price(width, depth, color, units) + edgeband_price) * margin_factor
+    quantity * (component.calculate_price(width, depth, units, color) + edgeband_price) * margin_factor
   end
 end
 
@@ -65,7 +65,7 @@ class ShellVerticalPanel < ItemComponent
     [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]
   end
 
-  def calculate_price(width, height, depth, color, units)
+  def calculate_price(width, height, depth, units, color)
     edgeband_price = edge_banding_price(
       color, {:top => depth, :bottom => depth, :rear => height, :front => height}, units
     )
@@ -73,7 +73,7 @@ class ShellVerticalPanel < ItemComponent
     margin_property = properties.find_by_descriptor(MARGIN)
     margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
 
-    quantity * (component.calculate_price(height, depth, color, units) + edgeband_price) * margin_factor
+    quantity * (component.calculate_price(depth, height, units, color) + edgeband_price) * margin_factor
   end
 end
 

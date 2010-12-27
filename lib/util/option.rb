@@ -37,6 +37,10 @@
     def cata(f, default)
       f.call(@value)
     end
+
+    def inspect
+      "Some(#{value.inspect})"
+    end
   end
 
   class None
@@ -46,6 +50,10 @@
 
     def cata(f, default)
       default
+    end
+
+    def inspect
+      "None"
     end
   end
 

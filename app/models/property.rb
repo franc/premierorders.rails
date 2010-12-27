@@ -60,8 +60,12 @@ class Property < ActiveRecord::Base
       }
     end
 
-    def length(units)
-      dimension_value(:length, extract(:linear_units), units)
+    def length(units = nil)
+      if (units)
+        dimension_value(:length, extract(:linear_units), units)
+      else
+        extract(:length).to_f
+      end
     end
   end
 
@@ -75,8 +79,12 @@ class Property < ActiveRecord::Base
       }
     end
 
-    def height(units)
-      dimension_value(:height, extract(:linear_units), units)
+    def height(units = nil)
+      if (units)
+        dimension_value(:height, extract(:linear_units), units)
+      else
+        extract(:height).to_f
+      end
     end
   end
 
@@ -90,8 +98,12 @@ class Property < ActiveRecord::Base
       }
     end
 
-    def width(units)
-      dimension_value(:width, extract(:linear_units), units)
+    def width(units = nil)
+      if (units)
+        dimension_value(:width, extract(:linear_units), units)
+      else
+        extract(:width).to_f
+      end
     end
   end
 
@@ -105,8 +117,22 @@ class Property < ActiveRecord::Base
       }
     end
 
-    def depth(units)
-      dimension_value(:depth, extract(:linear_units), units)
+    def depth(units = nil)
+      if (units)
+        dimension_value(:depth, extract(:linear_units), units)
+      else
+        extract(:depth).to_f
+      end
+    end
+  end
+
+  module ScalingFactor
+    def self.value_structure
+      { :factor => :float }
+    end
+
+    def factor
+      extract(:factor).to_f
     end
   end
 
@@ -240,6 +266,7 @@ class Property < ActiveRecord::Base
     end
 
     def units
+      logger.info("Got units: #{extract(:linear_units)}")
       extract(:linear_units).to_sym
     end
   end

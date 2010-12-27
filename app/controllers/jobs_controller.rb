@@ -18,6 +18,10 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
 
+    @total = @job.job_items.inject(0.0) do |total, job_item|
+      total += job_item.compute_total
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @job }
