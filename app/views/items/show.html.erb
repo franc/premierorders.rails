@@ -24,11 +24,9 @@
                      :id => 'properties_list', :properties => @item.item_properties,
                      :resource_path => lambda {|item_prop| item_property_path(item_prop)}
                    } %></dd>
-    <% if @item.id %>
-      <dt><%= label :item, :components %></dt>
-      <dd><%= render :partial => 'components', 
-                     :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
-    <% end %>
+    <dt><%= label :item, :components %></dt>
+    <dd><%= render :partial => 'components', 
+                   :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
   </dl>
 </div>
 
