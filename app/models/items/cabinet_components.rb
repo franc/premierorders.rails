@@ -1,5 +1,6 @@
 require 'items/drawer.rb'
 require 'items/shell.rb'
+require 'items/panel.rb'
 require 'util/option.rb'
 
 class CabinetShell < ItemComponent
@@ -13,6 +14,22 @@ class CabinetShell < ItemComponent
 
   def pricing_expr(units, color)
     component.pricing_expr(units, color)
+  end
+end
+
+class CabinetShelf < ItemComponent
+  include PanelPricing
+
+  def self.required_properties
+    [PropertyDescriptor.new(:edge_band, [:front], [Property::EdgeBand])]
+  end
+
+  def calculate_price(width, height, depth, units, color)
+    quantity * component.calculate_price(width, depth, units, color)
+  end
+
+  def pricing_expr(units, color)
+    panel_pricing_expr({:front => 'W'}, units, color)
   end
 end
 

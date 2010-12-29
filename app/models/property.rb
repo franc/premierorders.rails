@@ -115,11 +115,13 @@ end
 
 class PropertyDescriptor
   include ModularProperty
-  attr_reader :family, :qualifiers, :modules
-  def initialize(family, qualifiers, modules, options = nil)
+  attr_reader :family, :qualifiers, :modules, :value_arity
+
+  def initialize(family, qualifiers, modules, value_arity = nil, options = nil)
     @family = family
     @qualifiers = qualifiers
     @modules = modules
+    @value_arity = value_arity
     @options = options # a list of lambdas that can extract value options from an item or item_component
   end
 
