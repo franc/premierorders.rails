@@ -77,6 +77,33 @@ module Properties
     end
   end
 
+  module SquareConversions
+    UNITS = [:mm, :in, :ft]
+
+    def sq_convert(value, from, to)
+      case from.to_sym
+      when :mm
+        case to.to_sym
+        when :mm then value
+        when :in then value / (25.4**2)
+        when :ft then (value / (25.4**2)) / (12**2)
+        end
+      when :in
+        case to.to_sym
+        when :in then value
+        when :mm then value * (25.4**2)
+        when :ft then value / (12**2)
+        end
+      when :ft
+        case to.to_sym
+        when :in then value * (12**2)
+        when :mm then value * (12**2) * (25.4**2)
+        when :ft then value
+        end
+      end
+    end
+  end
+
   module Dimensions
     include Properties::JSONProperty, Properties::LinearConversions
 
@@ -289,7 +316,7 @@ class Property < ActiveRecord::Base
   end
 
   module Material
-    include Properties::JSONProperty, Properties::LinearConversions
+    include Properties::JSONProperty, Properties::LinearConversions, Properties::SquareConversions
 
     def self.value_structure
       {
@@ -297,7 +324,7 @@ class Property < ActiveRecord::Base
         :thickness => :float,
         :thickness_units => Properties::LinearConversions::UNITS,
         :price => :float,
-        :price_units => Properties::LinearConversions::UNITS
+        :price_units => Properties::SquareConversions::UNITS
       }
     end
 
@@ -321,7 +348,7 @@ class Property < ActiveRecord::Base
     end
 
     def pricing_expr(l_var, w_var, units)
-      "#{l_var} * #{w_var} * #{convert(extract(:price).to_f, price_units, units)}"
+      "#{l_var} * #{w_var} * #{sq_convert(extract(:price).to_f, units, price_units)}"
     end
   end
 
@@ -346,7 +373,7 @@ class Property < ActiveRecord::Base
     end
 
     def price(units)
-      convert(extract(:price).to_f, extract(:price_units).to_sym, units)
+      convert(extract(:price).to_f, units, extract(:price_units).to_sym)
     end
 
     def calculate_price(length, length_units)
@@ -354,7 +381,7 @@ class Property < ActiveRecord::Base
     end
 
     def pricing_expr(units, dimension_variable)
-      "(#{price(units)} * #{dimension_variable})"
+      "#{price(units)} * #{dimension_variable}"
     end
   end
 

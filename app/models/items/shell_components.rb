@@ -43,6 +43,13 @@ module ShellPanel
     end
     total
   end
+
+  def panel_pricing_expr(dimension_vars, units, color)
+    component_pricing = component.pricing_expr('W', 'D', units, color)
+    edge_pricing = edge_banding_pricing_expr(dimension_vars, units, color)
+    base_expr = "#{quantity} * ((#{component_pricing}) + (#{edge_pricing}))" 
+    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
+  end
 end
 
 class ShellBackPanel < ItemComponent
@@ -70,10 +77,7 @@ class ShellHorizontalPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    dimension_vars = {:left => 'D', :right => 'D', :rear => 'W', :front => 'W'}
-    
-    base_expr = "(#{component.pricing_expr('W', 'D', units, color)}) + (#{edge_banding_pricing_expr(dimension_vars, units, color)})" 
-    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
+    panel_pricing_expr({:left => 'D', :right => 'D', :rear => 'W', :front => 'W'}, units, color)
   end
 end
 
@@ -97,10 +101,7 @@ class ShellVerticalPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    dimension_vars = {:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}
-    
-    base_expr = "(#{component.pricing_expr('H', 'D', units, color)}) + (#{edge_banding_pricing_expr(dimension_vars, units, color)})" 
-    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
+    panel_pricing_expr({:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}, units, color)
   end
 end
 
