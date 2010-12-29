@@ -122,6 +122,13 @@ class SeedLoader
     end
 
     dv_colors    = data_map("#{@seed_data_dir}/dvinci_colors.csv")
+    dv_sizes     = IO.readlines("#{@seed_data_dir}/dvinci_panel_categories.csv").inject({}) do |m, line|
+      category, notch, *xs = line.split(",")
+      m[category.strip] ||= []
+      m[category.strip] << notch.strip
+      m
+    end
+
     #dv_materials = data_map("#{@seed_data_dir}/dvinci_materials.csv")
     #dv_edgeband  = data_map("#{@seed_data_dir}/dvinci_edgeband.csv")
     #dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
@@ -163,7 +170,21 @@ class SeedLoader
         # restore the original description and 15-digit id if the color was not found in the description
         # rewrite the item name only for manufactured products; need distinct purchasing skus for different 
         # purchased products, even though this means a lot of data duplication
-        item_dvinci_key = (purchasing == 'M' && color_match) ? "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}" : dvinci_id
+        item_dvinci_key = if purchasing == 'M'
+          o3 = case dv_sizes[t2]
+            when nil then t3
+            when ['x'] then 'x'
+            else
+              a, b, c = t3.split('')
+              dv_sizes[t2].detect(a) ? "#{a}x" : t3
+          end
+               
+          o4 = color_match ? 'x' : color_key
+          "#{t1}.#{t2}.#{o3}.#{o4}.#{t5}#{purchasing}" 
+        else
+          dvinci_id
+        end
+
         item_desc = (purchasing == 'M' && color_match) ? base_description : description
 
         item = Item.find_or_create_by_dvinci_id(
