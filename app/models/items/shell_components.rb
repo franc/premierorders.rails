@@ -1,26 +1,45 @@
 require 'property.rb'
 require 'items/panel.rb'
+require 'util/option.rb'
 
 module ShellPanel
+  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
+
   def self.included(mod)
     def mod.component_types
       [Panel]
     end
   end
 
-  def edge_banding_price(color, side_lengths, units)
-    # Find the edge banding property value for each side
-    edge_banding = side_lengths.keys.inject({}) do |result, side|
+  def margin_factor
+    Option.new(properties.find_by_descriptor(MARGIN)).map{|p| 1.0 + p.property_values.first.factor}
+  end
+
+  def edge_materials(sides, color)
+    sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
-        result[side] = prop.property_values.all.find{|v| v.color == color}
+        result[side] = prop.property_values.detect{|v| v.color == color}
       end
 
       result
     end
+  end
+
+  def edge_banding_pricing_expr(dimension_vars, units, color)
+    exprs = []
+    edge_materials(dimension_vars.keys, color).each do |side, banding|
+      exprs << banding.pricing_expr(units, dimension_vars[side])
+    end
+    exprs.map{|e| "(#{e})"}.join(" + ")
+  end
+
+  def edge_banding_price(color, side_lengths, units)
+    # Find the edge banding property value for each side
+    edge_banding = edge_materials(side_lengths.keys, color)
 
     total = 0.0
     side_lengths.each do |side, length|
-      total += edge_banding[side].price(length, units) if edge_banding[side]
+      total += edge_banding[side].calculate_price(length, units) if edge_banding[side]
     end
     total
   end
@@ -36,7 +55,6 @@ class ShellHorizontalPanel < ItemComponent
   include ShellPanel
 
   EB_SIDES = [:left, :right, :rear, :front]
-  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
 
   def self.optional_properties
     [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]
@@ -47,13 +65,15 @@ class ShellHorizontalPanel < ItemComponent
       color, {:left => depth, :right => depth, :rear => width, :front => width}, units
     )
 
-    margin_property = properties.find_by_descriptor(MARGIN)
-    margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.property_values.first.factor
-
     unit_price = component.calculate_price(width, depth, units, color)
+    quantity * (unit_price + edgeband_price) * margin_factor.orSome(1.0)
+  end
 
-    logger.info("Calculating price for horizontal panel; unit_price: #{unit_price}, edgeband_price: #{edgeband_price}")
-    quantity * (unit_price + edgeband_price) * margin_factor
+  def pricing_expr(units, color)
+    dimension_vars = {:left => 'D', :right => 'D', :rear => 'W', :front => 'W'}
+    
+    base_expr = "(#{component.pricing_expr('W', 'D', units, color)}) + (#{edge_banding_pricing_expr(dimension_vars, units, color)})" 
+    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
   end
 end
 
@@ -72,13 +92,15 @@ class ShellVerticalPanel < ItemComponent
       color, {:top => depth, :bottom => depth, :rear => height, :front => height}, units
     )
 
-    margin_property = properties.find_by_descriptor(MARGIN)
-    margin_factor = margin_property.nil? ? 1 : 1.0 + margin_property.factor
-
     unit_price = component.calculate_price(depth, height, units, color)
+    quantity * (unit_price + edgeband_price) * margin_factor.orSome(1.0)
+  end
 
-    logger.info("Calculating price for vertical panel; unit_price: #{unit_price}, edgeband_price: #{edgeband_price}")
-    quantity * (unit_price + edgeband_price) * margin_factor
+  def pricing_expr(units, color)
+    dimension_vars = {:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}
+    
+    base_expr = "(#{component.pricing_expr('H', 'D', units, color)}) + (#{edge_banding_pricing_expr(dimension_vars, units, color)})" 
+    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
   end
 end
 

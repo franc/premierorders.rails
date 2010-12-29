@@ -309,12 +309,19 @@ class Property < ActiveRecord::Base
       convert(extract(:thickness).to_f, extract(:thickness_units).to_sym, units)
     end
 
+    def price_units
+      extract(:price_units).to_sym
+    end
+
     def price(length, width, units)
       price_units = extract(:price_units).to_sym
       l = convert(length, units, price_units) 
       w = convert(width,  units, price_units) 
-      logger.info("Calculating price for l=#{l}, w=#{w}, units: #{units}, price_units: #{price_units}, price = #{extract(:price)}")
       l * w * extract(:price).to_f
+    end
+
+    def pricing_expr(l_var, w_var, units)
+      "#{l_var} * #{w_var} * #{convert(extract(:price).to_f, price_units, units)}"
     end
   end
 
@@ -338,8 +345,16 @@ class Property < ActiveRecord::Base
       extract(:width).to_f
     end
 
-    def price(length, length_units)
-      convert(length, length_units, extract(:price_units).to_sym) * extract(:price).to_f
+    def price(units)
+      convert(extract(:price).to_f, extract(:price_units).to_sym, units)
+    end
+
+    def calculate_price(length, length_units)
+      length * price(length_units)
+    end
+
+    def pricing_expr(units, dimension_variable)
+      "(#{price(units)} * #{dimension_variable})"
     end
   end
 
@@ -353,7 +368,6 @@ class Property < ActiveRecord::Base
     end
 
     def units
-      logger.info("Got units: #{extract(:linear_units)}")
       extract(:linear_units).to_sym
     end
   end

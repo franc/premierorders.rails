@@ -21,7 +21,6 @@ class Cabinet < Item
     dimensions  = job_item.job_item_properties.find_by_descriptor(DIMENSIONS_DESCRIPTOR)
     color       = job_item.job_item_properties.find_by_descriptor(Property::Color::DESCRIPTOR)
 
-    logger.info("Calculating price given units: #{units.units}")
     item_components.inject(0.0) do |total, component|
       component_price = component.calculate_price(
         dimensions.width,
@@ -31,7 +30,6 @@ class Cabinet < Item
         color.color
       )
 
-      logger.info("#{component.inspect}: #{component_price}") 
       total + component_price
     end
   end

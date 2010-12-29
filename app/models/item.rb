@@ -50,6 +50,12 @@ class Item < ActiveRecord::Base
   def price_job_item(job_item)
     job_item.unit_price || 0.0
   end
+
+  def pricing_expr(units, color)
+    item_components.
+    inject([]) {|exprs, component| exprs << component.pricing_expr(units, color)}.
+    map{|e| "(#{e})"}.join(" + ")
+  end
 end
 
 require 'items/cabinet.rb'

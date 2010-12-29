@@ -1,3 +1,23 @@
+<%= content_for :head do %>
+  <script type="text/javascript">
+    var update_pricing_expr = function() {
+      $.get(
+        "/items/<%=@item.id%>/pricing_expr", 
+        {units: $("#price_expr_units").val(), color:$("#price_expr_color").val()}, 
+        function(data) {
+          $("#pricing_expression").html(data.expr);
+        },
+        "json"
+      );
+    };
+
+    jQuery(function($) {
+      $("#price_expr_units").change(update_pricing_expr);
+      $("#price_expr_color").change(update_pricing_expr);
+      update_pricing_expr();
+    });
+  </script>
+<% end %>
 <p id="notice"><%= notice %></p>
 
 <div class="form_fields">
@@ -18,6 +38,12 @@
     <dd><%= @item.sku %></dd>
     <dt><%= label :item, :qb_item_id %></dt>
     <dd><%= @item.purchase_part_id %></dd>
+    <dt><%= label :item, :pricing_expression %></dt>
+    <dd>
+      <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
+      <%= select_tag("price_expr_color", options_for_select(@item.properties.find_all_by_family(:color).map{|p| p.property_values.map{|v| [v.color, v.color]}}.flatten.uniq)) %>
+      <span id="pricing_expression"></span>
+    </dd>
     <dt><%= label :item, :properties %></dt>
     <dd><%= render :partial => 'properties', 
                    :locals => {

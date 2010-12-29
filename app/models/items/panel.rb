@@ -16,4 +16,8 @@ class Panel < Item
   def calculate_price(width, length, units, color)
     material(MATERIAL_DESCRIPTOR, color).price(length, width, units)
   end
+
+  def pricing_expr(l_var, w_var, units, color)
+    material(MATERIAL_DESCRIPTOR, color).pricing_expr(l_var, w_var, units)
+  end
 end

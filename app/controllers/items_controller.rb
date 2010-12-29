@@ -225,4 +225,11 @@ class ItemsController < ApplicationController
       render :json => type_map.to_json
     end
   end
+
+  def pricing_expr
+    @item = Item.find(params[:id])
+    if request.xhr?
+      render :json => {:expr => @item.pricing_expr(params[:units], params[:color])}
+    end
+  end
 end

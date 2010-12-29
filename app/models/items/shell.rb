@@ -9,7 +9,6 @@ class Shell < Item
   def calculate_price(width, height, depth, units, color)
     item_components.inject(0.0) do |total, component_conf|
       component_price = component_conf.calculate_price(width, height, depth, units, color)
-      logger.info("Component #{component_conf.inspect} has price $#{component_price}")
       total + component_price
     end
   end

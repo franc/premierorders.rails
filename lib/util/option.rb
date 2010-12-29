@@ -38,6 +38,10 @@
       f.call(@value)
     end
 
+    def orSome(default)
+      @value
+    end
+
     def inspect
       "Some(#{value.inspect})"
     end
@@ -49,6 +53,10 @@
     NONE = None.new
 
     def cata(f, default)
+      default
+    end
+
+    def orSome(default)
       default
     end
 

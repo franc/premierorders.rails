@@ -14,6 +14,7 @@ PgRails::Application.routes.draw do
       get 'properties'
       get 'components'
       post 'add_component'
+      get 'pricing_expr'
     end
   end
 
