@@ -16,7 +16,7 @@
     end
 
     def map(&f)
-      cata(lambda {|a| Some.new(f.call(a))}, None::NONE)
+      cata(lambda {|a| Option.new(f.call(a))}, None::NONE)
     end
 
     def bind(&f)
@@ -42,6 +42,10 @@
       @value
     end
 
+    def orLazy(&f)
+      @value
+    end
+
     def inspect
       "Some(#{value.inspect})"
     end
@@ -58,6 +62,10 @@
 
     def orSome(default)
       default
+    end
+
+    def orLazy(&f)
+      f.call
     end
 
     def inspect

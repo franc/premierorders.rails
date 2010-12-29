@@ -1,5 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<div id="property_details">
+  <dl>
+    <dt>Property Name:</dt>
+    <dd><%= @property.name %></dd>
+    <dt>Family:</dt>
+    <dd><%= @property.family %></dd>
+    <dt>Values:</dt>
+    <dd id="property_values"> 
+      <% @property.property_values.each do |v| %>
+        <dl class="property_value">
+          <dt>Value Name:</dt>
+          <dd><%= v.name %></dd>
+          <dt>D'Vinci ID:</dt>
+          <dd><%= v.dvinci_id %></dd>
+          <% v.field_values.each do |name, details| %>
+            <dt><%= name.to_s.titlecase %>:</dt>
+            <dd><%= details[:value] %></dd>
+          <% end %>
+        </dl>
+        <hr/>
+      <% end %>
+    </dd>
+  </dl>
+</div>
 
-<%= link_to 'Edit', edit_property_path(@property) %> |
-<%= link_to 'Back', properties_path %>
+<%= content_for :local_nav do %>
+  <%= link_to 'Edit', edit_property_path(@property) %> |
+  <%= link_to 'Back', properties_path %>
+<% end %>

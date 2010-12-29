@@ -2,14 +2,14 @@
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Name</th>
+    <th>Edit</th>
+    <th>Destroy</th>
   </tr>
 
 <% @properties.each do |property| %>
   <tr>
-    <td><%= link_to 'Show', property %></td>
+    <td><%= link_to property.name, property %></td>
     <td><%= link_to 'Edit', edit_property_path(property) %></td>
     <td><%= link_to 'Destroy', property, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
