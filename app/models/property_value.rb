@@ -1,7 +1,7 @@
 require 'property.rb'
 
 class PropertyValue < ActiveRecord::Base
-  include Properties::Polymorphic
+  include Properties::Polymorphic, Properties::JSONProperty
   has_and_belongs_to_many :properties, :join_table => 'property_value_selection'
   after_find :morph
 

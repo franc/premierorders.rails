@@ -21,7 +21,7 @@
         <%= link_to comp.component.name, item_path(comp.component) %> 
         <%= link_to '(X)', item_component_path(comp), :method => :delete, :class => 'component_delete_link' %>
       </td>
-      <td><%= comp.class.to_s.demodulize %></td>
+      <td><%= link_to comp.class.to_s.demodulize, edit_item_component_path(comp) %></td>
       <td><%= comp.component.class.to_s.demodulize %></td>
       <td><%= comp.quantity %></td>
       <td>

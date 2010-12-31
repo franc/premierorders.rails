@@ -11,3 +11,9 @@ class ItemComponent < ActiveRecord::Base
     component.pricing_expr(units, color)
   end
 end
+
+require 'items/shell_components.rb'
+require 'items/cabinet_components.rb'
+require 'items/corner_cabinet_components.rb'
+
+

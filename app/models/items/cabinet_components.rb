@@ -20,6 +20,10 @@ end
 class CabinetShelf < ItemComponent
   include PanelPricing
 
+  def self.component_types
+    [Panel]
+  end
+
   def self.required_properties
     [PropertyDescriptor.new(:edge_band, [:front], [Property::EdgeBand])]
   end

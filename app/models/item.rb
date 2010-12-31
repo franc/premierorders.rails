@@ -61,6 +61,7 @@ class Item < ActiveRecord::Base
 end
 
 require 'items/cabinet.rb'
+require 'items/corner_cabinet.rb'
 require 'items/shell.rb'
 require 'items/panel.rb'
 require 'items/door.rb'

@@ -3,8 +3,8 @@ require 'items/panel.rb'
 require 'util/option.rb'
 
 module CornerCabinetPanel
-  include PanelEdgePricing, PanelMargins, 
-  CORNER_SIDE_RATIO = PropertyDescriptor.new(:corner_cab_side_ratio, [], [Property::ScalingFactor]
+  include PanelEdgePricing, PanelMargins
+  CORNER_SIDE_RATIO = PropertyDescriptor.new(:corner_cab_side_ratio, [], [Property::ScalingFactor])
 
   def self.included(mod)
     def mod.required_properties
@@ -69,10 +69,6 @@ class CornerCabinetHorizontalPanel < ItemComponent
   include CornerCabinetPanel
 
   EB_SIDES = [:front, :side, :wall_side]
-
-  def self.required_properties
-    [PropertyDescriptor.new(:corner_side_ratio, [], [Property::ScalingFactor]]
-  end
 
   def self.optional_properties
     [PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]

@@ -156,6 +156,7 @@ class Property < ActiveRecord::Base
     descriptors = []
     descriptors += mod.required_properties if (mod.respond_to?(:required_properties))
     descriptors += mod.optional_properties if (mod.respond_to?(:optional_properties))
+    descriptors.each {|d| logger.info(d.inspect)}
     descriptors
   end
 
