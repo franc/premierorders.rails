@@ -16,6 +16,12 @@
     end
 
     def map(&f)
+      cata(lambda {|a| Some.new(f.call(a))}, None::NONE)
+    end
+
+    # This is like map, except that null values returned from the applied
+    # function result in equivalent behavior to calling bind(_ => None::NONE)
+    def mapn(&f)
       cata(lambda {|a| Option.new(f.call(a))}, None::NONE)
     end
 

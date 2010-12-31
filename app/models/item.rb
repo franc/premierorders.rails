@@ -18,9 +18,11 @@ class Item < ActiveRecord::Base
     [
       Item,
       Cabinet,
+      CornerCabinet,
       Shell,
       Panel,
       PremiumDoor,
+      PremiumDrawerfront,
       FrenchLiteDoor,
       Drawer
     ]
@@ -43,7 +45,7 @@ class Item < ActiveRecord::Base
     Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
   end
 
-  def unique_value(descriptor)
+  def property_value(descriptor)
     properties.find_by_descriptor(descriptor).property_values.first
   end
 

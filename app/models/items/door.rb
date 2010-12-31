@@ -12,11 +12,10 @@ module PremiumDoorM
   STYLE_CHARGE    = PropertyDescriptor.new(:style_surcharge, [], [Property::Surcharge])
   HANDLING_CHARGE = PropertyDescriptor.new(:handling_surcharge, [], [Property::Surcharge])
   DOOR_MATERIAL   = PropertyDescriptor.new(:door_material, [], [Property::Material])
-  SIZE_RANGE      = PropertyDescriptor.new(:size_range, [], [Property::SizeRange])
 
   def self.included(mod)
     def mod.required_properties
-      [STYLE_CHARGE, HANDLING_CHARGE, DOOR_MATERIAL, SIZE_RANGE]
+      [STYLE_CHARGE, HANDLING_CHARGE, DOOR_MATERIAL]
     end
 
     def mod.job_properties
@@ -29,11 +28,17 @@ module PremiumDoorM
   end
 
   def handling_surcharge 
-    properties.find_by_descriptor(HANDLING_CHARGE).property_values.first.price
+    properties.find_value(HANDLING_CHARGE).map{|v| v.price}.orLazy {
+      raise "No handling surcharge property was specified for the door: #{self.inspect}"
+    }
   end
 
   def material_charge(width, height, units, color)
     material(DOOR_MATERIAL, color).price(height, width, units)
+  end
+
+  def material_pricing_expr(units, color)
+    material(DOOR_MATERIAL, color).pricing_expr('H', 'W', units)
   end
 end
 
@@ -52,10 +57,22 @@ class PremiumDoor < Item
     calculate_price(dimensions.width(units), dimensions.height(units), units, color.color)
   end
 
+  def style_surcharge 
+    properties.find_value(STYLE_CHARGE).map{|v| v.price}.orLazy {
+      raise "No style charge property was configured for door #{self.inspect}"
+    }
+  end
+
   def calculate_price(width, height, units, color)
-    style_surcharge = properties.find_by_descriptor(STYLE_CHARGE).property_values.first.price
     material_charge(width, height, units, color) + style_surcharge + handling_surcharge
   end
+
+  def pricing_expr(units, color)
+    "(#{material_pricing_expr(units, color)}) + #{style_surcharge} + #{handling_surcharge}"
+  end
+end
+
+class PremiumDrawerfront < PremiumDoor
 end
 
 class FrenchLiteDoor < Item
@@ -76,8 +93,17 @@ class FrenchLiteDoor < Item
     calculate_price(dimensions.width(units), dimensions.height(units), units, color.color, divisions.value)
   end
 
+  def style_surcharge(divisions) 
+    properties.find_value(STYLE_CHARGE).map{|v| v.price * divisions}.orLazy{
+      raise "No style charge property was configured for door #{self.inspect}"
+    }
+  end
+
   def calculate_price(width, height, units, color, divisions)
-    style_surcharge = (properties.find_by_descriptor(STYLE_CHARGE).property_values.first.price * divisions)
-    material_charge(width, height, units, color) + style_surcharge + handling_surcharge
+    material_charge(width, height, units, color) + style_surcharge(divisions) + handling_surcharge
+  end
+
+  def pricing_expr(units, color)
+    "(#{material_pricing_expr(units, color)}) + #{style_surcharge(divisions)} + #{handling_surcharge}"
   end
 end
