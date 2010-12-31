@@ -27,17 +27,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # GET /properties/new
-  # GET /properties/new.xml
-  def new
-    @property = Property.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @property }
-    end
-  end
-
   # GET /properties/1/edit
   def edit
     @property = Property.find(params[:id])
