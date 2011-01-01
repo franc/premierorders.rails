@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.component_modules(mod)
-    types = []
+    types = [ItemHardware] # anything can have hardware
     types += mod.component_types if mod.respond_to?(:component_types)
     types
   end
