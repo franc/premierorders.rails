@@ -41,7 +41,8 @@ module PanelEdgePricing
   def edge_materials(sides, color)
     sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
-        result[side] = prop.property_values.detect{|v| v.color == color}
+        material = prop.property_values.detect{|v| v.color.casecmp(color)}
+        result[side] = material unless material.nil?
       end
 
       result
