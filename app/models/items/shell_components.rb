@@ -3,8 +3,16 @@ require 'items/panel.rb'
 require 'util/option.rb'
 
 class ShellBackPanel < ItemComponent
+  def self.component_types
+    [Panel]
+  end
+
   def calculate_price(width, height, depth, units, color)
     quantity * component.calculate_price(height, width, units, color)
+  end
+
+  def pricing_expr(units, color)
+    component.pricing_expr('H', 'W', units, color)
   end
 end
 
@@ -27,7 +35,7 @@ class ShellHorizontalPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    panel_pricing_expr({:left => 'D', :right => 'D', :rear => 'W', :front => 'W'}, units, color)
+    panel_pricing_expr('W', 'D', {:left => 'D', :right => 'D', :rear => 'W', :front => 'W'}, units, color)
   end
 end
 
@@ -51,7 +59,7 @@ class ShellVerticalPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    panel_pricing_expr({:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}, units, color)
+    panel_pricing_expr('H', 'W', {:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}, units, color)
   end
 end
 

@@ -85,8 +85,8 @@ module PanelPricing
     end
   end
 
-  def panel_pricing_expr(dimension_vars, units, color)
-    component_pricing = component.pricing_expr('W', 'D', units, color)
+  def panel_pricing_expr(l_expr, w_expr, dimension_vars, units, color)
+    component_pricing = component.pricing_expr(l_expr, w_expr, units, color)
     edge_pricing = edge_banding_pricing_expr(dimension_vars, units, color)
     base_expr = "#{quantity} * ((#{component_pricing}) + (#{edge_pricing}))" 
     margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)

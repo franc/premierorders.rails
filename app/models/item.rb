@@ -36,7 +36,6 @@ class Item < ActiveRecord::Base
 
   def self.component_association_modules(mod)
     types = []
-    ActiveRecord::Base.logger.info mod.inspect
     types += mod.component_association_types if mod.respond_to?(:component_association_types)
     types
   end
