@@ -104,7 +104,7 @@
     var add_descriptor_change_reaction = function(descriptors) {
       // reaction for descriptor selection change
       $("#descriptor_select").change(function(ev) {
-        var did = ev.target.val();
+        var did = $(ev.target).val();
         update_qualifier_lists(descriptors[did].qualifiers);
         if (add_method() === "new") {
           $("#new_property_values div.property_value").hide();

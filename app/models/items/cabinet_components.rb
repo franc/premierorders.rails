@@ -11,14 +11,14 @@ class CabinetShell < ItemComponent
   def calculate_price(width, height, depth, units, color)
     quantity * component.calculate_price(width, height, depth, units, color)
   end
-
-  def pricing_expr(units, color)
-    component.pricing_expr(units, color)
-  end
 end
 
 class CabinetShelf < ItemComponent
   include PanelPricing
+
+  def self.component_types
+    [Panel]
+  end
 
   def self.required_properties
     [PropertyDescriptor.new(:edge_band, [:front], [Property::EdgeBand])]
@@ -29,7 +29,7 @@ class CabinetShelf < ItemComponent
   end
 
   def pricing_expr(units, color)
-    panel_pricing_expr({:front => 'W'}, units, color)
+    panel_pricing_expr('W', 'D', {:front => 'W'}, units, color)
   end
 end
 

@@ -18,11 +18,11 @@ class Panel < Item
   end
 
   def width 
-    Option.new(properties.find_by_descriptor(WIDTH)).map{|p| p.property_values.first}
+    properties.find_value(WIDTH).map{|v| v.width}
   end
 
   def length
-    Option.new(properties.find_by_descriptor(LENGTH)).map{|p| p.property_values.first}
+    properties.find_value(LENGTH).map{|v| v.length}
   end
 
   # The panels associated with a shell will vary only with respect to width, length,
@@ -37,23 +37,12 @@ class Panel < Item
   end
 end
 
-module PanelPricing
-  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
-
-  def self.included(mod)
-    def mod.component_types
-      [Panel]
-    end
-  end
-
-  def margin_factor
-    Option.new(properties.find_by_descriptor(MARGIN)).map{|p| 1.0 + p.property_values.first.factor}
-  end
-
+module PanelEdgePricing
   def edge_materials(sides, color)
     sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
-        result[side] = prop.property_values.detect{|v| v.color == color}
+        material = prop.property_values.detect{|v| v.color.casecmp(color)}
+        result[side] = material unless material.nil?
       end
 
       result
@@ -78,9 +67,27 @@ module PanelPricing
     end
     total
   end
+end
 
-  def panel_pricing_expr(dimension_vars, units, color)
-    component_pricing = component.pricing_expr('W', 'D', units, color)
+module PanelMargins
+  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
+
+  def margin_factor
+    properties.find_value(MARGIN).map{|v| 1.0 + v.factor}
+  end
+end
+
+module PanelPricing
+  include PanelEdgePricing, PanelMargins
+
+  def self.included(mod)
+    def mod.component_types
+      [Panel]
+    end
+  end
+
+  def panel_pricing_expr(l_expr, w_expr, dimension_vars, units, color)
+    component_pricing = component.pricing_expr(l_expr, w_expr, units, color)
     edge_pricing = edge_banding_pricing_expr(dimension_vars, units, color)
     base_expr = "#{quantity} * ((#{component_pricing}) + (#{edge_pricing}))" 
     margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)

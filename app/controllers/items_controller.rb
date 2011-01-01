@@ -152,7 +152,7 @@ class ItemsController < ApplicationController
       association.save
 
       properties = params[:component_properties]
-      unless properties.nil?
+      unless properties.nil? || properties[:property_id].blank?
         property = case properties[:type] 
           when "new"      then PropertiesHelper.create_property(properties[:property])
           when "existing" then Property.find(properties[:property_id])
@@ -197,7 +197,6 @@ class ItemsController < ApplicationController
   def property_form_fragment
     descriptor_id = params[:id].to_i
     descriptor = Property.descriptors(Items.const_get(params[:mod]))[descriptor_id]
-    logger.info descriptor.inspect
 
     render :partial => 'property_descriptor', :layout => false, :locals => {
       :descriptor => descriptor,

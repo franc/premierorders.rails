@@ -18,23 +18,24 @@ class Item < ActiveRecord::Base
     [
       Item,
       Cabinet,
+      CornerCabinet,
       Shell,
       Panel,
       PremiumDoor,
+      PremiumDrawerfront,
       FrenchLiteDoor,
       Drawer
     ]
   end
 
   def self.component_modules(mod)
-    types = []
+    types = [ItemHardware] # anything can have hardware
     types += mod.component_types if mod.respond_to?(:component_types)
     types
   end
 
   def self.component_association_modules(mod)
     types = []
-    ActiveRecord::Base.logger.info mod.inspect
     types += mod.component_association_types if mod.respond_to?(:component_association_types)
     types
   end
@@ -43,7 +44,7 @@ class Item < ActiveRecord::Base
     Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
   end
 
-  def unique_value(descriptor)
+  def property_value(descriptor)
     properties.find_by_descriptor(descriptor).property_values.first
   end
 
@@ -59,8 +60,10 @@ class Item < ActiveRecord::Base
 end
 
 require 'items/cabinet.rb'
+require 'items/corner_cabinet.rb'
 require 'items/shell.rb'
 require 'items/panel.rb'
 require 'items/door.rb'
 require 'items/drawer.rb'
+require 'items/item_hardware.rb'
 

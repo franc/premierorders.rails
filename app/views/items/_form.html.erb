@@ -75,7 +75,7 @@
                 if (matches != null && matches.length > 0) {
                   $.get("/items/<%=@item.id%>/properties", function(properties_list_html) {
                     var elem = $(properties_list_html);
-                    $(".property_delete_link", elem).click(item_prop_delete_clicked);
+                    $(".property_delete_link", elem).click(delete_clicked(".property_row"));
                     $("#properties_list").replaceWith(elem); 
                   });
                 } else {
@@ -125,7 +125,7 @@
                   if (matches != null & matches.length > 0) {
                     $.get("/items/<%=@item.id%>/components", function(component_html) {
                       var elem = $(component_html);
-                      $(".component_delete_link", elem).click(item_comp_delete_clicked);
+                      $(".component_delete_link", elem).click(delete_clicked(".item_component_row"));
                       $("#item_components").replaceWith(elem); 
                     });
                   }

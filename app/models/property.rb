@@ -1,4 +1,5 @@
 require 'json'
+require 'util/option.rb'
 
 module ModularProperty
   def value_structure
@@ -31,6 +32,10 @@ module Properties
     def find_by_descriptor(descriptor)
       conditions = descriptor.qualifiers.empty? ? ['family = ?', descriptor.family] : ['family = ? and qualifier in (?)', descriptor.family, descriptor.qualifiers]
       find(:first, :conditions => conditions)
+    end
+
+    def find_value(descriptor)
+      Option.new(find_by_descriptor(descriptor)).mapn{|p| p.property_values.first}
     end
   end
 
@@ -151,6 +156,7 @@ class Property < ActiveRecord::Base
     descriptors = []
     descriptors += mod.required_properties if (mod.respond_to?(:required_properties))
     descriptors += mod.optional_properties if (mod.respond_to?(:optional_properties))
+    descriptors.each {|d| logger.info(d.inspect)}
     descriptors
   end
 
@@ -349,8 +355,8 @@ class Property < ActiveRecord::Base
       l * w * extract(:price).to_f
     end
 
-    def pricing_expr(l_var, w_var, units)
-      "#{l_var} * #{w_var} * #{sq_convert(extract(:price).to_f, units, price_units)}"
+    def pricing_expr(l_expr, w_expr, units)
+      "(#{l_expr}) * (#{w_expr}) * #{sq_convert(extract(:price).to_f, units, price_units)}"
     end
   end
 
@@ -382,8 +388,8 @@ class Property < ActiveRecord::Base
       length * price(length_units)
     end
 
-    def pricing_expr(units, dimension_variable)
-      "#{price(units)} * #{dimension_variable}"
+    def pricing_expr(units, length_expr)
+      "#{price(units)} * (#{length_expr})"
     end
   end
 

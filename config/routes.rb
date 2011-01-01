@@ -20,7 +20,16 @@ PgRails::Application.routes.draw do
 
   resources :item_properties
 
-  resources :item_components
+  match 'item_components/:mod/property_descriptors'       => 'item_components#property_descriptors'
+  match 'item_components/:mod/property_form_fragment/:id' => 'item_components#property_form_fragment'
+  match 'item_components/add_property_form'               => 'item_components#add_property_form'
+  match 'item_components/add_property'                    => 'item_components#add_property'
+  resources :item_components do
+    member do
+      get 'properties'
+    end
+  end
+
   resources :item_component_properties
 
   match 'properties/search' => 'properties#search'
