@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    @items = Item.order(:name, :dvinci_id).all
+    @items = Item.all.sort{|a, b| a.name <=> b.name}
 
     respond_to do |format|
       format.html # index.html.erb
