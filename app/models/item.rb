@@ -24,7 +24,9 @@ class Item < ActiveRecord::Base
       PremiumDoor,
       PremiumDrawerfront,
       FrenchLiteDoor,
-      Drawer
+      Drawer,
+      ClosetPartition,
+      ClosetShelf
     ]
   end
 

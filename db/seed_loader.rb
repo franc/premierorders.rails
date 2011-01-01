@@ -1,4 +1,5 @@
 require 'csv'
+require 'set'
 require 'property.rb'
 
 class SeedLoader
@@ -311,6 +312,65 @@ class SeedLoader
        end
       end
     end
+  end
+
+  # in the decore pricing, material cost varies by color, item, and style.
+  # surcharges vary only by style
+  def load_decore_pricing
+    colors = Set.new
+    styles = Set.new
+    refs = Set.new
+    ids = Set.new
+
+    style_sets = Set.new
+    style_colors = {}
+    surcharge_sets = {}
+
+    CSV.open("#{@seed_data_dir}/decore_pricing.csv", 'r') do |row| 
+      item, mpn, cost, cost_uom, option_cost, option_uom, handling_cost, handling_uom = row
+
+      ref = mpn[/(#.*)/, 1].strip
+      id, color, *rest = mpn.gsub(/(,\s*)?#.*/, '').split(',').map{|s| s.strip}
+      style = rest.join(', ')
+
+      refs.add(ref)
+      ids.add(id)
+      colors.add(color)
+      styles.add(style)
+
+      sref = [style, id]
+      style_sets.add(sref)
+      style_colors[sref] ||= {}
+      if style_colors[sref][color] && style_colors[sref][color] != cost.to_f
+        raise "Got a different price for #{sref.inspect} in color #{color}: #{cost}"
+      end
+      style_colors[sref][color] = cost.to_f
+
+      #cost_set = [cost, option_cost, handling_cost].map{|v| v.to_f}
+      #if price_refs[cost_set].nil?
+      #  price_refs[cost_set] = [Set.new(style), Set.new(color), Set.new(id)]
+      #else
+      #  price_refs[cost_set][0].add(style)
+      #  price_refs[cost_set][1].add(color)
+      #  price_refs[cost_set][2].add(id)
+      #end
+    end
+
+    material_sets = {}
+    style_colors.each do |k, v|
+      material_sets[v] ||= []
+      material_sets[v] << k
+    end
+
+    material_sets.each do |k, v|
+      puts "#{v.inspect}: #{k.inspect}"
+    end
+
+    style_sets.to_a.sort.each do |s|
+      puts s.inspect
+    end
+    
+    nil
   end
 end
 
