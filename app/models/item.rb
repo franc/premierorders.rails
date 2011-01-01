@@ -65,4 +65,5 @@ require 'items/shell.rb'
 require 'items/panel.rb'
 require 'items/door.rb'
 require 'items/drawer.rb'
+require 'items/item_hardware.rb'
 

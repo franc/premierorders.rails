@@ -152,7 +152,7 @@ class ItemsController < ApplicationController
       association.save
 
       properties = params[:component_properties]
-      unless properties.nil?
+      unless properties.nil? || properties[:property_id].blank?
         property = case properties[:type] 
           when "new"      then PropertiesHelper.create_property(properties[:property])
           when "existing" then Property.find(properties[:property_id])
