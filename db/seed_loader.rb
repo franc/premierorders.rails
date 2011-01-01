@@ -78,7 +78,6 @@ class SeedLoader
     unless row[cols.index("Email")].nil? || row[cols.index("Email")].strip.empty?
       password = random_password(10)
       user = User.find_by_email(row[cols.index("Email")].strip.downcase)
-      puts "#{row[cols.index("First Name")]} #{row[cols.index("Last Name")]} not found; creating new" if user.nil?
 
       user ||= User.create(:email => row[cols.index("Email")].strip.downcase, :password => password)
       user.update_attributes(
@@ -89,7 +88,6 @@ class SeedLoader
         :phone2 => row[cols.index("Mobile")],
         :fax => row[cols.index("Fax")]
       )
-      puts user.inspect
 
       franchisee = Franchisee.find_by_franchise_name(row[cols.index("Account Name")])
       if franchisee
@@ -134,9 +132,9 @@ class SeedLoader
     #dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
 
     color_props = {
-        "Cabinet" => Property.find_or_create_by_name('Cabinet Color', :family => 'color'),
-        "Premium Cabinet" => Property.find_or_create_by_name('Premium Cabinet Color', :family => 'color'),
-        "Home Office Cabinet" => Property.find_or_create_by_name('Home Office Cabinet Color', :family => 'color'),
+        "Panel" => Property.find_or_create_by_name('Panel Color', :family => 'color'),
+        "Premium Panel" => Property.find_or_create_by_name('Premium Panel Color', :family => 'color'),
+        "Home Office Panel" => Property.find_or_create_by_name('Home Office Panel Color', :family => 'color'),
         "Hardware" => Property.find_or_create_by_name('Hardware Color', :family => 'color'),
         "Countertop" => Property.find_or_create_by_name('Countertop Color', :family => 'color')
     }
@@ -150,7 +148,8 @@ class SeedLoader
     purchase_types = {
       'P' => 'Purchased',
       'I' => 'Inventory',
-      'M' => 'Manufactured'
+      'M' => 'Manufactured',
+      'B' => 'Buyout'
     }
 
     CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
@@ -170,7 +169,7 @@ class SeedLoader
         # restore the original description and 15-digit id if the color was not found in the description
         # rewrite the item name only for manufactured products; need distinct purchasing skus for different 
         # purchased products, even though this means a lot of data duplication
-        item_dvinci_key = if purchasing == 'M'
+        item_dvinci_key = if purchasing == 'M' || purchasing == 'B'
           o3 = case dv_sizes[t2]
             when nil then t3
             when ['x'] then 'x'
@@ -185,7 +184,7 @@ class SeedLoader
           dvinci_id
         end
 
-        item_desc = (purchasing == 'M' && color_match) ? base_description : description
+        item_desc = ((purchasing == 'M' || purchasing == 'B') && color_match) ? base_description : description
 
         item = Item.find_or_create_by_dvinci_id(
           item_dvinci_key,
