@@ -4,7 +4,10 @@ module ItemMaterials
   # retrieve the material property values by color.
   def material(descriptor, color)
     mprop = properties.find_by_descriptor(descriptor)
-    mval = mprop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0}
+    mvalues = mprop.property_values.all
+    raise "Could not determine material values from #{mprop}" if mvalues.empty?
+    mval = mvalues.length > 1 ? mvalues.detect{|v| v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+    raise "Could not determine material values for #{color} from #{mvalues}" if mval.nil?
     mval
   end
 
