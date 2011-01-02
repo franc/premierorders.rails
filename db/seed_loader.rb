@@ -314,17 +314,10 @@ class SeedLoader
     end
   end
 
-  # in the decore pricing, material cost varies by color, item, and style.
-  # surcharges vary only by style
-  def load_decore_pricing
-    colors = Set.new
-    styles = Set.new
-    refs = Set.new
-    ids = Set.new
-
-    style_sets = Set.new
+  def decore_pricing_data
     style_colors = {}
-    surcharge_sets = {}
+    option_costs = {}
+    handling_costs = {}
 
     CSV.open("#{@seed_data_dir}/decore_pricing.csv", 'r') do |row| 
       item, mpn, cost, cost_uom, option_cost, option_uom, handling_cost, handling_uom = row
@@ -333,27 +326,18 @@ class SeedLoader
       id, color, *rest = mpn.gsub(/(,\s*)?#.*/, '').split(',').map{|s| s.strip}
       style = rest.join(', ')
 
-      refs.add(ref)
-      ids.add(id)
-      colors.add(color)
-      styles.add(style)
-
       sref = [style, id]
-      style_sets.add(sref)
       style_colors[sref] ||= {}
       if style_colors[sref][color] && style_colors[sref][color] != cost.to_f
         raise "Got a different price for #{sref.inspect} in color #{color}: #{cost}"
       end
       style_colors[sref][color] = cost.to_f
 
-      #cost_set = [cost, option_cost, handling_cost].map{|v| v.to_f}
-      #if price_refs[cost_set].nil?
-      #  price_refs[cost_set] = [Set.new(style), Set.new(color), Set.new(id)]
-      #else
-      #  price_refs[cost_set][0].add(style)
-      #  price_refs[cost_set][1].add(color)
-      #  price_refs[cost_set][2].add(id)
-      #end
+      option_costs[sref] ||= []
+      option_costs[sref] << option_cost
+
+      handling_costs[sref] ||= []
+      handling_costs[sref] << handling_cost
     end
 
     material_sets = {}
@@ -362,21 +346,71 @@ class SeedLoader
       material_sets[v] << k
     end
 
-    material_sets.each do |k, v|
-      v_styles = []
-      v_items = []
-      v.each do |pair|
+    option_cost_sets = {}
+    option_costs.each do |k, v|
+      raise "Got more than one option cost for #{k.inspect}" if v.uniq.length > 1
+      option_cost_sets[v[0]] ||= []
+      option_cost_sets[v[0]] << k
+    end
+  
+    handling_cost_sets = {}
+    handling_costs.each do |k, v|
+      raise "Got more than one handling cost for #{k.inspect}" if v.uniq.length > 1
+      handling_cost_sets[v[0]] ||= []
+      handling_cost_sets[v[0]] << k
+    end
+ 
+    [material_sets, option_cost_sets, handling_cost_sets]
+  end
+
+  # in the decore pricing, material cost varies by color, item, and style.
+  # surcharges vary only by style
+  def load_decore_pricing
+    material_sets, option_costs, handling_costs = decore_pricing_data
+    load_decore_materials(material_sets)
+    load_decore_surcharges(option_costs, "Options")
+    load_decore_surcharges(handling_costs, "Handling")
+  end
+
+  def with_decore_items(style, id)
+    items = case style
+      when "Door" then Item.find_by_sql("SELECT * FROM items WHERE (name LIKE 'Decor Door - #{id}%' OR name LIKE 'Decor Hamper Door - #{id}%') AND name NOT LIKE '%Cut for Glass%'")
+      when "Routed DF" then Item.find_by_sql("SELECT * FROM items WHERE name LIKE 'Decor Drawer Front - #{id}%'")
+      when "Cut for Glass" then Item.find_by_sql("SELECT * FROM items WHERE name LIKE 'Decor Door - #{id} | Cut for Glass%'")
+      else []
+    end
+
+    items.each{|item| yield(item)}
+  end
+
+  def srefs_desc(srefs)
+      styles = []
+      items = []
+      srefs.each do |pair|
         style, id = pair
-        v_styles << style
-        v_items << id
+        styles << style
+        items << id
       end
-      v_styles.uniq!
-      v_items.uniq!
+      styles.uniq!
+      items.uniq!
 
-      desc = v_styles.length > v_items.length ? v_items.join("/") : "#{v_items.join("/")}: #{v_styles.join(",")}"
+      styles.length > items.length ? items.join("/") : "#{items.join("/")}: #{styles.join(",")}"
+  end
 
+  def add_decore_property(srefs, prop)
+      srefs.each do |pair|
+        style, id = pair
+        with_decore_items(style, id) do |item|
+          item.item_properties.create(:item_id => item.id, :property_id => prop.id)
+        end
+      end
+  end
+
+  def load_decore_materials(material_sets)
+    material_sets.each do |color_prices, srefs|
+      desc = srefs_desc(srefs)
       prop = Property.create(:name => "Decore #{desc} Door Material", :family => :door_material, :module_names => 'Material')
-      k.each do |color_name, price|
+      color_prices.each do |color_name, price|
         color = color_name.gsub(/-.*/,'')
         prop.property_values.create(
           :name => "#{desc} #{color} Door Material", 
@@ -385,19 +419,21 @@ class SeedLoader
         )
       end
 
-      v.each do |pair|
-        style, id = pair
-        items = case style
-          when "Door" then Item.find_by_sql("SELECT * FROM items WHERE (name LIKE 'Decor Door - #{id}%' OR name LIKE 'Decor Hamper Door - #{id}%') AND name NOT LIKE '%Cut for Glass%'")
-          when "Routed DF" then Item.find_by_sql("SELECT * FROM items WHERE name LIKE 'Decor Drawer Front - #{id}%'")
-          when "Cut for Glass" then Item.find_by_sql("SELECT * FROM items WHERE name LIKE 'Decor Door - #{id} | Cut for Glass%'")
-          else []
-        end
+      add_decore_property(srefs, prop)
+    end
+  end
 
-        items.each do |item|
-          item.item_properties.create(:item_id => item.id, :property_id => prop.id)
-        end
-      end
+  def load_decore_surcharges(cost_sets, type)
+    cost_sets.each do |cost, srefs|
+      desc = srefs_desc(srefs)
+      prop = Property.create(:name => "Decore #{desc} #{type} Charges", :family => :style_surcharge, :module_names => 'Surcharge')
+      prop.property_values.create(
+        :name => "#{desc} #{type} Surcharge",
+        :module_names => 'Surcharge',
+        :value_str => %Q({"price": #{cost}})
+      )
+
+      add_decore_property(srefs, prop)
     end
   end
 end
