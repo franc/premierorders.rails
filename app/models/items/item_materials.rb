@@ -1,3 +1,5 @@
+require 'util/option.rb'
+
 module ItemMaterials
   # retrieve the material property values by color.
   def material(descriptor, color)
@@ -7,7 +9,7 @@ module ItemMaterials
   end
 
   def color_options
-    properties.find_by_descriptor(material_descriptor).property_values.inject([]) {|m, v| m << v.color}
+    Option.new(properties.find_by_descriptor(material_descriptor)).map{|p| p.property_values.inject([]) {|m, v| m << v.color}}.orSome([])
   end
 end
 
