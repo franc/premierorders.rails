@@ -2,7 +2,9 @@ module ItemMaterials
   # retrieve the material property values by color.
   def material(descriptor, color)
     mprop = properties.find_by_descriptor(descriptor)
-    mprop.property_values.detect{|v| v.color.strip.casecmp(color.strip)}
+    mval = mprop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0}
+    ActiveRecord::Base.logger.info("Retrieved property #{mval.inspect} for color #{color}")
+    mval
   end
 end
 
@@ -10,7 +12,7 @@ module PanelEdgePricing
   def edge_materials(sides, color)
     sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
-        material = prop.property_values.detect{|v| v.color.casecmp(color)}
+        material = prop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0}
         result[side] = material unless material.nil?
       end
 

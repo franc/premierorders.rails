@@ -5,7 +5,7 @@ class ClosetShelf < Item
   include ItemMaterials, PanelEdgePricing, PanelMargins
 
   MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
-  EDGEBAND = PropertyDescriptior.new(:edge_band, [:front, :left, :right], [Property::EdgeBand])
+  EDGEBAND = PropertyDescriptor.new(:edge_band, [:front, :left, :right], [Property::EdgeBand])
 
   def self.required_properties
     [MATERIAL, EDGEBAND]
