@@ -363,14 +363,42 @@ class SeedLoader
     end
 
     material_sets.each do |k, v|
-      puts "#{v.inspect}: #{k.inspect}"
-    end
+      v_styles = []
+      v_items = []
+      v.each do |pair|
+        style, id = pair
+        v_styles << style
+        v_items << id
+      end
+      v_styles.uniq!
+      v_items.uniq!
 
-    style_sets.to_a.sort.each do |s|
-      puts s.inspect
+      desc = v_styles.length > v_items.length ? v_items.join("/") : "#{v_items.join("/")}: #{v_styles.join(",")}"
+
+      prop = Property.create(:name => "Decore #{desc} Door Material", :family => :door_material, :module_names => 'Material')
+      k.each do |color_name, price|
+        color = color_name.gsub(/-.*/,'')
+        prop.property_values.create(
+          :name => "#{desc} #{color} Door Material", 
+          :module_names => 'Material', 
+          :value_str => %Q({"color": "#{color}", "thickness": 0, "thickness_units": "mm", "price": #{price}, "price_units": "ft"})
+        )
+      end
+
+      v.each do |pair|
+        style, id = pair
+        items = case style
+          when "Door" then Item.find_by_sql("SELECT * FROM items WHERE (name LIKE 'Decor Door - #{id}%' OR name LIKE 'Decor Hamper Door - #{id}%') AND name NOT LIKE '%Cut for Glass%'")
+          when "Routed DF" then Item.find_by_sql("SELECT * FROM items WHERE name LIKE 'Decor Drawer Front - #{id}%'")
+          when "Cut for Glass" then Item.find_by_sql("SELECT * FROM items WHERE name LIKE 'Decor Door - #{id} | Cut for Glass%'")
+          else []
+        end
+
+        items.each do |item|
+          item.item_properties.create(:item_id => item.id, :property_id => prop.id)
+        end
+      end
     end
-    
-    nil
   end
 end
 

@@ -12,6 +12,7 @@ loader = SeedLoader.new()
 loader.load_franchisees("franchisee_accounts.csv")
 loader.load_users("franchisee_contacts.csv")
 loader.load_product_data("parts_closettailors.csv")
+loader.load_decore_pricing
 #loader.fix_cutrite_codes
 #loader.dump_tab_file("parts_closettailors.csv")
 #loader.dump_items
