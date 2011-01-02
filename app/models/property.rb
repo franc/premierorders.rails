@@ -332,7 +332,8 @@ class Property < ActiveRecord::Base
         :thickness => :float,
         :thickness_units => Properties::LinearConversions::UNITS,
         :price => :float,
-        :price_units => Properties::SquareConversions::UNITS
+        :price_units => Properties::SquareConversions::UNITS,
+        :waste_factor => :float
       }
     end
 
@@ -355,8 +356,14 @@ class Property < ActiveRecord::Base
       l * w * extract(:price).to_f
     end
 
+    def waste_factor
+      Option.fromString(extract(:waste_factor)).map{|f| f.to_f}
+    end
+
     def pricing_expr(l_expr, w_expr, units)
-      "(#{l_expr} * #{w_expr} * #{sq_convert(extract(:price).to_f, units, price_units)})"
+      sqft = "#{l_expr} * #{w_expr}"
+      sqft_waste = waste_factor.map{|f| "#{f} * #{sqft}"}.orSome(sqft)
+      "(#{sqft_waste} * #{sq_convert(extract(:price).to_f, units, price_units)})"
     end
   end
 
