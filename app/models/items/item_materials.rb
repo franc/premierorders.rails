@@ -7,7 +7,7 @@ module ItemMaterials
   end
 
   def color_options
-    properties.find_by_family(:color).property_values.inject([]) {|m, v| m << v.color}
+    properties.find_by_descriptor(material_descriptor).property_values.inject([]) {|m, v| m << v.color}
   end
 end
 
@@ -51,7 +51,7 @@ module PanelMargins
   end
 
   def apply_margin(base_expr)
-    margin_factor.map{|f| "(#{base_expr}) / #{f}"}.orSome(base_expr)
+    margin_factor.map{|f| "(#{base_expr}) / #{f.factor}"}.orSome(base_expr)
   end
 end
 

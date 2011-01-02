@@ -25,6 +25,10 @@ class Panel < Item
     properties.find_value(LENGTH).map{|v| v.length}
   end
 
+  def material_descriptor
+    MATERIAL_DESCRIPTOR
+  end
+
   # The panels associated with a shell will vary only with respect to width, length,
   # and color of material; all other possible dimensions will be fixed in the panel
   # instance.

@@ -10,6 +10,11 @@ class ItemComponent < ActiveRecord::Base
   def pricing_expr(units, color)
     component.pricing_expr(units, color)
   end
+
+  def color_opts
+    opts = self.respond_to?(:color_options) ? self.color_options : []
+    component.color_opts + opts  
+  end
 end
 
 require 'items/shell_components.rb'

@@ -15,6 +15,10 @@ class ClosetPartition < Item
     [MARGIN]
   end
 
+  def material_descriptor
+    MATERIAL
+  end
+
   def calculate_price(h, d, units, color)
     raise "Not yet implemented"
   end

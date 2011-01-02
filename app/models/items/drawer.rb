@@ -16,6 +16,10 @@ class Drawer < Item
     material_area * material(MATERIAL_DESCRIPTOR, color).price(1, 1, units)
   end
 
+  def material_descriptor
+    MATERIAL_DESCRIPTOR
+  end
+
   def height(units) 
     properties.find_value(HEIGHT_DESCRIPTOR).map{|v| v.height(units)}.orLazy {
       raise "Drawers must have a fixed height. Please edit the drawer definition and set the height property."

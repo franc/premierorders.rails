@@ -19,6 +19,10 @@ class ClosetShelf < Item
     raise "Not yet implemented"
   end
 
+  def material_descriptor
+    MATERIAL
+  end
+
   def pricing_expr(units, color)
     edgeband_expr = edge_banding_pricing_expr({:front => 'W', :left => 'D', :right => 'D'}, units, color)
     material_expr = material(MATERIAL, color).pricing_expr('W', 'D', units)

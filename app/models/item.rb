@@ -60,10 +60,10 @@ class Item < ActiveRecord::Base
     map{|e| "(#{e})"}.join(" + ")
   end
 
-  def color_options
-    item_components.inject([]) do |options, comp|
-      options << comp.color_options if comp.respond_to?(:color_options)
-      options
+  def color_opts
+    opts = self.respond_to?(:color_options) ? self.color_options : []
+    item_components.inject(opts) do |options, comp|
+      options +  comp.color_opts 
     end
   end
 end

@@ -41,7 +41,7 @@
     <dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
-      <%= select_tag("price_expr_color", options_for_select(@item.color_options.map{|color| [color, color]}.flatten.uniq)) %>
+      <%= select_tag("price_expr_color", options_for_select(@item.color_opts.map{|color| [color, color]}.flatten.uniq)) %>
       <span id="pricing_expression"></span>
     </dd>
     <dt><%= label :item, :properties %></dt>

@@ -27,6 +27,10 @@ module PremiumDoorM
     properties.find_by_descriptor(DOOR_MATERIAL).property_values.map{|m| m.color}
   end
 
+  def material_descriptor
+    DOOR_MATERIAL
+  end
+
   def handling_surcharge 
     properties.find_value(HANDLING_CHARGE).map{|v| v.price}.orLazy {
       raise "No handling surcharge property was specified for the door: #{self.inspect}"
