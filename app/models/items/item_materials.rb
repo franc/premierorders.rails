@@ -3,8 +3,11 @@ module ItemMaterials
   def material(descriptor, color)
     mprop = properties.find_by_descriptor(descriptor)
     mval = mprop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0}
-    ActiveRecord::Base.logger.info("Retrieved property #{mval.inspect} for color #{color}")
     mval
+  end
+
+  def color_options
+    properties.find_by_family(:color).property_values.inject([]) {|m, v| m << v.color}
   end
 end
 

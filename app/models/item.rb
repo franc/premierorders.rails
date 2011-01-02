@@ -59,6 +59,13 @@ class Item < ActiveRecord::Base
     inject([]) {|exprs, component| exprs << component.pricing_expr(units, color)}.
     map{|e| "(#{e})"}.join(" + ")
   end
+
+  def color_options
+    item_components.inject([]) do |options, comp|
+      options << comp.color_options if comp.respond_to?(:color_options)
+      options
+    end
+  end
 end
 
 require 'items/cabinet.rb'
