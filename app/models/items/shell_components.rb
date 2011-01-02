@@ -3,8 +3,14 @@ require 'items/panel.rb'
 require 'util/option.rb'
 
 class ShellBackPanel < ItemComponent
+  include PanelMargins
+
   def self.component_types
     [Panel]
+  end
+
+  def self.optional_properties
+    [MARGIN]
   end
 
   def calculate_price(width, height, depth, units, color)
@@ -12,7 +18,7 @@ class ShellBackPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    component.pricing_expr('H', 'W', units, color)
+    apply_margin(component.pricing_expr('H', 'W', units, color))
   end
 end
 
