@@ -357,7 +357,7 @@ class Property < ActiveRecord::Base
     end
 
     def waste_factor
-      Option.fromString(extract(:waste_factor)).map{|f| f.to_f}
+      Option.fromString(extract(:waste_factor)).map{|f| f.to_f + 1.0}
     end
 
     def pricing_expr(l_expr, w_expr, units)
