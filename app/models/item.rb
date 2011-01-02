@@ -56,7 +56,13 @@ class Item < ActiveRecord::Base
   end
 
   def pricing_expr(units, color)
-    "(#{item_components.inject([]) {|exprs, component| exprs << component.pricing_expr(units, color)}.join(" + ")})"
+    base_expr = Option.new(base_price)
+    if item_components.empty?
+      base_expr.orSome(0.0)
+    else
+      component_expr = "(#{item_components.inject([]) {|exprs, component| exprs << component.pricing_expr(units, color)}.join(" + ")})"
+      base_expr.map{|e| "(#{e} + #{component_expr})"}.orSome(component_expr)
+    end
   end
 
   def color_opts

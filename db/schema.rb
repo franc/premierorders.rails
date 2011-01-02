@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101211051916) do
+ActiveRecord::Schema.define(:version => 20110102162841) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20101211051916) do
     t.string   "purchasing",       :limit => 32
     t.string   "purchase_part_id"
     t.string   "type"
+    t.float    "base_price"
   end
 
   create_table "job_item_properties", :force => true do |t|

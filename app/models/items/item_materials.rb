@@ -41,7 +41,8 @@ module PanelEdgePricing
     edge_materials(dimension_vars.keys, color).each do |side, banding|
       exprs << banding.pricing_expr(units, dimension_vars[side])
     end
-    "(#{exprs.map{|e| "#{e}"}.join(" + ")})"
+
+    "(#{exprs.join(" + ")})"
   end
 end
 
