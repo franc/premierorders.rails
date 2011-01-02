@@ -53,6 +53,6 @@ module PanelPricing
   def panel_pricing_expr(l_expr, w_expr, dimension_vars, units, color)
     component_pricing = component.pricing_expr(l_expr, w_expr, units, color)
     edge_pricing = edge_banding_pricing_expr(dimension_vars, units, color)
-    apply_margin("#{quantity} * ((#{component_pricing}) + (#{edge_pricing}))") 
+    apply_margin("(#{quantity} * (#{component_pricing} + #{edge_pricing}))") 
   end
 end

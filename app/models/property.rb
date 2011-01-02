@@ -356,7 +356,7 @@ class Property < ActiveRecord::Base
     end
 
     def pricing_expr(l_expr, w_expr, units)
-      "(#{l_expr}) * (#{w_expr}) * #{sq_convert(extract(:price).to_f, units, price_units)}"
+      "(#{l_expr} * #{w_expr} * #{sq_convert(extract(:price).to_f, units, price_units)})"
     end
   end
 
@@ -389,7 +389,7 @@ class Property < ActiveRecord::Base
     end
 
     def pricing_expr(units, length_expr)
-      "#{price(units)} * (#{length_expr})"
+      "(#{price(units)} * #{length_expr})"
     end
   end
 

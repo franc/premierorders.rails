@@ -27,7 +27,7 @@ class Door < Item
     edgeband_expr = edge_banding_pricing_expr({:left => 'H', :right => 'H', :top => 'W', :bottom => 'W'}, units, color)
     material_expr = material(MATERIAL, color).pricing_expr('H', 'W', units)
 
-    apply_margin("(#{edgeband_expr}) + (#{material_expr})")
+    apply_margin("(#{edgeband_expr} + #{material_expr})")
   end
 end
 
@@ -102,7 +102,7 @@ class PremiumDoor < Item
   end
 
   def pricing_expr(units, color)
-    "(#{material_pricing_expr(units, color)}) + #{style_surcharge} + #{handling_surcharge}"
+    "(#{material_pricing_expr(units, color)} + #{style_surcharge} + #{handling_surcharge})"
   end
 end
 
@@ -138,6 +138,6 @@ class FrenchLiteDoor < Item
   end
 
   def pricing_expr(units, color)
-    "(#{material_pricing_expr(units, color)}) + #{style_surcharge(divisions)} + #{handling_surcharge}"
+    "(#{material_pricing_expr(units, color)} + #{style_surcharge(divisions)} + #{handling_surcharge})"
   end
 end

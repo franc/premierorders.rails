@@ -56,9 +56,7 @@ class Item < ActiveRecord::Base
   end
 
   def pricing_expr(units, color)
-    item_components.
-    inject([]) {|exprs, component| exprs << component.pricing_expr(units, color)}.
-    map{|e| "(#{e})"}.join(" + ")
+    "(#{item_components.inject([]) {|exprs, component| exprs << component.pricing_expr(units, color)}.join(" + ")})"
   end
 
   def color_opts

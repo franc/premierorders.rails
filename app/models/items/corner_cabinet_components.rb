@@ -27,7 +27,7 @@ module CornerCabinetPanel
   end
 
   def front_width_expr
-    "(D - (#{side_width_expr})) * #{Math.sqrt(2)}"
+    "((D - #{side_width_expr}) * #{Math.sqrt(2)})"
   end
 
   def side_width(depth)
@@ -35,7 +35,7 @@ module CornerCabinetPanel
   end
 
   def side_width_expr
-    "D * #{corner_side_ratio}"
+    "(D * #{corner_side_ratio})"
   end
 end
 
@@ -53,15 +53,14 @@ class CornerCabinetVerticalPanels < ItemComponent
   end
 
   def pricing_expr(units, color)
-    side_component_expr = component.pricing_expr('H', "(#{side_width_expr})", units, color)
+    side_component_expr = component.pricing_expr('H', side_width_expr, units, color)
     wall_side_component_expr = component.pricing_expr('H', 'D', units, color)
     side_edging_expr = edge_banding_pricing_expr(
       {:top => side_width_expr, :bottom => side_width_expr, :front => 'H'},
       units, color
     )
 
-    base_expr = "((#{side_component_expr}) + (#{wall_side_component_expr}) * 2) + ((#{side_edging_expr}) * 2)"
-    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
+    apply_margin("(((#{side_component_expr} + #{wall_side_component_expr}) * 2) + (#{side_edging_expr} * 2))")
   end
 end
 
@@ -79,7 +78,7 @@ class CornerCabinetHorizontalPanel < ItemComponent
   end
 
   def shelf_side_expr
-    "#{Math.sqrt(2)} * D"
+    "(#{Math.sqrt(2)} * D)"
   end
 
   def calculate_price(depth, units, color)
@@ -93,7 +92,6 @@ class CornerCabinetHorizontalPanel < ItemComponent
       units, color
     )
 
-    base_expr = "(#{panel_expr}) + (#{side_edging_expr})"
-    margin_factor.map{|f| "(#{base_expr}) * #{f}"}.orSome(base_expr)
+    apply_margin("(#{panel_expr} + #{side_edging_expr})")
   end
 end

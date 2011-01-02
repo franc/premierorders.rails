@@ -28,6 +28,6 @@ class Drawer < Item
 
   def pricing_expr(units, color)
     material_price = material(MATERIAL_DESCRIPTOR, color).pricing_expr(1, 1, units)
-    "((2 * #{height(units)} * W) + (2 * #{height(units)} * W) + (D * W)) * #{material_price}"
+    "(((2 * #{height(units)} * W) + (2 * #{height(units)} * W) + (D * W)) * #{material_price})"
   end
 end

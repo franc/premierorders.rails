@@ -41,11 +41,13 @@ class ItemHardware < ItemComponent
     qty_expr = if h_qty(units).empty? && w_qty(units).empty? && d_qty(units).empty?
       quantity
     else
-      [h_qty(units).map{|f| "H * #{f}"}, w_qty(units).map{|f| "W * #{f}"}, d_qty(units).map{|f| "D * #{f}"}].
-      inject([]) {|a, v| v.map{|expr| a << "(#{expr})"}.orSome(a)}.
-      join(" + ")
+      quantities = [h_qty(units).map{|f| "(H * #{f})"}, w_qty(units).map{|f| "(W * #{f})"}, d_qty(units).map{|f| "(D * #{f})"}].inject([]) do |a, v| 
+        v.map{|expr| a << "#{expr}"}.orSome(a)
+      end
+
+      "(#{quantities.join(" + ")})"
     end
 
-    "#{component.pricing_expr(units, color)} * #{qty_expr}"
+    "(#{component.pricing_expr(units, color)} * #{qty_expr})"
   end
 end

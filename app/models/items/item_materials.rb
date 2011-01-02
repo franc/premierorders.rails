@@ -39,7 +39,7 @@ module PanelEdgePricing
     edge_materials(dimension_vars.keys, color).each do |side, banding|
       exprs << banding.pricing_expr(units, dimension_vars[side])
     end
-    exprs.map{|e| "(#{e})"}.join(" + ")
+    "(#{exprs.map{|e| "#{e}"}.join(" + ")})"
   end
 end
 
@@ -51,7 +51,7 @@ module PanelMargins
   end
 
   def apply_margin(base_expr)
-    margin_factor.map{|f| "(#{base_expr}) / #{f.factor}"}.orSome(base_expr)
+    margin_factor.map{|f| "(#{base_expr} / #{f.factor})"}.orSome(base_expr)
   end
 end
 
