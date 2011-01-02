@@ -1,6 +1,36 @@
 require 'items/item_materials.rb'
 require 'property.rb'
 
+class Door < Item
+  include ItemMaterials, PanelEdgePricing, PanelMargins
+
+  MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
+  EDGEBAND = PropertyDescriptor.new(:edge_band, [:left, :right, :top, :bottom], [Property::EdgeBand])
+
+  def self.required_properties
+    [MATERIAL, EDGEBAND]
+  end
+
+  def self.optional_properties
+    [MARGIN]
+  end
+
+  def material_descriptor
+    MATERIAL
+  end
+
+  def calculate_price(h, d, units, color)
+    raise "Not yet implemented"
+  end
+
+  def pricing_expr(units, color)
+    edgeband_expr = edge_banding_pricing_expr({:left => 'H', :right => 'H', :top => 'W', :bottom => 'W'}, units, color)
+    material_expr = material(MATERIAL, color).pricing_expr('H', 'W', units)
+
+    apply_margin("(#{edgeband_expr}) + (#{material_expr})")
+  end
+end
+
 module PremiumDoorM
   include ItemMaterials
 

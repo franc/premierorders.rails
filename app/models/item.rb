@@ -21,6 +21,7 @@ class Item < ActiveRecord::Base
       CornerCabinet,
       Shell,
       Panel,
+      Door,
       PremiumDoor,
       PremiumDrawerfront,
       FrenchLiteDoor,
