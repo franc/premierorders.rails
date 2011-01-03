@@ -29,4 +29,8 @@ module ItemsHelper
                options_for_select(descriptor.qualifiers.map{|q| [q, q]}), 
                options.merge({:multiple => 'true'})
   end
+
+  def ok_tag(bool)
+    bool ? %Q(<span style="color: green">ok</span>) : %Q(<span style="color: red">error</span>)
+  end
 end

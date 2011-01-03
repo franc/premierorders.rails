@@ -15,6 +15,22 @@ class ItemComponent < ActiveRecord::Base
     opts = self.respond_to?(:color_options) ? self.color_options : []
     component.color_opts + opts  
   end
+
+  def component_ok?
+    component.components_ok? && component.properties_ok?
+  end
+
+  def component_errors
+  end
+
+  def properties_ok?
+    Property.descriptors(self.class, :required).inject(true) do |result, desc|
+      result && !properties.find_by_descriptor(desc).nil?
+    end
+  end
+
+  def property_errors
+  end
 end
 
 require 'items/shell_components.rb'

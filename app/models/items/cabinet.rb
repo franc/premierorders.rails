@@ -3,7 +3,7 @@ require 'items/cabinet_components.rb'
 
 class Cabinet < Item
   def self.component_association_types
-    [CabinetShell, CabinetDrawer, CabinetShelf]
+    {:required => [CabinetShell], :optional => [CabinetDrawer, CabinetShelf]}
   end
 
   DIMENSIONS_DESCRIPTOR = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height, Property::Depth])

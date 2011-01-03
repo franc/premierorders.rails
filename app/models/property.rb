@@ -152,11 +152,10 @@ end
 class Property < ActiveRecord::Base
   include NamedModules, ModularProperty
 
-  def self.descriptors(mod)
+  def self.descriptors(mod, type = :all)
     descriptors = []
-    descriptors += mod.required_properties if (mod.respond_to?(:required_properties))
-    descriptors += mod.optional_properties if (mod.respond_to?(:optional_properties))
-    descriptors.each {|d| logger.info(d.inspect)}
+    descriptors += mod.required_properties if mod.respond_to?(:required_properties) && type == (:all || :type == :required)
+    descriptors += mod.optional_properties if mod.respond_to?(:optional_properties) && type == (:all || :type == :optional)
     descriptors
   end
 

@@ -32,14 +32,19 @@ class Item < ActiveRecord::Base
   end
 
   def self.component_modules(mod)
-    types = [ItemHardware] # anything can have hardware
-    types += mod.component_types if mod.respond_to?(:component_types)
+    types = []
+    types += mod.component_types if mod.respond_to?(:component_types) 
     types
   end
 
   def self.component_association_modules(mod)
-    types = []
-    types += mod.component_association_types if mod.respond_to?(:component_association_types)
+    types = {:optional => [ItemHardware]} # anything can have hardware
+    if mod.respond_to?(:component_association_types)
+      mod.component_association_types.each do |k, t|
+        types[k] ||= []
+        types[k] + t
+      end
+    end
     types
   end
 
@@ -70,6 +75,29 @@ class Item < ActiveRecord::Base
     item_components.inject(opts) do |options, comp|
       options +  comp.color_opts 
     end
+  end
+
+  def components_ok?
+    required_modules = Item.component_association_modules(self.class)[:required]
+    required_present = required_modules.nil? || required_modules.inject(true) do |result, kv|
+      result && !item_components.detect{|v| v.class == kv[1]}.nil?
+    end
+
+    item_components.inject(required_present) do |result, comp|
+      result && comp.component_ok?
+    end    
+  end
+
+  def component_errors
+  end
+
+  def properties_ok?
+    Property.descriptors(self.class, :required).inject(true) do |result, desc|
+      result && !properties.find_by_descriptor(desc).nil?
+    end
+  end
+
+  def property_errors
   end
 end
 

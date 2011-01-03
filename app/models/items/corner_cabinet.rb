@@ -3,7 +3,7 @@ require 'items/corner_cabinet_components.rb'
 
 class CornerCabinet < Item
   def self.component_association_types
-    [CornerCabinetHorizontalPanel, CornerCabinetVerticalPanels]
+    {:required => [CornerCabinetHorizontalPanel, CornerCabinetVerticalPanels]}
   end
 
   def calculate_price(width, height, depth, units, color)

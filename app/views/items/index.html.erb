@@ -7,6 +7,8 @@
     <th>Vendor SKU</th>
     <th>QB Item</th>
     <th>Price</th>
+    <th>Components</th>
+    <th>Properties</th>
     <th>Edit</th>
     <th>Destroy</th>
   </tr>
@@ -18,6 +20,8 @@
     <td><%= item.sku %></td>
     <td><%= item.purchase_part_id %></td>
     <td><%= item.base_price %></td>
+    <td><%= raw ok_tag(item.components_ok?) %></td>
+    <td><%= raw ok_tag(item.properties_ok?) %></td>
     <td><%= link_to 'Edit', edit_item_path(item) %></td>
     <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
