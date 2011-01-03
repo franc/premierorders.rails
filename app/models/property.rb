@@ -154,8 +154,8 @@ class Property < ActiveRecord::Base
 
   def self.descriptors(mod, type = :all)
     descriptors = []
-    descriptors += mod.required_properties if mod.respond_to?(:required_properties) && type == (:all || :type == :required)
-    descriptors += mod.optional_properties if mod.respond_to?(:optional_properties) && type == (:all || :type == :optional)
+    descriptors += mod.required_properties if mod.respond_to?(:required_properties) && (type == :all || type == :required)
+    descriptors += mod.optional_properties if mod.respond_to?(:optional_properties) && (type == :all || type == :optional)
     descriptors
   end
 
