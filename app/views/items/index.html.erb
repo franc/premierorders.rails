@@ -4,6 +4,9 @@
   <tr>
     <th>Item Name</th>
     <th>D'Vinci ID</th>
+    <th>Vendor SKU</th>
+    <th>QB Item</th>
+    <th>Price</th>
     <th>Edit</th>
     <th>Destroy</th>
   </tr>
@@ -12,6 +15,9 @@
   <tr>
     <td><%= link_to item.name, item_path(item) %></td>
     <td><%= item.dvinci_id %></td>
+    <td><%= item.sku %></td>
+    <td><%= item.purchase_part_id %></td>
+    <td><%= item.base_price %></td>
     <td><%= link_to 'Edit', edit_item_path(item) %></td>
     <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
