@@ -20,7 +20,10 @@ module PanelEdgePricing
   def edge_materials(sides, color)
     sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
-        material = prop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0}
+        mvalues = prop.property_values.all
+        raise "Could not determine material values from #{prop}" if mvalues.empty?
+        material = mvalues.length > 1 ? prop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+        raise "Could not determine material values for #{color} from #{mvalues}" if material.nil?
         result[side] = material unless material.nil?
       end
 
