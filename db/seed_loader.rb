@@ -97,8 +97,18 @@ class SeedLoader
     end
   end
 
+  def dv_sizes
+    @dv_sizes ||= IO.readlines("#{@seed_data_dir}/dvinci_panel_categories.csv").inject({}) do |m, line|
+      category, notch, *xs = line.split(",")
+      m[category.strip] ||= []
+      m[category.strip] << notch.strip
+      m
+    end
 
-  def load_product_data(filename)
+    @dv_sizes
+  end
+
+  def with_tabfile_rows(filename, block)
     def prefix_match(string, prefixes)
       string.match("^(#{prefixes.map{|p| "(#{p})"}.join("|")})")
     end
@@ -121,38 +131,6 @@ class SeedLoader
     end
 
     dv_colors    = data_map("#{@seed_data_dir}/dvinci_colors.csv")
-    dv_sizes     = IO.readlines("#{@seed_data_dir}/dvinci_panel_categories.csv").inject({}) do |m, line|
-      category, notch, *xs = line.split(",")
-      m[category.strip] ||= []
-      m[category.strip] << notch.strip
-      m
-    end
-
-    #dv_materials = data_map("#{@seed_data_dir}/dvinci_materials.csv")
-    #dv_edgeband  = data_map("#{@seed_data_dir}/dvinci_edgeband.csv")
-    #dv_edgeband2 = data_map("#{@seed_data_dir}/dvinci_edgeband2.csv")
-
-    color_props = {
-        "Panel" => Property.find_or_create_by_name('Panel Color', :family => 'color'),
-        "Premium Panel" => Property.find_or_create_by_name('Premium Panel Color', :family => 'color'),
-        "Home Office Panel" => Property.find_or_create_by_name('Home Office Panel Color', :family => 'color'),
-        "Hardware" => Property.find_or_create_by_name('Hardware Color', :family => 'color'),
-        "Countertop" => Property.find_or_create_by_name('Countertop Color', :family => 'color')
-    }
-
-    #material_attr = ItemAttr.find_or_create_by_name('Case Material', :type => 'Material')
-    #edgeband_attr = ItemAttr.find_or_create_by_name('Case Edge', :type => 'EdgeBand')
-    #edgeband2_attr = ItemAttr.find_or_create_by_name('Case Edge 2', :type => 'EdgeBand')
-    #doormatr_attr = ItemAttr.find_or_create_by_name('Door Material', :type => 'Material')
-    #dooredge_attr = ItemAttr.find_or_create_by_name('Door Edge', :value_type => 'string')
-
-    purchase_types = {
-      'P' => 'Purchased',
-      'I' => 'Inventory',
-      'M' => 'Manufactured',
-      'B' => 'Buyout'
-    }
-
     CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
       part_id, catalog_id, dvinci_id, description, *xs = row
       next if part_id == 'PartID' || dvinci_id.nil?
@@ -187,45 +165,51 @@ class SeedLoader
 
         item_desc = ((purchasing == 'M' || purchasing == 'B') && color_match) ? base_description : description
 
-        item = Item.find_or_create_by_dvinci_id(
+        yield(
+          row,
           item_dvinci_key,
-          :name => item_desc,
-          :description => item_desc,
-          :purchasing => purchase_types[purchasing]
+          item_desc, 
+          purchasing,
+          category,
+          color, 
+          color_key,
+          color_match
         )
-
-        color_prop = color_props[category]
-        if color_match && color_prop
-          item.item_properties.find_or_create_by_item_id_and_property_id(item.id, color_prop.id)
-          color_value = color_prop.property_values.find_or_create_by_name_and_dvinci_id(color, color_key)
-          color_value.update_attributes(:module_names => 'Color', :value_str => "{\"color\": \"#{color}\"}")
-
-          #add_property_value.call(color_prop,     dv_colors)
-          #add_property_value.call(material_attr,  dv_materials)
-          #add_property_value.call(edgeband_attr,  dv_edgeband)
-          #add_property_value.call(edgeband2_attr, dv_edgeband2)
-          #add_property_value.call(doormatr_attr,  dv_materials)
-          #add_property_value.call(dooredge_attr,  dv_edgeband)
-        end
       end
     end
+  end
 
-    #CSV.open("#{@seed_data_dir}/vtiger_products.csv", "r") do |row|
-    #  next if row[0] == "Product Name"
+  def load_product_data(filename)
+    purchase_types = {
+      'P' => 'Purchased',
+      'I' => 'Inventory',
+      'M' => 'Manufactured',
+      'B' => 'Buyout'
+    }
 
-    #  cutrite_id = row[8]
-    #  dvinci_id = row[3]
-    #  matchdata = dvinci_id.match(/(\d{3})\.(\d{3})\.(\d{3})\.(\d{3})/)
-    #  if matchdata
-    #    t1, t2, color_key, t3 = matchdata.captures
-    #    item = Item.find_by_dvinci_id("000.#{t1}.#{t2}.#{color_key}.#{t3}") || Item.find_by_dvinci_id("000.#{t1}.#{t2}.x.#{t3}")
+    color_props = {
+      "Panel" => Property.find_or_create_by_name('Panel Color', :family => 'color'),
+      "Premium Panel" => Property.find_or_create_by_name('Premium Panel Color', :family => 'color'),
+      "Home Office Panel" => Property.find_or_create_by_name('Home Office Panel Color', :family => 'color'),
+      "Hardware" => Property.find_or_create_by_name('Hardware Color', :family => 'color'),
+      "Countertop" => Property.find_or_create_by_name('Countertop Color', :family => 'color')
+    }
 
-    #    if (item)
-    #      item.cutrite_id = cutrite_id
-    #      item.save
-    #    end
-    #  end
-    #end
+    with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
+      item = Item.find_or_create_by_dvinci_id(
+        item_dvinci_key,
+        :name => item_desc,
+        :description => item_desc,
+        :purchasing => purchase_types[purchasing]
+      )
+
+      color_prop = color_props[category]
+      if color_match && color_prop
+        item.item_properties.find_or_create_by_item_id_and_property_id(item.id, color_prop.id)
+        color_value = color_prop.property_values.find_or_create_by_name_and_dvinci_id(color, color_key)
+        color_value.update_attributes(:module_names => 'Color', :value_str => "{\"color\": \"#{color}\"}")
+      end
+    end
   end
 
   def fix_cutrite_codes
@@ -272,33 +256,16 @@ class SeedLoader
 
   def dump_tab_file(filename)
     File.open("generated_tab.csv", "w") do |out|
-      CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
+      with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
         part_id, catalog_id, dvinci_id, description, *xs = row
-        next if part_id == 'PartID' || dvinci_id.nil?
 
-        dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-        if dvinci_id_matchdata.nil?
-          puts "Could not parse dvinci id: " + dvinci_id
+        item = Item.find_by_dvinci_id(item_dvinci_key)
+        if item.nil? 
+          puts "Could not find item with dvinci id: " + item_dvinci_key
         else
-          t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
-
-          item_dvinci_key = "#{t1}.#{t2}.#{t3}.x.#{t5}#{purchasing}"
-          item = Item.find_by_dvinci_id(item_dvinci_key) || Item.find_by_dvinci_id(dvinci_id)
-          if item.nil? 
-            puts "Could not find item with dvinci id: " + item_dvinci_key
-          else
-            color_prop = item.properties.find_by_family(:color)
-            if color_prop.nil? 
-              out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
-            else
-        color = color_prop.property_values.detect{|v| !v.nil? && v.dvinci_id == color_key}
-              if color.nil?
-                out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
-              else
-          out.puts(CSV.generate_line([part_id, catalog_id, item.dvinci_id.gsub(/x/, color.dvinci_id), "#{item.description}, #{color.color}"] + xs))
-              end
-            end
-          end
+          item_pricing_expr = item.pricing_expr(:in, color)
+          puts "Could not determine pricing expression for #{row}" if item_pricing_expr.nil?
+          out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
         end
       end
     end
