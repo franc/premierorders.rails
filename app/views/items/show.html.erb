@@ -40,22 +40,28 @@
     <dd><%= @item.purchase_part_id %></dd>
     <dt><%= label :item, :base_price %></dt>
     <dd><%= @item.base_price %></dd>
-    <dt><%= label :item, :pricing_expression %></dt>
+  </dl>
+</div>
+
+<div>    
+	<dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
       <%= select_tag("price_expr_color", options_for_select(@item.color_opts.map{|color| [color, color]}.flatten.uniq)) %>
       <span id="pricing_expression"></span>
     </dd>
+</div>
+<br>
+<div>
     <dt><%= label :item, :properties %></dt>
     <dd><%= render :partial => 'properties', 
                    :locals => {
                      :id => 'properties_list', :properties => @item.item_properties,
                      :resource_path => lambda {|item_prop| item_property_path(item_prop)}
-                   } %></dd>
+                   } %></dd><br><br><br><br>
     <dt><%= label :item, :components %></dt>
     <dd><%= render :partial => 'components', 
                    :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
-  </dl>
 </div>
 
 <% content_for :local_nav do %>
