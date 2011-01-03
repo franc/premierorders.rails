@@ -108,7 +108,7 @@ class SeedLoader
     @dv_sizes
   end
 
-  def with_tabfile_rows(filename, block)
+  def with_tabfile_rows(filename, &block)
     def prefix_match(string, prefixes)
       string.match("^(#{prefixes.map{|p| "(#{p})"}.join("|")})")
     end
@@ -165,16 +165,7 @@ class SeedLoader
 
         item_desc = ((purchasing == 'M' || purchasing == 'B') && color_match) ? base_description : description
 
-        yield(
-          row,
-          item_dvinci_key,
-          item_desc, 
-          purchasing,
-          category,
-          color, 
-          color_key,
-          color_match
-        )
+        block.call(row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match)
       end
     end
   end
@@ -263,9 +254,13 @@ class SeedLoader
         if item.nil? 
           puts "Could not find item with dvinci id: " + item_dvinci_key
         else
-          item_pricing_expr = item.pricing_expr(:in, color)
-          puts "Could not determine pricing expression for #{row}" if item_pricing_expr.nil?
-          out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
+          begin
+            item_pricing_expr = item.pricing_expr(:in, color)
+            puts "Could not determine pricing expression for #{row}" if item_pricing_expr.nil?
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
+          rescue
+            puts("Error in calculating prices for #{row}: #{$!}")
+          end
         end
       end
     end

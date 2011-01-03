@@ -36,7 +36,7 @@ class Panel < Item
     material(MATERIAL_DESCRIPTOR, color).price(length.orSome(l), width.orSome(w), units)
   end
 
-  def pricing_expr(l_var, w_var, units, color)
+  def pricing_expr(units, color, l_var = 'L', w_var = 'W')
     material(MATERIAL_DESCRIPTOR, color).pricing_expr(length.orSome(l_var), width.orSome(w_var), units)
   end
 end
@@ -51,7 +51,7 @@ module PanelPricing
   end
 
   def panel_pricing_expr(l_expr, w_expr, dimension_vars, units, color)
-    component_pricing = component.pricing_expr(l_expr, w_expr, units, color)
+    component_pricing = component.pricing_expr(units, color, l_expr, w_expr)
     edge_pricing = edge_banding_pricing_expr(dimension_vars, units, color)
     apply_margin("(#{quantity} * (#{component_pricing} + #{edge_pricing}))") 
   end

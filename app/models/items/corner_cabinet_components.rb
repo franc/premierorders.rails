@@ -53,8 +53,8 @@ class CornerCabinetVerticalPanels < ItemComponent
   end
 
   def pricing_expr(units, color)
-    side_component_expr = component.pricing_expr('H', side_width_expr, units, color)
-    wall_side_component_expr = component.pricing_expr('H', 'D', units, color)
+    side_component_expr = component.pricing_expr(units, color, 'H', side_width_expr)
+    wall_side_component_expr = component.pricing_expr(units, color, 'H', 'D')
     side_edging_expr = edge_banding_pricing_expr(
       {:top => side_width_expr, :bottom => side_width_expr, :front => 'H'},
       units, color
@@ -86,7 +86,7 @@ class CornerCabinetHorizontalPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    panel_expr = component.pricing_expr(shelf_side_expr, shelf_side_expr, units, color)
+    panel_expr = component.pricing_expr(units, color, shelf_side_expr, shelf_side_expr)
     side_edging_expr = edge_banding_pricing_expr(
       {:front => front_width_expr, :side => side_width_expr, :wall_side => 'D'},
       units, color

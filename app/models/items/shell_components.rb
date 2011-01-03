@@ -18,7 +18,7 @@ class ShellBackPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    apply_margin(component.pricing_expr('H', 'W', units, color))
+    apply_margin(component.pricing_expr(units, color, 'H', 'W'))
   end
 end
 
