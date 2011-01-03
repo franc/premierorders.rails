@@ -362,7 +362,7 @@ class Property < ActiveRecord::Base
 
     def pricing_expr(l_expr, w_expr, units)
       sqft = "#{l_expr} * #{w_expr}"
-      sqft_waste = waste_factor.map{|f| "#{f} * #{sqft}"}.orSome(sqft)
+      sqft_waste = waste_factor.map{|f| "#{sqft} * #{f}"}.orSome(sqft)
       "(#{sqft_waste} * #{sq_convert(extract(:price).to_f, units, price_units)})"
     end
   end
