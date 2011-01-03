@@ -1,6 +1,6 @@
 require 'csv'
 require 'set'
-require 'property.rb'
+#require 'property.rb'
 
 class SeedLoader
   PASSWORD_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
@@ -245,37 +245,6 @@ class SeedLoader
     end
   end
 
-  def dump_tab_file(filename)
-    File.open("generated_tab.csv", "w") do |out|
-      with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
-        part_id, catalog_id, dvinci_id, description, *xs = row
-
-        item = Item.find_by_dvinci_id(item_dvinci_key)
-        if item.nil? 
-          puts "Could not find item with dvinci id: " + item_dvinci_key
-        else
-          begin
-            item_pricing_expr = item.pricing_expr(:in, color)
-            puts "Could not determine pricing expression for #{row}" if item_pricing_expr.nil?
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
-          rescue
-            puts("Error in calculating prices for #{row}: #{$!}")
-          end
-        end
-      end
-    end
-  end
-
-  def dump_items
-    File.open("generated.csv", 'w') do |f|
-      CSV::Writer.generate(f, ",") do |csv|
-       Item.find(:all).each do |i|
-        csv << [i.name, i.dvinci_id, i.cutrite_id]
-       end
-      end
-    end
-  end
-
   def decore_pricing_data
     style_colors = {}
     option_costs = {}
@@ -396,6 +365,40 @@ class SeedLoader
       )
 
       add_decore_property(srefs, prop)
+    end
+  end
+
+  def dump_tab_file(filename)
+    File.open("generated_tab_errors.csv", "w") do |err|
+    File.open("generated_tab.csv", "w") do |out|
+      with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
+        part_id, catalog_id, dvinci_id, description, *xs = row
+
+        item = Item.find_by_dvinci_id(item_dvinci_key)
+        if item.nil? 
+          err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
+        else
+          begin
+            item_pricing_expr = item.pricing_expr(:in, color)
+            err.puts "Could not determine pricing expression for row #{row.inspect}" if item_pricing_expr.nil?
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
+          rescue
+            err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
+          end
+        end
+      end
+    end
+    end
+  end
+
+  def dump_items
+    File.open("generated.csv", 'w') do |f|
+      CSV::Writer.generate(f, ",") do |csv|
+       Item.find(:all).each do |i|
+        csv << [i.name, i.dvinci_id, i.cutrite_id]
+       end
+      end
     end
   end
 end
