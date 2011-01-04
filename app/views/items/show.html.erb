@@ -20,6 +20,55 @@
 <% end %>
 <p id="notice"><%= notice %></p>
 
+<div class="errors">
+  <dl style="color: red">
+    <% unless @item.components_ok? %>
+      <dt>Component Errors</dl>
+      <dd>
+        <dl>
+          <dt>Missing Components</dt>
+          <dd>
+            <ul>
+              <% @item.component_errors[:missing].each do |type| %>
+                <li><%= type.inspect %></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dd>
+            <ul>
+              <% @item.component_errors[:broken].each do |comp| %>
+                <li><%= link_to comp.class.to_s.demodulize, item_component_path(comp) %></li>
+              <% end %>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+    <% end %>
+    <% unless @item.properties_ok? %>
+      <dt>Property Errors</dl>
+      <dd>
+        <dl>
+          <dt>Missing Properties</dt>
+          <dd>
+            <ul>
+              <% @item.property_errors[:missing].each do |desc| %>
+                <li><%= desc.family %></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dd>
+            <ul>
+              <% @item.property_errors[:broken].each do |prop| %>
+                <li><%= link_to prop.name, property_path(prop) %></li>
+              <% end %>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
 <div class="form_fields">
   <dl>
     <dt><%= label :item, :type %></dt>

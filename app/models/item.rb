@@ -19,6 +19,7 @@ class Item < ActiveRecord::Base
       Item,
       Cabinet,
       CornerCabinet,
+      Countertop,
       Shell,
       Panel,
       Door,
@@ -79,8 +80,7 @@ class Item < ActiveRecord::Base
 
   def components_ok?
     required_modules = Item.component_association_modules(self.class)[:required]
-    required_present = required_modules.nil? || required_modules.inject(true) do |result, kv| 
-      required, mod = kv
+    required_present = required_modules.nil? || required_modules.inject(true) do |result, mod| 
       result && !item_components.detect{|v| v.class == mod}.nil?
     end
 
@@ -90,6 +90,19 @@ class Item < ActiveRecord::Base
   end
 
   def component_errors
+    required_modules = Item.component_association_modules(self.class)[:required]
+    absent = []
+    unless required_modules.nil? 
+      required_modules.each do |mod| 
+        absent << mod if item_components.detect{|v| v.class == mod}.nil? 
+      end
+    end
+
+    broken = item_components.inject([]) do |result, comp|
+      comp.component_ok? ? result : result << comp
+    end    
+
+    {:missing => absent, :broken => broken}
   end
 
   def properties_ok?
@@ -100,6 +113,15 @@ class Item < ActiveRecord::Base
   end
 
   def property_errors
+    absent = []
+    broken = []
+    Property.descriptors(self.class, :required).each do |desc|
+      prop = properties.find_by_descriptor(desc)
+      absent << desc if prop.nil? 
+      broken << prop if prop && prop.property_values.length == 0
+    end
+
+    {:missing => absent, :broken => broken}
   end
 end
 
@@ -107,6 +129,7 @@ require 'items/cabinet.rb'
 require 'items/corner_cabinet.rb'
 require 'items/shell.rb'
 require 'items/panel.rb'
+require 'items/countertop.rb'
 require 'items/door.rb'
 require 'items/drawer.rb'
 require 'items/closet_partition.rb'

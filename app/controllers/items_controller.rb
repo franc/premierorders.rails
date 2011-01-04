@@ -145,7 +145,7 @@ class ItemsController < ApplicationController
     if request.xhr?
       receiver = Item.find_by_id(params[:id])
       component = Item.find_by_id(params[:component_id])
-      association_type = Item.component_association_modules(receiver.class)[params[:association_id].to_i]
+      association_type = Item.component_association_modules(receiver.class).values.flatten[params[:association_id].to_i]
       quantity = params[:quantity]
 
       association = ItemComponent.new(:item_id => receiver.id, :component_id => component.id, :quantity => quantity)
