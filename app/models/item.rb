@@ -93,7 +93,8 @@ class Item < ActiveRecord::Base
 
   def properties_ok?
     Property.descriptors(self.class, :required).inject(true) do |result, desc|
-      result && !properties.find_by_descriptor(desc).nil?
+      prop = properties.find_by_descriptor(desc)
+      result && !prop.nil? && prop.property_values.length > 0
     end
   end
 
