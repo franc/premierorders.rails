@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
     if mod.respond_to?(:component_association_types)
       mod.component_association_types.each do |k, t|
         types[k] ||= []
-        types[k] + t
+        types[k] += t
       end
     end
     types
@@ -79,8 +79,9 @@ class Item < ActiveRecord::Base
 
   def components_ok?
     required_modules = Item.component_association_modules(self.class)[:required]
-    required_present = required_modules.nil? || required_modules.inject(true) do |result, kv|
-      result && !item_components.detect{|v| v.class == kv[1]}.nil?
+    required_present = required_modules.nil? || required_modules.inject(true) do |result, kv| 
+      required, mod = kv
+      result && !item_components.detect{|v| v.class == mod}.nil?
     end
 
     item_components.inject(required_present) do |result, comp|

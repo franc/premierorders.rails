@@ -69,7 +69,7 @@ class ItemComponentsController < ApplicationController
       render :partial => 'items/properties', :layout => false, :locals => {
         :id => 'component_relationship_properties',
         :properties => comp.item_component_properties,
-        :resource_path => lambda {|icp| item_component_properties_path(icp)}
+        :resource_path => lambda {|icp| item_component_property_path(icp)}
       }
     end
   end
