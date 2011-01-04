@@ -1,6 +1,6 @@
 require 'csv'
 require 'set'
-#require 'property.rb'
+require 'util/option'
 
 class SeedLoader
   PASSWORD_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
@@ -153,8 +153,7 @@ class SeedLoader
             when nil then t3
             when ['x'] then 'x'
             else
-              a, b, c = t3.split('')
-              dv_sizes[t2].detect(a) ? "#{a}x" : t3
+              Option.new(dv_sizes[t2].detect{|n| t3 =~ /^#{n}/}).map{|n| "#{n}x"}.orSome(t3)
           end
                
           o4 = color_match ? 'x' : color_key
@@ -379,7 +378,7 @@ class SeedLoader
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
         else
           begin
-            item_pricing_expr = item.pricing_expr(:in, color)
+            item_pricing_expr = item.pricing_expr(:in, color_key)
             err.puts "Could not determine pricing expression for row #{row.inspect}" if item_pricing_expr.nil?
             out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
           rescue

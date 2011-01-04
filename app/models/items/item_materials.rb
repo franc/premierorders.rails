@@ -6,7 +6,7 @@ module ItemMaterials
     mprop = properties.find_by_descriptor(descriptor)
     mvalues = mprop.property_values.all
     raise "Could not determine material values from #{mprop}" if mvalues.empty?
-    mval = mvalues.length > 1 ? mvalues.detect{|v| v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+    mval = mvalues.length > 1 ? mvalues.detect{|v| color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
     raise "Could not determine material values for #{color} from #{mvalues}" if mval.nil?
     mval
   end
@@ -22,7 +22,7 @@ module PanelEdgePricing
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
         mvalues = prop.property_values.all
         raise "Could not determine material values from #{prop}" if mvalues.empty?
-        material = mvalues.length > 1 ? prop.property_values.detect{|v| v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+        material = mvalues.length > 1 ? prop.property_values.detect{|v| color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
         raise "Could not determine material values for #{color} from #{mvalues}" if material.nil?
         result[side] = material unless material.nil?
       end
