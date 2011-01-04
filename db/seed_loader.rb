@@ -135,7 +135,7 @@ class SeedLoader
       part_id, catalog_id, dvinci_id, description, *xs = row
       next if part_id == 'PartID' || dvinci_id.nil?
 
-      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
+      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
       if dvinci_id_matchdata.nil?
         puts "Could not determine product information for row: #{row.inspect}"
       else
@@ -383,7 +383,7 @@ class SeedLoader
             out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs + [item_pricing_expr]))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
+            #out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
           end
         end
       end
