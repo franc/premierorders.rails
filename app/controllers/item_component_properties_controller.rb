@@ -1,14 +1,14 @@
 class ItemComponentPropertiesController < ApplicationController
   def destroy
     @association = ItemComponentProperty.find(params[:id])
-    @item = @association.item
+    @item_component = @association.item_component
     @association.destroy
     
     if request.xhr?
       render :json => {:updated => 'success'}
     else
       respond_to do |format|
-        format.html { redirect_to item_path(@item) }
+        format.html { redirect_to item_component_path(@item_component) }
         format.xml  { head :ok }
       end
     end

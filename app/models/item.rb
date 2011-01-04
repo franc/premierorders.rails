@@ -28,7 +28,8 @@ class Item < ActiveRecord::Base
       FrenchLiteDoor,
       Drawer,
       ClosetPartition,
-      ClosetShelf
+      ClosetShelf,
+      BackingPanel
     ]
   end
 
@@ -134,5 +135,6 @@ require 'items/door.rb'
 require 'items/drawer.rb'
 require 'items/closet_partition.rb'
 require 'items/closet_shelf.rb'
+require 'items/backing_panel.rb'
 require 'items/item_hardware.rb'
 
