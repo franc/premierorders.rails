@@ -64,7 +64,7 @@ module PanelItem
 
   def self.included(mod)
     def mod.required_properties
-      [MATERIAL, PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])]
+      [MATERIAL] + (banded_edges.empty? ? [] : [PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])])
     end
 
     def mod.optional_properties
