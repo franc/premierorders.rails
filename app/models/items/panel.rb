@@ -84,6 +84,6 @@ module PanelItem
     edgeband_expr = self.class.banded_edges.empty? ? Option.none() : Option.new(edge_banding_pricing_expr(self.class.banded_edges, units, color))
     material_expr = material(MATERIAL, color).pricing_expr(self.class.l_expr, self.class.w_expr, units)
 
-    apply_margin(edgeband_expr.map{|e| "(#{material_expr} + #{e})"}.orSome(material_expr))
+    edgeband_expr.map{|e| "(#{material_expr} + #{e})"}.orSome(material_expr)
   end
 end
