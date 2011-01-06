@@ -65,7 +65,7 @@ class ShellVerticalPanel < ItemComponent
   end
 
   def pricing_expr(units, color)
-    panel_pricing_expr('H', 'W', {:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}, units, color)
+    panel_pricing_expr('H', 'D', {:top => 'D', :bottom => 'D', :rear => 'H', :front => 'H'}, units, color)
   end
 end
 
