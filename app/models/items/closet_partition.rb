@@ -24,9 +24,9 @@ class ClosetPartition < Item
   end
 
   def pricing_expr(units, color)
-    edgeband_expr = edge_banding_pricing_expr({:front => 'H', :top => 'D', :bottom => 'D'}, units, color)
     material_expr = material(MATERIAL, color).pricing_expr('H', 'D', units)
+    edged_expr = apply_edgeband_pricing_expr(material_expr, {:front => 'H', :top => 'D', :bottom => 'D'}, units, color)
 
-    apply_margin("(#{edgeband_expr} + #{material_expr})")
+    apply_margin(edged_expr)
   end
 end

@@ -42,13 +42,25 @@ module PanelEdgePricing
     total
   end
 
-  def edge_banding_pricing_expr(dimension_vars, units, color)
+  def edge_banding_pricing_exprs(dimension_vars, units, color)
     exprs = []
     edge_materials(dimension_vars.keys, color).each do |side, banding|
       exprs << banding.pricing_expr(units, dimension_vars[side])
     end
+    exprs
+  end
 
-    "(#{exprs.join(" + ")})"
+  def edge_banding_pricing_expr(dimension_vars, units, color)
+    "(#{edge_banding_pricing_exprs(dimension_vars, units, color).join(" + ")})"
+  end
+
+  def apply_edgeband_pricing_expr(expr, dimension_vars, units, color)
+    edge_exprs = edge_banding_pricing_exprs(dimension_vars, units, color)
+    if (edge_exprs.empty?)
+      expr
+    else
+      "(#{expr} + (#{edge_exprs.join(" + ")}))"
+    end
   end
 end
 
