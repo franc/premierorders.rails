@@ -8,16 +8,16 @@ class ItemComponent < ActiveRecord::Base
   has_many   :properties, :through => :item_component_properties, :extend => Properties::Association
 
   def pricing_expr(units, color)
-    component.pricing_expr(units, color)
+    component.nil? ? "()" : component.pricing_expr(units, color)
   end
 
   def color_opts
     opts = self.respond_to?(:color_options) ? self.color_options : []
-    component.color_opts + opts  
+    component.nil? ? opts : component.color_opts + opts  
   end
 
   def component_ok?
-    component.components_ok? && component.properties_ok?
+    !component.nil? && component.components_ok? && component.properties_ok?
   end
 
   def component_errors
