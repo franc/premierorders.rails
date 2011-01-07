@@ -1,5 +1,6 @@
 <% content_for :head do %>
   <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'item_editing.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
   <%= javascript_include_tag 'json2.js' %>
   <style>
@@ -62,17 +63,18 @@
 
           window_contents.find("#add_property_submit").click(function() { 
             dialog.w.find(".jqm_content").each(function() {
-              var req = this.contentWindow.add_property_data();
+              var propertyWindow = this.contentWindow;
+              var req = propertyWindow.add_property_data();
               var update_properties_list = function(property) { 
                 // Save the property ids and qualifiers so that if this is a new record,
                 // the data can be included in the form submission
                 property_associations[property.property_id] = req.qualifiers;
+                propertyWindow.location.reload(true)
 
                 // Using a match on the item id to determine that the form is in edit 
                 // mode, reload the properties list by querying for the properties 
                 // associated with the object.
-                var matches = "<%= @item.id%>".match(/[0-9]+/);
-                if (matches != null && matches.length > 0) {
+                if ($("#edit_mode").val() === "edit") {
                   $.get("/items/<%=@item.id%>/properties", function(properties_list_html) {
                     var elem = $(properties_list_html);
                     $(".property_delete_link", elem).click(delete_clicked(".property_row"));
@@ -89,7 +91,7 @@
                 }
               };
 
-              req.receiver_id = "<%=@item.id%>",
+              if ($("#edit_mode").val() === "edit") req.receiver_id = "<%=@item.id%>";
               $.post("/items/add_property", req, update_properties_list, "json");
             });
 
@@ -119,16 +121,17 @@
 
             window_contents.find("#add_component_submit").click(function() { 
               dialog.w.find(".jqm_content").each(function() {
-                var req = this.contentWindow.add_component_data();
+                var componentWindow = this.contentWindow;
+                var req = componentWindow.add_component_data();
                 var handler = function(data) {
-                  var matches = "<%= @item.id%>".match(/[0-9]+/);
-                  if (matches != null & matches.length > 0) {
-                    $.get("/items/<%=@item.id%>/components", function(component_html) {
-                      var elem = $(component_html);
-                      $(".component_delete_link", elem).click(delete_clicked(".item_component_row"));
-                      $("#item_components").replaceWith(elem); 
-                    });
-                  }
+                  componentWindow.location.reload(true)
+                  
+                  $.get("/items/<%=@item.id%>/components", function(component_html) {
+                    var elem = $(component_html);
+                    $(".component_delete_link", elem).click(delete_clicked(".item_component_row"));
+                    $(".property_delete_link", elem).click(delete_clicked(".property_row"));
+                    $("#item_components").replaceWith(elem); 
+                  });
                 };
 
                 $.post("/items/<%=@item.id%>/add_component", req, handler, "json");
@@ -150,11 +153,16 @@
           return true; //continue with form submission.
         });
       <% end %>
+    
+      $(".component_delete_link").click(delete_clicked(".item_component_row"));
+      $(".property_delete_link").click(delete_clicked(".property_row"));
     });
   </script>
 <% end %>
+<%= render :partial => 'properties_js', :locals => {:id => 'properties_list'} %>
 
 <%= form_for(@item, :as => :item, :url => @item.id.nil? ? '/items' : item_path(@item)) do |f| %>
+  <input type="hidden" id="edit_mode", name="mode" value="<%=mode%>"/>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>

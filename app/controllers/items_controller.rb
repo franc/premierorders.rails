@@ -119,7 +119,7 @@ class ItemsController < ApplicationController
   def properties
     if request.xhr?
       item = Item.find(params[:id])
-      render :partial => 'properties', :layout => false, :locals => {
+      render :partial => 'properties', :locals => {
         :id => 'item_properties',
         :properties => item.item_properties,
         :resource_path => lambda {|item_prop| item_property_path(item_prop)}
@@ -130,7 +130,7 @@ class ItemsController < ApplicationController
   def components
     if request.xhr?
       item = Item.find(params[:id])
-      render :partial => 'components', :layout => false, :locals => {
+      render :partial => 'components', :locals => {
         :id => 'item_components',
         :item_components => item.item_components
       }
@@ -153,13 +153,16 @@ class ItemsController < ApplicationController
       association.save
 
       properties = params[:component_properties]
-      unless properties.nil? || properties[:property_id].blank?
-        property = case properties[:type] 
-          when "new"      then PropertiesHelper.create_property(properties[:property])
-          when "existing" then Property.find(properties[:property_id])
+      unless properties.nil? 
+        case properties[:type] 
+          when "new" 
+            property = PropertiesHelper.create_property(properties[:property])
+            PropertiesHelper.create_item_component_properties(association, property, properties[:qualifiers])
+          when "existing" 
+            unless properties[:property_id].blank?
+              PropertiesHelper.create_item_component_properties(association, Property.find(properties[:property_id]), properties[:qualifiers])
+            end
         end
-
-        PropertiesHelper.create_item_component_properties(association, property, properties[:qualifiers])
       end
 
       render :json => {:updated => 'success'}

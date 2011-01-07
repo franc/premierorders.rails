@@ -1,6 +1,6 @@
 var delete_clicked = function(parent_row_class) {
   return function(ev) {
-    if ( confirm('Are you sure you want to delete this property association?' ) ) {
+    if ( confirm('Are you sure you want to delete this association?' ) ) {
       $.ajax({
         type: 'delete',
         url: $(ev.target).attr("href"), 

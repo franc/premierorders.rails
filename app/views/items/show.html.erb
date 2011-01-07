@@ -1,4 +1,5 @@
 <%= content_for :head do %>
+  <%= javascript_include_tag 'item_editing.js' %>
   <script type="text/javascript">
     var update_pricing_expr = function() {
       $.get(
@@ -14,6 +15,8 @@
     jQuery(function($) {
       $("#price_expr_units").change(update_pricing_expr);
       $("#price_expr_color").change(update_pricing_expr);
+      $(".component_delete_link").click(delete_clicked(".item_component_row"));
+      $(".property_delete_link").click(delete_clicked(".property_row"));
       update_pricing_expr();
     });
   </script>

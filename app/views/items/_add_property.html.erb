@@ -25,7 +25,7 @@
         if (add_method() === "new") {
           var form_element = $("#add_new_property");
           var request = {
-            type: add_method(),
+            type: 'new',
             qualifiers: [],
             property: { 
               name: $("input:text[name=property_name]", form_element).val(),
@@ -56,7 +56,7 @@
         } else {
           var form_element = $("#add_existing_property");
           var request = {
-            type: add_method(),
+            type: 'existing',
             qualifiers: [],
             property_id: $("input:hidden[name=property_id]", form_element).val()
           };
@@ -73,6 +73,7 @@
       if (qualifiers.length === 0) {
         $(".qualifier_select").hide(); 
       } else {
+        $("select[name=property_qualifiers] > option").remove();
         for (i = 0; i < qualifiers.length; i++) {
           $("select[name=property_qualifiers]").append('<option value="'+qualifiers[i]+'">'+qualifiers[i]+'</option>');
         }
@@ -81,6 +82,7 @@
     };
 
     var update_descriptor_select = function(descriptors) {
+      $("#descriptor_select > option").remove();
       for (i = 0; i < descriptors.length; i++) {
         $("#descriptor_select").append('<option value="'+i+'">'+descriptors[i].family+'</option>');
       }
