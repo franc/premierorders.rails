@@ -7,14 +7,10 @@ class CabinetShell < ItemComponent
   def self.component_types
     [Shell]
   end
-
-  def calculate_price(width, height, depth, units, color)
-    quantity * component.calculate_price(width, height, depth, units, color)
-  end
 end
 
 class CabinetShelf < ItemComponent
-  include PanelPricing, PanelMargins
+  include Items::Margins
 
   def self.component_types
     [Panel]
@@ -28,12 +24,12 @@ class CabinetShelf < ItemComponent
     [MARGIN]
   end
 
-  def calculate_price(width, height, depth, units, color)
-    quantity * component.calculate_price(width, depth, units, color)
-  end
-
-  def pricing_expr(units, color)
-    apply_margin(panel_pricing_expr('W', 'D', {:front => 'W'}, units, color))
+  def cost_expr(units, color, contexts)
+    component.cost_expr(units, color, contexts, W, D).map do |component_cost|
+      edge_cost = edgeband_cost_expr({:front => W}, units, color)
+      subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
+      apply_margin(mult(quantity, subtotal))
+    end
   end
 end
 
@@ -52,15 +48,9 @@ class CabinetDrawer < ItemComponent
     Option.new(properties.find_by_descriptor(WIDTH_FACTOR)).map{|p| p.property_values.first.factor}
   end
 
-  # The drawers associated with a cabinet will vary only with
-  # respect to enclosing width and depth; drawer height will be fixed in
-  # the drawer instance.
-  def calculate_price(width, height, depth, units, color)
-    quantity * component.calculate_price(width * width_factor.orSome(1.0), depth, units, color)
-  end
-
-  def pricing_expr(units, color)
-    component.pricing_expr(units, color).gsub(/W/, width_factor.cata(lambda {|v| "(#{v} * W)"}, 'W'))
+  def cost_expr(units, color, contexts)
+    component.cost_expr(units, color, contexts).map do |component_cost|
+      width_factor.map{|f| component_cost.replace(W, mult(W, term(f)))}.orSome(component_cost)
+    end
   end
 end
-

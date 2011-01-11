@@ -1,17 +1,15 @@
 require 'items/panel.rb'
 
-class Countertop < Item
-  include PanelItem
-
+class Countertop < FinishedPanel
   def self.banded_edges
-    {:front => 'W', :left => 'D', :right => 'D'}
+    {:front => W, :left => D, :right => D}
   end
 
   def self.l_expr 
-    'W'
+    W
   end
 
   def self.w_expr
-    'D'
+    D
   end
 end

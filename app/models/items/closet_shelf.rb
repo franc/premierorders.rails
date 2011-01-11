@@ -2,32 +2,25 @@ require 'property.rb'
 require 'items/item_materials.rb'
 
 class ClosetShelf < Item
-  include ItemMaterials, PanelEdgePricing, PanelMargins
+  include ItemMaterials, PanelEdgePricing
 
-  MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
   EDGEBAND = PropertyDescriptor.new(:edge_band, [:front, :left, :right], [Property::EdgeBand])
 
   def self.required_properties
-    [MATERIAL, EDGEBAND]
-  end
-
-  def self.optional_properties
-    [MARGIN]
-  end
-
-  def calculate_price(h, d, units, color)
-    raise "Not yet implemented"
+    [Panel::MATERIAL, EDGEBAND]
   end
 
   def material_descriptor
-    MATERIAL
+    Panel::MATERIAL
   end
 
-  def pricing_expr(units, color)
-    material_expr = material(MATERIAL, color).pricing_expr('W', 'D', units)
-    edged_expr = apply_edgeband_pricing_expr(material_expr, {:front => 'W', :left => 'D', :right => 'D'}, units, color)
+  def cost_expr(units, color, contexts)
+    material_cost = material(MATERIAL, color).pricing_expr(W, D, units)
+    edgeband_cost = edgeband_cost_expr({:front => W, :left => D, :right => D}, units, color)
+    subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
+    item_total = apply_margin(subtotal)
 
-    apply_margin(edged_expr)
+    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end
 

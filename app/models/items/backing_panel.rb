@@ -1,17 +1,11 @@
 require 'items/panel.rb'
 
-class BackingPanel < Item
-  include PanelItem
-
-  def self.banded_edges
-    {}
-  end
-
+class BackingPanel < FinishedPanel
   def self.l_expr 
-    'H'
+    H
   end
 
   def self.w_expr
-    'W'
+    W
   end
 end
