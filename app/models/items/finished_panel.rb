@@ -18,7 +18,7 @@ class FinishedPanel < Item
   end
 
   def cost_expr(units, color, contexts)
-    edgeband_cost = if !self.class.respond_to(:banded_edges) || self.class.banded_edges.empty? 
+    edgeband_cost = if !self.class.respond_to?(:banded_edges) || self.class.banded_edges.empty? 
       Option.none()
     else
       edgeband_cost_expr(self.class.banded_edges, units, color)
