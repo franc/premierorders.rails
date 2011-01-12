@@ -383,7 +383,7 @@ class Property < ActiveRecord::Base
       min = extract(:min)
       max = extract(:max)
       var_units = extract(:variable_units).to_sym
-      var_factor = convert(1, var_units, units)
+      var_factor = convert(1.0, var_units, units)
       var = case extract(:variable).to_sym
         when :height then H
         when :width then W
