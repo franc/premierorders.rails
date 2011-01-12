@@ -383,7 +383,7 @@ class Property < ActiveRecord::Base
       min = extract(:min)
       max = extract(:max)
       var_units = extract(:variable_units).to_sym
-      var_factor = convert(1, units, var_units)
+      var_factor = convert(1, var_units, units)
       var = case extract(:variable).to_sym
         when :height then H
         when :width then W
@@ -391,8 +391,8 @@ class Property < ActiveRecord::Base
       end
       ranged(
         mult(var, term(var_factor)),
-        min.blank? ? nil : term(convert(min.to_f, units, var_units)),
-        max.blank? ? nil : term(convert(max.to_f, units, var_units)),
+        min.blank? ? nil : term(convert(min.to_f, var_units, units)),
+        max.blank? ? nil : term(convert(max.to_f, var_units, units)),
         term(extract(:value).to_f)
       )
     end
