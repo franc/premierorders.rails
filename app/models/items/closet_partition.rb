@@ -1,14 +1,15 @@
 require 'property.rb'
+require 'expressions.rb'
+require 'items/panel.rb'
 require 'items/item_materials.rb'
 
 class ClosetPartition < Item
-  include ItemMaterials, PanelEdgePricing, PanelMargins
+  include ItemMaterials, PanelEdgePricing, Items::Margins, Expressions
 
-  MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
   EDGEBAND = PropertyDescriptor.new(:edge_band, [:front, :top, :bottom], [Property::EdgeBand])
 
   def self.required_properties
-    [MATERIAL, EDGEBAND]
+    [Panel::MATERIAL, EDGEBAND]
   end
 
   def self.optional_properties
@@ -16,17 +17,15 @@ class ClosetPartition < Item
   end
 
   def material_descriptor
-    MATERIAL
+    Panel::MATERIAL
   end
 
-  def calculate_price(h, d, units, color)
-    raise "Not yet implemented"
-  end
+  def cost_expr(units, color, contexts)
+    material_cost = material(Panel::MATERIAL, color).cost_expr(term('H'), term('D'), units)
+    edge_cost = edgeband_cost_expr({:front => 'H', :top => 'D', :bottom => 'D'}, units, color)
+    subtotal = edge_cost.map{|c| sum(material_cost, c)}.orSome(material_cost)
+    item_total = apply_margin(subtotal)
 
-  def pricing_expr(units, color)
-    material_expr = material(MATERIAL, color).pricing_expr('H', 'D', units)
-    edged_expr = apply_edgeband_pricing_expr(material_expr, {:front => 'H', :top => 'D', :bottom => 'D'}, units, color)
-
-    apply_margin(edged_expr)
+    super(units, color, contexts).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end

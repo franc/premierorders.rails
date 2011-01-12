@@ -1,33 +1,31 @@
 require 'property.rb'
 require 'items/item_materials.rb'
+require 'items/panel.rb'
+require 'util/option'
 
 class Drawer < Item
   include ItemMaterials
 
   HEIGHT_DESCRIPTOR = PropertyDescriptor.new(:height, [], [Property::Height], 1)
-  MATERIAL_DESCRIPTOR = PropertyDescriptor.new(:panel_material, [], [Property::Material])
 
   def self.required_properties
-    [HEIGHT_DESCRIPTOR, MATERIAL_DESCRIPTOR]
+    [HEIGHT_DESCRIPTOR, Panel::MATERIAL]
   end
   
-  def calculate_price(width, depth, units, color)
-    material_area = (2 * height(units) * width) + (2 * height(units) * depth)
-    material_area * material(MATERIAL_DESCRIPTOR, color).price(1, 1, units)
-  end
-
   def material_descriptor
-    MATERIAL_DESCRIPTOR
+    Panel::MATERIAL
   end
 
-  def height(units) 
-    properties.find_value(HEIGHT_DESCRIPTOR).map{|v| v.height(units)}.orLazy {
-      raise "Drawers must have a fixed height. Please edit the drawer definition and set the height property."
-    }
+  def height_expr(units) 
+    properties.find_value(HEIGHT_DESCRIPTOR).map{|v| term(v.height(units))}.orSome(H)
   end
 
-  def pricing_expr(units, color)
-    material_price = material(MATERIAL_DESCRIPTOR, color).pricing_expr(1, 1, units)
-    "(((2 * #{height(units)} * W) + (2 * #{height(units)} * W) + (D * W)) * #{material_price})"
+  def cost_expr(units, color, contexts)
+    material_unit_cost = material(MATERIAL_DESCRIPTOR, color).cost_expr(term(1), term(1), units)
+    area_expr = sum(mult(term(2), height_expr(units), sum(D, W)), mult(D, W))
+    subtotal = mult(area_expr, material_unit_cost) 
+    item_total = apply_margin(subtotal)
+
+    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end

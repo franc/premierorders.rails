@@ -210,7 +210,7 @@ class ItemsController < ApplicationController
   
   def component_types
     if request.xhr?
-      render :json => Item.component_modules(Items.const_get(params[:mod])).to_json
+      render :json => ItemComponent.component_modules(Items.const_get(params[:mod])).to_json
     end
   end
 
@@ -218,7 +218,7 @@ class ItemsController < ApplicationController
     type_map = Item.component_association_modules(Items.const_get(params[:mod])).values.flatten.inject([]) do |result, cmod|
       result << { 
         :association_type => cmod.to_s.demodulize,
-        :component_types  => Item.component_modules(cmod).map{|ct| ct.to_s.demodulize} 
+        :component_types  => ItemComponent.component_modules(cmod).map{|ct| ct.to_s.demodulize} 
       }
     end
 
@@ -229,8 +229,9 @@ class ItemsController < ApplicationController
 
   def pricing_expr
     @item = Item.find(params[:id])
+    expr = @item.price_expr(params[:units], params[:color], []).map{|e| e.compile}.orSome("No Pricing Data Available")
     if request.xhr?
-      render :json => {:expr => @item.pricing_expr(params[:units], params[:color])}
+      render :json => {:expr => expr}
     end
   end
 end

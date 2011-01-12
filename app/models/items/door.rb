@@ -1,33 +1,20 @@
 require 'items/item_materials.rb'
+require 'items/panel.rb'
 require 'property.rb'
 
-class Door < Item
-  include ItemMaterials, PanelEdgePricing, PanelMargins
+class Door < FinishedPanel
+  include ItemMaterials, PanelEdgePricing
 
-  MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
-  EDGEBAND = PropertyDescriptor.new(:edge_band, [:left, :right, :top, :bottom], [Property::EdgeBand])
-
-  def self.required_properties
-    [MATERIAL, EDGEBAND]
+  def self.banded_edges
+    {:left => H, :right => H, :top => W, :bottom => W}
   end
 
-  def self.optional_properties
-    [MARGIN]
+  def self.l_expr
+    H
   end
 
-  def material_descriptor
-    MATERIAL
-  end
-
-  def calculate_price(h, d, units, color)
-    raise "Not yet implemented"
-  end
-
-  def pricing_expr(units, color)
-    material_expr = material(MATERIAL, color).pricing_expr('H', 'W', units)
-    edged_expr = apply_edgeband_pricing_expr(material_expr, {:left => 'H', :right => 'H', :top => 'W', :bottom => 'W'}, units, color)
-
-    apply_margin(edged_expr)
+  def self.w_expr
+    W
   end
 end
 
@@ -53,10 +40,6 @@ module PremiumDoorM
     end
   end
 
-  def color_options 
-    properties.find_by_descriptor(DOOR_MATERIAL).property_values.map{|m| m.color}
-  end
-
   def material_descriptor
     DOOR_MATERIAL
   end
@@ -67,12 +50,8 @@ module PremiumDoorM
     }
   end
 
-  def material_charge(width, height, units, color)
-    material(DOOR_MATERIAL, color).price(height, width, units)
-  end
-
-  def material_pricing_expr(units, color)
-    material(DOOR_MATERIAL, color).pricing_expr('H', 'W', units)
+  def material_cost_expr(units, color)
+    material(DOOR_MATERIAL, color).cost_expr(H, W, units)
   end
 end
 
@@ -83,26 +62,16 @@ class PremiumDoor < Item
     [DIMENSIONS, COLOR]
   end
 
-  def price_job_item(job_item)
-    units      = job_item.job.job_properties.find_by_descriptor(Property::LinearUnits::DESCRIPTOR).units
-    dimensions = job_item.job_item_properties.find_by_descriptor(DIMENSIONS)
-    color      = job_item.job_item_properties.find_by_descriptor(COLOR)
-
-    calculate_price(dimensions.width(units), dimensions.height(units), units, color.color)
-  end
-
   def style_surcharge 
     properties.find_value(STYLE_CHARGE).map{|v| v.price}.orLazy {
       raise "No style charge property was configured for door #{self.inspect}"
     }
   end
 
-  def calculate_price(width, height, units, color)
-    material_charge(width, height, units, color) + style_surcharge + handling_surcharge
-  end
-
-  def pricing_expr(units, color)
-    "(#{material_pricing_expr(units, color)} + #{style_surcharge} + #{handling_surcharge})"
+  def cost_expr(units, color, contexts)
+    subtotal = sum(material_cost_expr(units, color), term(style_surcharge), term(handling_surcharge)) 
+    item_total = apply_margin(subtotal)
+    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end
 
@@ -112,19 +81,10 @@ end
 class FrenchLiteDoor < Item
   include PremiumDoorM
 
-  DIVISIONS = PropertyDescriptor.new(:french_door_divisions, [], [Property::IntegerProperty])
+  DIVIDERS = PropertyDescriptor.new(:french_door_dividers, [], [Property::IntegerProperty])
 
   def self.job_item_properties
-    [DIMENSIONS, COLOR, DIVISIONS]
-  end
-
-  def price_job_item(job_item)
-    units      = job_item.job.job_properties.find_by_descriptor(Property::LinearUnits::DESCRIPTOR).units
-    dimensions = job_item.job_item_properties.find_by_descriptor(DIMENSIONS)
-    color      = job_item.job_item_properties.find_by_descriptor(COLOR)
-    divisions  = job_item.job_item_properties.find_by_descriptor(DIVISIONS)
-
-    calculate_price(dimensions.width(units), dimensions.height(units), units, color.color, divisions.value)
+    [DIMENSIONS, COLOR, DIVIDERS]
   end
 
   def style_surcharge(divisions) 
@@ -133,11 +93,11 @@ class FrenchLiteDoor < Item
     }
   end
 
-  def calculate_price(width, height, units, color, divisions)
-    material_charge(width, height, units, color) + style_surcharge(divisions) + handling_surcharge
-  end
+  def cost_expr(units, color)
+    raise "Cannot generate a pricing expression for d'vinci without support for french door dividers"
 
-  def pricing_expr(units, color)
-    "(#{material_pricing_expr(units, color)} + #{style_surcharge(divisions)} + #{handling_surcharge})"
+    # subtotal = sum(material_cost_expr(units, color), handling_surcharge)
+    # item_total = apply_margin(subtotal) 
+    # super.map{|e| sum(e, item_total)}.orElse(Some(item_total))
   end
 end

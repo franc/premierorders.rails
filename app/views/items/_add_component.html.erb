@@ -19,7 +19,8 @@
       var component_data = {
         association_id: $("#association_select option:selected").val(),
         component_id: $("#add_existing_component input:hidden[name=component_id]").val(),
-        quantity: $("#add_existing_component input:text[name=quantity]").val()
+        quantity: $("#add_existing_component input:text[name=quantity]").val(),
+        contexts: $("#add_existing_component input:text[name=contexts]").val()
       };
 
       if ($("#configurable").val() === "true") {
@@ -153,6 +154,8 @@
         </dd>
         <dt>Quantity:</dt>
         <dd><%= text_field_tag :quantity %></dd>
+        <dt>Contexts:</dt>
+        <dd><%= text_field_tag :contexts %> (please enter a comma-separated list of identifiers)</dd>
         <dt class="association_props">Configuration:</dt>
         <dd class="association_props" id="component_association_properties">
           <%= render :partial => 'add_property', :locals => {:receiver_root => 'items', :include_submit => false } %>

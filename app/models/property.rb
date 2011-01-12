@@ -1,5 +1,6 @@
 require 'json'
 require 'util/option.rb'
+require 'expressions.rb'
 
 module ModularProperty
   def value_structure
@@ -323,6 +324,7 @@ class Property < ActiveRecord::Base
   end
 
   module Material
+    include Expressions
     include Properties::JSONProperty, Properties::LinearConversions, Properties::SquareConversions
 
     def self.value_structure
@@ -348,26 +350,19 @@ class Property < ActiveRecord::Base
       extract(:price_units).to_sym
     end
 
-    def price(length, width, units)
-      price_units = extract(:price_units).to_sym
-      l = convert(length, units, price_units) 
-      w = convert(width,  units, price_units) 
-      l * w * extract(:price).to_f
-    end
-
     def waste_factor
       Option.fromString(extract(:waste_factor)).map{|f| f.to_f + 1.0}
     end
 
-    def pricing_expr(l_expr, w_expr, units)
-      sqft = "#{l_expr} * #{w_expr}"
-      sqft_waste = waste_factor.map{|f| "#{sqft} * #{f}"}.orSome(sqft)
-      "(#{sqft_waste} * #{sq_convert(extract(:price).to_f, units, price_units)})"
+    def cost_expr(l_expr, w_expr, units)
+      sqft_expr = mult(l_expr, w_expr)
+      sqft_expr_waste = waste_factor.map{|f| mult(sqft_expr, term(f))}.orSome(sqft_expr)
+      mult(sqft_expr_waste, term(sq_convert(extract(:price).to_f, units, price_units)))
     end
   end
 
   module EdgeBand
-    include Properties::JSONProperty, Properties::LinearConversions
+    include Expressions, Properties::JSONProperty, Properties::LinearConversions
     def self.value_structure
       {
         :color => :string,
@@ -390,12 +385,8 @@ class Property < ActiveRecord::Base
       convert(extract(:price).to_f, units, extract(:price_units).to_sym)
     end
 
-    def calculate_price(length, length_units)
-      length * price(length_units)
-    end
-
-    def pricing_expr(units, length_expr)
-      "(#{price(units)} * #{length_expr})"
+    def cost_expr(units, length_expr)
+      mult(term(price(units)), length_expr)
     end
   end
 
