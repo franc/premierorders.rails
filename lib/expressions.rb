@@ -128,6 +128,49 @@ module Expressions
     alias_method :==, :eql?
   end
 
+  class Ranged
+    attr_reader :var, :min, :max, :result
+    def initialize(var, min, max, result)
+      @var = var
+      @min = min
+      @max = max
+      @result = result
+    end
+
+    def replace(expr, replacement)
+      if self.eql?(expr)
+        replacement
+      else
+        Ranged.new(
+          @var.replace(expr, replacement),
+          @min.nil? ? nil : @min.replace(expr, replacement),
+          @max.nil? ? nil : @max.replace(expr, replacement),
+          @result.replace(expr, replacement)
+        )
+      end
+    end
+
+    def compile
+      if min.nil?
+        mult(term("(#{@var.compile} < #{@max.compile} ? 1 : 0)"), @result)
+      elsif max.nil?
+        mult(term("(#{@var.compile} >= #{@min.compile} ? 1 : 0)"), @result)
+      else
+        mult(term("(#{@var.compile} >= #{@min.compile} && #{@var.compile} < #{@max.compile} ? 1 : 0)"), @result)
+      end
+    end
+
+    def eql?(other)
+      other.kind_of(Ranged) &&
+      @var.eql?(other.var) &&
+      @min.eql?(other.min) &&
+      @max.eql?(other.max) &&
+      @result.eql?(other.result) 
+    end
+
+    alias_method :==, :eql?
+  end
+
   def sum(*exprs)
     Sum.new(*exprs)
   end
@@ -142,6 +185,10 @@ module Expressions
 
   def sub(min, sub)
     Sub.new(min, sub)
+  end
+
+  def ranged(var, min, max, result)
+    Ranged.new(var, min, max, result)
   end
 
   def term(value)

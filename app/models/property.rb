@@ -30,6 +30,12 @@ module Properties
       find(:all, :conditions => ['family = ? and qualifier = ?', family, qualifier])
     end
 
+    def find_all_by_descriptor(descriptor)
+      conditions = descriptor.qualifiers.empty? ? ['family = ?', descriptor.family] : ['family = ? and qualifier in (?)', descriptor.family, descriptor.qualifiers]
+      find(:all, :conditions => conditions)
+    end
+
+
     def find_by_descriptor(descriptor)
       conditions = descriptor.qualifiers.empty? ? ['family = ?', descriptor.family] : ['family = ? and qualifier in (?)', descriptor.family, descriptor.qualifiers]
       find(:first, :conditions => conditions)
@@ -358,6 +364,36 @@ class Property < ActiveRecord::Base
       sqft_expr = mult(l_expr, w_expr)
       sqft_expr_waste = waste_factor.map{|f| mult(sqft_expr, term(f))}.orSome(sqft_expr)
       mult(sqft_expr_waste, term(sq_convert(extract(:price).to_f, units, price_units)))
+    end
+  end
+
+  module RangedValue
+    include Expressions, Properties::JSONProperty
+    def self.value_structure
+      {
+        :min => :float,
+        :max => :float,
+        :variable => [:height, :width, :depth],
+        :variable_units => Properties::LinearConversions::UNITS,
+        :value => :float
+      }
+    end
+
+    def expr(units)
+      min = extract(:min)
+      max = extract(:max)
+      var_factor = convert(1, units, extract(:variable_units).to_sym)
+      var = case extract(:variable).to_sym
+        when :height then H
+        when :width then W
+        when :depth then D
+      end
+      ranged(
+        mult(var, term(var_factor)),
+        min.blank? ? nil : term(min.to_f),
+        max.blank? ? nil : term(max.to_f),
+        term(extract(:value).to_f)
+      )
     end
   end
 
