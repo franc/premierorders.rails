@@ -4,7 +4,7 @@ require 'items/panel.rb'
 require 'items/item_materials.rb'
 
 class ClosetPartition < Item
-  include ItemMaterials, PanelEdgePricing, Items::Margins, Expressions
+  include ItemMaterials, PanelEdgePricing, Items::Margins
 
   EDGEBAND = PropertyDescriptor.new(:edge_band, [:front, :top, :bottom], [Property::EdgeBand])
 
@@ -21,8 +21,8 @@ class ClosetPartition < Item
   end
 
   def cost_expr(units, color, contexts)
-    material_cost = material(Panel::MATERIAL, color).cost_expr(term('H'), term('D'), units)
-    edge_cost = edgeband_cost_expr({:front => 'H', :top => 'D', :bottom => 'D'}, units, color)
+    material_cost = material(Panel::MATERIAL, color).cost_expr(H, D, units)
+    edge_cost = edgeband_cost_expr({:front => H, :top => D, :bottom => D}, units, color)
     subtotal = edge_cost.map{|c| sum(material_cost, c)}.orSome(material_cost)
     item_total = apply_margin(subtotal)
 
