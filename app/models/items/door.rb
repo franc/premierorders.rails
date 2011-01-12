@@ -50,8 +50,8 @@ module PremiumDoorM
     }
   end
 
-  def material_pricing_expr(units, color)
-    material(DOOR_MATERIAL, color).pricing_expr(H, W, units)
+  def material_cost_expr(units, color)
+    material(DOOR_MATERIAL, color).cost_expr(H, W, units)
   end
 end
 
@@ -69,7 +69,7 @@ class PremiumDoor < Item
   end
 
   def cost_expr(units, color, contexts)
-    subtotal = sum(material_pricing_expr(units, color), term(style_surcharge), term(handling_surcharge)) 
+    subtotal = sum(material_cost_expr(units, color), term(style_surcharge), term(handling_surcharge)) 
     item_total = apply_margin(subtotal)
     super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
@@ -93,10 +93,10 @@ class FrenchLiteDoor < Item
     }
   end
 
-  def pricing_expr(units, color)
-    raise "Cannot generate a pricing expression for d'vinci without support for french door dividers")
+  def cost_expr(units, color)
+    raise "Cannot generate a pricing expression for d'vinci without support for french door dividers"
 
-    # subtotal = sum(material_pricing_expr(units, color), handling_surcharge)
+    # subtotal = sum(material_cost_expr(units, color), handling_surcharge)
     # item_total = apply_margin(subtotal) 
     # super.map{|e| sum(e, item_total)}.orElse(Some(item_total))
   end

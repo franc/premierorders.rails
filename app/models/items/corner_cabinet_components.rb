@@ -43,9 +43,9 @@ class CornerCabinetVerticalPanels < ItemComponent
       component.cost_expr(units, color, contexts, H, D).map do |wall_side_cost|
         panel_cost = sum(side_cost, wall_side_cost)
         edgeband_cost = edgeband_cost_expr({:top => side_width_expr, :bottom => side_width_expr, :front => H}, units, color)
-        subtotal = edgeband_cost.map{|e| sum(panel_cost, e)}.orSome(panel_cost)
+        subtotal = mult(edgeband_cost.map{|e| sum(panel_cost, e)}.orSome(panel_cost), term(2))
 
-        apply_margin(mult(subtotal, 2))
+        apply_margin(subtotal)
       end
     end
   end
@@ -73,7 +73,7 @@ class CornerCabinetHorizontalPanel < ItemComponent
   end
 
   def cost_expr(units, color, contexts)
-    component.pricing_expr(units, color, contexts, shelf_side_expr, shelf_side_expr).map do |panel_cost|
+    component.cost_expr(units, color, contexts, shelf_side_expr, shelf_side_expr).map do |panel_cost|
       edgeband_cost = edgeband_cost_expr({:front => front_width_expr, :side => side_width_expr, :wall_side => D}, units, color)
 
       subtotal = edgeband_cost.map{|e| sum(panel_cost, e)}.orSome(panel_cost) 

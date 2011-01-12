@@ -36,7 +36,7 @@ class ItemHardware < ItemComponent
       ]
 
       qty_exprs = quantities.inject([]) {|a, v| v.map{|expr| a << expr}.orSome(a)}
-      sum(qty_exprs)
+      sum(*qty_exprs)
     end
 
     component.cost_expr(units, color, contexts).map{|e| mult(qty_expr, e)}

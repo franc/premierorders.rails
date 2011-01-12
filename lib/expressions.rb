@@ -16,7 +16,7 @@ module Expressions
     end
 
     def compile
-      "(#{@exprs.map{|e| e.compile}.join(" + ")})"
+      @exprs.length > 1 ? "(#{@exprs.map{|e| e.compile}.join(" + ")})" : @exprs[0].compile
     end
 
     def eql?(other)
@@ -27,7 +27,6 @@ module Expressions
   end
 
   class Mult
-    include Eq
     def initialize(*exprs)
       @exprs = exprs
     end  
@@ -42,7 +41,7 @@ module Expressions
     end
 
     def compile
-      "(#{@exprs.map{|e| e.compile}.join(" * ")})"
+      @exprs.length > 1 ? "(#{@exprs.map{|e| e.compile}.join(" * ")})" : @exprs[0].compile
     end
 
     def eql?(other)
@@ -129,12 +128,12 @@ module Expressions
     alias_method :==, :eql?
   end
 
-  def sum(exprs)
-    Sum.new(exprs)
+  def sum(*exprs)
+    Sum.new(*exprs)
   end
 
-  def mult(exprs)
-    Mult.new(exprs)
+  def mult(*exprs)
+    Mult.new(*exprs)
   end
 
   def div(num, den)

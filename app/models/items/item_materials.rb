@@ -36,8 +36,8 @@ module PanelEdgePricing
   def edgeband_cost_expr(dimension_vars, units, color)
     exprs = []
     edge_materials(dimension_vars.keys, color).each do |side, banding|
-      exprs << banding.pricing_expr(units, dimension_vars[side])
+      exprs << banding.cost_expr(units, dimension_vars[side])
     end
-    exprs.empty? ? Option.none() : Option.some(sum(exprs))
+    exprs.empty? ? Option.none() : Option.some(sum(*exprs))
   end
 end

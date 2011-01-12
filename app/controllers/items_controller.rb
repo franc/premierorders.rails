@@ -229,8 +229,9 @@ class ItemsController < ApplicationController
 
   def pricing_expr
     @item = Item.find(params[:id])
+    expr = @item.price_expr(params[:units], params[:color], []).map{|e| e.compile}.orSome("No Pricing Data Available")
     if request.xhr?
-      render :json => {:expr => @item.pricing_expr(params[:units], params[:color])}
+      render :json => {:expr => expr}
     end
   end
 end

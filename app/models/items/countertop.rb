@@ -1,4 +1,4 @@
-require 'items/panel.rb'
+require 'items/finished_panel.rb'
 
 class Countertop < FinishedPanel
   def self.banded_edges

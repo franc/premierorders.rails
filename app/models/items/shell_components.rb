@@ -4,7 +4,7 @@ require 'util/option.rb'
 require 'expressions.rb'
 
 class ShellHorizontalPanel < ItemComponent
-  include Expressions, Items::Margins
+  include PanelEdgePricing, Items::Margins
 
   def self.component_types
     [Panel]
@@ -18,17 +18,21 @@ class ShellHorizontalPanel < ItemComponent
     [MARGIN]
   end
 
+  def color_options
+    component.color_options
+  end
+
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, W, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:left => D, :right => D, :rear => W, :front => W}, units, color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(quantity, subtotal))
+      apply_margin(mult(term(quantity), subtotal))
     end
   end
 end
 
 class ShellVerticalPanel < ItemComponent
-  include Expressions, Items::Margins
+  include PanelEdgePricing, Items::Margins
 
   def self.component_types
     [Panel]
@@ -42,17 +46,21 @@ class ShellVerticalPanel < ItemComponent
     [MARGIN]
   end
 
+  def color_options
+    component.color_options
+  end
+
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, H, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:top => D, :bottom => D, :rear => H, :front => H}, units, color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(quantity, subtotal))
+      apply_margin(mult(term(quantity), subtotal))
     end
   end
 end
 
 class ShellBackPanel < ItemComponent
-  include Expressions, Items::Margins
+  include PanelEdgePricing, Items::Margins
 
   def self.component_types
     [Panel]
@@ -62,9 +70,13 @@ class ShellBackPanel < ItemComponent
     [MARGIN]
   end
 
+  def color_options
+    component.color_options
+  end
+
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, H, W).map do |component_cost|
-      apply_margin(mult(quantity, component_cost))
+      apply_margin(mult(term(quantity), component_cost))
     end
   end
 end

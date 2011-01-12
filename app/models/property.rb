@@ -1,5 +1,6 @@
 require 'json'
 require 'util/option.rb'
+require 'expressions.rb'
 
 module ModularProperty
   def value_structure
@@ -354,14 +355,14 @@ class Property < ActiveRecord::Base
     end
 
     def cost_expr(l_expr, w_expr, units)
-      sqft = mult(l_expr, w_expr)
-      sqft_waste = waste_factor.map{|f| mult(term(sqft), f)}.orSome(sqft)
-      mult(term(sqft_waste), term(sq_convert(extract(:price).to_f, units, price_units)))
+      sqft_expr = mult(l_expr, w_expr)
+      sqft_expr_waste = waste_factor.map{|f| mult(sqft_expr, term(f))}.orSome(sqft_expr)
+      mult(sqft_expr_waste, term(sq_convert(extract(:price).to_f, units, price_units)))
     end
   end
 
   module EdgeBand
-    include Properties::JSONProperty, Properties::LinearConversions
+    include Expressions, Properties::JSONProperty, Properties::LinearConversions
     def self.value_structure
       {
         :color => :string,

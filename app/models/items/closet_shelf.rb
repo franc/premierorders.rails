@@ -1,5 +1,6 @@
 require 'property.rb'
 require 'items/item_materials.rb'
+require 'items/panel.rb'
 
 class ClosetShelf < Item
   include ItemMaterials, PanelEdgePricing
@@ -15,7 +16,7 @@ class ClosetShelf < Item
   end
 
   def cost_expr(units, color, contexts)
-    material_cost = material(MATERIAL, color).pricing_expr(W, D, units)
+    material_cost = material(Panel::MATERIAL, color).cost_expr(W, D, units)
     edgeband_cost = edgeband_cost_expr({:front => W, :left => D, :right => D}, units, color)
     subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
     item_total = apply_margin(subtotal)

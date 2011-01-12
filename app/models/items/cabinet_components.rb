@@ -10,7 +10,7 @@ class CabinetShell < ItemComponent
 end
 
 class CabinetShelf < ItemComponent
-  include Items::Margins
+  include PanelEdgePricing, Items::Margins
 
   def self.component_types
     [Panel]
@@ -24,11 +24,15 @@ class CabinetShelf < ItemComponent
     [MARGIN]
   end
 
+  def color_options
+    component.color_options
+  end
+
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, W, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:front => W}, units, color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(quantity, subtotal))
+      apply_margin(mult(term(quantity), subtotal))
     end
   end
 end

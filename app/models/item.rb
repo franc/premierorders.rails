@@ -65,7 +65,7 @@ class Item < ActiveRecord::Base
     properties.find_by_descriptor(descriptor).property_values.first
   end
 
-  def apply_retail_multiplier(exprs)
+  def apply_retail_multiplier(expr)
     div(expr, term(0.4))
   end
 
