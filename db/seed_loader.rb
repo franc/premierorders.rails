@@ -378,9 +378,10 @@ class SeedLoader
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
         else
           begin
-            item_pricing_expr = item.pricing_expr(:in, color_key.gsub(/^[19]/,'0'))
-            err.puts "Could not determine pricing expression for row #{row.inspect}" if item_pricing_expr.nil?
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.name] + xs + ["(#{item_pricing_expr}) / 0.4"]))
+            item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
+              err.puts "Could not determine pricing expression for row #{row.inspect}"
+            end
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.name] + xs + [item_pricing_expr]))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
             #out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
