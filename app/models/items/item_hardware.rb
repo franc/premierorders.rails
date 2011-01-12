@@ -40,7 +40,7 @@ class ItemHardware < ItemComponent
         d_qty(units).map{|f| mult(D, term(f))}
       ] 
 
-      qty_exprs = quantities.inject([]){|a, v| v.map{|expr| a << expr}.orSome(a)} + r_qtys(units).map{|v| v.expr(units)}
+      qty_exprs = quantities.inject([]){|a, v| v.map{|expr| a << expr}.orSome(a)} + r_qtys.map{|v| v.expr(units)}
       sum(*qty_exprs)
     end
 

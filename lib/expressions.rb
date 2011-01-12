@@ -129,6 +129,7 @@ module Expressions
   end
 
   class Ranged
+    include Expressions
     attr_reader :var, :min, :max, :result
     def initialize(var, min, max, result)
       @var = var
@@ -152,11 +153,11 @@ module Expressions
 
     def compile
       if min.nil?
-        mult(term("(#{@var.compile} < #{@max.compile} ? 1 : 0)"), @result)
+        mult(term("(#{@var.compile} < #{@max.compile} ? 1 : 0)"), @result).compile
       elsif max.nil?
-        mult(term("(#{@var.compile} >= #{@min.compile} ? 1 : 0)"), @result)
+        mult(term("(#{@var.compile} >= #{@min.compile} ? 1 : 0)"), @result).compile
       else
-        mult(term("(#{@var.compile} >= #{@min.compile} && #{@var.compile} < #{@max.compile} ? 1 : 0)"), @result)
+        mult(term("(#{@var.compile} >= #{@min.compile} && #{@var.compile} < #{@max.compile} ? 1 : 0)"), @result).compile
       end
     end
 

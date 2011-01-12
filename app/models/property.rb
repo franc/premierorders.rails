@@ -368,7 +368,7 @@ class Property < ActiveRecord::Base
   end
 
   module RangedValue
-    include Expressions, Properties::JSONProperty
+    include Expressions, Properties::JSONProperty, Properties::LinearConversions
     def self.value_structure
       {
         :min => :float,
@@ -382,7 +382,8 @@ class Property < ActiveRecord::Base
     def expr(units)
       min = extract(:min)
       max = extract(:max)
-      var_factor = convert(1, units, extract(:variable_units).to_sym)
+      var_units = extract(:variable_units).to_sym
+      var_factor = convert(1, units, var_units)
       var = case extract(:variable).to_sym
         when :height then H
         when :width then W
@@ -390,8 +391,8 @@ class Property < ActiveRecord::Base
       end
       ranged(
         mult(var, term(var_factor)),
-        min.blank? ? nil : term(min.to_f),
-        max.blank? ? nil : term(max.to_f),
+        min.blank? ? nil : term(convert(min.to_f, units, var_units)),
+        max.blank? ? nil : term(convert(max.to_f, units, var_units)),
         term(extract(:value).to_f)
       )
     end
