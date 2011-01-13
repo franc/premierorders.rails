@@ -10,13 +10,22 @@ namespace :pricing do
           result = []
           color_keys.each_with_index do |color, i|
             unless colors[i].blank?
-              pricing_expr = item.pricing_expr(:in, color)
               begin
-                price = eval(pricing_expr.gsub(/W/, 'w').gsub(/H/, 'h').gsub(/D/, 'd'))
-                delta = colors[i].gsub(/\$/, '').to_f - price 
-                result += [colors[i], price, delta]
-              rescue
-                puts "Got error in calculation for #{item.inspect} with #{pricing_expr}: #{$!.inspect}"
+                pricing_expr = item.price_expr(:in, color, []).map{|e| e.compile}.orLazy do 
+                  raise "No pricing expression found."
+                end
+
+                begin
+                  price = eval(pricing_expr.gsub(/W/, 'w').gsub(/H/, 'h').gsub(/D/, 'd'))
+                  delta = colors[i].gsub(/\$/, '').to_f - price 
+                  result += [colors[i], price, delta]
+                rescue => err
+                  puts "Got error in evaluation of #{pricing_expr} for #{item.name}: #{err.message}"
+                  puts err.backtrace.join("\n")
+                end
+              rescue => err
+                puts "Got error building pricing expression for #{item.name}: #{err.message}"
+                #puts err.backtrace.join("\n")
               end
             end
           end
@@ -29,11 +38,8 @@ namespace :pricing do
             color_keys += colors.select{|c| !c.blank?}
             csv << ([name, shelves, w, h, d, nil] + colors.map{|c| [c, "#{c}-calculated", "#{c}-delta"]}.flatten)
           else
-            item = if name.strip == 'Drawer Box'
-              Item.find_by_name("Drawer Box #{h} H")
-            else
-              Item.find_by_name(name.strip)
-            end
+            lookup_name = (name.strip == 'Drawer Box' ? "Drawer Box #{h} H" : name.strip)
+            item = Item.find_by_name(lookup_name)
 
             if item
               if shelves.blank?
@@ -46,7 +52,7 @@ namespace :pricing do
                 end
               end
             else
-              puts("Could not find item: #{name}")
+              puts("Could not find item for row: #{row.inspect} using name #{lookup_name}")
             end
           end
         end
