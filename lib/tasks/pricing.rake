@@ -11,7 +11,7 @@ namespace :pricing do
           color_keys.each_with_index do |color, i|
             unless colors[i].blank?
               begin
-                pricing_expr = item.price_expr(:in, color, []).map{|e| e.compile}.orLazy do 
+                pricing_expr = item.rebated_cost_expr(:in, color, []).map{|e| e.compile}.orLazy do 
                   raise "No pricing expression found."
                 end
 

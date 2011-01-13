@@ -74,7 +74,11 @@ class Item < ActiveRecord::Base
   end
 
   def price_expr(units, color, contexts)
-    cost_expr(units, color, contexts).map{|e| apply_retail_multiplier(apply_rebate_factor(e))}
+    rebated_cost_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+  end
+
+  def rebated_cost_expr(units, color, contexts)
+    cost_expr(units, color, contexts).map{|e| apply_rebate_factor(e)}
   end
 
   def cost_expr(units, color, contexts)
