@@ -12,6 +12,8 @@ end
 class CabinetShelf < ItemComponent
   include PanelEdgePricing, Items::Margins
 
+  RANGED_QTY = PropertyDescriptor.new(:qty_by_range, [], [Property::RangedValue])
+
   def self.component_types
     [Panel]
   end
@@ -21,18 +23,23 @@ class CabinetShelf < ItemComponent
   end
 
   def self.optional_properties
-    [MARGIN]
+    [MARGIN, RANGED_QTY]
   end
 
   def color_options
     component.color_options
   end
 
+  def r_qtys
+    properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
+  end
+
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, W, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:front => W}, units, color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(term(quantity), subtotal))
+      qty_expr = r_qtys.empty? ? term(quantity) : sum(*r_qtys.map{|v| v.expr(units)})
+      apply_margin(mult(qty_expr, subtotal))
     end
   end
 end
