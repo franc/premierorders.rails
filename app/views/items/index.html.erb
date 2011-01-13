@@ -9,6 +9,7 @@
     <th>MPN</th>
     <th>QB</th>
     <th>Price</th>
+    <th>Margin</th>
     <th>Comps</th>
     <th>Props</th>
     <th>Edit</th>
@@ -24,6 +25,7 @@
     <td><%= item.sku %></td>
     <td><%= item.purchase_part_id %></td>
     <td><%= item.base_price %></td>
+    <td><%= item.margin_factor %></td>
     <td><%= raw ok_tag(item.components_ok?) %></td>
     <td><%= raw ok_tag(item.properties_ok?) %></td>
     <td><%= link_to 'Edit', edit_item_path(item) %></td>
