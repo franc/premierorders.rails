@@ -6,7 +6,11 @@
         "/items/<%=@item.id%>/pricing_expr", 
         {units: $("#price_expr_units").val(), color:$("#price_expr_color").val()}, 
         function(data) {
-          $("#pricing_expression").html(data.expr);
+          $("#pricing_expression").children().remove();
+          $("#pricing_expression").append('<dt><%=@item.name%></dt><dd>'+data.expr+'</dd>');
+          for (var i = 0; i < data.components.length; i++) {
+            $("#pricing_expression").append('<dt>'+data.components[i].name+'</dt><dd>'+data.components[i].expr+'</dd>');
+          }
         },
         "json"
       );
@@ -95,15 +99,18 @@
   </dl>
 </div>
 
-<div>    
-	<dt><%= label :item, :pricing_expression %></dt>
+<div style="clear:both">
+  <dl>
+    <dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
       <%= select_tag("price_expr_color", options_for_select(@item.color_opts.map{|color| [color, color]}.flatten.uniq)) %>
-      <span id="pricing_expression"></span>
+      <dl id="pricing_expression">
+      </dl>
     </dd>
+  </dl>
 </div>
-<br>
+<br/>
 <div>
     <dt><%= label :item, :properties %></dt>
     <dd><%= render :partial => 'properties', 
