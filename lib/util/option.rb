@@ -65,7 +65,11 @@ class Some
   end
 
   def inspect
-    "Some(#{value.inspect})"
+    "Some(#{@value.inspect})"
+  end
+
+  def to_s
+    @value.to_s
   end
 end
 
@@ -93,5 +97,7 @@ class None
   def inspect
     "None"
   end
+
+  alias_method :to_s, :inspect
 end
 
