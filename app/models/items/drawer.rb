@@ -21,7 +21,7 @@ class Drawer < Item
   end
 
   def cost_expr(units, color, contexts)
-    material_unit_cost = material(MATERIAL_DESCRIPTOR, color).cost_expr(term(1), term(1), units)
+    material_unit_cost = material(Panel::MATERIAL, color).cost_expr(term(1), term(1), units)
     area_expr = sum(mult(term(2), height_expr(units), sum(D, W)), mult(D, W))
     subtotal = mult(area_expr, material_unit_cost) 
     item_total = apply_margin(subtotal)

@@ -1,6 +1,7 @@
 require 'items/item_materials.rb'
 require 'items/panel.rb'
 require 'property.rb'
+require 'lib/expressions'
 
 class Door < FinishedPanel
   include ItemMaterials, PanelEdgePricing
@@ -19,7 +20,7 @@ class Door < FinishedPanel
 end
 
 module PremiumDoorM
-  include ItemMaterials
+  include ItemMaterials, Expressions
 
   # Common job item property descriptors
   DIMENSIONS = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height])
