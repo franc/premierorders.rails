@@ -2,7 +2,7 @@ require 'items/finished_panel.rb'
 
 class Countertop < FinishedPanel
   def self.banded_edges
-    {:front => W, :left => D, :right => D}
+    {:front => W, :rear => W, :left => D, :right => D}
   end
 
   def self.l_expr 
