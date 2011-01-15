@@ -381,7 +381,8 @@ class SeedLoader
             item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
               err.puts "Could not determine pricing expression for row #{row.inspect}"
             end
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, "#{item.name.gsub(/ \| #{color}/, '')} | #{color}"] + xs + [item_pricing_expr]))
+            display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, display_name] + xs + [item_pricing_expr]))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
             #out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
