@@ -23,6 +23,28 @@ class Item < ActiveRecord::Base
     Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
   end
 
+  def self.find_by_concrete_dvinci_id(id)
+    product_code_matchdata = id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
+    if !product_code_matchdata.nil?
+      t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
+      results = find_by_sql(["SELECT * FROM items WHERE dvinci_id LIKE ?", "#{t1}.#{t2}.%.%.#{t5}#{t6}"])
+      if results.length == 1
+        Option.some(results[0])
+      else
+        Option.new(
+          results.detect do |item|
+            md = item.dvinci_id.match(/(\d{3})\.(\w{3})\.(\w+)\.(\w+)\.(\d{2})(\w)/)
+            item.color_opts.any?{|opt| opt.dvinci_id.strip == color_key} &&
+            t3 =~ /^#{md.captures[2].gsub(/x/,'')}/
+          end
+        )
+      end
+    else
+      logger.debug("Could not parse dvinci id: #{id}")
+      Option.new(find_by_dvinci_id(id))
+    end
+  end
+
   def self.item_types 
     [
       Item,
@@ -113,7 +135,7 @@ class Item < ActiveRecord::Base
   def color_opts
     opts = self.respond_to?(:color_options) ? self.color_options : []
     item_components.inject(opts) do |options, comp|
-      options +  comp.color_opts 
+      options + comp.color_opts 
     end
   end
 

@@ -65,9 +65,9 @@ class Job < ActiveRecord::Base
   ]
 
   def add_items_from_dvinci(file)
-
     rows = case File.extname(file.path)
       when '.xml' then decompose_xml(file)
+      when '.xls' then decompose_xml(file)
       when '.csv' then decompose_csv(file)
       else raise "Did not recognize file type for #{File.extname(file.path)}"
     end
@@ -98,16 +98,8 @@ class Job < ActiveRecord::Base
     item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
-      product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-      item = Option.new(
-        if product_code_matchdata
-          t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
-          logger.info "Find: #{t1}.#{t2}.#{t3}.x.#{t5}#{t6}"
-          Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}#{t6}") || Item.find_by_dvinci_id(dvinci_product_id)
-        else 
-          Item.find_by_dvinci_id(dvinci_product_id)
-        end
-      )
+
+      item = Item.find_by_concrete_dvinci_id(dvinci_product_id)
 
       unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
       special_instructions = if column_indices['Notes'] 
@@ -118,7 +110,7 @@ class Job < ActiveRecord::Base
 
       item_quantity = row[column_indices['# of Items in Design']].to_i
       unit_price    = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
-      job_item_properties = {
+      job_item_config = {
           :ingest_id => dvinci_product_id,
           :quantity  => item_quantity,
           :comment   => special_instructions,
@@ -127,16 +119,24 @@ class Job < ActiveRecord::Base
       }
 
       # Add the item reference to the job item, if an item is known
-      item.each{|i| job_item_properties[:item_id] = i.id}
+      item.each{|i| job_item_config[:item_id] = i.id}
 
-      job_item = job_items.create(job_item_properties)
+      job_item = job_items.create(job_item_config)
 
       dimensions_data = { }
       Option.fromString(row[column_indices['Cut Height']]).each{|v| dimensions_data[:height] = v}
       Option.fromString(row[column_indices['Cut Width']]).each{|v| dimensions_data[:width] = v}
       Option.fromString(row[column_indices['Cut Depth']]).each{|v| dimensions_data[:depth] = v}
 
-      item.bind{|i| Option.new(i.class.job_item_properties.find{|d| d.family == :dimensions})}.each do |descriptor|
+      item_dims_prop = item.bind do |i| 
+        if i.class.respond_to?(:job_item_properties)
+          Option.new(i.class.job_item_properties.find{|d| d.family == :dimensions})
+        else
+          Option.none()
+        end
+      end
+      
+      item_dims_prop.each do |descriptor|
         job_item.job_item_properties.create(
           :family => descriptor.family,
           :module_names => descriptor.module_names,
@@ -145,13 +145,16 @@ class Job < ActiveRecord::Base
       end
 
       item.each do |i|
-        color_pv = i.properties.find_by_descriptor(Property::Color::DESCRIPTOR).property_values.detect{|pv| pv.dvinci_id == color_key}
-        logger.info color_pv.inspect
-        job_item.job_item_properties.create(
-          :family => Property::Color::DESCRIPTOR.family,
-          :module_names => Property::Color::DESCRIPTOR.module_names,
-          :value_str => {:color => color_pv.color}.to_json
-        )    
+        product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
+        if product_code_matchdata
+          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == product_code_matchdata[3]}).each do |opt|
+            job_item.job_item_properties.create(
+              :family => Property::Color::DESCRIPTOR.family,
+              :module_names => Property::Color::DESCRIPTOR.module_names,
+              :value_str => {:color => opt.color}.to_json
+            )    
+          end
+        end
       end
     end
   end

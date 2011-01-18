@@ -26,10 +26,6 @@ class CabinetShelf < ItemComponent
     [MARGIN, RANGED_QTY]
   end
 
-  def color_options
-    component.color_options
-  end
-
   def r_qtys
     properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
   end

@@ -1,5 +1,19 @@
 require 'util/option.rb'
 
+class ColorOption
+  attr_reader :dvinci_id, :color
+  def initialize(dvinci_id, color)
+    @dvinci_id = dvinci_id
+    @color = color
+  end
+
+  def eql?(other)
+    dvinci_id.eql?(other.dvinci_id) && color.eql?(other.color)
+  end
+
+  alias_method :==, :eql?
+end
+
 module ItemMaterials
   # retrieve the material property values by color.
   def material(descriptor, color)
@@ -12,7 +26,11 @@ module ItemMaterials
   end
 
   def color_options(descriptor = material_descriptor)
-    Option.new(properties.find_by_descriptor(descriptor)).map{|p| p.property_values.inject([]) {|m, v| m << v.color}}.orSome([])
+    opts = Option.new(properties.find_by_descriptor(descriptor)).map do |p| 
+      p.property_values.inject([]) {|m, v| m << ColorOption.new(v.dvinci_id, v.color)}
+    end
+    
+    opts.orSome([])
   end
 end
 
@@ -23,10 +41,18 @@ module PanelEdgePricing
     sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
         mvalues = prop.property_values.all
-        raise "Could not determine material values from #{prop}" if mvalues.empty?
-        material = mvalues.length > 1 ? prop.property_values.detect{|v| color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+        material = if mvalues.empty?
+          raise "Could not determine material values from #{prop}"
+        elsif mvalues.length > 1 
+          prop.property_values.detect do |v| 
+            color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0
+          end 
+        else 
+          mvalues[0]
+        end
+
         raise "Could not determine material values for #{color} from #{mvalues}" if material.nil?
-        result[side] = material unless material.nil?
+        result[side] = material 
       end
 
       result

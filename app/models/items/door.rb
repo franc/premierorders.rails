@@ -24,7 +24,7 @@ module PremiumDoorM
 
   # Common job item property descriptors
   DIMENSIONS = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height])
-  COLOR      = PropertyDescriptor.new(:color, [], [Property::Color], lambda {|item| item.color_options})
+  COLOR      = PropertyDescriptor.new(:color, [], [Property::Color], lambda {|item| item.color_opts})
 
   # Item configuration descriptors
   STYLE_CHARGE    = PropertyDescriptor.new(:style_surcharge, [], [Property::Surcharge])

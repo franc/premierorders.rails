@@ -18,10 +18,6 @@ class ShellHorizontalPanel < ItemComponent
     [MARGIN]
   end
 
-  def color_options
-    component.color_options
-  end
-
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, W, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:left => D, :right => D, :rear => W, :front => W}, units, color)
@@ -46,10 +42,6 @@ class ShellVerticalPanel < ItemComponent
     [MARGIN]
   end
 
-  def color_options
-    component.color_options
-  end
-
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, H, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:top => D, :bottom => D, :rear => H, :front => H}, units, color)
@@ -68,10 +60,6 @@ class ShellBackPanel < ItemComponent
 
   def self.optional_properties
     [MARGIN]
-  end
-
-  def color_options
-    component.color_options
   end
 
   def cost_expr(units, color, contexts)
