@@ -10,8 +10,8 @@ class Job < ActiveRecord::Base
   belongs_to :customer, :class_name => 'User'
   belongs_to :billing_address, :class_name => 'Address'
   belongs_to :shipping_address, :class_name => 'Address'
-  has_many   :job_items
-  has_many   :job_properties, :extend => Properties::Association
+  has_many   :job_items, :dependent => :destroy
+  has_many   :job_properties, :dependent => :destroy, :extend => Properties::Association
 
   has_attached_file :dvinci_xml
 
