@@ -4,7 +4,7 @@ require 'expressions.rb'
 
 module ModularProperty
   def value_structure
-    modules.inject({}) {|vs, mod| vs.merge(mod.value_structure)}  
+    modules.inject([]){|m, mod| m + mod.value_structure}.uniq  
   end
 end
 
@@ -152,6 +152,10 @@ class PropertyDescriptor
       :module_names => module_names
     )
   end
+
+  def <=>(other)
+    family.to_s <=> other.family.to_s 
+  end
 end
 
 # Each item may have a number of properties. Each property for a given
@@ -163,7 +167,7 @@ class Property < ActiveRecord::Base
     descriptors = []
     descriptors += mod.required_properties if mod.respond_to?(:required_properties) && (type == :all || type == :required)
     descriptors += mod.optional_properties if mod.respond_to?(:optional_properties) && (type == :all || type == :optional)
-    descriptors
+    descriptors.sort
   end
 
   has_many :item_properties
@@ -180,10 +184,10 @@ class Property < ActiveRecord::Base
     include Properties::Dimensions
 
     def self.value_structure
-      {
-        :length => :float,
-        :linear_units => LinearConversion::UNITS
-      }
+      [
+        [:length , :float],
+        [:linear_units , LinearConversion::UNITS]
+      ]
     end
 
     def length(units = nil)
@@ -199,10 +203,10 @@ class Property < ActiveRecord::Base
     include Properties::Dimensions
 
     def self.value_structure
-      {
-        :height => :float,
-        :linear_units => Properties::LinearConversions::UNITS
-      }
+      [
+        [:height , :float],
+        [:linear_units , Properties::LinearConversions::UNITS]
+      ]
     end
 
     def height(units = nil)
@@ -218,10 +222,10 @@ class Property < ActiveRecord::Base
     include Properties::Dimensions
 
     def self.value_structure
-      {
-        :width => :float,
-        :linear_units => Properties::LinearConversions::UNITS
-      }
+      [
+        [:width , :float],
+        [:linear_units , Properties::LinearConversions::UNITS]
+      ]
     end
 
     def width(units = nil)
@@ -237,10 +241,10 @@ class Property < ActiveRecord::Base
     include Properties::Dimensions
 
     def self.value_structure
-      {
-        :depth => :float,
-        :linear_units => Properties::LinearConversions::UNITS
-      }
+      [
+        [:depth , :float],
+        [:linear_units , Properties::LinearConversions::UNITS]
+      ]
     end
 
     def depth(units = nil)
@@ -254,7 +258,7 @@ class Property < ActiveRecord::Base
 
   module ScalingFactor
     def self.value_structure
-      { :factor => :float }
+      [ :factor , :float ]
     end
 
     def factor
@@ -266,15 +270,15 @@ class Property < ActiveRecord::Base
     include Properties::Dimensions
 
     def self.value_structure
-      {
-        :min_width  => :float,
-        :max_width  => :float,
-        :min_height => :float,
-        :max_height => :float,
-        :min_depth  => :float,
-        :max_depth  => :float,
-        :linear_units => Properties::LinearConversions::UNITS
-      }
+      [
+        [:min_width  , :float],
+        [:max_width  , :float],
+        [:min_height , :float],
+        [:max_height , :float],
+        [:min_depth  , :float],
+        [:max_depth  , :float],
+        [:linear_units , Properties::LinearConversions::UNITS]
+      ]
     end
 
     def value(property, units)
@@ -288,7 +292,7 @@ class Property < ActiveRecord::Base
     DESCRIPTOR = PropertyDescriptor.new(:color, [], [Color])
 
     def self.value_structure
-      {:color => :string}
+      [:color , :string]
     end
 
     def color
@@ -299,7 +303,7 @@ class Property < ActiveRecord::Base
   module IntegerProperty
     include Properties::JSONProperty
     def self.value_structure
-      {:value => :int}
+      [:value , :int]
     end
 
     def value
@@ -310,7 +314,7 @@ class Property < ActiveRecord::Base
   module Margin
     include Properties::JSONProperty
     def self.value_structure
-      {:factor => :float}
+      [:factor , :float]
     end
 
     def factor
@@ -321,7 +325,7 @@ class Property < ActiveRecord::Base
   module Surcharge
     include Properties::JSONProperty
     def self.value_structure
-      {:price => :float}
+      [:price , :float]
     end
 
     def price
@@ -334,14 +338,14 @@ class Property < ActiveRecord::Base
     include Properties::JSONProperty, Properties::LinearConversions, Properties::SquareConversions
 
     def self.value_structure
-      {
-        :color => :string,
-        :thickness => :float,
-        :thickness_units => Properties::LinearConversions::UNITS,
-        :price => :float,
-        :price_units => Properties::SquareConversions::UNITS,
-        :waste_factor => :float
-      }
+      [
+        [:color , :string],
+        [:thickness , :float],
+        [:thickness_units , Properties::LinearConversions::UNITS],
+        [:price , :float],
+        [:price_units , Properties::SquareConversions::UNITS],
+        [:waste_factor , :float]
+      ]
     end
 
     def color
@@ -370,13 +374,13 @@ class Property < ActiveRecord::Base
   module RangedValue
     include Expressions, Properties::JSONProperty, Properties::LinearConversions
     def self.value_structure
-      {
-        :min => :float,
-        :max => :float,
-        :variable => [:height, :width, :depth],
-        :variable_units => Properties::LinearConversions::UNITS,
-        :value => :float
-      }
+      [
+        [:min , :float],
+        [:max , :float],
+        [:variable , [:height, :width, :depth]],
+        [:variable_units , Properties::LinearConversions::UNITS],
+        [:value , :float]
+      ]
     end
 
     def expr(units)
@@ -401,13 +405,13 @@ class Property < ActiveRecord::Base
   module EdgeBand
     include Expressions, Properties::JSONProperty, Properties::LinearConversions
     def self.value_structure
-      {
-        :color => :string,
-        :width => :float,
-        :width_units => Properties::LinearConversions::UNITS, 
-        :price => :float,
-        :price_units => Properties::LinearConversions::UNITS
-      }
+      [
+        [:color , :string],
+        [:width , :float],
+        [:width_units , Properties::LinearConversions::UNITS],
+        [:price , :float],
+        [:price_units , Properties::LinearConversions::UNITS]
+      ]
     end
 
     def color
@@ -433,7 +437,7 @@ class Property < ActiveRecord::Base
     DESCRIPTOR = PropertyDescriptor.new(:linear_units, [], [LinearUnits])
 
     def self.value_structure
-      {:linear_units => Properties::LinearConversions::UNITS}
+      [:linear_units , Properties::LinearConversions::UNITS]
     end
 
     def units
