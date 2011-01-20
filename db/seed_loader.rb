@@ -371,24 +371,30 @@ class SeedLoader
     File.open("generated_tab_errors.out", "w") do |err|
     File.open("generated_tab.csv", "w") do |out|
       with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
-        part_id, catalog_id, dvinci_id, description, *xs = row
+        part_id, catalog_id, dvinci_id, description, flag, price, *xs = row
 
         item = Item.find_by_dvinci_id(item_dvinci_key)
         if item.nil? 
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
         else
           begin
-            item_pricing_expr = item.pricing_expr(:in, color_key.gsub(/^[19]/,'0'))
-            err.puts "Could not determine pricing expression for row #{row.inspect}" if item_pricing_expr.nil?
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, description] + xs + ["(#{item_pricing_expr}) / 0.4"]))
+            item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
+              err.puts "Could not determine pricing expression for row #{row.inspect}"
+            end
+
+            display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
+            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
-            #out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, item.description] + xs))
           end
         end
+
+        print '.'
+        STDOUT.flush
       end
     end
     end
+    puts
   end
 
   def dump_items

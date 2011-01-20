@@ -59,8 +59,7 @@
         <% dimensions_property = job_item.job_item_properties.find_by_family(:dimensions) %>
         <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" -%>">
           <td><%= job_item.tracking_id %></td>
-          <td><%= job_item.inspect %><br/><%= job_item.item.inspect %></td>
-          <!--td><%= job_item.item ? job_item.item.name : job_item.ingest_id %></td-->
+          <td><%= job_item.item ? job_item.item.name : job_item.ingest_id %></td>
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
           <td><%#= job_item.item_attr('Cabinet Color') %></td>
           <td><%= job_item.quantity.to_i %></td>

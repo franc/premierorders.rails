@@ -1,5 +1,19 @@
 require 'util/option.rb'
 
+class ColorOption
+  attr_reader :dvinci_id, :color
+  def initialize(dvinci_id, color)
+    @dvinci_id = dvinci_id
+    @color = color
+  end
+
+  def eql?(other)
+    dvinci_id.eql?(other.dvinci_id) && color.eql?(other.color)
+  end
+
+  alias_method :==, :eql?
+end
+
 module ItemMaterials
   # retrieve the material property values by color.
   def material(descriptor, color)
@@ -11,69 +25,45 @@ module ItemMaterials
     mval
   end
 
-  def color_options
-    Option.new(properties.find_by_descriptor(material_descriptor)).map{|p| p.property_values.inject([]) {|m, v| m << v.color}}.orSome([])
+  def color_options(descriptor = material_descriptor)
+    opts = Option.new(properties.find_by_descriptor(descriptor)).map do |p| 
+      p.property_values.inject([]) {|m, v| m << ColorOption.new(v.dvinci_id, v.color)}
+    end
+    
+    opts.orSome([])
   end
 end
 
 module PanelEdgePricing
+  include Expressions
+
   def edge_materials(sides, color)
     sides.inject({}) do |result, side|
       properties.find_by_family_with_qualifier(:edge_band, side).each do |prop|
         mvalues = prop.property_values.all
-        raise "Could not determine material values from #{prop}" if mvalues.empty?
-        material = mvalues.length > 1 ? prop.property_values.detect{|v| color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+        material = if mvalues.empty?
+          raise "Could not determine material values from #{prop}"
+        elsif mvalues.length > 1 
+          prop.property_values.detect do |v| 
+            color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0
+          end 
+        else 
+          mvalues[0]
+        end
+
         raise "Could not determine material values for #{color} from #{mvalues}" if material.nil?
-        result[side] = material unless material.nil?
+        result[side] = material 
       end
 
       result
     end
   end
 
-  def edge_banding_price(color, side_lengths, units)
-    # Find the edge banding property value for each side
-    edge_banding = edge_materials(side_lengths.keys, color)
-
-    total = 0.0
-    side_lengths.each do |side, length|
-      total += edge_banding[side].calculate_price(length, units) if edge_banding[side]
-    end
-    total
-  end
-
-  def edge_banding_pricing_exprs(dimension_vars, units, color)
+  def edgeband_cost_expr(dimension_vars, units, color)
     exprs = []
     edge_materials(dimension_vars.keys, color).each do |side, banding|
-      exprs << banding.pricing_expr(units, dimension_vars[side])
+      exprs << banding.cost_expr(units, dimension_vars[side])
     end
-    exprs
-  end
-
-  def edge_banding_pricing_expr(dimension_vars, units, color)
-    "(#{edge_banding_pricing_exprs(dimension_vars, units, color).join(" + ")})"
-  end
-
-  def apply_edgeband_pricing_expr(expr, dimension_vars, units, color)
-    edge_exprs = edge_banding_pricing_exprs(dimension_vars, units, color)
-    if (edge_exprs.empty?)
-      expr
-    else
-      "(#{expr} + (#{edge_exprs.join(" + ")}))"
-    end
+    exprs.empty? ? Option.none() : Option.some(sum(*exprs))
   end
 end
-
-module PanelMargins
-  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
-
-  def margin_factor
-    properties.find_value(MARGIN)
-  end
-
-  def apply_margin(base_expr)
-    margin_factor.map{|f| "(#{base_expr} / #{f.factor})"}.orSome(base_expr)
-  end
-end
-
-

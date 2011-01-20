@@ -11,6 +11,10 @@ module Option
     None::NONE
   end
 
+  def self.iif(bool, value)
+    bool ? None::NONE : Option.new(value)
+  end
+
   def self.fromString(value)
     value.nil? ? None::NONE : (value.strip.empty? ? None::NONE : Some.new(value))
   end
@@ -56,8 +60,16 @@ class Some
     @value
   end
 
+  def orElse(opt)
+    self
+  end
+
   def inspect
-    "Some(#{value.inspect})"
+    "Some(#{@value.inspect})"
+  end
+
+  def to_s
+    @value.to_s
   end
 end
 
@@ -78,8 +90,14 @@ class None
     f.call
   end
 
+  def orElse(opt)
+    opt
+  end
+
   def inspect
     "None"
   end
+
+  alias_method :to_s, :inspect
 end
 
