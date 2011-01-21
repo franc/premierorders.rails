@@ -130,7 +130,7 @@ class SeedLoader
       end
     end
 
-    dv_colors    = data_map("#{@seed_data_dir}/dvinci_colors.csv")
+    dv_colors = data_map("#{@seed_data_dir}/dvinci_colors.csv")
     CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
       part_id, catalog_id, dvinci_id, description, *xs = row
       next if part_id == 'PartID' || dvinci_id.nil?
@@ -369,6 +369,8 @@ class SeedLoader
 
   def dump_tab_file(filename)
     File.open("generated_tab_errors.out", "w") do |err|
+    File.open("generated_tab_missing.out", "w") do |missing|
+    File.open("generated_tab_mismatch.out", "w") do |mismatch|
     File.open("generated_tab.csv", "w") do |out|
       with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
         part_id, catalog_id, dvinci_id, description, flag, price, *xs = row
@@ -376,10 +378,15 @@ class SeedLoader
         item = Item.find_by_dvinci_id(item_dvinci_key)
         if item.nil? 
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
+          missing.puts(CSV.generate_line(row))
         else
           begin
             item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
               err.puts "Could not determine pricing expression for row #{row.inspect}"
+            end
+
+            if item_pricing_expr != row[5]
+              mismatch.puts(CSV.generate_line([dvinci_id, row[5], item_pricing_expr]))
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
@@ -392,6 +399,8 @@ class SeedLoader
         print '.'
         STDOUT.flush
       end
+    end
+    end
     end
     end
     puts
