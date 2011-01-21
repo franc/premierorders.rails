@@ -33,4 +33,14 @@ module ItemsHelper
   def ok_tag(bool)
     bool ? %Q(<span style="color: green">ok</span>) : %Q(<span style="color: red">error</span>)
   end
+
+  def next_item_path(item)
+    items = item.previous_item
+    items.empty? ? item : item_path(items[0])
+  end
+
+  def previous_item_path(item)
+    items = item.next_item
+    items.empty? ? item : item_path(items[0])
+  end
 end

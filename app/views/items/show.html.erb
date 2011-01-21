@@ -128,5 +128,7 @@
 <% content_for :local_nav do %>
   <%= link_to 'New Item', new_item_path %> |
   <%= link_to 'Edit', edit_item_path(@item) %> |
-  <%= link_to 'Back', items_path %>
+  <%= link_to 'List', items_path %> |
+  <%= link_to 'Previous', previous_item_path(@item) %> |
+  <%= link_to 'Next', next_item_path(@item) %>
 <% end %>

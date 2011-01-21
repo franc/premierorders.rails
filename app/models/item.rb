@@ -184,6 +184,14 @@ class Item < ActiveRecord::Base
 
     {:missing => absent, :broken => broken}
   end
+
+  def next_item
+    Item.find_by_sql("SELECT * FROM items where id in (select min(id) from items where id > #{id})")
+  end
+
+  def previous_item
+    Item.find_by_sql("SELECT * FROM items where id in (select max(id) from items where id < #{id})")
+  end
 end
 
 require 'items/cabinet.rb'

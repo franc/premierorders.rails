@@ -406,6 +406,19 @@ class SeedLoader
     puts
   end
 
+  def list_unmatched_codes(filename)
+    matched = []
+    File.open("generated_tab.csv", "w") do |out|
+      with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
+        item = Item.find_by_dvinci_id(item_dvinci_key)
+        matched << item.dvinci_id unless item.nil?
+      end
+    end
+
+    results = ActiveRecord::Base.connection.execute('SELECT dvinci_id from items')
+    (results.to_a.map{|v| v['dvinci_id']} - matched).each {|id| puts id}
+  end
+
   def dump_items
     File.open("generated.csv", 'w') do |f|
       CSV::Writer.generate(f, ",") do |csv|
