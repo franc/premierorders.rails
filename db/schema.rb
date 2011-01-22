@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(:version => 20110118194835) do
     t.string "name"
   end
 
-  create_table "user_roles", :force => true do |t|
+  create_table "user_roles", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
     t.datetime "created_at"
