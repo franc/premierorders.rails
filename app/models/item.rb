@@ -6,10 +6,10 @@ require 'lib/expressions.rb'
 class Item < ActiveRecord::Base
   include Expressions, Items::Margins
 
-  has_many :item_properties
+  has_many :item_properties, :dependent => :destroy
 	has_many :properties, :through => :item_properties, :extend => Properties::Association
 
-  has_many :item_components
+  has_many :item_components, :dependent => :destroy
   has_many :components, :through => :item_components, :class_name => 'Item'
 
   has_many :job_items
@@ -60,7 +60,8 @@ class Item < ActiveRecord::Base
       Drawer,
       ClosetPartition,
       ClosetShelf,
-      BackingPanel
+      BackingPanel,
+      ScaledItem
     ]
   end
 
@@ -205,4 +206,5 @@ require 'items/closet_partition.rb'
 require 'items/closet_shelf.rb'
 require 'items/backing_panel.rb'
 require 'items/item_hardware.rb'
+require 'items/scaled_item.rb'
 
