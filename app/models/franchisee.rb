@@ -12,12 +12,3 @@ class Franchisee < ActiveRecord::Base
            :conditions => {:address_type => 'shipping'}
 end
 
-class FranchiseeAddress < ActiveRecord::Base
-	belongs_to :franchisee
-	belongs_to :address
-end
-
-class FranchiseeContact < ActiveRecord::Base
-	belongs_to :franchisee
-	belongs_to :user
-end

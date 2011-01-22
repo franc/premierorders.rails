@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
-	has_many :addresses, :through => :address_book
+  has_many :address_books, :dependent => :destroy
+	has_many :addresses, :through => :address_books
 	has_one  :shipping_address, :class_name => 'AddressBook', :conditions => {:address_type => 'shipping'}
   has_and_belongs_to_many :roles, :join_table => :user_roles
+  has_many :franchisee_contacts, :dependent => :destroy
 
   def role?(role)
     return !self.roles.find_by_name(role.to_s).nil?

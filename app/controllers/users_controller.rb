@@ -87,6 +87,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
+    @user.roles.clear
     @user.destroy
     respond_to do |format|
       format.html { redirect_to(users_url) }
