@@ -1,0 +1,9 @@
+<h2>Editing user: <%= @user.last_name %>, <%= @user.first_name %></h2>
+
+<%= render :partial => 'form' %>
+
+<% content_for :local_nav do %>
+  <%= link_to 'New User', new_user_path %> |
+  <%= link_to 'Show', user_path(@user) %> |
+  <%= link_to 'List', users_path %> |
+<% end %>

@@ -63,9 +63,9 @@
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
           <td><%#= job_item.item_attr('Cabinet Color') %></td>
           <td><%= job_item.quantity.to_i %></td>
-          <td><%= dimensions_property ? "%.3f" % dimensions_property.width : '' %></td>
-          <td><%= dimensions_property ? "%.3f" % dimensions_property.height : '' %></td>
-          <td><%= dimensions_property ? "%.3f" % dimensions_property.depth : '' %></td>
+          <td><%= dimensions_property && dimensions_property.respond_to?(:width) ? "%.3f" % dimensions_property.width : '' %></td>
+          <td><%= dimensions_property && dimensions_property.respond_to?(:height) ? "%.3f" % dimensions_property.height : '' %></td>
+          <td><%= dimensions_property && dimensions_property.respond_to?(:depth) ? "%.3f" % dimensions_property.depth : '' %></td>
           <td><%= "$%.2f" % job_item.compute_unit_price %></td>
           <td><%= "$%.2f" % job_item.compute_total %></td>
           <td><%= job_item.comment %></td>

@@ -1,10 +1,15 @@
 class User < ActiveRecord::Base
 	has_many :addresses, :through => :address_book
 	has_one  :shipping_address, :class_name => 'AddressBook', :conditions => {:address_type => 'shipping'}
+  has_and_belongs_to_many :roles, :join_table => :user_roles
+
+  def role?(role)
+    return !self.roles.find_by_name(role.to_s).nil?
+  end
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable, :timeoutable, :registerable,
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :title, :first_name, :last_name, :phone, :phone2, :fax,

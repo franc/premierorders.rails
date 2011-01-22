@@ -2,10 +2,12 @@ require 'date'
 require 'job.rb'
 
 class JobsController < ApplicationController
+  load_and_authorize_resource :except => [:new, :create]
+
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = Job.order(:due_date).all
+    @jobs = @jobs.order('jobs.due_date DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +18,6 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.xml
   def show
-    @job = Job.find(params[:id])
-
     @total = @job.job_items.inject(0.0) do |total, job_item|
       total += job_item.compute_total
     end
@@ -43,7 +43,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-    @job = Job.find(params[:id])
     @franchisees = Franchisee.find(:all)
     @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
   end
@@ -53,6 +52,7 @@ class JobsController < ApplicationController
   def create
     begin
       @job = Job.new(params[:job])
+      @job.customer = current_user
 
       respond_to do |format|
         if @job.save
@@ -76,8 +76,6 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
-    @job = Job.find(params[:id])
-
     if request.xhr?
       if @job.update_attributes(params[:job])
         render :json => {:updated => 'success'}
@@ -98,7 +96,6 @@ class JobsController < ApplicationController
   end
 
   def cutrite
-    @job = Job.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @cutrite_data }
@@ -106,9 +103,7 @@ class JobsController < ApplicationController
   end
 
   def download
-    job = Job.find(params[:id])
-    d = DateTime.now
-    send_data job.to_cutrite_csv,
+    send_data @job.to_cutrite_csv,
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=#{job.job_number}.csv"
   end
@@ -116,7 +111,6 @@ class JobsController < ApplicationController
   # DELETE /jobs/1
   # DELETE /jobs/1.xml
   def destroy
-    @job = Job.find(params[:id])
     @job.destroy
 
     respond_to do |format|

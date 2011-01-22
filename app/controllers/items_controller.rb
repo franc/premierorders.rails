@@ -3,10 +3,22 @@ require 'properties_helper.rb'
 require 'items/door.rb'
 
 class ItemsController < ApplicationController
+  load_and_authorize_resource :except => [
+    :search, 
+    :add_component_form,
+    :add_component,
+    :add_property_form,
+    :add_property,
+    :property_descriptors,
+    :property_form_fragment,
+    #:component_types,
+    :component_association_types
+  ]
+
   # GET /items
   # GET /items.xml
   def index
-    @items = Item.all.sort{|a, b| a.name <=> b.name}
+    @items = @items.order(:name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -17,8 +29,6 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.xml
   def show
-    @item = Item.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
@@ -38,7 +48,6 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    @item = Item.find(params[:id])
   end
 
   # POST /items
@@ -67,8 +76,6 @@ class ItemsController < ApplicationController
   # PUT /items/1
   # PUT /items/1.xml
   def update
-    @item = Item.find(params[:id])
-
     if @item && params[:item][:type] 
       Item.execute_sql(["UPDATE items SET type = ? WHERE id = ?", params[:item][:type], @item.id]);
     end
@@ -87,9 +94,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.xml
   def destroy
-    @item = Item.find(params[:id])
     @item.destroy
-
     respond_to do |format|
       format.html { redirect_to(items_url) }
       format.xml  { head :ok }
@@ -98,7 +103,6 @@ class ItemsController < ApplicationController
 
   def search
     @items = Item.search(params[:types], params[:term])
-    logger.info @items.map{|item| item_select_json(item)}.inspect
     if request.xhr?
       render :json => @items.map{|item| item_select_json(item)}
     end
@@ -118,10 +122,9 @@ class ItemsController < ApplicationController
 
   def properties
     if request.xhr?
-      item = Item.find(params[:id])
       render :partial => 'properties', :locals => {
         :id => 'item_properties',
-        :properties => item.item_properties,
+        :properties => @item.item_properties,
         :resource_path => lambda {|item_prop| item_property_path(item_prop)}
       }
     end
@@ -129,10 +132,9 @@ class ItemsController < ApplicationController
 
   def components
     if request.xhr?
-      item = Item.find(params[:id])
       render :partial => 'components', :locals => {
         :id => 'item_components',
-        :item_components => item.item_components
+        :item_components => @item.item_components
       }
     end
   end
@@ -208,11 +210,11 @@ class ItemsController < ApplicationController
     }
   end
   
-  def component_types
-    if request.xhr?
-      render :json => ItemComponent.component_modules(Items.const_get(params[:mod])).to_json
-    end
-  end
+  # def component_types
+  #   if request.xhr?
+  #     render :json => ItemComponent.component_modules(Items.const_get(params[:mod])).to_json
+  #   end
+  # end
 
   def component_association_types
     type_map = Item.component_association_modules(Items.const_get(params[:mod])).values.flatten.inject([]) do |result, cmod|
@@ -228,7 +230,6 @@ class ItemsController < ApplicationController
   end
 
   def pricing_expr
-    @item = Item.find(params[:id])
     units = params[:units]
     color = params[:color]
     expr = @item.price_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available")
@@ -244,5 +245,4 @@ class ItemsController < ApplicationController
     item.item_components.map{|c| {:name => c.component.name, :expr => c.cost_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available")}} + 
     item.item_components.map{|c| component_exprs(units, color, c.component)}.flatten
   end
-
 end

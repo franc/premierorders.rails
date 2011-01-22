@@ -24,24 +24,25 @@ class Item < ActiveRecord::Base
   end
 
   def self.find_by_concrete_dvinci_id(id)
-    product_code_matchdata = id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
-    if !product_code_matchdata.nil?
-      t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
-      results = find_by_sql(["SELECT * FROM items WHERE dvinci_id LIKE ?", "#{t1}.#{t2}.%.%.#{t5}#{t6}"])
-      if results.length == 1
-        Option.some(results[0])
+    Option.new(find_by_dvinci_id(id)).orElseLazy do
+      product_code_matchdata = id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
+      if !product_code_matchdata.nil?
+        t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
+        results = find_by_sql(["SELECT * FROM items WHERE dvinci_id LIKE ?", "#{t1}.#{t2}.%.%.#{t5}#{t6}"])
+        if results.length == 1
+          Option.some(results[0])
+        else
+          Option.new(
+            results.detect do |item|
+              md = item.dvinci_id.match(/(\d{3})\.(\w{3})\.(\w+)\.(\w+)\.(\d{2})(\w)/)
+              item.color_opts.any?{|opt| opt.dvinci_id.strip == color_key} &&
+              t3 =~ /^#{md.captures[2].gsub(/x/,'')}/
+            end
+          )
+        end
       else
-        Option.new(
-          results.detect do |item|
-            md = item.dvinci_id.match(/(\d{3})\.(\w{3})\.(\w+)\.(\w+)\.(\d{2})(\w)/)
-            item.color_opts.any?{|opt| opt.dvinci_id.strip == color_key} &&
-            t3 =~ /^#{md.captures[2].gsub(/x/,'')}/
-          end
-        )
+        Option.new(find_by_dvinci_id(id))
       end
-    else
-      logger.debug("Could not parse dvinci id: #{id}")
-      Option.new(find_by_dvinci_id(id))
     end
   end
 
