@@ -186,11 +186,11 @@ class Item < ActiveRecord::Base
   end
 
   def next_item
-    Item.find_by_sql("SELECT * FROM items where id in (select min(id) from items where id > #{id})")
+    Item.find_by_sql(['SELECT * FROM items where name in (select min(name) from items where name > ?)', self.name])
   end
 
   def previous_item
-    Item.find_by_sql("SELECT * FROM items where id in (select max(id) from items where id < #{id})")
+    Item.find_by_sql(['SELECT * FROM items where name in (select max(name) from items where name < ?)', self.name])
   end
 end
 

@@ -283,7 +283,7 @@ ALTER SEQUENCE item_component_properties_id_seq OWNED BY item_component_properti
 -- Name: item_component_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_component_properties_id_seq', 477, true);
+SELECT pg_catalog.setval('item_component_properties_id_seq', 481, true);
 
 
 --
@@ -329,7 +329,7 @@ ALTER SEQUENCE item_components_id_seq OWNED BY item_components.id;
 -- Name: item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_components_id_seq', 441, true);
+SELECT pg_catalog.setval('item_components_id_seq', 444, true);
 
 
 --
@@ -371,7 +371,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1158, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1244, true);
 
 
 --
@@ -423,7 +423,7 @@ ALTER SEQUENCE items_id_seq OWNED BY items.id;
 -- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('items_id_seq', 635, true);
+SELECT pg_catalog.setval('items_id_seq', 694, true);
 
 
 --
@@ -664,7 +664,7 @@ ALTER SEQUENCE properties_id_seq OWNED BY properties.id;
 -- Name: properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('properties_id_seq', 107, true);
+SELECT pg_catalog.setval('properties_id_seq', 114, true);
 
 
 --
@@ -721,7 +721,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 293, true);
+SELECT pg_catalog.setval('property_values_id_seq', 310, true);
 
 
 --
@@ -1390,7 +1390,6 @@ COPY item_component_properties (id, item_component_id, property_id, qualifier) F
 322	295	93	\N
 323	296	94	\N
 330	309	73	\N
-335	318	9	front
 338	389	97	\N
 339	390	97	\N
 340	386	81	\N
@@ -1441,7 +1440,10 @@ COPY item_component_properties (id, item_component_id, property_id, qualifier) F
 473	394	36	\N
 474	395	51	\N
 475	396	36	\N
-476	318	100	\N
+478	442	9	front
+479	442	100	\N
+480	444	9	front
+481	444	100	\N
 \.
 
 
@@ -1612,7 +1614,6 @@ COPY item_components (id, item_id, component_id, quantity, type, created_at, upd
 315	256	6	4	ItemHardware	2011-01-13 17:23:27.208316	2011-01-13 17:23:27.208316	\N
 316	531	585	1	CabinetShell	2011-01-13 17:31:26.39831	2011-01-13 17:31:26.39831	\N
 317	630	559	1	CabinetShell	2011-01-13 17:45:24.770037	2011-01-13 17:45:24.770037	\N
-318	630	551	1	CabinetShelf	2011-01-13 17:46:09.479236	2011-01-13 17:46:09.479236	\N
 319	537	6	2	ItemHardware	2011-01-13 17:55:55.315896	2011-01-13 17:55:55.315896	\N
 320	537	199	2	ItemHardware	2011-01-13 17:56:48.17356	2011-01-13 17:56:48.17356	\N
 328	538	626	1	CabinetShell	2011-01-13 18:13:41.586533	2011-01-13 18:13:41.586533	\N
@@ -1724,6 +1725,9 @@ COPY item_components (id, item_id, component_id, quantity, type, created_at, upd
 439	260	6	4	ItemHardware	2011-01-13 20:35:18.913185	2011-01-13 20:35:18.913185	\N
 440	260	199	4	ItemHardware	2011-01-13 20:37:33.412513	2011-01-13 20:37:33.412513	\N
 441	552	596	1	ShellHorizontalPanel	2011-01-14 19:42:29.500731	2011-01-14 19:42:29.500731	\N
+442	630	551	2	CabinetShelf	2011-01-22 00:27:08.049535	2011-01-22 00:27:08.049535	\N
+443	694	559	1	CabinetShell	2011-01-22 00:28:51.490615	2011-01-22 00:28:51.490615	\N
+444	694	551	2	CabinetShelf	2011-01-22 00:29:22.664428	2011-01-22 00:29:22.664428	\N
 \.
 
 
@@ -1792,7 +1796,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 583	244	9	top
 584	244	9	bottom
 1064	21	75	\N
-1067	201	65	\N
 592	249	9	front
 593	249	9	top
 594	249	9	bottom
@@ -1802,7 +1805,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 607	252	9	front
 608	252	9	top
 609	252	9	bottom
-1070	217	65	\N
 1071	605	65	\N
 621	255	6	\N
 1073	633	6	\N
@@ -1843,8 +1845,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 862	63	65	\N
 863	64	65	\N
 1102	634	62	\N
-1103	164	74	\N
-1104	165	74	\N
 870	56	65	\N
 871	50	65	\N
 872	54	65	\N
@@ -1856,7 +1856,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 887	116	65	\N
 897	37	44	\N
 898	80	65	\N
-1105	166	74	\N
 906	128	65	\N
 909	114	65	\N
 912	75	65	\N
@@ -1872,40 +1871,20 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 936	129	65	\N
 938	115	65	\N
 941	76	65	\N
-1106	167	74	\N
 954	154	65	\N
-1107	168	74	\N
-1108	169	74	\N
 995	244	56	\N
 997	250	56	\N
 1003	617	9	bottom
 1004	617	9	top
-1109	171	74	\N
-1110	172	74	\N
-1113	173	74	\N
-1114	174	74	\N
-1115	175	74	\N
-1116	176	74	\N
-1117	608	74	\N
 1118	221	74	\N
-1119	5	74	\N
-1121	4	74	\N
-1122	2	74	\N
-1123	3	74	\N
-1124	594	74	\N
-1125	595	74	\N
 1126	206	74	\N
 1127	11	74	\N
 1128	11	74	\N
-1129	593	74	\N
 1130	606	74	\N
 1133	588	74	\N
 1134	226	74	\N
 1135	6	74	\N
 1136	200	74	\N
-1137	218	74	\N
-1138	631	74	\N
-1141	202	74	\N
 1142	13	74	\N
 1143	587	74	\N
 1144	586	74	\N
@@ -2022,7 +2001,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 939	85	65	\N
 940	94	65	\N
 942	142	65	\N
-1066	9	65	\N
 944	151	65	\N
 945	133	65	\N
 946	127	65	\N
@@ -2074,12 +2052,8 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1099	634	9	right
 1131	199	74	\N
 1132	7	74	\N
-1139	219	74	\N
-1140	220	74	\N
 1145	10	74	\N
 1146	228	74	\N
-1147	12	74	\N
-1148	109	74	\N
 1149	635	75	\N
 1150	635	32	front
 1151	635	32	left
@@ -2138,7 +2112,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 672	158	9	bottom
 800	251	56	\N
 675	198	39	\N
-676	194	40	\N
 677	194	39	\N
 680	196	42	\N
 444	547	6	\N
@@ -2260,6 +2233,88 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1156	44	107	\N
 1157	106	6	\N
 1158	106	50	\N
+1159	642	3	\N
+1161	666	109	\N
+1163	660	65	\N
+1164	654	109	\N
+1165	656	111	\N
+1166	672	109	\N
+1167	648	109	\N
+1168	662	111	\N
+1169	668	111	\N
+1170	650	111	\N
+1171	644	111	\N
+1172	664	111	\N
+1173	658	111	\N
+1174	652	111	\N
+1175	670	111	\N
+1176	646	111	\N
+1177	663	111	\N
+1178	669	111	\N
+1179	657	111	\N
+1180	651	111	\N
+1181	645	111	\N
+1182	661	111	\N
+1183	667	111	\N
+1184	655	111	\N
+1185	649	111	\N
+1186	643	111	\N
+1187	665	111	\N
+1189	671	111	\N
+1190	659	111	\N
+1191	653	111	\N
+1192	647	111	\N
+1193	631	109	\N
+1194	201	109	\N
+1195	9	109	\N
+1196	593	109	\N
+1197	218	65	\N
+1198	220	65	\N
+1199	219	65	\N
+1200	109	109	\N
+1201	12	109	\N
+1202	217	110	\N
+1203	202	109	\N
+1204	5	65	\N
+1205	4	65	\N
+1206	2	65	\N
+1208	3	65	\N
+1209	172	112	\N
+1210	173	112	\N
+1211	174	112	\N
+1212	175	108	\N
+1213	176	113	\N
+1214	608	113	\N
+1215	171	113	\N
+1216	164	114	\N
+1217	165	114	\N
+1218	166	114	\N
+1219	167	112	\N
+1220	168	114	\N
+1221	169	114	\N
+1222	594	71	\N
+1223	595	71	\N
+1224	691	113	\N
+1225	692	113	\N
+1226	688	113	\N
+1227	686	113	\N
+1228	690	113	\N
+1229	677	113	\N
+1230	676	113	\N
+1231	687	113	\N
+1232	678	113	\N
+1233	681	113	\N
+1234	673	113	\N
+1235	693	113	\N
+1236	683	113	\N
+1237	682	113	\N
+1238	684	113	\N
+1239	674	113	\N
+1240	685	113	\N
+1241	675	113	\N
+1242	679	113	\N
+1243	680	113	\N
+1244	689	113	\N
 \.
 
 
@@ -2268,6 +2323,7 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 --
 
 COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at, updated_at, purchasing, purchase_part_id, type, base_price, vendor) FROM stdin;
+691	~ The Basket (6/box)	~ The Basket (6/box)	7110-5620-50	\N	000.995.301.900.000		2011-01-21 01:24:55.247347	2011-01-21 21:09:03.752563	Purchased	3019	Item	8.9040499999999998	
 626	ZZ HO Base Cabinet Shell DON'T DELETE			\N			2011-01-12 22:49:22.538239	2011-01-12 22:49:22.538239	Manufactured		Shell	\N	\N
 19	CTOP - 1 in. melamine	CTOP 1 in. melamine		\N	000.501.000.x.00M	MEL-CTOP-25	2011-01-01 18:53:39.129346	2011-01-02 02:32:48.283456	Manufactured		Countertop	\N	\N
 629	ZZ HO Hutch DON'T DELETE			\N			2011-01-13 15:47:49.993261	2011-01-13 15:47:49.993261	Manufactured		Shell	\N	\N
@@ -2301,7 +2357,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 39	CL Upright Partition - Right	CL Upright Partition - Right 		\N	000.911.3x.x.00M	CL-VU-R	2011-01-01 18:53:39.920172	2011-01-02 02:28:30.550951	Manufactured		ClosetPartition	\N	\N
 508	HO Hutch	HO Hutch 		\N	000.441.151.x.00M	HO-H1-3AS	2011-01-01 18:54:27.8462	2011-01-11 16:45:38.920181	Manufactured		Cabinet	\N	\N
 628	ZZ HO Hutch w/VD DON'T DELETE			\N			2011-01-13 15:47:00.538281	2011-01-13 16:19:27.373191	Manufactured		Shell	\N	\N
-64	~ Belt Rack | Oil Rubbed Bronze	Belt Rack W/Slide Al Dk Oil-Rub.Bzd/Bl Pl 13 7/8	807.67.113	\N	000.982.000.300.00P		2011-01-01 18:53:52.201527	2011-01-20 15:26:32.816387	Purchased		Item	22.23	
+64	~ Belt Rack | Oil Rubbed Bronze	Belt Rack W/Slide Al Dk Oil-Rub.Bzd/Bl Pl 13 7/8	807.67.113	\N	000.807.067.113.00P		2011-01-01 18:53:52.201527	2011-01-22 02:34:52.897449	Purchased		Item	22.23	
 531	CL Hutch Base	CL Hutch Base Shell		\N	000.300.131.x.00M	CL-HB	2011-01-01 18:54:28.461637	2011-01-07 06:24:40.127575	Manufactured		Cabinet	\N	\N
 548	ZZ NXp Deck DON'T DELETE	building block: 1 inch thick deck		\N			2011-01-01 20:31:37.885045	2011-01-12 21:04:07.172785	Manufactured		Panel	\N	\N
 584	ZZ Nailer DON'T DELETE	Building block: nailer		\N			2011-01-06 15:16:57.152294	2011-01-12 17:27:15.91801	Manufactured		Panel	\N	\N
@@ -2327,7 +2383,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 549	ZZ Panel 06 DON'T DELETE	building block: 1/4 inch panel		\N			2011-01-01 20:34:10.316243	2011-01-07 17:41:24.972736	Manufactured		Panel	\N	\N
 547	ZZ Panel 19 DON'T DELETE	building block: 3/4 inch panel		\N			2011-01-01 19:26:55.928525	2011-01-07 17:42:24.84474	Manufactured		Panel	\N	\N
 507	HO 45 Corner Upper	HO 45 Corner Upper 		\N	000.308.232.x.00M	HO-CU-1AS	2011-01-01 18:54:27.8339	2011-01-10 02:02:31.920261	Manufactured		CornerCabinet	\N	\N
-62	~ Belt Rack | Polished Chrome 13-7/8"	Belt Rack W/Slide-ATL Al Chr Pol/Bl Pl 13 7/8	807.67.213	\N	000.982.000.100.00P		2011-01-01 18:53:51.535374	2011-01-11 18:25:04.255175	Purchased		Item	20.059999999999999	\N
+62	~ Belt Rack | Polished Chrome	Belt Rack W/Slide-ATL Al Chr Pol/Bl Pl 13 7/8	807.67.213	\N	000.807.067.213.00P		2011-01-01 18:53:51.535374	2011-01-22 02:35:22.431751	Purchased		Item	20.059999999999999	
 541	HO Base 4 Drawer (6/6/6/6)	HO Base 4 Drawer (6/6/6/6) 		\N	000.254.122.x.00M	HO-BD4	2011-01-01 18:54:33.654811	2011-01-11 16:16:58.589822	Manufactured		Cabinet	\N	\N
 543	HO Base 2 Door 2 Drawer	HO Base 2 Door 2 Drawer 		\N	000.222.322.x.00M	HO-B2D2-2AS	2011-01-01 18:54:33.68379	2011-01-11 16:00:28.742631	Manufactured		Cabinet	\N	\N
 545	HO Base 3 Drawer (3/8/12)	HO Base 3 Drawer 1 File (3/8/12) 		\N	000.230.322.x.00M	HO-BD3	2011-01-01 18:54:33.711128	2011-01-11 16:13:22.682105	Manufactured		Cabinet	\N	\N
@@ -2335,7 +2391,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 506	HO Upper 2 Door	HO Upper 2 Door 		\N	000.302.331.x.00M	HO-W2-2AS	2011-01-01 18:54:27.821167	2011-01-02 03:25:56.644334	Manufactured		Cabinet	\N	\N
 550	ZZ HO Cabinet Shell DON'T DELETE	building block: home office cabinet shell		\N			2011-01-01 21:36:43.353341	2011-01-07 17:49:29.890678	Manufactured		Shell	\N	\N
 627	ZZ HOp Stretcher DON'T DELETE			\N			2011-01-12 23:30:49.335822	2011-01-12 23:30:49.335822	Manufactured		Panel	\N	\N
-630	CL Hutch	Closet Wall Hutch		\N	000.306.921.x.00M	CL-H	2011-01-13 17:44:36.195287	2011-01-13 17:44:36.195287	Manufactured		Cabinet	\N	\N
+630	CL Hutch 1 Door	Closet Wall Hutch		\N	000.306.921.x.00M	CL-H-2as	2011-01-13 17:44:36.195287	2011-01-22 00:27:42.087231	Manufactured		Cabinet	\N	
 542	HO Base 2 Door	HO Base 2 Door 		\N	000.102.322.x.00M	HO-B2-1AS     	2011-01-01 18:54:33.669533	2011-01-11 15:44:06.196077	Manufactured		Cabinet	\N	\N
 513	HO Wall Bed Queen	HO Wall Bed Queen 		\N	000.492.681.x.00M	HO-WBQ	2011-01-01 18:54:27.954427	2011-01-02 03:29:13.644765	Manufactured		Cabinet	\N	\N
 512	HO Wall Bed Full	HO Wall Bed Full 		\N	000.491.581.x.00M	HO-WBF	2011-01-01 18:54:27.941587	2011-01-02 03:28:19.451712	Manufactured		Cabinet	\N	\N
@@ -2343,24 +2399,24 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 569	Powder Coated Door (23.875 x 83) | GRANITE	Powder Coated Door (23.875 x 83) | GRANITE	NX 23.875 x 83.025 Granite	\N	000.880.308.a12.00P		2011-01-04 06:35:34.379025	2011-01-20 13:49:35.4829	Purchased	880308a 	Item	48.907200000000003	
 585	ZZ CL Hutch Base Shell DON'T DELETE	This Shell gets no back or nailers, but has a toe-kick. 		\N			2011-01-06 15:46:54.54026	2011-01-07 17:47:09.725898	Manufactured		Shell	\N	\N
 579	Powder Coated Door (23.875 x 83) | RED	Powder Coated Door (23.875 x 83) | RED	NX 23.875 x 83.025 Red	\N	000.880.308.b12.00P		2011-01-04 06:35:34.430848	2011-01-20 13:50:20.43136	Purchased	880308b 	Item	48.907200000000003	
-631	~ Screw (Drawer Box)	Screw, #8 x 1' (Box Qty 500)		\N			2011-01-13 18:10:40.066913	2011-01-19 05:50:14.408015	Inventory	1002	Item	\N	
 570	Powder Coated Door (23.875 x 90) | GRANITE	Powder Coated Door (23.875 x 90) | GRANITE	NX 23.875 x 90.584 Granite	\N	000.880.309.a12.00P		2011-01-04 06:35:34.384454	2011-01-20 14:04:27.609814	Purchased	TBD	Item	55.200000000000003	
 574	Powder Coated Door (23.875 x 23) | RED	Powder Coated Door (23.875 x 23) | RED	NX 23.875 x 22.552 Red	\N	000.880.300.b12.00P		2011-01-04 06:35:34.405158	2011-01-20 13:39:23.467444	Purchased	880300b	Item	16.155200000000001	
 571	Powder Coated Drawer Front (23.875 x 7.5625) | GRANITE	Powder Coated Drawer Front (23.875 x 7.5625) | GRANITE	NX 23.875 x 7.434 Granite	\N	000.880.500.a12.00P		2011-01-04 06:35:34.389702	2011-01-20 14:10:06.934459	Purchased	880500a	Item	7.8384	
 565	Powder Coated Door (23.875 x 30) | GRANITE	Powder Coated Door (23.875 x 30) | GRANITE	NX 23.875 x 30.111 Granite	\N	000.880.310.a12.00P		2011-01-04 06:35:34.356161	2011-01-20 13:40:26.737329	Purchased	880310a	Item	20.249199999999998	
 575	Powder Coated Door (23.875 x 30) | RED	Powder Coated Door (23.875 x 30) | RED	NX 23.875 x 30.111 Red	\N	000.880.310.b12.00P		2011-01-04 06:35:34.410484	2011-01-20 13:41:12.684559	Purchased	880310b	Item	20.249199999999998	
+631	~ Screw (Drawer Box)	Screw, #8 x 1' (Box Qty 500)	0167081602	\N			2011-01-13 18:10:40.066913	2011-01-21 22:48:29.485267	Inventory	1002	Item	0.01166	
 566	Powder Coated Door (23.875 x 45) | GRANITE	Powder Coated Door (23.875 x 45) | GRANITE	NX 23.875 x 45.229 Granite	\N	000.880.305.a12.00P		2011-01-04 06:35:34.361269	2011-01-20 13:42:06.15982	Purchased	880305a	Item	28.299199999999999	
 576	Powder Coated Door (23.875 x 45) | RED	Powder Coated Door (23.875 x 45) | RED	NX 23.875 x 45.229 Red	\N	000.880.305.b12.00P		2011-01-04 06:35:34.415813	2011-01-20 13:42:35.917898	Purchased	880305b	Item	28.299199999999999	
 567	Powder Coated Door (23.875 x 68) | GRANITE	Powder Coated Door (23.875 x 68) | GRANITE	NX 23.875 x 67.906 Granite	\N	000.880.306.a12.00P		2011-01-04 06:35:34.368521	2011-01-20 13:44:12.182155	Purchased	880306a 	Item	45.420400000000001	
 578	Powder Coated Door (23.875 x 75) | RED	Powder Coated Door (23.875 x 75) | RED	NX 23.875 x 75.466 Red	\N	000.880.307.b12.00P		2011-01-04 06:35:34.425893	2011-01-20 13:48:10.723934	Purchased	880307b 	Item	47.159199999999998	
-60	~ Tie Rack | Matte Nickel 13-7/8"	Synergy Tie Rack with Slide, aluminum, nickel-plated matt, plastic, black, 13 7/8" length	807.67.603	\N	000.981.000.200.00P		2011-01-01 18:53:51.399991	2011-01-11 18:28:39.858121	Purchased		Item	21.870000000000001	\N
+60	~ Tie Rack | Matte Nickel	Synergy Tie Rack with Slide, aluminum, nickel-plated matt, plastic, black, 13 7/8" length	807.67.603	\N	000.981.000.200.00P		2011-01-01 18:53:51.399991	2011-01-21 20:49:46.20066	Purchased		Item	21.870000000000001	
 80	~ Sliding Wire Basket (18x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 6"h	547.38.242	\N	000.986.186.200.00P		2011-01-01 18:53:52.819495	2011-01-11 17:24:19.151564	Purchased	30043-1	Item	19.07	\N
-101	~ Pole Cups (L+R pair) | Polished Chrome	Wardrobe Tube Support Zn. Chr Pol. For 1 5/16	803.56.200	\N	000.995.000.100.00I		2011-01-01 18:53:53.539074	2011-01-09 20:03:35.080869	Inventory	30081	Item	1.728	\N
+101	~ Pole Cups (pair) | Polished Chrome	Wardrobe Tube Support Zn. Chr Pol. For 1 5/16	803.56.200	\N	000.995.000.100.00I		2011-01-01 18:53:53.539074	2011-01-21 22:37:25.714001	Inventory	30081	Item	1.728	
 533	NX Corner Cabinet 1 Door 1 Adj Shelf	NX Corner Cabinet 1 Door 1 Adj Shelf 		\N	000.308.332.x.00M	NX-C1-1AS	2011-01-01 18:54:28.497383	2011-01-02 18:22:50.364579	Manufactured		CornerCabinet	\N	\N
 544	HO Base 2 Drawer (Lateral File)	HO Base 2 Drawer (Lateral File)		\N	000.224.322.x.00M	HO-BLF	2011-01-01 18:54:33.697399	2011-01-11 16:28:27.138798	Manufactured		Cabinet	\N	\N
-9	~ Screw (Confirmat) 7 x 50mm	Confirmat St.Zip.Pozi 3 7X50Mm	7326442197	\N	000.264.042.197.00I		2011-01-01 18:53:39.058745	2011-01-13 03:05:08.19927	Inventory	1004	Item	0.02	\N
+9	~ Screw (Confirmat)	Confirmat St.Zip.Pozi 3 7X50Mm	7326442197	\N	000.264.042.197.00I		2011-01-01 18:53:39.058745	2011-01-21 22:50:59.00928	Inventory	1004	Item	0.037069999999999999	
 557	ZZ NX Tall Cabinet Shell w/VD DON'T DELETE	building block: NX tall cabinet shell with 1 vertical divider		\N			2011-01-02 03:43:52.024461	2011-01-12 20:18:25.775612	Manufactured		Shell	\N	\N
-54	~ Shoe Fence (24") | Matte Nickel	Shoe Fence, steel, matte nickel, 23"	547.51.603	\N	000.980.024.200.00P		2011-01-01 18:53:51.207031	2011-01-10 18:18:24.726915	Purchased	30069	Item	3.1280000000000001	\N
+54	~ Shoe Fence (24) | Matte Nickel	Shoe Fence, steel, matte nickel, 23"	547.51.603	\N	000.980.024.200.00P		2011-01-01 18:53:51.207031	2011-01-21 20:46:28.976171	Purchased	30069	Item	3.1280000000000001	
 229	CL Corner Adj Safety Shelf	CL Corner Adj Safety Shelf 		\N	000.936.x.x.00M	CL-CASS	2011-01-01 18:54:05.604995	2011-01-02 01:50:52.814223	Manufactured		ClosetShelf	\N	\N
 553	CL Hanging Partition - Square- Left	Closet system hanging partition - square bottom - left stop drilled		\N	000.910.16x.x.00M	CL-HPS-L	2011-01-02 01:57:22.321891	2011-01-12 17:58:42.953558	Manufactured		ClosetPartition	\N	\N
 554	CL Hanging Partition - Square - Right	Closet system hanging partition - square bottom - right stop drilled		\N	000.910.36x.x.00M	CL-HPS-R	2011-01-02 01:58:36.441309	2011-01-12 21:35:13.139205	Manufactured		ClosetPartition	\N	\N
@@ -2372,7 +2428,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 587	~ Screw (Hinge Fastening) PART OF A SET	M4 screw with raised head and cross-slot Z, size 2 nickel-plated 11mm\r\n	267.00.720	\N			2011-01-07 00:22:48.609149	2011-01-19 05:55:17.929282	Manufactured		Item	0.0112	
 537	HO Base 1 Door	HO Base 1 Door 		\N	000.101.122.x.00M	HO-B1-1AS     	2011-01-01 18:54:33.511745	2011-01-11 15:42:51.433947	Manufactured		Cabinet	\N	\N
 632	ZZ HO Wall Bed DON'T DELETE			\N			2011-01-13 19:49:20.417448	2011-01-13 19:49:20.417448	Manufactured		Shell	\N	\N
-588	~ Hinge Sleeve with Screws	Hinge Sleeve Set (for half overlay hinges)	267.00.013/267.00.720	\N	Needed		2011-01-07 00:24:54.992986	2011-01-19 05:45:09.757615	Inventory	Needed	Item	\N	
+588	~ Hinge Sleeve with Screws	Hinge Sleeve Set (for half overlay hinges)	267.00.013/267.00.720	\N			2011-01-07 00:24:54.992986	2011-01-21 19:48:03.073366	Inventory	Needed	Item	\N	
 586	~ Screw (Hinge Sleeve) PART OF A SET	Sleeves with M4 Internal Thread 22mm	267.00.013	\N			2011-01-07 00:18:14.026608	2011-01-19 05:56:07.106129	Inventory		Item	0.0458	
 41	CL Hanging Partition - Radius - Left	CL Hanging Partition Radius Bottom - Left Stop Drilled		\N	000.910.15x.x.00M	CL-HPR-L	2011-01-01 18:53:43.492396	2011-01-12 17:53:09.459137	Manufactured		ClosetPartition	\N	\N
 540	HO Base 2 Drawer (12/12)	HO Base 2 File Drawers (12/12) 		\N	000.223.122.x.00M	HO-BD2	2011-01-01 18:54:33.641241	2011-01-11 16:11:52.750657	Manufactured		Cabinet	\N	\N
@@ -2391,13 +2447,13 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 188	HO Base 3 Drawer (8/8/8)	HO Base 3 Drawer (8/8/8)		\N	000.230.222.x.00M	HO-BD3	2011-01-01 18:53:56.663517	2011-01-14 06:00:11.73469	Manufactured		Cabinet	\N	\N
 197	Drawer Box	Drawer Box		\N	000.024.095.x.00B	DBX	2011-01-01 18:53:57.174129	2011-01-11 15:48:57.498253	Manufactured		Drawer	\N	\N
 546	HO Base 4 Drawer (3/6/6/8)	HO Base 4 Drawer (3/6/6/8) 		\N	000.254.322.x.00M	HO-BD4	2011-01-01 18:54:33.724851	2011-01-11 16:16:33.448515	Manufactured		Cabinet	\N	\N
-157	CL Island Panel	CL Island Panel		\N	000.960.x.x.00M		2011-01-01 18:53:55.416341	2011-01-10 17:03:25.563166	Manufactured		Item	\N	\N
 44	CL Cam Shelf	CL Cam Shelf 		\N	000.930.x.x.00M	CL-CS	2011-01-01 18:53:45.123631	2011-01-19 18:05:52.802646	Manufactured		ClosetShelf	\N	
 633	ZZ HOp WB Nailer DON'T DELETE			\N			2011-01-13 19:56:47.039275	2011-01-13 19:57:43.591171	Manufactured		Panel	\N	\N
 555	CL Hanging Partition - Square - Thru	Closet system hanging partition -square bottom - thru drilled		\N	000.910.26x.x.00M	CL-HPS-T	2011-01-02 02:02:33.954763	2011-01-12 21:36:14.660795	Manufactured		ClosetPartition	\N	\N
-51	~ Shoe Fence (24") | Polished Chrome	Shoe Fence, steel, chrome, 23"	547.51.203	\N	000.980.024.100.00P		2011-01-01 18:53:51.054929	2011-01-10 18:19:33.946423	Purchased	30063	Item	3.4399999999999999	\N
+51	~ Shoe Fence (24) | Polished Chrome	Shoe Fence, steel, chrome, 23"	547.51.203	\N	000.980.024.100.00P		2011-01-01 18:53:51.054929	2011-01-21 20:47:16.12954	Purchased	30063	Item	3.4399999999999999	
 559	ZZ CL Hutch Shell DON'T DELETE	building block: closet hutch shell		\N			2011-01-02 17:12:09.982082	2011-01-13 04:19:39.144614	Manufactured		Shell	\N	\N
-590	~ Hang Rail Cover | White 96"	Wall Rail Covering Strip  96"- White	290.12.781	\N	Needed		2011-01-07 02:46:28.37289	2011-01-09 23:30:25.984858	Inventory	10039	Item	1.3500000000000001	\N
+590	~ Hang Rail Cover | White	Wall Rail Covering Strip  96"- White	290.12.781	\N	000.290.012.781.00I		2011-01-07 02:46:28.37289	2011-01-21 19:39:03.319679	Inventory	10039	Item	1.3500000000000001	
+202	~ Screw (Drawer Slide 3/4 Ext)	Screw Epoxy Slides steel, zinc-plated T17 undercut flat head phillips drive #7 x 7/16" (1000/box)	0161050802	\N	000.010.079.511.00I		2011-01-01 18:53:57.225669	2011-01-21 23:30:38.222197	Inventory	1049	Item	0.0051999999999999998	
 45	CL Adjustable Shelf	CL Adjustable Shelf 		\N	000.931.x.x.00M	CL-AS	2011-01-01 18:53:47.38817	2011-01-02 01:48:59.673806	Manufactured		ClosetShelf	\N	\N
 437	CTOP Corner - Tempo | Laminate 4883 Sable Soapstone	CTOP Corner - Tempo | Laminate 4883 Sable Soapstone		\N	000.402.002.311.00P		2011-01-01 18:54:25.775865	2011-01-03 02:15:47.73418	Purchased		Item	146.46000000000001	\N
 289	CTOP - Classic (3 Week Lead Time) | Laminate 10776 Kingstone Maple	CTOP - Classic (3 Week Lead Time) | Laminate 10776 Kingstone Maple		\N	000.401.000.319.00P		2011-01-01 18:54:14.484486	2011-01-03 00:36:52.364984	Purchased		Item	185.84999999999999	\N
@@ -2410,40 +2466,39 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 227	CL Adj Safety Shelf	CL Adj Safety Shelf 		\N	000.935.x.x.00M	CL-ASS	2011-01-01 18:54:02.875931	2011-01-02 01:48:40.178534	Manufactured		ClosetShelf	\N	\N
 99	~ Closet Rod | Matte Nickel	Wardrobe Tube Al Ni Matt 1 5/16	801.42.600	\N	000.990.000.200.00I		2011-01-01 18:53:53.512515	2011-01-20 05:45:21.694975	Inventory	30077	Item	11.859999999999999	
 120	~ Sliding Wire Basket (24x6x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 6"h	547.36.622	\N	000.985.246.200.00P		2011-01-01 18:53:53.765859	2011-01-11 04:33:55.006586	Purchased	30040-1	Item	19.5	\N
-107	~ Hang Rail Galvanized 97"	Wall Rail Galv St 97	290.11.901	\N	000.999.020.000.00I		2011-01-01 18:53:53.620173	2011-01-10 17:42:51.193801	Inventory	10038	Item	2.988	\N
-183	~ Wardrobe Lift (20-26") | Black	Wardrobe Lift, steel, black, plastic, black, 21 1/4" - 26", 26 lbs load capacity	805.31.301	\N	000.988.026.400.00P		2011-01-01 18:53:56.321925	2011-01-11 03:55:04.620878	Purchased		Item	48.015000000000001	\N
+107	~ Hang Rail	Wall Rail Galv St 97	290.11.901	\N	000.999.020.000.00I		2011-01-01 18:53:53.620173	2011-01-21 19:40:16.340271	Inventory	10038	Item	2.988	
+183	~ Wardrobe Lift (20-26) | Black	Wardrobe Lift, steel, black, plastic, black, 21 1/4" - 26", 26 lbs load capacity	805.31.301	\N	000.988.026.400.00P		2011-01-01 18:53:56.321925	2011-01-21 21:03:30.436001	Purchased		Item	48.015000000000001	
 69	~ Jewelry Tray (24)	 Jewelry Tray (24)		\N	000.984.024.000.00P		2011-01-01 18:53:52.586366	2011-01-10 16:36:20.00884	Purchased	JT24	Item	\N	\N
-66	~ Valet Rod | Matte Nickel 14-1/8"	Synergy Closet Valet, aluminum, nickel-plated matt, plastic, black, 14 1/8" length	808.71.603	\N	000.983.000.200.00P		2011-01-01 18:53:52.469514	2011-01-11 18:19:07.000436	Purchased		Item	17.149999999999999	\N
+66	~ Valet Rod | Matte Nickel	Synergy Closet Valet, aluminum, nickel-plated matt, plastic, black, 14 1/8" length	808.71.603	\N	000.983.000.200.00P		2011-01-01 18:53:52.469514	2011-01-21 20:53:57.439376	Purchased		Item	17.149999999999999	
 14	~ Murphy Bed Hardware Set Full	Murphy Bed Hardware Set Full	SBF-M/SBF-D	\N	000.SBF.MD0.000.00P		2011-01-01 18:53:39.081271	2011-01-12 19:27:21.108645	Purchased	10061	Item	438.82999999999998	\N
 139	~ Sliding Wire Basket (30x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 6"h	547.37.662	\N	000.987.306.200.00P		2011-01-01 18:53:54.668509	2011-01-09 20:32:49.435039	Purchased	30058-1	Item	26.210000000000001	\N
-160	~ Tilt-Out Hamper (24")	Synergy Tilt-Out Hamper, steel, black, 22 1/4" width, 2 black nylon bags included	547.43.303	\N	000.989.024.000.00P		2011-01-01 18:53:55.633423	2011-01-11 04:50:07.898718	Purchased	30086	Item	57.130000000000003	\N
+160	~ Tilt-Out Hamper (24)	Synergy Tilt-Out Hamper, steel, black, 22 1/4" width, 2 black nylon bags included	547.43.303	\N	000.989.024.000.00P		2011-01-01 18:53:55.633423	2011-01-21 20:52:23.001085	Purchased	30086	Item	57.130000000000003	
 147	~ Sliding Wire Basket (24x6x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 23"w x 6"h	547.36.162	\N	000.987.246.300.00P		2011-01-01 18:53:54.861522	2011-01-09 21:08:30.545234	Purchased	30034-1	Item	21.109999999999999	\N
 83	~ Sliding Wire Basket (18x11x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 11"h	547.38.246	\N	000.986.181.200.00P		2011-01-01 18:53:53.046685	2011-01-11 17:26:00.944768	Purchased	30041-1	Item	20.300000000000001	\N
-63	~ Belt Rack | Matte Nickel	Belt Rack W/Slide Al Ni Matt/Bl Pl 13 7/8	807.67.613	\N	000.982.000.200.00P		2011-01-01 18:53:51.574608	2011-01-20 15:25:54.09137	Purchased		Item	20.420000000000002	Hafele
+63	~ Belt Rack | Matte Nickel	Belt Rack W/Slide Al Ni Matt/Bl Pl 13 7/8	807.67.613	\N	000.807.067.613.00P		2011-01-01 18:53:51.574608	2011-01-22 02:32:53.975253	Purchased		Item	20.420000000000002	Hafele
 257	NX Tall Cabinet 1 Door	NX Tall Cabinet 1 Door 		\N	000.402.483.x.00M	NX-T1-3AS	2011-01-01 18:54:09.587988	2011-01-02 19:36:57.670899	Manufactured		Cabinet	\N	\N
 199	~ Hinge Plate	Hinge Plate 0mm (300/box)	65BARGL09	\N	000.311.070.580.00I		2011-01-01 18:53:57.210508	2011-01-19 05:43:28.090135	Inventory	1025	Item	0.40000000000000002	
-3	~ Handle Nickel | 128mm	Handle St.Ni.Matt M4 Ctc 128Mm	117.31.632	\N	000.117.031.101.00I		2011-01-01 18:53:39.028921	2011-01-15 17:55:49.307416	Inventory	10016	Item	0.96999999999999997	\N
-168	~ Drawer Slide | 3/4 ext | 20"	Soft-Roller 100Lbs St White 500mm 20"	423.37.750	\N	000.423.037.750.00I		2011-01-01 18:53:55.811642	2011-01-11 05:17:08.634623	Inventory	10037	Item	1.1799999999999999	\N
+3	~ Handle Nickel | 128mm	Handle St.Ni.Matt M4 Ctc 128Mm	117.31.632	\N	000.117.031.101.00I		2011-01-01 18:53:39.028921	2011-01-21 23:35:05.040194	Inventory	10016	Item	0.96999999999999997	
+168	~ Drawer Slide | 3/4 ext | 20 inch	Soft-Roller 100Lbs St White 500mm 20 inch	7111KSC20W	\N	000.423.037.750.00I		2011-01-01 18:53:55.811642	2011-01-22 00:14:36.804789	Inventory	10037	Item	1.0800000000000001	
 123	~ Sliding Wire Basket (24x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 11"h	547.36.626	\N	000.985.241.200.00P		2011-01-01 18:53:53.893371	2011-01-11 04:41:09.421235	Purchased	30038-1	Item	24	\N
-65	~ Valet Rod | Polished Chrome 14-1/8"	Synergy Closet Valet, aluminum, chrome-plated polished, plastic, black, 14 1/8" length	808.71.203	\N	000.983.000.100.00P		2011-01-01 18:53:52.320897	2011-01-11 18:17:55.994794	Purchased		Item	16.739999999999998	\N
-634	CL Island Top (3/4 inch)	Closet Island Top 3/4 inch thick		\N	000.960.200.001.xM		2011-01-15 18:44:56.729008	2011-01-19 14:38:02.344765	Purchased		Countertop	\N	
-202	~ Screw (Drawer Slide 3/4 Ext)	Screw Epoxy Slides steel, zinc-plated T17 undercut flat head phillips drive #7 x 7/16" (1000/box)	010.79.511	\N	000.010.079.511.00I		2011-01-01 18:53:57.225669	2011-01-19 05:52:16.256409	Inventory		Item	0.0088999999999999999	
-165	~ Drawer Slide | 3/4 ext | 14"	Soft-Roller 100Lbs St White 350mm 14"	423.37.735	\N	000.423.037.735.00I		2011-01-01 18:53:55.796305	2011-01-11 05:10:47.5514	Inventory	10034	Item	0.87	\N
+65	~ Valet Rod | Polished Chrome	Synergy Closet Valet, aluminum, chrome-plated polished, plastic, black, 14 1/8" length	808.71.203	\N	000.983.000.100.00P		2011-01-01 18:53:52.320897	2011-01-21 21:01:46.769369	Purchased		Item	16.739999999999998	
+634	CL Island Top (3/4 inch)	Closet Island Top 3/4 inch thick		\N	000.960.200.x.00M		2011-01-15 18:44:56.729008	2011-01-21 01:08:54.532476	Purchased		Countertop	\N	
+165	~ Drawer Slide | 3/4 ext | 14 inch	Soft-Roller 100Lbs St White 350mm 14 inch	7111KSC14W	\N	000.423.037.735.00I		2011-01-01 18:53:55.796305	2011-01-22 00:11:26.953897	Inventory	10034	Item	0.76000000000000001	
 98	~ Closet Rod | Polished Chrome	Wardrobe Tube Alu. Chr Pol. 1 5/16	801.42.200	\N	000.990.000.100.00I		2011-01-01 18:53:53.498595	2011-01-09 20:07:18.638846	Inventory	30078	Item	10.82	\N
-591	~ Pole Cups (L+R pair) | Matte Nickel	Wardrobe Tube Support Zn Ni Matt F/1 5/16	803.56.600	\N	000.995.000.200.00I		2011-01-07 04:14:09.625673	2011-01-09 20:05:00.184163	Inventory	30080	Item	1.73	\N
+591	~ Pole Cups (pair) | Matte Nickel	Wardrobe Tube Support Zn Ni Matt F/1 5/16	803.56.600	\N	000.995.000.200.00I		2011-01-07 04:14:09.625673	2011-01-21 22:36:07.601353	Inventory	30080	Item	1.73	
 592	~ Wood Dowels 8mm x 30mm	Dowel Wood 8 x 30mm (Box Qty 2,000)	71510830	\N			2011-01-07 04:54:03.46847	2011-01-10 18:07:08.710016	Inventory	1010	Item	0.0091000000000000004	\N
 264	NX Base Cabinet 1 Drawer 1 Door	NX Base Cabinet 1 Drawer 1 Door 		\N	000.211.233.x.00M	NX-B1D1-1AS	2011-01-01 18:54:10.337867	2011-01-02 16:33:33.29154	Manufactured		Cabinet	\N	\N
-53	~ Shoe Fence (18") | Matte Nickel	Shoe Fence, steel, matte nickel, 17"	547.51.602	\N	000.980.018.200.00P		2011-01-01 18:53:51.103007	2011-01-10 18:16:24.565746	Purchased	30068	Item	2.5760000000000001	\N
-13	~ Screw (Drawer Slide Full Ext) #8 x 7/16"	Screw Bb Slides Pn Hd Ph Drv #8 X 7/16	013.09.900	\N	000.013.009.900.00I		2011-01-01 18:53:39.076796	2011-01-19 05:53:59.880263	Inventory	10025	Item	0.014999999999999999	
-4	~ Handle Bronze | 128mm	Handle St Oil-Rubbed Bzd M4 Ctc 128Mm	117.31.334	\N	000.117.031.102.00I		2011-01-01 18:53:39.034691	2011-01-09 23:05:37.264293	Inventory	10011	Item	0.93999999999999995	\N
-2	~ Handle Chrome | 128mm	Handle St.Chr.Pol.M4 Ctc.128Mm	117.31.230	\N	000.117.031.100.00I		2011-01-01 18:53:39.024264	2011-01-15 17:56:33.381692	Inventory	10014	Item	0.96999999999999997	\N
-593	~ Screw (Assembly) 2", #6 x 2"	Screw, #6 x 2' (Box Qty 3,500)	0461062408	\N			2011-01-07 04:56:59.068395	2011-01-10 18:06:10.101706	Inventory	1005	Item	0.0080800000000000004	\N
+53	~ Shoe Fence (18) | Matte Nickel	Shoe Fence, steel, matte nickel, 17"	547.51.602	\N	000.980.018.200.00P		2011-01-01 18:53:51.103007	2011-01-21 20:44:11.875662	Purchased	30068	Item	2.5760000000000001	
+13	~ Screw (Drawer Slide Full Ext)	Screw Bb Slides Pn Hd Ph Drv #8 X 7/16	013.09.900	\N	000.013.009.900.00I		2011-01-01 18:53:39.076796	2011-01-21 20:04:11.796611	Inventory	10025	Item	0.014999999999999999	
+4	~ Handle Bronze | 128mm	Handle St Oil-Rubbed Bzd M4 Ctc 128Mm	117.31.334	\N	000.117.031.102.00I		2011-01-01 18:53:39.034691	2011-01-21 23:34:08.849563	Inventory	10011	Item	0.93999999999999995	
+2	~ Handle Chrome | 128mm	Handle St.Chr.Pol.M4 Ctc.128Mm	117.31.230	\N	000.117.031.100.00I		2011-01-01 18:53:39.024264	2011-01-21 23:34:33.011295	Inventory	10014	Item	0.96999999999999997	
+593	~ Screw (Assembly) 2 inch	Screw, #6 x 2' (Box Qty 3,500)	0461062408	\N			2011-01-07 04:56:59.068395	2011-01-21 19:54:07.263507	Inventory	1005	Item	0.0080800000000000004	
 635	CL Island  Top (1 inch)	Closet Island  Top 1 inch		\N	000.960.250.x.00M		2011-01-15 20:02:15.125857	2011-01-19 14:00:18.988973	Purchased		Countertop	\N	
-50	~ Shoe Fence (18") | Polished Chrome	Shoe Fence, steel, chrome, 17"	547.51.202	\N	000.980.018.100.00P		2011-01-01 18:53:50.898259	2011-01-10 18:17:50.071486	Purchased	30062	Item	2.7440000000000002	\N
-5	~ Handle Black | 128mm	Handle St.Bl.Matt M4 Ctc 128Mm	117.31.330	\N	000.117.031.103.00I		2011-01-01 18:53:39.039357	2011-01-09 23:06:55.546224	Inventory	10013	Item	0.88	\N
-109	~ Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	282.40.708	\N	000.999.040.000.00I		2011-01-01 18:53:53.629835	2011-01-19 05:58:49.02612	Inventory	10032	Item	0.0118	
-12	~ Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	282.40.708	\N	000.282.040.708.00I		2011-01-01 18:53:39.072234	2011-01-19 05:58:06.464004	Inventory	10032	Item	0.0118	
-52	~ Shoe Fence (30") | Polished Chrome	Shoe Fence, steel, chrome, 29"	547.51.204	\N	000.980.030.100.00P		2011-01-01 18:53:51.089851	2011-01-10 18:21:29.844317	Purchased	30064	Item	4.1299999999999999	\N
+50	~ Shoe Fence (18) | Polished Chrome	Shoe Fence, steel, chrome, 17"	547.51.202	\N	000.980.018.100.00P		2011-01-01 18:53:50.898259	2011-01-21 20:45:27.565435	Purchased	30062	Item	2.7440000000000002	
+5	~ Handle Black | 128mm	Handle St.Bl.Matt M4 Ctc 128Mm	117.31.330	\N	000.117.031.103.00I		2011-01-01 18:53:39.039357	2011-01-21 23:33:38.078114	Inventory	10013	Item	0.88	
+109	~ Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.999.040.000.00I		2011-01-01 18:53:53.629835	2011-01-21 23:18:41.455612	Inventory	1021	Item	0.0138	
+12	~ Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.282.040.708.00I		2011-01-01 18:53:39.072234	2011-01-21 23:20:59.702728	Inventory	1021	Item	0.0138	
+52	~ Shoe Fence (30) | Polished Chrome	Shoe Fence, steel, chrome, 29"	547.51.204	\N	000.980.030.100.00P		2011-01-01 18:53:51.089851	2011-01-21 20:48:36.093328	Purchased	30064	Item	4.1299999999999999	
 247	CL Hutch Panel 36 - Thru	CL Hutch Panel 36 - Thru 		\N	000.201.036.x.00M	CL-VHP-36-T	2011-01-01 18:54:08.325118	2011-01-03 15:37:45.42388	Manufactured		ClosetPartition	\N	\N
 22	Decor Crown Molding - 423 | Antique White	Decor Crown Molding - 423 | Antique White		\N	000.301.000.002.00P		2011-01-01 18:53:39.169096	2011-01-12 02:49:54.381044	Purchased		Item	26.170000000000002	\N
 564	Powder Coated Door (23.875 x 23) | GRANITE	Powder Coated Door (23.875 x 23) | GRANITE	NX 23.875 x 22.552 Granite	\N	000.880.300.a12.00P		2011-01-04 06:35:34.340626	2011-01-20 13:38:17.67717	Purchased	880300a	Item	16.155200000000001	
@@ -2471,18 +2526,18 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 291	CTOP - Classic (3 Week Lead Time) | Laminate D403 White Sand	CTOP - Classic (3 Week Lead Time) | Laminate D403 White Sand		\N	000.401.000.321.00P		2011-01-01 18:54:15.353702	2011-01-03 00:43:37.582758	Purchased		Item	185.84999999999999	\N
 18	CTOP - 3/4 in. melamine	CTOP 3/4 in. melamine		\N	000.401.000.x.00M	MEL-CTOP-19	2011-01-01 18:53:39.115352	2011-01-02 02:32:59.923763	Manufactured		Countertop	\N	\N
 17	Decor Crown Molding - 424 | White	Decor Crown Molding - 424 | White		\N	000.302.000.001.00P		2011-01-01 18:53:39.10285	2011-01-06 00:52:06.609677	Purchased		Item	26.504999999999999	\N
-594	~ Klix cam 15mm x 14mm	15Mm X 14Mm Klix Cam Zinc..	6705656ZN	\N			2011-01-07 04:58:59.368516	2011-01-10 17:53:24.555898	Inventory	10050	Item	0.078189999999999996	\N
+594	~ MiniFix (Cam)	15Mm X 14Mm Klix Cam Zinc..	6705656ZN	\N			2011-01-07 04:58:59.368516	2011-01-22 00:16:48.278233	Inventory	10050	Item	0.071099999999999997	
 568	Powder Coated Door (23.875 x 75) | GRANITE	Powder Coated Door (23.875 x 75) | GRANITE	NX 23.875 x 75.466 Granite	\N	000.880.307.a12.00P		2011-01-04 06:35:34.373923	2011-01-20 13:46:48.89483	Purchased	880307a 	Item	47.159199999999998	
 7	~ Hinge Plate	Hinge Plate	65BARGL09	\N	000.311.070.570.00I		2011-01-01 18:53:39.049462	2011-01-19 05:44:16.231106	Inventory	1025	Item	0.40000000000000002	
 92	~ Sliding Wire Basket (18x11x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 11"h	547.35.146	\N	000.986.181.300.00P		2011-01-01 18:53:53.394364	2011-01-09 21:22:47.479365	Purchased	30022-1	Item	21.52	\N
 43	CL Backing Panel	CL Backing Panel 		\N	000.960.000.x.00M	CL-BKP	2011-01-01 18:53:45.006308	2011-01-14 05:00:22.631878	Manufactured		BackingPanel	\N	\N
-58	~ Shoe Fence (30") | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 29"	547.51.104	\N	000.980.030.300.00P		2011-01-01 18:53:51.297559	2011-01-10 18:20:49.335887	Purchased	30067	Item	3.6899999999999999	\N
+58	~ Shoe Fence (30) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 29"	547.51.104	\N	000.980.030.300.00P		2011-01-01 18:53:51.297559	2011-01-21 20:48:10.894724	Purchased	30067	Item	3.6899999999999999	
 93	~ Sliding Wire Basket (24x11x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 11"h	547.36.146	\N	000.986.241.300.00P		2011-01-01 18:53:53.409919	2011-01-09 21:18:48.235602	Purchased	30025-1	Item	25.48	\N
-55	~ Shoe Fence (30") | Matte Nickel	Shoe Fence, steel, matt nickel, 29"	547.51.604	\N	000.980.030.200.00P		2011-01-01 18:53:51.220906	2011-01-10 18:20:04.310258	Purchased	30070	Item	3.8199999999999998	\N
-57	~ Shoe Fence (24") | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 23"	547.51.103	\N	000.980.024.300.00P		2011-01-01 18:53:51.284913	2011-01-10 18:18:58.629563	Purchased	30066	Item	3.024	\N
+55	~ Shoe Fence (30) | Matte Nickel	Shoe Fence, steel, matt nickel, 29"	547.51.604	\N	000.980.030.200.00P		2011-01-01 18:53:51.220906	2011-01-21 20:47:45.780905	Purchased	30070	Item	3.8199999999999998	
+57	~ Shoe Fence (24) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 23"	547.51.103	\N	000.980.024.300.00P		2011-01-01 18:53:51.284913	2011-01-21 20:46:52.976533	Purchased	30066	Item	3.024	
 91	~ Sliding Wire Basket (30x6x14) | Oil Rubbed Bronze	DOES THIS ITEM EXIST?	547.37.142	\N	000.986.306.300.00P		2011-01-01 18:53:53.349157	2011-01-11 04:13:43.656818	Purchased		Item	23.879999999999999	\N
 97	~ Sliding Wire Basket (30x17x14) | Oil Rubbed Bronze	Closet Basket, steel, white, 14"d x 29"w x 17"h	547.37.748 	\N	000.986.307.300.00P		2011-01-01 18:53:53.476159	2011-01-11 04:17:24.737334	Purchased		Item	28.010000000000002	\N
-76	~ Sliding Wire Basket (30x11x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 11"h	547.37.246	\N	000.986.301.100.00P		2011-01-01 18:53:52.671263	2011-01-20 05:32:15.427049	Purchased	30010-1	Item	24.27	
+76	~ Sliding Wire Basket (30x11x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 11"h	547.41.246	\N	000.986.301.100.00P		2011-01-01 18:53:52.671263	2011-01-21 20:54:38.412227	Purchased	30010-1	Item	24.27	
 90	~ Sliding Wire Basket (24x6x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 6h	547.36.142	\N	000.986.246.300.00P		2011-01-01 18:53:53.332436	2011-01-09 21:16:23.887609	Purchased	30027-1	Item	20.300000000000001	\N
 96	~ Sliding Wire Basket (24x17x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 17"h	547.36.148	\N	000.986.247.300.00P		2011-01-01 18:53:53.463268	2011-01-09 21:17:29.974915	Purchased	30026-1	Item	28.850000000000001	\N
 95	~ Sliding Wire Basket (18x17x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 17"h	547.35.148	\N	000.986.187.300.00P		2011-01-01 18:53:53.449682	2011-01-09 21:21:38.178549	Purchased	30023-1	Item	27.859999999999999	\N
@@ -2492,7 +2547,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 71	~ Sliding Wire Basket (18x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 17"w x 6"h	547.35.242	\N	000.986.186.100.00P		2011-01-01 18:53:52.604856	2011-01-09 21:42:13.935885	Purchased	30006-1	Item	17.969999999999999	\N
 77	~ Sliding Wire Basket (18x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 17"w x 17"h	547.35.248	\N	000.986.187.100.00P		2011-01-01 18:53:52.684273	2011-01-09 21:42:55.94716	Purchased	30005-1	Item	22.510000000000002	\N
 74	~ Sliding Wire Basket (18x11x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 17"w x 11"h	547.35.246	\N	000.986.181.100.00P		2011-01-01 18:53:52.64428	2011-01-09 21:43:34.431196	Purchased	30004-1	Item	19.649999999999999	\N
-59	~ Tie Rack | Polished Chrome 13-7/8"	Synergy Tie Rack with Slide, aluminum, chrome-plated polished, plastic, black, 13 7/8" length	807.67.203	\N	000.981.000.100.00P		2011-01-01 18:53:51.385759	2011-01-11 18:32:13.064089	Purchased		Item	21.300000000000001	\N
+59	~ Tie Rack | Polished Chrome	Synergy Tie Rack with Slide, aluminum, chrome-plated polished, plastic, black, 13 7/8" length	807.67.203	\N	000.981.000.100.00P		2011-01-01 18:53:51.385759	2011-01-21 20:51:25.607645	Purchased		Item	21.300000000000001	
 82	~ Sliding Wire Basket (30x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 29"w x 6"h	547.37.642	\N	000.986.306.200.00P		2011-01-01 18:53:53.001264	2011-01-09 20:49:45.608784	Purchased	30049-1	Item	23.66	\N
 88	~ Sliding Wire Basket (30x17x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 29"w x 17"h	547.37.648	\N	000.986.307.200.00P		2011-01-01 18:53:53.216421	2011-01-09 20:50:40.29837	Purchased	30048-1	Item	29.68	\N
 81	~ Sliding Wire Basket (24x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 23"w x 6"h	547.36.642	\N	000.986.246.200.00P		2011-01-01 18:53:52.890631	2011-01-09 20:52:45.760997	Purchased	30046-1	Item	22.800000000000001	\N
@@ -2500,24 +2555,23 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 89	~ Sliding Wire Basket (18x6x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 6"h	547.35.142	\N	000.986.186.300.00P		2011-01-01 18:53:53.229037	2011-01-09 21:20:24.337227	Purchased	30024-1	Item	20.100000000000001	\N
 86	~ Sliding Wire Basket (18x17x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 17"h	547.35.648	\N	000.986.187.200.00P		2011-01-01 18:53:53.184097	2011-01-09 20:58:48.036525	Purchased	30042-1	Item	24.510000000000002	\N
 70	~ Jewelry Tray (30)	Jewelry Tray (30)		\N	000.984.030.000.00P		2011-01-01 18:53:52.594879	2011-01-10 16:37:06.723014	Purchased	JT30	Item	\N	\N
-595	~ Quickfit dowel 8mm x 24mm	8M 24M Quickfit TI3 Dowl S-Tan	6705395871	\N			2011-01-07 05:00:43.365099	2011-01-10 17:54:28.632326	Inventory	10051	Item	0.0596	\N
-11	~ Screw (Assembly) 1-1/4", #8 x 1-1/4"	Screw, Zip-R, Fl Csk, T17, Ph Drv #8 X 1 1/4	010.21.968	\N	000.010.022.068.00I		2011-01-01 18:53:39.06776	2011-01-09 23:36:27.423278	Inventory	10030	Item	0.0080000000000000002	\N
-79	~ Sliding Wire Basket (30x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 17"h	547.37.248	\N	000.986.307.100.00P		2011-01-01 18:53:52.799206	2011-01-20 05:38:36.869301	Purchased	30011-1	Item	30.93	
+595	~ MiniFix (Post)	8M 24M Quickfit TI3 Dowl S-Tan	6705395871	\N			2011-01-07 05:00:43.365099	2011-01-21 20:41:36.325277	Inventory	10051	Item	0.0596	
+79	~ Sliding Wire Basket (30x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 17"h	547.41.248	\N	000.986.307.100.00P		2011-01-01 18:53:52.799206	2011-01-21 20:55:45.538684	Purchased	30011-1	Item	30.93	
 73	~ Sliding Wire Basket (30x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 6"h	547.37.242	\N	000.986.306.100.00P		2011-01-01 18:53:52.630794	2011-01-09 21:33:01.218323	Purchased	30012-1	Item	22.120000000000001	\N
-56	~ Shoe Fence (18") | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 17"	547.51.102	\N	000.980.018.300.00P		2011-01-01 18:53:51.236121	2011-01-10 18:17:13.713465	Purchased	30065	Item	2.512	\N
+56	~ Shoe Fence (18) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 17"	547.51.102	\N	000.980.018.300.00P		2011-01-01 18:53:51.236121	2011-01-21 20:44:58.307957	Purchased	30065	Item	2.512	
 334	CTOP - Futura (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP - Futura (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.401.003.301.00P		2011-01-01 18:54:18.579324	2011-01-03 00:44:40.98914	Purchased		Item	166.15000000000001	\N
 104	~ Hang Bracket | Left	Cabinet Hanger St Galv Lh	290.02.711	\N	000.999.100.000.00I		2011-01-01 18:53:53.597598	2011-01-09 23:02:22.828931	Inventory	10008	Item	0.92000000000000004	\N
-103	~ Pole Cups (L+R pair) | Oil Rubbed Bronze	Wardrobe Tube Support Zn. Oil- Rubbed Bzd For 1 5/16	803.56.100	\N	000.995.000.300.00I		2011-01-01 18:53:53.585173	2011-01-09 20:02:26.578248	Inventory	30082	Item	1.992	\N
+103	~ Pole Cups (pair) | Oil Rubbed Bronze	Wardrobe Tube Support Zn. Oil- Rubbed Bzd For 1 5/16	803.56.100	\N	000.995.000.300.00I		2011-01-01 18:53:53.585173	2011-01-21 22:36:51.727988	Inventory	30082	Item	1.992	
 137	~ Sliding Wire Basket (18x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 17"w x 6"h	547.35.662	\N	000.987.186.200.00P		2011-01-01 18:53:54.619103	2011-01-09 20:39:35.357268	Purchased	30052-1	Item	20.699999999999999	\N
 105	~ Hang Bracket | Right	Cabinet Hanger St Galv Rh	290.02.710	\N	000.999.001.000.00I		2011-01-01 18:53:53.602502	2011-01-09 23:03:02.053807	Inventory	10009	Item	0.92000000000000004	\N
 100	~ Closet Rod | Oil Rubbed Bronze	Wardrobe Tube Alu. Oil Rubbed Bzd 1 5/16	801.42.100	\N	000.990.000.300.00I		2011-01-01 18:53:53.526258	2011-01-10 23:45:23.733402	Inventory	30079	Item	12.952	\N
+636	CTOP - Butcher Block	CTOP - Butcher Block	\N	\N	000.401.004.400.00P	\N	2011-01-21 01:24:54.683772	2011-01-21 01:24:54.683772	Purchased	\N	\N	\N	\N
 596	ZZ Toe-Kick DON'T DELETE			\N			2011-01-07 06:43:46.374507	2011-01-12 17:28:24.502859	Manufactured		Panel	\N	\N
-134	~ Sliding Wire Basket (18x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 17"h	547.35.268	\N	000.987.187.100.00P		2011-01-01 18:53:54.509174	2011-01-20 05:28:20.254969	Purchased	30014-1	Item	25.09	
 129	~ Sliding Wire Basket (24x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 23"w x 6"h	547.36.262	\N	000.987.246.100.00P		2011-01-01 18:53:54.221078	2011-01-09 21:26:46.337939	Purchased	30018-1	Item	22.559999999999999	\N
 132	~ Sliding Wire Basket (24x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 23"w x 11"h	547.36.266	\N	000.987.241.100.00P		2011-01-01 18:53:54.38009	2011-01-09 21:28:55.636807	Purchased	30016-1	Item	23.510000000000002	\N
 128	~ Sliding Wire Basket (18x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 6"h	547.35.262	\N	000.987.186.100.00P		2011-01-01 18:53:54.20815	2011-01-09 21:29:56.770571	Purchased	30015-1	Item	19.25	\N
 131	~ Sliding Wire Basket (18x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 11"h	547.35.266	\N	000.987.181.100.00P		2011-01-01 18:53:54.258039	2011-01-09 21:31:40.089464	Purchased	30013-1	Item	21.050000000000001	\N
-67	~ Valet Rod | Oil Rubbed Bronze 14-1/8"	Synergy Closet Valet, aluminum, dark oil rubbed bronzed, plastic, black, 14 1/8" length	808.71.103	\N	000.983.000.300.00P		2011-01-01 18:53:52.492961	2011-01-11 18:21:02.504783	Purchased		Item	17.789999999999999	\N
+67	~ Valet Rod | Oil Rubbed Bronze	Synergy Closet Valet, aluminum, dark oil rubbed bronzed, plastic, black, 14 1/8" length	808.71.103	\N	000.983.000.300.00P		2011-01-01 18:53:52.492961	2011-01-21 20:54:47.308936	Purchased		Item	17.789999999999999	
 121	~ Sliding Wire Basket (30x6x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 6"h	547.37.622	\N	000.985.306.200.00P		2011-01-01 18:53:53.863279	2011-01-11 04:15:48.454765	Purchased		Item	19	\N
 118	~ Sliding Wire Basket (30x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 17"h	547.37.228 	\N	000.985.307.100.00P		2011-01-01 18:53:53.738219	2011-01-11 04:20:28.044561	Purchased		Item	28.760000000000002	\N
 124	~ Sliding Wire Basket (30x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 11"h	547.37.626	\N	000.985.301.200.00P		2011-01-01 18:53:53.958893	2011-01-11 04:28:18.178692	Purchased		Item	25	\N
@@ -2528,13 +2582,14 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 125	~ Sliding Wire Basket (18x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 17"h	547.35.628	\N	000.985.187.200.00P		2011-01-01 18:53:54.07906	2011-01-11 04:46:36.200216	Purchased		Item	22.5	\N
 140	~ Sliding Wire Basket (18x11x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 17"w x 11"h	547.35.666	\N	000.987.181.200.00P		2011-01-01 18:53:54.681235	2011-01-09 20:47:48.074599	Purchased	30050-1	Item	21.649999999999999	\N
 113	~ Sliding Wire Basket (18x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 11"h	547.38.226	\N	000.985.181.100.00P		2011-01-01 18:53:53.673204	2011-01-11 04:52:49.100426	Purchased		Item	19.859999999999999	\N
-133	~ Sliding Wire Basket (30x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 11"h	547.37.266	\N	000.987.301.100.00P		2011-01-01 18:53:54.428492	2011-01-20 05:35:09.113615	Purchased	30019-1	Item	26.34	
+133	~ Sliding Wire Basket (30x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 11"h	547.41.266	\N	000.987.301.100.00P		2011-01-01 18:53:54.428492	2011-01-21 20:56:17.041096	Purchased	30019-1	Item	26.34	
 110	~ Sliding Wire Basket (18x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 6"h	547.38.222	\N	000.985.186.100.00P		2011-01-01 18:53:53.635417	2011-01-11 04:56:15.540019	Purchased		Item	17.109999999999999	\N
 122	~ Sliding Wire Basket (18x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 11"h	547.35.626	\N	000.985.181.200.00P		2011-01-01 18:53:53.877789	2011-01-11 04:48:31.088702	Purchased		Item	18.75	\N
 130	~ Sliding Wire Basket (30x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 6"h	547.37.262	\N	000.987.306.100.00P		2011-01-01 18:53:54.233435	2011-01-09 21:23:49.720487	Purchased	30021-1	Item	24.309999999999999	\N
 112	~ Sliding Wire Basket (30x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 6"h	547.37.222 	\N	000.985.306.100.00P		2011-01-01 18:53:53.661007	2011-01-11 04:14:50.209835	Purchased		Item	19.210000000000001	\N
-136	~ Sliding Wire Basket (30x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 17"h	547.37.268	\N	000.987.307.100.00P		2011-01-01 18:53:54.573313	2011-01-20 05:40:39.973864	Purchased	30020-1	Item	34.159999999999997	
+136	~ Sliding Wire Basket (30x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 17"h	547.41.268	\N	000.987.307.100.00P		2011-01-01 18:53:54.573313	2011-01-21 20:57:24.66292	Purchased	30020-1	Item	34.159999999999997	
 127	~ Sliding Wire Basket (30x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 17"h\r\n	547.37.628	\N	000.985.307.200.00P		2011-01-01 18:53:54.187019	2011-01-11 04:21:51.621787	Purchased		Item	28	\N
+637	PG Stainless Workbench 24 X 25	PG Stainless Workbench 24 X 25	\N	\N	000.991.890.100.00P	\N	2011-01-21 01:24:54.699345	2011-01-21 01:24:54.699345	Purchased	\N	\N	\N	\N
 115	~ Sliding Wire Basket (30x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 11"h	547.37.226 	\N	000.985.301.100.00P		2011-01-01 18:53:53.699484	2011-01-11 04:26:16.159694	Purchased		Item	25.420000000000002	\N
 138	~ Sliding Wire Basket (24x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 23"w x 6"h	547.36.662	\N	000.987.246.200.00P		2011-01-01 18:53:54.638615	2011-01-09 20:36:10.768551	Purchased	30055-1	Item	24.09	\N
 135	~ Sliding Wire Basket (24x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 23"w x 17"h	547.40.268	\N	000.987.247.100.00P		2011-01-01 18:53:54.555586	2011-01-11 16:40:52.658111	Purchased	30017-1	Item	28.550000000000001	\N
@@ -2545,55 +2600,62 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 367	CTOP - Geneva (3 Week Lead Time) | Laminate 4885 Green Soapstone	CTOP - Geneva (3 Week Lead Time) | Laminate 4885 Green Soapstone		\N	000.401.004.313.00P		2011-01-01 18:54:21.399378	2011-01-03 00:55:12.009753	Purchased		Item	177.84999999999999	\N
 365	CTOP - Geneva (3 Week Lead Time) | Laminate 4883 Sable Soapstone	CTOP - Geneva (3 Week Lead Time) | Laminate 4883 Sable Soapstone		\N	000.401.004.311.00P		2011-01-01 18:54:21.308171	2011-01-03 00:54:47.998983	Purchased		Item	177.84999999999999	\N
 372	CTOP - Geneva (3 Week Lead Time) | Laminate 7948 Mambo	CTOP - Geneva (3 Week Lead Time) | Laminate 7948 Mambo		\N	000.401.004.318.00P		2011-01-01 18:54:21.751996	2011-01-03 00:56:46.396015	Purchased		Item	193.84999999999999	\N
-167	~ Drawer Slide | 3/4 ext | 18"	Soft-Roller 100Lbs St White 450mm 18"	423.37.745	\N	000.423.037.745.00I		2011-01-01 18:53:55.806307	2011-01-11 05:15:48.249935	Inventory	10036	Item	1.0800000000000001	\N
+167	~ Drawer Slide | 3/4 ext | 18 inch	Soft-Roller 100Lbs St White 450mm 18 inch	7111KSC18W	\N	000.423.037.745.00I		2011-01-01 18:53:55.806307	2011-01-22 00:13:16.060548	Inventory	10036	Item	1.05	
 150	~ Sliding Wire Basket (24x11x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 23"w x 11"h	547.36.166	\N	000.987.241.300.00P		2011-01-01 18:53:55.204072	2011-01-09 21:10:35.332241	Purchased	30032-1	Item	26.5	\N
-173	~ Drawer Slide | Full ext | 16"	Accuride C3732-16P St Zip 100Lb	422.88.941	\N	000.710.016.000.00I		2011-01-01 18:53:55.925264	2011-01-09 22:59:21.030637	Inventory	10002	Item	5.6699999999999999	\N
-175	~ Drawer Slide | Full ext | 20"	Accuride C3732-20P St Zip 100Lb	422.88.951	\N	000.710.020.000.00I		2011-01-01 18:53:56.00019	2011-01-09 23:01:12.01879	Inventory	10004	Item	6.1500000000000004	\N
-169	~ Drawer Slide | 3/4 ext | 22"	Soft-Roller 100Lbs St White 550mm 22"	423.37.755	\N	000.423.037.755.00I		2011-01-01 18:53:55.816594	2011-01-10 23:43:32.357886	Inventory	10074	Item	1.4099999999999999	\N
-161	~ Tilt-Out Hamper (30")	Synergy Tilt-Out Hamper, steel, black, 28 1/8" width, 2 black nylon bags included	547.43.305	\N	000.989.030.000.00P		2011-01-01 18:53:55.638594	2011-01-11 04:50:49.733794	Purchased	30087	Item	61.5	\N
+173	~ Drawer Slide | Full ext | 16 inch	Drawer glide 16 inch full extension 100Lb	FU3173316	\N	000.710.016.000.00I		2011-01-01 18:53:55.925264	2011-01-21 23:45:29.159537	Inventory		Item	3.8199999999999998	
+638	PG Stainless Workbench 48 X 25	PG Stainless Workbench 48 X 25	\N	\N	000.991.890.101.00P	\N	2011-01-21 01:24:54.704496	2011-01-21 01:24:54.704496	Purchased	\N	\N	\N	\N
+169	~ Drawer Slide | 3/4 ext | 22 inch	Soft-Roller 100Lbs St White 550mm 22 inch	7111KSC22W	\N	000.423.037.755.00I		2011-01-01 18:53:55.816594	2011-01-22 00:15:26.839146	Inventory	10074	Item	1.1799999999999999	
+161	~ Tilt-Out Hamper (30)	Synergy Tilt-Out Hamper, steel, black, 28 1/8" width, 2 black nylon bags included	547.43.305	\N	000.989.030.000.00P		2011-01-01 18:53:55.638594	2011-01-21 20:53:10.453093	Purchased	30087	Item	61.5	
 156	~ Cam (Double Stud)	Rafix Dbl.Bolt St.Zip 5/7 F.19Mm	263.24.972	\N	000.999.070.000.00I		2011-01-01 18:53:55.385639	2011-01-09 23:11:18.922398	Inventory	10019	Item	0.073599999999999999	\N
+639	PG Stainless Workbench 72 X 25	PG Stainless Workbench 72 X 25	\N	\N	000.991.890.102.00P	\N	2011-01-21 01:24:54.709627	2011-01-21 01:24:54.709627	Purchased	\N	\N	\N	\N
 144	~ Sliding Wire Basket (24x17x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 23"w x 17"h	547.36.668	\N	000.987.247.200.00P		2011-01-01 18:53:54.789717	2011-01-09 20:37:30.853924	Purchased	30054-1	Item	27.949999999999999	\N
-164	~ Drawer Slide | 3/4 ext | 12"	Soft-Roller 100Lbs St White 300mm 12"	423.37.730	\N	000.423.037.730.00I		2011-01-01 18:53:55.791252	2011-01-10 17:59:56.17072	Inventory	10076	Item	0.83999999999999997	\N
+640	PG Stainless Workbench 96 X 25	PG Stainless Workbench 96 X 25	\N	\N	000.991.890.103.00P	\N	2011-01-21 01:24:54.714642	2011-01-21 01:24:54.714642	Purchased	\N	\N	\N	\N
+164	~ Drawer Slide | 3/4 ext | 12 inch	Soft-Roller 100Lbs St White 300mm 12"	7111KSC12W	\N	000.423.037.730.00I		2011-01-01 18:53:55.791252	2011-01-22 00:10:22.814636	Inventory	10076	Item	0.76000000000000001	
 155	~ Cam (Screw-In Stud)	Rafix Bolt St.Zip Dia. 7X11Mm 5Mm	263.20.847	\N	000.999.060.000.00I		2011-01-01 18:53:55.380916	2011-01-09 23:12:01.194963	Inventory	10040	Item	0.042299999999999997	\N
-176	~ Drawer Slide | Full ext | 22"	Accuride C3732-22P St Zip 100Lb	422.88.956	\N	000.710.022.000.00I		2011-01-01 18:53:56.006081	2011-01-11 17:11:19.315342	Inventory	10056	Item	6.1500000000000004	\N
-171	~ Drawer Slide | Full ext | 12"	Accuride C3732-12P St Zip 100Lb	422.88.931	\N	000.710.012.000.00I		2011-01-01 18:53:55.826341	2011-01-09 21:54:06.023905	Inventory	10073	Item	5.3399999999999999	\N
+176	~ Drawer Slide | Full ext | 22 inch	Drawer glide 22 inch full extension 100Lb	FU3173322	\N	000.710.022.000.00I		2011-01-01 18:53:56.006081	2011-01-21 23:55:19.076855	Inventory	1071	Item	4.29	
+171	~ Drawer Slide | Full ext | 12 inch	Drawer glide 12 inch full extension 100Lb	FU3173312	\N	000.710.012.000.00I		2011-01-01 18:53:55.826341	2011-01-21 23:54:23.349707	Inventory	10073	Item	2.98	
 153	~ Sliding Wire Basket (24x17x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze,16"d x 23"w x 17"h	547.36.168	\N	000.987.247.300.00P		2011-01-01 18:53:55.35627	2011-01-09 21:09:30.268664	Purchased	30033-1	Item	30.449999999999999	\N
-172	~ Drawer Slide | Full ext | 14"	Drawer glide 14", full extension 100Lb	422.88.936	\N	000.710.014.000.00I		2011-01-01 18:53:55.875115	2011-01-13 00:51:35.139297	Inventory	1070	Item	2.98	\N
-180	~ Wardrobe Lift (20-26") | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.601 	\N	000.988.026.200.00P		2011-01-01 18:53:56.083546	2011-01-11 03:56:27.627243	Purchased		Item	68.462999999999994	\N
+641	PG Stainless Workbench 120 X 25	PG Stainless Workbench 120 X 25	\N	\N	000.991.890.104.00P	\N	2011-01-21 01:24:54.719654	2011-01-21 01:24:54.719654	Purchased	\N	\N	\N	\N
+175	~ Drawer Slide | Full ext | 20 inch	Drawer glide 20 inch full extension 100Lb	FU3173320	\N	000.710.020.000.00I		2011-01-01 18:53:56.00019	2011-01-21 23:49:11.585499	Inventory		Item	4.29	
+180	~ Wardrobe Lift (20-26) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.601 	\N	000.988.026.200.00P		2011-01-01 18:53:56.083546	2011-01-21 21:04:02.158204	Purchased		Item	68.462999999999994	
 154	~ Sliding Wire Basket (30x17x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 29"w x 17"h	547.37.168	\N	000.987.307.300.00P		2011-01-01 18:53:55.36885	2011-01-09 21:05:55.503486	Purchased	30036-1	Item	35.93	\N
-166	~ Drawer Slide | 3/4 ext | 16"	Soft-Roller 100Lbs St White 400mm 16"	423.37.740	\N	000.423.037.740.00I		2011-01-01 18:53:55.801622	2011-01-11 05:14:23.514105	Inventory	10035	Item	0.97999999999999998	\N
 148	~ Sliding Wire Basket (30x6x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 29"w x 6"h	547.37.162	\N	000.987.306.300.00P		2011-01-01 18:53:54.991918	2011-01-09 21:04:24.669581	Purchased	30037-1	Item	25.079999999999998	\N
-159	~ Tilt-Out Hamper (18")	Synergy Tilt-Out Hamper, steel, black, 16 1/4" width, 1 black nylon bag included	547.43.301	\N	000.989.018.000.00P		2011-01-01 18:53:55.535954	2011-01-11 04:49:28.923603	Purchased	30085	Item	47.130000000000003	\N
+159	~ Tilt-Out Hamper (18)	Synergy Tilt-Out Hamper, steel, black, 16 1/4" width, 1 black nylon bag included	547.43.301	\N	000.989.018.000.00P		2011-01-01 18:53:55.535954	2011-01-21 20:51:52.751977	Purchased	30085	Item	47.130000000000003	
 151	~ Sliding Wire Basket (30x11x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 29"w x 11"h	547.37.166	\N	000.987.301.300.00P		2011-01-01 18:53:55.319084	2011-01-09 21:07:37.921059	Purchased	30035-1	Item	31.890000000000001	\N
-145	~ Sliding Wire Basket (30x17x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 17"h	547.37.668	\N	000.987.307.200.00P		2011-01-01 18:53:54.808834	2011-01-20 05:42:46.810744	Purchased	30057-1	Item	31.300000000000001	
+644	~ SlatWall Corner Molding (4/box) | White	~ SlatWall Corner Molding (4/box) | White	HST1008M	\N	000.990.320.1OI.000		2011-01-21 01:24:55.008372	2011-01-21 22:21:54.548715	Purchased	3201-IOC	Item	6.5499999999999998	
+642	Home Office L Corner	Home Office L Corner	\N	\N	000.196.424.x.00M	\N	2011-01-21 01:24:54.724789	2011-01-21 01:24:54.724789	Manufactured	\N	\N	\N	\N
 149	~ Sliding Wire Basket (18x11x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 17"w x 11"h	547.35.166	\N	000.987.181.300.00P		2011-01-01 18:53:55.109521	2011-01-09 21:14:56.338091	Purchased	30029-1	Item	25.039999999999999	\N
 143	~ Sliding Wire Basket (18x17x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 17"w x 17"h	547.35.668	\N	000.987.187.200.00P		2011-01-01 18:53:54.758167	2011-01-09 20:40:18.524021	Purchased	30051-1	Item	25.57	\N
 152	~ Sliding Wire Basket (18x17x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 17"w x 17"h	547.35.168	\N	000.987.187.300.00P		2011-01-01 18:53:55.34365	2011-01-09 21:13:07.47431	Purchased	30030-1	Item	29.199999999999999	\N
+646	~ SlatWall Drywall Screws (1000/box) | White	~ SlatWall Drywall Screws (1000/box) | White	HSWS100W	\N	000.990.320.10S.000		2011-01-21 01:24:55.018215	2011-01-21 22:27:00.814616	Purchased	3201-S	Item	0.034000000000000002	
+645	~ SlatWall J Molding (4/box) | White	~ SlatWall J Molding (4/box) | White	HST1088L	\N	000.990.320.1JM.000		2011-01-21 01:24:55.013337	2011-01-21 22:35:37.744395	Purchased	3201-JM	Item	5.25	
+643	~ SlatWall T Molding (4/box) | White	~ SlatWall T Molding (4/box) | White	HST1008D	\N	000.990.320.1DM.000		2011-01-21 01:24:55.003315	2011-01-21 22:39:40.592562	Purchased	3201-DM	Item	5.3799999999999999	
+647	~ SlatWall U Edge Molding (4/box) | White	~ SlatWall U Edge Molding (4/box) | White	HST1008E	\N	000.990.320.10U.000		2011-01-21 01:24:55.023174	2011-01-21 22:43:32.342793	Purchased	3201-U	Item	3.5	
 401	CTOP Corner - Classic (3 Week Lead Time) | Laminate 7942 Cocobala	CTOP Corner - Classic (3 Week Lead Time) | Laminate 7942 Cocobala		\N	000.402.000.317.00P		2011-01-01 18:54:23.330579	2011-01-03 01:53:14.427387	Purchased		Item	240.62	\N
 203	~ Hutch Base Corner Brace	Hutch Base Corner Brace Unfinished..	260.34.005	\N	000.260.034.905.00I		2011-01-01 18:53:57.23064	2011-01-11 16:47:12.989718	Inventory	10054	Item	0.21099999999999999	\N
 236	~ Cam - Flush | White	Rafix SE w/o Ridge White 19mm	263.50.705	\N	000.263.050.705.00I		2011-01-01 18:54:07.455903	2011-01-09 23:12:46.702858	Inventory	10041	Item	0.096000000000000002	\N
-238	~ Cam Cover | Beige for Victorian White	Rafix Cover Cap Pl Beige For Flush Cams	263.59.430	\N	000.263.059.430.00I		2011-01-01 18:54:07.544535	2011-01-09 23:21:57.078977	Inventory	10044	Item	0.0106	\N
-240	~ Cam Cover | Cinnamon for Autumn Glow	Rafix Cover Cap Pl Cinnamon For Flush Cams	263.59.132	\N	000.263.059.132.00I		2011-01-01 18:54:07.746051	2011-01-09 23:23:53.415475	Inventory	10046	Item	0.0106	\N
-239	~ Cam Cover | Wheat for Maple	Rafix Cover Cap Pl Wheat For Flush Cams	263.59.432	\N	000.263.059.432.00I		2011-01-01 18:54:07.647172	2011-01-09 23:22:43.543861	Inventory	10045	Item	0.0106	\N
-181	~ Wardrobe Lift (26-35") | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.602	\N	000.988.035.200.00P		2011-01-01 18:53:56.098468	2011-01-11 04:00:15.202276	Purchased		Item	69.677999999999997	\N
-237	~ Cam Cover | White for White	Rafix Cover Cap Pl White For Flush Cams	263.59.730	\N	000.263.059.730.00I		2011-01-01 18:54:07.537971	2011-01-09 23:13:51.902051	Inventory	10043	Item	0.0106	\N
-241	~ Cam Cover | Brown for Sable Glow	Rafix Cover Cap Pl Brown For Flush Cams	263.59.130	\N	000.263.059.130.00I		2011-01-01 18:54:07.754654	2011-01-09 23:24:41.525601	Inventory	10047	Item	0.0106	\N
-201	~ Screw (Euro) 5 x 10mm	Euro Screw 5 x 10mm (Box Qty 500)	3701051002	\N	000.013.014.718.00I		2011-01-01 18:53:57.220655	2011-01-10 18:05:31.948497	Inventory	1003	Item	0.0089099999999999995	\N
-217	~ Bumper .335mm x .805mm thick	Bumper Stop Self Adhesive Poly Clear .335 Wide x .805 Thick (Box Qty. 5400)	7129BS7SD	\N	000.356.025.445.00I		2011-01-01 18:54:02.48911	2011-01-10 18:14:18.347893	Inventory	1047	Item	0.02	\N
+238	~ Cam Cover | Beige	Rafix Cover Cap Pl Beige For Flush Cams. use with Victorian White	263.59.430	\N	000.263.059.430.00I		2011-01-01 18:54:07.544535	2011-01-21 18:31:10.757396	Inventory	10044	Item	0.0106	
+240	~ Cam Cover | Cinnamon	Rafix Cover Cap Pl Cinnamon For Flush Cams use with Autumn Glow	263.59.132	\N	000.263.059.132.00I		2011-01-01 18:54:07.746051	2011-01-21 18:59:43.912106	Inventory	10046	Item	0.0106	
+239	~ Cam Cover | Wheat	Rafix Cover Cap Pl Wheat For Flush Cams. use with Maple	263.59.432	\N	000.263.059.432.00I		2011-01-01 18:54:07.647172	2011-01-21 19:04:05.785299	Inventory	10045	Item	0.0106	
+181	~ Wardrobe Lift (26-35) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.602	\N	000.988.035.200.00P		2011-01-01 18:53:56.098468	2011-01-21 21:10:53.334594	Purchased		Item	69.677999999999997	
+237	~ Cam Cover | White	Rafix Cover Cap Pl White For Flush Cams	263.59.730	\N	000.263.059.730.00I		2011-01-01 18:54:07.537971	2011-01-21 19:04:49.73348	Inventory	10043	Item	0.0106	
+241	~ Cam Cover | Brown	Rafix Cover Cap Pl Brown For Flush Cams. use with Sable Glow	263.59.130	\N	000.263.059.130.00I		2011-01-01 18:54:07.754654	2011-01-21 18:40:07.899781	Inventory	10047	Item	0.0106	
+218	~ Screw (Doors Handles)	23mm M4 Handle Screw Doors 100/box	022.35.234	\N	000.022.035.234.00I		2011-01-01 18:54:02.601139	2011-01-21 20:01:32.298096	Inventory	10057	Item	0.030499999999999999	
+648	~ SlatWall 12 x 96 (4/box) |White	~ SlatWall 12 x 96 (4/box) |White	HSW1008	\N	000.990.320.10W.000		2011-01-21 01:24:55.02821	2011-01-21 21:55:13.711285	Purchased	3201-W	Item	18.16	
 226	~ Hinge | Corner	Hinge 45 degree Corner	65C2R7M99AC	\N	000.311.066.501.00I		2011-01-01 18:54:02.847892	2011-01-19 05:46:11.059612	Inventory	1043	Item	2.3300000000000001	
-219	~ Screw (Drawer Front Handles DR1)	28mm M4 Handle Screw DR1 Drawers (500/box)	022.35.289	\N	000.022.035.259.00I		2011-01-01 18:54:02.685097	2011-01-19 05:51:02.106043	Inventory		Item	0.0356	
+219	~ Screw (Drawer Front Handles DR1)	28mm M4 Handle Screw DR1 Drawers (500/box)	022.35.259	\N	000.022.035.259.00I		2011-01-01 18:54:02.685097	2011-01-21 23:10:31.007395	Inventory	10067	Item	0.0356	
 204	~ Hutch Base Angle Bracket	Hutch Base Angle Bracket Zinc Plated....	260.34.005	\N	000.260.028.505.00I		2011-01-01 18:53:57.235534	2011-01-09 23:26:13.348493	Inventory	10048	Item	0.16	\N
 228	~ Shelf Pin (Safety Shelf)	Shelf Support W/Plug Zn.Nip. 5mm	282.24.720	\N	000.282.024.720.00I		2011-01-01 18:54:05.491279	2011-01-19 05:57:30.028867	Inventory	10033	Item	0.075700000000000003	
-218	~ Screw (Doors Handles) 23mm x M4	23mm M4 Handle Screw Doors 100/box	022.35.234	\N	000.022.035.234.00I		2011-01-01 18:54:02.601139	2011-01-19 05:49:16.170531	Inventory	10057	Item	0.030499999999999999	
-220	~ Screw (Drawer Front Handles) 35mm x M4	35mm M4 Handle Screw Drawers 100/box	022.35.350	\N	000.022.035.350.00I		2011-01-01 18:54:02.689924	2011-01-19 05:51:58.170437	Inventory	10058	Item	0.043099999999999999	
+220	~ Screw (Drawer Front Handles)	35mm M4 Handle Screw Drawers 100/box	022.35.350	\N	000.022.035.350.00I		2011-01-01 18:54:02.689924	2011-01-21 20:03:30.944771	Inventory	10058	Item	0.043099999999999999	
 205	~ Screw (Corner Brace)	Pan Head Screw for Corner Brace (#8 x 3/4)	010.83.965	\N	000.010.083.965.00I		2011-01-01 18:53:57.240319	2011-01-10 18:24:10.646575	Inventory	10065	Item	0.0092999999999999992	\N
 598	ZZ NXp Panel 25 DON'T DELETE	building block: 1 inch panel		\N			2011-01-07 17:24:43.476855	2011-01-12 20:23:08.623935	Manufactured		Panel	\N	\N
-177	~ Wardrobe Lift (20-26") | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.201	\N	000.988.026.100.00P		2011-01-01 18:53:56.010967	2011-01-09 20:14:39.582982	Purchased	30074	Item	38.920000000000002	\N
+177	~ Wardrobe Lift (20-26) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.201	\N	000.988.026.100.00P		2011-01-01 18:53:56.010967	2011-01-21 21:08:41.421517	Purchased	30074	Item	38.920000000000002	
+178	~ Wardrobe Lift (26-35) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.202	\N	000.988.035.100.00P		2011-01-01 18:53:56.023107	2011-01-21 21:11:23.758328	Purchased	30075	Item	39.536000000000001	
 244	CL Hutch Panel 36 - BaseNotch - Thru	CL Hutch Panel 36 - BaseNotch - Thru 		\N	000.211.036.x.00M	CL-VHPN-36-T	2011-01-01 18:54:08.096697	2011-01-03 15:36:12.0637	Manufactured		ClosetPartition	\N	\N
 225	~ Jewelry Tray | Black Velvet | (27-13/16 x 18-5/8 x 2)	Jewelry Tray | Black Velvet | (27-13/16 x 18-5/8 x 2)	CLO2606-2718-03	\N	000.984.278.000.00P		2011-01-01 18:54:02.750921	2011-01-12 19:07:33.220096	Purchased	30118	Item	30.859999999999999	\N
 222	~ Jewelry Tray | Black Velvet | (21-13/16 x 12-5/8 x 2)	Jewelry Tray | Black Velvet | (21-13/16 x 12-5/8 x 2)	CLO2606-2112-27	\N	000.984.212.000.00P		2011-01-01 18:54:02.699268	2011-01-12 19:06:08.179759	Purchased	30115	Item	23.420000000000002	\N
 224	~ Jewelry Tray | Black Velvet | (27-13/16 x 12-5/8 x 2)	Jewelry Tray | Black Velvet | (27-13/16 x 12-5/8 x 2)	CLO2606-2712-20	\N	000.984.272.000.00P		2011-01-01 18:54:02.74512	2011-01-12 19:07:14.264229	Purchased	30117	Item	26.010000000000002	\N
-185	~ Wardrobe Lift (35-47") | Black	Wardrobe Lift, steel, black, plastic, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.303	\N	000.988.047.400.00P		2011-01-01 18:53:56.342484	2011-01-11 04:01:31.821448	Purchased		Item	49.5	\N
+185	~ Wardrobe Lift (35-47) | Black	Wardrobe Lift, steel, black, plastic, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.303	\N	000.988.047.400.00P		2011-01-01 18:53:56.342484	2011-01-21 21:11:52.455351	Purchased		Item	49.5	
 223	~ Jewelry Tray | Black Velvet | (21-13/16 x 18-5/8 x 2)	Jewelry Tray | Black Velvet | (21-13/16 x 18-5/8 x 2)	CLO2606-2118-02	\N	000.984.128.000.00P		2011-01-01 18:54:02.704023	2011-01-12 19:06:54.324887	Purchased	30116	Item	27.629999999999999	\N
 230	CL Hamper Door - flat	CL Hamper Door - flat 		\N	000.140.000.x.00M	CL-HPD	2011-01-01 18:54:06.016939	2011-01-10 01:53:07.286863	Manufactured		Door	\N	\N
 198	Drawer Box	Drawer Box		\N	000.024.011.x.00B	DBX	2011-01-01 18:53:57.183425	2011-01-11 15:46:37.139043	Manufactured		Drawer	\N	\N
@@ -2604,9 +2666,10 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 207	Decor Crown Molding - 423 | Hardrock Maple	Decor Crown Molding - 423 | Hardrock Maple		\N	000.301.000.010.00P		2011-01-01 18:53:57.251766	2011-01-12 02:56:21.323129	Purchased		Item	29.93	\N
 211	Decor Crown Molding - 423 | Windswept Bronze	Decor Crown Molding - 423 | Windswept Bronze		\N	000.301.000.008.00P		2011-01-01 18:53:57.516415	2011-01-12 03:00:02.110468	Purchased		Item	\N	\N
 209	Decor Crown Molding - 423 | Windswept Pewter	Decor Crown Molding - 423 | Windswept Pewter		\N	000.301.000.009.00P		2011-01-01 18:53:57.427746	2011-01-12 03:00:46.705947	Purchased		Item	\N	\N
-178	~ Wardrobe Lift (26-35") | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.202	\N	000.988.035.100.00P		2011-01-01 18:53:56.023107	2011-01-09 20:13:22.37094	Purchased	30075	Item	39.536000000000001	\N
-179	~ Wardrobe Lift (35-47") | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.203	\N	000.988.047.100.00P		2011-01-01 18:53:56.068112	2011-01-09 20:11:58.718849	Purchased	30076	Item	40.823999999999998	\N
+179	~ Wardrobe Lift (35-47) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.203	\N	000.988.047.100.00P		2011-01-01 18:53:56.068112	2011-01-21 21:12:50.951627	Purchased	30076	Item	40.823999999999998	
+201	~ Screw (Euro)	Euro Screw 5 x 10mm (Box Qty 500)	3701051002	\N	000.013.014.718.00I		2011-01-01 18:53:57.220655	2011-01-21 20:05:03.30325	Inventory	1003	Item	0.0089099999999999995	
 208	Decor Crown Molding - 424 | Hardrock Maple	Decor Crown Molding - 424 | Hardrock Maple		\N	000.302.000.010.00P		2011-01-01 18:53:57.282305	2011-01-12 03:06:18.561585	Purchased		Item	32.399999999999999	\N
+649	~ SlatWall T Molding (4/box) | Taupe	~ SlatWall T Molding (4/box) | Taupe	HST2008D	\N	000.990.320.2DM.000		2011-01-21 01:24:55.033244	2011-01-21 22:39:01.40794	Purchased	3202-DM	Item	5.3799999999999999	
 263	NX Base Cabinet 1 Door	NX Base Cabinet 1 Door 		\N	000.101.233.x.00M	NX-B1-1AS	2011-01-01 18:54:10.080876	2011-01-02 16:44:07.753622	Manufactured		Cabinet	\N	\N
 271	CTOP - Classic (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP - Classic (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.401.000.301.00P		2011-01-01 18:54:11.811055	2011-01-03 00:37:54.216046	Purchased		Item	185.84999999999999	\N
 272	CTOP - Classic (3 Week Lead Time) | Laminate 1595 Black	CTOP - Classic (3 Week Lead Time) | Laminate 1595 Black		\N	000.401.000.302.00P		2011-01-01 18:54:11.855812	2011-01-03 00:38:09.148243	Purchased		Item	185.84999999999999	\N
@@ -2675,6 +2738,13 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 312	CTOP - Nova (3 Week Lead Time) | Laminate D403 White Sand	CTOP - Nova (3 Week Lead Time) | Laminate D403 White Sand		\N	000.401.001.321.00P		2011-01-01 18:54:17.039277	2011-01-03 01:09:01.444704	Purchased		Item	166.15000000000001	\N
 311	CTOP - Nova (3 Week Lead Time) | Laminate D92 Dove Grey	CTOP - Nova (3 Week Lead Time) | Laminate D92 Dove Grey		\N	000.401.001.320.00P		2011-01-01 18:54:16.928291	2011-01-03 01:09:21.660378	Purchased		Item	166.15000000000001	\N
 313	CTOP - Tempo (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP - Tempo (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.401.002.301.00P		2011-01-01 18:54:17.07004	2011-01-03 01:09:53.244022	Purchased		Item	146.46000000000001	\N
+660	~ SlatWall 12 x 96 (4/box) |Maple	~ SlatWall 12 x 96 (4/box) |Maple	HSW5008	\N	000.990.320.30W.000		2011-01-21 01:24:55.088016	2011-01-21 21:50:04.186207	Purchased	3203-W	Item	27.440000000000001	
+656	~ SlatWall Corner Molding (4/box) | Maple	~ SlatWall Corner Molding (4/box) | Maple	HST9008M	\N	000.990.320.3IO.000		2011-01-21 01:24:55.068208	2011-01-21 22:06:56.54561	Purchased	3203-IOC	Item	6.5499999999999998	
+658	~ SlatWall Drywall Screws (1000/box) | Maple	~ SlatWall Drywall Screws (1000/box) | Maple	HSWS500M	\N	000.990.320.30S.000		2011-01-21 01:24:55.078039	2011-01-21 22:24:37.317726	Purchased	3203-S	Item	0.034000000000000002	
+663	~ SlatWall J Molding (4/box) | Black	~ SlatWall J Molding (4/box) | Black	HST4088L	\N	000.990.320.4JM.000		2011-01-21 01:24:55.102906	2011-01-21 22:32:13.153029	Purchased	3204-JM	Item	5.25	
+661	~ SlatWall T Molding (4/box) | Black	~ SlatWall T Molding (4/box) | Black	HST4008D	\N	000.990.320.4DM.000		2011-01-21 01:24:55.092916	2011-01-21 22:36:54.310236	Purchased	3204-DM	Item	5.3799999999999999	
+655	~ SlatWall T Molding (4/box) | Maple	~ SlatWall T Molding (4/box) | Maple	HST9008D	\N	000.990.320.3DM.000		2011-01-21 01:24:55.063253	2011-01-21 22:38:29.199755	Purchased	3203-DM	Item	5.3799999999999999	
+659	~ SlatWall U Edge Molding (4/box) | Maple	~ SlatWall U Edge Molding (4/box) | Maple	HST9008E	\N	000.990.320.30U.000		2011-01-21 01:24:55.083025	2011-01-21 22:42:17.56689	Purchased	3203-U	Item	3.5	
 600	~ Keyboard Tray - 200 | Black	Standard Keyboard System-Model 200-75 lbs.	632.52.300	\N	000.632.052.300.00P		2011-01-08 16:09:48.889058	2011-01-10 23:51:01.235202	Purchased		Item	88.280000000000001	\N
 532	NX Corner Upper Cabinet	NX Corner Upper Cabinet 		\N	000.308.330.x.00M	NX-CU1-1AS	2011-01-01 18:54:28.484269	2011-01-11 18:04:35.679097	Manufactured		CornerCabinet	\N	\N
 314	CTOP - Tempo (3 Week Lead Time) | Laminate 1595 Black	CTOP - Tempo (3 Week Lead Time) | Laminate 1595 Black		\N	000.401.002.302.00P		2011-01-01 18:54:17.115979	2011-01-03 01:10:07.465236	Purchased		Item	146.46000000000001	\N
@@ -2707,6 +2777,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 351	CTOP - Futura (3 Week Lead Time) | Laminate 7948 Mambo	CTOP - Futura (3 Week Lead Time) | Laminate 7948 Mambo		\N	000.401.003.318.00P		2011-01-01 18:54:20.881215	2011-01-03 00:50:24.100428	Purchased		Item	182.15000000000001	\N
 354	CTOP - Futura (3 Week Lead Time) | Laminate D403 White Sand	CTOP - Futura (3 Week Lead Time) | Laminate D403 White Sand		\N	000.401.003.321.00P		2011-01-01 18:54:21.077636	2011-01-03 00:50:47.769866	Purchased		Item	166.15000000000001	\N
 353	CTOP - Futura (3 Week Lead Time) | Laminate D92 Dove Grey	CTOP - Futura (3 Week Lead Time) | Laminate D92 Dove Grey		\N	000.401.003.320.00P		2011-01-01 18:54:21.061819	2011-01-03 00:51:05.479993	Purchased		Item	166.15000000000001	\N
+664	~ SlatWall Drywall Screws (1000/box) | Black	~ SlatWall Drywall Screws (1000/box) | Black	HSWS400B	\N	000.990.320.40S.000		2011-01-21 01:24:55.107741	2011-01-21 22:23:15.121918	Purchased	3204-S	Item	0.034000000000000002	
+669	~ SlatWall J Molding (4/box) | Gray	~ SlatWall J Molding (4/box) | Gray	HST3088L	\N	000.990.320.5JM.000		2011-01-21 01:24:55.133653	2011-01-21 22:33:12.283876	Purchased	3205-JM	Item	5.25	
+667	~ SlatWall T Molding (4/box) | Gray	~ SlatWall T Molding (4/box) | Gray	HST3008D	\N	000.990.320.5DM.000		2011-01-21 01:24:55.123367	2011-01-21 22:37:43.976205	Purchased	3205-DM	Item	5.3799999999999999	
 254	CL Hutch Panel 44 - Left	CL Hutch Panel 44 - Left 		\N	000.202.044.x.00M	CL-VHP-44-L	2011-01-01 18:54:09.089408	2011-01-03 15:39:23.452299	Manufactured		ClosetPartition	\N	\N
 20	CTOP Corner - 3/4 in. melamine	CTOP Corner 3/4 in. melamine		\N	000.402.000.x.00M	MEL-CCTOP-19	2011-01-01 18:53:39.14284	2011-01-02 02:35:37.884026	Manufactured		Countertop	\N	\N
 355	CTOP - Geneva (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP - Geneva (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.401.004.301.00P		2011-01-01 18:54:21.091691	2011-01-03 00:51:45.285003	Purchased		Item	177.84999999999999	\N
@@ -2740,6 +2813,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 389	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4789 Limestone	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4789 Limestone		\N	000.402.000.305.00P		2011-01-01 18:54:22.548922	2011-01-03 01:50:11.904484	Purchased		Item	240.62	\N
 395	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4883 Sable Soapstone	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4883 Sable Soapstone		\N	000.402.000.311.00P		2011-01-01 18:54:23.068882	2011-01-03 01:51:41.07473	Purchased		Item	185.84999999999999	\N
 391	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4791 Willowstone	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4791 Willowstone		\N	000.402.000.307.00P		2011-01-01 18:54:22.688512	2011-01-03 01:50:39.086612	Purchased		Item	240.62	\N
+670	~ SlatWall Drywall Screws (1000/box) | Gray	~ SlatWall Drywall Screws (1000/box) | Gray	HSWS300G	\N	000.990.320.50S.000		2011-01-21 01:24:55.138712	2011-01-21 22:23:48.333738	Purchased	3205-S	Item	0.034000000000000002	
+671	~ SlatWall U Edge Molding (4/box) | Gray	~ SlatWall U Edge Molding (4/box) | Gray	HST3008E	\N	000.990.320.50U.000		2011-01-21 01:24:55.143909	2011-01-21 22:41:41.83547	Purchased	3205-U	Item	3.5	
 245	CL Hutch Panel 36 - BaseNotch - Left	CL Hutch Panel 36 - BaseNotch - Left 		\N	000.212.036.x.00M	CL-VHPN-36-L	2011-01-01 18:54:08.11234	2011-01-03 15:35:03.996018	Manufactured		ClosetPartition	\N	\N
 520	Premium Door - AMS329	Premium Door - AMS329 		\N	000.104.000.x.00B		2011-01-01 18:54:28.082167	2011-01-10 17:07:19.019621	Manufactured		PremiumDoor	\N	\N
 556	ZZ NX Cabinet Shell DON'T DELETE	building block: NX cabinet shell		\N			2011-01-02 03:38:37.333379	2011-01-12 17:46:26.36134	Manufactured		Shell	\N	\N
@@ -2771,13 +2846,16 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 419	CTOP Corner - Nova (3 Week Lead Time) | Laminate 4886 Pearl Soapstone	CTOP Corner - Nova (3 Week Lead Time) | Laminate 4886 Pearl Soapstone		\N	000.402.001.314.00P		2011-01-01 18:54:24.830271	2011-01-03 02:08:57.465004	Purchased		Item	166.15000000000001	\N
 421	CTOP Corner - Nova (3 Week Lead Time) | Laminate 7921 Tuscan Walnut	CTOP Corner - Nova (3 Week Lead Time) | Laminate 7921 Tuscan Walnut		\N	000.402.001.316.00P		2011-01-01 18:54:25.240168	2011-01-03 02:09:25.601268	Purchased		Item	166.15000000000001	\N
 422	CTOP Corner - Nova (3 Week Lead Time) | Laminate 7942 Cocobala	CTOP Corner - Nova (3 Week Lead Time) | Laminate 7942 Cocobala		\N	000.402.001.317.00P		2011-01-01 18:54:25.303941	2011-01-03 02:09:54.159948	Purchased		Item	210.46000000000001	\N
-518	Premium Door - DR1	Premium Door - DR1 		\N	000.102.000.x.00B		2011-01-01 18:54:28.057551	2011-01-10 17:09:00.907185	Manufactured		PremiumDoor	\N	\N
+518	Premium Door - DR1	Premium Door - DR1 		\N	000.102.000.x.00B		2011-01-01 18:54:28.057551	2011-01-21 21:40:12.34196	Manufactured		PremiumDoor	\N	
+676	~ The Bike Rack & Basket (4/box)	~ The Bike Rack & Basket (4/box)	7110-5040-50	\N	000.995.300.400.000		2011-01-21 01:24:55.171361	2011-01-21 21:18:43.994037	Purchased	3004	Item	12.704040000000001	
+678	~ The Fish Hook (4/box)	~ The Fish Hook (4/box)	7110-5050-50	\N	000.995.300.600.000		2011-01-21 01:24:55.181376	2011-01-21 21:20:17.878457	Purchased	3006	Item	16.504169999999998	
+675	~ The Skate Rack & Basket (4/box)	~ The Skate Rack & Basket (4/box)	7110-5030-50	\N	000.995.300.300.000		2011-01-21 01:24:55.166256	2011-01-21 21:28:30.334355	Purchased	3003	Item	17.008130000000001	
 36	CL Upright Partition - BaseNotch - Right	CL Upright Partition - BaseNotch - Right 		\N	000.912.3x.x.00M	CL-VUN-R	2011-01-01 18:53:39.605932	2011-01-02 02:27:14.054202	Manufactured		ClosetPartition	\N	\N
 38	CL Upright Partition - Left	CL Upright Partition - Left 		\N	000.911.1x.x.00M	CL-VU-L	2011-01-01 18:53:39.908101	2011-01-02 02:28:14.201358	Manufactured		ClosetPartition	\N	\N
 46	CL Corner Cam Shelf	CL Corner Cam Shelf 		\N	000.932.x.x.00M	CL-CCS	2011-01-01 18:53:49.522936	2011-01-02 01:51:49.829456	Manufactured		ClosetShelf	\N	\N
 40	CL Hanging Partition - Radius - Thru	CL Hanging Partition Radius Bottom - Thru Drilled		\N	000.910.25x.x.00M	CL-HPR-T	2011-01-01 18:53:43.331732	2011-01-12 17:54:33.541943	Manufactured		ClosetPartition	\N	\N
-174	~ Drawer Slide | Full ext | 18"	Accuride C3732-18P St Zip 100Lb	422.88.946	\N	000.710.018.000.00I		2011-01-01 18:53:55.976279	2011-01-09 23:00:17.646084	Inventory	10003	Item	5.8600000000000003	\N
-61	~ Tie Rack | Oil Rubbed Bronze 13-7/8"	Synergy Tie Rack with Slide, aluminum, dark oil rubbed bronzed, plastic, black, 13 7/8" length	807.67.103	\N	000.981.000.300.00P		2011-01-01 18:53:51.496891	2011-01-11 18:31:12.143602	Purchased		Item	24.050000000000001	\N
+692	~ The Big Basket (6/box)	~ The Big Basket (6/box)	7110-5630-50	\N	000.995.302.000.000		2011-01-21 01:24:55.25238	2011-01-21 21:11:00.574279	Purchased	3020	Item	10.936030000000001	
+688	~ The Big Everything Hook (6/box)	~ The Big Everything Hook (6/box)	7110-5611-50	\N	000.995.301.600.000		2011-01-21 01:24:55.232273	2011-01-21 21:13:25.910235	Purchased	3016	Item	4.3319900000000002	
 221	~ Flap Stay | White	Flap Stay steel white 225mm\r\n	365.75.710	\N	000.365.075.710.00P		2011-01-01 18:54:02.694552	2011-01-09 19:58:03.655009	Purchased	30088	Item	1.3700000000000001	\N
 423	CTOP Corner - Nova (3 Week Lead Time) | Laminate 7948 Mambo	CTOP Corner - Nova (3 Week Lead Time) | Laminate 7948 Mambo		\N	000.402.001.318.00P		2011-01-01 18:54:25.349988	2011-01-03 02:10:10.768236	Purchased		Item	182.15000000000001	\N
 426	CTOP Corner - Nova (3 Week Lead Time) | Laminate D403 White Sand	CTOP Corner - Nova (3 Week Lead Time) | Laminate D403 White Sand		\N	000.402.001.321.00P		2011-01-01 18:54:25.424789	2011-01-03 02:10:30.109371	Purchased		Item	166.15000000000001	\N
@@ -2796,32 +2874,66 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 449	CTOP Corner - Futura (3 Week Lead Time) | Laminate 1595 Black	CTOP Corner - Futura (3 Week Lead Time) | Laminate 1595 Black		\N	000.402.003.302.00P		2011-01-01 18:54:26.061046	2011-01-03 01:54:58.564127	Purchased		Item	166.15000000000001	\N
 451	CTOP Corner - Futura (3 Week Lead Time) | Laminate 4781 Sunstone	CTOP Corner - Futura (3 Week Lead Time) | Laminate 4781 Sunstone		\N	000.402.003.304.00P		2011-01-01 18:54:26.095949	2011-01-03 01:55:22.024619	Purchased		Item	210.46000000000001	\N
 35	CL Upright Partition - BaseNotch - Left	CL Upright Partition - BaseNotch - Left 		\N	000.912.1x.x.00M	CL-VUN-L	2011-01-01 18:53:39.592444	2011-01-02 02:26:49.394533	Manufactured		ClosetPartition	\N	\N
-184	~ Wardrobe Lift (26-35") | Black	Wardrobe Lift, steel, black, plastic, black, 26" - 35 1/16", 26 lbs load capacity	805.31.302 	\N	000.988.035.400.00P		2011-01-01 18:53:56.336387	2011-01-11 03:59:07.379971	Purchased		Item	48.744	\N
-182	~ Wardrobe Lift (35-47") | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.603	\N	000.988.047.200.00P		2011-01-01 18:53:56.21133	2011-01-11 04:02:28.509668	Purchased		Item	71.244	\N
+184	~ Wardrobe Lift (26-35) | Black	Wardrobe Lift, steel, black, plastic, black, 26" - 35 1/16", 26 lbs load capacity	805.31.302 	\N	000.988.035.400.00P		2011-01-01 18:53:56.336387	2011-01-21 21:10:28.196745	Purchased		Item	48.744	
+182	~ Wardrobe Lift (35-47) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.603	\N	000.988.047.200.00P		2011-01-01 18:53:56.21133	2011-01-21 21:12:21.610321	Purchased		Item	71.244	
 48	CL Top Shelf	CL Top Shelf 		\N	000.934.x.x.00M	CL-TOP	2011-01-01 18:53:50.009214	2011-01-02 02:26:06.66442	Manufactured		ClosetShelf	\N	\N
 42	CL Hanging Partition - Radius - Right	CL Hanging Partition Radius Bottom - Right Stop Drilled		\N	000.910.35x.x.00M	CL-HPR-R	2011-01-01 18:53:43.944414	2011-01-12 17:53:53.579819	Manufactured		ClosetPartition	\N	\N
+686	~ The Big Tool Rack (4/box)	~ The Big Tool Rack (4/box)	7110-5603-50	\N	000.995.301.400.000		2011-01-21 01:24:55.222148	2011-01-21 21:14:06.262906	Purchased	3014	Item	11.632009999999999	
+690	~ The Big Work Hook (6/box)	~ The Big Work Hook (6/box)	7110-5613-50	\N	000.995.301.800.000		2011-01-21 01:24:55.242324	2011-01-21 21:16:10.913204	Purchased	3018	Item	5.0840500000000004	
+681	~ The Garden Rack & Basket (4/box)	~ The Garden Rack & Basket (4/box)	7110-5200-50	\N	000.995.300.900.000		2011-01-21 01:24:55.196604	2011-01-21 21:20:53.509489	Purchased	3009	Item	18.052	
+682	~ The Hand Tool Rack (4/box)	~ The Hand Tool Rack (4/box)	7110-5210-50	\N	000.995.301.000.000		2011-01-21 01:24:55.20162	2011-01-21 21:26:07.523875	Purchased	3010	Item	10.696	
+693	~ The Grid (3/box)	~ The Grid (3/box)	7110-5700-50	\N	000.995.302.100.000		2011-01-21 01:24:55.257434	2011-01-21 21:23:48.708135	Purchased	3021	Item	13.18399	
+684	~ The Loop Hook (4/box)	~ The Loop Hook (4/box)	7110-5601-50	\N	000.995.301.200.000		2011-01-21 01:24:55.211782	2011-01-21 21:26:41.625014	Purchased	3012	Item	6.1480300000000003	
+685	~ The Shelf with Hooks (4/box)	~ The Shelf with Hooks (4/box)	7110-5602-50	\N	000.995.301.300.000		2011-01-21 01:24:55.216885	2011-01-21 21:27:53.357003	Purchased	3013	Item	14.039999999999999	
+680	~ The Sports Rack & Basket (4/box)	~ The Sports Rack & Basket (4/box)	7110-5070-50	\N	000.995.300.800.000		2011-01-21 01:24:55.191514	2011-01-21 21:30:05.806684	Purchased	3008	Item	19.039999999999999	
+689	~ The Work Hook (6/box)	~ The Work Hook (6/box)	7110-5612-50	\N	000.995.301.700.000		2011-01-21 01:24:55.237306	2011-01-21 21:31:02.324286	Purchased	3017	Item	4.0960000000000001	
 37	CL Upright Partition - Thru	CL Upright Partition - Thru 		\N	000.911.2x.x.00M	CL-VU-T	2011-01-01 18:53:39.894924	2011-01-02 02:29:01.284811	Manufactured		ClosetPartition	\N	\N
 21	CTOP Corner - 1 in. melamine	CTOP Corner 1 in. melamine		\N	000.502.000.x.00M	MEL-CCTOP-25	2011-01-01 18:53:39.156106	2011-01-02 02:35:24.104617	Manufactured		Countertop	\N	\N
-10	~ Screw (Installation) 3-1/2"	Screw, Install  3½' QDFL Type 17 NB, Plain (Box Qty 1,000)	069110300117N	\N	000.264.067.901.00I		2011-01-01 18:53:39.063244	2011-01-19 05:56:42.784182	Inventory	1022	Item	0.042619999999999998	
+662	~ SlatWall Corner Molding (4/box) | Black	~ SlatWall Corner Molding (4/box) | Black	HST4008M	\N	000.990.320.4IO.000		2011-01-21 01:24:55.097949	2011-01-21 22:17:35.704181	Purchased	3204-IOC	Item	6.5499999999999998	
+10	~ Screw (Installation) 3-1/2 inch	Screw, Install  3½' QDFL Type 17 NB, Plain (Box Qty 1,000)	069110300117N	\N	000.264.067.901.00I		2011-01-01 18:53:39.063244	2011-01-22 00:04:49.864606	Inventory	1022	Item	0.042599999999999999	
 602	~ Murphy Bed Hardware Set Single/Twin		SBF-M/SBF-S	\N			2011-01-11 05:33:20.126027	2011-01-12 19:28:28.731764	Purchased	10060	Item	425.54000000000002	\N
-606	~ Screw (Cabinet Hang) #10 x 3"		264.67.901	\N			2011-01-11 05:48:03.757061	2011-01-11 17:02:33.227855	Purchased	10026	Item	0.088599999999999998	\N
 94	~ Sliding Wire Basket (30x11x14) | Oil Rubbed Bronze		547.37.146	\N	000.986.301.300.00P		2011-01-01 18:53:53.436093	2011-01-11 04:24:37.271786	Purchased	30028-1	Item	26.760000000000002	\N
 603	~ Murphy Bed Hardware Set King		ABF-M/ABF-K	\N			2011-01-11 05:35:59.132818	2011-01-12 19:27:40.852256	Purchased	10063	Item	809.85000000000002	\N
+668	~ SlatWall Corner Molding (4/box) | Gray	~ SlatWall Corner Molding (4/box) | Gray	HST3008M	\N	000.990.320.5IO.000		2011-01-21 01:24:55.128521	2011-01-21 22:19:24.491217	Purchased	3205-IOC	Item	6.5499999999999998	
+606	~ Screw (Installation) 3 inch	#10 x 3 inch	88FCPHZ831500PC	\N			2011-01-11 05:48:03.757061	2011-01-22 00:04:12.158677	Purchased	10053	Item	0.066000000000000003	
 604	~ Bracket | 16 gauge		260.34.005	\N			2011-01-11 05:40:38.715627	2011-01-11 05:46:06.39148	Purchased	10054	Item	0.17000000000000001	\N
 605	~ Draw Bolt		2500413002	\N			2011-01-11 05:42:10.812649	2011-01-11 05:42:10.812649	Purchased	10066	Item	0.089999999999999997	\N
-607	~ Cam Cover | Tan for Carmel Apple		263.59.133	\N			2011-01-11 17:01:29.039953	2011-01-11 17:01:29.039953	Purchased	10042	Item	0.0106	\N
+217	~ Bumper Stop	Bumper Stop Self Adhesive Poly Clear .335 Wide x .805 Thick (Box Qty. 5400)	7129BS7SD	\N	000.104.700.000.00I		2011-01-01 18:54:02.48911	2011-01-22 02:37:14.333488	Inventory	1047	Item	0.02	
 146	~ Sliding Wire Basket (18x6x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 17"w x 6"h	547.35.162	\N	000.987.186.300.00P		2011-01-01 18:53:54.848216	2011-01-09 21:11:58.604673	Purchased	30031-1	Item	21.539999999999999	\N
-608	~ Drawer Slide | Full ext | 24"		422.88.961	\N			2011-01-11 17:18:18.400023	2011-01-11 17:30:32.496452	Purchased		Item	6.1500000000000004	\N
+607	~ Cam Cover | Tan	Rafix Cover Cap Pl Tan For Flush Cams. use with Carmel Apple	263.59.133	\N	000.263.059.133.00I		2011-01-11 17:01:29.039953	2011-01-21 19:46:25.34669	Purchased	10042	Item	0.0106	
+11	~ Screw (Assembly) 1 1/4 inch	Screw, Zip-R, Fl Csk, T17, Ph Drv #8 X 1 1/4	010.21.968	\N	000.010.022.068.00I		2011-01-01 18:53:39.06776	2011-01-21 19:53:32.819563	Inventory	10030	Item	0.0080000000000000002	
+145	~ Sliding Wire Basket (30x17x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 17"h	547.41.668	\N	000.987.307.200.00P		2011-01-01 18:53:54.808834	2011-01-21 20:57:48.802525	Purchased	30057-1	Item	31.300000000000001	
+666	~ SlatWall 12 x 96 (4/box) |Black	~ SlatWall 12 x 96 (4/box) |Black	HSW4008	\N	000.990.320.40W.000		2011-01-21 01:24:55.118209	2011-01-21 21:47:41.929242	Purchased	3204-W	Item	18.16	
+654	~ SlatWall 12 x 96 (4/box) |Taupe	~ SlatWall 12 x 96 (4/box) |Taupe	HSW2008	\N	000.990.320.20W.000		2011-01-21 01:24:55.058333	2011-01-21 21:54:38.996739	Purchased	3202-W	Item	18.16	
+650	~ SlatWall Corner Molding (4/box) | Taupe	~ SlatWall Corner Molding (4/box) | Taupe	HST2008M	\N	000.990.320.2IO.000		2011-01-21 01:24:55.038209	2011-01-21 22:07:44.558683	Purchased	3202-IOC	Item	6.5499999999999998	
+166	~ Drawer Slide | 3/4 ext | 16 inch	Soft-Roller 100Lbs St White 400mm 16 inch	7111KSC16W	\N	000.423.037.740.00I		2011-01-01 18:53:55.801622	2011-01-22 00:12:21.160367	Inventory	10035	Item	0.81000000000000005	
+677	~ The Bike Hook (4/box)	~ The Bike Hook (4/box)	7110-5041-50	\N	000.995.300.500.000		2011-01-21 01:24:55.176356	2011-01-21 21:18:00.981676	Purchased	3005	Item	6.6079999999999997	
+174	~ Drawer Slide | Full ext | 18 inch	Drawer glide 18 inch full extension 100Lb	FU3173318	\N	000.710.018.000.00I		2011-01-01 18:53:55.976279	2011-01-21 23:46:35.275019	Inventory	1072	Item	3.8199999999999998	
+608	~ Drawer Slide | Full ext | 24 inch	Drawer glide 24 inch full extension 100Lb	FU3173324	\N	000.710.024.000.00I		2011-01-11 17:18:18.400023	2011-01-21 23:55:01.162968	Purchased		Item	5.4299999999999997	
+61	~ Tie Rack | Oil Rubbed Bronze	Synergy Tie Rack with Slide, aluminum, dark oil rubbed bronzed, plastic, black, 13 7/8" length	807.67.103	\N	000.981.000.300.00P		2011-01-01 18:53:51.496891	2011-01-21 20:50:20.115653	Purchased		Item	24.050000000000001	
+134	~ Sliding Wire Basket (18x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 17"h	547.38.268	\N	000.987.187.100.00P		2011-01-01 18:53:54.509174	2011-01-21 20:52:17.729822	Purchased	30014-1	Item	25.09	
+687	~ The Everything Hook (6/box)	~ The Everything Hook (6/box)	7110-5610-50	\N	000.995.301.500.000		2011-01-21 01:24:55.227204	2011-01-21 21:19:30.949013	Purchased	3015	Item	3.61199	
 315	CTOP - Tempo | Laminate 4552 Ebony Star	CTOP - Tempo | Laminate 4552 Ebony Star		\N	000.401.002.303.00P		2011-01-01 18:54:17.218889	2011-01-03 01:14:51.654753	Purchased		Item	186.46000000000001	\N
+673	~ The Golf Rack & Basket (4/box)	~ The Golf Rack & Basket (4/box)	7110-5010-50	\N	000.995.300.100.000		2011-01-21 01:24:55.154261	2011-01-21 21:23:00.258253	Purchased	3001	Item	17.515830000000001	
+683	~ The Grip Everything Hook (6/box)	~ The Grip Everything Hook (6/box)	7110-5600-50	\N	000.995.301.100.000		2011-01-21 01:24:55.206755	2011-01-21 21:24:40.485561	Purchased	3011	Item	3.6119699999999999	
+674	~ The Racquet Rack (4/box)	~ The Racquet Rack (4/box)	7110-5020-50	\N	000.995.300.200.000		2011-01-21 01:24:55.159748	2011-01-21 21:27:17.855862	Purchased	3002	Item	10.91188	
+679	~ The Ski Rack (4/box)	~ The Ski Rack (4/box)	7110-5060-50	\N	000.995.300.700.000		2011-01-21 01:24:55.186421	2011-01-21 21:29:31.654988	Purchased	3007	Item	6.1479799999999996	
 617	CL Island Back Panel 	CL Island Back Panel 		\N	000.960.103.x.00M	CL-IBP	2011-01-12 00:14:00.186554	2011-01-12 02:13:18.434431	Manufactured		Door	\N	\N
 613	CL Island End Panel 	CL Island End Panel 		\N	000.960.101.x.00M	CL-IEP	2011-01-12 00:13:59.916142	2011-01-12 02:15:18.501448	Manufactured		Door	\N	\N
 614	CL Island Thru Panel 	CL Island Thru Panel 		\N	000.960.102.x.00M	CL-ITP	2011-01-12 00:14:00.110891	2011-01-12 02:16:16.742452	Manufactured		ClosetPartition	\N	\N
+672	~ SlatWall 12 x 96 (4/box) |Gray	~ SlatWall 12 x 96 (4/box) |Gray	HSW3008	\N	000.990.320.50W.000		2011-01-21 01:24:55.149093	2011-01-21 21:48:24.141597	Purchased	3205-W	Item	18.16	
+652	~ SlatWall Drywall Screws (1000/box) | Taupe	~ SlatWall Drywall Screws (1000/box) | Taupe	HSWS200T	\N	000.990.320.20S.000		2011-01-21 01:24:55.0481	2011-01-21 22:25:15.499893	Purchased	3202-S	Item	0.034000000000000002	
 464	CTOP Corner - Futura (3 Week Lead Time) | Laminate 7942 Cocobala	CTOP Corner - Futura (3 Week Lead Time) | Laminate 7942 Cocobala		\N	000.402.003.317.00P		2011-01-01 18:54:26.774362	2011-01-03 01:58:36.553887	Purchased		Item	210.46000000000001	\N
 514	HO Bookcase	HO Bookcase 		\N	000.400.181.x.00M	HO-BK-5AS	2011-01-01 18:54:27.966772	2011-01-02 00:17:37.047032	Manufactured		Cabinet	\N	\N
 622	ZZ HO Tall Cabinet Shell DON'T DELETE	Home Office tall cabinet		\N			2011-01-12 15:33:32.143978	2011-01-12 17:23:43.894056	Manufactured		Shell	\N	\N
+657	~ SlatWall J Molding (4/box) | Maple	~ SlatWall J Molding (4/box) | Maple	HST9088L	\N	000.990.320.3JM.000		2011-01-21 01:24:55.073155	2011-01-21 22:33:54.636225	Purchased	3203-JM	Item	5.25	
+651	~ SlatWall J Molding (4/box) | Taupe	~ SlatWall J Molding (4/box) | Taupe	HST2088L	\N	000.990.320.2JM.000		2011-01-21 01:24:55.043128	2011-01-21 22:34:43.674868	Purchased	3202-JM	Item	5.25	
 477	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4795 Windswept Pewter	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4795 Windswept Pewter		\N	000.402.004.309.00P		2011-01-01 18:54:27.247029	2011-01-03 02:01:58.744428	Purchased		Item	228.31	\N
 515	HO Bookcase - Vert Divider	HO Bookcase - Vert Divider 		\N	000.401.381.x.00M	HO-BKV-10AS	2011-01-01 18:54:27.978979	2011-01-11 16:32:45.20551	Manufactured		Cabinet	\N	\N
+665	~ SlatWall U Edge Molding (4/box) | Black	~ SlatWall U Edge Molding (4/box) | Black	HST4008E	\N	000.990.320.40U.000		2011-01-21 01:24:55.112983	2011-01-21 22:41:06.466161	Purchased	3204-U	Item	3.5	
+694	CL Hutch 2 Door	CL Hutch 2 Door 1 Adjustable Shelf		\N	000.306.922.x.00M	CL-H2-2as	2011-01-21 22:56:34.727101	2011-01-22 00:31:21.175004	Manufactured		Cabinet	\N	
 558	ZZ NXp Adj Shelf DON'T DELETE	building block: NX adj shelf 1 inch		\N			2011-01-02 03:56:04.415433	2011-01-12 21:18:44.796773	Manufactured		Panel	\N	\N
+653	~ SlatWall U Edge Molding (4/box) | Taupe	~ SlatWall U Edge Molding (4/box) | Taupe	HST2008E	\N	000.990.320.20U.000		2011-01-21 01:24:55.053099	2011-01-21 22:42:55.521624	Purchased	3202-U	Item	3.5	
 116	~ Sliding Wire Basket (18x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 17"h	547.35.228 	\N	000.985.187.100.00P		2011-01-01 18:53:53.712979	2011-01-11 04:43:00.025641	Purchased		Item	20.59	\N
 142	~ Sliding Wire Basket (30x11x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 11"h	547.37.666	\N	000.987.301.200.00P		2011-01-01 18:53:54.712775	2011-01-09 20:34:59.804655	Purchased	30056-1	Item	28.25	\N
 624	ZZ NXp Panel 06 DON'T DELETE	White only		\N			2011-01-12 17:55:42.72321	2011-01-12 20:22:28.627928	Manufactured		Panel	\N	\N
@@ -2848,6 +2960,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 625	ZZ NX Tall Cabinet Shell DON'T DELETE			\N			2011-01-12 21:58:05.526486	2011-01-12 21:58:05.526486	Manufactured		Shell	\N	\N
 552	ZZ HO Tall Cabinet Shell w/VD DON'T DELETE	building block: home office tall cabinet shell with 1 vertical divider		\N			2011-01-02 00:28:22.162265	2011-01-13 15:10:53.010798	Manufactured		Shell	\N	\N
 206	~ Screw (Angle Brackets)	Screw Zip-R steel, zinc-plated flat countersunk head T17 square drive #8 x 3/4" (1000/box)	010.70.965	\N	000.010.070.965.00I		2011-01-01 18:53:57.245048	2011-01-10 18:23:41.408443	Inventory	10064	Item	0.0083000000000000001	\N
+172	~ Drawer Slide | Full ext | 14 inch	Drawer glide 14 inch full extension 100Lb	FU3173314	\N	000.710.014.000.00I		2011-01-01 18:53:55.875115	2011-01-21 23:39:19.093657	Inventory	1070	Item	2.98	
 \.
 
 
@@ -3095,6 +3208,13 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 105	95 margin	margin	Margin	2011-01-14 19:34:02.219402	2011-01-14 19:34:02.219402
 106	90 margin	margin	Margin	2011-01-14 19:35:38.699034	2011-01-14 19:35:38.699034
 107	33 margin	margin	Margin	2011-01-19 22:25:44.034486	2011-01-19 22:25:44.034486
+108	Hardware 16%	margin	Margin	2011-01-21 21:08:40.881637	2011-01-21 21:08:40.881637
+109	Hardware 40%	margin	Margin	2011-01-21 21:47:28.906711	2011-01-21 21:47:28.906711
+110	Hardware 40%	margin	Margin	2011-01-21 21:47:29.148692	2011-01-21 21:47:29.148692
+111	Hardware 33%	margin	Margin	2011-01-21 21:59:26.711375	2011-01-21 21:59:26.711375
+112	Hardware 15%	margin	Margin	2011-01-21 23:39:14.556456	2011-01-21 23:39:14.556456
+113	Hardware 17%	margin	Margin	2011-01-21 23:50:39.82804	2011-01-21 23:50:39.82804
+114	Hardware 20%	margin	Margin	2011-01-22 00:10:14.632051	2011-01-22 00:10:14.632051
 \.
 
 
@@ -3395,6 +3515,23 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 105	291
 106	292
 107	293
+3	294
+3	295
+3	296
+3	297
+3	298
+3	299
+3	300
+3	301
+108	302
+109	303
+109	304
+110	305
+110	306
+111	307
+112	308
+113	309
+114	310
 \.
 
 
@@ -3419,6 +3556,8 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 280		40+" 8 qty	RangedValue	{"max":"","variable_units":"in","value":"8","min":"40","variable":"height"}	2011-01-13 17:22:47.631089	2011-01-13 17:22:47.631089
 203	008	Windswept Bronze	Material	{"price":".835","waste_factor":".08","thickness":".75","price_units":"ft","color":"Windswept Bronze","thickness_units":"in"}	2011-01-07 18:04:26.734571	2011-01-14 04:32:05.805987
 235	002	Antique White	Material	{"price":"1.06","waste_factor":".1","thickness":"1","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-13 01:26:23.6968	2011-01-14 20:10:11.984471
+306			Margin	{"factor":"","float":""}	2011-01-21 21:47:29.177543	2011-01-21 21:47:29.177543
+305		Hardware 40%	Margin	{"factor":"1.0865","float":""}	2011-01-21 21:47:29.156181	2011-01-22 02:40:36.880178
 78	010	DRS131/DR1 Ruston Maple Door Material	Material	{"price":"13.2","thickness":"0","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:57:56.767067	2011-01-02 03:01:21.503543
 219		10	Margin	{"factor":".1"}	2011-01-12 18:59:27.364894	2011-01-12 18:59:27.364894
 56	001	White	Material	{"price":".8350","waste_factor":".08","thickness":"1.000","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-01 20:32:35.922055	2011-01-13 00:37:17.679156
@@ -3470,6 +3609,8 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 284		48	Margin	{"factor":".48"}	2011-01-13 21:58:50.079931	2011-01-13 21:58:50.079931
 290		85	Margin	{"factor":".85"}	2011-01-14 18:31:06.550889	2011-01-14 18:31:06.550889
 292		90	Margin	{"factor":".90"}	2011-01-14 19:35:38.70293	2011-01-14 19:35:38.70293
+308		Hardware 15%	Margin	{"factor":".85","float":""}	2011-01-21 23:39:14.564436	2011-01-21 23:39:14.564436
+310		Hardware 20%	Margin	{"factor":"1.0869","float":""}	2011-01-22 00:10:14.637065	2011-01-22 05:09:10.571338
 92	\N	Crown Molding: 3-3/4", 423-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 15.6, "price_units": "ft"}	2011-01-02 01:57:58.696916	2011-01-02 01:57:58.696916
 72	004	Carmel Apple Edge 19mm	EdgeBand	{"price":".0640","width_units":"mm","price_units":"ft","color":"Carmel Apple","width":"19"}	2011-01-01 23:13:34.910417	2011-01-02 00:03:23.47424
 73	005	Wild Apple Edge 19mm	EdgeBand	{"price":".0450","width_units":"mm","price_units":"ft","color":"Wild Apple","width":"19"}	2011-01-01 23:13:34.924418	2011-01-02 00:03:23.484146
@@ -3596,6 +3737,7 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 260		30+" 23 qty	RangedValue	{"max":"","variable_units":"in","value":"23","min":"30","variable":"width"}	2011-01-13 14:12:45.856931	2011-01-13 14:12:45.856931
 241	007	Chocolate Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Chocolate Apple","thickness_units":"in"}	2011-01-13 02:52:08.250763	2011-01-14 20:10:11.965674
 293		33	Margin	{"factor":".33","float":""}	2011-01-19 22:25:44.062047	2011-01-19 22:25:44.062047
+309		Hardware 17%	Margin	{"factor":".83","float":""}	2011-01-21 23:50:39.835047	2011-01-21 23:50:39.835047
 239	004	Carmel Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Carmel Apple","thickness_units":"in"}	2011-01-13 01:32:38.639668	2011-01-14 20:12:02.604601
 243	009	Windswept Pewter	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Windswept Pewter","thickness_units":"in"}	2011-01-13 02:52:08.282131	2011-01-14 20:12:02.619572
 244	010	Hardrock Maple	Material	{"price":"1.02","waste_factor":".1","thickness":"1","price_units":"ft","color":"Hardrock Maple","thickness_units":"in"}	2011-01-13 02:52:08.29689	2011-01-14 20:12:02.624668
@@ -3636,7 +3778,15 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 287		40+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"40","variable":"height"}	2011-01-14 00:05:22.749188	2011-01-14 00:05:22.749188
 232		Hardware 35%	Margin	{"factor":"0.7065","float":""}	2011-01-13 00:19:29.504793	2011-01-20 15:15:33.010312
 233			Margin	{"factor":"","float":""}	2011-01-13 00:19:29.525505	2011-01-20 15:15:33.014486
+294	901	White	Color	{"color": "White"}	2011-01-21 01:24:54.832872	2011-01-21 01:24:54.853223
+295	902	Antique White	Color	{"color": "Antique White"}	2011-01-21 01:24:54.861631	2011-01-21 01:24:54.874675
+296	904	Carmel Apple	Color	{"color": "Carmel Apple"}	2011-01-21 01:24:54.88253	2011-01-21 01:24:54.895555
+297	905	Wild Apple	Color	{"color": "Wild Apple"}	2011-01-21 01:24:54.903379	2011-01-21 01:24:54.916233
 110	\N	Scribe Molding: 1", 428-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.333215	2011-01-02 01:57:59.333215
+298	907	Chocolate Apple	Color	{"color": "Chocolate Apple"}	2011-01-21 01:24:54.923959	2011-01-21 01:24:54.937759
+299	910	Hardrock Maple	Color	{"color": "Hardrock Maple"}	2011-01-21 01:24:54.94582	2011-01-21 01:24:54.958887
+300	909	Windswept Pewter	Color	{"color": "Windswept Pewter"}	2011-01-21 01:24:54.966728	2011-01-21 01:24:54.979198
+301	908	Windswept Bronze	Color	{"color": "Windswept Bronze"}	2011-01-21 01:24:54.986447	2011-01-21 01:24:54.998772
 200		62mm	Width	{"linear_units":"in","width":"2.441"}	2011-01-07 07:04:48.446713	2011-01-07 07:04:48.446713
 176		35	Margin	{"factor":".35"}	2011-01-03 03:54:21.733384	2011-01-12 02:28:08.283362
 212		27	Margin	{"factor":".27"}	2011-01-12 18:01:16.983544	2011-01-12 18:01:16.983544
@@ -3648,6 +3798,10 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 272		15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"12","min":"15","variable":"depth"}	2011-01-13 16:04:59.800798	2011-01-13 16:04:59.800798
 288		0-40" 0 qty	RangedValue	{"max":"40","variable_units":"in","value":"0","min":"","variable":"height"}	2011-01-14 00:05:22.749996	2011-01-14 00:05:22.749996
 289		40+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"40","variable":"height"}	2011-01-14 00:05:22.773502	2011-01-14 00:05:22.773502
+302		Hardware 16%	Margin	{"factor":".84","float":""}	2011-01-21 21:08:40.88855	2011-01-21 21:08:40.88855
+303		Hardware 40%	Margin	{"factor":".6","float":""}	2011-01-21 21:47:28.911045	2011-01-21 21:47:28.911045
+304			Margin	{"factor":"","float":""}	2011-01-21 21:47:28.926174	2011-01-21 21:47:28.926174
+307		Hardware 33%	Margin	{"factor":".67","float":""}	2011-01-21 21:59:26.715414	2011-01-21 21:59:26.715414
 157	\N	Base Molding: 2-1/2", 426-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.344799	2011-01-02 01:58:03.344799
 160	001	AMS329 White Door Material	Material	{"price":"13.3","thickness":"0","price_units":"ft","color":"White","thickness_units":"mm"}	2011-01-02 01:58:03.776735	2011-01-02 02:59:19.277074
 161	006	AMS329 Mahogany Impressions Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm"}	2011-01-02 01:58:03.81454	2011-01-02 02:59:19.281859
@@ -3780,10 +3934,10 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 48	Mr.	Travis	Leduc	(403) 315-0323		(403) 257-5012	ctsa@tailoredlving.com	$2a$10$yCpq6r/scwz8JUz3XBhO.e55OnfAYV.g/bnmAKv9qQoPjMyN6Rzga	$2a$10$yCpq6r/scwz8JUz3XBhO.e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.537552	2011-01-01 18:53:38.544167
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$KH2z1ueXwgUGP9KXYzoW1e4Xv9gOA0OdUxPYbvHOuMiF3P/1Gq7ti	$2a$10$KH2z1ueXwgUGP9KXYzoW1e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.284249	2011-01-01 18:53:38.59201
 27	Mr.	William	Welborn	(972) 247-3030	(214) 251-9736		dallas@premiergarage.com	$2a$10$DFnI.5P9MkRoJUsNExSD/uP1FqMTc3pXe3yFv2u.tjJmK2d/SwRv.	$2a$10$DFnI.5P9MkRoJUsNExSD/u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.546803	2011-01-01 18:53:38.611661
-32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	\N	\N	\N	27	2011-01-21 00:23:23.468092	2011-01-20 13:29:33.059631	70.176.124.201	174.79.54.226	2011-01-01 18:53:36.365777	2011-01-21 00:23:23.469048
 51	\N	\N	\N	\N	\N	\N	ddillman@premiergarage.com	$2a$10$yfdnXMdmbBhOpFlQrhkIQuBZkP/n8IR6GQpo6f0C7146Xjsmdx1eC	$2a$10$yfdnXMdmbBhOpFlQrhkIQu	\N	kohVni58Zgp9A86FX8sT	2011-01-06 23:45:05.988759	3	2011-01-18 22:07:19.300534	2011-01-10 21:29:18.348584	174.79.54.230	71.196.137.193	2011-01-06 23:44:42.653941	2011-01-18 22:07:19.301186
-49	\N	\N	\N	\N	\N	\N	kris@hylotech.com	$2a$10$stbPQKL64gMgsRaP7F8XneewfofYa.GsHvhoYX0bXCF75NlXZK526	$2a$10$stbPQKL64gMgsRaP7F8Xne	\N	GPvpvQzNp1jD1rZ-XSZE	2011-01-18 22:36:39.182205	11	2011-01-18 22:36:39.195467	2011-01-14 20:55:28.114092	98.245.88.239	67.217.228.116	2011-01-01 19:06:38.040379	2011-01-18 22:36:39.196238
-50	\N	\N	\N	\N	\N	\N	sbisch@premiergarage.com	$2a$10$CncxpR3bI77S1sDlFg2mH.ekldxQ45dHs31/UuAgiuo./m0ahQapm	$2a$10$CncxpR3bI77S1sDlFg2mH.	\N	\N	\N	41	2011-01-20 05:25:24.487159	2011-01-20 05:00:30.627975	68.3.127.48	68.3.127.48	2011-01-03 04:43:12.087221	2011-01-20 05:25:24.488227
+32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	\N	\N	\N	28	2011-01-21 13:29:03.600276	2011-01-21 00:23:23.468092	174.79.54.226	70.176.124.201	2011-01-01 18:53:36.365777	2011-01-21 13:29:03.601334
+49	\N	\N	\N	\N	\N	\N	kris@hylotech.com	$2a$10$stbPQKL64gMgsRaP7F8XneewfofYa.GsHvhoYX0bXCF75NlXZK526	$2a$10$stbPQKL64gMgsRaP7F8Xne	\N	GPvpvQzNp1jD1rZ-XSZE	2011-01-18 22:36:39.182205	12	2011-01-21 22:27:10.915422	2011-01-18 22:36:39.195467	98.245.88.239	98.245.88.239	2011-01-01 19:06:38.040379	2011-01-21 22:27:10.916065
+50	\N	\N	\N	\N	\N	\N	sbisch@premiergarage.com	$2a$10$CncxpR3bI77S1sDlFg2mH.ekldxQ45dHs31/UuAgiuo./m0ahQapm	$2a$10$CncxpR3bI77S1sDlFg2mH.	\N	\N	\N	44	2011-01-22 01:26:23.849295	2011-01-22 00:27:11.33164	174.79.54.226	174.79.54.226	2011-01-03 04:43:12.087221	2011-01-22 01:26:23.850359
 \.
 
 

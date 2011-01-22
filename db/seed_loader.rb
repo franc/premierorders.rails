@@ -416,7 +416,11 @@ class SeedLoader
     end
 
     results = ActiveRecord::Base.connection.execute('SELECT dvinci_id from items')
-    (results.to_a.map{|v| v['dvinci_id']} - matched).each {|id| puts id}
+
+    (results.to_a.map{|v| v['dvinci_id']} - matched).select{|id| id != ""}.map do |id| 
+      item = Item.find_by_dvinci_id(id)
+      [item.dvinci_id, item.name]
+    end
   end
 
   def dump_items
