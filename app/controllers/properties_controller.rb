@@ -1,10 +1,12 @@
 require 'json'
 
 class PropertiesController < ApplicationController
+  load_and_authorize_resource :except => [:create, :search]
+
   # GET /properties
   # GET /properties.xml
   def index
-    @properties = Property.order(:name)
+    @properties = @properties.order(:name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,8 +17,6 @@ class PropertiesController < ApplicationController
   # GET /properties/1
   # GET /properties/1.xml
   def show
-    @property = Property.find(params[:id])
-
     if request.xhr?
       render :json => PropertiesHelper.property_json(@property)
     else
@@ -29,8 +29,6 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1/edit
   def edit
-    @property = Property.find(params[:id])
-
     respond_to do |format|
       format.html # edit.html.erb
       format.xml  { render :xml => @property }
@@ -42,11 +40,14 @@ class PropertiesController < ApplicationController
   def create
     if request.xhr?
       @property = PropertiesHelper.create_property(params[:property])
+      authorize! :create, @property
+
       PropertiesHelper.create_item_properties(Item.find(params[:receiver_id]), @property, params[:qualifiers])
 
       render :json => PropertiesHelper.property_json(@property)
     else
       @property = Property.new(params[:property])
+      authorize! :create, @property
 
       respond_to do |format|
         if @property.save
@@ -63,8 +64,6 @@ class PropertiesController < ApplicationController
   # PUT /properties/1
   # PUT /properties/1.xml
   def update
-    @property = Property.find(params[:id])
-
     params[:property_value].each do |k, v|
       if k == "new"
         v.each do |idx, v|
@@ -101,7 +100,6 @@ class PropertiesController < ApplicationController
   # DELETE /properties/1
   # DELETE /properties/1.xml
   def destroy
-    @property = Property.find(params[:id])
     @property.destroy
 
     respond_to do |format|

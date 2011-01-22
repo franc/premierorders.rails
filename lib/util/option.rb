@@ -64,6 +64,10 @@ class Some
     self
   end
 
+  def orElseLazy(&f)
+    self
+  end
+
   def inspect
     "Some(#{@value.inspect})"
   end
@@ -92,6 +96,10 @@ class None
 
   def orElse(opt)
     opt
+  end
+
+  def orElseLazy(&f)
+    f.call
   end
 
   def inspect

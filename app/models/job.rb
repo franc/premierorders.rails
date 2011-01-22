@@ -48,8 +48,7 @@ class Job < ActiveRecord::Base
   def decompose_csv(csv)
     rows = []
     CSV.open(csv.path, "r", nil, "\r") do |row|
-        rows << row
-      logger.info("Got row: #{row.inspect}")
+      rows << row
     end
 
     rows

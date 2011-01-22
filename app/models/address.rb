@@ -1,4 +1,7 @@
 class Address < ActiveRecord::Base
+  has_many :address_books
+  has_many :users, :through => :address_books
+
   def single_line
     "#{address1 + (address2 || '')}, #{city} #{state}, #{postal_code}"
   end
