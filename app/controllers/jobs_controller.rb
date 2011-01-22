@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = @jobs.order('jobs.due_date DESC')
+    @jobs = @jobs.order('jobs.due_date DESC NULLS LAST')
 
     respond_to do |format|
       format.html # index.html.erb
