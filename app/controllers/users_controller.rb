@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     if can? :assign_role, @user
-      @role_names = params[:user][:roles]
+      @role_names = params[:user][:roles] || []
       @role_names.each do |name|
         Option.new(Role.find_by_name(name)).each do |role|
           @user.roles << role

@@ -29,6 +29,10 @@
         <dt><%= f.label :roles %></dt>
         <dd><%= f.collection_select(:roles, Role.all, :id, :name, {:selected => @user.roles.map{|r| r.id}}, :multiple => true) %></dd>
       <% end %>
+      <dt><%= f.label :password %></dt>
+      <dd><%= f.password_field :password %></dd>
+      <dt><%= f.label :password_confirmation %></dt>
+      </dd><%= f.password_field :password_confirmation %></dd>
     </dl>
   </div>
 
