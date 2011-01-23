@@ -32,7 +32,11 @@ class JobsController < ApplicationController
   # GET /jobs/new.xml
   def new
     @job = Job.new
-    @franchisees = Franchisee.find(:all)
+    @franchisees = if can? :admin_job, @job
+      Franchisee.order(:franchise_name)
+    else
+      current_user.franchisees.order(:franchise_name)
+    end
     @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
 
     respond_to do |format|
@@ -91,6 +95,19 @@ class JobsController < ApplicationController
           format.html { render :action => "edit" }
           format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
         end
+      end
+    end
+  end
+
+  def place_order
+    @job.place_order(DateTime.now, current_user)
+    respond_to do |format|
+      if @job.save
+        format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
+        format.xml  { head :ok }
+      else
+        format.html { redirect_to(@job, :error => "Order could not be placed: #{@job.errors}.") }
+        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end

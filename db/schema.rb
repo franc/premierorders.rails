@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110118194835) do
+ActiveRecord::Schema.define(:version => 20110123003150) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -132,6 +132,13 @@ ActiveRecord::Schema.define(:version => 20110118194835) do
     t.datetime "updated_at"
   end
 
+  create_table "job_serial_numbers", :force => true do |t|
+    t.integer  "year"
+    t.integer  "max_serial"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "jobs", :force => true do |t|
     t.integer  "franchisee_id",                         :null => false
     t.integer  "customer_id"
@@ -150,6 +157,8 @@ ActiveRecord::Schema.define(:version => 20110118194835) do
     t.date     "due_date"
     t.date     "ship_date"
     t.text     "comment"
+    t.datetime "placement_date"
+    t.integer  "placed_by_id"
   end
 
   create_table "properties", :force => true do |t|
@@ -179,10 +188,8 @@ ActiveRecord::Schema.define(:version => 20110118194835) do
   end
 
   create_table "user_roles", :id => false, :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "user_id"
+    t.integer "role_id"
   end
 
   create_table "users", :force => true do |t|

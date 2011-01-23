@@ -8,6 +8,7 @@ class Job < ActiveRecord::Base
   belongs_to :franchisee
   belongs_to :primary_contact, :class_name => 'User'
   belongs_to :customer, :class_name => 'User'
+  belongs_to :placed_by, :class_name => 'User'
   belongs_to :billing_address, :class_name => 'Address'
   belongs_to :shipping_address, :class_name => 'Address'
   has_many   :job_items, :dependent => :destroy
@@ -17,7 +18,7 @@ class Job < ActiveRecord::Base
 
   STATUS_OPTIONS = [
     ["Created" , "Created"],
-    ["In Review" , "In Review"],
+    ["Placed" , "Placed"],
     ["Confirmed" , "Confirmed"],
     ["On Hold" , "On Hold"],
     ["Ready For Production" , "Ready For Production"],
@@ -156,6 +157,22 @@ class Job < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def place_order(date, current_user)
+    if self.placement_date.nil?
+      transaction do 
+        serial_no = JobSerialNumber.find_by_year(date.year) || JobSerialNumber.new(:year => date.year, :max_serial => 0)
+        serial_no.max_serial += 1
+        self.status = 'Placed' 
+        self.job_number = "#{date.year} - #{serial_no.max_serial}"
+        self.placement_date = date 
+        self.placed_by = current_user
+        logger.info( self.inspect)
+        serial_no.save
+      end
+    end
+    logger.info( self.inspect)
   end
 
   def to_cutrite_data

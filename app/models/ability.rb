@@ -29,8 +29,10 @@ class Ability
     if user.role? :admin
       can :manage, :all
       can :assign_roles, User
+      can :admin_job, Job
     elsif user.role? :product_admin
       can :manage, [Item, ItemComponent, Property, PropertyValue]
+      can :admin_job, Job
     elsif user.role? :franchisee
       can :manage, User, :id => user.id
       can :manage, Job, :customer_id => user.id
