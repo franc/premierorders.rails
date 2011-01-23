@@ -98,11 +98,6 @@
     <dd><%= @item.purchase_part_id %></dd>
     <dt><%= label :item, :base_price %></dt>
     <dd><%= @item.base_price %></dd>
-  </dl>
-</div>
-
-<div style="clear:both">
-  <dl>
     <dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
@@ -110,10 +105,6 @@
       <dl id="pricing_expression">
       </dl>
     </dd>
-  </dl>
-</div>
-<br/>
-<div>
     <dt><%= label :item, :properties %></dt>
     <dd><%= render :partial => 'properties', 
                    :locals => {
@@ -123,6 +114,7 @@
     <dt><%= label :item, :components %></dt>
     <dd><%= render :partial => 'components', 
                    :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
+  </dl>
 </div>
 
 <% content_for :local_nav do %>

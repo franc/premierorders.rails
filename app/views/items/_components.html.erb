@@ -4,7 +4,6 @@
     <th>Association</th>
     <th>Type</th>
     <th>Quantity</th>
-    <th>Properties</th>
   </tr>
   <% item_components.each_with_index do |comp, i| %>
     <tr class="item_component_row">
@@ -15,7 +14,9 @@
       <td><%= link_to comp.class.to_s.demodulize, edit_item_component_path(comp) %></td>
       <td><%= comp.component.class.to_s.demodulize %></td>
       <td><%= comp.quantity %></td>
-      <td>
+    </tr>
+    <tr>
+      <td colspan="4">
         <%= render :partial => 'properties', 
                    :locals => {
                      :id => 'component_relationship_properties', 
