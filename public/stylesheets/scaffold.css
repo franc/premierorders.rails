@@ -63,8 +63,16 @@ div.field, div.actions {
   list-style: square;
 }
 
-#nav li {
+#nav ul {
+	padding-left: 1px;
+}
+
+#nav ul li {
   display: inline;
+	font-weight: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-size: 12pt;
   padding: 5px;
 }
 
@@ -73,53 +81,42 @@ div.field, div.actions {
 }
 
 #local_nav {
+	margin-left: 7px;
   clear: both;
 }
 
-.job_attributes {
-  float: none;
+#local_nav a {
+	font-weight: bold;
+	text-decoration: none;
+	color: #298f3e;
 }
 
-.job_attributes dt {
-   clear:both;
-   width:12%;
-   float:left;
-   font-weight: bold;
+#content {
+	margin-left: 7px;
 }
 
-.job_attributes dd {
-   float:right;
-   width:66%;
-   margin:0 0 0.5em 0.25em;
-}
-
-div.form_fields {
-  width: 30%;
+.form_fields {
   float: none;
   clear:both;
-}
-
-dt {
-   font-weight: bold;
 }
 
 .form_fields dt {
-   clear:both;
-   width:20%;
-   float:left;
-/*   text-align:right; */
+  float: left;
+  clear: left;
+  width: 15%;
+  font-weight: bold;
 }
 
 .form_fields dd {
-/*   float:left; */
-   width:79%;
-   margin:0 0 0.5em 0.25em;
+  float: left;
+  clear: right;
+  width: 84%;
+  margin:0 0 0.5em 0.25em;
 }
 
 .form_actions {
-  clear:both;
+  clear: both;
 }
-
 
 .item_attributes {
   width: 100%;
@@ -171,12 +168,6 @@ ul li a {
 	text-decoration: none;
 }
 
-#local_nav a {
-	font-weight: bold;
-	text-decoration: none;
-	color: #298f3e;
-}
-
 tr td a {
 	font-weight: bold;
 	text-decoration: none;
@@ -192,45 +183,14 @@ tr td span {
 	text-decoration: none;
 }
 
-span.job_date {
-	font-family: Helvetica, Arial, sans-serif;
-}
-
 tbody tr td {
-	font-family: Helvetica, Arial, sans-serif;
 	border-style: solid;
 	border-color: #8a878a;
 	border-bottom-width: 1px;
 }
 
-#content h1 {
-	font-family: Helvetica, Arial, sans-serif;
-}
-
 #content table {
 	border-width: 1px;
-}
-
-#nav ul {
-	font-family: Helvetica, Arial, sans-serif;
-	padding-left: 1px;
-}
-
-#local_nav {
-	font-family: Helvetica, Arial, sans-serif;
-	margin-left: 7px;
-}
-
-#nav ul li {
-	font-weight: normal;
-	font-style: normal;
-	font-variant: normal;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 12pt;
-}
-
-.prototype {
-  display: none;
 }
 
 #pricing_expression {
@@ -242,14 +202,13 @@ tbody tr td {
 	width: 200px;
 }
 
-div.form_fields dl dd {
-	width: 60%;
-}
-
 table.item_components {
 	border-style: solid;
 	border-color: #ffffff;
 	margin-left: -40px;
 }
 
+.prototype {
+  display: none;
+}
 
