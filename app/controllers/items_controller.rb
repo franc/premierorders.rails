@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    @items = @items.order(:name)
+    @items = @items.order(:name).paginate(:page => params[:page], :per_page => 50)
 
     respond_to do |format|
       format.html # index.html.erb

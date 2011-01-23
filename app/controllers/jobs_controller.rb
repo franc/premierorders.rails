@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = @jobs.order('jobs.created_at DESC NULLS LAST, jobs.due_date DESC NULLS LAST')
+    @jobs = @jobs.order('jobs.created_at DESC NULLS LAST, jobs.due_date DESC NULLS LAST').paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
