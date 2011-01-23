@@ -1,4 +1,168 @@
-<%= form_for(@item) do |f| %>
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'item_editing.js' %>
+  <%= javascript_include_tag 'jqModal.js' %>
+  <%= javascript_include_tag 'json2.js' %>
+  <style>
+    .jqm_form {
+        display: none;
+        
+        position: fixed;
+        top: 17%;
+        left: 50%;
+        
+        margin-left: -300px;
+        width: 600px;
+        
+        background-color: #EEE;
+        color: #333;
+        border: 1px solid black;
+        padding: 12px;
+    }
+
+    .jqm_form iframe { 
+      width:99%; height:40%; 
+      display: block; clear:both; 
+      margin:auto; background:#111; border:1px dotted #444; 
+    }
+  </style>
+  <script type="text/javascript">
+    var property_associations = {};
+    var selected_item_type = function() {
+      return $("#item_type option:selected").val();
+    };
+
+    var toggle_add_property = function(data) {
+      (data.length == 0) ? $("#add_property").hide() : $("#add_property").show(); 
+    };
+
+    var toggle_add_component = function(data) {
+      (data.length == 0) ? $("#add_component").hide() : $("#add_component").show(); 
+    };
+
+    jQuery(function($) {
+      $("#item_type").change(function(ev) {
+        $.get("/items/"+$(ev.target).val()+"/property_descriptors", toggle_add_property, "json");
+        $.get("/items/"+$(ev.target).val()+"/component_association_types", toggle_add_component, "json");
+      });
+
+      <% if Property.descriptors(@item.class).empty? %>
+        $("#add_property").hide();
+      <% end %>
+      $("#add_property").hover(editIn, editOut);
+      $("#add_property_window").jqm({
+        //modal: true,
+        trigger: "#add_property",
+        onShow: function(dialog) {
+          var window_contents = dialog.w.find(".jqm_content").contents();
+
+          //manually trigger the change handler - finding the right incantation was hell.
+          dialog.w.find(".jqm_content").each(function() {
+            this.contentWindow.change_property_receiver(selected_item_type());
+          });
+
+          window_contents.find("#add_property_submit").click(function() { 
+            dialog.w.find(".jqm_content").each(function() {
+              var propertyWindow = this.contentWindow;
+              var req = propertyWindow.add_property_data();
+              var update_properties_list = function(property) { 
+                // Save the property ids and qualifiers so that if this is a new record,
+                // the data can be included in the form submission
+                property_associations[property.property_id] = req.qualifiers;
+                propertyWindow.location.reload(true)
+
+                // Using a match on the item id to determine that the form is in edit 
+                // mode, reload the properties list by querying for the properties 
+                // associated with the object.
+                if ($("#edit_mode").val() === "edit") {
+                  $.get("/items/<%=@item.id%>/properties", function(properties_list_html) {
+                    var elem = $(properties_list_html);
+                    $(".property_delete_link", elem).click(delete_clicked(".property_row"));
+                    $("#properties_list").replaceWith(elem); 
+                  });
+                } else {
+                  // Since there is no persistent entity to retrieve properties for, but 
+                  // we want to show the property in the list,
+                  // just go ahead and render the returned property data into the properties list.
+                  // The property that has been created is stored in the property_associations
+                  // object, which will be used to create the actual association upon submit of
+                  // the form as a whole.
+                  add_property_row(property, req.qualifiers)
+                }
+              };
+
+              if ($("#edit_mode").val() === "edit") req.receiver_id = "<%=@item.id%>";
+              $.post("/items/add_property", req, update_properties_list, "json");
+            });
+
+            dialog.w.hide();
+          });
+
+          window_contents.find("#add_property_cancel").click(function() { dialog.w.hide(); });
+
+          dialog.w.show();
+        }
+      });
+
+      <% if @item.id %>
+        <% if Item.component_association_modules(@item.class).empty? %>
+          $("#add_component").hide();
+        <% end %>
+        $("#add_component").hover(editIn, editOut);
+        $("#add_component_window").jqm({
+          trigger: "#add_component",
+          onShow: function(dialog) {
+            var window_contents = dialog.w.find(".jqm_content").contents();
+
+            //manually trigger the change handler - finding the right incantation was hell.
+            dialog.w.find(".jqm_content").each(function() {
+              this.contentWindow.change_component_receiver(selected_item_type());
+            });
+
+            window_contents.find("#add_component_submit").click(function() { 
+              dialog.w.find(".jqm_content").each(function() {
+                var componentWindow = this.contentWindow;
+                var req = componentWindow.add_component_data();
+                var handler = function(data) {
+                  componentWindow.location.reload(true)
+                  
+                  $.get("/items/<%=@item.id%>/components", function(component_html) {
+                    var elem = $(component_html);
+                    $(".component_delete_link", elem).click(delete_clicked(".item_component_row"));
+                    $(".property_delete_link", elem).click(delete_clicked(".property_row"));
+                    $("#item_components").replaceWith(elem); 
+                  });
+                };
+
+                $.post("/items/<%=@item.id%>/add_component", req, handler, "json");
+                dialog.w.hide();
+              });
+            });
+
+            window_contents.find("#add_component_cancel").click(function() { dialog.w.hide(); });
+
+            dialog.w.show();
+          }
+        });
+      <% else %>
+        $("#item_submit").click(function(ev) {
+          //render the property associations data into a hidden field.
+          var input = $('<input type="hidden" name="property_associations"/>').val(JSON.stringify(property_associations));
+
+          $("#item_form_fields").append(input);
+          return true; //continue with form submission.
+        });
+      <% end %>
+    
+      $(".component_delete_link").click(delete_clicked(".item_component_row"));
+      $(".property_delete_link").click(delete_clicked(".property_row"));
+    });
+  </script>
+<% end %>
+<%= render :partial => 'properties_js', :locals => {:id => 'properties_list'} %>
+
+<%= form_for(@item, :as => :item, :url => @item.id.nil? ? '/items' : item_path(@item)) do |f| %>
+  <input type="hidden" id="edit_mode", name="mode" value="<%=mode%>"/>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -11,50 +175,54 @@
     </div>
   <% end %>
 
-  <div class="form_fields">
+  <div id="item_form_fields" class="form_fields">
     <dl>
-      <dt><%= f.label :name %></dt>
-      <dd><%= f.text_field :name %></dd>
-      <dt><%= f.label :description %></dt>
-      <dd><%= f.text_area :description %></dd>
-      <dt><%= f.label :sku %></dt>
-      <dd><%= f.text_field :sku %></dd>
-      <dt><%= f.label :dvinci_id %></dt>
-      <dd><%= f.text_field :dvinci_id %></dd>
-      <dt><%= f.label :cutrite_id %></dt>
-      <dd><%= f.text_field :cutrite_id %></dd>
-      <dt><%= f.label :purchasing %></dt>
-      <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Purchased" => "Purchased", "Inventory" => "Inventory"}) %></dd>
-      <dt><%= f.label :purchase_part_id %></dt>
-      <dd><%= f.text_field :purchase_part_id %></dd>
-      <dt>Attributes</dt>
-      <dd>
-        <table class="item_attributes">
-          <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Values</th>
-          </tr>
-          <% @item.item_attrs.order(:name).each_with_index do |a, i| %>
-          <tr class="<%= i % 2 == 0 ? "tr-light" : "tr-dark" -%>">
-            <td><%= a.name %></td>
-            <td><%= a.value_type %></td>
-            <td>
-              <dl>
-                <% @item.item_attr_options.find_all_by_item_attr_id(a.id).each do |opt| %>
-                  <dt><%= opt.value_str %></dt>
-                  <dd><%= opt.dvinci_id %></dd>
-                <% end %>
-              </dl>
-            </td>
-          </tr>
-          <% end %>
-        </table>
-      </dd>
-    </dl>
+    <dt><%= f.label :type %></dt>
+    <dd><%= f.select(:type, Item.item_types.map{|t| t.to_s}) %></dd>
+    <dt><%= f.label :name %></dt>
+    <dd><%= f.text_field :name %></dd>
+    <dt><%= f.label :description %></dt>
+    <dd><%= f.text_area :description %></dd>
+	  <dt><%= f.label :purchasing %></dt>
+	  <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Per Order" => "Purchased", "Bulk" => "Inventory"}) %></dd>
+	  <dt><%= f.label :dvinci_id %></dt>
+	  <dd><%= f.text_field :dvinci_id %></dd>
+	  <dt><%= f.label :cutrite_id %></dt>
+	  <dd><%= f.text_field :cutrite_id %></dd>
+	  <dt><%= f.label :vendor %></dt>
+	  <dd><%= f.text_field :vendor %></dd>
+	  <dt><%= f.label :vendor_sku %></dt>
+	  <dd><%= f.text_field :sku %></dd>
+	  <dt><%= f.label :qb_item_id %></dt>
+	  <dd><%= f.text_field :purchase_part_id %></dd>
+	  <dt><%= f.label :base_price %></dt>
+	  <dd><%= f.text_field :base_price %></dd>
+	</dl>
+  </div>
+  <div>
+      <dt>Properties <span id="add_property">(+)</span></dt>
+      <dd><%= render :partial => 'properties', 
+                     :locals => {
+                       :id => 'properties_list', :properties => @item.item_properties, 
+                       :resource_path => lambda {|item_prop| item_property_path(item_prop)}
+                     } %></dd>
+      <% if @item.id %>
+        <dt>Components <span id="add_component">(+)</span></dt>
+        <dd><%= render :partial => 'components', 
+                       :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
+      <% end %>
   </div>
 
   <div class="form_actions">
     <%= f.submit %>
+  </div>
+<% end %>
+
+<div id="add_property_window" class="jqm_form">
+  <iframe src="/items/add_property_form" class="jqm_content"></iframe>
+</div>
+<% if @item.id %>
+  <div id="add_component_window" class="jqm_form">
+    <iframe src="/items/add_component_form" class="jqm_content"></iframe>
   </div>
 <% end %>

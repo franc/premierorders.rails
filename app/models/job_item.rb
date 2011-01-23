@@ -1,25 +1,14 @@
 class JobItem < ActiveRecord::Base
 	belongs_to :job
-  belongs_to :item, :include => :item_attrs
-	has_many :job_item_attributes
+  belongs_to :item
+	has_many   :job_item_properties, :dependent => :destroy, :extend => Properties::Association
 
-	def item_attr(name)
-    attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
-    if attr
-      job_attr = job_item_attributes.find_by_item_attr_id(attr.id)
-      job_attr.nil? ? attr.default_value : attr.value(job_attr.value_str)
-    else
-      job_attr = job_item_attributes.find_by_ingest_id(name)
-      job_attr.nil? ? nil : job_attr.value_str
-    end
-	end
-end
+  def compute_unit_price
+    logger.info("Computing price for #{item.inspect}: #{item.respond_to?(:price_job_item)}")
+    ((!item.nil?) && item.respond_to?(:price_job_item)) ? item.price_job_item(self) : unit_price
+  end
 
-class JobItemAttribute < ActiveRecord::Base
-  belongs_to :job_item
-  belongs_to :item_attr
-
-  def attr_name
-    item_attr.nil? ? ingest_id : item_attr.name
+  def compute_total
+    compute_unit_price * quantity
   end
 end

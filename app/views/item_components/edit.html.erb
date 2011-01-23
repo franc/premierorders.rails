@@ -1,0 +1,96 @@
+<%= render :partial => 'items/properties_js' %>
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'jqModal.js' %>
+  <%= javascript_include_tag 'json2.js' %>
+  <style>
+    .jqm_form {
+        display: none;
+        
+        position: fixed;
+        top: 17%;
+        left: 50%;
+        
+        margin-left: -300px;
+        width: 600px;
+        
+        background-color: #EEE;
+        color: #333;
+        border: 1px solid black;
+        padding: 12px;
+    }
+
+    .jqm_form iframe { 
+      width:99%; height:40%; 
+      display: block; clear:both; 
+      margin:auto; background:#111; border:1px dotted #444; 
+    }
+  </style>
+  <script type="text/javascript">
+    jQuery(function($) {
+      <% if Property.descriptors(@item_component.class).empty? %>
+        $("#add_property").hide();
+      <% end %>
+      $("#add_property").hover(editIn, editOut);
+      $("#add_property_window").jqm({
+        //modal: true,
+        trigger: "#add_property",
+        onShow: function(dialog) {
+          var window_contents = dialog.w.find(".jqm_content").contents();
+
+          //manually trigger the change handler - finding the right incantation was hell.
+          dialog.w.find(".jqm_content").each(function() {
+            this.contentWindow.change_property_receiver("<%=@item_component.type%>");
+          });
+
+          window_contents.find("#add_property_submit").click(function() { 
+            dialog.w.find(".jqm_content").each(function() {
+              var req = this.contentWindow.add_property_data();
+              var update_properties_list = function(property) { 
+                $.get("/item_components/<%=@item_component.id%>/properties", function(properties_list_html) {
+                  var elem = $(properties_list_html);
+                  $(".property_delete_link", elem).click(delete_clicked(".property_row"));
+                  $("#properties_list").replaceWith(elem); 
+                });
+              };
+
+              req.receiver_id = "<%=@item_component.id%>",
+              $.post("/item_components/add_property", req, update_properties_list, "json");
+            });
+
+            dialog.w.hide();
+          });
+
+          window_contents.find("#add_property_cancel").click(function() { dialog.w.hide(); });
+
+          dialog.w.show();
+        }
+      });
+
+    });
+  </script>
+<% end %>
+
+<dl>
+  <dt>Association</dt>
+  <dd><%= @item_component.class.to_s.demodulize %></dd>
+  <dt>Component</dt>
+  <dd><%= link_to @item_component.component.name, item_path(@item_component.component) %></dd>
+  <dt>Component Type</dt>
+  <dd><%= @item_component.component.class.to_s.demodulize %></dd>
+  <dt>Quantity</dt>
+  <dd><%= @item_component.quantity %></dd>
+  <dt>Properties <span id="add_property" class="add_component_property">(+)</span></dt>
+  <dd>
+      <%= render :partial => 'items/properties', 
+                 :locals => {
+                   :id => 'component_relationship_properties', 
+                   :properties => @item_component.item_component_properties,
+                   :resource_path => lambda {|icp| item_component_property_path(icp)}
+                 } %>
+  </dd>
+</dl>
+
+<div id="add_property_window" class="jqm_form">
+  <iframe src="/item_components/add_property_form" class="jqm_content"></iframe>
+</div>

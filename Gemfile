@@ -9,6 +9,7 @@ gem 'pg', '0.9.0'
 gem 'paperclip'
 gem 'jquery-rails'
 gem 'devise'
+gem 'json'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -23,6 +24,8 @@ gem 'capistrano'
 # gem 'bj'
 # gem 'nokogiri'
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem "cancan"
+gem "will_paginate"
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to

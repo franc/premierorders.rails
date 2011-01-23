@@ -1,5 +1,4 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
   <script type="text/javascript">
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
@@ -8,13 +7,14 @@
   </script>
 <% end %>
 
-<h1>Job List</h1>
+<h2>Job List</h2>
 <p id="notice"><%= notice %></p>
 
 <table>
   <tr>
     <th>Job Number</th>
     <th>Job Name</th>
+    <th>Upload Date</th>
     <th>Due Date</th>
     <th>Ship Date</th>
     <th>Status</th>
@@ -27,6 +27,7 @@
     <tr>
       <td><%= link_to job.job_number, job %></td>
       <td><%= job.name %></td>
+      <td><%= job.created_at %></td>
       <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
       <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
       <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>

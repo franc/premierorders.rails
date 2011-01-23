@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min.js' %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <script type="text/javascript">
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
@@ -8,10 +8,7 @@
   </script>
 <% end %>
 
-<p id="notice"><%= notice %></p>
-
-<dl class="job_attributes">
-
+<dl class="form_fields">
   <dt>Job Number</dt>
   <dd><%= @job.job_number -%></dd>
 
@@ -21,16 +18,29 @@
   <dt>Status</dt>
   <dd><%= select_tag("job[#{@job.id}][status]", options_for_select(Job::STATUS_OPTIONS, @job.status), :class => 'job_status') -%></dd>
 
+  <dt>Creation Date</dt>
+  <dd><%= @job.created_at %></dd>
+
+  <dt>Placement Date</dt>
+  <dd><%= @job.placement_date %></dd>
+
   <dt>Due Date</dt>
-  <dd><span class="job_date" id="job[<%=@job.id%>][due_date]"><%= @job.due_date %></span></dd>
+  <% if can? :manage_dates, @job %>
+    <dd><span class="job_date" id="job[<%=@job.id%>][due_date]"><%= @job.due_date %></span></dd>
+  <% else %>
+    <dd><%= @job.due_date %></dd>
+  <% end %>
 
   <dt>Ship Date</dt>
-  <dd><span class="job_date" id="job[<%=@job.id%>][ship_date]"><%= @job.ship_date %></span></dd>
+  <% if can? :manage_dates, @job %>
+    <dd><span class="job_date" id="job[<%=@job.id%>][ship_date]"><%= @job.ship_date %></span></dd>
+  <% else %>
+    <dd><%= @job.ship_date %></dd>
+  <% end %>
 
   <dt>MFG Plant</dt>
   <dd><%= @job.mfg_plant -%></dd>
-  
-    <dt>Franchisee</dt>
+  <dt>Franchisee</dt>
   <dd><%= @job.franchisee.franchise_name -%> (Credit status: <span style="color: <%= @job.franchisee.credit_status -%>"><%= @job.franchisee.credit_status -%></span>) </dd>
 
   <dt>Shipping Address</dt>
@@ -38,6 +48,12 @@
 
   <dt>Special Instructions</dt>
   <dd><%= @job.comment -%></dd>
+
+  <dt>Job Total</dt>
+  <dd>
+    <%= "$%.2f" % @total -%><br/>
+    <% if @job.placement_date.nil? %><%= link_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
+  </dd>
 
   <dt>Items</dt>
   <dd>
@@ -55,18 +71,19 @@
         <th>Total</th>
         <th>Special Instructions</th>
       </tr>
-      <% @job.job_items.order('tracking_id', 'items.purchasing', 'items.name').all.each_with_index do |job_item, i| %>
+      <% @job.job_items.order('tracking_id').all.each_with_index do |job_item, i| %>
+        <% dimensions_property = job_item.job_item_properties.find_by_family(:dimensions) %>
         <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" -%>">
           <td><%= job_item.tracking_id %></td>
-          <td><%= job_item.item ? job_item.item.name : " #{job_item.item_attr('Description')} (#{job_item.ingest_id})" %></td>
+          <td><%= job_item.item ? job_item.item.name : job_item.ingest_id %></td>
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
-          <td><%= job_item.item_attr('Cabinet Color') %></td>
+          <td><%#= job_item.item_attr('Cabinet Color') %></td>
           <td><%= job_item.quantity.to_i %></td>
-          <td><%= job_item.item_attr('Cut Width') ? "%.3f" % job_item.item_attr('Cut Width').to_f : '' %></td>
-          <td><%= job_item.item_attr('Cut Height') ? "%.3f" % job_item.item_attr('Cut Height').to_f : '' %></td>
-          <td><%= job_item.item_attr('Cut Depth') ? "%.3f" % job_item.item_attr('Cut Depth').to_f : '' %></td>
-          <td><%= "$%.2f" % job_item.unit_price.to_f %></td>
-          <td><%= "$%.2f" % (job_item.unit_price.to_f * job_item.quantity) %></td>
+          <td><%= dimensions_property && dimensions_property.respond_to?(:width) ? "%.3f" % dimensions_property.width : '' %></td>
+          <td><%= dimensions_property && dimensions_property.respond_to?(:height) ? "%.3f" % dimensions_property.height : '' %></td>
+          <td><%= dimensions_property && dimensions_property.respond_to?(:depth) ? "%.3f" % dimensions_property.depth : '' %></td>
+          <td><%= "$%.2f" % job_item.compute_unit_price %></td>
+          <td><%= "$%.2f" % job_item.compute_total %></td>
           <td><%= job_item.comment %></td>
         </tr>
       <% end %>
@@ -75,7 +92,7 @@
 </dl>
 
 <% content_for :local_nav do %>
-  <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
   <%= link_to 'Edit', edit_job_path(@job) %> |
-  <%= link_to 'Back', jobs_path %>
+  <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
+  <%= link_to 'List', jobs_path %>
 <% end %>

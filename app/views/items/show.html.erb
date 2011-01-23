@@ -1,7 +1,126 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag 'item_editing.js' %>
+  <script type="text/javascript">
+    var update_pricing_expr = function() {
+      $.get(
+        "/items/<%=@item.id%>/pricing_expr", 
+        {units: $("#price_expr_units").val(), color:$("#price_expr_color").val()}, 
+        function(data) {
+          $("#pricing_expression").children().remove();
+          $("#pricing_expression").append('<dt><%=@item.name%></dt><dd>'+data.expr+'</dd>');
+          for (var i = 0; i < data.components.length; i++) {
+            $("#pricing_expression").append('<dt>'+data.components[i].name+'</dt><dd>'+data.components[i].expr+'</dd>');
+          }
+        },
+        "json"
+      );
+    };
+
+    jQuery(function($) {
+      $("#price_expr_units").change(update_pricing_expr);
+      $("#price_expr_color").change(update_pricing_expr);
+      $(".component_delete_link").click(delete_clicked(".item_component_row"));
+      $(".property_delete_link").click(delete_clicked(".property_row"));
+      update_pricing_expr();
+    });
+  </script>
+<% end %>
 <p id="notice"><%= notice %></p>
 
+<div class="errors">
+  <dl style="color: red">
+    <% unless @item.components_ok? %>
+      <dt>Component Errors</dl>
+      <dd>
+        <dl>
+          <dt>Missing Components</dt>
+          <dd>
+            <ul>
+              <% @item.component_errors[:missing].each do |type| %>
+                <li><%= type.inspect %></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dd>
+            <ul>
+              <% @item.component_errors[:broken].each do |comp| %>
+                <li><%= link_to comp.class.to_s.demodulize, item_component_path(comp) %></li>
+              <% end %>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+    <% end %>
+    <% unless @item.properties_ok? %>
+      <dt>Property Errors</dl>
+      <dd>
+        <dl>
+          <dt>Missing Properties</dt>
+          <dd>
+            <ul>
+              <% @item.property_errors[:missing].each do |desc| %>
+                <li><%= desc.family %></li>
+              <% end %>
+            </ul>
+          </dd>
+          <dd>
+            <ul>
+              <% @item.property_errors[:broken].each do |prop| %>
+                <li><%= link_to prop.name, property_path(prop) %></li>
+              <% end %>
+            </ul>
+          </dd>
+        </dl>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="form_fields">
+  <dl>
+    <dt><%= label :item, :type %></dt>
+    <dd><%= @item.class.to_s.demodulize %></dd>
+    <dt><%= label :item, :name %></dt>
+    <dd><%= @item.name %></dd>
+    <dt><%= label :item, :description %></dt>
+    <dd><%= @item.description %></dd>
+    <dt><%= label :item, :purchasing %></dt>
+    <dd><%= @item.purchasing %></dd>
+    <dt><%= label :item, :dvinci_id %></dt>
+    <dd><%= @item.dvinci_id %></dd>
+    <dt><%= label :item, :cutrite_id %></dt>
+    <dd><%= @item.cutrite_id %></dd>
+    <dt><%= label :item, :vendor %></dt>
+    <dd><%= @item.vendor %></dd>
+    <dt><%= label :item, :vendor_sku %></dt>
+    <dd><%= @item.sku %></dd>
+    <dt><%= label :item, :qb_item_id %></dt>
+    <dd><%= @item.purchase_part_id %></dd>
+    <dt><%= label :item, :base_price %></dt>
+    <dd><%= @item.base_price %></dd>
+    <dt><%= label :item, :pricing_expression %></dt>
+    <dd>
+      <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
+      <%= select_tag("price_expr_color", options_for_select(@item.color_opts.map{|opt| [opt.color, opt.color]}.flatten.uniq)) %>
+      <dl id="pricing_expression">
+      </dl>
+    </dd>
+    <dt><%= label :item, :properties %></dt>
+    <dd><%= render :partial => 'properties', 
+                   :locals => {
+                     :id => 'properties_list', :properties => @item.item_properties,
+                     :resource_path => lambda {|item_prop| item_property_path(item_prop)}
+                   } %></dd><br><br><br><br>
+    <dt><%= label :item, :components %></dt>
+    <dd><%= render :partial => 'components', 
+                   :locals => {:id => 'item_components', :item_components => @item.item_components} %></dd>
+  </dl>
+</div>
 
 <% content_for :local_nav do %>
+  <%= link_to 'New Item', new_item_path %> |
   <%= link_to 'Edit', edit_item_path(@item) %> |
-  <%= link_to 'Back', items_path %>
+  <%= link_to 'List', items_path %> |
+  <%= link_to 'Previous', previous_item_path(@item) %> |
+  <%= link_to 'Next', next_item_path(@item) %>
 <% end %>

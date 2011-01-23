@@ -1,0 +1,28 @@
+<div class="form_fields">
+  <dl>
+    <dt><%= label :user, :first_name %></dt>
+    <dd><%= @user.first_name %></dd>
+    <dt><%= label :user, :last_name %></dt>
+    <dd><%= @user.last_name %></dd>
+    <dt><%= label :user, :phone %></dt>
+    <dd><%= @user.phone %></dd>
+    <dt><%= label :user, :phone2 %></dt>
+    <dd><%= @user.phone2 %></dd>
+    <dt><%= label :user, :fax %></dt>
+    <dd><%= @user.fax %></dd>
+    <dt><%= label :user, :email %></dt>
+    <dd><%= @user.email %></dd>
+    <dt><%= label :user, :signin_count %></dt>
+    <dd><%= @user.sign_in_count %></dd>
+    <dt><%= label :user, :last_seen %></dt>
+    <dd><%= @user.last_sign_in_at %></dd>
+    <dt><%= label :user, :roles %></dt>
+    <dd><%= @user.roles.map{|r| r.name}.join(", ") %></dd>
+  </dl>
+</div>
+
+<% content_for :local_nav do %>
+  <%= link_to 'New User', new_user_path %> |
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%= link_to 'List', users_path %>
+<% end %>
