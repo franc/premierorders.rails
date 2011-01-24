@@ -1,21 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <table class="cutrite_csv_header">
-  <tr>
-    <% @job.cutrite_job_header.each do |label| -%><th><%= label -%></th><% end %>
-  </tr>
-  <tr>
-    <% @job.cutrite_job_data.each do |value| -%><td><%= value -%></td><% end %>
-  </tr>
+  <tr><% @job.cutrite_job_header.each do |label| -%><th><%= label -%></th><% end %></tr>
+  <tr><% @job.cutrite_job_data.each do |value| -%><td><%= value -%></td><% end %></tr>
 </table>
 <table class="cutrite_csv_items">
-  <tr>
-    <% @job.cutrite_items_header.each do |label| -%><th><%= label -%></th><% end %>
-  </tr>
+  <tr><% @job.cutrite_items_header.each do |label| -%><th><%= label -%></th><% end %></tr>
   <% @job.cutrite_items_data.each_with_index do |row, i| -%>
-    <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" %>">
-      <% row.each do |col| -%><td><%= col -%></td><% end %>
-    </tr>
+    <tr><% row.each do |col| -%><td><%= col -%></td><% end %></tr>
   <% end %>
 </table>
 
