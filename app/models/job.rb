@@ -123,30 +123,28 @@ class Job < ActiveRecord::Base
 
       job_item = job_items.create(job_item_config)
 
-      dimensions_data = { }
-      Option.fromString(row[column_indices['Cut Height']]).each{|v| dimensions_data[:height] = v}
-      Option.fromString(row[column_indices['Cut Width']]).each{|v| dimensions_data[:width] = v}
-      Option.fromString(row[column_indices['Cut Depth']]).each{|v| dimensions_data[:depth] = v}
+      dimensions = {
+        Property::Height => Option.fromString(row[column_indices['Cut Height']]),
+        Property::Width => Option.fromString(row[column_indices['Cut Width']]),
+        Property::Depth => Option.fromString(row[column_indices['Cut Depth']])
+      }
 
-      item_dims_prop = item.bind do |i| 
-        if i.class.respond_to?(:job_item_properties)
-          Option.new(i.class.job_item_properties.find{|d| d.family == :dimensions})
-        else
-          Option.none()
-        end
-      end
-      
-      item_dims_prop.each do |descriptor|
-        job_item.job_item_properties.create(
-          :family => descriptor.family,
-          :module_names => descriptor.module_names,
-          :value_str => dimensions_data.to_json 
-        )
-      end
+
+
+      job_item.job_item_properties.create(
+        :family => :dimensions,
+        :module_names => dimensions.inject([]){|m, pair| pair[1].map{|v| m << pair[0]}.orSome(m)}.
+                         map{|m| m.to_s.demodulize}.join(","),
+        :value_str => dimensions.inject({:linear_units => :in}) {|m, pair| 
+           pair[1].each{|v| m[pair[0].to_s.demodulize.downcase.to_sym] = v}
+           m
+         }.to_json
+      )
 
       item.each do |i|
         product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
         if product_code_matchdata
+          logger.info("Searching for color #{product_code_matchdata[3]} in #{i.color_opts.inspect}")
           Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == product_code_matchdata[3]}).each do |opt|
             job_item.job_item_properties.create(
               :family => Property::Color::DESCRIPTOR.family,

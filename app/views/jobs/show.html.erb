@@ -73,11 +73,12 @@
       </tr>
       <% @job.job_items.order('tracking_id').all.each_with_index do |job_item, i| %>
         <% dimensions_property = job_item.job_item_properties.find_by_family(:dimensions) %>
+        <% color_property = job_item.job_item_properties.find_by_family(:color) %>
         <tr class="<%= i % 2 == 0 ? "tr-dark" : "tr-light" -%>">
           <td><%= job_item.tracking_id %></td>
           <td><%= job_item.item ? job_item.item.name : job_item.ingest_id %></td>
           <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
-          <td><%#= job_item.item_attr('Cabinet Color') %></td>
+          <td><%= color_property ? color_property.color : '' %></td>
           <td><%= job_item.quantity.to_i %></td>
           <td><%= dimensions_property && dimensions_property.respond_to?(:width) ? "%.3f" % dimensions_property.width : '' %></td>
           <td><%= dimensions_property && dimensions_property.respond_to?(:height) ? "%.3f" % dimensions_property.height : '' %></td>
