@@ -87,6 +87,7 @@ class Job < ActiveRecord::Base
     raise FormatException, "Did not find required columns in document: #{missing_columns.inspect}" unless missing_columns.empty?
 
     column_indices = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
+    logger.info("Got column index map: #{column_indices.inspect}")
 
     min_columns = labels.any? {|l| l =~ /Notes/} ? labels.size - 1 : labels.size
     item_rows = data_rows.select do |r| 
@@ -99,8 +100,11 @@ class Job < ActiveRecord::Base
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
 
+      # Find the item in the database that corresponds to the dvinci code of the item from the import
       item = Item.find_by_concrete_dvinci_id(dvinci_product_id)
 
+      # Any unlabeled column contents will be appended to the contents of any 'Notes' column to form
+      # the special instructions.
       unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
       special_instructions = if column_indices['Notes'] 
         (unlabeled_col_values << row[column_indices['Notes']]).join("; ")
@@ -112,6 +116,7 @@ class Job < ActiveRecord::Base
       unit_price    = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
       job_item_config = {
           :ingest_id => dvinci_product_id,
+          :ingest_desc => row[column_indices['Description']],
           :quantity  => item_quantity,
           :comment   => special_instructions,
           :unit_price => unit_price,
@@ -123,13 +128,12 @@ class Job < ActiveRecord::Base
 
       job_item = job_items.create(job_item_config)
 
+      # Read the cut dimensions from the input and add to the job item as dimension properties
       dimensions = {
         Property::Height => Option.fromString(row[column_indices['Cut Height']]),
         Property::Width => Option.fromString(row[column_indices['Cut Width']]),
         Property::Depth => Option.fromString(row[column_indices['Cut Depth']])
       }
-
-
 
       job_item.job_item_properties.create(
         :family => :dimensions,
@@ -141,11 +145,13 @@ class Job < ActiveRecord::Base
          }.to_json
       )
 
+      # Match the color code to a color option for the item and add a color property to the job item.
       item.each do |i|
         product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
         if product_code_matchdata
-          logger.info("Searching for color #{product_code_matchdata[3]} in #{i.color_opts.inspect}")
-          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == product_code_matchdata[3]}).each do |opt|
+          color_code = product_code_matchdata.captures[3]
+          logger.info("Searching for color #{} in #{i.color_opts.inspect}")
+          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == color_code}).each do |opt|
             job_item.job_item_properties.create(
               :family => Property::Color::DESCRIPTOR.family,
               :module_names => Property::Color::DESCRIPTOR.module_names,

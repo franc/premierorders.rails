@@ -12,8 +12,8 @@
 
 <table>
   <tr>
-    <th>Job Number</th>
     <th>Job Name</th>
+    <th>Job Number</th>
     <th>Upload Date</th>
     <th>Due Date</th>
     <th>Ship Date</th>
@@ -25,8 +25,8 @@
   </tr>
   <% @jobs.each do |job| %>
     <tr>
-      <td><%= link_to job.job_number, job %></td>
-      <td><%= job.name %></td>
+      <td><%= link_to job.name, job %></td>
+      <td><%= job.job_number %></td>
       <td><%= job.created_at %></td>
       <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
       <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
