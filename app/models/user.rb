@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   attr_accessible :id, :title, :first_name, :last_name, :phone, :phone2, :fax,
                   :email, :password, :password_confirmation, :remember_me
 
+  def name
+    "#{last_name}, #{first_name}"
+  end
+
   def role?(role)
     return !self.roles.find_by_name(role.to_s).nil?
   end

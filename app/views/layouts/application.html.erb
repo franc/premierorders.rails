@@ -20,10 +20,12 @@
   <div id="nav">
     <ul>
       <li><%= link_to "Jobs", jobs_path %></li>
-      <li><%= link_to "Franchisees", franchisees_path %></li>
-      <li><%= link_to "Items", items_path %></li>
-      <li><%= link_to "Properties", properties_path %></li>
-      <% if can? :manage, :all %>
+      <% if current_user && (current_user.role?(:admin) || current_user.role?(:product_admin)) %>
+        <li><%= link_to "Franchisees", franchisees_path %></li>
+        <li><%= link_to "Items", items_path %></li>
+        <li><%= link_to "Properties", properties_path %></li>
+      <% end %>
+      <% if current_user && (current_user.role?(:admin)) %>
         <li><%= link_to "Users", users_path %></li>
       <% end %>
     </ul>

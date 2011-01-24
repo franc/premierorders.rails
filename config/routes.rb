@@ -46,10 +46,13 @@ PgRails::Application.routes.draw do
   resources :franchisees do
     member do
       get 'addresses'
+      post 'create_address'
     end
   end
 
   resources :users
+
+  resources :addresses
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

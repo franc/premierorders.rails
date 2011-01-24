@@ -1,0 +1,27 @@
+<% if @franchisee.franchisee_addresses.empty? %>
+  (No Addresses Found)
+<% else %>
+  <table id="franchisee_addresses">
+    <tr>
+      <th>Type</th>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Postal Code</th>
+      <th>Country</th>
+    </tr>
+    <% @franchisee.franchisee_addresses.each do |a| %>
+      <tr class="franchisee_address">
+        <td><%= a.address_type.try(:titlecase) %></td>
+        <td><%= a.address.address1 %></td>
+        <td><%= a.address.address2 %></td>
+        <td><%= a.address.city %></td>
+        <td><%= a.address.state %></td>
+        <td><%= a.address.postal_code %></td>
+        <td><%= a.address.country %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+

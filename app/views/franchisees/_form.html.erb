@@ -1,3 +1,60 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'jqModal.js' %>
+  <style>
+    .jqm_form {
+        display: none;
+        
+        position: fixed;
+        top: 17%;
+        left: 50%;
+        
+        margin-left: -300px;
+        width: 600px;
+        
+        background-color: #EEE;
+        color: #333;
+        border: 1px solid black;
+        padding: 12px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    $(function() {
+      $("#address_form").jqm({
+        trigger: "#create_franchisee_address",
+        onShow: function(dialog) {
+          $("#submit_address", dialog.w).unbind("click");
+          $("#submit_address", dialog.w).click(function(ev) {
+            $.post(
+              "/franchisees/<%=@franchisee.id%>/create_address",
+              {
+                address_type: $("#address_type option:selected").val(),
+                address: {
+                  address1: $("#address_address1").val(),
+                  address2: $("#address_address2").val(),
+                  city: $("#address_city").val(),
+                  state: $("#address_state").val(),
+                  postal_code: $("#address_postal_code").val()
+                }
+              },
+              function(address_list_html) {
+                alert("Got " + address_list_html);
+                var elem = $(address_list_html);
+                $("#franchisee_addresses").replaceWith(elem);
+              }
+            );
+
+            dialog.w.jqmHide();
+          });
+
+          dialog.w.show();
+        }
+      });
+    });
+  </script>
+<% end %>
+
 <%= form_for(@franchisee) do |f| %>
   <% if @franchisee.errors.any? %>
     <div id="error_explanation">
@@ -15,6 +72,8 @@
     <dl>
       <dt><%= f.label :franchise_name %></dt>
       <dd><%= f.text_field :franchise_name %></dd>
+      <dt><%= f.label :primary_contact%></dt>
+      <dd><%= collection_select(:primary_contact, :user_id, User.order(:last_name, :first_name), :id, :name, {:selected => @franchisee.primary_contact.user_id}) %></dd> 
       <dt><%= f.label :phone %></dt>
       <dd><%= f.text_field :phone %></dd>
       <dt><%= f.label :fax %></dt>
@@ -23,6 +82,8 @@
       <dd><%= f.text_field :website %></dd>
       <dt><%= f.label :credit_status %></dt>
       <dd><%= f.select(:credit_status, [["Green", "Green"], ["Yellow", "Yellow"], ["Red", "Red"]]) %></dd>
+      <dt><%= f.label :addresses %> <span id="create_franchisee_address">(+)</span></dt>
+      <dd><%= render :partial => 'addresses' %></dd>
     </dl>
   </div>
 
@@ -30,3 +91,26 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<div id="address_form" class="jqm_form">
+  <div class="form_fields">
+    <dl>
+      <dt><%= label :address, :address_type %></dt>
+      <dd><%= select_tag :address_type, options_for_select([['Billing', 'Billing'], ['Shipping', 'Shipping']], 'Billing') %></dd>
+      <dt><%= label :address, :address1 %></dt>
+      <dd><%= text_field :address, :address1 %></dd>
+      <dt><%= label :address, :address2 %></dt>
+      <dd><%= text_field :address, :address2 %></dd>
+      <dt><%= label :address, :city %></dt>
+      <dd><%= text_field :address, :city %></dd>
+      <dt><%= label :address, :state %></dt>
+      <dd><%= text_field :address, :state %></dd>
+      <dt><%= label :address, :postal_code %></dt>
+      <dd><%= text_field :address, :postal_code %></dd>
+      <dt></dt>
+      <dd><%= submit_tag 'Create Address', {:id => 'submit_address'} %></dd>
+
+    </dl>
+  </div>
+</div>
+

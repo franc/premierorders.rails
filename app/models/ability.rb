@@ -26,14 +26,7 @@ class Ability
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     user ||= User.new # guest user
  
-    if user.role? :admin
-      can :manage, :all
-      can :assign_roles, User
-      can :admin_job, Job
-    elsif user.role? :product_admin
-      can :manage, [Item, ItemComponent, Property, PropertyValue]
-      can :admin_job, Job
-    elsif user.role? :franchisee
+    if user.role? :franchisee
       can :manage, User, :id => user.id
       can :manage, Job, :customer_id => user.id
       can :manage, [JobProperty, JobItem] do |x|
@@ -46,6 +39,17 @@ class Ability
       can :manage, Address do |addr|
         addr.address_books.any?{|b| b.user_id == user.id}
       end
+    end
+
+    if user.role? :product_admin
+      can :manage, [Item, ItemComponent, Property, PropertyValue]
+      can :admin_job, Job
+    end
+
+    if user.role? :admin
+      can :manage, :all
+      can :assign_roles, User
+      can :admin_job, Job
     end
   end
 end

@@ -2,12 +2,12 @@ require 'date'
 require 'job.rb'
 
 class JobsController < ApplicationController
-  load_and_authorize_resource :except => [:new, :create]
+  load_and_authorize_resource :except => [:new, :create, :index]
 
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = @jobs.order('jobs.created_at DESC NULLS LAST, jobs.due_date DESC NULLS LAST').paginate(:page => params[:page], :per_page => 20)
+    @jobs = Job.accessible_by(current_ability).order('jobs.created_at DESC NULLS LAST, jobs.due_date DESC NULLS LAST').paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb

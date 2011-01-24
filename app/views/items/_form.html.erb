@@ -61,6 +61,7 @@
             this.contentWindow.change_property_receiver(selected_item_type());
           });
 
+          window_contents.find("#add_property_submit").unbind("click");
           window_contents.find("#add_property_submit").click(function() { 
             dialog.w.find(".jqm_content").each(function() {
               var propertyWindow = this.contentWindow;
@@ -119,6 +120,7 @@
               this.contentWindow.change_component_receiver(selected_item_type());
             });
 
+            window_contents.find("#add_component_submit").unbind("click");
             window_contents.find("#add_component_submit").click(function() { 
               dialog.w.find(".jqm_content").each(function() {
                 var componentWindow = this.contentWindow;

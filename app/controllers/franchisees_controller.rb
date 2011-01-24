@@ -1,8 +1,10 @@
 class FranchiseesController < ApplicationController
+  load_and_authorize_resource
+
   # GET /franchisees
   # GET /franchisees.xml
   def index
-    @franchisees = Franchisee.order(:franchise_name).all
+    @franchisees = @franchisees.order(:franchise_name)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +15,6 @@ class FranchiseesController < ApplicationController
   # GET /franchisees/1
   # GET /franchisees/1.xml
   def show
-    @franchisee = Franchisee.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @franchisee }
@@ -24,8 +24,6 @@ class FranchiseesController < ApplicationController
   # GET /franchisees/new
   # GET /franchisees/new.xml
   def new
-    @franchisee = Franchisee.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @franchisee }
@@ -34,14 +32,11 @@ class FranchiseesController < ApplicationController
 
   # GET /franchisees/1/edit
   def edit
-    @franchisee = Franchisee.find(params[:id])
   end
 
   # POST /franchisees
   # POST /franchisees.xml
   def create
-    @franchisee = Franchisee.new(params[:franchisee])
-
     respond_to do |format|
       if @franchisee.save
         format.html { redirect_to(@franchisee, :notice => 'Franchisee was successfully created.') }
@@ -54,11 +49,9 @@ class FranchiseesController < ApplicationController
   end
 
   def addresses
-    @franchisee = Franchisee.find(params[:id])
+    @address_options = @franchisee.addresses.inject({}) { |m, addr| m[addr.id] = addr.single_line; m }
     if request.xhr?
-      address_options = @franchisee.addresses.inject({}) { |m, addr| m[addr.id] = addr.single_line; m }
-      logger.info("About to render as JSON: #{address_options.inspect}")
-      render :json => address_options
+      render :json => @address_options
     else
       respond_to do |format|
         format.html
@@ -67,13 +60,27 @@ class FranchiseesController < ApplicationController
     end
   end
 
+  def create_address
+    @address = Address.create(params[:address])
+    @franchisee_address = @franchisee.franchisee_addresses.create(
+      :address_type => params[:address_type],
+      :address_id => @address.id
+    )
+
+    if request.xhr?
+      render :partial => 'addresses'
+    else
+      redirect_to franchisee_url(@franchisee)
+    end
+ end
+
   # PUT /franchisees/1
   # PUT /franchisees/1.xml
   def update
-    @franchisee = Franchisee.find(params[:id])
-
     respond_to do |format|
       if @franchisee.update_attributes(params[:franchisee])
+        @franchisee.primary_contact.user_id = params[:primary_contact][:user_id].to_i
+        @franchisee.primary_contact.save
         format.html { redirect_to(@franchisee, :notice => 'Franchisee was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -86,9 +93,7 @@ class FranchiseesController < ApplicationController
   # DELETE /franchisees/1
   # DELETE /franchisees/1.xml
   def destroy
-    @franchisee = Franchisee.find(params[:id])
     @franchisee.destroy
-
     respond_to do |format|
       format.html { redirect_to(franchisees_url) }
       format.xml  { head :ok }
