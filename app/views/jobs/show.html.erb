@@ -68,6 +68,8 @@
 <% content_for :local_nav do %>
   <%= link_to 'Edit', edit_job_path(@job) %> |
   <%= link_to 'Quote', quote_job_path(@job) %> |
-  <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
+  <% if can? :admin_job, @job %>
+    <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
+  <% end %>
   <%= link_to 'List', jobs_path %>
 <% end %>

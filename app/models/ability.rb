@@ -28,11 +28,11 @@ class Ability
  
     if user.role? :franchisee
       can :update, User, :id => user.id
-      can [:create, :read, :update], Job, :customer_id => user.id
-      can [:create, :read, :update, :delete], [JobProperty, JobItem] do |x|
+      can [:create, :read, :update, :place_order], Job, :customer_id => user.id
+      can [:create, :read, :update, :destroy], [JobProperty, JobItem] do |x|
         x.job.customer_id == user.id
       end
-      can [:create, :read, :update, :delete], JobItemProperty do |ip|
+      can [:create, :read, :update, :destroy], JobItemProperty do |ip|
         ip.job_item.job.customer_id == user.id
       end
       can :manage, AddressBook, :user_id => user.id

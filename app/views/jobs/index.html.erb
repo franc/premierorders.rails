@@ -12,6 +12,7 @@
 
 <table>
   <tr>
+    <th>Franchise Name</th>
     <th>Job Name</th>
     <th>Job Number</th>
     <th>Upload Date</th>
@@ -19,12 +20,16 @@
     <th>Ship Date</th>
     <th>Status</th>
     <th>Special Instructions</th>
-    <th>Franchise Name</th>
-    <th>Credit Status</th>
-    <th colspan="3">Actions</th>
+    <% if can? :admin_job, @job %>
+      <th>Credit Status</th>
+      <th colspan="3">Actions</th>
+    <% else %>
+      <th>Edit</th>
+    <% end %>
   </tr>
   <% @jobs.each do |job| %>
     <tr>
+      <td><%= job.franchisee.franchise_name %></td>
       <td><%= link_to job.name, job %></td>
       <td><%= job.job_number %></td>
       <td><%= job.created_at %></td>
@@ -38,13 +43,14 @@
         <td><%= job.status %></td>
       <% end %>
       <td><%= job.comment %></td>
-      <td><%= job.franchisee.franchise_name %></td>
-      <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
-      <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
-      <td><%= link_to 'Edit', edit_job_path(job) %></td>
-      <td>
-        <% if can? :admin_job, job %><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %><% end %>
-      </td>
+      <% if can? :admin_job, job %>
+        <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
+        <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
+        <td><%= link_to 'Edit', edit_job_path(job) %></td>
+        <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% else %>
+        <td><%= link_to 'Edit', edit_job_path(job) %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
