@@ -27,12 +27,12 @@ class Ability
     user ||= User.new # guest user
  
     if user.role? :franchisee
-      can :manage, User, :id => user.id
-      can :manage, Job, :customer_id => user.id
-      can :manage, [JobProperty, JobItem] do |x|
+      can :update, User, :id => user.id
+      can [:create, :read, :update], Job, :customer_id => user.id
+      can [:create, :read, :update, :delete], [JobProperty, JobItem] do |x|
         x.job.customer_id == user.id
       end
-      can :manage, JobItemProperty do |ip|
+      can [:create, :read, :update, :delete], JobItemProperty do |ip|
         ip.job_item.job.customer_id == user.id
       end
       can :manage, AddressBook, :user_id => user.id

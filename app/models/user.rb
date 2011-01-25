@@ -18,6 +18,6 @@ class User < ActiveRecord::Base
   end
 
   def role?(role)
-    return !self.roles.find_by_name(role.to_s).nil?
+    !self.roles.find_by_name(role.to_s).nil?
   end
 end

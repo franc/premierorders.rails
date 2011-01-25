@@ -50,7 +50,11 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-    @franchisees = Franchisee.find(:all)
+    @franchisees = if can? :admin_job, @job
+      Franchisee.order(:franchise_name)
+    else
+      current_user.franchisees.order(:franchise_name)
+    end
     @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
   end
 
