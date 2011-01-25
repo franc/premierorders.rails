@@ -4,7 +4,7 @@
 
 <% content_for :local_nav do %>
   <%= link_to 'Show', @job %> |
-  <% if can? :admin_job, @job %>
+  <% if can? :manage, @job %>
     <%= link_to 'Cutrite', cutrite_job_path(@job) %>
   <% end %>
   <%= link_to 'List', jobs_path %>

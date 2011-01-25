@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
     :add_property,
     :property_descriptors,
     :property_form_fragment,
-    #:component_types,
     :component_association_types
   ]
 

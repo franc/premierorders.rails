@@ -20,7 +20,7 @@
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
-      <% if can? :admin_job, @job %>
+      <% if can? :manage, @job %>
         <dt><%= f.label :mfg_plant %></dt>
         <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
         <dt><%= f.label :status %></dt>

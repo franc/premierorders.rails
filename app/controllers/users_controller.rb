@@ -36,9 +36,9 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     if can? :assign_role, @user
-      @role_names = params[:user][:roles] || []
-      @role_names.each do |name|
-        Option.new(Role.find_by_name(name)).each do |role|
+      role_ids = params[:user][:roles] || []
+      role_ids.each do |id|
+        Option.new(Role.find_by_id(id)).each do |role|
           @user.roles << role
         end
       end
@@ -77,6 +77,11 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
+      if params[:user][:password].blank? 
+        params[:user].delete(:password)
+        params[:user].delete(:password_confirmation)
+      end
+
       if @user.update_attributes(params[:user])
         @user.franchisee_contacts.clear
         params[:user][:franchisees].each do |id|

@@ -28,7 +28,7 @@ class Ability
  
     if user.role? :franchisee
       can :update, User, :id => user.id
-      can [:create, :read, :update, :place_order], Job, :customer_id => user.id
+      can [:create, :read, :update, :place_order, :quote], Job, :customer_id => user.id
       can [:create, :read, :update, :destroy], [JobProperty, JobItem] do |x|
         x.job.customer_id == user.id
       end
@@ -43,13 +43,11 @@ class Ability
 
     if user.role? :product_admin
       can :manage, [Item, ItemComponent, Property, PropertyValue]
-      can :admin_job, Job
+      can :manage, [Job, JobProperty, JobItem, JobItemProperty]
     end
 
     if user.role? :admin
       can :manage, :all
-      can :assign_roles, User
-      can :admin_job, Job
     end
   end
 end

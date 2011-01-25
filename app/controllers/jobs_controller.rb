@@ -35,7 +35,7 @@ class JobsController < ApplicationController
   # GET /jobs/new.xml
   def new
     @job = Job.new
-    @franchisees = if can? :admin_job, @job
+    @franchisees = if can? :manage, @job
       Franchisee.order(:franchise_name)
     else
       current_user.franchisees.order(:franchise_name)
@@ -50,7 +50,7 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-    @franchisees = if can? :admin_job, @job
+    @franchisees = if can? :manage, @job
       Franchisee.order(:franchise_name)
     else
       current_user.franchisees.order(:franchise_name)
