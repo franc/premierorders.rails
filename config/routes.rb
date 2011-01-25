@@ -37,6 +37,7 @@ PgRails::Application.routes.draw do
 
   resources :jobs do
     member do
+      get 'quote'
       get 'cutrite'
       get 'download'
       get 'place_order'

@@ -18,12 +18,15 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.xml
   def show
-    @total = @job.job_items.inject(0.0) do |total, job_item|
-      total += job_item.compute_total
-    end
-
     respond_to do |format|
       format.html # show.html.erb
+      format.xml  { render :xml => @job }
+    end
+  end
+
+  def quote
+    respond_to do |format|
+      format.html # quote.html.erb
       format.xml  { render :xml => @job }
     end
   end

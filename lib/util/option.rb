@@ -12,7 +12,11 @@ module Option
   end
 
   def self.iif(bool, value)
-    bool ? None::NONE : Option.new(value)
+    bool ? Option.new(value) : None::NONE
+  end
+
+  def self.call(sym, obj)
+    obj.respond_to?(sym) ? Option.new(obj.send(sym)) : None::NONE
   end
 
   def self.fromString(value)

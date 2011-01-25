@@ -1,0 +1,46 @@
+<dl class="form_fields">
+  <dt>Job Number</dt>
+  <dd><%= @job.job_number -%></dd>
+
+  <dt>Job Name</dt>
+  <dd><%= @job.name -%></dd>
+
+  <dt>Due Date</dt>
+  <dd><%= @job.due_date %></dd>
+
+  <dt>Ship Date</dt>
+  <dd><%= @job.ship_date %></dd>
+
+  <dt>MFG Plant</dt>
+  <dd><%= @job.mfg_plant -%></dd>
+
+  <dt>Franchisee</dt>
+  <dd><%= @job.franchisee.franchise_name -%></dd>
+
+  <dt>Billing Address</dt>
+  <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+
+  <dt>Shipping Address</dt>
+  <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+
+  <dt>Special Instructions</dt>
+  <dd><%= @job.comment -%></dd>
+
+  <dt>Job Total</dt>
+  <dd>
+    <%= "$%.2f" % @job.total -%><br/>
+    <% if @job.placement_date.nil? %><%= link_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
+  </dd>
+
+  <dt>Items</dt>
+  <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !i.inventory?}} %></dd>
+
+  <dt>Inventory Items</dt>
+  <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.inventory?}} %></dd>
+</dl>
+
+<% content_for :local_nav do %>
+  <%= link_to 'Edit', edit_job_path(@job) %> |
+  <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
+  <%= link_to 'List', jobs_path %>
+<% end %>

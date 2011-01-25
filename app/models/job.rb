@@ -229,7 +229,17 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.order('tracking_id', 'items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.order('tracking_id', 'items.name').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+  end
+
+  def total 
+    job_items.inject(0.0) do |total, job_item|
+      if job_item.inventory?
+        total
+      else
+        total += job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
+      end
+    end
   end
 
   private
