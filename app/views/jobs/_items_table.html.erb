@@ -25,7 +25,7 @@
       <td><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
       <td>
         <%= "$%.2f" % job_item.compute_unit_price.orSome(job_item.unit_price) %>
-        <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % m}.orSome('') %>
+        <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
       <td><%= "$%.2f" % job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) %></td>
       <td><%= job_item.comment %></td>

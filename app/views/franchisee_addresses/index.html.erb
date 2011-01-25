@@ -1,0 +1,21 @@
+<h1>Listing franchisee_addresses</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @franchisee_addresses.each do |franchisee_address| %>
+  <tr>
+    <td><%= link_to 'Show', franchisee_address %></td>
+    <td><%= link_to 'Edit', edit_franchisee_address_path(franchisee_address) %></td>
+    <td><%= link_to 'Destroy', franchisee_address, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Franchisee address', new_franchisee_address_path %>
