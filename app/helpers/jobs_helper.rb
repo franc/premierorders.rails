@@ -16,6 +16,6 @@ module JobsHelper
       end
     end
 
-    cls.orSome("not_computed")
+    cls.orSome("price_not_computed")
   end
 end
