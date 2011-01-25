@@ -28,9 +28,15 @@
       <td><%= link_to job.name, job %></td>
       <td><%= job.job_number %></td>
       <td><%= job.created_at %></td>
-      <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
-      <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
-      <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>
+      <% if can? :admin_job, @job %>
+        <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
+        <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
+        <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>
+      <% else %>
+        <td><%= job.due_date %></td>
+        <td><%= job.ship_date %></td>
+        <td><%= job.status %></td>
+      <% end %>
       <td><%= job.comment %></td>
       <td><%= job.franchisee.franchise_name %></td>
       <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
