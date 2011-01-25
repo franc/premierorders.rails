@@ -28,7 +28,7 @@
       <td><%= link_to job.name, job %></td>
       <td><%= job.job_number %></td>
       <td><%= job.created_at %></td>
-      <% if can? :admin_job, @job %>
+      <% if can? :admin_job, job %>
         <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
         <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
         <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS, job.status), :class => 'job_status') -%></td>
@@ -42,7 +42,9 @@
       <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
       <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
       <td><%= link_to 'Edit', edit_job_path(job) %></td>
-      <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td>
+        <% if can? :admin_job, job %><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %><% end %>
+      </td>
     </tr>
   <% end %>
 </table>

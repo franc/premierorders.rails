@@ -17,6 +17,8 @@
       <dd><%= f.text_field :first_name %></dd>
       <dt><%= f.label :last_name %></dt>
       <dd><%= f.text_field :last_name %></dd>
+      <dt><%= f.label :franchisees %></dt>
+      <dd><%= f.collection_select(:franchisees, Franchisee.all, :id, :franchise_name, {:selected => @user.franchisees.map{|f| f.id}, :multiple => true}) %></dd>
       <dt><%= f.label :phone %></dt>
       <dd><%= f.text_field :phone %></dd>
       <dt><%= f.label :phone2 %></dt>

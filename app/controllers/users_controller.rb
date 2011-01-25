@@ -46,6 +46,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        params[:user][:franchisees].each do |id|
+          @user.franchisee_contacts.create(:franchisee_id => id)
+        end
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
@@ -75,6 +78,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
+        @user.franchisee_contacts.clear
+        params[:user][:franchisees].each do |id|
+          @user.franchisee_contacts.create(:franchisee_id => id)
+        end
         format.html { redirect_to(user_path(@user), :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else

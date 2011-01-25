@@ -79,8 +79,15 @@ class FranchiseesController < ApplicationController
   def update
     respond_to do |format|
       if @franchisee.update_attributes(params[:franchisee])
-        @franchisee.primary_contact.user_id = params[:primary_contact][:user_id].to_i
-        @franchisee.primary_contact.save
+        if @franchisee.primary_contact.nil?
+          @franchisee.franchisee_contacts.create(
+            :contact_type => :primary, 
+            :user_id => params[:primary_contact][:user_id].to_i
+          )
+        else
+          @franchisee.primary_contact.user_id = params[:primary_contact][:user_id].to_i
+          @franchisee.primary_contact.save
+        end
         format.html { redirect_to(@franchisee, :notice => 'Franchisee was successfully updated.') }
         format.xml  { head :ok }
       else
