@@ -42,7 +42,9 @@ class JobItem < ActiveRecord::Base
         w = width.orSome(nil)
         h = height.orSome(nil)
         d = depth.orSome(nil)
-        eval(e.compile.gsub(/W/,'w').gsub(/H/,'h').gsub(/D/,'d'))
+        expr = e.compile.gsub(/W/,'w').gsub(/H/,'h').gsub(/D/,'d')
+        logger.info("Evaluating expression (#{expr}) at w = #{w}, h = #{h}, d = #{d}")
+        eval(expr)
       end
     end
   end
