@@ -1,47 +1,99 @@
-<dl class="form_fields">
-  <dt>Job Number</dt>
-  <dd><%= @job.job_number -%></dd>
+<div class="form_fields">
+  <dl class="job_number">
+    <dt>Job Number</dt>
+    <dd><%= @job.job_number -%></dd>
+  </dl>
 
-  <dt>Job Name</dt>
-  <dd><%= @job.name -%></dd>
+  <dl class="job_name">
+    <dt>Job Name</dt>
+    <dd><%= @job.name -%></dd>
+  </dl>
 
-  <dt>Due Date</dt>
-  <dd><%= @job.due_date %></dd>
+  <dl class="due_date">
+    <dt>Due Date</dt>
+    <dd><%= @job.due_date %></dd>
+  </dl>
 
-  <dt>Ship Date</dt>
-  <dd><%= @job.ship_date %></dd>
+  <dl class="ship_date">
+    <dt>Ship Date</dt>
+    <dd><%= @job.ship_date %></dd>
+  </dl>
 
-  <dt>MFG Plant</dt>
-  <dd><%= @job.mfg_plant -%></dd>
+  <dl class="mfg_plant">
+    <dt>MFG Plant</dt>
+    <dd><%= @job.mfg_plant -%></dd>
+  </dl>
 
-  <dt>Franchisee</dt>
-  <dd><%= @job.franchisee.franchise_name -%></dd>
+  <dl class="franchisee">
+    <dt>Franchisee</dt>
+    <dd><%= @job.franchisee.franchise_name -%></dd>
+  </dl>
 
-  <dt>Billing Address</dt>
-  <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+  <dl class="billing_address">
+    <dt>Billing Address</dt>
+    <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+  </dl>
 
-  <dt>Shipping Address</dt>
-  <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+  <dl class="shipping_address">
+    <dt>Shipping Address</dt>
+    <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+  </dl>
 
-  <dt>Special Instructions</dt>
-  <dd><%= @job.comment -%></dd>
+  <dl class="job_total">
+    <dt>Job Total</dt>
+    <dd>
+      <%= "$%.2f" % @job.total -%><br/>
+      <% if @job.placement_date.nil? %><%= link_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
+    </dd>
+  </dl>
 
-  <dt>Job Total</dt>
-  <dd>
-    <%= "$%.2f" % @job.total -%><br/>
-    <% if @job.placement_date.nil? %><%= link_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
-  </dd>
+  <dl class="special_instructions">
+    <dt>Special Instructions</dt>
+    <dd><%= @job.comment -%></dd>
+  </dl>
 
-  <dt>Items</dt>
-  <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !i.inventory?}} %></dd>
+  <dl class="items">
+    <dt>Items</dt>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !i.inventory?}} %></dd>
+  </dl>
 
-  <dt>Inventory Items</dt>
-  <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.inventory?}} %></dd>
-</dl>
+  <dl class="inventory_items">
+    <dt>Inventory Items</dt>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.inventory?}} %></dd>
+  </dl>
+</div>
 
 <% content_for :local_nav do %>
   <%= link_to 'Edit', edit_job_path(@job) %> |
   <%= link_to 'Show', job_path(@job) %> |
   <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
   <%= link_to 'List', jobs_path %>
+<% end %>
+
+<% content_for :head do %>
+  <style type="text/css" media="print">
+    body {
+      background-color: white;
+      color: black;
+      font: 10pt/14pt 'Times New Roman', Times, serif;
+    }
+    #auth_nav, #nav, #local_nav {display: none;}
+    #content:before {content: url('/images/Premier Logo.jpg');}
+    dt {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    dl {
+      float: left;
+      width: 49%;
+      margin: 5pt 0;
+    }
+    dl.special_instructions, dl.items, dl.inventory_items {clear: left; width: 100%;}
+    dd {margin-left: 20pt;}
+    dl.items dd, dl.inventory_items dd {margin-left: 0;}
+    table {width: 100%; border-collapse: collapse;}
+    td, th {border: 1px solid #ccc; padding: .1em .25em;}
+    th {background-color: #aaa;}
+    tr:nth-child(odd)   { background-color:#eee; }
+  </style>
 <% end %>
