@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110124035919) do
+ActiveRecord::Schema.define(:version => 20110126052224) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20110124035919) do
   end
 
   create_table "job_items", :force => true do |t|
-    t.integer  "job_id",      :null => false
+    t.integer  "job_id",         :null => false
     t.integer  "item_id"
     t.string   "ingest_id"
     t.float    "quantity"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20110124035919) do
     t.float    "unit_price"
     t.integer  "tracking_id"
     t.string   "ingest_desc"
+    t.float    "override_price"
   end
 
   create_table "job_properties", :force => true do |t|
@@ -160,6 +161,7 @@ ActiveRecord::Schema.define(:version => 20110124035919) do
     t.text     "comment"
     t.datetime "placement_date"
     t.integer  "placed_by_id"
+    t.string   "tracking_number"
   end
 
   create_table "properties", :force => true do |t|
