@@ -34,11 +34,10 @@ class JobItem < ActiveRecord::Base
 
   def compute_unit_price
     Option.new(item).bind do |i|
-      price_expr = Option.new(job_item_properties.find_by_family(:color)).bind do |color_property|
-        i.rebated_cost_expr(:in, color_property.color, [])
-      end
+      color_property = Option.new(job_item_properties.find_by_family(:color))
+      price_expr = i.rebated_cost_expr(:in, color_property.map{|p| p.color}.orSome(nil), [])
 
-      price_expr.map do |e| 
+      price_expr.map do |e|
         w = width.orSome(nil)
         h = height.orSome(nil)
         d = depth.orSome(nil)

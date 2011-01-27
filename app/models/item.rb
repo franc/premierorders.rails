@@ -106,7 +106,7 @@ class Item < ActiveRecord::Base
   end
 
   def cost_expr(units, color, contexts)
-    base_expr = base_price.nil? || base_price == 0 ? [] : [term(base_price)]
+    base_expr = self.base_price.nil? || self.base_price == 0 ? [] : [term(self.base_price)]
     
     selected_component_associations = if contexts.nil? || contexts.empty?
       item_components
@@ -124,6 +124,7 @@ class Item < ActiveRecord::Base
 
     subtotal_exprs = base_expr + component_exprs
     if subtotal_exprs.empty?
+      logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
     else
       Option.some(apply_margin(sum(*subtotal_exprs)))

@@ -16,7 +16,7 @@
     <% color_property = job_item.job_item_properties.find_by_family(:color) %>
     <tr class="<%=unit_price_class(job_item)%>">
       <td><%= job_item.tracking_id %></td>
-      <td><%= job_item.item ? job_item.item.name : "#{job_item.ingest_desc}: #{job_item.ingest_id}" %></td>
+      <td><%= job_item.item ? link_to(job_item.item.name, item_path(job_item.item)) : "#{job_item.ingest_desc}: #{job_item.ingest_id}" %></td>
       <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
       <td><%= color_property ? color_property.color : '' %></td>
       <td><%= job_item.quantity.to_i %></td>
