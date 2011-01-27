@@ -1,25 +1,54 @@
+require 'util/option'
+
 class JobItem < ActiveRecord::Base
 	belongs_to :job
-  belongs_to :item, :include => :item_attrs
-	has_many :job_item_attributes
+  belongs_to :item
+	has_many   :job_item_properties, :dependent => :destroy, :extend => Properties::Association
 
-	def item_attr(name)
-    attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
-    if attr
-      job_attr = job_item_attributes.find_by_item_attr_id(attr.id)
-      job_attr.nil? ? attr.default_value : attr.value(job_attr.value_str)
-    else
-      job_attr = job_item_attributes.find_by_ingest_id(name)
-      job_attr.nil? ? nil : job_attr.value_str
+  def dimensions_property 
+    @dimensions_property ||= Option.new(job_item_properties.find_by_family(:dimensions))
+    @dimensions_property
+  end
+
+  def inventory?
+    (item && item.purchasing == 'Inventory') || ingest_id.strip[-1,1] == 'I'
+  end
+
+  def width
+    dimensions_property.bind do |p|
+      Option.call(:width, p)
     end
-	end
-end
+  end
 
-class JobItemAttribute < ActiveRecord::Base
-  belongs_to :job_item
-  belongs_to :item_attr
+  def height
+    dimensions_property.bind do |p|
+      Option.call(:height, p)
+    end
+  end
 
-  def attr_name
-    item_attr.nil? ? ingest_id : item_attr.name
+  def depth
+    dimensions_property.bind do |p|
+      Option.call(:depth, p)
+    end
+  end
+
+  def compute_unit_price
+    Option.new(item).bind do |i|
+      color_property = Option.new(job_item_properties.find_by_family(:color))
+      price_expr = i.rebated_cost_expr(:in, color_property.map{|p| p.color}.orSome(nil), [])
+
+      price_expr.map do |e|
+        w = width.orSome(nil)
+        h = height.orSome(nil)
+        d = depth.orSome(nil)
+        expr = e.compile.gsub(/W/,'w').gsub(/H/,'h').gsub(/D/,'d')
+        logger.info("Evaluating expression (#{expr}) at w = #{w}, h = #{h}, d = #{d}")
+        eval(expr)
+      end
+    end
+  end
+
+  def compute_total
+    compute_unit_price.map{|t| t * quantity}
   end
 end

@@ -1,0 +1,44 @@
+<%= form_for @user do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form_fields">
+    <dl>
+      <dt><%= f.label :first_name %></dt>
+      <dd><%= f.text_field :first_name %></dd>
+      <dt><%= f.label :last_name %></dt>
+      <dd><%= f.text_field :last_name %></dd>
+      <dt><%= f.label :franchisees %></dt>
+      <dd><%= f.collection_select(:franchisees, Franchisee.all, :id, :franchise_name, {:selected => @user.franchisees.map{|fr| fr.id}, :multiple => true}) %></dd>
+      <dt><%= f.label :phone %></dt>
+      <dd><%= f.text_field :phone %></dd>
+      <dt><%= f.label :phone2 %></dt>
+      <dd><%= f.text_field :phone2 %></dd>
+      <dt><%= f.label :fax %></dt>
+      <dd><%= f.text_field :fax %></dd>
+      <dt><%= f.label :email %></dt>
+      <dd><%= f.text_field :email %></dd>
+      <% if can? :assign_role, @user %>
+        <dt><%= f.label :roles %></dt>
+        <dd><%= f.collection_select(:roles, Role.all, :id, :name, {:selected => @user.roles.map{|r| r.id}}, :multiple => true) %></dd>
+      <% end %>
+      <dt><%= f.label :password %></dt>
+      <dd><%= f.password_field :password %></dd>
+      <dt><%= f.label :password_confirmation %></dt>
+      </dd><%= f.password_field :password_confirmation %></dd>
+    </dl>
+  </div>
+
+  <div class="form_actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,42 +1,43 @@
 require 'rexml/document'
 require 'csv'
+require 'json'
+require 'property.rb'
+require 'util/option.rb'
 
 class Job < ActiveRecord::Base
   belongs_to :franchisee
   belongs_to :primary_contact, :class_name => 'User'
   belongs_to :customer, :class_name => 'User'
+  belongs_to :placed_by, :class_name => 'User'
   belongs_to :billing_address, :class_name => 'Address'
   belongs_to :shipping_address, :class_name => 'Address'
-  has_many :job_items, :include => :item
+  has_many   :job_items, :dependent => :destroy
+  has_many   :job_properties, :dependent => :destroy, :extend => Properties::Association
 
   has_attached_file :dvinci_xml
 
-  DVINCI_CUSTOM_ATTRIBUTES = {
-    'Cut Width' => 'width',
-    'Cut Height' => 'height',
-    'Cut Depth' => 'depth'
-  }
-
   STATUS_OPTIONS = [
-    ["Created" , "Created"],
-    ["In Review" , "In Review"],
-    ["Confirmed" , "Confirmed"],
-    ["On Hold" , "On Hold"],
-    ["Ready For Production" , "Ready For Production"],
-    ["In Production" , "In Production"],
-    ["Ready to Ship" , "Ready to Ship"],
-    ["Hold Shipment" , "Hold Shipment"],
-    ["Shipped" , "Shipped"],
-    ["Cancelled" , "Cancelled"]
+    "Created",
+    "Placed",
+    "Confirmed",
+    "On Hold",
+    "Ready For Production",
+    "In Production",
+    "Ready to Ship",
+    "Hold Shipment",
+    "Shipped",
+    "Cancelled",
   ]
+
+  SHIPMENT_OPTIONS = ["PremierRoute", "LTL", "Drop Ship", "Ground", "2nd Day", "Overnight"]
 
   def ship_to
     shipping_address || franchisee.shipping_address
   end
 
-  def item_attributes
-    job_items.inject([]) do |attrs, job_item|
-      attrs + job_item.job_item_attributes.map{|a| a.attr_name}
+  def property_names
+    job_items.inject([]) do |names, job_item|
+      names + job_item.job_item_properties.map{|a| a.name}
     end
   end
 
@@ -50,7 +51,7 @@ class Job < ActiveRecord::Base
   def decompose_csv(csv)
     rows = []
     CSV.open(csv.path, "r", nil, "\r") do |row|
-        rows << row
+      rows << row
     end
 
     rows
@@ -68,11 +69,18 @@ class Job < ActiveRecord::Base
   def add_items_from_dvinci(file)
     rows = case File.extname(file.path)
       when '.xml' then decompose_xml(file)
+      when '.xls' then decompose_xml(file)
       when '.csv' then decompose_csv(file)
       else raise "Did not recognize file type for #{File.extname(file.path)}"
     end
 
     labels, data_rows = rows.partition {|row| row[0] == 'Description'}
+
+    job_properties.create(
+      :family => :linear_units,
+      :module_names => Property::LinearUnits,
+      :value_str => {:linear_units => :in}.to_json
+    )
 
     raise FormatException, "Unexpected number of label rows in document: #{labels.size}; expected 1" unless labels.size == 1
     labels.flatten!
@@ -81,6 +89,7 @@ class Job < ActiveRecord::Base
     raise FormatException, "Did not find required columns in document: #{missing_columns.inspect}" unless missing_columns.empty?
 
     column_indices = (0...labels.size).zip(labels).inject({}) { |m, l| m[l[1]] = l[0]; m }
+    logger.info("Got column index map: #{column_indices.inspect}")
 
     min_columns = labels.any? {|l| l =~ /Notes/} ? labels.size - 1 : labels.size
     item_rows = data_rows.select do |r| 
@@ -92,14 +101,12 @@ class Job < ActiveRecord::Base
     item_rows.each_with_index do |row, i|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
-      product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\d{3})\.(\d{2})(\w)/)
-      item = if product_code_matchdata
-        t1, t2, t3, color_key, t5, t6 = product_code_matchdata.captures
-        Item.find_by_dvinci_id("#{t1}.#{t2}.#{t3}.x.#{t5}#{t6}") || Item.find_by_dvinci_id(dvinci_product_id)
-      else 
-        Item.find_by_dvinci_id(dvinci_product_id)
-      end
 
+      # Find the item in the database that corresponds to the dvinci code of the item from the import
+      item = Item.find_by_concrete_dvinci_id(dvinci_product_id)
+
+      # Any unlabeled column contents will be appended to the contents of any 'Notes' column to form
+      # the special instructions.
       unlabeled_col_values = ((0...row.size).to_a - column_indices.values).map{|i| row[i]}
       special_instructions = if column_indices['Notes'] 
         (unlabeled_col_values << row[column_indices['Notes']]).join("; ")
@@ -108,80 +115,70 @@ class Job < ActiveRecord::Base
       end
 
       item_quantity = row[column_indices['# of Items in Design']].to_i
-      unit_price = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
-      job_item = if (item.nil?)
-        job_items.create(
+      unit_price    = row[column_indices['Material Charge']].gsub(/\$/,'').strip.to_f / item_quantity
+      job_item_config = {
           :ingest_id => dvinci_product_id,
+          :ingest_desc => row[column_indices['Description']],
           :quantity  => item_quantity,
           :comment   => special_instructions,
           :unit_price => unit_price,
-          :tracking_id => i
-        )
-      else
-        job_items.create(
-          :item      => item,
-          :ingest_id => dvinci_product_id,
-          :quantity  => item_quantity,
-          :comment   => special_instructions,
-          :unit_price => unit_price,
-          :tracking_id => i
-        )
-      end
+          :tracking_id => i + 1
+      }
 
-      ignored_attributes = [
-        'Part Number', # Ignored since it's handled specifically above
-        '# of Packages',
-        '# of Items in Pkgs',
-        '# of Items in Design', # Ignored since it's handled specifically above
-        'Material Charge', # Ignored since it's handled specifically above
-        'Labor Charge',
-        'Total Charge',
-        'Notes'
-      ]
+      # Add the item reference to the job item, if an item is known
+      item.each{|i| job_item_config[:item_id] = i.id}
 
-      # Find the item attributes for the imported columns, standardizing from any non-standard names
-      attribute_labels = column_indices.keys - ignored_attributes
-      attributes = item.nil? ? {} : attribute_labels.inject({}) do |attr_map, name|
-        attr = item.item_attrs.find_by_name(DVINCI_CUSTOM_ATTRIBUTES[name] || name)
-        attr_map[name] = attr unless attr.nil?
-        attr_map
-      end
+      job_item = job_items.create(job_item_config)
 
-      attribute_labels.each do |name|
-        if attributes.has_key?(name)
-          # for attributes where the attribute is already known in relation to the item,
-          # reference it when creating the job attribute
-          job_item.job_item_attributes.create(
-            :attribute => attributes[name],
-            :ingest_id => name,
-            :value_str => row[column_indices[name]]
-          )
-        else
-          # otherwise, just attach the information as an opaque key/value pair
-          job_item.job_item_attributes.create(
-            :ingest_id => name,
-            :value_str => row[column_indices[name]]
-          )
-        end
-      end
+      # Read the cut dimensions from the input and add to the job item as dimension properties
+      dimensions = {
+        Property::Height => Option.fromString(row[column_indices['Cut Height']]),
+        Property::Width => Option.fromString(row[column_indices['Cut Width']]),
+        Property::Depth => Option.fromString(row[column_indices['Cut Depth']])
+      }
 
-      # Attach color information to the item if the item is something that has a color
-      # and specifies a color for the color key; if the color key is not known
-      # then the value of this attribute will be nil
-      ['Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge2', 'Door Material', 'Door Edge'].each do |name|
-        attr = item.nil? ? nil : item.item_attrs.find_by_name(name)
-        if !attr.nil?
-          attr_option = item.item_attr_options.find_by_item_attr_id_and_dvinci_id(attr.id, color_key)
-          if !attr_option.nil?
-            job_item.job_item_attributes.create(
-              :item_attr_id => attr.id,
-              :ingest_id => color_key,
-              :value_str => attr_option.value_str
-            )
+      job_item.job_item_properties.create(
+        :family => :dimensions,
+        :module_names => dimensions.inject([]){|m, pair| pair[1].map{|v| m << pair[0]}.orSome(m)}.
+                         map{|m| m.to_s.demodulize}.join(","),
+        :value_str => dimensions.inject({:linear_units => :in}) {|m, pair| 
+           pair[1].each{|v| m[pair[0].to_s.demodulize.downcase.to_sym] = v}
+           m
+         }.to_json
+      )
+
+      # Match the color code to a color option for the item and add a color property to the job item.
+      item.each do |i|
+        product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
+        if product_code_matchdata
+          color_code = product_code_matchdata.captures[3]
+          logger.info("Searching for color #{} in #{i.color_opts.inspect}")
+          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == color_code}).each do |opt|
+            job_item.job_item_properties.create(
+              :family => Property::Color::DESCRIPTOR.family,
+              :module_names => Property::Color::DESCRIPTOR.module_names,
+              :value_str => {:color => opt.color}.to_json
+            )    
           end
         end
       end
     end
+  end
+
+  def place_order(date, current_user)
+    if self.placement_date.nil?
+      transaction do 
+        serial_no = JobSerialNumber.find_by_year(date.year) || JobSerialNumber.new(:year => date.year, :max_serial => 0)
+        serial_no.max_serial += 1
+        self.status = 'Placed' 
+        self.job_number = "#{date.year} - #{serial_no.max_serial}"
+        self.placement_date = date 
+        self.placed_by = current_user
+        logger.info( self.inspect)
+        serial_no.save
+      end
+    end
+    logger.info( self.inspect)
   end
 
   def to_cutrite_data
@@ -234,7 +231,17 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.order('tracking_id', 'items.name').all.select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.order('tracking_id', 'items.name').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+  end
+
+  def total 
+    job_items.inject(0.0) do |total, job_item|
+      if job_item.inventory?
+        total
+      else
+        total += job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
+      end
+    end
   end
 
   private
@@ -243,11 +250,11 @@ class Job < ActiveRecord::Base
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
-      to_mm(job_item.item_attr('Cut Width')),
-      to_mm(job_item.item_attr('Cut Height')),
-      to_mm(job_item.item_attr('Cut Depth')),
+      job_item.property('Width').width(:mm),
+      job_item.property('Height').height(:mm),
+      job_item.property('Depth').depth(:mm),
       job_item.item.nil? ? nil : job_item.item.cutrite_id,
-      job_item.item.nil? ? job_item.item_attr('Description') : job_item.item.name
+      job_item.item.nil? ? job_item.item_attr('description') : job_item.item.name
     ]
 
     cutrite_custom_attributes = [
@@ -262,10 +269,6 @@ class Job < ActiveRecord::Base
     custom_attr_values = cutrite_custom_attributes.map { |name| job_item.item_attr(name) }
 
     basic_attr_values + custom_attr_values
-  end
-
-  def to_mm(value)
-    value.nil? ? nil : value.to_f * 25.4
   end
 end
 

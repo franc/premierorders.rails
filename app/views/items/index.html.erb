@@ -1,24 +1,39 @@
-<h1>Item List</h1>
+<h2>Item List</h2>
 
 <table>
   <tr>
-    <th>Item Name</th>
-    <th>D'Vinci ID</th>
     <th>Edit</th>
+    <th>Item Name</th>
+    <th>Item Type</th>
+    <th>D'Vinci</th>
+    <th>CutRite</th>
+    <th>MPN</th>
+    <th>QB</th>
+    <th>Price</th>
+    <th>Margin</th>
+    <th>Comps</th>
+    <th>Props</th>
     <th>Destroy</th>
   </tr>
 
 <% @items.each do |item| %>
   <tr>
-    <td><%= link_to item.name, item %></td>
-    <td><%= item.dvinci_id %></td>
     <td><%= link_to 'Edit', edit_item_path(item) %></td>
-    <td><%= link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to item.name, item_path(item) %></td>
+    <td><%= item.class.to_s.demodulize %></td>
+    <td><%= item.dvinci_id %></td>
+    <td><%= item.cutrite_id %></td>
+    <td><%= item.sku %></td>
+    <td><%= item.purchase_part_id %></td>
+    <td><%= item.base_price %></td>
+    <td><%= item.margin_factor %></td>
+    <td><%= raw ok_tag(item.components_ok?) %></td>
+    <td><%= raw ok_tag(item.properties_ok?) %></td>
+    <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
+<%= will_paginate @items %>
 
 <% content_for :local_nav do %>
   <%= link_to 'New Item', new_item_path %>

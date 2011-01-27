@@ -1,7 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<div class="form_fields">
+  <dl>
+    <dt><%= label :franchisee, :franchise_name %></dt>
+    <dd><%= @franchisee.franchise_name %></dd>
+    <% Option.new(@franchisee.primary_contact).each do |contact| %>
+      <dt><%= label :franchisee, :primary_contact %></dt>
+      <dd><%= contact.user.last_name %>, <%= contact.user.first_name %></dd>
+      <dt><%= label :franchisee, :contact_email %></dt>
+      <dd><%= contact.user.email %></dd>
+    <% end %>
+    <dt><%= label :franchisee, :phone %></dt>
+    <dd><%= @franchisee.phone %></dd>
+    <dt><%= label :franchisee, :fax %></dt>
+    <dd><%= @franchisee.fax %></dd>
+    <dt><%= label :franchisee, :website %></dt>
+    <dd><%= @franchisee.website %></dd>
+    <dt><%= label :franchisee, :credit_status %></dt>
+    <dd><span style="color: <%= @franchisee.credit_status.try(:downcase) %>"><%= @franchisee.credit_status %></span></dd>
+
+    <dt><%= label :franchisee, :addresses %></dt>
+    <dd><%= render :partial => 'addresses', :locals => {:mode => :show} %></dd>
+  </dl>
+</div>
+
 
 <% content_for :local_nav do %>
   <%= link_to 'Edit', edit_franchisee_path(@franchisee) %> |
-  <%= link_to 'Back', franchisees_path %>
+  <%= link_to 'List', franchisees_path %>
 <% end %>

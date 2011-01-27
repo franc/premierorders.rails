@@ -3,17 +3,7 @@
 <h1>New job</h1>
 
 <%= form_for @job, :html => { :multipart => true } do |f| %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
-      <ul>
-        <% @job.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render :partial => 'form_errors' %>
 
   <div class="form_fields">
     <dl>
@@ -23,25 +13,15 @@
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
-      <dt><%= f.label :job_number %></dt>
-      <dd><%= f.text_field :job_number %></dd>
       <dt><%= f.label :dvinci_xml %></dt>
       <dd><%= f.file_field :dvinci_xml %></dd>
-      <dt><%= f.label :mfg_plant %></dt>
-      <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
-      <dt><%= f.label :status %></dt>
-      <dd><%= f.select(:status, Job::STATUS_OPTIONS) -%></dd>
-      <dt><%= f.label :due_date %></dt>
-      <dd><%= f.text_field :due_date %></dd>
-      <dt><%= f.label :ship_date %></dt>
-      <dd><%= f.text_field :ship_date %></dd>
       <dt><%= f.label :special_instructions %></dt>
       <dd><%= f.text_area :comment %></dd>
     </dl>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Upload Order'%>
   </div>
 <% end %>
 

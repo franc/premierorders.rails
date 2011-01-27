@@ -1,0 +1,20 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'item_editing.js' %>
+  <script type="text/javascript">
+    var add_property_row = function(property, qualifiers) {
+      var new_entry = $("#<%=id-%> tr.property_row.prototype").clone().removeClass('prototype');
+      $(".property_name", new_entry).html(property.property_name);
+      $(".property_family", new_entry).html(property.property_family);
+      $(".property_qualifier", new_entry).html(qualifiers);
+      var values = property.property_values;
+      for (i = 0; i < values.length; i++) {
+        $(".property_values ul", new_entry).append(
+          "<li>"+values[i].value_name+" ("+values[i].dvinci_id+")</li>"  
+        );
+      }
+
+      $("#properties_list").append(new_entry);
+    };
+  </script> 
+<% end %>

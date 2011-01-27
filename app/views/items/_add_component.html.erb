@@ -1,0 +1,170 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag 'jqModal.js' %>
+  <style>
+    .component_properties.conf {
+      display: none;
+    }
+  </style>
+  <script type="text/javascript">
+    var selected_association_type = function() {
+      return $("#association_select option:selected").val();
+    };
+
+    var with_association_types = function(mod, cont) {
+      $.get("/items/"+mod+"/component_association_types", cont, "json")
+    };
+    
+    var add_component_data = function() {
+      var component_data = {
+        association_id: $("#association_select option:selected").val(),
+        component_id: $("#add_existing_component input:hidden[name=component_id]").val(),
+        quantity: $("#add_existing_component input:text[name=quantity]").val(),
+        contexts: $("#add_existing_component input:text[name=contexts]").val()
+      };
+
+      if ($("#configurable").val() === "true") {
+        component_data.component_properties = add_property_data();
+      }
+
+      return component_data;
+    };
+
+    var update_association_select = function(association_types) {
+      $("#association_select > option").remove();
+      if (association_types.length > 0) {
+        reset_properties_form(association_types, 0);
+        for (i = 0; i < association_types.length; i++) {
+          $("#association_select").append('<option value="'+i+'">'+association_types[i].association_type+'</option>');
+        }
+      }
+    };
+
+    var enable_cs_autocomplete = function(association_types) {
+      $("#add_existing_component_search").autocomplete({
+        source: function( request, response ) {
+          var request_body = { 
+            types: association_types[selected_association_type()].component_types,
+            term:  request.term 
+          };
+
+          var response_wrapper = function(search_results) {
+            if (search_results.length == 0) $(".search_notice").html('(no results returned)');
+            return response(search_results);
+          };
+
+          $(".search_notice").html('');
+          $("#selected_component_display").hide();
+          $.get("/items/search", request_body, response_wrapper, "json");
+        },
+        select: function( event, ui ) {
+          // ui.item.value is an object with the following structure:
+          //{
+          //  item_id: int,
+          //  item_name: string,
+          //  dvinci_id: string,
+          //  properties: [object]
+          //}
+          $("#add_existing_component_search" ).val( ui.item.label );
+          $("#add_existing_component input:hidden[name=component_id]").val( ui.item.value.item_id );
+          $("#selected_component_name").html(ui.item.value.item_name);
+          $("#selected_component_dvinci_id").html(ui.item.value.item_dvinci_id);
+
+          if (ui.item.value.properties.length == 0) {
+            $(".component_props").hide();
+          } else {
+            $(".component_props").show();
+            $("#selected_component_properties ul").empty();
+            var props = ui.item.value.properties;
+            for (i = 0; i < props.length; i++) {
+              $("#selected_component_properties tbody").append(
+                "<tr><td>"+props[i].family+"</td><td>"+props[i].name+"</td></tr>"
+              );
+            }
+          }
+
+          $("#selected_component_display").show();
+          $("#add_component_submit").show();
+
+          return false;
+        }
+      });
+    };
+
+    var reset_properties_form = function(association_types, index) {
+      change_property_receiver(
+        association_types[index].association_type, 
+        function(descriptors) { 
+          if (descriptors.length == 0) {
+            $(".association_props").hide(); 
+            $("#configurable").val("false");
+          } else {
+            $(".association_props").show(); 
+            $("#configurable").val("true");
+          }
+        }
+      );
+    };
+
+    var association_select_change_reaction = function(association_types) {
+      $("#association_select").change(
+        function(ev) {
+          reset_properties_form(association_types, $(ev.target).val());
+          $("#add_component_submit").hide();
+          $("#add_existing_component_search").val('');
+          $("#add_existing_component input:hidden[name=component_id]").val(null);
+        }
+      ); 
+    };
+
+    var change_component_receiver = function(receiver_type) {
+      with_association_types(
+        receiver_type,
+        function(association_types) {
+          update_association_select(association_types);
+          association_select_change_reaction(association_types);
+          enable_cs_autocomplete(association_types);
+        }
+      );
+    }
+  </script>
+<% end %>
+
+<div id="add_component_form">
+  <input id="component_receiver" type="hidden"/>
+  <input id="configurable" type="hidden"/>
+  
+  <ul>
+    <li>Choose a component type: <select id="association_select"></select></li>
+    <li id="add_existing_component">
+      Search Items: <input id="add_existing_component_search" type="text"/><br/>
+      <input type="hidden" name="component_id"/>
+      <span class="search_notice"></span>
+      <dl id="selected_component_display" style="display: none">
+        <dt>Item Name:</dt>
+        <dd id="selected_component_name"></dd>
+        <dt>D'Vinci ID:</dt>
+        <dd id="selected_component_dvinci_id"></dd>
+        <dt class="component_props">Properties:</dt>
+        <dd class="component_props" id="selected_component_properties">
+          <table>
+            <thead><tr><th>Family</th><th>Property Name</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </dd>
+        <dt>Quantity:</dt>
+        <dd><%= text_field_tag :quantity %></dd>
+        <dt>Contexts:</dt>
+        <dd><%= text_field_tag :contexts %> (please enter a comma-separated list of identifiers)</dd>
+        <dt class="association_props">Configuration:</dt>
+        <dd class="association_props" id="component_association_properties">
+          <%= render :partial => 'add_property', :locals => {:receiver_root => 'items', :include_submit => false } %>
+        </dd>
+      </dl>
+    </li>
+  </ul>
+
+  <button id="add_component_submit" style="display: none">Submit</button>
+  <button id="add_component_cancel">Cancel</button>
+</div>
+

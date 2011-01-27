@@ -1,17 +1,7 @@
 <%= render 'form_js' %>
+
 <%= form_for @job, :html => { :multipart => true } do |f| %>
-  <% if @job.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
-      <ul>
-        <% @job.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render :partial => 'form_errors' %>
   <div class="form_fields">
     <dl>
       <dt><%= f.label :franchisee %></dt>
@@ -20,22 +10,26 @@
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
-      <dt><%= f.label :job_number %></dt>
-      <dd><%= f.text_field :job_number %></dd>
-      <dt><%= f.label :mfg_plant %></dt>
-      <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
-      <dt><%= f.label :status %></dt>
-      <dd><%= f.select(:status, Job::STATUS_OPTIONS) -%></dd>
-      <dt><%= f.label :due_date %></dt>
-      <dd><%= f.text_field :due_date %></dd>
-      <dt><%= f.label :ship_date %></dt>
-      <dd><%= f.text_field :ship_date %></dd>
+      <% if can? :manage, @job %>
+        <dt><%= f.label :mfg_plant %></dt>
+        <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
+        <dt><%= f.label :status %></dt>
+        <dd><%= f.select :status, options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, @job.status) -%></dd>
+        <dt><%= f.label :due_date %></dt>
+        <dd><%= f.text_field :due_date %></dd>
+        <dt><%= f.label :ship_date %></dt>
+        <dd><%= f.text_field :ship_date %></dd>
+        <dt><%= f.label :ship_method %></dt>
+        <dd><%= f.select :ship_method, options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, @job.ship_method) -%></dd>
+        <dt><%= f.label :tracking_number %></dt>
+        <dd><%= f.text_field :tracking_number %></dd>
+      <% end %>
       <dt><%= f.label :special_instructions %></dt>
       <dd><%= f.text_area :comment %></dd>
     </dl>
   </div>
 
   <div class="form_actions">
-    <%= f.submit %>
+    <%= f.submit 'Update Job' %>
   </div>
 <% end %>

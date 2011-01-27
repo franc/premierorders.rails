@@ -9,5 +9,8 @@ class JobTest < ActiveSupport::TestCase
     File.open("#{File.dirname(__FILE__)}/test_data/dvinci_test.xml") do |xml|
       job.add_items_from_dvinci(xml)
     end
+
+    items = job.job_items.find(:all).to_a
+    assert_equal(35, items.size, "Job failed to ingest the correct number of items.")
   end
 end

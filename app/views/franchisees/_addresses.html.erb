@@ -1,0 +1,64 @@
+<% if mode == :edit %>
+  <% content_for :head do %>
+    <script type="text/javascript">
+      $(function() {
+        $(".address_type_select").change(function() {
+          var fields = /(\w+)\[([0-9]+)\]\[(\w+)\]/.exec($(this).attr('name'));
+          $.post(
+            "/franchisee_addresses/"+fields[2],
+            {
+                '_method':'PUT',
+                franchisee_address: {
+                  address_type: $("option:selected", $(this)).val()
+                }
+            },
+            update_notice,
+            "json"
+          );
+        });
+      });
+    </script>
+  <% end %>
+<% end %>
+
+<% if @franchisee.franchisee_addresses.empty? %>
+  (No Addresses Found)
+<% else %>
+  <table id="franchisee_addresses">
+    <tr>
+      <th>Type</th>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Postal Code</th>
+      <th>Country</th>
+      <% if mode == :edit %>
+        <th>Edit</th>
+      <% end %>
+    </tr>
+    <% @franchisee.franchisee_addresses.each do |a| %>
+      <tr class="franchisee_address">
+        <td>
+          <% if mode == :edit %>
+            <%= select_tag "franchisee_address[#{a.id}][address_type]", 
+                           options_for_select([['Billing', 'Billing'], ['Shipping', 'Shipping']], a.address_type.try(:titlecase)),
+                           {:class => 'address_type_select'} %>
+          <% else %>
+            <%= a.address_type.try(:titlecase) %>
+          <% end %>
+        </td>
+        <td><%= a.address.address1 %></td>
+        <td><%= a.address.address2 %></td>
+        <td><%= a.address.city %></td>
+        <td><%= a.address.state %></td>
+        <td><%= a.address.postal_code %></td>
+        <td><%= a.address.country %></td>
+        <% if mode == :edit %>
+          <td><%= link_to 'Edit', edit_address_path(a.address) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+

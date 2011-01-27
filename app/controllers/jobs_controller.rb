@@ -2,10 +2,12 @@ require 'date'
 require 'job.rb'
 
 class JobsController < ApplicationController
+  load_and_authorize_resource :except => [:new, :create, :index]
+
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = Job.order(:due_date).all
+    @jobs = Job.accessible_by(current_ability).order('jobs.created_at DESC NULLS LAST, jobs.due_date DESC NULLS LAST').paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,10 +18,15 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.xml
   def show
-    @job = Job.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
+      format.xml  { render :xml => @job }
+    end
+  end
+
+  def quote
+    respond_to do |format|
+      format.html # quote.html.erb
       format.xml  { render :xml => @job }
     end
   end
@@ -28,7 +35,11 @@ class JobsController < ApplicationController
   # GET /jobs/new.xml
   def new
     @job = Job.new
-    @franchisees = Franchisee.find(:all)
+    @franchisees = if can? :manage, @job
+      Franchisee.order(:franchise_name)
+    else
+      current_user.franchisees.order(:franchise_name)
+    end
     @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
 
     respond_to do |format|
@@ -39,8 +50,11 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-    @job = Job.find(params[:id])
-    @franchisees = Franchisee.find(:all)
+    @franchisees = if can? :manage, @job
+      Franchisee.order(:franchise_name)
+    else
+      current_user.franchisees.order(:franchise_name)
+    end
     @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
   end
 
@@ -49,6 +63,7 @@ class JobsController < ApplicationController
   def create
     begin
       @job = Job.new(params[:job])
+      @job.customer = current_user
 
       respond_to do |format|
         if @job.save
@@ -72,10 +87,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
-    @job = Job.find(params[:id])
-
     if request.xhr?
-      logger.info("Got parameters for job update: #{params[:job].inspect}")
       if @job.update_attributes(params[:job])
         render :json => {:updated => 'success'}
       else
@@ -94,8 +106,20 @@ class JobsController < ApplicationController
     end
   end
 
+  def place_order
+    @job.place_order(DateTime.now, current_user)
+    respond_to do |format|
+      if @job.save
+        format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
+        format.xml  { head :ok }
+      else
+        format.html { redirect_to(@job, :error => "Order could not be placed: #{@job.errors}.") }
+        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   def cutrite
-    @job = Job.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @cutrite_data }
@@ -103,9 +127,7 @@ class JobsController < ApplicationController
   end
 
   def download
-    job = Job.find(params[:id])
-    d = DateTime.now
-    send_data job.to_cutrite_csv,
+    send_data @job.to_cutrite_csv,
       :type => 'text/csv; charset=iso-8859-1; header=present',
       :disposition => "attachment; filename=#{job.job_number}.csv"
   end
@@ -113,7 +135,6 @@ class JobsController < ApplicationController
   # DELETE /jobs/1
   # DELETE /jobs/1.xml
   def destroy
-    @job = Job.find(params[:id])
     @job.destroy
 
     respond_to do |format|

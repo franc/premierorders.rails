@@ -1,0 +1,257 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <script type="text/javascript">
+    var add_method = function() {
+      return $('#add_property_form input:radio[name=add_property_method]:checked').val();
+    };
+
+    var selected_descriptor_id = function() {
+      return $("#descriptor_select option:selected").val();
+    };
+
+    var with_descriptors = function(mod, cont) {
+      $.get("/<%=receiver_root%>/"+mod+"/property_descriptors", cont, "json");
+    };
+
+    var add_property_data = function() {
+        var add_qualifiers = function(request, element) {
+          $("select[name=property_qualifiers] > option:selected", element).each(
+            function(index, element) {
+              request.qualifiers.push($(element).val());
+            }
+          );
+        };
+        
+        if (add_method() === "new") {
+          var form_element = $("#add_new_property");
+          var request = {
+            type: 'new',
+            qualifiers: [],
+            property: { 
+              name: $("input:text[name=property_name]", form_element).val(),
+              descriptor_mod: $("#property_receiver").val(),
+              descriptor_id: selected_descriptor_id(),
+              values: []
+            }
+          };
+
+          add_qualifiers(request, form_element);
+          $("#new_property_values div.property_value.descriptor_"+request.property.descriptor_id).each(
+            function(index, pv_element) {
+              var new_value = {
+                name: $("input:text[name=value_name]", pv_element).val(),
+                dvinci_id: $("input:text[name=dvinci_id]", pv_element).val(),
+                fields: {}
+              };
+
+              $(".property_value_field", pv_element).each(function(vfi, vf_element) {
+                new_value.fields[$(vf_element).attr('name')] = $(vf_element).val();
+              });
+
+              request.property.values.push(new_value);
+            }
+          );
+
+          return request;
+        } else {
+          var form_element = $("#add_existing_property");
+          var request = {
+            type: 'existing',
+            qualifiers: [],
+            property_id: $("input:hidden[name=property_id]", form_element).val()
+          };
+
+          add_qualifiers(request, form_element);
+
+          return request;
+        }
+    };
+
+    // replaces the options for the property qualifier select in both the new and existing microforms
+    var update_qualifier_lists = function(qualifiers) {
+      $("select[name=property_qualifiers] > option").remove();
+      if (qualifiers.length === 0) {
+        $(".qualifier_select").hide(); 
+      } else {
+        $("select[name=property_qualifiers] > option").remove();
+        for (i = 0; i < qualifiers.length; i++) {
+          $("select[name=property_qualifiers]").append('<option value="'+qualifiers[i]+'">'+qualifiers[i]+'</option>');
+        }
+        $(".qualifier_select").show(); 
+      }
+    };
+
+    var update_descriptor_select = function(descriptors) {
+      $("#descriptor_select > option").remove();
+      for (i = 0; i < descriptors.length; i++) {
+        $("#descriptor_select").append('<option value="'+i+'">'+descriptors[i].family+'</option>');
+      }
+    };
+
+    // reaction for add property method change
+    var add_method_change_reaction = function(descriptors) {
+      $("#add_property_form input:radio[name=add_property_method]").change(function(ev) {
+        if ($(ev.target).val() === "new") {
+          $("#add_existing_property").hide();
+          $("#add_new_property").show();
+          $("#add_property_submit" ).show();
+          descriptors[selected_descriptor_id()].qualifiers;
+        } else {
+          $("#add_new_property").hide();
+          $("#add_existing_property").show();
+        }
+      });
+    };
+
+    var add_descriptor_change_reaction = function(descriptors) {
+      // reaction for descriptor selection change
+      $("#descriptor_select").change(function(ev) {
+        var did = $(ev.target).val();
+        update_qualifier_lists(descriptors[did].qualifiers);
+        if (add_method() === "new") {
+          $("#new_property_values div.property_value").hide();
+          $("#new_property_values div.descriptor_"+did).show();
+        } else {
+          // just hide the display and remove the value from the hidden field.
+          // it will be repopulated when the user selects a new value from 
+          // a search result
+          $("#add_property_submit" ).hide();
+          $("#add_existing_property_search").val('');
+          $("#add_existing_property input:hidden[name=property_id]").val(null);
+          $("#existing_property_display").hide();
+        }
+      });
+    };
+
+    var enable_autocomplete = function(descriptors) {
+      $("#add_existing_property_search").autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          var request_body = {
+            family: descriptors[selected_descriptor_id()].family, 
+            term: request.term
+          };
+
+          var response_wrapper = function(search_results) {
+            if (search_results.length == 0) $(".search_notice").html('(no results returned)');
+            return response(search_results);
+          };
+
+          $(".search_notice").html('');
+          $("#existing_property_display").hide();
+          $.get("/properties/search", request_body, response_wrapper, "json");
+        },
+        select: function( event, ui ) {
+          // ui.item.value is an object with the following structure:
+          //{
+          //  property_id: int,
+          //  property_name: string,
+          //  property_values: [object]
+          //}
+          
+          $("#add_property_submit").show();
+          $("#add_existing_property_search").val( ui.item.label );
+          $("#add_existing_property input:hidden[name=property_id]").val( ui.item.value.property_id );
+          $("#selected_property_name").html(ui.item.value.property_name);
+          var values = ui.item.value.property_values
+          for (i = 0; i < values.length; i++) {
+            $("#selected_property_values ul").append('<li>'+values[i].value_name+' ('+values[i].dvinci_id+')');
+          }
+          $("#existing_property_display").show();
+
+          return false;
+        }
+      });
+    };
+
+    // fired when the item type that the property will be attached to changes,
+    // resulting in a different set of property descriptors being applicable
+    var change_property_receiver = function(receiver_type) {
+      $("#property_receiver").val(receiver_type);
+      var args = arguments;
+      var cont = function(descriptors) {
+        if (args.length > 1) args[1](descriptors);
+      };
+
+      with_descriptors(
+        receiver_type, 
+        function(descriptors) {
+          add_method_change_reaction(descriptors);
+          update_descriptor_select(descriptors);
+          if (descriptors.length > 0) update_qualifier_lists(descriptors[0].qualifiers);
+          add_descriptor_change_reaction(descriptors);
+          enable_autocomplete(descriptors);
+          cont(descriptors);
+        }
+      );
+    };
+
+    var remove_parent_li = function(ev) { 
+      $(ev.target).parent("li").remove();
+    };
+
+    jQuery(function($) {
+      $("#add_value_click").click(function() {
+        var mod = $("#property_receiver").val();
+        var did = selected_descriptor_id();
+        
+        $.get(
+          "/<%=receiver_root%>/"+mod+"/property_form_fragment/"+did, 
+          function(form_html) { 
+            $("#new_property_values").append(
+              $("#new_property_values li.prototype").clone(true).removeClass().append(form_html) 
+            );
+          }
+        );
+      });
+
+      $(".remove_value_click").click(remove_parent_li);
+    });
+  </script>
+<% end %>
+
+<div id="add_property_form">
+  <input id="property_receiver" type="hidden"/>
+
+  <ul>
+    <li><input type="radio" name="add_property_method" value="existing" checked /> Add Existing</li>
+    <li><input type="radio" name="add_property_method" value="new"/> Add New</li>
+    <li>Choose a property type: <select id="descriptor_select"></select></li>
+
+    <!-- microform to create a new property -->
+    <li id="add_new_property" style="display: none">
+      <dl>
+        <dt>Property Name:</dt>
+        <dd><%= text_field_tag :property_name %></dd>
+        <dt class="qualifier_select">Qualifiers:</dt>
+        <dd class="qualifier_select"><select name="property_qualifiers" multiple="true"></select></dd>
+        <dt>Possible Values: <span id="add_value_click">(+)</span></dt>
+        <dd>
+          <ul id="new_property_values">
+            <li class="prototype"><span class="remove_value_click">(-)</span></li>
+          </ul>
+        </dd>
+      </dl>
+    </li>
+
+    <!-- microform to create a new association between the receiver and an existing property -->
+    <li id="add_existing_property">
+      Search Properties: <input id="add_existing_property_search" type="text"/><br/>
+      <input type="hidden" name="property_id"/>
+      <span class="search_notice"></span>
+      <dl id="existing_property_display" style="display: none">
+        <dt>Property Name:</dt>
+        <dd id="selected_property_name"></dd>
+        <dt class="qualifier_select">Qualifiers:</dt>
+        <dd class="qualifier_select"><select name="property_qualifiers" multiple="true"></select></dd>
+        <dt>Values:</dt>
+        <dd id="selected_property_values"><ul></ul></dd>
+      </dl>
+    </li>
+  </ul>
+
+  <% if include_submit %>
+    <button id="add_property_submit" style="display:none">Submit</button>
+    <button id="add_property_cancel">Cancel</button>
+  <% end %>
+</div>

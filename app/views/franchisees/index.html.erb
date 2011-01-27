@@ -1,8 +1,10 @@
-<h1>Customer List</h1>
+<h2>Customer List</h2>
 
 <table>
   <tr>
     <th>Franchisee Name</th>
+    <th>Phone</th>
+    <th>Contact Email</th>
     <th>Edit</th>
     <th>Delete</th>
   </tr>
@@ -10,6 +12,8 @@
 <% @franchisees.each do |franchisee| %>
   <tr>
     <td><%= link_to franchisee.franchise_name, franchisee %></td>
+    <td><%= franchisee.phone %></td>
+    <td><%= franchisee.primary_contact.nil? ? '' : franchisee.primary_contact.user.email %></td>
     <td><%= link_to 'Edit', edit_franchisee_path(franchisee) %></td>
     <td><%= link_to 'Delete', franchisee, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

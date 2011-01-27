@@ -1,0 +1,32 @@
+<table class="properties" id="<%= id -%>">
+  <tr>
+    <th>Property</th>
+    <th>Type</th>
+    <th>Qualifier</th>
+    <th>Value(s)</th>
+  </tr>
+  <tr class="property_row prototype">
+      <td class="property_name"></td>
+      <td class="property_family"></td>
+      <td class="property_qualifier"></td>
+      <td class="property_values"><ul></ul></td>
+  </tr>
+  <% properties.sort{|a,b| a.property.name <=> b.property.name}.each_with_index do |prop, i| %>
+    <tr class="property_row">
+      <td class="property_name">
+        <%= link_to prop.property.name, property_path(prop.property) %> 
+        <%= link_to '(X)', resource_path.call(prop), :method => :delete, :class => 'property_delete_link' %>
+      </td>
+      <td class="property_family"><%= prop.property.family.titlecase %></td>
+      <td class="property_qualifier"><%= prop.qualifier %></td>
+      <td class="property_values">
+        <ul>
+          <% prop.property.property_values.each do |opt| %>
+            <li><%= opt.name %> (<%= opt.dvinci_id %>)</dt>
+          <% end %>
+        </ul>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

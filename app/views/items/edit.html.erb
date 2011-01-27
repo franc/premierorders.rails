@@ -1,8 +1,9 @@
-<h1>Editing item <%= @item.name %></h1>
+<h2>Editing item: <%= @item.name %></h2>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => {:mode => :edit} %>
 
 <% content_for :local_nav do %>
-  <%= link_to 'Show', @item %> |
-  <%= link_to 'Back', items_path %>
+  <%= link_to 'New Item', new_item_path %> |
+  <%= link_to 'Show', item_path(@item) %> |
+  <%= link_to 'List', items_path %>
 <% end %>
