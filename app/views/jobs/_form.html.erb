@@ -14,11 +14,13 @@
         <dt><%= f.label :mfg_plant %></dt>
         <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
         <dt><%= f.label :status %></dt>
-        <dd><%= f.select(:status, Job::STATUS_OPTIONS) -%></dd>
+        <dd><%= f.select :status, options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, @job.status) -%></dd>
         <dt><%= f.label :due_date %></dt>
         <dd><%= f.text_field :due_date %></dd>
         <dt><%= f.label :ship_date %></dt>
         <dd><%= f.text_field :ship_date %></dd>
+        <dt><%= f.label :ship_method %></dt>
+        <dd><%= f.select :ship_method, options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, @job.ship_method) -%></dd>
         <dt><%= f.label :tracking_number %></dt>
         <dd><%= f.text_field :tracking_number %></dd>
       <% end %>

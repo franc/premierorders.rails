@@ -17,17 +17,19 @@ class Job < ActiveRecord::Base
   has_attached_file :dvinci_xml
 
   STATUS_OPTIONS = [
-    ["Created" , "Created"],
-    ["Placed" , "Placed"],
-    ["Confirmed" , "Confirmed"],
-    ["On Hold" , "On Hold"],
-    ["Ready For Production" , "Ready For Production"],
-    ["In Production" , "In Production"],
-    ["Ready to Ship" , "Ready to Ship"],
-    ["Hold Shipment" , "Hold Shipment"],
-    ["Shipped" , "Shipped"],
-    ["Cancelled" , "Cancelled"]
+    "Created",
+    "Placed",
+    "Confirmed",
+    "On Hold",
+    "Ready For Production",
+    "In Production",
+    "Ready to Ship",
+    "Hold Shipment",
+    "Shipped",
+    "Cancelled",
   ]
+
+  SHIPMENT_OPTIONS = ["PremierRoute", "LTL", "Drop Ship", "Ground", "2nd Day", "Overnight"]
 
   def ship_to
     shipping_address || franchisee.shipping_address

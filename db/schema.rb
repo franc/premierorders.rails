@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110126052224) do
+ActiveRecord::Schema.define(:version => 20110127165319) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20110126052224) do
     t.datetime "placement_date"
     t.integer  "placed_by_id"
     t.string   "tracking_number"
+    t.string   "ship_method"
   end
 
   create_table "properties", :force => true do |t|

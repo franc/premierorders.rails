@@ -4,6 +4,7 @@
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
       $(".job_status").change(post_this_update);
+      $(".job_ship_method").change(post_this_update);
     })
   </script>
 <% end %>
@@ -17,8 +18,8 @@
 
   <dt>Status</dt>
   <dd>
-    <% if can? :manage_dates, @job %>
-      <%= select_tag("job[#{@job.id}][status]", options_for_select(Job::STATUS_OPTIONS, @job.status), :class => 'job_status') -%>
+    <% if can? :manage, @job %>
+      <%= select_tag("job[#{@job.id}][status]", options_for_select(Job::STATUS_OPTIONS.map{|v|[v,v]}, @job.status), :class => 'job_status') -%>
     <% else %>
       <%= @job.status %>
     <% end %>
@@ -31,14 +32,24 @@
   <dd><%= @job.placement_date %></dd>
 
   <dt>Due Date</dt>
-  <% if can? :manage_dates, @job %>
+  <% if can? :manage, @job %>
     <dd><span class="job_date" id="job[<%=@job.id%>][due_date]"><%= @job.due_date %></span></dd>
   <% else %>
     <dd><%= @job.due_date %></dd>
   <% end %>
 
+  <dt>Ship Method</dt>
+  <dd>
+    <% if can? :manage, @job %>
+      <%= select_tag("job[#{@job.id}][ship_method]", options_for_select(Job::SHIPMENT_OPTIONS.map{|v|[v,v]}, @job.ship_method), :class => 'job_ship_method') -%>
+    <% else %>
+      <%= @job.ship_method %>
+    <% end %>
+  </dd>
+
+
   <dt>Ship Date</dt>
-  <% if can? :manage_dates, @job %>
+  <% if can? :manage, @job %>
     <dd><span class="job_date" id="job[<%=@job.id%>][ship_date]"><%= @job.ship_date %></span></dd>
   <% else %>
     <dd><%= @job.ship_date %></dd>
