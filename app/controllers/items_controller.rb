@@ -6,7 +6,6 @@ class ItemsController < ApplicationController
   load_and_authorize_resource :except => [
     :search, 
     :add_component_form,
-    :add_component,
     :add_property_form,
     :add_property,
     :property_descriptors,
@@ -139,17 +138,17 @@ class ItemsController < ApplicationController
   end
 
   def add_component_form
+    authorize! :create, ItemComponent
     render '_add_component', :layout => 'minimal'
   end
 
   def add_component
     if request.xhr?
-      receiver = Item.find_by_id(params[:id])
-      component = Item.find_by_id(params[:component_id])
-      association_type = Item.component_association_modules(receiver.class).values.flatten[params[:association_id].to_i]
+      @component = Item.find_by_id(params[:component_id])
+      association_type = Item.component_association_modules(@item.class).values.flatten[params[:association_id].to_i]
       quantity = params[:quantity]
 
-      association = ItemComponent.new(:item_id => receiver.id, :component_id => component.id, :quantity => quantity)
+      association = ItemComponent.new(:item_id => @item.id, :component_id => @component.id, :quantity => quantity)
       association.type = association_type.to_s
       association.save
 
@@ -171,6 +170,8 @@ class ItemsController < ApplicationController
   end
 
   def add_property_form
+    authorize! :create, Property
+
     render '_add_property', :layout => 'minimal', :locals => {
       :receiver_root => 'items',
       :include_submit => true
@@ -178,6 +179,8 @@ class ItemsController < ApplicationController
   end
 
   def add_property
+    authorize! :create, Property
+
     property = case params[:type]
       when "new"      then PropertiesHelper.create_property(params[:property])
       when "existing" then Property.find(params[:property_id])
@@ -185,6 +188,7 @@ class ItemsController < ApplicationController
 
     if params[:receiver_id]
       item = Item.find(params[:receiver_id])
+      authorize! :update, item
       PropertiesHelper.create_item_properties(item, property, params[:qualifiers])
     end
 
@@ -200,6 +204,8 @@ class ItemsController < ApplicationController
   end
 
   def property_form_fragment
+    authorize! :create, Property
+
     descriptor_id = params[:id].to_i
     descriptor = Property.descriptors(Items.const_get(params[:mod]))[descriptor_id]
 

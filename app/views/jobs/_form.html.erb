@@ -6,6 +6,8 @@
     <dl>
       <dt><%= f.label :franchisee %></dt>
       <dd><%= collection_select(:job, :franchisee_id, @franchisees, :id, :franchise_name) %></dd>
+      <dt><%= f.label :primary_contact %></dt>
+      <dd><%= collection_select(:job, :primary_contact_id, Option.new(@job.franchisee).map{|v| v.users}.orSome([]), :id, :name) %></dd>
       <dt><%= f.label :shipping_address %></dt>
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>

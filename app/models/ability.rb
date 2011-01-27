@@ -28,13 +28,16 @@ class Ability
  
     if user.role? :franchisee
       can :update, User, :id => user.id
-      can [:create, :read, :update, :place_order, :quote], Job, :customer_id => user.id
+      can [:create, :read, :update, :place_order, :quote], Job do |job|
+        job.is_manageable_by(user)  
+      end
       can [:create, :read, :update, :destroy], [JobProperty, JobItem] do |x|
-        x.job.customer_id == user.id
+        x.job.is_manageable_by(user)
       end
-      can [:create, :read, :update, :destroy], JobItemProperty do |ip|
-        ip.job_item.job.customer_id == user.id
+      can [:create, :read, :update, :destroy], JobItemProperty do |x|
+        x.job_item.job.is_manageable_by(user)
       end
+
       can :manage, AddressBook, :user_id => user.id
       can :manage, Address do |addr|
         addr.address_books.any?{|b| b.user_id == user.id}
@@ -42,8 +45,12 @@ class Ability
     end
 
     if user.role? :product_admin
-      can :manage, [Item, ItemComponent, Property, PropertyValue]
-      can :manage, [Job, JobProperty, JobItem, JobItemProperty]
+      can :manage, [Item, ItemComponent, ItemProperty, Property, PropertyValue, Job, JobProperty, JobItem, JobItemProperty]
+    end
+
+    if user.role? :customer_service
+      can :read, [Item, ItemComponent, ItemProperty, Property, PropertyValue]
+      can :manage, [Job, JobProperty, JobItem, JobItemProperty, Franchisee, User, FranchiseeContact, Address]
     end
 
     if user.role? :admin

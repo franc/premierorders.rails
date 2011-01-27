@@ -20,4 +20,10 @@ class User < ActiveRecord::Base
   def role?(role)
     !self.roles.find_by_name(role.to_s).nil?
   end
+
+  def eql?(other)
+    other.kind_of?(User) && other.id == self.id
+  end
+
+  alias_method :==, :eql?
 end

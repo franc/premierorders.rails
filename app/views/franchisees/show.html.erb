@@ -6,10 +6,18 @@
     <dd><%= @franchisee.franchise_name %></dd>
     <% Option.new(@franchisee.primary_contact).each do |contact| %>
       <dt><%= label :franchisee, :primary_contact %></dt>
-      <dd><%= contact.user.last_name %>, <%= contact.user.first_name %></dd>
+      <dd><%= contact.user.name %></dd>
       <dt><%= label :franchisee, :contact_email %></dt>
       <dd><%= contact.user.email %></dd>
     <% end %>
+    <dt><%= label :franchisee, :users %></dt>
+    <dd>
+      <ul>
+        <% @franchisee.users.each do |user| %>
+          <li><%= user.name %></li>
+        <% end %>
+      <ul>
+    </dd>
     <dt><%= label :franchisee, :phone %></dt>
     <dd><%= @franchisee.phone %></dd>
     <dt><%= label :franchisee, :fax %></dt>

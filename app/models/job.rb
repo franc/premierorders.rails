@@ -5,7 +5,7 @@ require 'property.rb'
 require 'util/option.rb'
 
 class Job < ActiveRecord::Base
-  belongs_to :franchisee
+  belongs_to :franchisee, :include => :users
   belongs_to :primary_contact, :class_name => 'User'
   belongs_to :customer, :class_name => 'User'
   belongs_to :placed_by, :class_name => 'User'
@@ -30,6 +30,10 @@ class Job < ActiveRecord::Base
   ]
 
   SHIPMENT_OPTIONS = ["PremierRoute", "LTL", "Drop Ship", "Ground", "2nd Day", "Overnight"]
+
+  def is_manageable_by(user)
+    franchisee.users.any?{|u| u.id == user.id} || primary_contact == user || placed_by == user
+  end
 
   def ship_to
     shipping_address || franchisee.shipping_address

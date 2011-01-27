@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110127165319) do
+ActiveRecord::Schema.define(:version => 20110130192256) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20110127165319) do
     t.string   "country"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "cutrite_codes", :id => false, :force => true do |t|
+    t.string "cutrite_attr", :limit => 32
+    t.string "dvinci_id",    :limit => 8
+    t.string "color",        :limit => 32
+    t.string "cutrite_code", :limit => 32
+    t.string "name_pattern", :limit => 32
   end
 
   create_table "franchisee_addresses", :force => true do |t|
@@ -163,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20110127165319) do
     t.integer  "placed_by_id"
     t.string   "tracking_number"
     t.string   "ship_method"
+    t.integer  "primary_contact_id"
   end
 
   create_table "properties", :force => true do |t|

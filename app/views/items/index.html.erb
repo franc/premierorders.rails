@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Edit</th>
+    <% if can? :update, Item %><th>Edit</th><% end %>
     <th>Item Name</th>
     <th>Item Type</th>
     <th>D'Vinci</th>
@@ -13,12 +13,12 @@
     <th>Margin</th>
     <th>Comps</th>
     <th>Props</th>
-    <th>Destroy</th>
+    <% if can? :destroy, Item %><th>Destroy</th><% end %>
   </tr>
 
 <% @items.each do |item| %>
   <tr>
-    <td><%= link_to 'Edit', edit_item_path(item) %></td>
+    <% if can? :update, Item %><td><%= link_to 'Edit', edit_item_path(item) %></td><% end %>
     <td><%= link_to item.name, item_path(item) %></td>
     <td><%= item.class.to_s.demodulize %></td>
     <td><%= item.dvinci_id %></td>
@@ -29,7 +29,9 @@
     <td><%= item.margin_factor %></td>
     <td><%= raw ok_tag(item.components_ok?) %></td>
     <td><%= raw ok_tag(item.properties_ok?) %></td>
-    <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if can? :destroy, Item %>
+      <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

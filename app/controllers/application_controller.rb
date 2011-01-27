@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:alert] = exception.message
-    redirect_to jobs_url
+    flash[:alert] = "#{exception.message} (#{exception.action} #{exception.subject})"
+    redirect_to :jobs
   end
 end

@@ -47,7 +47,6 @@
     <% end %>
   </dd>
 
-
   <dt>Ship Date</dt>
   <% if can? :manage, @job %>
     <dd><span class="job_date" id="job[<%=@job.id%>][ship_date]"><%= @job.ship_date %></span></dd>
@@ -57,8 +56,12 @@
 
   <dt>MFG Plant</dt>
   <dd><%= @job.mfg_plant -%></dd>
+
   <dt>Franchisee</dt>
   <dd><%= @job.franchisee.franchise_name -%> (Credit status: <span style="color: <%= @job.franchisee.credit_status -%>"><%= @job.franchisee.credit_status -%></span>) </dd>
+
+  <dt>Job Contact</dt>
+  <dd><%= @job.primary_contact.try(:name) -%></dd>
 
   <dt>Shipping Address</dt>
   <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>

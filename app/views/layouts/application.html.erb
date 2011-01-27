@@ -21,12 +21,17 @@
     <ul>
       <% if user_signed_in? %>
         <li><%= link_to "Jobs", jobs_path %></li>
-        <% if current_user.role?(:admin) || current_user.role?(:product_admin) %>
+
+        <% if can? :read, Item %>
           <li><%= link_to "Franchisees", franchisees_path %></li>
           <li><%= link_to "Items", items_path %></li>
+        <% end %>
+
+        <% if can? :manage, Property %>
           <li><%= link_to "Properties", properties_path %></li>
         <% end %>
-        <% if current_user.role?(:admin) %>
+
+        <% if can? :manage, User %>
           <li><%= link_to "Users", users_path %></li>
         <% end %>
       <% end %>
