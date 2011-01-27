@@ -42,7 +42,7 @@ PgRails::Application.routes.draw do
       get 'quote'
       get 'cutrite'
       get 'download'
-      get 'place_order'
+      post 'place_order'
     end
   end
 
