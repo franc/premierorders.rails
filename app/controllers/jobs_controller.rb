@@ -129,7 +129,7 @@ class JobsController < ApplicationController
   def download
     send_data @job.to_cutrite_csv,
       :type => 'text/csv; charset=iso-8859-1; header=present',
-      :disposition => "attachment; filename=#{job.job_number}.csv"
+      :disposition => "attachment; filename=#{@job.job_number}.csv"
   end
 
   # DELETE /jobs/1

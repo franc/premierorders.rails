@@ -32,11 +32,21 @@ class JobItem < ActiveRecord::Base
     end
   end
 
+  def color
+    Option.new(job_item_properties.find_by_family(:color)).map{|p| p.color}
+  end
+
+  def dvinci_color_code
+    ingest_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/).captures[3]
+  end
+
+  def item_name
+    item.nil? ? "#{ingest_desc}: #{ingest_id}" : item.name
+  end
+
   def compute_unit_price
     Option.new(item).bind do |i|
-      color_property = Option.new(job_item_properties.find_by_family(:color))
-      price_expr = i.rebated_cost_expr(:in, color_property.map{|p| p.color}.orSome(nil), [])
-
+      price_expr = i.rebated_cost_expr(:in, color.orSome(nil), [])
       price_expr.map do |e|
         w = width.orSome(nil)
         h = height.orSome(nil)

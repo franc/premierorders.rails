@@ -231,7 +231,7 @@ class Job < ActiveRecord::Base
   end
 
   def cutrite_items_data
-    job_items.order('tracking_id', 'items.name').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+    job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
   end
 
   def total 
@@ -247,26 +247,40 @@ class Job < ActiveRecord::Base
   private
 
   def cutrite_item_data(job_item)
+    logger.info("Building cutrite row for #{job_item.item_name}")
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
-      job_item.property('Width').width(:mm),
-      job_item.property('Height').height(:mm),
-      job_item.property('Depth').depth(:mm),
+      job_item.width,
+      job_item.height,
+      job_item.depth,
       job_item.item.nil? ? nil : job_item.item.cutrite_id,
-      job_item.item.nil? ? job_item.item_attr('description') : job_item.item.name
+      job_item.item_name      
     ]
 
-    cutrite_custom_attributes = [
-      'Cabinet Color',
-      'Case Material',
-      'Case Edge',
-      'Case Edge2',
-      'Case Material',
-      'Case Edge'
-    ]
+    color_name = Option.new(job_item.item).bind{|i| Option.new(i.color_opts.find{|o| o.dvinci_id == job_item.dvinci_color_code})}.map{|o| o.color}
+    cutrite_code_rows = connection.execute("select * from cutrite_codes where dvinci_id = '#{job_item.dvinci_color_code}'")
+    row_selector = lambda do |attr, row|
+      logger.info("Got row #{row.inspect} looking for #{attr}")
+      logger.info("cutrite attr match: #{row['cutrite_attr'].to_s == attr.to_s}")
+      logger.info("name pattern match: #{(row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)}")
+      result = row['cutrite_attr'].to_s == attr.to_s && (row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)
+      logger.info("result: #{result}")
+      result
+    end
 
-    custom_attr_values = cutrite_custom_attributes.map { |name| job_item.item_attr(name) }
+    eb_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:edge_band, r)})
+    eb_2_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:edge_band_2, r)})
+    material_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:material, r)})
+
+    custom_attr_values = [
+      color_name.orSome(''),
+      material_code.map{|c| c['cutrite_code']}.orSome(''),
+      eb_code.map{|c| c['cutrite_code']}.orSome(''),
+      eb_2_code.map{|c| c['cutrite_code']}.orSome(''),
+      material_code.map{|c| c['cutrite_code']}.orSome(''),
+      eb_code.map{|c| c['cutrite_code']}.orSome('')
+    ]
 
     basic_attr_values + custom_attr_values
   end
