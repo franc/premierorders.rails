@@ -189,7 +189,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 66, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 69, true);
 
 
 --
@@ -470,7 +470,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 548, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 555, true);
 
 
 --
@@ -520,7 +520,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 515, true);
+SELECT pg_catalog.setval('job_items_id_seq', 519, true);
 
 
 --
@@ -566,7 +566,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 40, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 41, true);
 
 
 --
@@ -638,7 +638,8 @@ CREATE TABLE jobs (
     placement_date timestamp without time zone,
     placed_by_id integer,
     tracking_number character varying(255),
-    ship_method character varying(255)
+    ship_method character varying(255),
+    primary_contact_id integer
 );
 
 
@@ -669,7 +670,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 45, true);
+SELECT pg_catalog.setval('jobs_id_seq', 46, true);
 
 
 --
@@ -810,7 +811,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('roles_id_seq', 3, true);
+SELECT pg_catalog.setval('roles_id_seq', 4, true);
 
 
 --
@@ -1143,7 +1144,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 32	8	32	associate	2011-01-01 18:53:36.377876	2011-01-01 18:53:36.377876
 33	9	33	associate	2011-01-01 18:53:36.491467	2011-01-01 18:53:36.491467
 35	8	35	associate	2011-01-01 18:53:36.728486	2011-01-01 18:53:36.728486
-36	10	36	associate	2011-01-01 18:53:36.839427	2011-01-01 18:53:36.839427
 41	11	41	associate	2011-01-01 18:53:37.401813	2011-01-01 18:53:37.401813
 43	13	43	associate	2011-01-01 18:53:37.636859	2011-01-01 18:53:37.636859
 44	15	44	associate	2011-01-01 18:53:37.760241	2011-01-01 18:53:37.760241
@@ -1153,18 +1153,19 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 48	25	48	associate	2011-01-01 18:53:38.550799	2011-01-01 18:53:38.550799
 49	29	54	primary	2011-01-25 16:08:04.511578	2011-01-25 16:08:04.511578
 50	1	56	\N	2011-01-25 16:14:39.437291	2011-01-25 16:14:39.437291
-51	1	53	\N	2011-01-26 00:21:39.740024	2011-01-26 00:21:39.740024
 53	8	34	\N	2011-01-26 22:55:37.52121	2011-01-26 22:55:37.52121
 54	1	57	\N	2011-01-27 00:19:16.59508	2011-01-27 00:19:16.59508
 55	1	58	\N	2011-01-27 00:20:08.282281	2011-01-27 00:20:08.282281
 56	1	59	\N	2011-01-27 00:30:04.405972	2011-01-27 00:30:04.405972
 57	8	40	\N	2011-01-27 00:31:07.371845	2011-01-27 00:31:07.371845
-58	1	51	\N	2011-01-27 00:31:38.847944	2011-01-27 00:31:38.847944
 59	8	8	\N	2011-01-27 00:32:32.70388	2011-01-27 00:32:32.70388
 61	6	31	\N	2011-01-27 18:22:36.806622	2011-01-27 18:22:36.806622
 62	6	31	primary	2011-01-27 18:26:39.641881	2011-01-27 18:26:39.641881
 65	12	42	\N	2011-01-27 18:31:59.191721	2011-01-27 18:31:59.191721
 66	12	60	\N	2011-01-27 18:32:44.60796	2011-01-27 18:32:44.60796
+67	10	36	\N	2011-01-30 21:15:31.809064	2011-01-30 21:15:31.809064
+68	1	51	\N	2011-01-30 21:15:58.602188	2011-01-30 21:15:58.602188
+69	1	53	\N	2011-01-30 21:16:23.014106	2011-01-30 21:16:23.014106
 \.
 
 
@@ -3246,7 +3247,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	12	2011-01-23 05:52:19.75042	2011-01-27 20:29:08.81558
+1	2011	13	2011-01-23 05:52:19.75042	2011-01-28 00:45:15.439381
 \.
 
 
@@ -3254,15 +3255,15 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: pg_orders
 --
 
-COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method) FROM stdin;
-44	10	35	2	basecab test 2	\N	\N	2011-01-27 19:58:01.726933	2011-01-27 20:42:56.319851	basecab test2.xml	text/xml	7814	2011-01-27 19:58:01.723039	Atlanta	Created	2011-01-27	2011-01-27	ccc	\N	\N	bbb	PremierRoute
-34	10	34	2	Price test for CS	2011 - 7	\N	2011-01-26 22:58:39.989149	2011-01-27 18:04:04.287736	Shultz Master Closet.dvi Parts List.xml	text/xml	23016	2011-01-26 22:58:39.985262	Atlanta	Placed	2011-02-11	2011-02-07	contains one deliberately mispriced item	2011-01-27 03:46:51	53	Feb 07 - Atlantic Seaboard	PremierRoute
-38	6	35	2	user test	\N	\N	2011-01-27 18:20:26.998573	2011-01-27 18:25:02.325598	Shultz Master Closet.dvi Parts List.xml	text/xml	23016	2011-01-27 18:20:26.994942	Phoenix	Created	\N	\N	test	\N	\N		PremierRoute
-39	28	32	36	Burch - Jeremy	2011 - 10	\N	2011-01-27 18:39:50.766406	2011-01-27 18:41:41.285726	Burch, Jeremy.dvi Parts List.xml	application/xml	6411	2011-01-27 18:39:50.762618	\N	Placed	\N	\N	None	2011-01-27 18:41:41	32	\N	\N
-41	10	35	2	hamper test	\N	\N	2011-01-27 19:48:53.292318	2011-01-27 19:48:53.292318	hamper test.xml	text/xml	9943	2011-01-27 19:48:53.29043	\N	\N	\N	\N	testing how P and I items break out in quote	\N	\N	\N	\N
-42	10	35	2	basecab test	\N	\N	2011-01-27 19:55:16.889998	2011-01-27 19:55:16.889998	basecab test.xml	text/xml	7863	2011-01-27 19:55:16.886798	\N	\N	\N	\N	testing P and I item breakout	\N	\N	\N	\N
-43	10	35	2	basecab test 2	\N	\N	2011-01-27 19:58:01.679546	2011-01-27 19:58:01.679546	basecab test2.xml	text/xml	7814	2011-01-27 19:58:01.676461	\N	\N	\N	\N		\N	\N	\N	\N
-45	28	32	36	McFadden add on	2011 - 12	\N	2011-01-27 20:28:42.835736	2011-01-27 20:29:08.823313	Mcfadden add on.dvi Parts List.xml	application/xml	8531	2011-01-27 20:28:42.831596	\N	Placed	\N	\N	None	2011-01-27 20:29:08	32	\N	\N
+COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method, primary_contact_id) FROM stdin;
+44	10	35	2	basecab test 2	\N	\N	2011-01-27 19:58:01.726933	2011-01-27 20:42:56.319851	basecab test2.xml	text/xml	7814	2011-01-27 19:58:01.723039	Atlanta	Created	2011-01-27	2011-01-27	ccc	\N	\N	bbb	PremierRoute	\N
+45	28	32	36	McFadden add on	2011 - 12	\N	2011-01-27 20:28:42.835736	2011-01-28 00:47:11.950953	Mcfadden add on.dvi Parts List.xml	application/xml	8531	2011-01-27 20:28:42.831596	\N	Placed	\N	\N	None	2011-01-27 20:29:08	32	\N	\N	\N
+34	10	34	2	Price test for CS	2011 - 7	\N	2011-01-26 22:58:39.989149	2011-01-27 18:04:04.287736	Shultz Master Closet.dvi Parts List.xml	text/xml	23016	2011-01-26 22:58:39.985262	Atlanta	Placed	2011-02-11	2011-02-07	contains one deliberately mispriced item	2011-01-27 03:46:51	53	Feb 07 - Atlantic Seaboard	PremierRoute	\N
+38	6	35	2	user test	\N	\N	2011-01-27 18:20:26.998573	2011-01-27 18:25:02.325598	Shultz Master Closet.dvi Parts List.xml	text/xml	23016	2011-01-27 18:20:26.994942	Phoenix	Created	\N	\N	test	\N	\N		PremierRoute	\N
+39	28	32	36	Burch - Jeremy	2011 - 10	\N	2011-01-27 18:39:50.766406	2011-01-27 18:41:41.285726	Burch, Jeremy.dvi Parts List.xml	application/xml	6411	2011-01-27 18:39:50.762618	\N	Placed	\N	\N	None	2011-01-27 18:41:41	32	\N	\N	\N
+41	10	35	2	hamper test	\N	\N	2011-01-27 19:48:53.292318	2011-01-27 19:48:53.292318	hamper test.xml	text/xml	9943	2011-01-27 19:48:53.29043	\N	\N	\N	\N	testing how P and I items break out in quote	\N	\N	\N	\N	\N
+42	10	35	2	basecab test	\N	\N	2011-01-27 19:55:16.889998	2011-01-27 19:55:16.889998	basecab test.xml	text/xml	7863	2011-01-27 19:55:16.886798	\N	\N	\N	\N	testing P and I item breakout	\N	\N	\N	\N	\N
+43	10	35	2	basecab test 2	\N	\N	2011-01-27 19:58:01.679546	2011-01-27 19:58:01.679546	basecab test2.xml	text/xml	7814	2011-01-27 19:58:01.676461	\N	\N	\N	\N		\N	\N	\N	\N	\N
 \.
 
 
@@ -4041,6 +4042,7 @@ COPY roles (id, name) FROM stdin;
 1	admin
 2	franchisee
 3	product_admin
+4	customer_service
 \.
 
 
@@ -4059,6 +4061,8 @@ COPY schema_migrations (version) FROM stdin;
 20110124035919
 20110126052224
 20110127165319
+20110127190139
+20110130192256
 \.
 
 
@@ -4070,7 +4074,6 @@ COPY user_roles (user_id, role_id) FROM stdin;
 35	1
 32	1
 49	1
-36	2
 11	2
 23	2
 22	2
@@ -4105,17 +4108,19 @@ COPY user_roles (user_id, role_id) FROM stdin;
 12	2
 52	1
 1	2
-53	3
 34	3
 57	3
 58	3
 59	3
 40	2
-51	3
 8	3
 31	2
 42	3
 60	2
+36	2
+51	3
+51	4
+53	4
 \.
 
 
@@ -4131,14 +4136,14 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 3	Mr.	Mike	Lyon	(253) 261-4253		(253) 447-4575	mlyon@closettailors.com	$2a$10$yVUlopt9Ez15j56pG9gxVuF5ehGd2jYVPyv2VnfaarEH0doAUrMSm	$2a$10$yVUlopt9Ez15j56pG9gxVu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.127395	2011-01-01 18:53:35.900037
 30	Ms.	Estela	Estrada	(714) 637-2100		(714) 998-8901	estela@homefranchiseeconcepts.com	$2a$10$cFthe26Eeb2RAC4Lj2MJ8edHzNF0SnQ5cd6EmJWJLcT57he/MLCU.	$2a$10$cFthe26Eeb2RAC4Lj2MJ8e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:36.124513	2011-01-01 18:53:36.130825
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
+36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$u9WWwVTVo1BkpR9zYM6R8OkCFHxZz7vB5.AEr/neupVDf8Vn6XRrW	$2a$10$u9WWwVTVo1BkpR9zYM6R8O	\N	\N	\N	1	2011-01-30 21:17:35.176814	2011-01-30 21:17:35.176814	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.829115	2011-01-30 21:17:35.178082
 31	Mrs.	Jodi	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@premiergarage.com	$2a$10$jr.WGscm43bzYLCqH41RruYwank5yL6wuAcliLkD9IznX8jtk.kry	$2a$10$jr.WGscm43bzYLCqH41Rru	\N	\N	\N	2	2011-01-27 18:37:39.160114	2011-01-27 18:24:05.937583	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.240116	2011-01-27 18:37:39.161297
 7	Mr.	Kenny	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$QpTM3W/kVHD9RkjKJud/3u99UR.pHxwQSQiIuBRj8KzPhTuOlAo2W	$2a$10$QpTM3W/kVHD9RkjKJud/3u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-01-01 18:53:36.258178
 8	\N	Customer Service	PG	480-483-3030		480-483-7895	info@premiergarage.com	$2a$10$B8ij4mhstLCYA3L69NAF5OgSwt2Gl2.hjC333B9JTG9VUHWn0E8qK	$2a$10$B8ij4mhstLCYA3L69NAF5O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.919109	2011-01-27 00:32:32.680546
 34	Mrs.	Yolanda	Quihuis	623-792-2308		(480) 483-7895	yquihuis@premiergarage.com	$2a$10$Tj1j5s3dNQXTn4iQFKj59.s8YedYlj3n7Qq7QfLFb8BZwmIRGXki2	$2a$10$Tj1j5s3dNQXTn4iQFKj59.	\N	\N	\N	1	2011-01-26 22:55:55.999978	2011-01-26 22:55:55.999978	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.603664	2011-01-26 22:55:56.000952
 33	Mrs.	Kali	Scheschuk	(972) 740-9944	(972) 767-4301	(972) 767-4301	jkscheschuk@closettailors.com	$2a$10$ITJrEbK2U7fusANmHpG3M.7a3NxUmIDjsm4CCHPD0megx3rntyzDu	$2a$10$ITJrEbK2U7fusANmHpG3M.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:36.479944	2011-01-01 18:53:36.499158
-1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@closettailors.com	$2a$10$REg4mc6lzUygGJd1ZnNx1ejxCMOJDho7r0sewN2sTa1TPJ/TQfBLC	$2a$10$REg4mc6lzUygGJd1ZnNx1e	\N	\N	\N	10	2011-01-26 13:29:47.229576	2011-01-26 00:19:49.270849	184.250.160.131	38.121.44.15	2011-01-01 18:53:31.856627	2011-01-26 13:29:47.230399
-36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$OORvDmlrNl7BQ0hEUUvAtu5pn5oG10JHpOF/gMf/0F9HGTTpV/nDG	$2a$10$OORvDmlrNl7BQ0hEUUvAtu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:36.829115	2011-01-01 18:53:36.834309
-35	Mr.	Peter	Saal		303 578-9085	(480) 483-7895	peter.saal@gmail.com	$2a$10$7QFLiXTxH6DmB6mayn6LcOQJiHc28/SqUZ6La3HS34afVrm01fzYu	$2a$10$7QFLiXTxH6DmB6mayn6LcO	\N	\N	\N	26	2011-01-27 18:38:10.422874	2011-01-27 18:37:04.971033	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-01-27 18:38:10.423909
+35	Mr.	Peter	Saal		303 578-9085	(480) 483-7895	peter.saal@gmail.com	$2a$10$7QFLiXTxH6DmB6mayn6LcOQJiHc28/SqUZ6La3HS34afVrm01fzYu	$2a$10$7QFLiXTxH6DmB6mayn6LcO	\N	\N	\N	30	2011-01-30 21:46:40.940948	2011-01-30 21:15:09.525966	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-01-30 21:46:40.941798
+1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@closettailors.com	$2a$10$REg4mc6lzUygGJd1ZnNx1ejxCMOJDho7r0sewN2sTa1TPJ/TQfBLC	$2a$10$REg4mc6lzUygGJd1ZnNx1e	\N	\N	\N	11	2011-01-30 20:46:58.161087	2011-01-26 13:29:47.229576	71.196.137.193	184.250.160.131	2011-01-01 18:53:31.856627	2011-01-30 20:46:58.162058
 13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@premiergarage.com	$2a$10$JqQHISqurk4SunroQ2liteNAVphnh3sWtZwWIbHEDt9OjOFySfFHK	$2a$10$JqQHISqurk4SunroQ2lite	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.554435	2011-01-01 18:53:37.64411
 15	Mr.	Dan	Kerth	(859) 488-0078	(859) 866-8266	(859) 488-0079	dckerth@tailoredliving.com	$2a$10$Hc1L6cntU5xGuA7OXkkcre8k5ZfkqmQEd1SJd/bP0LgpcpxzaoXXO	$2a$10$Hc1L6cntU5xGuA7OXkkcre	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.810296	2011-01-01 18:53:37.77011
 16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$1MIk8sgcGMPPvRiYpWTbquqeT5efhNlr2gbtn6wRlKvAbMfVkIpI2	$2a$10$1MIk8sgcGMPPvRiYpWTbqu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.935232	2011-01-01 18:53:37.783566
@@ -4163,19 +4168,19 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$KH2z1ueXwgUGP9KXYzoW1e4Xv9gOA0OdUxPYbvHOuMiF3P/1Gq7ti	$2a$10$KH2z1ueXwgUGP9KXYzoW1e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.284249	2011-01-01 18:53:38.59201
 27	Mr.	William	Welborn	(972) 247-3030	(214) 251-9736		dallas@premiergarage.com	$2a$10$DFnI.5P9MkRoJUsNExSD/uP1FqMTc3pXe3yFv2u.tjJmK2d/SwRv.	$2a$10$DFnI.5P9MkRoJUsNExSD/u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.546803	2011-01-01 18:53:38.611661
 59	\N	Theresia	Lampe	480-483-3030		480-483-7895	tlampe@premiergarage.com	$2a$10$3bR0kPO4JqhCWR7DR90qQOf9Pg3ubAerTNTEJIDP4Ae5KKY4qlGdu	$2a$10$3bR0kPO4JqhCWR7DR90qQO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-27 00:30:04.370057	2011-01-27 00:30:04.370057
+32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	FWQsK-wFlDgb-50oRjnD	\N	\N	33	2011-01-28 00:43:24.988822	2011-01-27 20:00:14.477276	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-01-28 00:43:24.990048
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	9	2011-01-26 14:00:00.768041	2011-01-24 16:37:43.102389	69.174.58.44	98.227.34.3	2011-01-23 16:28:32.887677	2011-01-26 14:00:00.768995
 40	Mr.	Don	Shultz	(623) 792-2227	(602) 763-0344	(480) 483-7895	dshultz@premiergarage.com	$2a$10$69SfyMCVkXnoAqDWvUqYFuk5srkNYCqOa/.tyuD8N6l7bQSxbpwdu	$2a$10$69SfyMCVkXnoAqDWvUqYFu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:37.279262	2011-01-27 00:31:07.348958
-51	\N	Dalawna	Dillman	480-483-3030		480-483-7895	ddillman@premiergarage.com	$2a$10$GMbrLu4VjROxHgOSoiJJBuoRuCKoNwu5WY4Kd3KjG8DxOVAuzRShG	$2a$10$GMbrLu4VjROxHgOSoiJJBu	\N	\N	\N	4	2011-01-26 22:47:51.976523	2011-01-18 22:07:19.300534	71.196.137.193	174.79.54.230	2011-01-06 23:44:42.653941	2011-01-27 00:31:38.740533
 54	\N	Test	User	222-222-2222			test@hylotech.com	$2a$10$U7zCzKW787M7GA0wmwK7Fenitw2Yqx3KunqQ6x1rgISlm.HQZN86u	$2a$10$U7zCzKW787M7GA0wmwK7Fe	\N	\N	\N	1	2011-01-25 16:01:52.288137	2011-01-25 16:01:52.288137	98.245.88.239	98.245.88.239	2011-01-25 16:00:52.065032	2011-01-25 16:01:52.289384
-53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$8n6F6bLnlNqAJ4xFJQBipe6szit5xNk3ftP/9YXDTsPVro6KB1uOG	$2a$10$8n6F6bLnlNqAJ4xFJQBipe	\N	\N	\N	7	2011-01-27 00:33:24.323503	2011-01-26 00:21:51.185764	71.196.137.193	38.121.44.15	2011-01-25 14:40:57.572165	2011-01-27 00:33:24.324795
 55	\N	Test2	User2				test2@hylotech.com	$2a$10$z4JtOiBJzbtuA2qxbTunu.xaSbpqhOcNgCnzsA05zfbBnpOsQqCWe	$2a$10$z4JtOiBJzbtuA2qxbTunu.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-25 16:13:52.429598	2011-01-25 16:13:52.429598
 60	\N	Steve	Bisch	6363998262	6363998262	3144341976	sbisch@tailoredliving.com	$2a$10$uZ.96iFNjmZwildQcBqvY.NfZenSX02dK5hDmHHvJsyheER1Mqwhi	$2a$10$uZ.96iFNjmZwildQcBqvY.	\N	\N	\N	1	2011-01-27 18:32:59.692185	2011-01-27 18:32:59.692185	71.196.137.193	71.196.137.193	2011-01-27 18:32:44.56832	2011-01-27 18:32:59.693075
 56	\N	Test3	User3				test3@hylotech.com	$2a$10$DbShBqIRzjxqyMQ5yKAlg.txEIyO0mkMHwfI9hQ.Pu/5MJAZvX3HW	$2a$10$DbShBqIRzjxqyMQ5yKAlg.	\N	\N	\N	1	2011-01-25 16:15:12.94448	2011-01-25 16:15:12.94448	98.245.88.239	98.245.88.239	2011-01-25 16:14:39.416326	2011-01-25 16:15:12.945543
 57	\N	Starla	Reichow	480-483-3030		480-483-7895	sreichow@premiergarage.com	$2a$10$X..V/AWONWeDhyyQwDNXxOrxj2XdAGVWk4W4LenWP2Ry3BpleQaVW	$2a$10$X..V/AWONWeDhyyQwDNXxO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-27 00:19:16.5581	2011-01-27 00:19:16.5581
-49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$stbPQKL64gMgsRaP7F8XneewfofYa.GsHvhoYX0bXCF75NlXZK526	$2a$10$stbPQKL64gMgsRaP7F8Xne	\N	GPvpvQzNp1jD1rZ-XSZE	2011-01-18 22:36:39.182205	13	2011-01-27 19:47:32.103536	2011-01-21 22:27:10.915422	98.245.88.239	98.245.88.239	2011-01-01 19:06:38.040379	2011-01-27 19:47:32.104383
+53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$QK7nW3QhWwGb8IxbPMC1vua3f3OeOO2bdNj845oXMF7g1SbbfIzpa	$2a$10$QK7nW3QhWwGb8IxbPMC1vu	\N	\N	\N	9	2011-01-30 23:24:35.746118	2011-01-30 21:16:38.165736	71.196.137.193	71.196.137.193	2011-01-25 14:40:57.572165	2011-01-30 23:24:35.747411
 58	\N	Jim	Edwards	480-483-3030		480-483-7895	jedwards@premiergarage.com	$2a$10$KG27NUxIk6jnoE.gxtjly.zljzw07INwNoxQbI952x7jyPRZlKXK.	$2a$10$KG27NUxIk6jnoE.gxtjly.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-27 00:20:08.250214	2011-01-27 00:20:08.250214
-42	Mr.	Steve	Bisch	(636) 399-8262		(314)434-1976	sbisch@premiergarage.com	$2a$10$Qnqamif/NtVQSmOAFldWXOe/fG6yd.QaERpHCREcTa66gL4ELtOWG	$2a$10$Qnqamif/NtVQSmOAFldWXO	SpJJIwivlLYWUvwKPN60	\N	\N	3	2011-01-27 19:54:38.542054	2011-01-27 19:54:21.854742	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-01-27 19:55:28.306318
-32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	\N	\N	\N	32	2011-01-27 20:00:14.477276	2011-01-27 17:44:30.552947	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-01-27 20:00:14.478054
+42	Mr.	Steve	Bisch	(636) 399-8262		(314)434-1976	sbisch@premiergarage.com	$2a$10$Qnqamif/NtVQSmOAFldWXOe/fG6yd.QaERpHCREcTa66gL4ELtOWG	$2a$10$Qnqamif/NtVQSmOAFldWXO	NUVoIv7CZ5an4hzODaOp	\N	\N	6	2011-01-30 20:30:24.784354	2011-01-28 04:02:37.753238	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-01-30 20:30:24.785486
+49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$stbPQKL64gMgsRaP7F8XneewfofYa.GsHvhoYX0bXCF75NlXZK526	$2a$10$stbPQKL64gMgsRaP7F8Xne	\N	GPvpvQzNp1jD1rZ-XSZE	2011-01-18 22:36:39.182205	14	2011-01-30 21:12:15.039411	2011-01-27 19:47:32.103536	98.245.88.239	98.245.88.239	2011-01-01 19:06:38.040379	2011-01-30 21:12:15.040084
+51	\N	Dalawna	Dillman	480-483-3030		480-483-7895	ddillman@premiergarage.com	$2a$10$3itM/L/stY9GqmG3JTFucuY0vOulqLeDaFh/lNmgch5VH5B0ZalHW	$2a$10$3itM/L/stY9GqmG3JTFucu	\N	\N	\N	4	2011-01-26 22:47:51.976523	2011-01-18 22:07:19.300534	71.196.137.193	174.79.54.230	2011-01-06 23:44:42.653941	2011-01-30 21:15:58.578946
 \.
 
 
@@ -4494,6 +4499,14 @@ ALTER TABLE ONLY jobs
 
 ALTER TABLE ONLY jobs
     ADD CONSTRAINT jobs_placed_by_id_fkey FOREIGN KEY (placed_by_id) REFERENCES users(id);
+
+
+--
+-- Name: jobs_primary_contact_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: pg_orders
+--
+
+ALTER TABLE ONLY jobs
+    ADD CONSTRAINT jobs_primary_contact_id_fkey FOREIGN KEY (primary_contact_id) REFERENCES users(id);
 
 
 --
