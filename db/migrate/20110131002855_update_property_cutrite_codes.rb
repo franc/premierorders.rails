@@ -7,15 +7,15 @@ class UpdatePropertyCutriteCodes < ActiveRecord::Migration
   end
 
   def self.up
-    execute("select * from property_values").each do |row|
+    execute("select id, dvinci_id, module_names, value_str from property_values").each do |row|
       unless row['dvinci_id'].blank?
         value_hash = JSON.parse(row['value_str'])      
         value_hash['dvinci_id'] = row['dvinci_id']
 
         cutrite_code_rows = execute_sql(["select * from cutrite_codes where dvinci_id = ?", row['dvinci_id']])
-        row_selector = lambda do |attr, row|
-          row['cutrite_attr'].to_s == attr.to_s # && 
-          #(row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)
+        row_selector = lambda do |attr, r|
+          r['cutrite_attr'].to_s == attr.to_s # && 
+          #(r['name_pattern'].nil? || job_item.item_name =~ /#{r['name_pattern'].gsub(/,/,'|')}/)
         end
 
         if row['module_names'] == 'Material'
@@ -25,7 +25,7 @@ class UpdatePropertyCutriteCodes < ActiveRecord::Migration
         end
 
         if row['module_names'] == 'EdgeBand'
-          value_hash['cutrite_code'] = case value_hash['width'].strip 
+          case value_hash['width'].strip 
             when '19' 
               Option.new(cutrite_code_rows.find{|r| row_selector.call(:edge_band, r)}).each do |crow|
                 value_hash['cutrite_code'] = crow['cutrite_code'] 

@@ -11,8 +11,8 @@ module Option
     None::NONE
   end
 
-  def self.iif(bool, value)
-    bool ? Option.new(value) : None::NONE
+  def self.iif(bool, &value)
+    bool ? Option.new(value.call) : None::NONE
   end
 
   def self.call(sym, obj)
@@ -39,6 +39,14 @@ module Option
 
   def empty?
     cata(lambda {|a| false}, true)
+  end
+
+  def any?(&f)
+    cata(f, false)
+  end
+
+  def contains?(v)
+    cata(lambda {|a| v eql? a}, false)
   end
 
   alias_method :each, :map

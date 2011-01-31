@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20110131002855) do
     t.datetime "updated_at"
   end
 
+  create_table "cutrite_codes", :id => false, :force => true do |t|
+    t.string "cutrite_attr", :limit => 32
+    t.string "dvinci_id",    :limit => 8
+    t.string "color",        :limit => 32
+    t.string "cutrite_code", :limit => 32
+    t.string "name_pattern", :limit => 32
+  end
+
   create_table "franchisee_addresses", :force => true do |t|
     t.integer  "franchisee_id", :null => false
     t.integer  "address_id",    :null => false

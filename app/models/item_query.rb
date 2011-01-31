@@ -2,7 +2,7 @@ class ItemQuery
   attr_reader :monoid
 
   def initialize(monoid)
-    @monoide = monoid
+    @monoid = monoid
   end
 
   def selected_component_associations(item, contexts) 

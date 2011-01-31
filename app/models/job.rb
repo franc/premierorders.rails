@@ -262,27 +262,55 @@ class Job < ActiveRecord::Base
       job_item.item_name      
     ]
 
-    color_name = Option.new(job_item.item).bind{|i| Option.new(i.color_opts.find{|o| o.dvinci_id == job_item.dvinci_color_code})}.map{|o| o.color}
-    cutrite_code_rows = connection.execute("select * from cutrite_codes where dvinci_id = '#{job_item.dvinci_color_code}'")
-    row_selector = lambda do |attr, row|
-      row['cutrite_attr'].to_s == attr.to_s && 
-      (row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)
-    end
+    panel_query = ColorQuery.new('panel_material', job_item.dvinci_color_code)
+    panel_material = Option.new(job_item.item).bind {|i| i.query(panel_query, [])}
 
-    eb_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:edge_band, r)})
-    eb_2_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:edge_band_2, r)})
-    material_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:material, r)})
+    eb_query = ColorQuery.new('edge_band', job_item.dvinci_color_code) {|v| v.width == 19 }
+    eb_material = Option.new(job_item.item).bind {|i| i.query(eb_query, [])}
+
+    eb2_query = ColorQuery.new('edge_band', job_item.dvinci_color_code) {|v| v.width == 25 }
+    eb2_material = Option.new(job_item.item).bind {|i| i.query(eb2_query, [])}
 
     custom_attr_values = [
-      color_name.orSome(''),
-      material_code.map{|c| c['cutrite_code']}.orSome(''),
-      eb_code.map{|c| c['cutrite_code']}.orSome(''),
-      eb_2_code.map{|c| c['cutrite_code']}.orSome(''),
-      material_code.map{|c| c['cutrite_code']}.orSome(''),
-      eb_code.map{|c| c['cutrite_code']}.orSome('')
+      panel_material.map{|m| m.color}.orSome(''),
+      panel_material.map{|m| m.cutrite_code}.orSome(''),
+      eb_material.map{|m| m.cutrite_code}.orSome(''),
+      eb2_material.map{|m| m.cutrite_code}.orSome(''),
+      panel_material.map{|m| m.cutrite_code}.orSome(''),
+      eb_material.map{|m| m.cutrite_code}.orSome('')
     ]
 
     basic_attr_values + custom_attr_values
+  end
+end
+
+class UniquenessMonoid
+  def zero
+    Option.none()
+  end
+
+  def append(o1, o2)
+    raise "Found conflicting values: #{o1.inspect} vs #{o2.inspect}" if o1.any?{|v1| o2.any?{|v2| v1 != v2}}
+    o1.orElse(o2)    
+  end
+end
+
+class ColorQuery < ItemQuery
+  def initialize(property_family, dvinci_color_code, &value_test)
+    super(UniquenessMonoid.new)
+    @property_family = property_family
+    @dvinci_color_code = dvinci_color_code
+    @value_test = value_test
+  end  
+
+  def query_property(property)
+    pv = Option.iif(property.family == @property_family) do
+      property.property_values.detect do |v|
+        v.respond_to?(:dvinci_id) && 
+        v.dvinci_id == @dvinci_color_code &&
+        (@value_test.nil? || @value_test.call(v))
+      end
+    end
   end
 end
 
