@@ -7,7 +7,7 @@ class ItemComponent < ActiveRecord::Base
   belongs_to :item
   belongs_to :component, :class_name => 'Item'
 
-  has_many   :item_component_properties
+  has_many   :item_component_properties, :dependent => :destroy
   has_many   :properties, :through => :item_component_properties, :extend => Properties::Association
 
   def self.component_modules(mod)
@@ -52,6 +52,10 @@ class ItemComponent < ActiveRecord::Base
       result[:absent] << desc if properties.find_by_descriptor(desc).nil? 
       result
     end
+  end
+
+  def query(item_query, contexts)
+    item_query.traverse_item_component(self, contexts)
   end
 end
 

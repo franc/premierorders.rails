@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110130192256) do
+ActiveRecord::Schema.define(:version => 20110131002855) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -180,7 +180,6 @@ ActiveRecord::Schema.define(:version => 20110130192256) do
   end
 
   create_table "property_values", :force => true do |t|
-    t.string   "dvinci_id"
     t.string   "name"
     t.string   "module_names"
     t.string   "value_str"

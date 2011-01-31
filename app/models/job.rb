@@ -265,12 +265,8 @@ class Job < ActiveRecord::Base
     color_name = Option.new(job_item.item).bind{|i| Option.new(i.color_opts.find{|o| o.dvinci_id == job_item.dvinci_color_code})}.map{|o| o.color}
     cutrite_code_rows = connection.execute("select * from cutrite_codes where dvinci_id = '#{job_item.dvinci_color_code}'")
     row_selector = lambda do |attr, row|
-      logger.info("Got row #{row.inspect} looking for #{attr}")
-      logger.info("cutrite attr match: #{row['cutrite_attr'].to_s == attr.to_s}")
-      logger.info("name pattern match: #{(row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)}")
-      result = row['cutrite_attr'].to_s == attr.to_s && (row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)
-      logger.info("result: #{result}")
-      result
+      row['cutrite_attr'].to_s == attr.to_s && 
+      (row['name_pattern'].nil? || job_item.item_name =~ /#{row['name_pattern'].gsub(/,/,'|')}/)
     end
 
     eb_code = Option.new(cutrite_code_rows.find{|r| row_selector.call(:edge_band, r)})

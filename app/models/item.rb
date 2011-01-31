@@ -188,6 +188,10 @@ class Item < ActiveRecord::Base
     {:missing => absent, :broken => broken}
   end
 
+  def query(item_query, contexts)
+    item_query.traverse_item(self, contexts)
+  end
+
   def next_item
     Item.find_by_sql(['SELECT * FROM items where name in (select min(name) from items where name > ?)', self.name])
   end

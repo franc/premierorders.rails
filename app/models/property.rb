@@ -292,7 +292,14 @@ class Property < ActiveRecord::Base
     DESCRIPTOR = PropertyDescriptor.new(:color, [], [Color])
 
     def self.value_structure
-      [:color , :string]
+      [
+        [:color , :string],
+        [:dvinci_id , :string]
+      ]
+    end
+
+    def dvinci_id
+      extract(:dvinci_id)
     end
 
     def color
@@ -340,6 +347,8 @@ class Property < ActiveRecord::Base
     def self.value_structure
       [
         [:color , :string],
+        [:dvinci_id , :string],
+        [:cutrite_code , :string],
         [:thickness , :float],
         [:thickness_units , Properties::LinearConversions::UNITS],
         [:price , :float],
@@ -350,6 +359,14 @@ class Property < ActiveRecord::Base
 
     def color
       extract(:color)
+    end
+
+    def dvinci_id
+      extract(:dvinci_id)
+    end
+
+    def cutrite_code
+      extract(:cutrite_code)
     end
 
     def thickness(units)
@@ -407,6 +424,8 @@ class Property < ActiveRecord::Base
     def self.value_structure
       [
         [:color , :string],
+        [:dvinci_id , :string],
+        [:cutrite_code , :string],
         [:width , :float],
         [:width_units , Properties::LinearConversions::UNITS],
         [:price , :float],
@@ -416,6 +435,14 @@ class Property < ActiveRecord::Base
 
     def color
       extract(:color)
+    end
+
+    def dvinci_id
+      extract(:dvinci_id)
+    end
+
+    def cutrite_code
+      extract(:cutrite_code)
     end
 
     def width

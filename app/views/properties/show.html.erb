@@ -12,8 +12,6 @@
         <dl class="property_value">
           <dt>Value Name:</dt>
           <dd><%= v.name %></dd>
-          <dt>D'Vinci ID:</dt>
-          <dd><%= v.dvinci_id %></dd>
           <% v.field_values.each do |name, details| %>
             <dt><%= name.to_s.titlecase %>:</dt>
             <dd><%= details[:value] %></dd>
