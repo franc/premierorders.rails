@@ -1,10 +1,9 @@
 require 'property.rb'
 require 'util/option'
-require 'items/items.rb'
 require 'lib/expressions.rb'
 
 class Item < ActiveRecord::Base
-  include Expressions, Items::Margins
+  include Expressions, Items::Margins, Items::Surcharges
 
   has_many :item_properties, :dependent => :destroy
 	has_many :properties, :through => :item_properties, :extend => Properties::Association
@@ -82,7 +81,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.optional_properties
-    [MARGIN]
+    [MARGIN, SURCHARGE]
   end
 
   def property_value(descriptor)
@@ -127,7 +126,7 @@ class Item < ActiveRecord::Base
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
     else
-      Option.some(apply_margin(sum(*subtotal_exprs)))
+      Option.some(apply_margin(apply_surcharge(sum(*subtotal_exprs))))
     end
   end
 
