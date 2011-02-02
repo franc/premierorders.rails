@@ -8,12 +8,13 @@
       <dl class="billing_address">
         <dt>Billing Address</dt>
         <dd>
+          <%= @job.franchisee.franchise_name -%>
           <% if @job.ship_to %>
-            <%= @job.ship_to.address1 -%><br/>
+            <br/><%= @job.ship_to.address1 -%>
             <% if @job.ship_to.address2 %>
-              <%= @job.ship_to.address2 -%><br/>
+              <br/><%= @job.ship_to.address2 -%>
             <% end %>
-            <%= @job.ship_to.city -%>, <%= @job.ship_to.state -%> <%= @job.ship_to.postal_code -%>
+            <br/><%= @job.ship_to.city -%>, <%= @job.ship_to.state -%> <%= @job.ship_to.postal_code -%>
           <% end %>
         </dd>
       </dl>
@@ -22,12 +23,13 @@
       <dl class="shipping_address">
         <dt>Shipping Address</dt>
         <dd>
+          <%= @job.franchisee.franchise_name -%>
           <% if @job.ship_to %>
-            <%= @job.ship_to.address1 -%><br/>
+            <br/><%= @job.ship_to.address1 -%>
             <% if @job.ship_to.address2 %>
-              <%= @job.ship_to.address2 -%><br/>
+              <br/><%= @job.ship_to.address2 -%>
             <% end %>
-            <%= @job.ship_to.city -%>, <%= @job.ship_to.state -%> <%= @job.ship_to.postal_code -%>
+            <br/><%= @job.ship_to.city -%>, <%= @job.ship_to.state -%> <%= @job.ship_to.postal_code -%>
           <% end %>
         </dd>
       </dl>
@@ -100,31 +102,26 @@
 
   <div id="quote-footer">
     <dl class="franchisee-name">
-        <dt><%= @job.franchisee.franchise_name -%></dt>
+        <dt>PREMIERGARAGE SYSTEMS LLC</dt>
         <dd>
-          <% if @job.franchisee.billing_address.address %>
-            <%= @job.franchisee.billing_address.address.address1 -%><br/>
-            <% if @job.franchisee.billing_address.address.address2 %>
-              <%= @job.franchisee.billing_address.address.address2 -%><br/>
-            <% end %>
-            <%= @job.franchisee.billing_address.address.city -%>, <%= @job.franchisee.billing_address.address.state -%> <%= @job.franchisee.billing_address.address.postal_code -%>
-          <% end %>
+          21405 N. 15th Lane<br/>
+          Phoenix, AZ 85027
         </dd>
     </dl>
 
     <dl class="franchisee-phone">
-      <dt>Phone</dt>
-      <dd><%= @job.franchisee.phone -%></dd>
+      <dt>PHONE</dt>
+      <dd>480.483.3030</dd>
     </dl>
 
     <dl class="franchisee-fax">
-      <dt>Fax</dt>
-      <dd><%= @job.franchisee.fax -%></dd>
+      <dt>FAX</dt>
+      <dd>480.483.3795</dd>
     </dl>
 
     <dl class="franchisee-web">
-      <dt>Web</dt>
-      <dd><%= @job.franchisee.website -%></dd>
+      <dt>WEB</dt>
+      <dd>www.premiergarage.com</dd>
 
     </dl>
 
