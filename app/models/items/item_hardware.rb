@@ -30,8 +30,8 @@ class ItemHardware < ItemComponent
     properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
   end
 
-  def cost_expr(units, color, contexts)
-    qty_expr = if h_qty(units).empty? && w_qty(units).empty? && d_qty(units).empty? && r_qtys.empty?
+  def qty_expr(units, color)
+    if h_qty(units).empty? && w_qty(units).empty? && d_qty(units).empty? && r_qtys.empty?
       term(quantity)
     else
       quantities = [
@@ -43,7 +43,13 @@ class ItemHardware < ItemComponent
       qty_exprs = quantities.inject([]){|a, v| v.map{|expr| a << expr}.orSome(a)} + r_qtys.map{|v| v.expr(units)}
       sum(*qty_exprs)
     end
+  end
 
-    component.cost_expr(units, color, contexts).map{|e| mult(qty_expr, e)}
+  def unit_cost_expr(units, color, contexts)
+    component.cost_expr(units, color, contexts)
+  end
+
+  def cost_expr(units, color, contexts)
+    unit_cost_expr(units, color, contexts).map{|e| mult(qty_expr(units, color), e)}
   end
 end

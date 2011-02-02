@@ -31,12 +31,9 @@ class ItemQuery
 
   def traverse_item_component(assoc, contexts)
     component_data = query_item_component(assoc)
-
-    property_data = assoc.properties.inject(component_data) do |v, prop|
+    assoc.properties.inject(component_data) do |v, prop|
       @monoid.append(v, query_property(prop))
     end
-
-    @monoid.append(property_data, assoc.component.query(self, contexts))
   end
 
   def query_item(item)
@@ -44,7 +41,7 @@ class ItemQuery
   end
 
   def query_item_component(assoc)
-    @monoid.zero 
+    assoc.component.query(self, contexts)
   end
 
   def query_property(property)

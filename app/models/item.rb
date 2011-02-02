@@ -200,6 +200,27 @@ class Item < ActiveRecord::Base
   end
 end
 
+class ListMonoid
+  def zero
+    []
+  end
+
+  def append(o1, o2)
+    o1 + o2
+  end
+end
+
+class HardwareQuery < ItemQuery
+  def initialize(&item_test)
+    super(ListMonoid.new)
+    @item_test = item_test
+  end
+
+  def query_item_component(assoc)
+    assoc.kind_of?(ItemHardware) && (@item_test.nil? || @item_test.call(assoc.component)) ? [assoc] : []
+  end
+end
+
 require 'items/cabinet.rb'
 require 'items/corner_cabinet.rb'
 require 'items/shell.rb'

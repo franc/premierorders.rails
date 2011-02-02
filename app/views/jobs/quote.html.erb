@@ -94,11 +94,10 @@
   <p>THE FOLLOWING INVENTORY ITEMS ARE REQUIRED BUT NOT INCLUDED WITH THIS ORDER:</p>
   <dl class="inventory_items">
     <dt>Inventory Items</dt>
-    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.inventory?}} %></dd>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.inventory_items} %></dd>
   </dl>
 
   <hr />
-
 
   <div id="quote-footer">
     <dl class="franchisee-name">
@@ -122,13 +121,8 @@
     <dl class="franchisee-web">
       <dt>WEB</dt>
       <dd>www.premiergarage.com</dd>
-
     </dl>
-
   </div>
-
-  
-  
 </div>
 
 <% content_for :local_nav do %>

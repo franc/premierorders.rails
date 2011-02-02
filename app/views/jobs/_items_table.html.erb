@@ -13,12 +13,11 @@
     <th>Special Instructions</th>
   </tr>
   <% job_items.each_with_index do |job_item, i| %>
-    <% color_property = job_item.job_item_properties.find_by_family(:color) %>
     <tr class="<%=unit_price_class(job_item)%>">
       <td><%= job_item.tracking_id %></td>
       <td><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
       <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
-      <td><%= color_property ? color_property.color : '' %></td>
+      <td><%= job_item.color.orSome('') %></td>
       <td><%= job_item.quantity.to_i %></td>
       <td><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
       <td><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>

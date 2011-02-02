@@ -46,16 +46,17 @@ class JobItem < ActiveRecord::Base
 
   def compute_unit_price
     Option.new(item).bind do |i|
-      price_expr = i.rebated_cost_expr(:in, color.orSome(nil), [])
-      price_expr.map do |e|
-        w = width.orSome(nil)
-        h = height.orSome(nil)
-        d = depth.orSome(nil)
-        expr = e.compile.gsub(/W/,'w').gsub(/H/,'h').gsub(/D/,'d')
-        logger.info("Evaluating expression (#{expr}) at w = #{w}, h = #{h}, d = #{d}")
-        eval(expr)
-      end
+      i.rebated_cost_expr(:in, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
     end
+  end
+
+  def dimension_eval(expr)
+    w = width.orSome(nil)
+    h = height.orSome(nil)
+    d = depth.orSome(nil)
+    compiled_expr = expr.compile.gsub(/W/,'w').gsub(/H/,'h').gsub(/D/,'d')
+    logger.info("Evaluating expression (#{compiled_expr}) at w = #{w}, h = #{h}, d = #{d}")
+    eval(compiled_expr)
   end
 
   def compute_total

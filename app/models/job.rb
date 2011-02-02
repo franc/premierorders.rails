@@ -248,10 +248,30 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def component_inventory_hardware
+    hardware_query = HardwareQuery.new do |item|
+      item.purchasing == 'Inventory'
+    end
+
+    job_items.inject([]) do |m, job_item|
+      item_hardware_components = Option.new(job_item.item).map do |i| 
+        i.query(hardware_query, []).map do |item_hardware| 
+          AssemblyHardwareItem.new(job_item, item_hardware)
+        end
+      end
+
+      m + item_hardware_components.orSome([])
+    end
+  end
+
+  def inventory_items
+    inventory_items_on_order = job_items.order('tracking_id').select{|i| i.inventory?}
+    inventory_items_on_order + component_inventory_hardware
+  end
+
   private
 
   def cutrite_item_data(job_item)
-    logger.info("Building cutrite row for #{job_item.item_name}")
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
