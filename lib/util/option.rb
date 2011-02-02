@@ -49,6 +49,10 @@ module Option
     cata(lambda {|a| v eql? a}, false)
   end
 
+  def to_a
+    cata(lambda {|a| [a]}, [])
+  end
+
   alias_method :each, :map
 end
 

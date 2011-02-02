@@ -5,15 +5,11 @@ module Items::Surcharges
   SURCHARGE = PropertyDescriptor.new(:surcharge, [], [Property::Surcharge])
   RANGED_SURCHARGE = PropertyDescriptor.new(:ranged_surcharge, [], [Property::RangedValue])
 
-  def surcharge_expr(units)
-    flat = properties.find_value(SURCHARGE).map{|v| term(v.price)}
-    ranged = properties.find_value(RANGED_SURCHARGE).map{|v| v.expr(units)}
+  def surcharge_exprs(units)
+    flat = properties.find_value(SURCHARGE).map{|v| term(v.price)}.to_a
+    ranged = properties.find_all_by_descriptor(RANGED_SURCHARGE).map{|v| v.property_values}.flatten.map{|v| v.expr(units)}
 
-    flat.map{|f| ranged.map{|r| sum(f, r)}.orSome(f)}.orElse(ranged)
-  end
-
-  def apply_surcharge(expr, units)
-    surcharge_expr(units).map{|v| sum(expr, v)}.orSome(expr)
+    flat + ranged
   end
 end
 
