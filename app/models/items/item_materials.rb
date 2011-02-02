@@ -19,8 +19,16 @@ module ItemMaterials
   def material(descriptor, color)
     mprop = properties.find_by_descriptor(descriptor)
     mvalues = mprop.property_values.all
-    raise "Could not determine material values from #{mprop}" if mvalues.empty?
-    mval = mvalues.length > 1 ? mvalues.detect{|v| color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0} : mvalues[0]
+    mval = if mvalues.empty?
+      raise "Could not determine material values from #{mprop}" 
+    elsif mvalues.length > 1 
+      mvalues.detect do |v| 
+        (v.respond_to?(:dvinci_id) && v.dvinci_id.strip == color.strip) || v.color.strip.casecmp(color.strip) == 0
+      end 
+    else
+      mvalues[0]
+    end
+
     raise "Could not determine material values for #{color} from #{mvalues}" if mval.nil?
     mval
   end
@@ -45,7 +53,7 @@ module PanelEdgePricing
           raise "Could not determine material values from #{prop}"
         elsif mvalues.length > 1 
           prop.property_values.detect do |v| 
-            color.strip == v.dvinci_id.strip || v.color.strip.casecmp(color.strip) == 0
+            (v.respond_to?(:dvinci_id) && v.dvinci_id.strip == color.strip) || v.color.strip.casecmp(color.strip) == 0
           end 
         else 
           mvalues[0]

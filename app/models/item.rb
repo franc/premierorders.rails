@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
           Option.new(
             results.detect do |item|
               md = item.dvinci_id.match(/(\d{3})\.(\w{3})\.(\w+)\.(\w+)\.(\d{2})(\w)/)
-              item.color_opts.any?{|opt| opt.dvinci_id.strip == color_key} &&
+              item.color_opts.any?{|opt| opt.respond_to?(:dvinci_id) && opt.dvinci_id.strip == color_key} &&
               t3 =~ /^#{md.captures[2].gsub(/x/,'')}/
             end
           )
@@ -81,7 +81,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.optional_properties
-    [MARGIN, SURCHARGE]
+    [MARGIN, SURCHARGE, RANGED_SURCHARGE]
   end
 
   def property_value(descriptor)
@@ -126,7 +126,7 @@ class Item < ActiveRecord::Base
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
     else
-      Option.some(apply_margin(apply_surcharge(sum(*subtotal_exprs))))
+      Option.some(apply_margin(apply_surcharge(sum(*subtotal_exprs), units)))
     end
   end
 
