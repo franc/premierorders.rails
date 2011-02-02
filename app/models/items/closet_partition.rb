@@ -12,10 +12,6 @@ class ClosetPartition < Item
     [Panel::MATERIAL, EDGEBAND]
   end
 
-  def self.optional_properties
-    [MARGIN]
-  end
-
   def material_descriptor
     Panel::MATERIAL
   end
