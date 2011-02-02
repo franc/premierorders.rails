@@ -9,7 +9,11 @@ class Drawer < Item
   HEIGHT_DESCRIPTOR = PropertyDescriptor.new(:height, [], [Property::Height], 1)
 
   def self.required_properties
-    [HEIGHT_DESCRIPTOR, Panel::MATERIAL]
+    [Panel::MATERIAL]
+  end
+
+  def self.optional_properties
+    super + [HEIGHT_DESCRIPTOR]
   end
   
   def material_descriptor
