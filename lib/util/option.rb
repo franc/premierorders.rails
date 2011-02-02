@@ -41,6 +41,10 @@ module Option
     cata(lambda {|a| false}, true)
   end
 
+  def to_a
+    cata(lambda {|a| [a]}, [])
+  end
+
   alias_method :each, :map
 end
 

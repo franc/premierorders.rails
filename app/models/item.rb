@@ -121,12 +121,14 @@ class Item < ActiveRecord::Base
       assoc.cost_expr(units, color, contexts).map{|e| exprs << e}.orSome(exprs)
     end
 
-    subtotal_exprs = base_expr + component_exprs
+    surcharge_exprs = surcharge_exprs(units)
+
+    subtotal_exprs = base_expr + component_exprs + surcharge_exprs
     if subtotal_exprs.empty?
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
     else
-      Option.some(apply_margin(apply_surcharge(sum(*subtotal_exprs), units)))
+      Option.some(apply_margin(sum(*subtotal_exprs)))
     end
   end
 
