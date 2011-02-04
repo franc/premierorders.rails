@@ -386,7 +386,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1285, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1287, true);
 
 
 --
@@ -485,7 +485,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 942, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 1046, true);
 
 
 --
@@ -535,7 +535,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 787, true);
+SELECT pg_catalog.setval('job_items_id_seq', 851, true);
 
 
 --
@@ -581,7 +581,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 54, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 57, true);
 
 
 --
@@ -684,7 +684,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 59, true);
+SELECT pg_catalog.setval('jobs_id_seq', 62, true);
 
 
 --
@@ -728,7 +728,7 @@ ALTER SEQUENCE properties_id_seq OWNED BY properties.id;
 -- Name: properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('properties_id_seq', 120, true);
+SELECT pg_catalog.setval('properties_id_seq', 121, true);
 
 
 --
@@ -785,7 +785,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 322, true);
+SELECT pg_catalog.setval('property_values_id_seq', 323, true);
 
 
 --
@@ -2496,6 +2496,8 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1283	194	120	\N
 1284	162	50	\N
 1285	704	36	\N
+1286	517	121	\N
+1287	522	121	\N
 \.
 
 
@@ -2566,6 +2568,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 545	HO Base 3 Drawer (3/8/12)	HO Base 3 Drawer 1 File (3/8/12) 		\N	000.230.322.x.00M	HO-BC	2011-01-01 18:54:33.711128	2011-01-31 16:05:33.526701	Manufactured	HomeOffice_Cabinets	Cabinet	\N	
 542	HO Base 2 Door	HO Base 2 Door 		\N	000.102.322.x.00M	HO-BC-1AS	2011-01-01 18:54:33.669533	2011-01-31 16:04:43.436379	Manufactured	HomeOffice_Cabinets	Cabinet	\N	
 543	HO Base 2 Door 2 Drawer	HO Base 2 Door 2 Drawer 		\N	000.222.322.x.00M	HO-B2D2-2AS	2011-01-01 18:54:33.68379	2011-01-31 16:04:55.778479	Manufactured	HomeOffice_Cabinets	Cabinet	\N	
+517	Decor Door - JR7	Decor Door - JR7 		\N	000.101.000.x.00B	DS-D-JR7	2011-01-01 18:54:28.028853	2011-01-31 15:55:30.061169	Manufactured	Buyout_Door	PremiumDoor	\N	
 541	HO Base 4 Drawer (6/6/6/6)	HO Base 4 Drawer (6/6/6/6) 		\N	000.254.122.x.00M	HO-BC	2011-01-01 18:54:33.654811	2011-01-31 16:06:21.820615	Manufactured	HomeOffice_Cabinets	Cabinet	\N	
 695	HO Base Corner Cabinet			\N	000.196.424.x.00M	HO-CBC	2011-01-22 19:33:36.861778	2011-01-31 16:06:33.068575	Purchased	HomeOffice_Cabinets	CornerCabinet	\N	
 511	HO Tall Storage 2 Door	HO Tall Storage 2 Door 		\N	000.402.382.x.00M	HO-TC-4AS	2011-01-01 18:54:27.928831	2011-01-31 16:07:48.829902	Manufactured	HomeOffice_Cabinets	Cabinet	\N	
@@ -2574,7 +2577,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 569	Powder Coated Door (23.875 x 83) | GRANITE	Powder Coated Door (23.875 x 83) | GRANITE	NX 23.875 x 83.025 Granite	\N	000.880.308.a12.00P	PC-D	2011-01-04 06:35:34.379025	2011-01-30 19:23:30.635671	Purchased	880308a 	Item	48.907200000000003	
 579	Powder Coated Door (23.875 x 83) | RED	Powder Coated Door (23.875 x 83) | RED	NX 23.875 x 83.025 Red	\N	000.880.308.b12.00P	PC-D	2011-01-04 06:35:34.430848	2011-01-30 19:23:43.032931	Purchased	880308b 	Item	48.907200000000003	
 630	CL Hutch 1 Door	Closet Wall Hutch		\N	000.306.921.x.00M	CL-HC-2AS	2011-01-13 17:44:36.195287	2011-01-30 21:27:03.957982	Manufactured	Closets	Cabinet	\N	
-517	Decor Door - JR7	Decor Door - JR7 		\N	000.101.000.x.00B	DS-D-JR7	2011-01-01 18:54:28.028853	2011-01-31 15:55:30.061169	Manufactured	Buyout_Door	PremiumDoor	\N	
 563	CL Toe Kick	Closet Toe Kick		\N	000.970.x.x.00M	CL-TOE	2011-01-04 05:22:03.751871	2011-01-30 21:30:51.02772	Manufactured	Closets	BackingPanel	\N	
 513	HO Wall Bed Queen	HO Wall Bed Queen 		\N	000.492.681.x.00M	HO-WBQ	2011-01-01 18:54:27.954427	2011-01-31 16:08:38.562275	Manufactured	HomeOffice_Cabinets	Cabinet	\N	
 631	ZH Screw (Drawer Box)	Screw, #8 x 1' (Box Qty 500)	0167081602	\N			2011-01-13 18:10:40.066913	2011-01-26 19:37:10.915653	Inventory	1002	Item	0.01166	
@@ -3156,6 +3158,63 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 --
 
 COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_names, value_str, created_at, updated_at) FROM stdin;
+990	817	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:40.845102	2011-02-04 18:20:40.845102
+991	818	\N	dimensions	\N	Width,Depth,Height	{"height":"4.500","depth":"21.500","width":"5.875","linear_units":"in"}	2011-02-04 18:20:40.855233	2011-02-04 18:20:40.855233
+992	818	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:40.86493	2011-02-04 18:20:40.86493
+993	819	\N	dimensions	\N	Width,Depth,Height	{"height":"4.500","depth":"13.750","width":"23.000","linear_units":"in"}	2011-02-04 18:20:40.873513	2011-02-04 18:20:40.873513
+994	819	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:40.882957	2011-02-04 18:20:40.882957
+995	820	\N	dimensions	\N	Width,Depth,Height	{"height":"4.500","depth":"21.500","width":"14.875","linear_units":"in"}	2011-02-04 18:20:40.891471	2011-02-04 18:20:40.891471
+996	820	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:40.900856	2011-02-04 18:20:40.900856
+997	821	\N	dimensions	\N	Width,Depth,Height	{"height":"7.000","depth":"13.750","width":"23.000","linear_units":"in"}	2011-02-04 18:20:40.909353	2011-02-04 18:20:40.909353
+998	821	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:40.9188	2011-02-04 18:20:40.9188
+999	822	\N	dimensions	\N	Width,Depth,Height	{"height":"9.500","depth":"21.500","width":"14.875","linear_units":"in"}	2011-02-04 18:20:40.927399	2011-02-04 18:20:40.927399
+1000	822	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:40.937425	2011-02-04 18:20:40.937425
+1001	823	\N	dimensions	\N	Width,Height	{"height":"30.111","width":"12.625","linear_units":"in"}	2011-02-04 18:20:41.079235	2011-02-04 18:20:41.079235
+1002	823	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.092369	2011-02-04 18:20:41.092369
+1003	824	\N	dimensions	\N	Width,Height	{"height":"18.773","width":"8.250","linear_units":"in"}	2011-02-04 18:20:41.103715	2011-02-04 18:20:41.103715
+1004	824	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.119142	2011-02-04 18:20:41.119142
+1005	825	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:41.128744	2011-02-04 18:20:41.128744
+1006	826	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:41.139315	2011-02-04 18:20:41.139315
+1007	827	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:41.149531	2011-02-04 18:20:41.149531
+1008	828	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:41.159279	2011-02-04 18:20:41.159279
+1009	829	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"8.250","linear_units":"in"}	2011-02-04 18:20:41.169672	2011-02-04 18:20:41.169672
+1010	829	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.180904	2011-02-04 18:20:41.180904
+1011	830	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"17.250","linear_units":"in"}	2011-02-04 18:20:41.191163	2011-02-04 18:20:41.191163
+1012	830	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.204587	2011-02-04 18:20:41.204587
+1013	831	\N	dimensions	\N	Width,Height	{"height":"12.472","width":"17.250","linear_units":"in"}	2011-02-04 18:20:41.214397	2011-02-04 18:20:41.214397
+1014	831	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.22567	2011-02-04 18:20:41.22567
+1015	832	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"24.625","linear_units":"in"}	2011-02-04 18:20:41.358442	2011-02-04 18:20:41.358442
+1016	832	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.372909	2011-02-04 18:20:41.372909
+1017	833	\N	dimensions	\N	Width,Height	{"height":"8.693","width":"24.625","linear_units":"in"}	2011-02-04 18:20:41.38343	2011-02-04 18:20:41.38343
+1018	833	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.396052	2011-02-04 18:20:41.396052
+1019	834	\N	dimensions	\N	Width,Depth,Height	{"height":"28.106","depth":"23.000","width":"8.375","linear_units":"in"}	2011-02-04 18:20:41.47904	2011-02-04 18:20:41.47904
+1020	834	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.647342	2011-02-04 18:20:41.647342
+1021	835	\N	dimensions	\N	Width,Depth,Height	{"height":"28.106","depth":"23.000","width":"17.375","linear_units":"in"}	2011-02-04 18:20:41.915785	2011-02-04 18:20:41.915785
+1022	835	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:41.966761	2011-02-04 18:20:41.966761
+1023	836	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:41.976236	2011-02-04 18:20:41.976236
+1024	837	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:42.116953	2011-02-04 18:20:42.116953
+1025	838	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:42.130167	2011-02-04 18:20:42.130167
+1026	839	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:42.141802	2011-02-04 18:20:42.141802
+1027	840	\N	dimensions	\N	Width,Depth,Height	{"height":"31.001","depth":"14.000","width":"25.500","linear_units":"in"}	2011-02-04 18:20:42.23617	2011-02-04 18:20:42.23617
+1028	840	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:42.383783	2011-02-04 18:20:42.383783
+1029	841	\N	dimensions	\N	Depth,Height	{"height":"85.125","depth":"14.000","linear_units":"in"}	2011-02-04 18:20:42.400693	2011-02-04 18:20:42.400693
+1030	841	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:42.411428	2011-02-04 18:20:42.411428
+1031	842	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"24.000","linear_units":"in"}	2011-02-04 18:20:42.421128	2011-02-04 18:20:42.421128
+1032	842	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:42.432298	2011-02-04 18:20:42.432298
+1033	843	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"24.000","linear_units":"in"}	2011-02-04 18:20:42.444287	2011-02-04 18:20:42.444287
+1034	843	\N	color	\N	Color	{"color":"White"}	2011-02-04 18:20:42.457046	2011-02-04 18:20:42.457046
+1035	844	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:42.466799	2011-02-04 18:20:42.466799
+1036	845	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 18:20:42.477554	2011-02-04 18:20:42.477554
+1037	846	\N	dimensions	\N	Depth,Width,Height	{"height":"4.500","depth":"21.500","width":"21.500","linear_units":"in"}	2011-02-04 20:18:34.689334	2011-02-04 20:18:34.689334
+1038	846	\N	color	\N	Color	{"color":"White"}	2011-02-04 20:18:34.704368	2011-02-04 20:18:34.704368
+1039	847	\N	dimensions	\N	Width,Height	{"height":"18.773","width":"23.875","linear_units":"in"}	2011-02-04 20:18:34.714276	2011-02-04 20:18:34.714276
+1040	847	\N	color	\N	Color	{"color":"White"}	2011-02-04 20:18:34.726689	2011-02-04 20:18:34.726689
+1041	848	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 20:18:34.737313	2011-02-04 20:18:34.737313
+1042	849	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"23.875","linear_units":"in"}	2011-02-04 20:18:34.748391	2011-02-04 20:18:34.748391
+1043	849	\N	color	\N	Color	{"color":"White"}	2011-02-04 20:18:34.76077	2011-02-04 20:18:34.76077
+1044	850	\N	dimensions	\N	Depth,Width,Height	{"height":"28.106","depth":"23.000","width":"24.000","linear_units":"in"}	2011-02-04 20:18:34.991711	2011-02-04 20:18:34.991711
+1045	850	\N	color	\N	Color	{"color":"White"}	2011-02-04 20:18:35.161878	2011-02-04 20:18:35.161878
+1046	851	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 20:18:35.171723	2011-02-04 20:18:35.171723
 901	759	\N	dimensions	\N		{"linear_units":"in"}	2011-02-04 06:02:46.115567	2011-02-04 06:02:46.115567
 902	760	\N	dimensions	\N	Depth,Height,Width	{"height":"4.500","depth":"21.500","width":"21.500","linear_units":"in"}	2011-02-04 06:02:46.175452	2011-02-04 06:02:46.175452
 903	760	\N	color	\N	Color	{"color":"White"}	2011-02-04 06:02:46.357886	2011-02-04 06:02:46.357886
@@ -3206,6 +3265,41 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 --
 
 COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, updated_at, unit_price, tracking_id, ingest_desc, override_price) FROM stdin;
+817	61	220	000.022.035.350.00I	8		2011-02-04 18:20:40.84099	2011-02-04 18:20:40.84099	0.0478875	1	ZH Screw (Drawer Front Handles)	\N
+818	61	198	000.024.002.051.00B	1		2011-02-04 18:20:40.85121	2011-02-04 18:20:40.85121	16.122399999999999	2	Drawer Box | White	\N
+819	61	198	000.024.002.051.00B	1		2011-02-04 18:20:40.869555	2011-02-04 18:20:40.869555	21.588799999999999	3	Drawer Box | White	\N
+820	61	198	000.024.002.051.00B	2		2011-02-04 18:20:40.887512	2011-02-04 18:20:40.887512	21.592500000000001	4	Drawer Box | White	\N
+821	61	195	000.024.003.051.00B	3		2011-02-04 18:20:40.905419	2011-02-04 18:20:40.905419	25.2504666666667	5	Drawer Box | White	\N
+822	61	196	000.024.004.051.00B	1		2011-02-04 18:20:40.923424	2011-02-04 18:20:40.923424	28.841100000000001	6	Drawer Box | White	\N
+823	61	516	000.100.000.001.00M	2		2011-02-04 18:20:41.052792	2011-02-04 18:20:41.052792	10.6488	7	Door - Flat | White	\N
+824	61	516	000.100.000.001.00M	1		2011-02-04 18:20:41.098191	2011-02-04 18:20:41.098191	8.2797999999999998	8	Door - Flat | White	\N
+825	61	201	000.100.300.000.00I	16		2011-02-04 18:20:41.124498	2011-02-04 18:20:41.124498	0.01480625	9	ZH Screw (Euro)	\N
+826	61	217	000.104.700.000.00I	8		2011-02-04 18:20:41.135093	2011-02-04 18:20:41.135093	0.020012499999999999	10	ZH Bumper Stop	\N
+827	61	5	000.117.031.330.00I	5		2011-02-04 18:20:41.145428	2011-02-04 18:20:41.145428	0.97777999999999998	11	ZH Handle Black | 128mm	\N
+828	61	4	000.117.031.334.00I	6		2011-02-04 18:20:41.155439	2011-02-04 18:20:41.155439	1.0444500000000001	12	ZH Handle Bronze | 128mm	\N
+829	61	162	000.200.000.001.00M	1		2011-02-04 18:20:41.165787	2011-02-04 18:20:41.165787	7.1440000000000001	13	Drawer Front - Flat | White	\N
+830	61	162	000.200.000.001.00M	2		2011-02-04 18:20:41.186342	2011-02-04 18:20:41.186342	7.76905	14	Drawer Front - Flat | White	\N
+831	61	162	000.200.000.001.00M	1		2011-02-04 18:20:41.210347	2011-02-04 18:20:41.210347	8.9015000000000004	15	Drawer Front - Flat | White	\N
+832	61	162	000.200.000.001.00M	1		2011-02-04 18:20:41.230981	2011-02-04 18:20:41.230981	8.2812999999999999	16	Drawer Front - Flat | White	\N
+833	61	162	000.200.000.001.00M	3		2011-02-04 18:20:41.378847	2011-02-04 18:20:41.378847	8.9194666666666702	17	Drawer Front - Flat | White	\N
+834	61	538	000.211.122.001.00M	1		2011-02-04 18:20:41.474561	2011-02-04 18:20:41.474561	39.612400000000001	18	HO Base 1 Door 1 Drawer | White	\N
+835	61	539	000.230.122.001.00M	1		2011-02-04 18:20:41.910955	2011-02-04 18:20:41.910955	66.218999999999994	19	HO Base 3 Drawer (6/6/12) | White	\N
+836	61	155	000.263.020.847.00I	16		2011-02-04 18:20:41.972221	2011-02-04 18:20:41.972221	0.047	20	ZH Cam (Screw-In Stud)	\N
+837	61	236	000.263.050.705.00I	16		2011-02-04 18:20:42.110458	2011-02-04 18:20:42.110458	0.10666875000000001	21	ZH Cam - Flush | White	\N
+838	61	237	000.263.059.730.00I	16		2011-02-04 18:20:42.125236	2011-02-04 18:20:42.125236	0.011775000000000001	22	ZH Cam Cover | White	\N
+839	61	228	000.282.024.720.00I	8		2011-02-04 18:20:42.137081	2011-02-04 18:20:42.137081	0.1164625	23	ZH Shelf Pin (Safety Shelf)	\N
+840	61	694	000.306.922.001.00M	1		2011-02-04 18:20:42.231231	2011-02-04 18:20:42.231231	40.942100000000003	24	CL Hutch 2 Door | White	\N
+841	61	34	000.912.271.001.00M	3		2011-02-04 18:20:42.395616	2011-02-04 18:20:42.395616	19.2517	25	CL Upright Partition - BaseNotch - Thru | White	\N
+842	61	44	000.930.011.001.00M	4		2011-02-04 18:20:42.416978	2011-02-04 18:20:42.416978	5.2156500000000001	26	CL Cam Shelf | White	\N
+843	61	227	000.935.011.001.00M	2		2011-02-04 18:20:42.438884	2011-02-04 18:20:42.438884	5.7371999999999996	27	CL Adj Safety Shelf | White	\N
+844	61	172	000.FU3.173.314.00I	4		2011-02-04 18:20:42.462148	2011-02-04 18:20:42.462148	3.5055499999999999	28	ZH Drawer Slide | Full ext | 14 inch	\N
+845	61	175	000.FU3.173.320.00I	4		2011-02-04 18:20:42.473525	2011-02-04 18:20:42.473525	5.1073750000000002	29	ZH Drawer Slide | Full ext | 20 inch	\N
+846	62	198	000.024.002.051.00B	1		2011-02-04 20:18:34.672897	2011-02-04 20:18:34.672897	25.6191	1	Drawer Box | White	\N
+847	62	517	000.101.000.001.00B	1		2011-02-04 20:18:34.710107	2011-02-04 20:18:34.710107	32.919499999999999	2	Decor Door - JR7 | White	\N
+848	62	5	000.117.031.330.00I	2		2011-02-04 20:18:34.731337	2011-02-04 20:18:34.731337	0.9778	3	ZH Handle Black | 128mm	\N
+849	62	522	000.201.000.001.00B	1		2011-02-04 20:18:34.744261	2011-02-04 20:18:34.744261	16.4419	4	Decor Drawer Front - JR7 | White	\N
+850	62	538	000.211.122.001.00M	1		2011-02-04 20:18:34.986569	2011-02-04 20:18:34.986569	58.9069	5	HO Base 1 Door 1 Drawer | White	\N
+851	62	175	000.FU3.173.320.00I	1		2011-02-04 20:18:35.167277	2011-02-04 20:18:35.167277	5.1074000000000002	6	ZH Drawer Slide | Full ext | 20 inch	\N
 759	59	218	000.022.035.234.00I	4		2011-02-04 06:02:46.099737	2011-02-04 06:02:46.099737	0.0339	1	ZH Screw (Doors Handles)	\N
 760	59	198	000.024.002.051.00B	1		2011-02-04 06:02:46.170503	2011-02-04 06:02:46.170503	18.646599999999999	2	Drawer Box | White	\N
 761	59	196	000.024.004.051.00B	2		2011-02-04 06:02:46.525429	2011-02-04 06:02:46.525429	20.640499999999999	3	Drawer Box | White	\N
@@ -3244,6 +3338,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 
 COPY job_properties (id, job_id, family, qualifier, module_names, value_str, created_at, updated_at) FROM stdin;
 54	59	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-04 06:02:46.070241	2011-02-04 06:02:46.070241
+56	61	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-04 18:20:40.835525	2011-02-04 18:20:40.835525
+57	62	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-04 20:18:34.654214	2011-02-04 20:18:34.654214
 \.
 
 
@@ -3262,6 +3358,8 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 
 COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method) FROM stdin;
 59	8	5	12	test job	\N	\N	2011-02-04 06:02:45.770319	2011-02-04 17:26:07.81338	41test2.dvi Parts List.xml	text/xml	24537	2011-02-04 06:02:45.766986	Atlanta	Created	\N	\N	test job (Peter)	\N	\N		PremierRoute
+61	8	35	12	4.1 test 4	\N	\N	2011-02-04 18:20:40.448163	2011-02-04 18:20:40.448163	41test3.dvi Parts List.xml	text/xml	25212	2011-02-04 18:20:40.446469	\N	\N	\N	\N	4.1b release test	\N	\N	\N	\N
+62	8	35	12	4.1 test 9	\N	\N	2011-02-04 20:18:34.459353	2011-02-04 20:18:34.459353	41test_cabinet2.dvi Parts List.xml	text/xml	7839	2011-02-04 20:18:34.456354	\N	\N	\N	\N	testing JR7 pricing	\N	\N	\N	\N
 \.
 
 
@@ -3389,6 +3487,7 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 118	Op Drawer Front	surcharge	Surcharge	2011-02-02 16:01:37.369513	2011-02-02 16:01:37.369513
 119	Birch Ply Drawerstock	panel_material	Material	2011-02-02 20:49:02.499637	2011-02-02 20:49:02.499637
 120	75 Margin	margin	Margin	2011-02-02 21:04:26.880769	2011-02-02 21:04:26.880769
+121	86.5 Margin (Decore)	margin	Margin	2011-02-04 20:40:06.725606	2011-02-04 20:42:26.726173
 \.
 
 
@@ -3718,6 +3817,7 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 118	320
 119	321
 120	322
+121	323
 \.
 
 
@@ -4003,14 +4103,6 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 158	010	AMS329 Ruston Maple Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:58:03.593594	2011-01-02 02:59:19.322789
 159	007	AMS329 Sable Glow Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Sable Glow","thickness_units":"mm"}	2011-01-02 01:58:03.713967	2011-01-02 02:59:19.326736
 99	004	DR8/DBQ816/KB732 Desert Glow Door Material	Material	{"price":"8.15","thickness":"0","price_units":"ft","color":"Desert Glow","thickness_units":"mm"}	2011-01-02 01:57:59.093828	2011-01-02 03:02:51.914847
-149	002	JR7 Antique White Door Material	Material	{"price":"10.45","thickness":"0","price_units":"ft","color":"Antique White","thickness_units":"mm"}	2011-01-02 01:58:02.879111	2011-01-02 03:03:44.458579
-142	010	JR7 Ruston Maple Door Material	Material	{"price":"12.3","thickness":"0","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:58:02.543165	2011-01-02 03:03:44.483784
-143	007	JR7 Sable Glow Door Material	Material	{"price":"12.3","thickness":"0","price_units":"ft","color":"Sable Glow","thickness_units":"mm"}	2011-01-02 01:58:02.596498	2011-01-02 03:03:44.488206
-144	001	JR7 White Door Material	Material	{"price":"9.65","thickness":"0","price_units":"ft","color":"White","thickness_units":"mm"}	2011-01-02 01:58:02.697866	2011-01-02 03:03:44.492198
-145	006	JR7 Mahogany Impressions Door Material	Material	{"price":"12.3","thickness":"0","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm"}	2011-01-02 01:58:02.723188	2011-01-02 03:03:44.496127
-146	005	JR7 Autumn Glow Door Material	Material	{"price":"12.3","thickness":"0","price_units":"ft","color":"Autumn Glow","thickness_units":"mm"}	2011-01-02 01:58:02.807216	2011-01-02 03:03:44.501613
-147	004	JR7 Desert Glow Door Material	Material	{"price":"12.3","thickness":"0","price_units":"ft","color":"Desert Glow","thickness_units":"mm"}	2011-01-02 01:58:02.853236	2011-01-02 03:03:44.505792
-148	003	JR7 Folkstone Grey Door Material	Material	{"price":"10.45","thickness":"0","price_units":"ft","color":"Folkstone Grey","thickness_units":"mm"}	2011-01-02 01:58:02.86636	2011-01-02 03:03:44.514687
 166	\N	JR7/AMS329/DRS131/KB732/DBQ816/DR8/Filler A/DR1: Cut for Glass,469 Option Surcharge	Surcharge	{"price": 15.00}	2011-01-02 03:40:59.385121	2011-01-02 03:40:59.385121
 169	\N	DRS131/DBQ816/KB732/JR7/DR8/AMS329/DR1: French Lite Door Option Surcharge	Surcharge	{"price": 7.50}	2011-01-02 03:41:00.623873	2011-01-02 03:41:00.623873
 170	\N	Base Molding/Crown Molding/Fluted Molding/Scribe Molding Option Surcharge	Surcharge	{"price": 10.00}	2011-01-02 03:41:00.672279	2011-01-02 03:41:00.672279
@@ -4032,6 +4124,13 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 173	001	White	EdgeBand	{"price":".05","width_units":"mm","price_units":"ft","color":"White","width":"25"}	2011-01-02 16:38:58.687043	2011-01-12 19:18:32.055155
 215	005	Wild Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Wild Apple","thickness_units":"in"}	2011-01-12 18:33:39.885205	2011-01-12 18:59:07.918056
 179		11	Height	{"linear_units":"in","height":"11"}	2011-01-03 23:55:40.425921	2011-01-30 17:58:05.132984
+149	002	JR7 Antique White Door Material	Material	{"price":"10.45","thickness":"0","waste_factor":"","color":"Antique White","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.879111	2011-02-04 20:15:35.732178
+142	010	JR7 Ruston Maple Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Ruston Maple","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.543165	2011-02-04 20:15:35.73723
+143	007	JR7 Sable Glow Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Sable Glow","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.596498	2011-02-04 20:15:35.740986
+146	005	JR7 Autumn Glow Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Autumn Glow","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.807216	2011-02-04 20:15:35.751648
+147	004	JR7 Desert Glow Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Desert Glow","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.853236	2011-02-04 20:15:35.755243
+148	003	JR7 Folkstone Grey Door Material	Material	{"price":"10.45","thickness":"0","waste_factor":"","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.86636	2011-02-04 20:15:35.758945
+144	001	JR7 White Door Material	Material	{"price":"9.65","thickness":"0","waste_factor":"","color":"White","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.697866	2011-02-04 20:38:41.844339
 216	003	Folkstone Gray	Material	{"price":".7053","waste_factor":".1","thickness":".75","price_units":"ft","color":"Folkstone Gray","thickness_units":"in"}	2011-01-12 18:33:39.901835	2011-01-12 18:59:07.922847
 217	002	Antique White	Material	{"price":".8000","waste_factor":".1","thickness":".75","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-12 18:33:39.919074	2011-01-12 18:59:07.927068
 218	004	Carmel Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Carmel Apple","thickness_units":"in"}	2011-01-12 18:33:39.935701	2011-01-12 18:59:07.931501
@@ -4048,6 +4147,8 @@ COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, 
 321		BirchPly13	Material	{"price":".014","waste_factor":"","thickness":"13","price_units":"in","color":"","thickness_units":"mm"}	2011-02-02 20:49:02.50733	2011-02-02 20:49:02.50733
 322		75	Margin	{"factor":".75","float":""}	2011-02-02 21:04:26.888513	2011-02-02 21:04:26.888513
 320		Standard	Surcharge	{"price":"3","float":""}	2011-02-02 16:01:37.382011	2011-02-02 22:35:33.521485
+145	006	JR7 Mahogany Impressions Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Mahogany Impressions","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.723188	2011-02-04 20:15:35.747966
+323		86.5	Margin	{"factor":".86586","float":""}	2011-02-04 20:40:06.731979	2011-02-04 20:42:26.723189
 \.
 
 
