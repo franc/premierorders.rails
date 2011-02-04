@@ -9,7 +9,7 @@ body {
 }
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
 }
@@ -32,10 +32,15 @@ div.field, div.actions {
   color: green;
   border: 1px solid green;
   background-color: #dfd;
+  float: left;
   margin: 10px 0;
   padding: 5px 10px;
 }
 
+#notice {
+	visibility: hidden;
+}
+		
 #flash_alert {
   color: blue;
   border: 1px solid blue;
@@ -94,7 +99,7 @@ div.field, div.actions {
 
 #nav ul {
 	padding: 8px 0 0;
-        margin: 0 0 0 200px;
+	margin: 0 0 0 165px;
 }
 
 #nav ul li {
@@ -102,13 +107,8 @@ div.field, div.actions {
     font-weight: normal;
     font-style: normal;
     font-variant: normal;
-    font-size: 12pt;
+    font-size: 13pt;
     padding: 5px;
-    text-shadow: #dbeaff 1px 1px 1px;
-}
-
-#nav ul li a {
-    text-shadow: #dbeaff 1px 1px 1px;
 }
 
 #auth_nav {
@@ -118,12 +118,15 @@ div.field, div.actions {
 
 
 #local_nav {
-	margin-left: 7px;
-  clear: both;
-  float: right;
+ 	margin-left: 200px;
+ 	margin-top: 12px;
+	clear: both;
+	float: left;
+	width: 250px;
 }
 
 #local_nav a {
+	font-size: small;
 	font-weight: bold;
 	text-decoration: none;
 	color: #ff9f00;
@@ -135,6 +138,12 @@ div.field, div.actions {
 
 #content {
 	margin-left: 7px;
+	margin-top: 40px;
+}
+
+#content h2 {
+    position: absolute;
+    top: 40px; left: 43px;
 }
 
 .form_fields {
@@ -144,8 +153,11 @@ div.field, div.actions {
 
 .form_fields dt {
   float: left;
+  text-align: right;
+  padding-right: 10px;
+  padding-bottom: 5px;
   clear: left;
-  width: 15%;
+  width: 10%;
   font-weight: bold;
 }
 
@@ -306,7 +318,56 @@ dd {
     margin-left: 20px;
     float: left;
 }
+
 dd dt {
     font-weight: normal;
     font-style: italic;
+}
+
+dl.shipping_address dt {
+	text-align: right;
+	width: 150px;
+}
+
+dl.billing_address dt {
+	text-align: right;
+	width: 150px;
+}
+
+dl.billing_address dd {
+	text-align: left;
+}
+
+dl.special_instructions dt {
+text-align: left;
+}
+
+dl.items dt {
+text-align: left;
+}
+
+dl.inventory_items dt {
+text-align: left;}
+
+#header-rightcol dd {
+margin-left: 0px;
+margin-top: 0px;
+width: 500px;
+}
+
+dl.job_number dd {
+float: right;
+}
+
+#header-leftcol dd {
+margin-left: 165px;
+margin-top: -24px;
+}
+
+dl.special_instructions {
+width: 500px;
+}
+
+dl.special_instructions dt {
+width: 500px;
 }
