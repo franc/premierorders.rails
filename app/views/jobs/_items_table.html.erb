@@ -2,7 +2,9 @@
   <tr>
     <th>ID</th>
     <th>Item Name</th>
-    <th>Purchase Part ID</th>
+    <% if can? :manage, Job %>
+      <th>Purchase Part ID</th>
+    <% end %>
     <th>Color</th>
     <th>Quantity</th>
     <th>Width</th>
@@ -16,7 +18,9 @@
     <tr class="<%=unit_price_class(job_item)%>">
       <td><%= job_item.tracking_id %></td>
       <td><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
-      <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
+      <% if can? :manage, Job %>
+        <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
+      <% end %>
       <td><%= job_item.color.orSome('') %></td>
       <td><%= job_item.quantity.to_i %></td>
       <td><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
