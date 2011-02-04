@@ -17,7 +17,7 @@ class AssemblyHardwareItem
   end
 
   def color
-    @job_item.color
+    @job_item.color.bind{|c| Option.new(item.color_opts.find{|o| o.color == c})}
   end
 
   def width
