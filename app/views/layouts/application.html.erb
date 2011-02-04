@@ -12,7 +12,7 @@
 <body>
   <div id="auth_nav">
     <% if user_signed_in? %>
-      Signed in as <%= current_user.email -%>. <%= link_to "Sign out", destroy_user_session_path %>
+      Signed in as <%= link_to current_user.email, user_path(current_user) -%>. <%= link_to "Sign out", destroy_user_session_path %>
     <% else %>
       <%= link_to "Sign in", new_user_session_path %>
     <% end %>

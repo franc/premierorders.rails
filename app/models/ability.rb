@@ -25,9 +25,9 @@ class Ability
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
     user ||= User.new # guest user
+    can [:read, :update], User, :id => user.id
  
     if user.role? :franchisee
-      can :update, User, :id => user.id
       can [:create, :read, :update, :place_order, :quote], Job do |job|
         job.is_manageable_by(user)  
       end

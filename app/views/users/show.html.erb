@@ -22,7 +22,11 @@
 </div>
 
 <% content_for :local_nav do %>
-  <%= link_to 'New User', new_user_path %> |
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'List', users_path %>
+  <% if can? :manage, User %>
+    <%= link_to 'New User', new_user_path %> |
+  <% end %>
+  <%= link_to 'Edit', edit_user_path(@user) %>
+  <% if can? :manage, User %>
+    | <%= link_to 'List', users_path %>
+  <% end %>
 <% end %>

@@ -27,6 +27,8 @@
 
 <br />
 
-<% content_for :local_nav do %>
-  <%= link_to 'New User', new_user_path %>
+<% if can? :manage, User %>
+  <% content_for :local_nav do %>
+    <%= link_to 'New User', new_user_path %>
+  <% end %>
 <% end %>

@@ -83,10 +83,13 @@ class UsersController < ApplicationController
       end
 
       if @user.update_attributes(params[:user])
-        @user.franchisee_contacts.clear
-        params[:user][:franchisees].each do |id|
-          @user.franchisee_contacts.create(:franchisee_id => id)
+        if can? :manage, User 
+          @user.franchisee_contacts.clear
+          params[:user][:franchisees].each do |id|
+            @user.franchisee_contacts.create(:franchisee_id => id)
+          end
         end
+
         format.html { redirect_to(user_path(@user), :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
       else
