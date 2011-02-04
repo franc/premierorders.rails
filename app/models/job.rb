@@ -239,12 +239,16 @@ class Job < ActiveRecord::Base
   end
 
   def total 
-    job_items.inject(0.0) do |total, job_item|
+    base_total = job_items.inject(0.0) do |total, job_item|
       if job_item.inventory?
         total
       else
         total += job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
       end
+    end
+
+    component_inventory_hardware.inject(base_total) do |total, hardware_item|
+      total - hardware_item.compute_total.orSome(0.0)
     end
   end
 
