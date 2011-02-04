@@ -653,7 +653,8 @@ CREATE TABLE jobs (
     placement_date timestamp without time zone,
     placed_by_id integer,
     tracking_number character varying(255),
-    ship_method character varying(255)
+    ship_method character varying(255),
+    primary_contact_id integer
 );
 
 
@@ -749,7 +750,6 @@ ALTER TABLE public.property_value_selection OWNER TO pg_orders;
 
 CREATE TABLE property_values (
     id integer NOT NULL,
-    dvinci_id character varying(255),
     name character varying(255),
     module_names character varying(255),
     value_str character varying(255),
@@ -825,7 +825,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('roles_id_seq', 3, true);
+SELECT pg_catalog.setval('roles_id_seq', 4, true);
 
 
 --
@@ -3356,10 +3356,10 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: pg_orders
 --
 
-COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method) FROM stdin;
-59	8	5	12	test job	\N	\N	2011-02-04 06:02:45.770319	2011-02-04 17:26:07.81338	41test2.dvi Parts List.xml	text/xml	24537	2011-02-04 06:02:45.766986	Atlanta	Created	\N	\N	test job (Peter)	\N	\N		PremierRoute
-61	8	35	12	4.1 test 4	\N	\N	2011-02-04 18:20:40.448163	2011-02-04 18:20:40.448163	41test3.dvi Parts List.xml	text/xml	25212	2011-02-04 18:20:40.446469	\N	\N	\N	\N	4.1b release test	\N	\N	\N	\N
-62	8	35	12	4.1 test 9	\N	\N	2011-02-04 20:18:34.459353	2011-02-04 20:18:34.459353	41test_cabinet2.dvi Parts List.xml	text/xml	7839	2011-02-04 20:18:34.456354	\N	\N	\N	\N	testing JR7 pricing	\N	\N	\N	\N
+COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method, primary_contact_id) FROM stdin;
+59	8	5	12	test job	\N	\N	2011-02-04 06:02:45.770319	2011-02-04 17:26:07.81338	41test2.dvi Parts List.xml	text/xml	24537	2011-02-04 06:02:45.766986	Atlanta	Created	\N	\N	test job (Peter)	\N	\N		PremierRoute	\N
+61	8	35	12	4.1 test 4	\N	\N	2011-02-04 18:20:40.448163	2011-02-04 18:20:40.448163	41test3.dvi Parts List.xml	text/xml	25212	2011-02-04 18:20:40.446469	\N	\N	\N	\N	4.1b release test	\N	\N	\N	\N	\N
+62	8	35	12	4.1 test 9	\N	\N	2011-02-04 20:18:34.459353	2011-02-04 20:18:34.459353	41test_cabinet2.dvi Parts List.xml	text/xml	7839	2011-02-04 20:18:34.456354	\N	\N	\N	\N	testing JR7 pricing	\N	\N	\N	\N	\N
 \.
 
 
@@ -3825,330 +3825,330 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 -- Data for Name: property_values; Type: TABLE DATA; Schema: public; Owner: pg_orders
 --
 
-COPY property_values (id, dvinci_id, name, module_names, value_str, created_at, updated_at) FROM stdin;
-105	006	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Mahogany Impressions Door Material	Material	{"price":"10.25","thickness":"0","waste_factor":"","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm"}	2011-01-02 01:57:59.204332	2011-01-04 05:10:24.755781
-108	003	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Folkstone Grey Door Material	Material	{"price":"8.4","thickness":"0","waste_factor":"","price_units":"ft","color":"Folkstone Grey","thickness_units":"mm"}	2011-01-02 01:57:59.265935	2011-01-04 05:10:24.768139
-103	007	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Sable Glow Door Material	Material	{"price":"10.25","thickness":"0","waste_factor":"","price_units":"ft","color":"Sable Glow","thickness_units":"mm"}	2011-01-02 01:57:59.1791	2011-01-04 05:10:24.779979
-189	403	Ebony Star	Material	{"price":"2.41","waste_factor":".03","thickness":"29","color":"Ebony Star","price_units":"ft","thickness_units":"mm"}	2011-01-05 21:29:41.312163	2011-01-05 21:29:41.312163
-3	003	FOLKSTONE GRAY	Color	{"color": "FOLKSTONE GRAY"}	2011-01-01 18:53:38.921582	2011-01-11 23:17:31.966216
-4	004	CARMEL APPLE	Color	{"color": "CARMEL APPLE"}	2011-01-01 18:53:38.942642	2011-01-11 23:17:31.977053
-191		50	Margin	{"factor":".50"}	2011-01-05 21:31:42.59094	2011-01-12 02:27:45.569683
-194		33	Margin	{"factor":".33"}	2011-01-06 06:44:21.632704	2011-01-12 02:31:57.635967
-55	007	Chocolate Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Chocolate Apple","thickness_units":"in"}	2011-01-01 19:43:30.273722	2011-01-12 03:33:03.943478
-201	001	White	Material	{"price":".6109","waste_factor":".05","thickness":".75","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-07 18:04:26.701052	2011-01-12 19:12:05.390237
-234	001	White	Material	{"price":"0.8350","waste_factor":".1","thickness":"1","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-13 01:26:23.672778	2011-01-13 01:32:38.657933
-256		45	Margin	{"factor":".45"}	2011-01-13 05:11:14.886603	2011-01-13 05:11:14.886603
-279		0-40" 4 qty	RangedValue	{"max":"40","variable_units":"in","value":"4","min":"","variable":"height"}	2011-01-13 17:22:47.608442	2011-01-13 17:22:47.608442
-280		40+" 8 qty	RangedValue	{"max":"","variable_units":"in","value":"8","min":"40","variable":"height"}	2011-01-13 17:22:47.631089	2011-01-13 17:22:47.631089
-203	008	Windswept Bronze	Material	{"price":".835","waste_factor":".08","thickness":".75","price_units":"ft","color":"Windswept Bronze","thickness_units":"in"}	2011-01-07 18:04:26.734571	2011-01-14 04:32:05.805987
-235	002	Antique White	Material	{"price":"1.06","waste_factor":".1","thickness":"1","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-13 01:26:23.6968	2011-01-14 20:10:11.984471
-306			Margin	{"factor":"","float":""}	2011-01-21 21:47:29.177543	2011-01-21 21:47:29.177543
-305		Hardware 40%	Margin	{"factor":"1.0865","float":""}	2011-01-21 21:47:29.156181	2011-01-22 02:40:36.880178
-78	010	DRS131/DR1 Ruston Maple Door Material	Material	{"price":"13.2","thickness":"0","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:57:56.767067	2011-01-02 03:01:21.503543
-219		10	Margin	{"factor":".1"}	2011-01-12 18:59:27.364894	2011-01-12 18:59:27.364894
-56	001	White	Material	{"price":".8350","waste_factor":".08","thickness":"1.000","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-01 20:32:35.922055	2011-01-13 00:37:17.679156
-237	002	Antique White	Material	{"price":"1.0934","waste_factor":".1","thickness":"1","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-13 01:26:23.763481	2011-01-13 01:28:14.488083
-79	007	DRS131/DR1 Sable Glow Door Material	Material	{"price":"13.2","thickness":"0","price_units":"ft","color":"Sable Glow","thickness_units":"mm"}	2011-01-02 01:57:56.874902	2011-01-02 03:01:21.509886
-66	001	White Edge 19mm	EdgeBand	{"price":".0220","width_units":"mm","price_units":"ft","color":"White","width":"19"}	2011-01-01 23:06:31.509474	2011-01-01 23:13:34.833589
-67	008	WS Bronze Edge 19mm	EdgeBand	{"price":".0580","width_units":"mm","price_units":"ft","color":"Windswept Bronze","width":"19"}	2011-01-01 23:13:34.837934	2011-01-02 00:03:23.43071
-68	009	WS Pewter Edge 19mm	EdgeBand	{"price":".0830","width_units":"mm","price_units":"ft","color":"Windswept Pewter","width":"19"}	2011-01-01 23:13:34.854001	2011-01-02 00:03:23.443211
-69	010	HR Maple Edge 19mm	EdgeBand	{"price":".0410","width_units":"mm","price_units":"ft","color":"Hardrock Maple","width":"19"}	2011-01-01 23:13:34.868691	2011-01-02 00:03:23.457877
-70	002	Ant White Edge 19mm	EdgeBand	{"price":".0420","width_units":"mm","price_units":"ft","color":"Antique White","width":"19"}	2011-01-01 23:13:34.882769	2011-01-02 00:03:23.46244
-30	315	Laminate 4887 Tan Soapstone	Color	{"color": "Laminate 4887 Tan Soapstone"}	2011-01-01 18:54:13.714368	2011-01-01 18:54:13.763876
-31	316	Laminate 7921 Tuscan Walnut	Color	{"color": "Laminate 7921 Tuscan Walnut"}	2011-01-01 18:54:13.824507	2011-01-01 18:54:13.876669
-32	317	Laminate 7942 Cocobala	Color	{"color": "Laminate 7942 Cocobala"}	2011-01-01 18:54:13.985847	2011-01-01 18:54:14.006245
-34	319	Laminate 10776 Kingstone Maple	Color	{"color": "Laminate 10776 Kingstone Maple"}	2011-01-01 18:54:14.62576	2011-01-01 18:54:14.789209
-35	320	Laminate D92 Dove Grey	Color	{"color": "Laminate D92 Dove Grey"}	2011-01-01 18:54:15.122372	2011-01-01 18:54:15.306135
-36	321	Laminate D403 White Sand	Color	{"color": "Laminate D403 White Sand"}	2011-01-01 18:54:15.451936	2011-01-01 18:54:15.586638
-37	901	WHITE	Color	{"color": "WHITE"}	2011-01-01 18:54:27.734909	2011-01-01 18:54:27.756203
-38	902	ANTIQUE WHITE	Color	{"color": "ANTIQUE WHITE"}	2011-01-01 18:54:28.600979	2011-01-01 18:54:28.64322
-39	903	FOLKSTONE GRAY	Color	{"color": "FOLKSTONE GRAY"}	2011-01-01 18:54:29.180127	2011-01-01 18:54:29.409012
-40	904	CARMEL APPLE	Color	{"color": "CARMEL APPLE"}	2011-01-01 18:54:29.848025	2011-01-01 18:54:30.037354
-41	905	WILD APPLE	Color	{"color": "WILD APPLE"}	2011-01-01 18:54:30.533534	2011-01-01 18:54:30.547805
-42	906	MAHOGANY IMPRESSIONS	Color	{"color": "MAHOGANY IMPRESSIONS"}	2011-01-01 18:54:31.002918	2011-01-01 18:54:31.047899
-190		Black	EdgeBand	{"price":".375","width_units":"mm","color":"Black","price_units":"ft","width":"29"}	2011-01-05 21:30:50.866499	2011-01-05 21:30:50.866499
-43	907	CHOCOLATE APPLE	Color	{"color": "CHOCOLATE APPLE"}	2011-01-01 18:54:31.467425	2011-01-01 18:54:31.485711
-44	910	HARDROCK MAPLE	Color	{"color": "HARDROCK MAPLE"}	2011-01-01 18:54:31.968845	2011-01-01 18:54:31.996223
-45	909	WINDSWEPT PEWTER	Color	{"color": "WINDSWEPT PEWTER"}	2011-01-01 18:54:32.472925	2011-01-01 18:54:32.486334
-46	908	WINDSWEPT BRONZE	Color	{"color": "WINDSWEPT BRONZE"}	2011-01-01 18:54:32.953556	2011-01-01 18:54:33.049523
-167	\N	DR8/DRS131/KB732/DR1/JR7/Filler A/DBQ816/AMS329: Slab DF,Door,471,472 Option Surcharge	Surcharge	{"price": 0.00}	2011-01-02 03:40:59.613554	2011-01-02 03:40:59.613554
-168	\N	DR8/AMS329/JR7/DR1/DRS131: Routed DF Option Surcharge	Surcharge	{"price": 5.00}	2011-01-02 03:41:00.443729	2011-01-02 03:41:00.443729
-58	009	Windswept Pewter	Material	{"price":".9538","thickness":".25","waste_factor":".15","price_units":"ft","color":"Windswept Pewter","thickness_units":"in"}	2011-01-01 20:39:20.296068	2011-01-02 17:23:47.921032
-60	001	White	Material	{"price":".3453","thickness":".25","waste_factor":".1","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-01 20:39:20.338942	2011-01-02 17:23:47.963921
-61	002	Antique White	Material	{"price":".4313","thickness":".25","waste_factor":".15","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-01 20:39:20.351948	2011-01-02 17:23:47.983571
-59	010	Hardrock Maple	Material	{"price":".4100","thickness":".25","waste_factor":".1","price_units":"ft","color":"Hardrock Maple","thickness_units":"in"}	2011-01-01 20:39:20.325647	2011-01-04 03:40:54.443388
-71	003	Folk Gray Edge 19mm	EdgeBand	{"price":".0420","width_units":"mm","price_units":"ft","color":"Folkstone Gray","width":"19"}	2011-01-01 23:13:34.896653	2011-01-02 00:03:23.466643
-2	002	ANTIQUE WHITE	Color	{"color": "ANTIQUE WHITE"}	2011-01-01 18:53:38.899741	2011-01-11 23:17:31.95688
-6	006	MAHOGANY IMPRESSIONS	Color	{"color": "MAHOGANY IMPRESSIONS"}	2011-01-01 18:53:38.985069	2011-01-11 23:17:32.063143
-11	010	HARDROCK MAPLE	Color	{"color": "HARDROCK MAPLE"}	2011-01-01 18:53:57.262055	2011-01-11 23:17:32.080827
-205		60	Margin	{"factor":".60"}	2011-01-12 03:28:24.980981	2011-01-12 03:28:24.980981
-47	008	Windswept Bronze	Material	{"price":"1.000","waste_factor":".1","thickness":".75","price_units":"ft","color":"Windswept Bronze","thickness_units":"in"}	2011-01-01 19:43:30.167045	2011-01-12 03:33:03.948768
-48	009	Windswept Pewter	Material	{"price":"1.0300","waste_factor":".1","thickness":".75","price_units":"ft","color":"Windswept Pewter","thickness_units":"in"}	2011-01-01 19:43:30.187892	2011-01-12 03:33:03.952841
-49	010	Hardrock Maple	Material	{"price":".7834","waste_factor":".08","thickness":".75","price_units":"ft","color":"Hardrock Maple","thickness_units":"in"}	2011-01-01 19:43:30.20049	2011-01-12 03:33:03.956848
-291		95	Margin	{"factor":".95"}	2011-01-14 19:34:02.351887	2011-01-14 19:34:02.351887
-54	005	Wild Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Wild Apple","thickness_units":"in"}	2011-01-01 19:43:30.261504	2011-01-12 03:33:03.97764
-236	001	White	Material	{"price":"0.8350","waste_factor":".1","thickness":"1","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-13 01:26:23.740628	2011-01-13 01:28:14.492695
-257		47.5	Margin	{"factor":".475"}	2011-01-13 05:16:50.460457	2011-01-13 05:16:50.460457
-281		0-36" 1 qty	RangedValue	{"max":"36","variable_units":"in","value":"1","min":"","variable":"height"}	2011-01-13 21:28:34.934151	2011-01-13 21:28:34.934151
-282		36+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"36","variable":"height"}	2011-01-13 21:28:34.957611	2011-01-13 21:28:34.957611
-50	001	White	Material	{"price":".6109","waste_factor":".08","thickness":".75","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-01 19:43:30.212786	2011-01-13 21:40:02.733203
-284		48	Margin	{"factor":".48"}	2011-01-13 21:58:50.079931	2011-01-13 21:58:50.079931
-290		85	Margin	{"factor":".85"}	2011-01-14 18:31:06.550889	2011-01-14 18:31:06.550889
-292		90	Margin	{"factor":".90"}	2011-01-14 19:35:38.70293	2011-01-14 19:35:38.70293
-308		Hardware 15%	Margin	{"factor":"0.924","float":""}	2011-01-21 23:39:14.564436	2011-01-22 05:25:12.14814
-310		Hardware 20%	Margin	{"factor":"0.8695","float":""}	2011-01-22 00:10:14.637065	2011-01-22 05:32:55.172363
-92	\N	Crown Molding: 3-3/4", 423-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 15.6, "price_units": "ft"}	2011-01-02 01:57:58.696916	2011-01-02 01:57:58.696916
-72	004	Carmel Apple Edge 19mm	EdgeBand	{"price":".0640","width_units":"mm","price_units":"ft","color":"Carmel Apple","width":"19"}	2011-01-01 23:13:34.910417	2011-01-02 00:03:23.47424
-73	005	Wild Apple Edge 19mm	EdgeBand	{"price":".0450","width_units":"mm","price_units":"ft","color":"Wild Apple","width":"19"}	2011-01-01 23:13:34.924418	2011-01-02 00:03:23.484146
-74	007	Choc Apple Edge 19mm	EdgeBand	{"price":".0450","width_units":"mm","price_units":"ft","color":"Chocolate Apple","width":"19"}	2011-01-01 23:13:34.938432	2011-01-02 00:03:23.487934
-80	001	DRS131/DR1 White Door Material	Material	{"price":"10.6","thickness":"0","price_units":"ft","color":"White","thickness_units":"mm"}	2011-01-02 01:57:56.968172	2011-01-02 03:01:21.513984
-86	\N	Crown Molding: 3-3/4", 423-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.35908	2011-01-02 01:57:58.35908
-87	\N	Crown Molding: 3-3/4", 423-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.373572	2011-01-02 01:57:58.373572
-88	\N	Crown Molding: 3-3/4", 423-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 14.5, "price_units": "ft"}	2011-01-02 01:57:58.387236	2011-01-02 01:57:58.387236
-89	\N	Crown Molding: 3-3/4", 423-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.487622	2011-01-02 01:57:58.487622
-90	\N	Crown Molding: 3-3/4", 423-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.576242	2011-01-02 01:57:58.576242
-91	\N	Crown Molding: 3-3/4", 423-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.65665	2011-01-02 01:57:58.65665
-81	006	DRS131/DR1 Mahogany Impressions Door Material	Material	{"price":"13.2","thickness":"0","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm"}	2011-01-02 01:57:57.169508	2011-01-02 03:01:21.518095
-82	005	DRS131/DR1 Autumn Glow Door Material	Material	{"price":"13.2","thickness":"0","price_units":"ft","color":"Autumn Glow","thickness_units":"mm"}	2011-01-02 01:57:57.185669	2011-01-02 03:01:21.5225
-83	004	DRS131/DR1 Desert Glow Door Material	Material	{"price":"13.2","thickness":"0","price_units":"ft","color":"Desert Glow","thickness_units":"mm"}	2011-01-02 01:57:57.347637	2011-01-02 03:01:21.52661
-84	003	DRS131/DR1 Folkstone Grey Door Material	Material	{"price":"12.0","thickness":"0","price_units":"ft","color":"Folkstone Grey","thickness_units":"mm"}	2011-01-02 01:57:57.498395	2011-01-02 03:01:21.530366
-85	002	DRS131/DR1 Antique White Door Material	Material	{"price":"12.0","thickness":"0","price_units":"ft","color":"Antique White","thickness_units":"mm"}	2011-01-02 01:57:57.667965	2011-01-02 03:01:21.534068
-62	003	Folkstone Gray	Material	{"price":".4866","thickness":".25","waste_factor":".15","price_units":"ft","color":"Folkstone Gray","thickness_units":"in"}	2011-01-01 20:39:20.423457	2011-01-02 17:23:47.990084
-63	004	Carmel Apple	Material	{"price":".4466","thickness":".25","waste_factor":".15","price_units":"ft","color":"Carmel Apple","thickness_units":"in"}	2011-01-01 20:39:20.437403	2011-01-02 17:23:47.994297
-64	005	Wild Apple	Material	{"price":".4466","thickness":".25","waste_factor":".15","price_units":"ft","color":"Wild Apple","thickness_units":"in"}	2011-01-01 20:39:20.45073	2011-01-02 17:23:47.99831
-65	007	Chocolate Apple	Material	{"price":".4466","thickness":".25","waste_factor":".15","price_units":"ft","color":"Chocolate Apple","thickness_units":"in"}	2011-01-01 20:39:20.494798	2011-01-02 17:23:48.002446
-93	\N	Crown Molding: 3-3/4", 423-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 15.6, "price_units": "ft"}	2011-01-02 01:57:58.804811	2011-01-02 01:57:58.804811
-106	005	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Autumn Glow Door Material	Material	{"price":"10.25","thickness":"0","waste_factor":"","price_units":"ft","color":"Autumn Glow","thickness_units":"mm"}	2011-01-02 01:57:59.226407	2011-01-04 05:10:24.760353
-107	004	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Desert Glow Door Material	Material	{"price":"10.25","thickness":"0","waste_factor":"","price_units":"ft","color":"Desert Glow","thickness_units":"mm"}	2011-01-02 01:57:59.246316	2011-01-04 05:10:24.76435
-102	010	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Ruston Maple Door Material	Material	{"price":"10.25","thickness":"0","waste_factor":"","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:57:59.165751	2011-01-04 05:10:24.776055
-104	001	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF White Door Material	Material	{"price":"7.6","thickness":"0","waste_factor":"","price_units":"ft","color":"White","thickness_units":"mm"}	2011-01-02 01:57:59.192076	2011-01-04 05:10:24.783992
-111	\N	Scribe Molding: 1", 428-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.36607	2011-01-02 01:57:59.36607
-112	\N	Scribe Molding: 1", 428-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 5.85, "price_units": "ft"}	2011-01-02 01:57:59.477494	2011-01-02 01:57:59.477494
-260		30+" 23 qty	RangedValue	{"max":"","variable_units":"in","value":"23","min":"30","variable":"width"}	2011-01-13 14:12:45.856931	2011-01-13 14:12:45.856931
-113	\N	Scribe Molding: 1", 428-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.535936	2011-01-02 01:57:59.535936
-114	\N	Scribe Molding: 1", 428-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.677981	2011-01-02 01:57:59.677981
-115	\N	Scribe Molding: 1", 428-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.755815	2011-01-02 01:57:59.755815
-116	\N	Scribe Molding: 1", 428-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 6.25, "price_units": "ft"}	2011-01-02 01:57:59.895964	2011-01-02 01:57:59.895964
-117	\N	Scribe Molding: 1", 428-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 6.25, "price_units": "ft"}	2011-01-02 01:57:59.986389	2011-01-02 01:57:59.986389
-118	\N	Crown Molding: 4-1/2", 424-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.103157	2011-01-02 01:58:00.103157
-119	\N	Crown Molding: 4-1/2", 424-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.205961	2011-01-02 01:58:00.205961
-75		40	Margin	{"factor":".4"}	2011-01-02 00:55:53.874657	2011-01-12 02:27:17.145266
-192		30	Margin	{"factor":".3"}	2011-01-06 06:19:35.946848	2011-01-12 02:30:08.250216
-76		43	Margin	{"factor":".43"}	2011-01-02 01:02:53.907359	2011-01-12 02:30:33.774274
-193		31	Margin	{"factor":".31"}	2011-01-06 06:20:44.56875	2011-01-12 02:30:53.568952
-77		55	Margin	{"factor":".55"}	2011-01-02 01:30:17.284763	2011-01-12 02:31:20.055517
-52	003	Folkstone Gray	Material	{"price":".7053","waste_factor":".08","thickness":".75","price_units":"ft","color":"Folkstone Gray","thickness_units":"in"}	2011-01-01 19:43:30.237124	2011-01-12 03:33:03.969341
-206		34	Margin	{"factor":".34"}	2011-01-12 04:43:47.343358	2011-01-12 04:43:47.343358
-207		51	Margin	{"factor":".51"}	2011-01-12 05:26:41.906801	2011-01-12 05:26:41.906801
-120	\N	Crown Molding: 4-1/2", 424-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 14.0, "price_units": "ft"}	2011-01-02 01:58:00.318447	2011-01-02 01:58:00.318447
-121	\N	Crown Molding: 4-1/2", 424-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.386195	2011-01-02 01:58:00.386195
-122	\N	Crown Molding: 4-1/2", 424-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.563941	2011-01-02 01:58:00.563941
-123	\N	Crown Molding: 4-1/2", 424-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.747793	2011-01-02 01:58:00.747793
-124	\N	Crown Molding: 4-1/2", 424-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 15.9, "price_units": "ft"}	2011-01-02 01:58:00.965845	2011-01-02 01:58:00.965845
-125	\N	Crown Molding: 4-1/2", 424-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 15.9, "price_units": "ft"}	2011-01-02 01:58:00.983957	2011-01-02 01:58:00.983957
-126	\N	Filler A Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.074783	2011-01-02 01:58:01.074783
-127	\N	Filler A Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.15695	2011-01-02 01:58:01.15695
-128	\N	Filler A White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 8.1, "price_units": "ft"}	2011-01-02 01:58:01.267662	2011-01-02 01:58:01.267662
-94	010	DR8/DBQ816/KB732 Ruston Maple Door Material	Material	{"price":"8.15","thickness":"0","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:57:59.02372	2011-01-02 03:02:51.944025
-95	007	DR8/DBQ816/KB732 Sable Glow Door Material	Material	{"price":"8.15","thickness":"0","price_units":"ft","color":"Sable Glow","thickness_units":"mm"}	2011-01-02 01:57:59.043058	2011-01-02 03:02:52.013895
-100	003	DR8/DBQ816/KB732 Folkstone Grey Door Material	Material	{"price":"6.65","thickness":"0","price_units":"ft","color":"Folkstone Grey","thickness_units":"mm"}	2011-01-02 01:57:59.106002	2011-01-02 03:02:52.044127
-96	001	DR8/DBQ816/KB732 White Door Material	Material	{"price":"6.0","thickness":"0","price_units":"ft","color":"White","thickness_units":"mm"}	2011-01-02 01:57:59.055659	2011-01-02 03:02:52.070732
-101	002	DR8/DBQ816/KB732 Antique White Door Material	Material	{"price":"6.65","thickness":"0","price_units":"ft","color":"Antique White","thickness_units":"mm"}	2011-01-02 01:57:59.118327	2011-01-02 03:02:52.134123
-97	006	DR8/DBQ816/KB732 Mahogany Impressions Door Material	Material	{"price":"8.15","thickness":"0","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm"}	2011-01-02 01:57:59.068377	2011-01-02 03:02:52.145201
-98	005	DR8/DBQ816/KB732 Autumn Glow Door Material	Material	{"price":"8.15","thickness":"0","price_units":"ft","color":"Autumn Glow","thickness_units":"mm"}	2011-01-02 01:57:59.081279	2011-01-02 03:02:52.15324
-129	\N	Filler A Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.467382	2011-01-02 01:58:01.467382
-130	\N	Filler A Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.531505	2011-01-02 01:58:01.531505
-131	\N	Filler A Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.658007	2011-01-02 01:58:01.658007
-132	\N	Filler A Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 9.0, "price_units": "ft"}	2011-01-02 01:58:01.6974	2011-01-02 01:58:01.6974
-133	\N	Filler A Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 9.0, "price_units": "ft"}	2011-01-02 01:58:01.714769	2011-01-02 01:58:01.714769
-134	\N	Fluted Molding: 3-1/2", 431-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.730567	2011-01-02 01:58:01.730567
-135	\N	Fluted Molding: 3-1/2", 431-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.743685	2011-01-02 01:58:01.743685
-136	\N	Fluted Molding: 3-1/2", 431-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 18.85, "price_units": "ft"}	2011-01-02 01:58:01.770237	2011-01-02 01:58:01.770237
-137	\N	Fluted Molding: 3-1/2", 431-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.78452	2011-01-02 01:58:01.78452
-138	\N	Fluted Molding: 3-1/2", 431-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.844972	2011-01-02 01:58:01.844972
-109	002	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Antique White Door Material	Material	{"price":"8.4","thickness":"0","waste_factor":"","price_units":"ft","color":"Antique White","thickness_units":"mm"}	2011-01-02 01:57:59.294033	2011-01-04 05:10:24.772069
-200		62mm	Width	{"linear_units":"in","width":"2.441"}	2011-01-07 07:04:48.446713	2011-01-07 07:04:48.446713
-176		35	Margin	{"factor":".35"}	2011-01-03 03:54:21.733384	2011-01-12 02:28:08.283362
-139	\N	Fluted Molding: 3-1/2", 431-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:02.08626	2011-01-02 01:58:02.08626
-140	\N	Fluted Molding: 3-1/2", 431-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 19.75, "price_units": "ft"}	2011-01-02 01:58:02.106451	2011-01-02 01:58:02.106451
-141	\N	Fluted Molding: 3-1/2", 431-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 19.75, "price_units": "ft"}	2011-01-02 01:58:02.295798	2011-01-02 01:58:02.295798
-150	\N	Base Molding: 2-1/2", 426-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.030424	2011-01-02 01:58:03.030424
-151	\N	Base Molding: 2-1/2", 426-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.043921	2011-01-02 01:58:03.043921
-152	\N	Base Molding: 2-1/2", 426-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 9.3, "price_units": "ft"}	2011-01-02 01:58:03.097883	2011-01-02 01:58:03.097883
-153	\N	Base Molding: 2-1/2", 426-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.209469	2011-01-02 01:58:03.209469
-154	\N	Base Molding: 2-1/2", 426-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.30641	2011-01-02 01:58:03.30641
-155	\N	Base Molding: 2-1/2", 426-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.320249	2011-01-02 01:58:03.320249
-156	\N	Base Molding: 2-1/2", 426-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.332886	2011-01-02 01:58:03.332886
-195		20	Margin	{"factor":".2"}	2011-01-06 07:27:37.538169	2011-01-12 02:32:14.271898
-258		49	Margin	{"factor":".49"}	2011-01-13 05:27:35.62733	2011-01-13 05:27:35.62733
-1	001	WHITE	Color	{"color": "WHITE"}	2011-01-01 18:53:38.869436	2011-01-11 23:17:31.947428
-265		0-30" 38 qty	RangedValue	{"max":"30","variable_units":"in","value":"38","min":"","variable":"width"}	2011-01-13 14:53:34.499727	2011-01-13 14:53:34.499727
-266		30+" 39 qty	RangedValue	{"max":"","variable_units":"in","value":"39","min":"30","variable":"width"}	2011-01-13 14:53:34.51526	2011-01-13 14:53:34.51526
-8	100	Polished Chrome	Color	{"color": "Polished Chrome"}	2011-01-01 18:53:51.005597	2011-01-01 18:53:51.047561
-9	200	Matte Nickel	Color	{"color": "Matte Nickel"}	2011-01-01 18:53:51.134188	2011-01-01 18:53:51.20192
-10	300	Oil Rubbed Bronze	Color	{"color": "Oil Rubbed Bronze"}	2011-01-01 18:53:51.25903	2011-01-01 18:53:51.279624
-14	011	POWDER COAT RED	Color	{"color":"POWDER COAT RED"}	2011-01-01 18:54:06.999487	2011-01-01 19:45:43.964086
-15	012	POWDER COAT GRANITE	Color	{"color":"POWDER COAT GRANITE"}	2011-01-01 18:54:07.199988	2011-01-01 19:45:44.003822
-283		50.5	Margin	{"factor":".505"}	2011-01-13 21:33:47.843146	2011-01-13 21:36:41.163226
-240	005	Wild Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Wild Apple","thickness_units":"in"}	2011-01-13 02:52:08.231369	2011-01-14 20:10:11.961291
-16	301	Laminate 1573 Frosty White	Color	{"color": "Laminate 1573 Frosty White"}	2011-01-01 18:54:11.824512	2011-01-01 18:54:11.847407
-17	302	Laminate 1595 Black	Color	{"color": "Laminate 1595 Black"}	2011-01-01 18:54:11.894853	2011-01-01 18:54:11.932143
-18	303	Laminate 4552 Ebony Star	Color	{"color": "Laminate 4552 Ebony Star"}	2011-01-01 18:54:11.958614	2011-01-01 18:54:11.976511
-19	304	Laminate 4781 Sunstone	Color	{"color": "Laminate 4781 Sunstone"}	2011-01-01 18:54:12.086803	2011-01-01 18:54:12.137005
-20	305	Laminate 4789 Limestone	Color	{"color": "Laminate 4789 Limestone"}	2011-01-01 18:54:12.164497	2011-01-01 18:54:12.206244
-21	306	Laminate 4790 Greystone	Color	{"color": "Laminate 4790 Greystone"}	2011-01-01 18:54:12.335465	2011-01-01 18:54:12.416697
-22	307	Laminate 4791 Willowstone	Color	{"color": "Laminate 4791 Willowstone"}	2011-01-01 18:54:12.434278	2011-01-01 18:54:12.449309
-23	308	Laminate 4794 Windswept Bronze	Color	{"color": "Laminate 4794 Windswept Bronze"}	2011-01-01 18:54:12.495119	2011-01-01 18:54:12.67363
-24	309	Laminate 4795 Windswept Pewter	Color	{"color": "Laminate 4795 Windswept Pewter"}	2011-01-01 18:54:12.832563	2011-01-01 18:54:12.88897
-25	310	Laminate 4882 Oiled Soapstone	Color	{"color": "Laminate 4882 Oiled Soapstone"}	2011-01-01 18:54:12.915153	2011-01-01 18:54:12.932999
-26	311	Laminate 4883 Sable Soapstone	Color	{"color": "Laminate 4883 Sable Soapstone"}	2011-01-01 18:54:12.965078	2011-01-01 18:54:13.022269
-27	312	Laminate 4884 Flame Soapstone	Color	{"color": "Laminate 4884 Flame Soapstone"}	2011-01-01 18:54:13.164689	2011-01-01 18:54:13.21624
-28	313	Laminate 4885 Green Soapstone	Color	{"color": "Laminate 4885 Green Soapstone"}	2011-01-01 18:54:13.355059	2011-01-01 18:54:13.466738
-29	314	Laminate 4886 Pearl Soapstone	Color	{"color": "Laminate 4886 Pearl Soapstone"}	2011-01-01 18:54:13.614368	2011-01-01 18:54:13.675325
-5	005	WILD APPLE	Color	{"color": "WILD APPLE"}	2011-01-01 18:53:38.964206	2011-01-11 23:17:32.052081
-7	007	CHOCOLATE APPLE	Color	{"color": "CHOCOLATE APPLE"}	2011-01-01 18:53:39.005412	2011-01-11 23:17:32.072177
-12	009	WINDSWEPT PEWTER	Color	{"color": "WINDSWEPT PEWTER"}	2011-01-01 18:53:57.440814	2011-01-11 23:17:32.090432
-13	008	WINDSWEPT BRONZE	Color	{"color": "WINDSWEPT BRONZE"}	2011-01-01 18:53:57.549276	2011-01-11 23:17:32.098877
-196		23	Margin	{"factor":".23"}	2011-01-06 07:31:18.829202	2011-01-12 03:11:02.519949
-208		12 inch	Depth	{"linear_units":"in","depth":"(((D > 13.5)*(D<=15.5)) ? 1 : 0)"}	2011-01-12 13:56:56.511038	2011-01-12 13:56:56.511038
-222	008	WS Bronze Edge 25mm	EdgeBand	{"price":"0.1186","width_units":"mm","color":"Windswept Bronze","price_units":"ft","width":"25"}	2011-01-12 19:40:28.334653	2011-01-12 19:40:28.334653
-223	009	WS Pewter Edge 25mm	EdgeBand	{"price":"0.1180","width_units":"mm","color":"Windswept Pewter","price_units":"ft","width":"25"}	2011-01-12 19:40:28.358856	2011-01-12 19:40:28.358856
-224	010	HR Maple Edge 25mm	EdgeBand	{"price":"0.0897","width_units":"mm","color":"Hardrock Maple","price_units":"ft","width":"25"}	2011-01-12 19:40:28.373546	2011-01-12 19:40:28.373546
-225	002	Ant White Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","color":"Antique White","price_units":"ft","width":"25"}	2011-01-12 19:40:28.388062	2011-01-12 19:40:28.388062
-226	003	Folk Gray Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","color":"Folkstone Gray","price_units":"ft","width":"25"}	2011-01-12 19:40:28.403451	2011-01-12 19:40:28.403451
-227	004	Carmel Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","color":"Carmel Apple","price_units":"ft","width":"25"}	2011-01-12 19:40:28.419187	2011-01-12 19:40:28.419187
-228	005	Wild Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","color":"Wild Apple","price_units":"ft","width":"25"}	2011-01-12 19:40:28.434545	2011-01-12 19:40:28.434545
-229	007	Choc Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","color":"Chocolate Apple","price_units":"ft","width":"25"}	2011-01-12 19:40:28.462357	2011-01-12 19:40:28.462357
-33	318	Laminate 7948 Mambo	Color	{"color": "Laminate 7948 Mambo"}	2011-01-01 18:54:14.30295	2011-01-01 18:54:14.447964
-238	003	Folkstone Gray	Material	{"price":"0.9640","waste_factor":".1","thickness":"1","price_units":"ft","color":"Folkstone Gray","thickness_units":"in"}	2011-01-13 01:32:38.610749	2011-01-13 02:52:08.312546
-242	008	Windswept Bronze	Material	{"price":"1.10","waste_factor":".1","thickness":"1","price_units":"ft","color":"Windswept Bronze","thickness_units":"in"}	2011-01-13 02:52:08.265909	2011-01-14 20:12:02.615157
-259		0-30" 22 qty	RangedValue	{"max":"30","variable_units":"in","value":"22","min":"","variable":"width"}	2011-01-13 14:12:45.832527	2011-01-13 14:12:45.832527
-241	007	Chocolate Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Chocolate Apple","thickness_units":"in"}	2011-01-13 02:52:08.250763	2011-01-14 20:10:11.965674
-293		33	Margin	{"factor":".33","float":""}	2011-01-19 22:25:44.062047	2011-01-19 22:25:44.062047
-309		Hardware 17%	Margin	{"factor":"0.9022","float":""}	2011-01-21 23:50:39.835047	2011-01-22 05:39:19.345538
-239	004	Carmel Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Carmel Apple","thickness_units":"in"}	2011-01-13 01:32:38.639668	2011-01-14 20:12:02.604601
-243	009	Windswept Pewter	Material	{"price":"1.13","waste_factor":".1","thickness":"1","price_units":"ft","color":"Windswept Pewter","thickness_units":"in"}	2011-01-13 02:52:08.282131	2011-01-14 20:12:02.619572
-244	010	Hardrock Maple	Material	{"price":"1.02","waste_factor":".1","thickness":"1","price_units":"ft","color":"Hardrock Maple","thickness_units":"in"}	2011-01-13 02:52:08.29689	2011-01-14 20:12:02.624668
-197		22	Margin	{"factor":".22"}	2011-01-06 07:32:48.411856	2011-01-12 03:11:26.986673
-51	002	Antique White	Material	{"price":".8000","waste_factor":".08","thickness":".75","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-01 19:43:30.224966	2011-01-12 03:33:03.964899
-53	004	Carmel Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Carmel Apple","thickness_units":"in"}	2011-01-01 19:43:30.249309	2011-01-12 03:33:03.973579
-210		70	Margin	{"factor":".7"}	2011-01-12 16:51:32.176998	2011-01-12 16:51:32.176998
-245		Hardware 1%	Margin	{"factor":"4.0"}	2011-01-13 03:50:05.715225	2011-01-13 03:50:05.715225
-250		0-15" 12 cams	RangedValue	{"max":"15","variable_units":"in","value":"12","min":"","variable":"depth"}	2011-01-13 04:06:20.763377	2011-01-13 04:06:20.763377
-246		0-15" 12 pins	RangedValue	{"max":"15","variable_units":"in","value":"12","min":"","variable":"depth"}	2011-01-13 03:53:21.713188	2011-01-13 04:07:13.51097
-247		15+" 16 pins	RangedValue	{"max":"","variable_units":"in","value":"16","min":"15","variable":"depth"}	2011-01-13 03:53:21.744399	2011-01-13 04:07:13.612026
-261		0-15" 8 qty	RangedValue	{"max":"15","variable_units":"in","value":"8","min":"","variable":"depth"}	2011-01-13 14:19:06.715943	2011-01-13 14:19:06.715943
-262		15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"","min":"15","variable":"depth"}	2011-01-13 14:19:06.737806	2011-01-13 14:19:06.737806
-263		0-30" 30 qty	RangedValue	{"max":"30","variable_units":"in","value":"30","min":"","variable":"width"}	2011-01-13 14:35:44.407241	2011-01-13 14:35:44.407241
-264		30+" 31 qty	RangedValue	{"max":"","variable_units":"in","value":"31","min":"30","variable":"width"}	2011-01-13 14:35:44.42198	2011-01-13 14:35:44.42198
-251		15+" 14 cams	RangedValue	{"max":"","variable_units":"in","value":"14","min":"15","variable":"depth"}	2011-01-13 04:06:20.848661	2011-01-13 14:41:50.333798
-230		0-15" 8 qty	RangedValue	{"max":"15","variable_units":"in","value":"8","min":"","variable":"depth"}	2011-01-12 23:05:02.546819	2011-01-13 16:51:45.327194
-231		15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"12","min":"15","variable":"depth"}	2011-01-12 23:05:02.574939	2011-01-13 16:51:45.331559
-285		36	Margin	{"factor":".36"}	2011-01-13 22:26:09.786481	2011-01-13 22:26:09.786481
-209		Hardware 10%	Margin	{"factor":"0.978261","float":""}	2011-01-12 16:24:30.175447	2011-01-20 14:56:02.465768
-220		Hardware 30%	Margin	{"factor":"0.76087","float":""}	2011-01-12 19:15:01.481366	2011-01-20 15:24:02.334507
-311		Butcher Block Price < 24"	RangedValue	{"max":"24","variable_units":"in","value":"110.54","min":"","variable":"width"}	2011-01-22 06:55:10.272421	2011-01-22 06:55:10.272421
-312		Butcher Block Price < 48"	RangedValue	{"max":"48","variable_units":"in","value":"171.47","min":"24","variable":"width"}	2011-01-22 06:55:10.295276	2011-01-22 06:55:10.295276
-313		Butcher Block Price < 72"	RangedValue	{"max":"72","variable_units":"in","value":"264.20","min":"48","variable":"width"}	2011-01-22 06:55:10.308378	2011-01-22 06:55:10.308378
-314		Butcher Block Price < 97"	RangedValue	{"max":"97","variable_units":"in","value":"416.56","min":"72","variable":"width"}	2011-01-22 06:55:10.321247	2011-01-22 06:55:10.321247
-315		Butcher Block Price < 121"	RangedValue	{"max":"121","variable_units":"in","value":"492.42","min":"97","variable":"width"}	2011-01-22 06:55:10.33573	2011-01-22 06:55:10.33573
-211	001	White	Material	{"price":".3453","waste_factor":".1","thickness":".25","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-12 17:51:38.749889	2011-01-12 17:54:16.727233
-199		5"	Width	{"linear_units":"in","width":"5"}	2011-01-06 15:19:25.805434	2011-01-12 20:33:59.887652
-248		0-30" 4 screws	RangedValue	{"max":"30","variable_units":"in","value":"4","min":"","variable":"width"}	2011-01-13 04:02:16.572657	2011-01-13 04:02:16.572657
-249		30+" 6 screws	RangedValue	{"max":"","variable_units":"in","value":"6","min":"30","variable":"width"}	2011-01-13 04:02:16.804893	2011-01-13 04:02:16.804893
-267		0-15" 14 qty	RangedValue	{"max":"15","variable_units":"in","value":"14","min":"","variable":"depth"}	2011-01-13 15:16:44.901517	2011-01-13 15:16:44.901517
-268		15+" 18 qty	RangedValue	{"max":"","variable_units":"in","value":"18","min":"15","variable":"depth"}	2011-01-13 15:16:44.922613	2011-01-13 15:16:44.922613
-269		0-30" 7 qty	RangedValue	{"max":"30","variable_units":"in","value":"7","min":"","variable":"width"}	2011-01-13 15:22:53.971555	2011-01-13 15:22:53.971555
-270		30+" 9 qty	RangedValue	{"max":"","variable_units":"in","value":"9","min":"30","variable":"width"}	2011-01-13 15:22:53.98578	2011-01-13 15:22:53.98578
-273		0-30" 2 qty	RangedValue	{"max":"30","variable_units":"in","value":"2","min":"","variable":"width"}	2011-01-13 16:14:54.010842	2011-01-13 16:14:54.010842
-274		30+" 3 qty	RangedValue	{"max":"","variable_units":"in","value":"3","min":"30","variable":"width"}	2011-01-13 16:14:54.026485	2011-01-13 16:14:54.026485
-275		0-30" 34 qty	RangedValue	{"max":"30","variable_units":"in","value":"34","min":"","variable":"width"}	2011-01-13 16:32:18.563143	2011-01-13 16:32:18.563143
-276		30+" 35 qty	RangedValue	{"max":"","variable_units":"in","value":"35","min":"30","variable":"width"}	2011-01-13 16:32:18.578775	2011-01-13 16:32:18.578775
-277		0-30" 6 qty	RangedValue	{"max":"30","variable_units":"in","value":"6","min":"","variable":"width"}	2011-01-13 17:00:14.000463	2011-01-13 17:00:14.000463
-278		30+" 8 qty	RangedValue	{"max":"","variable_units":"in","value":"8","min":"30","variable":"width"}	2011-01-13 17:00:14.014602	2011-01-13 17:00:14.014602
-286		0-40" 0 qty	RangedValue	{"max":"40","variable_units":"in","value":"0","min":"","variable":"height"}	2011-01-14 00:05:22.727751	2011-01-14 00:05:22.727751
-287		40+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"40","variable":"height"}	2011-01-14 00:05:22.749188	2011-01-14 00:05:22.749188
-232		Hardware 35%	Margin	{"factor":"0.7065","float":""}	2011-01-13 00:19:29.504793	2011-01-20 15:15:33.010312
-233			Margin	{"factor":"","float":""}	2011-01-13 00:19:29.525505	2011-01-20 15:15:33.014486
-294	901	White	Color	{"color": "White"}	2011-01-21 01:24:54.832872	2011-01-21 01:24:54.853223
-295	902	Antique White	Color	{"color": "Antique White"}	2011-01-21 01:24:54.861631	2011-01-21 01:24:54.874675
-296	904	Carmel Apple	Color	{"color": "Carmel Apple"}	2011-01-21 01:24:54.88253	2011-01-21 01:24:54.895555
-297	905	Wild Apple	Color	{"color": "Wild Apple"}	2011-01-21 01:24:54.903379	2011-01-21 01:24:54.916233
-110	\N	Scribe Molding: 1", 428-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.333215	2011-01-02 01:57:59.333215
-298	907	Chocolate Apple	Color	{"color": "Chocolate Apple"}	2011-01-21 01:24:54.923959	2011-01-21 01:24:54.937759
-299	910	Hardrock Maple	Color	{"color": "Hardrock Maple"}	2011-01-21 01:24:54.94582	2011-01-21 01:24:54.958887
-300	909	Windswept Pewter	Color	{"color": "Windswept Pewter"}	2011-01-21 01:24:54.966728	2011-01-21 01:24:54.979198
-301	908	Windswept Bronze	Color	{"color": "Windswept Bronze"}	2011-01-21 01:24:54.986447	2011-01-21 01:24:54.998772
-198	000	PB19	Material	{"price":".44","waste_factor":".03","thickness":".75","price_units":"ft","color":"White","thickness_units":"in"}	2011-01-06 15:18:17.157484	2011-01-22 06:10:22.2943
-212		27	Margin	{"factor":".27"}	2011-01-12 18:01:16.983544	2011-01-12 18:01:16.983544
-213		28	Margin	{"factor":".28"}	2011-01-12 18:02:30.253861	2011-01-12 18:02:30.253861
-252		0-40" 2 qty	RangedValue	{"max":"40","variable_units":"in","value":"2","min":"","variable":"height"}	2011-01-13 04:34:39.594088	2011-01-13 04:34:39.594088
-253		40+" 4 qty	RangedValue	{"max":"","variable_units":"in","value":"4","min":"40","variable":"height"}	2011-01-13 04:34:39.897328	2011-01-13 04:34:39.897328
-271		0-15" 10 qty	RangedValue	{"max":"15","variable_units":"in","value":"10","min":"","variable":"depth"}	2011-01-13 16:04:59.779192	2011-01-13 16:04:59.779192
-272		15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"12","min":"15","variable":"depth"}	2011-01-13 16:04:59.800798	2011-01-13 16:04:59.800798
-288		0-40" 0 qty	RangedValue	{"max":"40","variable_units":"in","value":"0","min":"","variable":"height"}	2011-01-14 00:05:22.749996	2011-01-14 00:05:22.749996
-289		40+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"40","variable":"height"}	2011-01-14 00:05:22.773502	2011-01-14 00:05:22.773502
-304			Margin	{"factor":"","float":""}	2011-01-21 21:47:28.926174	2011-01-21 21:47:28.926174
-302		Hardware 16%	Margin	{"factor":"0.913","float":""}	2011-01-21 21:08:40.88855	2011-01-22 05:43:09.007444
-221		Hardware 30%	Margin	{"factor":"0.76087","float":""}	2011-01-12 19:15:01.496112	2011-01-22 05:50:27.851315
-303		Hardware 40%	Margin	{"factor":"0.654","float":""}	2011-01-21 21:47:28.911045	2011-01-22 05:58:12.060009
-307		Hardware 33%	Margin	{"factor":"0.72825","float":""}	2011-01-21 21:59:26.715414	2011-01-22 06:01:54.28421
-157	\N	Base Molding: 2-1/2", 426-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.344799	2011-01-02 01:58:03.344799
-160	001	AMS329 White Door Material	Material	{"price":"13.3","thickness":"0","price_units":"ft","color":"White","thickness_units":"mm"}	2011-01-02 01:58:03.776735	2011-01-02 02:59:19.277074
-161	006	AMS329 Mahogany Impressions Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm"}	2011-01-02 01:58:03.81454	2011-01-02 02:59:19.281859
-162	005	AMS329 Autumn Glow Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Autumn Glow","thickness_units":"mm"}	2011-01-02 01:58:03.827819	2011-01-02 02:59:19.285953
-163	004	AMS329 Desert Glow Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Desert Glow","thickness_units":"mm"}	2011-01-02 01:58:03.845947	2011-01-02 02:59:19.289945
-164	003	AMS329 Folkstone Grey Door Material	Material	{"price":"14.1","thickness":"0","price_units":"ft","color":"Folkstone Grey","thickness_units":"mm"}	2011-01-02 01:58:03.85805	2011-01-02 02:59:19.314598
-165	002	AMS329 Antique White Door Material	Material	{"price":"14.1","thickness":"0","price_units":"ft","color":"Antique White","thickness_units":"mm"}	2011-01-02 01:58:03.870263	2011-01-02 02:59:19.318725
-158	010	AMS329 Ruston Maple Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Ruston Maple","thickness_units":"mm"}	2011-01-02 01:58:03.593594	2011-01-02 02:59:19.322789
-159	007	AMS329 Sable Glow Door Material	Material	{"price":"15.95","thickness":"0","price_units":"ft","color":"Sable Glow","thickness_units":"mm"}	2011-01-02 01:58:03.713967	2011-01-02 02:59:19.326736
-99	004	DR8/DBQ816/KB732 Desert Glow Door Material	Material	{"price":"8.15","thickness":"0","price_units":"ft","color":"Desert Glow","thickness_units":"mm"}	2011-01-02 01:57:59.093828	2011-01-02 03:02:51.914847
-166	\N	JR7/AMS329/DRS131/KB732/DBQ816/DR8/Filler A/DR1: Cut for Glass,469 Option Surcharge	Surcharge	{"price": 15.00}	2011-01-02 03:40:59.385121	2011-01-02 03:40:59.385121
-169	\N	DRS131/DBQ816/KB732/JR7/DR8/AMS329/DR1: French Lite Door Option Surcharge	Surcharge	{"price": 7.50}	2011-01-02 03:41:00.623873	2011-01-02 03:41:00.623873
-170	\N	Base Molding/Crown Molding/Fluted Molding/Scribe Molding Option Surcharge	Surcharge	{"price": 10.00}	2011-01-02 03:41:00.672279	2011-01-02 03:41:00.672279
-171	\N	DRS131/DR8/Base Molding/Crown Molding/DBQ816/KB732/JR7/Fluted Molding/AMS329/DR1/Scribe Molding: French Lite Door,Slab DF,Routed DF,2-1/2", 426-8,4-1/2", 424-8,Door,Cut for Glass,3-1/2", 431-8,1", 428-8,3-3/4", 423-8 Handling Surcharge	Surcharge	{"price": 0.25}	2011-01-02 03:41:20.548808	2011-01-02 03:41:20.548808
-172	\N	Filler A Handling Surcharge	Surcharge	{"price": 10.00}	2011-01-02 03:41:20.623871	2011-01-02 03:41:20.623871
-57	008	Windswept Bronze	Material	{"price":".9194","thickness":".25","waste_factor":".15","price_units":"ft","color":"Windswept Bronze","thickness_units":"in"}	2011-01-01 20:39:20.274224	2011-01-02 17:23:47.824237
-175		2:3 Corner Cabinet Side Ratio	ScalingFactor	{"factor":"0.6666667"}	2011-01-02 20:24:08.214946	2011-01-02 20:24:08.214946
-180		11	Height	{"linear_units":"mm","height":"272"}	2011-01-03 23:55:40.569267	2011-01-03 23:55:40.569267
-185		9.5	Height	{"linear_units":"mm","height":"241.3"}	2011-01-04 00:02:54.683687	2011-01-04 00:02:54.683687
-182		2.5	Height	{"linear_units":"mm","height":"63.5"}	2011-01-03 23:58:37.599909	2011-01-04 00:05:07.5447
-183		4.5	Height	{"linear_units":"mm","height":"114.3"}	2011-01-03 23:59:49.581027	2011-01-04 00:05:45.212028
-184		7	Height	{"linear_units":"mm","height":"177.8"}	2011-01-04 00:01:18.763897	2011-01-04 00:07:21.340788
-202	010	Hardrock Maple	Material	{"price":".7206","waste_factor":".08","thickness":".75","price_units":"ft","color":"Hardrock Maple","thickness_units":"in"}	2011-01-07 18:04:26.721687	2011-01-12 19:12:05.394465
-187		Standard	Surcharge	{"price":".25"}	2011-01-04 00:41:12.72029	2011-01-04 00:41:12.72029
-177		38	Margin	{"factor":".38"}	2011-01-03 03:58:00.414489	2011-01-12 02:28:29.003585
-178		25	Margin	{"factor":".25"}	2011-01-03 04:07:22.596133	2011-01-12 02:28:56.371622
-186		32	Margin	{"factor":".32"}	2011-01-04 00:16:46.715729	2011-01-12 02:29:15.904882
-188		46	Margin	{"factor":".46"}	2011-01-04 04:05:21.30637	2011-01-12 02:31:39.421884
-173	001	White	EdgeBand	{"price":".05","width_units":"mm","price_units":"ft","color":"White","width":"25"}	2011-01-02 16:38:58.687043	2011-01-12 19:18:32.055155
-215	005	Wild Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Wild Apple","thickness_units":"in"}	2011-01-12 18:33:39.885205	2011-01-12 18:59:07.918056
-179		11	Height	{"linear_units":"in","height":"11"}	2011-01-03 23:55:40.425921	2011-01-30 17:58:05.132984
-149	002	JR7 Antique White Door Material	Material	{"price":"10.45","thickness":"0","waste_factor":"","color":"Antique White","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.879111	2011-02-04 20:15:35.732178
-142	010	JR7 Ruston Maple Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Ruston Maple","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.543165	2011-02-04 20:15:35.73723
-143	007	JR7 Sable Glow Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Sable Glow","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.596498	2011-02-04 20:15:35.740986
-146	005	JR7 Autumn Glow Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Autumn Glow","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.807216	2011-02-04 20:15:35.751648
-147	004	JR7 Desert Glow Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Desert Glow","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.853236	2011-02-04 20:15:35.755243
-148	003	JR7 Folkstone Grey Door Material	Material	{"price":"10.45","thickness":"0","waste_factor":"","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.86636	2011-02-04 20:15:35.758945
-144	001	JR7 White Door Material	Material	{"price":"9.65","thickness":"0","waste_factor":"","color":"White","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.697866	2011-02-04 20:38:41.844339
-216	003	Folkstone Gray	Material	{"price":".7053","waste_factor":".1","thickness":".75","price_units":"ft","color":"Folkstone Gray","thickness_units":"in"}	2011-01-12 18:33:39.901835	2011-01-12 18:59:07.922847
-217	002	Antique White	Material	{"price":".8000","waste_factor":".1","thickness":".75","price_units":"ft","color":"Antique White","thickness_units":"in"}	2011-01-12 18:33:39.919074	2011-01-12 18:59:07.927068
-218	004	Carmel Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Carmel Apple","thickness_units":"in"}	2011-01-12 18:33:39.935701	2011-01-12 18:59:07.931501
-214	007	Chocolate Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","price_units":"ft","color":"Chocolate Apple","thickness_units":"in"}	2011-01-12 18:33:39.861336	2011-01-12 18:59:07.94214
-204	009	Windswept Pewter	Material	{"price":".865","waste_factor":".08","thickness":".75","price_units":"ft","color":"Windswept Pewter","thickness_units":"in"}	2011-01-07 18:04:26.747598	2011-01-12 19:12:05.373496
-174	001	White Edge 25mm	EdgeBand	{"price":".05","width_units":"mm","price_units":"ft","color":"White","width":"25"}	2011-01-02 16:38:59.016062	2011-01-12 19:40:28.478699
-254		41.5	Margin	{"factor":".415"}	2011-01-13 05:00:23.931079	2011-01-13 05:00:23.931079
-255		42	Margin	{"factor":".42"}	2011-01-13 05:05:01.914053	2011-01-13 05:05:01.914053
-316		Hingebore	Surcharge	{"price":"3.00","float":""}	2011-02-01 19:11:40.798519	2011-02-01 19:11:40.798519
-317		2	RangedValue	{"max":"36","variable_units":"in","value":"2","min":"10","variable":"height"}	2011-02-02 05:46:50.527764	2011-02-02 05:46:50.527764
-318		3	RangedValue	{"max":"60","variable_units":"in","value":"3","min":"36.125","variable":"height"}	2011-02-02 05:46:50.559242	2011-02-02 05:46:50.559242
-319		4	RangedValue	{"max":"92","variable_units":"in","value":"4","min":"60.125","variable":"height"}	2011-02-02 05:46:50.57086	2011-02-02 05:46:50.57086
-181	051	White	Material	{"price":".01375","thickness":".5","waste_factor":"0","color":"White","price_units":"in","thickness_units":"in"}	2011-01-03 23:57:34.312045	2011-02-02 18:44:56.050344
-321		BirchPly13	Material	{"price":".014","waste_factor":"","thickness":"13","price_units":"in","color":"","thickness_units":"mm"}	2011-02-02 20:49:02.50733	2011-02-02 20:49:02.50733
-322		75	Margin	{"factor":".75","float":""}	2011-02-02 21:04:26.888513	2011-02-02 21:04:26.888513
-320		Standard	Surcharge	{"price":"3","float":""}	2011-02-02 16:01:37.382011	2011-02-02 22:35:33.521485
-145	006	JR7 Mahogany Impressions Door Material	Material	{"price":"12.3","thickness":"0","waste_factor":"","color":"Mahogany Impressions","price_units":"ft","thickness_units":"mm"}	2011-01-02 01:58:02.723188	2011-02-04 20:15:35.747966
-323		86.5	Margin	{"factor":".86586","float":""}	2011-02-04 20:40:06.731979	2011-02-04 20:42:26.723189
+COPY property_values (id, name, module_names, value_str, created_at, updated_at) FROM stdin;
+191	50	Margin	{"factor":".50"}	2011-01-05 21:31:42.59094	2011-01-12 02:27:45.569683
+194	33	Margin	{"factor":".33"}	2011-01-06 06:44:21.632704	2011-01-12 02:31:57.635967
+256	45	Margin	{"factor":".45"}	2011-01-13 05:11:14.886603	2011-01-13 05:11:14.886603
+279	0-40" 4 qty	RangedValue	{"max":"40","variable_units":"in","value":"4","min":"","variable":"height"}	2011-01-13 17:22:47.608442	2011-01-13 17:22:47.608442
+280	40+" 8 qty	RangedValue	{"max":"","variable_units":"in","value":"8","min":"40","variable":"height"}	2011-01-13 17:22:47.631089	2011-01-13 17:22:47.631089
+306		Margin	{"factor":"","float":""}	2011-01-21 21:47:29.177543	2011-01-21 21:47:29.177543
+305	Hardware 40%	Margin	{"factor":"1.0865","float":""}	2011-01-21 21:47:29.156181	2011-01-22 02:40:36.880178
+219	10	Margin	{"factor":".1"}	2011-01-12 18:59:27.364894	2011-01-12 18:59:27.364894
+190	Black	EdgeBand	{"price":".375","width_units":"mm","color":"Black","price_units":"ft","width":"29"}	2011-01-05 21:30:50.866499	2011-01-05 21:30:50.866499
+167	DR8/DRS131/KB732/DR1/JR7/Filler A/DBQ816/AMS329: Slab DF,Door,471,472 Option Surcharge	Surcharge	{"price": 0.00}	2011-01-02 03:40:59.613554	2011-01-02 03:40:59.613554
+168	DR8/AMS329/JR7/DR1/DRS131: Routed DF Option Surcharge	Surcharge	{"price": 5.00}	2011-01-02 03:41:00.443729	2011-01-02 03:41:00.443729
+205	60	Margin	{"factor":".60"}	2011-01-12 03:28:24.980981	2011-01-12 03:28:24.980981
+291	95	Margin	{"factor":".95"}	2011-01-14 19:34:02.351887	2011-01-14 19:34:02.351887
+257	47.5	Margin	{"factor":".475"}	2011-01-13 05:16:50.460457	2011-01-13 05:16:50.460457
+281	0-36" 1 qty	RangedValue	{"max":"36","variable_units":"in","value":"1","min":"","variable":"height"}	2011-01-13 21:28:34.934151	2011-01-13 21:28:34.934151
+282	36+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"36","variable":"height"}	2011-01-13 21:28:34.957611	2011-01-13 21:28:34.957611
+284	48	Margin	{"factor":".48"}	2011-01-13 21:58:50.079931	2011-01-13 21:58:50.079931
+290	85	Margin	{"factor":".85"}	2011-01-14 18:31:06.550889	2011-01-14 18:31:06.550889
+292	90	Margin	{"factor":".90"}	2011-01-14 19:35:38.70293	2011-01-14 19:35:38.70293
+308	Hardware 15%	Margin	{"factor":"0.924","float":""}	2011-01-21 23:39:14.564436	2011-01-22 05:25:12.14814
+310	Hardware 20%	Margin	{"factor":"0.8695","float":""}	2011-01-22 00:10:14.637065	2011-01-22 05:32:55.172363
+92	Crown Molding: 3-3/4", 423-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 15.6, "price_units": "ft"}	2011-01-02 01:57:58.696916	2011-01-02 01:57:58.696916
+86	Crown Molding: 3-3/4", 423-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.35908	2011-01-02 01:57:58.35908
+87	Crown Molding: 3-3/4", 423-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.373572	2011-01-02 01:57:58.373572
+88	Crown Molding: 3-3/4", 423-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 14.5, "price_units": "ft"}	2011-01-02 01:57:58.387236	2011-01-02 01:57:58.387236
+89	Crown Molding: 3-3/4", 423-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.487622	2011-01-02 01:57:58.487622
+90	Crown Molding: 3-3/4", 423-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.576242	2011-01-02 01:57:58.576242
+91	Crown Molding: 3-3/4", 423-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 19.15, "price_units": "ft"}	2011-01-02 01:57:58.65665	2011-01-02 01:57:58.65665
+93	Crown Molding: 3-3/4", 423-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 15.6, "price_units": "ft"}	2011-01-02 01:57:58.804811	2011-01-02 01:57:58.804811
+111	Scribe Molding: 1", 428-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.36607	2011-01-02 01:57:59.36607
+112	Scribe Molding: 1", 428-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 5.85, "price_units": "ft"}	2011-01-02 01:57:59.477494	2011-01-02 01:57:59.477494
+260	30+" 23 qty	RangedValue	{"max":"","variable_units":"in","value":"23","min":"30","variable":"width"}	2011-01-13 14:12:45.856931	2011-01-13 14:12:45.856931
+113	Scribe Molding: 1", 428-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.535936	2011-01-02 01:57:59.535936
+114	Scribe Molding: 1", 428-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.677981	2011-01-02 01:57:59.677981
+115	Scribe Molding: 1", 428-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.755815	2011-01-02 01:57:59.755815
+116	Scribe Molding: 1", 428-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 6.25, "price_units": "ft"}	2011-01-02 01:57:59.895964	2011-01-02 01:57:59.895964
+117	Scribe Molding: 1", 428-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 6.25, "price_units": "ft"}	2011-01-02 01:57:59.986389	2011-01-02 01:57:59.986389
+118	Crown Molding: 4-1/2", 424-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.103157	2011-01-02 01:58:00.103157
+119	Crown Molding: 4-1/2", 424-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.205961	2011-01-02 01:58:00.205961
+75	40	Margin	{"factor":".4"}	2011-01-02 00:55:53.874657	2011-01-12 02:27:17.145266
+192	30	Margin	{"factor":".3"}	2011-01-06 06:19:35.946848	2011-01-12 02:30:08.250216
+76	43	Margin	{"factor":".43"}	2011-01-02 01:02:53.907359	2011-01-12 02:30:33.774274
+193	31	Margin	{"factor":".31"}	2011-01-06 06:20:44.56875	2011-01-12 02:30:53.568952
+77	55	Margin	{"factor":".55"}	2011-01-02 01:30:17.284763	2011-01-12 02:31:20.055517
+206	34	Margin	{"factor":".34"}	2011-01-12 04:43:47.343358	2011-01-12 04:43:47.343358
+207	51	Margin	{"factor":".51"}	2011-01-12 05:26:41.906801	2011-01-12 05:26:41.906801
+120	Crown Molding: 4-1/2", 424-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 14.0, "price_units": "ft"}	2011-01-02 01:58:00.318447	2011-01-02 01:58:00.318447
+121	Crown Molding: 4-1/2", 424-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.386195	2011-01-02 01:58:00.386195
+122	Crown Molding: 4-1/2", 424-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.563941	2011-01-02 01:58:00.563941
+123	Crown Molding: 4-1/2", 424-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 21.5, "price_units": "ft"}	2011-01-02 01:58:00.747793	2011-01-02 01:58:00.747793
+124	Crown Molding: 4-1/2", 424-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 15.9, "price_units": "ft"}	2011-01-02 01:58:00.965845	2011-01-02 01:58:00.965845
+125	Crown Molding: 4-1/2", 424-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 15.9, "price_units": "ft"}	2011-01-02 01:58:00.983957	2011-01-02 01:58:00.983957
+126	Filler A Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.074783	2011-01-02 01:58:01.074783
+127	Filler A Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.15695	2011-01-02 01:58:01.15695
+128	Filler A White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 8.1, "price_units": "ft"}	2011-01-02 01:58:01.267662	2011-01-02 01:58:01.267662
+129	Filler A Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.467382	2011-01-02 01:58:01.467382
+130	Filler A Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.531505	2011-01-02 01:58:01.531505
+131	Filler A Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.658007	2011-01-02 01:58:01.658007
+132	Filler A Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 9.0, "price_units": "ft"}	2011-01-02 01:58:01.6974	2011-01-02 01:58:01.6974
+133	Filler A Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 9.0, "price_units": "ft"}	2011-01-02 01:58:01.714769	2011-01-02 01:58:01.714769
+134	Fluted Molding: 3-1/2", 431-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.730567	2011-01-02 01:58:01.730567
+135	Fluted Molding: 3-1/2", 431-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.743685	2011-01-02 01:58:01.743685
+136	Fluted Molding: 3-1/2", 431-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 18.85, "price_units": "ft"}	2011-01-02 01:58:01.770237	2011-01-02 01:58:01.770237
+137	Fluted Molding: 3-1/2", 431-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.78452	2011-01-02 01:58:01.78452
+138	Fluted Molding: 3-1/2", 431-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:01.844972	2011-01-02 01:58:01.844972
+200	62mm	Width	{"linear_units":"in","width":"2.441"}	2011-01-07 07:04:48.446713	2011-01-07 07:04:48.446713
+176	35	Margin	{"factor":".35"}	2011-01-03 03:54:21.733384	2011-01-12 02:28:08.283362
+139	Fluted Molding: 3-1/2", 431-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:02.08626	2011-01-02 01:58:02.08626
+140	Fluted Molding: 3-1/2", 431-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 19.75, "price_units": "ft"}	2011-01-02 01:58:02.106451	2011-01-02 01:58:02.106451
+141	Fluted Molding: 3-1/2", 431-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 19.75, "price_units": "ft"}	2011-01-02 01:58:02.295798	2011-01-02 01:58:02.295798
+150	Base Molding: 2-1/2", 426-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.030424	2011-01-02 01:58:03.030424
+151	Base Molding: 2-1/2", 426-8 Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.043921	2011-01-02 01:58:03.043921
+152	Base Molding: 2-1/2", 426-8 White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 9.3, "price_units": "ft"}	2011-01-02 01:58:03.097883	2011-01-02 01:58:03.097883
+153	Base Molding: 2-1/2", 426-8 Mahogany Impressions Door Material	Material	{"color": "Mahogany Impressions", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.209469	2011-01-02 01:58:03.209469
+154	Base Molding: 2-1/2", 426-8 Autumn Glow Door Material	Material	{"color": "Autumn Glow", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.30641	2011-01-02 01:58:03.30641
+155	Base Molding: 2-1/2", 426-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 12.55, "price_units": "ft"}	2011-01-02 01:58:03.320249	2011-01-02 01:58:03.320249
+156	Base Molding: 2-1/2", 426-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.332886	2011-01-02 01:58:03.332886
+195	20	Margin	{"factor":".2"}	2011-01-06 07:27:37.538169	2011-01-12 02:32:14.271898
+258	49	Margin	{"factor":".49"}	2011-01-13 05:27:35.62733	2011-01-13 05:27:35.62733
+265	0-30" 38 qty	RangedValue	{"max":"30","variable_units":"in","value":"38","min":"","variable":"width"}	2011-01-13 14:53:34.499727	2011-01-13 14:53:34.499727
+266	30+" 39 qty	RangedValue	{"max":"","variable_units":"in","value":"39","min":"30","variable":"width"}	2011-01-13 14:53:34.51526	2011-01-13 14:53:34.51526
+283	50.5	Margin	{"factor":".505"}	2011-01-13 21:33:47.843146	2011-01-13 21:36:41.163226
+196	23	Margin	{"factor":".23"}	2011-01-06 07:31:18.829202	2011-01-12 03:11:02.519949
+208	12 inch	Depth	{"linear_units":"in","depth":"(((D > 13.5)*(D<=15.5)) ? 1 : 0)"}	2011-01-12 13:56:56.511038	2011-01-12 13:56:56.511038
+259	0-30" 22 qty	RangedValue	{"max":"30","variable_units":"in","value":"22","min":"","variable":"width"}	2011-01-13 14:12:45.832527	2011-01-13 14:12:45.832527
+293	33	Margin	{"factor":".33","float":""}	2011-01-19 22:25:44.062047	2011-01-19 22:25:44.062047
+309	Hardware 17%	Margin	{"factor":"0.9022","float":""}	2011-01-21 23:50:39.835047	2011-01-22 05:39:19.345538
+197	22	Margin	{"factor":".22"}	2011-01-06 07:32:48.411856	2011-01-12 03:11:26.986673
+210	70	Margin	{"factor":".7"}	2011-01-12 16:51:32.176998	2011-01-12 16:51:32.176998
+245	Hardware 1%	Margin	{"factor":"4.0"}	2011-01-13 03:50:05.715225	2011-01-13 03:50:05.715225
+250	0-15" 12 cams	RangedValue	{"max":"15","variable_units":"in","value":"12","min":"","variable":"depth"}	2011-01-13 04:06:20.763377	2011-01-13 04:06:20.763377
+246	0-15" 12 pins	RangedValue	{"max":"15","variable_units":"in","value":"12","min":"","variable":"depth"}	2011-01-13 03:53:21.713188	2011-01-13 04:07:13.51097
+247	15+" 16 pins	RangedValue	{"max":"","variable_units":"in","value":"16","min":"15","variable":"depth"}	2011-01-13 03:53:21.744399	2011-01-13 04:07:13.612026
+261	0-15" 8 qty	RangedValue	{"max":"15","variable_units":"in","value":"8","min":"","variable":"depth"}	2011-01-13 14:19:06.715943	2011-01-13 14:19:06.715943
+262	15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"","min":"15","variable":"depth"}	2011-01-13 14:19:06.737806	2011-01-13 14:19:06.737806
+263	0-30" 30 qty	RangedValue	{"max":"30","variable_units":"in","value":"30","min":"","variable":"width"}	2011-01-13 14:35:44.407241	2011-01-13 14:35:44.407241
+264	30+" 31 qty	RangedValue	{"max":"","variable_units":"in","value":"31","min":"30","variable":"width"}	2011-01-13 14:35:44.42198	2011-01-13 14:35:44.42198
+251	15+" 14 cams	RangedValue	{"max":"","variable_units":"in","value":"14","min":"15","variable":"depth"}	2011-01-13 04:06:20.848661	2011-01-13 14:41:50.333798
+230	0-15" 8 qty	RangedValue	{"max":"15","variable_units":"in","value":"8","min":"","variable":"depth"}	2011-01-12 23:05:02.546819	2011-01-13 16:51:45.327194
+231	15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"12","min":"15","variable":"depth"}	2011-01-12 23:05:02.574939	2011-01-13 16:51:45.331559
+285	36	Margin	{"factor":".36"}	2011-01-13 22:26:09.786481	2011-01-13 22:26:09.786481
+209	Hardware 10%	Margin	{"factor":"0.978261","float":""}	2011-01-12 16:24:30.175447	2011-01-20 14:56:02.465768
+220	Hardware 30%	Margin	{"factor":"0.76087","float":""}	2011-01-12 19:15:01.481366	2011-01-20 15:24:02.334507
+311	Butcher Block Price < 24"	RangedValue	{"max":"24","variable_units":"in","value":"110.54","min":"","variable":"width"}	2011-01-22 06:55:10.272421	2011-01-22 06:55:10.272421
+312	Butcher Block Price < 48"	RangedValue	{"max":"48","variable_units":"in","value":"171.47","min":"24","variable":"width"}	2011-01-22 06:55:10.295276	2011-01-22 06:55:10.295276
+313	Butcher Block Price < 72"	RangedValue	{"max":"72","variable_units":"in","value":"264.20","min":"48","variable":"width"}	2011-01-22 06:55:10.308378	2011-01-22 06:55:10.308378
+314	Butcher Block Price < 97"	RangedValue	{"max":"97","variable_units":"in","value":"416.56","min":"72","variable":"width"}	2011-01-22 06:55:10.321247	2011-01-22 06:55:10.321247
+315	Butcher Block Price < 121"	RangedValue	{"max":"121","variable_units":"in","value":"492.42","min":"97","variable":"width"}	2011-01-22 06:55:10.33573	2011-01-22 06:55:10.33573
+199	5"	Width	{"linear_units":"in","width":"5"}	2011-01-06 15:19:25.805434	2011-01-12 20:33:59.887652
+248	0-30" 4 screws	RangedValue	{"max":"30","variable_units":"in","value":"4","min":"","variable":"width"}	2011-01-13 04:02:16.572657	2011-01-13 04:02:16.572657
+249	30+" 6 screws	RangedValue	{"max":"","variable_units":"in","value":"6","min":"30","variable":"width"}	2011-01-13 04:02:16.804893	2011-01-13 04:02:16.804893
+267	0-15" 14 qty	RangedValue	{"max":"15","variable_units":"in","value":"14","min":"","variable":"depth"}	2011-01-13 15:16:44.901517	2011-01-13 15:16:44.901517
+268	15+" 18 qty	RangedValue	{"max":"","variable_units":"in","value":"18","min":"15","variable":"depth"}	2011-01-13 15:16:44.922613	2011-01-13 15:16:44.922613
+269	0-30" 7 qty	RangedValue	{"max":"30","variable_units":"in","value":"7","min":"","variable":"width"}	2011-01-13 15:22:53.971555	2011-01-13 15:22:53.971555
+270	30+" 9 qty	RangedValue	{"max":"","variable_units":"in","value":"9","min":"30","variable":"width"}	2011-01-13 15:22:53.98578	2011-01-13 15:22:53.98578
+273	0-30" 2 qty	RangedValue	{"max":"30","variable_units":"in","value":"2","min":"","variable":"width"}	2011-01-13 16:14:54.010842	2011-01-13 16:14:54.010842
+274	30+" 3 qty	RangedValue	{"max":"","variable_units":"in","value":"3","min":"30","variable":"width"}	2011-01-13 16:14:54.026485	2011-01-13 16:14:54.026485
+275	0-30" 34 qty	RangedValue	{"max":"30","variable_units":"in","value":"34","min":"","variable":"width"}	2011-01-13 16:32:18.563143	2011-01-13 16:32:18.563143
+276	30+" 35 qty	RangedValue	{"max":"","variable_units":"in","value":"35","min":"30","variable":"width"}	2011-01-13 16:32:18.578775	2011-01-13 16:32:18.578775
+277	0-30" 6 qty	RangedValue	{"max":"30","variable_units":"in","value":"6","min":"","variable":"width"}	2011-01-13 17:00:14.000463	2011-01-13 17:00:14.000463
+278	30+" 8 qty	RangedValue	{"max":"","variable_units":"in","value":"8","min":"30","variable":"width"}	2011-01-13 17:00:14.014602	2011-01-13 17:00:14.014602
+286	0-40" 0 qty	RangedValue	{"max":"40","variable_units":"in","value":"0","min":"","variable":"height"}	2011-01-14 00:05:22.727751	2011-01-14 00:05:22.727751
+287	40+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"40","variable":"height"}	2011-01-14 00:05:22.749188	2011-01-14 00:05:22.749188
+232	Hardware 35%	Margin	{"factor":"0.7065","float":""}	2011-01-13 00:19:29.504793	2011-01-20 15:15:33.010312
+233		Margin	{"factor":"","float":""}	2011-01-13 00:19:29.525505	2011-01-20 15:15:33.014486
+110	Scribe Molding: 1", 428-8 Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 7.65, "price_units": "ft"}	2011-01-02 01:57:59.333215	2011-01-02 01:57:59.333215
+212	27	Margin	{"factor":".27"}	2011-01-12 18:01:16.983544	2011-01-12 18:01:16.983544
+213	28	Margin	{"factor":".28"}	2011-01-12 18:02:30.253861	2011-01-12 18:02:30.253861
+252	0-40" 2 qty	RangedValue	{"max":"40","variable_units":"in","value":"2","min":"","variable":"height"}	2011-01-13 04:34:39.594088	2011-01-13 04:34:39.594088
+253	40+" 4 qty	RangedValue	{"max":"","variable_units":"in","value":"4","min":"40","variable":"height"}	2011-01-13 04:34:39.897328	2011-01-13 04:34:39.897328
+271	0-15" 10 qty	RangedValue	{"max":"15","variable_units":"in","value":"10","min":"","variable":"depth"}	2011-01-13 16:04:59.779192	2011-01-13 16:04:59.779192
+272	15+" 12 qty	RangedValue	{"max":"","variable_units":"in","value":"12","min":"15","variable":"depth"}	2011-01-13 16:04:59.800798	2011-01-13 16:04:59.800798
+288	0-40" 0 qty	RangedValue	{"max":"40","variable_units":"in","value":"0","min":"","variable":"height"}	2011-01-14 00:05:22.749996	2011-01-14 00:05:22.749996
+289	40+" 2 qty	RangedValue	{"max":"","variable_units":"in","value":"2","min":"40","variable":"height"}	2011-01-14 00:05:22.773502	2011-01-14 00:05:22.773502
+304		Margin	{"factor":"","float":""}	2011-01-21 21:47:28.926174	2011-01-21 21:47:28.926174
+302	Hardware 16%	Margin	{"factor":"0.913","float":""}	2011-01-21 21:08:40.88855	2011-01-22 05:43:09.007444
+221	Hardware 30%	Margin	{"factor":"0.76087","float":""}	2011-01-12 19:15:01.496112	2011-01-22 05:50:27.851315
+303	Hardware 40%	Margin	{"factor":"0.654","float":""}	2011-01-21 21:47:28.911045	2011-01-22 05:58:12.060009
+307	Hardware 33%	Margin	{"factor":"0.72825","float":""}	2011-01-21 21:59:26.715414	2011-01-22 06:01:54.28421
+157	Base Molding: 2-1/2", 426-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.344799	2011-01-02 01:58:03.344799
+166	JR7/AMS329/DRS131/KB732/DBQ816/DR8/Filler A/DR1: Cut for Glass,469 Option Surcharge	Surcharge	{"price": 15.00}	2011-01-02 03:40:59.385121	2011-01-02 03:40:59.385121
+169	DRS131/DBQ816/KB732/JR7/DR8/AMS329/DR1: French Lite Door Option Surcharge	Surcharge	{"price": 7.50}	2011-01-02 03:41:00.623873	2011-01-02 03:41:00.623873
+170	Base Molding/Crown Molding/Fluted Molding/Scribe Molding Option Surcharge	Surcharge	{"price": 10.00}	2011-01-02 03:41:00.672279	2011-01-02 03:41:00.672279
+171	DRS131/DR8/Base Molding/Crown Molding/DBQ816/KB732/JR7/Fluted Molding/AMS329/DR1/Scribe Molding: French Lite Door,Slab DF,Routed DF,2-1/2", 426-8,4-1/2", 424-8,Door,Cut for Glass,3-1/2", 431-8,1", 428-8,3-3/4", 423-8 Handling Surcharge	Surcharge	{"price": 0.25}	2011-01-02 03:41:20.548808	2011-01-02 03:41:20.548808
+172	Filler A Handling Surcharge	Surcharge	{"price": 10.00}	2011-01-02 03:41:20.623871	2011-01-02 03:41:20.623871
+175	2:3 Corner Cabinet Side Ratio	ScalingFactor	{"factor":"0.6666667"}	2011-01-02 20:24:08.214946	2011-01-02 20:24:08.214946
+180	11	Height	{"linear_units":"mm","height":"272"}	2011-01-03 23:55:40.569267	2011-01-03 23:55:40.569267
+185	9.5	Height	{"linear_units":"mm","height":"241.3"}	2011-01-04 00:02:54.683687	2011-01-04 00:02:54.683687
+182	2.5	Height	{"linear_units":"mm","height":"63.5"}	2011-01-03 23:58:37.599909	2011-01-04 00:05:07.5447
+183	4.5	Height	{"linear_units":"mm","height":"114.3"}	2011-01-03 23:59:49.581027	2011-01-04 00:05:45.212028
+184	7	Height	{"linear_units":"mm","height":"177.8"}	2011-01-04 00:01:18.763897	2011-01-04 00:07:21.340788
+187	Standard	Surcharge	{"price":".25"}	2011-01-04 00:41:12.72029	2011-01-04 00:41:12.72029
+177	38	Margin	{"factor":".38"}	2011-01-03 03:58:00.414489	2011-01-12 02:28:29.003585
+178	25	Margin	{"factor":".25"}	2011-01-03 04:07:22.596133	2011-01-12 02:28:56.371622
+186	32	Margin	{"factor":".32"}	2011-01-04 00:16:46.715729	2011-01-12 02:29:15.904882
+188	46	Margin	{"factor":".46"}	2011-01-04 04:05:21.30637	2011-01-12 02:31:39.421884
+179	11	Height	{"linear_units":"in","height":"11"}	2011-01-03 23:55:40.425921	2011-01-30 17:58:05.132984
+160	AMS329 White Door Material	Material	{"price":"13.3","thickness":"0","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"mm","dvinci_id":"001"}	2011-01-02 01:58:03.776735	2011-01-02 02:59:19.277074
+254	41.5	Margin	{"factor":".415"}	2011-01-13 05:00:23.931079	2011-01-13 05:00:23.931079
+255	42	Margin	{"factor":".42"}	2011-01-13 05:05:01.914053	2011-01-13 05:05:01.914053
+316	Hingebore	Surcharge	{"price":"3.00","float":""}	2011-02-01 19:11:40.798519	2011-02-01 19:11:40.798519
+317	2	RangedValue	{"max":"36","variable_units":"in","value":"2","min":"10","variable":"height"}	2011-02-02 05:46:50.527764	2011-02-02 05:46:50.527764
+318	3	RangedValue	{"max":"60","variable_units":"in","value":"3","min":"36.125","variable":"height"}	2011-02-02 05:46:50.559242	2011-02-02 05:46:50.559242
+319	4	RangedValue	{"max":"92","variable_units":"in","value":"4","min":"60.125","variable":"height"}	2011-02-02 05:46:50.57086	2011-02-02 05:46:50.57086
+321	BirchPly13	Material	{"price":".014","waste_factor":"","thickness":"13","price_units":"in","color":"","thickness_units":"mm"}	2011-02-02 20:49:02.50733	2011-02-02 20:49:02.50733
+322	75	Margin	{"factor":".75","float":""}	2011-02-02 21:04:26.888513	2011-02-02 21:04:26.888513
+320	Standard	Surcharge	{"price":"3","float":""}	2011-02-02 16:01:37.382011	2011-02-02 22:35:33.521485
+216	Folkstone Gray	Material	{"price":".7053","thickness":".75","waste_factor":".1","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-12 18:33:39.901835	2011-01-12 18:59:07.922847
+323	86.5	Margin	{"factor":".86586","float":""}	2011-02-04 20:40:06.731979	2011-02-04 20:42:26.723189
+105	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Mahogany Impressions Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-MAH-2S","color":"Mahogany Impressions","price_units":"ft","thickness_units":"mm","dvinci_id":"006"}	2011-01-02 01:57:59.204332	2011-01-04 05:10:24.755781
+108	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Folkstone Grey Door Material	Material	{"price":"8.4","waste_factor":"","thickness":"0","cutrite_code":"19-FOL-2S","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm","dvinci_id":"003"}	2011-01-02 01:57:59.265935	2011-01-04 05:10:24.768139
+103	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Sable Glow Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-CHO-2S","color":"Sable Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"007"}	2011-01-02 01:57:59.1791	2011-01-04 05:10:24.779979
+189	Ebony Star	Material	{"price":"2.41","thickness":"29","waste_factor":".03","price_units":"ft","color":"Ebony Star","thickness_units":"mm","dvinci_id":"403"}	2011-01-05 21:29:41.312163	2011-01-05 21:29:41.312163
+3	FOLKSTONE GRAY	Color	{"color":"FOLKSTONE GRAY","dvinci_id":"003"}	2011-01-01 18:53:38.921582	2011-01-11 23:17:31.966216
+4	CARMEL APPLE	Color	{"color":"CARMEL APPLE","dvinci_id":"004"}	2011-01-01 18:53:38.942642	2011-01-11 23:17:31.977053
+55	Chocolate Apple	Material	{"price":".8944","thickness":".75","waste_factor":".1","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-01 19:43:30.273722	2011-01-12 03:33:03.943478
+201	White	Material	{"price":".6109","thickness":".75","waste_factor":".05","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-07 18:04:26.701052	2011-01-12 19:12:05.390237
+234	White	Material	{"price":"0.8350","thickness":"1","waste_factor":".1","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-13 01:26:23.672778	2011-01-13 01:32:38.657933
+203	Windswept Bronze	Material	{"price":".835","thickness":".75","waste_factor":".08","cutrite_code":"19-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-07 18:04:26.734571	2011-01-14 04:32:05.805987
+235	Antique White	Material	{"price":"1.06","thickness":"1","waste_factor":".1","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-13 01:26:23.6968	2011-01-14 20:10:11.984471
+78	DRS131/DR1 Ruston Maple Door Material	Material	{"price":"13.2","thickness":"0","cutrite_code":"19-MAP-2S","color":"Ruston Maple","price_units":"ft","thickness_units":"mm","dvinci_id":"010"}	2011-01-02 01:57:56.767067	2011-01-02 03:01:21.503543
+56	White	Material	{"price":".8350","thickness":"1.000","waste_factor":".08","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 20:32:35.922055	2011-01-13 00:37:17.679156
+237	Antique White	Material	{"price":"1.0934","thickness":"1","waste_factor":".1","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-13 01:26:23.763481	2011-01-13 01:28:14.488083
+79	DRS131/DR1 Sable Glow Door Material	Material	{"price":"13.2","thickness":"0","cutrite_code":"19-CHO-2S","color":"Sable Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"007"}	2011-01-02 01:57:56.874902	2011-01-02 03:01:21.509886
+66	White Edge 19mm	EdgeBand	{"price":".0220","width_units":"mm","cutrite_code":".5x19-WHT","color":"White","price_units":"ft","dvinci_id":"001","width":"19"}	2011-01-01 23:06:31.509474	2011-01-01 23:13:34.833589
+67	WS Bronze Edge 19mm	EdgeBand	{"price":".0580","width_units":"mm","cutrite_code":".5x19-BRO","color":"Windswept Bronze","price_units":"ft","dvinci_id":"008","width":"19"}	2011-01-01 23:13:34.837934	2011-01-02 00:03:23.43071
+68	WS Pewter Edge 19mm	EdgeBand	{"price":".0830","width_units":"mm","cutrite_code":".5x19-PEW","color":"Windswept Pewter","price_units":"ft","dvinci_id":"009","width":"19"}	2011-01-01 23:13:34.854001	2011-01-02 00:03:23.443211
+69	HR Maple Edge 19mm	EdgeBand	{"price":".0410","width_units":"mm","cutrite_code":".5x19-MAP","color":"Hardrock Maple","price_units":"ft","dvinci_id":"010","width":"19"}	2011-01-01 23:13:34.868691	2011-01-02 00:03:23.457877
+70	Ant White Edge 19mm	EdgeBand	{"price":".0420","width_units":"mm","cutrite_code":".5x19-ANT","color":"Antique White","price_units":"ft","dvinci_id":"002","width":"19"}	2011-01-01 23:13:34.882769	2011-01-02 00:03:23.46244
+30	Laminate 4887 Tan Soapstone	Color	{"color":"Laminate 4887 Tan Soapstone","dvinci_id":"315"}	2011-01-01 18:54:13.714368	2011-01-01 18:54:13.763876
+31	Laminate 7921 Tuscan Walnut	Color	{"color":"Laminate 7921 Tuscan Walnut","dvinci_id":"316"}	2011-01-01 18:54:13.824507	2011-01-01 18:54:13.876669
+32	Laminate 7942 Cocobala	Color	{"color":"Laminate 7942 Cocobala","dvinci_id":"317"}	2011-01-01 18:54:13.985847	2011-01-01 18:54:14.006245
+34	Laminate 10776 Kingstone Maple	Color	{"color":"Laminate 10776 Kingstone Maple","dvinci_id":"319"}	2011-01-01 18:54:14.62576	2011-01-01 18:54:14.789209
+35	Laminate D92 Dove Grey	Color	{"color":"Laminate D92 Dove Grey","dvinci_id":"320"}	2011-01-01 18:54:15.122372	2011-01-01 18:54:15.306135
+36	Laminate D403 White Sand	Color	{"color":"Laminate D403 White Sand","dvinci_id":"321"}	2011-01-01 18:54:15.451936	2011-01-01 18:54:15.586638
+37	WHITE	Color	{"color":"WHITE","dvinci_id":"901"}	2011-01-01 18:54:27.734909	2011-01-01 18:54:27.756203
+38	ANTIQUE WHITE	Color	{"color":"ANTIQUE WHITE","dvinci_id":"902"}	2011-01-01 18:54:28.600979	2011-01-01 18:54:28.64322
+39	FOLKSTONE GRAY	Color	{"color":"FOLKSTONE GRAY","dvinci_id":"903"}	2011-01-01 18:54:29.180127	2011-01-01 18:54:29.409012
+40	CARMEL APPLE	Color	{"color":"CARMEL APPLE","dvinci_id":"904"}	2011-01-01 18:54:29.848025	2011-01-01 18:54:30.037354
+41	WILD APPLE	Color	{"color":"WILD APPLE","dvinci_id":"905"}	2011-01-01 18:54:30.533534	2011-01-01 18:54:30.547805
+42	MAHOGANY IMPRESSIONS	Color	{"color":"MAHOGANY IMPRESSIONS","dvinci_id":"906"}	2011-01-01 18:54:31.002918	2011-01-01 18:54:31.047899
+43	CHOCOLATE APPLE	Color	{"color":"CHOCOLATE APPLE","dvinci_id":"907"}	2011-01-01 18:54:31.467425	2011-01-01 18:54:31.485711
+44	HARDROCK MAPLE	Color	{"color":"HARDROCK MAPLE","dvinci_id":"910"}	2011-01-01 18:54:31.968845	2011-01-01 18:54:31.996223
+45	WINDSWEPT PEWTER	Color	{"color":"WINDSWEPT PEWTER","dvinci_id":"909"}	2011-01-01 18:54:32.472925	2011-01-01 18:54:32.486334
+46	WINDSWEPT BRONZE	Color	{"color":"WINDSWEPT BRONZE","dvinci_id":"908"}	2011-01-01 18:54:32.953556	2011-01-01 18:54:33.049523
+58	Windswept Pewter	Material	{"price":".9538","waste_factor":".15","thickness":".25","cutrite_code":"19-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-01 20:39:20.296068	2011-01-02 17:23:47.921032
+60	White	Material	{"price":".3453","waste_factor":".1","thickness":".25","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 20:39:20.338942	2011-01-02 17:23:47.963921
+61	Antique White	Material	{"price":".4313","waste_factor":".15","thickness":".25","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-01 20:39:20.351948	2011-01-02 17:23:47.983571
+59	Hardrock Maple	Material	{"price":".4100","waste_factor":".1","thickness":".25","cutrite_code":"19-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-01 20:39:20.325647	2011-01-04 03:40:54.443388
+71	Folk Gray Edge 19mm	EdgeBand	{"price":".0420","width_units":"mm","cutrite_code":".5x19-GRY","color":"Folkstone Gray","price_units":"ft","dvinci_id":"003","width":"19"}	2011-01-01 23:13:34.896653	2011-01-02 00:03:23.466643
+2	ANTIQUE WHITE	Color	{"color":"ANTIQUE WHITE","dvinci_id":"002"}	2011-01-01 18:53:38.899741	2011-01-11 23:17:31.95688
+6	MAHOGANY IMPRESSIONS	Color	{"color":"MAHOGANY IMPRESSIONS","dvinci_id":"006"}	2011-01-01 18:53:38.985069	2011-01-11 23:17:32.063143
+11	HARDROCK MAPLE	Color	{"color":"HARDROCK MAPLE","dvinci_id":"010"}	2011-01-01 18:53:57.262055	2011-01-11 23:17:32.080827
+47	Windswept Bronze	Material	{"price":"1.000","thickness":".75","waste_factor":".1","cutrite_code":"19-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 19:43:30.167045	2011-01-12 03:33:03.948768
+48	Windswept Pewter	Material	{"price":"1.0300","thickness":".75","waste_factor":".1","cutrite_code":"19-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-01 19:43:30.187892	2011-01-12 03:33:03.952841
+49	Hardrock Maple	Material	{"price":".7834","thickness":".75","waste_factor":".08","cutrite_code":"19-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-01 19:43:30.20049	2011-01-12 03:33:03.956848
+54	Wild Apple	Material	{"price":".8944","thickness":".75","waste_factor":".1","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-01 19:43:30.261504	2011-01-12 03:33:03.97764
+236	White	Material	{"price":"0.8350","thickness":"1","waste_factor":".1","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-13 01:26:23.740628	2011-01-13 01:28:14.492695
+50	White	Material	{"price":".6109","thickness":".75","waste_factor":".08","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 19:43:30.212786	2011-01-13 21:40:02.733203
+72	Carmel Apple Edge 19mm	EdgeBand	{"price":".0640","width_units":"mm","cutrite_code":".5x19-DES","color":"Carmel Apple","price_units":"ft","dvinci_id":"004","width":"19"}	2011-01-01 23:13:34.910417	2011-01-02 00:03:23.47424
+73	Wild Apple Edge 19mm	EdgeBand	{"price":".0450","width_units":"mm","cutrite_code":".5x19-AUT","color":"Wild Apple","price_units":"ft","dvinci_id":"005","width":"19"}	2011-01-01 23:13:34.924418	2011-01-02 00:03:23.484146
+74	Choc Apple Edge 19mm	EdgeBand	{"price":".0450","width_units":"mm","cutrite_code":".5x19-SAB","color":"Chocolate Apple","price_units":"ft","dvinci_id":"007","width":"19"}	2011-01-01 23:13:34.938432	2011-01-02 00:03:23.487934
+80	DRS131/DR1 White Door Material	Material	{"price":"10.6","thickness":"0","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"mm","dvinci_id":"001"}	2011-01-02 01:57:56.968172	2011-01-02 03:01:21.513984
+81	DRS131/DR1 Mahogany Impressions Door Material	Material	{"price":"13.2","thickness":"0","cutrite_code":"19-MAH-2S","color":"Mahogany Impressions","price_units":"ft","thickness_units":"mm","dvinci_id":"006"}	2011-01-02 01:57:57.169508	2011-01-02 03:01:21.518095
+82	DRS131/DR1 Autumn Glow Door Material	Material	{"price":"13.2","thickness":"0","cutrite_code":"19-WIL-2S","color":"Autumn Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:57:57.185669	2011-01-02 03:01:21.5225
+83	DRS131/DR1 Desert Glow Door Material	Material	{"price":"13.2","thickness":"0","cutrite_code":"19-CAR-2S","color":"Desert Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:57:57.347637	2011-01-02 03:01:21.52661
+84	DRS131/DR1 Folkstone Grey Door Material	Material	{"price":"12.0","thickness":"0","cutrite_code":"19-FOL-2S","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm","dvinci_id":"003"}	2011-01-02 01:57:57.498395	2011-01-02 03:01:21.530366
+85	DRS131/DR1 Antique White Door Material	Material	{"price":"12.0","thickness":"0","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"mm","dvinci_id":"002"}	2011-01-02 01:57:57.667965	2011-01-02 03:01:21.534068
+62	Folkstone Gray	Material	{"price":".4866","waste_factor":".15","thickness":".25","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-01 20:39:20.423457	2011-01-02 17:23:47.990084
+63	Carmel Apple	Material	{"price":".4466","waste_factor":".15","thickness":".25","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 20:39:20.437403	2011-01-02 17:23:47.994297
+64	Wild Apple	Material	{"price":".4466","waste_factor":".15","thickness":".25","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-01 20:39:20.45073	2011-01-02 17:23:47.99831
+65	Chocolate Apple	Material	{"price":".4466","waste_factor":".15","thickness":".25","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-01 20:39:20.494798	2011-01-02 17:23:48.002446
+106	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Autumn Glow Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-WIL-2S","color":"Autumn Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:57:59.226407	2011-01-04 05:10:24.760353
+107	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Desert Glow Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-CAR-2S","color":"Desert Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:57:59.246316	2011-01-04 05:10:24.76435
+102	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Ruston Maple Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-MAP-2S","color":"Ruston Maple","price_units":"ft","thickness_units":"mm","dvinci_id":"010"}	2011-01-02 01:57:59.165751	2011-01-04 05:10:24.776055
+104	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF White Door Material	Material	{"price":"7.6","waste_factor":"","thickness":"0","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"mm","dvinci_id":"001"}	2011-01-02 01:57:59.192076	2011-01-04 05:10:24.783992
+52	Folkstone Gray	Material	{"price":".7053","thickness":".75","waste_factor":".08","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-01 19:43:30.237124	2011-01-12 03:33:03.969341
+94	DR8/DBQ816/KB732 Ruston Maple Door Material	Material	{"price":"8.15","thickness":"0","cutrite_code":"19-MAP-2S","color":"Ruston Maple","price_units":"ft","thickness_units":"mm","dvinci_id":"010"}	2011-01-02 01:57:59.02372	2011-01-02 03:02:51.944025
+95	DR8/DBQ816/KB732 Sable Glow Door Material	Material	{"price":"8.15","thickness":"0","cutrite_code":"19-CHO-2S","color":"Sable Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"007"}	2011-01-02 01:57:59.043058	2011-01-02 03:02:52.013895
+100	DR8/DBQ816/KB732 Folkstone Grey Door Material	Material	{"price":"6.65","thickness":"0","cutrite_code":"19-FOL-2S","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm","dvinci_id":"003"}	2011-01-02 01:57:59.106002	2011-01-02 03:02:52.044127
+96	DR8/DBQ816/KB732 White Door Material	Material	{"price":"6.0","thickness":"0","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"mm","dvinci_id":"001"}	2011-01-02 01:57:59.055659	2011-01-02 03:02:52.070732
+101	DR8/DBQ816/KB732 Antique White Door Material	Material	{"price":"6.65","thickness":"0","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"mm","dvinci_id":"002"}	2011-01-02 01:57:59.118327	2011-01-02 03:02:52.134123
+97	DR8/DBQ816/KB732 Mahogany Impressions Door Material	Material	{"price":"8.15","thickness":"0","cutrite_code":"19-MAH-2S","color":"Mahogany Impressions","price_units":"ft","thickness_units":"mm","dvinci_id":"006"}	2011-01-02 01:57:59.068377	2011-01-02 03:02:52.145201
+98	DR8/DBQ816/KB732 Autumn Glow Door Material	Material	{"price":"8.15","thickness":"0","cutrite_code":"19-WIL-2S","color":"Autumn Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:57:59.081279	2011-01-02 03:02:52.15324
+109	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Antique White Door Material	Material	{"price":"8.4","waste_factor":"","thickness":"0","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"mm","dvinci_id":"002"}	2011-01-02 01:57:59.294033	2011-01-04 05:10:24.772069
+1	WHITE	Color	{"color":"WHITE","dvinci_id":"001"}	2011-01-01 18:53:38.869436	2011-01-11 23:17:31.947428
+8	Polished Chrome	Color	{"color":"Polished Chrome","dvinci_id":"100"}	2011-01-01 18:53:51.005597	2011-01-01 18:53:51.047561
+9	Matte Nickel	Color	{"color":"Matte Nickel","dvinci_id":"200"}	2011-01-01 18:53:51.134188	2011-01-01 18:53:51.20192
+10	Oil Rubbed Bronze	Color	{"color":"Oil Rubbed Bronze","dvinci_id":"300"}	2011-01-01 18:53:51.25903	2011-01-01 18:53:51.279624
+14	POWDER COAT RED	Color	{"color":"POWDER COAT RED","dvinci_id":"011"}	2011-01-01 18:54:06.999487	2011-01-01 19:45:43.964086
+15	POWDER COAT GRANITE	Color	{"color":"POWDER COAT GRANITE","dvinci_id":"012"}	2011-01-01 18:54:07.199988	2011-01-01 19:45:44.003822
+240	Wild Apple	Material	{"price":"1.13","thickness":"1","waste_factor":".1","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-13 02:52:08.231369	2011-01-14 20:10:11.961291
+16	Laminate 1573 Frosty White	Color	{"color":"Laminate 1573 Frosty White","dvinci_id":"301"}	2011-01-01 18:54:11.824512	2011-01-01 18:54:11.847407
+17	Laminate 1595 Black	Color	{"color":"Laminate 1595 Black","dvinci_id":"302"}	2011-01-01 18:54:11.894853	2011-01-01 18:54:11.932143
+18	Laminate 4552 Ebony Star	Color	{"color":"Laminate 4552 Ebony Star","dvinci_id":"303"}	2011-01-01 18:54:11.958614	2011-01-01 18:54:11.976511
+19	Laminate 4781 Sunstone	Color	{"color":"Laminate 4781 Sunstone","dvinci_id":"304"}	2011-01-01 18:54:12.086803	2011-01-01 18:54:12.137005
+20	Laminate 4789 Limestone	Color	{"color":"Laminate 4789 Limestone","dvinci_id":"305"}	2011-01-01 18:54:12.164497	2011-01-01 18:54:12.206244
+21	Laminate 4790 Greystone	Color	{"color":"Laminate 4790 Greystone","dvinci_id":"306"}	2011-01-01 18:54:12.335465	2011-01-01 18:54:12.416697
+22	Laminate 4791 Willowstone	Color	{"color":"Laminate 4791 Willowstone","dvinci_id":"307"}	2011-01-01 18:54:12.434278	2011-01-01 18:54:12.449309
+23	Laminate 4794 Windswept Bronze	Color	{"color":"Laminate 4794 Windswept Bronze","dvinci_id":"308"}	2011-01-01 18:54:12.495119	2011-01-01 18:54:12.67363
+24	Laminate 4795 Windswept Pewter	Color	{"color":"Laminate 4795 Windswept Pewter","dvinci_id":"309"}	2011-01-01 18:54:12.832563	2011-01-01 18:54:12.88897
+25	Laminate 4882 Oiled Soapstone	Color	{"color":"Laminate 4882 Oiled Soapstone","dvinci_id":"310"}	2011-01-01 18:54:12.915153	2011-01-01 18:54:12.932999
+26	Laminate 4883 Sable Soapstone	Color	{"color":"Laminate 4883 Sable Soapstone","dvinci_id":"311"}	2011-01-01 18:54:12.965078	2011-01-01 18:54:13.022269
+27	Laminate 4884 Flame Soapstone	Color	{"color":"Laminate 4884 Flame Soapstone","dvinci_id":"312"}	2011-01-01 18:54:13.164689	2011-01-01 18:54:13.21624
+28	Laminate 4885 Green Soapstone	Color	{"color":"Laminate 4885 Green Soapstone","dvinci_id":"313"}	2011-01-01 18:54:13.355059	2011-01-01 18:54:13.466738
+29	Laminate 4886 Pearl Soapstone	Color	{"color":"Laminate 4886 Pearl Soapstone","dvinci_id":"314"}	2011-01-01 18:54:13.614368	2011-01-01 18:54:13.675325
+5	WILD APPLE	Color	{"color":"WILD APPLE","dvinci_id":"005"}	2011-01-01 18:53:38.964206	2011-01-11 23:17:32.052081
+7	CHOCOLATE APPLE	Color	{"color":"CHOCOLATE APPLE","dvinci_id":"007"}	2011-01-01 18:53:39.005412	2011-01-11 23:17:32.072177
+12	WINDSWEPT PEWTER	Color	{"color":"WINDSWEPT PEWTER","dvinci_id":"009"}	2011-01-01 18:53:57.440814	2011-01-11 23:17:32.090432
+13	WINDSWEPT BRONZE	Color	{"color":"WINDSWEPT BRONZE","dvinci_id":"008"}	2011-01-01 18:53:57.549276	2011-01-11 23:17:32.098877
+222	WS Bronze Edge 25mm	EdgeBand	{"price":"0.1186","width_units":"mm","cutrite_code":".5x25-BRO","price_units":"ft","color":"Windswept Bronze","dvinci_id":"008","width":"25"}	2011-01-12 19:40:28.334653	2011-01-12 19:40:28.334653
+223	WS Pewter Edge 25mm	EdgeBand	{"price":"0.1180","width_units":"mm","cutrite_code":".5x25-PEW","price_units":"ft","color":"Windswept Pewter","dvinci_id":"009","width":"25"}	2011-01-12 19:40:28.358856	2011-01-12 19:40:28.358856
+224	HR Maple Edge 25mm	EdgeBand	{"price":"0.0897","width_units":"mm","cutrite_code":".5x25-MAP","price_units":"ft","color":"Hardrock Maple","dvinci_id":"010","width":"25"}	2011-01-12 19:40:28.373546	2011-01-12 19:40:28.373546
+225	Ant White Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-ANT","price_units":"ft","color":"Antique White","dvinci_id":"002","width":"25"}	2011-01-12 19:40:28.388062	2011-01-12 19:40:28.388062
+226	Folk Gray Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-GRY","price_units":"ft","color":"Folkstone Gray","dvinci_id":"003","width":"25"}	2011-01-12 19:40:28.403451	2011-01-12 19:40:28.403451
+227	Carmel Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-DES","price_units":"ft","color":"Carmel Apple","dvinci_id":"004","width":"25"}	2011-01-12 19:40:28.419187	2011-01-12 19:40:28.419187
+228	Wild Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-AUT","price_units":"ft","color":"Wild Apple","dvinci_id":"005","width":"25"}	2011-01-12 19:40:28.434545	2011-01-12 19:40:28.434545
+229	Choc Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-SAB","price_units":"ft","color":"Chocolate Apple","dvinci_id":"007","width":"25"}	2011-01-12 19:40:28.462357	2011-01-12 19:40:28.462357
+33	Laminate 7948 Mambo	Color	{"color":"Laminate 7948 Mambo","dvinci_id":"318"}	2011-01-01 18:54:14.30295	2011-01-01 18:54:14.447964
+238	Folkstone Gray	Material	{"price":"0.9640","thickness":"1","waste_factor":".1","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-13 01:32:38.610749	2011-01-13 02:52:08.312546
+242	Windswept Bronze	Material	{"price":"1.10","thickness":"1","waste_factor":".1","cutrite_code":"19-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-13 02:52:08.265909	2011-01-14 20:12:02.615157
+241	Chocolate Apple	Material	{"price":"1.13","thickness":"1","waste_factor":".1","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-13 02:52:08.250763	2011-01-14 20:10:11.965674
+239	Carmel Apple	Material	{"price":"1.13","thickness":"1","waste_factor":".1","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-13 01:32:38.639668	2011-01-14 20:12:02.604601
+243	Windswept Pewter	Material	{"price":"1.13","thickness":"1","waste_factor":".1","cutrite_code":"19-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-13 02:52:08.282131	2011-01-14 20:12:02.619572
+244	Hardrock Maple	Material	{"price":"1.02","thickness":"1","waste_factor":".1","cutrite_code":"19-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-13 02:52:08.29689	2011-01-14 20:12:02.624668
+51	Antique White	Material	{"price":".8000","thickness":".75","waste_factor":".08","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-01 19:43:30.224966	2011-01-12 03:33:03.964899
+53	Carmel Apple	Material	{"price":".8944","thickness":".75","waste_factor":".1","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 19:43:30.249309	2011-01-12 03:33:03.973579
+211	White	Material	{"price":".3453","thickness":".25","waste_factor":".1","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-12 17:51:38.749889	2011-01-12 17:54:16.727233
+294	White	Color	{"color":"White","dvinci_id":"901"}	2011-01-21 01:24:54.832872	2011-01-21 01:24:54.853223
+295	Antique White	Color	{"color":"Antique White","dvinci_id":"902"}	2011-01-21 01:24:54.861631	2011-01-21 01:24:54.874675
+296	Carmel Apple	Color	{"color":"Carmel Apple","dvinci_id":"904"}	2011-01-21 01:24:54.88253	2011-01-21 01:24:54.895555
+297	Wild Apple	Color	{"color":"Wild Apple","dvinci_id":"905"}	2011-01-21 01:24:54.903379	2011-01-21 01:24:54.916233
+298	Chocolate Apple	Color	{"color":"Chocolate Apple","dvinci_id":"907"}	2011-01-21 01:24:54.923959	2011-01-21 01:24:54.937759
+299	Hardrock Maple	Color	{"color":"Hardrock Maple","dvinci_id":"910"}	2011-01-21 01:24:54.94582	2011-01-21 01:24:54.958887
+300	Windswept Pewter	Color	{"color":"Windswept Pewter","dvinci_id":"909"}	2011-01-21 01:24:54.966728	2011-01-21 01:24:54.979198
+301	Windswept Bronze	Color	{"color":"Windswept Bronze","dvinci_id":"908"}	2011-01-21 01:24:54.986447	2011-01-21 01:24:54.998772
+198	PB19	Material	{"price":".44","thickness":".75","waste_factor":".03","cutrite_code":"19-RAW-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"000"}	2011-01-06 15:18:17.157484	2011-01-22 06:10:22.2943
+161	AMS329 Mahogany Impressions Door Material	Material	{"price":"15.95","thickness":"0","cutrite_code":"19-MAH-2S","color":"Mahogany Impressions","price_units":"ft","thickness_units":"mm","dvinci_id":"006"}	2011-01-02 01:58:03.81454	2011-01-02 02:59:19.281859
+162	AMS329 Autumn Glow Door Material	Material	{"price":"15.95","thickness":"0","cutrite_code":"19-WIL-2S","color":"Autumn Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:58:03.827819	2011-01-02 02:59:19.285953
+163	AMS329 Desert Glow Door Material	Material	{"price":"15.95","thickness":"0","cutrite_code":"19-CAR-2S","color":"Desert Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:58:03.845947	2011-01-02 02:59:19.289945
+164	AMS329 Folkstone Grey Door Material	Material	{"price":"14.1","thickness":"0","cutrite_code":"19-FOL-2S","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm","dvinci_id":"003"}	2011-01-02 01:58:03.85805	2011-01-02 02:59:19.314598
+165	AMS329 Antique White Door Material	Material	{"price":"14.1","thickness":"0","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"mm","dvinci_id":"002"}	2011-01-02 01:58:03.870263	2011-01-02 02:59:19.318725
+158	AMS329 Ruston Maple Door Material	Material	{"price":"15.95","thickness":"0","cutrite_code":"19-MAP-2S","color":"Ruston Maple","price_units":"ft","thickness_units":"mm","dvinci_id":"010"}	2011-01-02 01:58:03.593594	2011-01-02 02:59:19.322789
+159	AMS329 Sable Glow Door Material	Material	{"price":"15.95","thickness":"0","cutrite_code":"19-CHO-2S","color":"Sable Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"007"}	2011-01-02 01:58:03.713967	2011-01-02 02:59:19.326736
+99	DR8/DBQ816/KB732 Desert Glow Door Material	Material	{"price":"8.15","thickness":"0","cutrite_code":"19-CAR-2S","color":"Desert Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:57:59.093828	2011-01-02 03:02:51.914847
+57	Windswept Bronze	Material	{"price":".9194","waste_factor":".15","thickness":".25","cutrite_code":"19-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 20:39:20.274224	2011-01-02 17:23:47.824237
+202	Hardrock Maple	Material	{"price":".7206","thickness":".75","waste_factor":".08","cutrite_code":"19-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-07 18:04:26.721687	2011-01-12 19:12:05.394465
+173	White	EdgeBand	{"price":".05","width_units":"mm","cutrite_code":".5x25-WHT","color":"White","price_units":"ft","dvinci_id":"001","width":"25"}	2011-01-02 16:38:58.687043	2011-01-12 19:18:32.055155
+215	Wild Apple	Material	{"price":".8944","thickness":".75","waste_factor":".1","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-12 18:33:39.885205	2011-01-12 18:59:07.918056
+149	JR7 Antique White Door Material	Material	{"price":"10.45","waste_factor":"","thickness":"0","cutrite_code":"19-ANT-2S","price_units":"ft","color":"Antique White","thickness_units":"mm","dvinci_id":"002"}	2011-01-02 01:58:02.879111	2011-02-04 20:15:35.732178
+142	JR7 Ruston Maple Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-MAP-2S","price_units":"ft","color":"Ruston Maple","thickness_units":"mm","dvinci_id":"010"}	2011-01-02 01:58:02.543165	2011-02-04 20:15:35.73723
+143	JR7 Sable Glow Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-CHO-2S","price_units":"ft","color":"Sable Glow","thickness_units":"mm","dvinci_id":"007"}	2011-01-02 01:58:02.596498	2011-02-04 20:15:35.740986
+146	JR7 Autumn Glow Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-WIL-2S","price_units":"ft","color":"Autumn Glow","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:58:02.807216	2011-02-04 20:15:35.751648
+147	JR7 Desert Glow Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-CAR-2S","price_units":"ft","color":"Desert Glow","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:58:02.853236	2011-02-04 20:15:35.755243
+148	JR7 Folkstone Grey Door Material	Material	{"price":"10.45","waste_factor":"","thickness":"0","cutrite_code":"19-FOL-2S","price_units":"ft","color":"Folkstone Grey","thickness_units":"mm","dvinci_id":"003"}	2011-01-02 01:58:02.86636	2011-02-04 20:15:35.758945
+144	JR7 White Door Material	Material	{"price":"9.65","waste_factor":"","thickness":"0","cutrite_code":"19-WHT-2S","price_units":"ft","color":"White","thickness_units":"mm","dvinci_id":"001"}	2011-01-02 01:58:02.697866	2011-02-04 20:38:41.844339
+217	Antique White	Material	{"price":".8000","thickness":".75","waste_factor":".1","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-12 18:33:39.919074	2011-01-12 18:59:07.927068
+218	Carmel Apple	Material	{"price":".8944","thickness":".75","waste_factor":".1","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-12 18:33:39.935701	2011-01-12 18:59:07.931501
+214	Chocolate Apple	Material	{"price":".8944","thickness":".75","waste_factor":".1","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-12 18:33:39.861336	2011-01-12 18:59:07.94214
+204	Windswept Pewter	Material	{"price":".865","thickness":".75","waste_factor":".08","cutrite_code":"19-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-07 18:04:26.747598	2011-01-12 19:12:05.373496
+174	White Edge 25mm	EdgeBand	{"price":".05","width_units":"mm","cutrite_code":".5x25-WHT","color":"White","price_units":"ft","dvinci_id":"001","width":"25"}	2011-01-02 16:38:59.016062	2011-01-12 19:40:28.478699
+181	White	Material	{"price":".01375","waste_factor":"0","thickness":".5","price_units":"in","color":"White","thickness_units":"in","dvinci_id":"051"}	2011-01-03 23:57:34.312045	2011-02-02 18:44:56.050344
+145	JR7 Mahogany Impressions Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-MAH-2S","price_units":"ft","color":"Mahogany Impressions","thickness_units":"mm","dvinci_id":"006"}	2011-01-02 01:58:02.723188	2011-02-04 20:15:35.747966
 \.
 
 
@@ -4160,6 +4160,7 @@ COPY roles (id, name) FROM stdin;
 1	admin
 2	franchisee
 3	product_admin
+4	customer_service
 \.
 
 
@@ -4178,6 +4179,9 @@ COPY schema_migrations (version) FROM stdin;
 20110124035919
 20110126052224
 20110127165319
+20110127190139
+20110130192256
+20110131002855
 \.
 
 
@@ -4613,6 +4617,14 @@ ALTER TABLE ONLY jobs
 
 ALTER TABLE ONLY jobs
     ADD CONSTRAINT jobs_placed_by_id_fkey FOREIGN KEY (placed_by_id) REFERENCES users(id);
+
+
+--
+-- Name: jobs_primary_contact_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: pg_orders
+--
+
+ALTER TABLE ONLY jobs
+    ADD CONSTRAINT jobs_primary_contact_id_fkey FOREIGN KEY (primary_contact_id) REFERENCES users(id);
 
 
 --
