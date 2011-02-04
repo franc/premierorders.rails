@@ -23,6 +23,26 @@ module Option
     value.nil? ? None::NONE : (value.strip.empty? ? None::NONE : Some.new(value))
   end
 
+  def any?(&f)
+    cata(f, false)
+  end
+
+  def bind(&f)
+    cata(f, None::NONE)
+  end
+
+  def contains?(v)
+    cata(lambda {|a| v eql? a}, false)
+  end
+
+  def empty?
+    cata(lambda {|a| false}, true)
+  end
+
+  def inject(v, &block)
+    cata(lambda {|a| block.call(v, a)}, v)
+  end
+
   def map(&f)
     cata(lambda {|a| Some.new(f.call(a))}, None::NONE)
   end
@@ -31,22 +51,6 @@ module Option
   # function result in equivalent behavior to calling bind(_ => None::NONE)
   def mapn(&f)
     cata(lambda {|a| Option.new(f.call(a))}, None::NONE)
-  end
-
-  def bind(&f)
-    cata(f, None::NONE)
-  end
-
-  def empty?
-    cata(lambda {|a| false}, true)
-  end
-
-  def any?(&f)
-    cata(f, false)
-  end
-
-  def contains?(v)
-    cata(lambda {|a| v eql? a}, false)
   end
 
   def to_a

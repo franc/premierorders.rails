@@ -1,23 +1,33 @@
 class AssemblyHardwareItem
-  def initialize(job_item, item_hardware)
-    @job_item = job_item
-    @item_hardware = item_hardware
+  attr_reader :item, :quantity
+
+  def initialize(item)
+    @item = item
+    @quantity = 0.0
+    @total_price = 0.0
+  end
+
+  def add_hardware(job_item, assoc)
+    @quantity += job_item.dimension_eval(assoc.qty_expr(:in, color.orSome(nil)))
+
+    assoc.cost_expr(:in, color.orSome(nil), []).each do |expr| 
+      @total_price += job_item.dimension_eval(expr)
+    end
+
+    self
   end
 
   def tracking_id
     ''
   end
 
-  def item
-    @item_hardware.component
-  end
-
   def item_name
-    item.name
+    @item.name
   end
 
   def color
-    @job_item.color.bind{|c| Option.new(item.color_opts.find{|o| o.color == c})}
+    #@job_item.color.bind{|c| Option.new(item.color_opts.find{|o| o.color == c})}
+    Option.none
   end
 
   def width
@@ -34,13 +44,9 @@ class AssemblyHardwareItem
     Option.none
   end
 
-  def quantity
-    @job_item.dimension_eval(@item_hardware.qty_expr(:in, color.orSome(nil)))
-  end
-
   def compute_unit_price
-    @item_hardware.unit_cost_expr(:in, color.orSome(nil), []).map do |expr| 
-      @job_item.dimension_eval(expr)
+    Option.iif(@quantity > 0) do
+      @total_price / @quantity
     end
   end
 
@@ -51,9 +57,7 @@ class AssemblyHardwareItem
   end
 
   def compute_total
-    @item_hardware.cost_expr(:in, color.orSome(nil), []).map do |expr| 
-      @job_item.dimension_eval(expr)
-    end
+    Option.some(@total_price)
   end
 
   def comment
