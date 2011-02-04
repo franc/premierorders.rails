@@ -244,7 +244,7 @@ class Job < ActiveRecord::Base
     end
 
     component_inventory_hardware.inject(order_items_total) do |total, hardware_item|
-      total - hardware_item.compute_total.orSome(0.0)
+      total + hardware_item.compute_total.orSome(0.0)
     end
   end
 
