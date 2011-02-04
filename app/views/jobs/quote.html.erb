@@ -87,13 +87,13 @@
   </dl>
 
   <dl class="items">
-    <dt>Items</dt>
+    <dt>Items ($<%= "%0.2f" % @job.non_inventory_items_total %>)</dt>
     <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !i.inventory?}} %></dd>
   </dl>
 
   <p>THE FOLLOWING INVENTORY ITEMS ARE REQUIRED BUT NOT INCLUDED WITH THIS ORDER:</p>
   <dl class="inventory_items">
-    <dt>Inventory Items</dt>
+    <dt>Inventory Items ($<%= "%0.2f" % @job.inventory_items_total %>)</dt>
     <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.inventory_items} %></dd>
   </dl>
 

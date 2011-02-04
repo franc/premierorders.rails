@@ -238,18 +238,24 @@ class Job < ActiveRecord::Base
     job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
   end
 
-  def total 
-    base_total = job_items.inject(0.0) do |total, job_item|
-      if job_item.inventory?
-        total
-      else
-        total += job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
-      end
+  def inventory_items_total
+    order_items_total = job_items.inject(0.0) do |total, job_item|
+      job_item.inventory? ? total + job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) : total
     end
 
-    component_inventory_hardware.inject(base_total) do |total, hardware_item|
+    component_inventory_hardware.inject(order_items_total) do |total, hardware_item|
       total - hardware_item.compute_total.orSome(0.0)
     end
+  end
+
+  def non_inventory_items_total
+    job_items.inject(0.0) do |total, job_item|
+      job_item.inventory? ? total : total + job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
+    end
+  end
+
+  def total 
+    non_inventory_items_total
   end
 
   def component_inventory_hardware
