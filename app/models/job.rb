@@ -156,7 +156,7 @@ class Job < ActiveRecord::Base
         product_code_matchdata = dvinci_product_id.match(/(\d{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
         if product_code_matchdata
           color_code = product_code_matchdata.captures[3]
-          logger.info("Searching for color #{} in #{i.color_opts.inspect}")
+          logger.info("Searching for color #{color_code} in #{i.color_opts.inspect}")
           Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == color_code}).each do |opt|
             job_item.job_item_properties.create(
               :family => Property::Color::DESCRIPTOR.family,

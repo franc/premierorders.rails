@@ -35,7 +35,9 @@ module ItemMaterials
 
   def color_options(descriptor = material_descriptor)
     opts = Option.new(properties.find_by_descriptor(descriptor)).map do |p| 
-      p.property_values.inject([]) {|m, v| m << ColorOption.new(v.dvinci_id, v.color)}
+      p.property_values.select{|v| !v.dvinci_id.nil?}.inject([]) do |m, v| 
+        m << ColorOption.new(v.dvinci_id, v.color)
+      end
     end
     
     opts.orSome([])
