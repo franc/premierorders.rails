@@ -24,7 +24,7 @@
       <td class="property_values">
         <ul>
           <% prop.property.property_values.each do |opt| %>
-            <li><%= opt.name %> (<%= opt.dvinci_id %>)</dt>
+            <li><%= opt.name %> <%= opt.respond_to?(:dvinci_id) ? "(#{opt.dvinci_id})" : '' %></dt>
           <% end %>
         </ul>
       </td>
