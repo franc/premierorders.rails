@@ -23,7 +23,7 @@
     <th>Special Instructions</th>
     <% if can? :manage, Job %>
       <th>Credit Status</th>
-      <th colspan="4">Actions</th>
+      <th colspan="5">Actions</th>
     <% else %>
       <th colspan="2">Actions</th>
     <% end %>
@@ -46,15 +46,19 @@
         <td><%= job.ship_method %></td>
       <% end %>
       <td><%= job.comment %></td>
+
       <% if can? :manage, job %>
         <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
         <td><%= link_to 'Manage', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
         <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
-        <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
       <% else %>
         <td><%= link_to 'Manage', job %></td>
         <td><%= link_to 'Edit', edit_job_path(job) %></td>
+      <% end %>
+
+      <% if can? :destroy, job %>
+        <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
   <% end %>
