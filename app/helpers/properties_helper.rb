@@ -8,7 +8,6 @@ module PropertiesHelper
     property_json[:values].values.each do |v|
       property.property_values.create(
         :name => v[:name],
-        :dvinci_id => v[:dvinci_id],
         :module_names => descriptor.module_names,
         :value_str => JSON.generate(v[:fields])
       )
@@ -47,7 +46,7 @@ module PropertiesHelper
       :property_name => p.name,
       :property_family => p.family,
       :property_values => p.property_values.map do |v| 
-        {:value_name => v.name, :dvinci_id => (v.dvinci_id || ''), :fields => JSON.parse(v.value_str)}
+        {:value_name => v.name, :fields => JSON.parse(v.value_str)}
       end
     }
   end
