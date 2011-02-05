@@ -63,5 +63,5 @@
 <%= will_paginate @jobs unless @jobs.empty? %>
 
 <% content_for :local_nav do %>
-  <%= link_to 'New Job', new_job_path %>
+  <%= link_to "New #{Job.model_name.human}", new_job_path %>
 <% end %>
