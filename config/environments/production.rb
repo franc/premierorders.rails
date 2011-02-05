@@ -36,6 +36,21 @@ PgRails::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  #config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "mail.premiergarage.com",
+    :port                 => 587,
+    :domain               => 'premiergarage.com',
+    :user_name            => 'customerservice',
+    :password             => 'Premier1617',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  
+  }
+
+  config.action_mailer.default_url_options = { :host => "tl.premierorders.net" }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable threaded mode
   # config.threadsafe!

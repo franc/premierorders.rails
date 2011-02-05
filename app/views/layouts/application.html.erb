@@ -20,10 +20,10 @@
   <div id="nav">
     <ul>
       <% if user_signed_in? %>
-        <li><%= link_to "Jobs", jobs_path %></li>
+        <li><%= link_to "Orders", jobs_path %></li>
 
         <% if can? :read, Item %>
-          <li><%= link_to "Franchisees", franchisees_path %></li>
+          <li><%= link_to "Customers", franchisees_path %></li>
           <li><%= link_to "Items", items_path %></li>
         <% end %>
 
