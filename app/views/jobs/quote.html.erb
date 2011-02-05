@@ -38,48 +38,48 @@
 
   <div id="header-rightcol">
     <dl class="job_number">
-      <dt>Job Number</dt>
+      <dt><%= label :job, :job_number %></dt>
       <dd><%= @job.job_number -%></dd>
     </dl>
 
     <dl class="job_name">
-      <dt>Job Name</dt>
+      <dt><%= label :job, :name %></dt>
       <dd><%= @job.name -%></dd>
     </dl>
 
     <dl class="mfg_plant">
-      <dt>MFG Plant</dt>
+      <dt><%= label :job, :mfg_plant %></dt>
       <dd><%= @job.mfg_plant -%></dd>
     </dl>
 
     <dl class="due_date">
-      <dt>Due Date</dt>
+      <dt><%= label :job, :due_date %></dt>
       <dd><%= @job.due_date %></dd>
     </dl>
 
     <dl class="ship_date">
-      <dt>Ship Date</dt>
+      <dt><%= label :job, :ship_date %></dt>
       <dd><%= @job.ship_date %></dd>
     </dl>
 
     <dl class="ship_method">
-      <dt>Ship Via</dt>
+      <dt><%= label :job, :ship_method %></dt>
       <dd><%= @job.ship_method %></dd>
     </dl>
 
     <dl class="tracking_number">
-      <dt>Tracking #</dt>
+      <dt><%= label :job, :tracking_number %></dt>
       <dd><%= @job.tracking_number %></dd>
     </dl>
   </div>
 
   <dl class="special_instructions">
-    <dt>Special Instructions</dt>
+    <dt><%= label :job, :comment %></dt>
     <dd><%= @job.comment -%></dd>
   </dl>
 
   <dl class="job_total">
-    <dt>Total Price</dt>
+    <dt><%= label :job, :total %></dt>
     <dd>
       <%= "$%.2f" % @job.total -%><br/>
       <% if @job.placement_date.nil? %><%= button_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>

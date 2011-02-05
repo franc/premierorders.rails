@@ -11,13 +11,13 @@
 
 <dl class="form_fields">
   <div id="header-leftcol">
-    <dt>Job Number</dt>
+    <dt><%= label :job, :job_number %></dt>
     <dd><%= @job.job_number -%></dd>
 
-    <dt>Job Name</dt>
+    <dt><%= label :job, :name %></dt>
     <dd><%= @job.name -%></dd>
 
-    <dt>Status</dt>
+    <dt><%= label :job, :status %></dt>
     <dd>
       <% if can? :manage, @job %>
         <%= select_tag("job[#{@job.id}][status]", options_for_select(Job::STATUS_OPTIONS.map{|v|[v,v]}, @job.status), :class => 'job_status') -%>
@@ -26,16 +26,16 @@
       <% end %>
     </dd>
 
-    <dt>Franchisee</dt>
+    <dt><%= label :job, :franchisee %></dt>
     <dd><%= @job.franchisee.franchise_name -%> (Credit status: <span style="color: <%= @job.franchisee.credit_status -%>"><%= @job.franchisee.credit_status -%></span>) </dd>
 
-    <dt>Shipping Address</dt>
+    <dt><%= label :job, :ship_to %></dt>
     <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
 
-    <dt>Special Instructions</dt>
+    <dt><%= label :job, :comment %></dt>
     <dd><%= @job.comment -%></dd>
 
-    <dt>Job Total</dt>
+    <dt><%= label :job, :total %></dt>
     <dd>
       <%= "$%.2f" % @job.total -%><br/>
       <% if @job.placement_date.nil? %><%= button_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
@@ -44,21 +44,23 @@
   </div>
 
   <div id="header-rightcol">
-    <dt>Creation Date</dt>
+    <dt><%= label :job, :created_at %></dt>
     <dd><%= @job.created_at %></dd>
 
-    <dt>Placement Date</dt>
+    <dt><%= label :job, :placement_date %></dt>
     <dd><%= @job.placement_date %></dd>
-    <dt>Due Date</dt>
+    
+    <dt><%= label :job, :due_date %></dt>
     <% if can? :manage, @job %>
       <dd><span class="job_date" id="job[<%=@job.id%>][due_date]"><%= @job.due_date %></span></dd>
     <% else %>
       <dd><%= @job.due_date %></dd>
     <% end %>
 
-    <dt>MFG Plant</dt>
+    <dt><%= label :job, :mfg_plant %></dt>
     <dd><%= @job.mfg_plant -%></dd>
-    <dt>Ship Method</dt>
+
+    <dt><%= label :job, :ship_method %></dt>
     <dd>
       <% if can? :manage, @job %>
         <%= select_tag("job[#{@job.id}][ship_method]", options_for_select(Job::SHIPMENT_OPTIONS.map{|v|[v,v]}, @job.ship_method), :class => 'job_ship_method') -%>
@@ -66,14 +68,15 @@
         <%= @job.ship_method %>
       <% end %>
     </dd>
-    <dt>Ship Date</dt>
+
+    <dt><%= label :job, :ship_date %></dt>
     <% if can? :manage, @job %>
       <dd><span class="job_date" id="job[<%=@job.id%>][ship_date]"><%= @job.ship_date %></span></dd>
     <% else %>
       <dd><%= @job.ship_date %></dd>
     <% end %>
 
-    <dt>Tracking Number</dt>
+    <dt><%= label :job, :tracking_number %></dt>
     <dd><%= @job.tracking_number -%></dd>
   </div>
 
@@ -82,12 +85,12 @@
 </dl>
 
 <% content_for :local_nav do %>
-  <%= link_to 'Edit', edit_job_path(@job) %> |
-  <%= link_to 'Quote', quote_job_path(@job) %> |
+  <%= link_to t(:edit), edit_job_path(@job) %> |
+  <%= link_to t(:quote), quote_job_path(@job) %> |
   <% if can? :manage, @job %>
-    <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
+    <%= link_to t(:cutrite), cutrite_job_path(@job) %> |
   <% end %>
-  <%= link_to 'List', jobs_path %>
+  <%= link_to t(:list), jobs_path %>
 <% end %>
 
 <% content_for :head do %>

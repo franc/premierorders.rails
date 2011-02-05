@@ -26,6 +26,7 @@ gem 'capistrano'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "cancan"
 gem "will_paginate"
+gem 'i18n_label'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to
