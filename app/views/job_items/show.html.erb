@@ -24,7 +24,7 @@
     <dd><%= @job_item.ingest_id %></dd>
     <% if can? :manage, Job %>
       <dt><%= label :job_item, :purchase_part_id %></dt>
-      <dd><%= job_item.item ? job_item.item.purchase_part_id : nil %></dd>
+      <dd><%= @job_item.item ? @job_item.item.purchase_part_id : nil %></dd>
     <% end %>
     <dt><%= label :job_item, :color %></dt>
     <dd><%= @job_item.color.orSome('(not found)') %></dd>

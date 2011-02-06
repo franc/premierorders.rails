@@ -1,3 +1,6 @@
+require 'util/option'
+require 'util/either'
+
 class AssemblyHardwareItem
   attr_reader :item, :quantity
 
@@ -50,18 +53,18 @@ class AssemblyHardwareItem
 
   def compute_unit_price
     Option.iif(@quantity > 0) do
-      @total_price / @quantity
+      Either.right(@total_price / @quantity)
     end
   end
 
   def unit_price
     # This is wrong, but it requires rework of the display to correct it. So this is a hack
     # to allow continued reuse of jobs/_items_table.html.erb
-    compute_unit_price.orSome(0.0)
+    compute_unit_price.bind{|e| e.right.toOption}.orSome(0.0)
   end
 
   def compute_total
-    Option.some(@total_price)
+    Option.some(Either.right(@total_price))
   end
 
   def comment
