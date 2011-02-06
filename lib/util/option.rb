@@ -65,16 +65,16 @@ module Option
     cata(Functions::IDENTITY, default)
   end
 
-  def orLazy(&f)
-    cata(Functions::IDENTITY, f.call)
-  end
-
   def orElse(opt)
     cata(lambda{|a| self}, opt)
   end
 
-  def orElseLazy(&f)
-    cata(lambda{|a| self}, f.call)
+  def toLeft(right)
+    cata(lambda{|a| Either.left(a)}, Either.right(right))
+  end
+
+  def toRight(left)
+    cata(lambda{|a| Either.right(a)}, Either.left(left))
   end
 
   alias_method :each, :map
@@ -90,6 +90,14 @@ class Some
 
   def cata(f, default)
     f.call(@value)
+  end
+
+  def orLazy(&f)
+    @value
+  end
+
+  def orElseLazy(&f)
+    self
   end
 
   def inspect
@@ -108,6 +116,14 @@ class None
 
   def cata(f, default)
     default
+  end
+
+  def orLazy(&f)
+    f.call
+  end
+
+  def orElseLazy(&f)
+    f.call
   end
 
   def inspect
