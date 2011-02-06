@@ -16,6 +16,10 @@ module Either
   def left 
     LeftProjection.new(self)
   end
+
+  def value
+    cata(Function::IDENTITY, Function::IDENTITY)
+  end
 end
 
 class Left 
