@@ -353,6 +353,7 @@ class Property < ActiveRecord::Base
         [:thickness_units , Properties::LinearConversions::UNITS],
         [:price , :float],
         [:price_units , Properties::SquareConversions::UNITS],
+        [:weight , :float],
         [:waste_factor , :float]
       ]
     end
