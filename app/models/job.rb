@@ -266,12 +266,8 @@ class Job < ActiveRecord::Base
     end
 
     aggregated = job_items.inject({}) do |m, job_item|
-      Option.new(job_item.item).inject(m) do |mm, item| 
-        item.query(hardware_query, []).inject(mm) do |mmm, item_hardware| 
-          mmm[item_hardware.component] ||= AssemblyHardwareItem.new(item_hardware.component)
-          mmm[item_hardware.component].add_hardware(job_item, item_hardware)
-          mmm
-        end
+      m.merge(job_item.inventory_hardware) do |h1, h2|
+        h1 + h2
       end
     end
 

@@ -2,12 +2,12 @@ require 'util/option'
 require 'util/either'
 
 class AssemblyHardwareItem
-  attr_reader :item, :quantity, :weight, :install_cost
+  attr_reader :item, :quantity, :weight, :install_cost, :total_price
 
-  def initialize(item)
+  def initialize(item, quantity = 0.0, total_price = 0.0)
     @item = item
-    @quantity = 0.0
-    @total_price = 0.0
+    @quantity = quantity
+    @total_price = total_price
   end
 
   def add_hardware(job_item, assoc)
@@ -22,6 +22,11 @@ class AssemblyHardwareItem
     end
 
     self
+  end
+
+  def +(other)
+    raise "Item mismatch: #{@item} is not equal to #{other.item}" unless @item == other.item
+    AssemblyHardwareItem.new(@item, @quantity + other.quantity, @total_price + other.total_price)
   end
 
   def tracking_id

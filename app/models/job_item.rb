@@ -48,9 +48,25 @@ class JobItem < ActiveRecord::Base
   def compute_unit_price
     Option.new(item).bind do |i|
       begin
-        i.rebated_cost_expr(:in, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+        base_price = i.rebated_cost_expr(:in, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+        hardware_cost = inventory_hardware.values.inject(0.0) {|total, i| total + i.total_price}
+        base_price.map{|b| b.right.map{|v| v - hardware_cost}}
       rescue
         Option.some(Either.left($!.message))
+      end
+    end
+  end
+
+  def inventory_hardware
+    hardware_query = HardwareQuery.new do |i|
+      i.purchasing == 'Inventory'
+    end
+
+    Option.new(item).inject({}) do |mm, i| 
+      i.query(hardware_query, []).inject(mm) do |mmm, item_hardware| 
+        mmm[item_hardware.component] ||= AssemblyHardwareItem.new(item_hardware.component)
+        mmm[item_hardware.component].add_hardware(self, item_hardware)
+        mmm
       end
     end
   end
