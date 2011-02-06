@@ -12,7 +12,6 @@
     <th>Depth</th>
     <th>Weight</th>
     <th>Unit Price</th>
-    <th>Installation Cost</th>
     <th>Total</th>
     <th>Special Instructions</th>
     <th>Actions</th>
@@ -38,7 +37,6 @@
         <%= "$%.2f" % job_item.compute_unit_price.bind{|p| p.right.toOption}.orSome(job_item.unit_price) %>
         <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
-      <td><%= job_item.install_cost.map{|e| e.cata(Functions.const("(error)"), lambda{|c| "$%.2f" % c})}.orSome("(none)") %></td>
       <td><%= "$%.2f" % job_item.compute_total.bind{|p| p.right.toOption}.orSome(job_item.unit_price * job_item.quantity) %></td>
       <td><%= job_item.comment %></td>
       <td><%= link_to JobItem.model_name.human, job_item_path(job_item) %></td>

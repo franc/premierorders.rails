@@ -44,8 +44,6 @@
           ) %>
       <%= unit_price_mismatch(@job_item).map{|m| "($%.2f)" % @job_item.unit_price}.orSome('') %>
     </dd>
-    <dt><%= label :job_item, :install_cost %></dt>
-    <dd><%= @job_item.install_cost.map{|e| e.cata(Functions::IDENTITY, lambda{|p| "%0.3f" % p})}.orSome("(not found)") %></dd>
     <dt><%= label :job_item, :special_instructions %></dt>
     <dd><%= @job_item.comment %></dd>
     <dt><%= label :job_item, :properties %></dt>
