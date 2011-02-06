@@ -55,6 +55,26 @@ class JobItem < ActiveRecord::Base
     end
   end
 
+  def weight
+    Option.new(item).bind do |i|
+      begin
+        i.weight_expr(:in, []).map {|expr| dimension_eval(expr)}
+      rescue
+        Option.some(Either.left($!.message))
+      end
+    end
+  end
+
+  def install_cost
+    Option.new(item).bind do |i|
+      begin
+        i.install_cost_expr(:in, []).map {|expr| dimension_eval(expr)}
+      rescue
+        Option.some(Either.left($!.message))
+      end
+    end
+  end
+
   def dimension_eval(expr)
     w = width.orSome(nil)
     h = height.orSome(nil)

@@ -2,7 +2,7 @@ require 'util/option'
 require 'util/either'
 
 class AssemblyHardwareItem
-  attr_reader :item, :quantity
+  attr_reader :item, :quantity, :weight, :install_cost
 
   def initialize(item)
     @item = item
@@ -11,7 +11,7 @@ class AssemblyHardwareItem
   end
 
   def add_hardware(job_item, assoc)
-    job_item.dimension_eval(assoc.qty_expr(:in, color.orSome(nil))).right.each do |qty|
+    job_item.dimension_eval(assoc.qty_expr(:in)).right.each do |qty|
       @quantity += qty
     end
 
@@ -65,6 +65,18 @@ class AssemblyHardwareItem
 
   def compute_total
     Option.some(Either.right(@total_price))
+  end
+
+  def weight
+    Option.new(item.weight).map do |w|
+      Either.right(w * @quantity)
+    end
+  end
+
+  def install_cost
+    Option.new(item.install_cost).map do |w|
+      Either.right(w * @quantity)
+    end
   end
 
   def comment

@@ -30,7 +30,7 @@ class ItemHardware < ItemComponent
     properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
   end
 
-  def qty_expr(units, color)
+  def qty_expr(units)
     if h_qty(units).empty? && w_qty(units).empty? && d_qty(units).empty? && r_qtys.empty?
       term(quantity)
     else
@@ -50,6 +50,6 @@ class ItemHardware < ItemComponent
   end
 
   def cost_expr(units, color, contexts)
-    unit_cost_expr(units, color, contexts).map{|e| mult(qty_expr(units, color), e)}
+    unit_cost_expr(units, color, contexts).map{|e| mult(qty_expr(units), e)}
   end
 end

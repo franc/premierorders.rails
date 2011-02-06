@@ -45,8 +45,6 @@
           <dl class="property_value">
             <dt>Value Name:</dt>
             <dd><%= text_field_tag "property_value[#{v.id}][name]", v.name, {:class => 'property_value_field'} %></dd>
-            <dt>D'Vinci ID:</dt>
-            <dd><%= text_field_tag "property_value[#{v.id}][dvinci_id]", v.dvinci_id, {:class => 'property_value_field'} %></dd>
             <% v.field_values.each do |name, details| %>
               <dt><%= name.to_s.titlecase %>:</dt>
               <dd><%= property_value_field_tag("property_value[#{v.id}][fields][#{name}]", details[:type], details[:value]) %></dd>

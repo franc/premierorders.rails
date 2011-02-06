@@ -3,7 +3,8 @@ require 'csv'
 require 'json'
 require 'item.rb'
 require 'property.rb'
-require 'util/option.rb'
+require 'util/option'
+require 'monoid'
 
 class Job < ActiveRecord::Base
   belongs_to :franchisee, :include => :users
@@ -317,20 +318,9 @@ class Job < ActiveRecord::Base
   end
 end
 
-class UniquenessMonoid
-  def zero
-    Option.none()
-  end
-
-  def append(o1, o2)
-    raise "Found conflicting values: #{o1.inspect} vs #{o2.inspect}" if o1.any?{|v1| o2.any?{|v2| v1 != v2}}
-    o1.orElse(o2)    
-  end
-end
-
 class ColorQuery < ItemQuery
   def initialize(property_family, dvinci_color_code, &value_test)
-    super(UniquenessMonoid.new)
+    super(Monoid::UNIQ)
     @property_family = property_family
     @dvinci_color_code = dvinci_color_code
     @value_test = value_test

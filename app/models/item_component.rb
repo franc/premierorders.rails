@@ -57,6 +57,10 @@ class ItemComponent < ActiveRecord::Base
   def query(item_query, contexts)
     item_query.traverse_item_component(self, contexts)
   end
+
+  def qty_expr(units, color)
+    term(quantity)
+  end
 end
 
 require 'items/shell_components.rb'
