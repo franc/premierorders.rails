@@ -240,17 +240,17 @@ class Job < ActiveRecord::Base
 
   def inventory_items_total
     order_items_total = job_items.inject(0.0) do |total, job_item|
-      job_item.inventory? ? total + job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) : total
+      job_item.inventory? ? total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity) : total
     end
 
     component_inventory_hardware.inject(order_items_total) do |total, hardware_item|
-      total + hardware_item.compute_total.orSome(0.0)
+      total + hardware_item.compute_total.bind{|t| t.right.toOption}.orSome(0.0)
     end
   end
 
   def non_inventory_items_total
     job_items.inject(0.0) do |total, job_item|
-      job_item.inventory? ? total : total + job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
+      job_item.inventory? ? total : total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity)
     end
   end
 

@@ -8,10 +8,14 @@ class AssemblyHardwareItem
   end
 
   def add_hardware(job_item, assoc)
-    @quantity += job_item.dimension_eval(assoc.qty_expr(:in, color.orSome(nil)))
+    job_item.dimension_eval(assoc.qty_expr(:in, color.orSome(nil))).right.each do |qty|
+      @quantity += qty
+    end
 
     assoc.cost_expr(:in, color.orSome(nil), []).each do |expr| 
-      @total_price += job_item.dimension_eval(expr)
+      job_item.dimension_eval(expr).right.each do |price|
+        @total_price += price
+      end
     end
 
     self

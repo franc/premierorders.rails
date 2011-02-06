@@ -1,4 +1,8 @@
+require 'util/functions'
+
 module Option
+  include Enumerable
+
   def self.new(value)
     value.nil? ? None::NONE : Some.new(value)
   end
@@ -57,6 +61,22 @@ module Option
     cata(lambda {|a| [a]}, [])
   end
 
+  def orSome(default)
+    cata(Functions::IDENTITY, default)
+  end
+
+  def orLazy(&f)
+    cata(Functions::IDENTITY, f.call)
+  end
+
+  def orElse(opt)
+    cata(lambda{|a| self}, opt)
+  end
+
+  def orElseLazy(&f)
+    cata(lambda{|a| self}, opt.call)
+  end
+
   alias_method :each, :map
 end
 
@@ -70,22 +90,6 @@ class Some
 
   def cata(f, default)
     f.call(@value)
-  end
-
-  def orSome(default)
-    @value
-  end
-
-  def orLazy(&f)
-    @value
-  end
-
-  def orElse(opt)
-    self
-  end
-
-  def orElseLazy(&f)
-    self
   end
 
   def inspect
@@ -104,22 +108,6 @@ class None
 
   def cata(f, default)
     default
-  end
-
-  def orSome(default)
-    default
-  end
-
-  def orLazy(&f)
-    f.call
-  end
-
-  def orElse(opt)
-    opt
-  end
-
-  def orElseLazy(&f)
-    f.call
   end
 
   def inspect
