@@ -74,7 +74,7 @@ module Option
   end
 
   def orElseLazy(&f)
-    cata(lambda{|a| self}, opt.call)
+    cata(lambda{|a| self}, f.call)
   end
 
   alias_method :each, :map
