@@ -82,6 +82,8 @@
       <dd><%= f.text_field :website %></dd>
       <dt><%= f.label :credit_status %></dt>
       <dd><%= f.select(:credit_status, [["Green", "Green"], ["Yellow", "Yellow"], ["Red", "Red"]]) %></dd>
+      <dt><%= f.label :notes %></dt>
+      <dd><%= f.text_area :notes %></dd>
       <dt><%= f.label :addresses %> <span id="create_franchisee_address">(+)</span></dt>
       <dd><%= render :partial => 'addresses', :locals => {:mode => :edit} %></dd>
     </dl>
