@@ -1,4 +1,6 @@
 PgRails::Application.routes.draw do
+  resources :job_items
+
   resources :franchisee_addresses
 
   devise_for :users

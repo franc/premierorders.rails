@@ -28,6 +28,10 @@
       <% end %>
       <dt><%= f.label :special_instructions %></dt>
       <dd><%= f.text_area :comment %></dd>
+      <% if can? :manage, Job %>
+        <dt><%= f.label :notes %></dt>
+        <dd><%= f.text_area :notes %></dd>
+      <% end %>
     </dl>
   </div>
 

@@ -10,14 +10,21 @@
     <th>Width</th>
     <th>Height</th>
     <th>Depth</th>
+    <th>Weight</th>
     <th>Unit Price</th>
+    <th>Installation Cost</th>
     <th>Total</th>
     <th>Special Instructions</th>
+    <th>Actions</th>
   </tr>
   <% job_items.each_with_index do |job_item, i| %>
     <tr class="<%=unit_price_class(job_item)%>">
       <td><%= job_item.tracking_id %></td>
-      <td><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
+      <% if job_item.item && can?(:read, job_item.item) %>
+        <td><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
+      <% else %>
+        <td><%= job_item.item_name %></td>
+      <% end %>
       <% if can? :manage, Job %>
         <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
       <% end %>
@@ -26,12 +33,15 @@
       <td><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
       <td><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
       <td><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
+      <td><%= job_item.weight.map{|e| e.cata(Functions.const("(error)"), lambda{|w| "%.3f" % w})}.orSome("(none)") %></td>
       <td>
-        <%= "$%.2f" % job_item.compute_unit_price.orSome(job_item.unit_price) %>
+        <%= "$%.2f" % job_item.compute_unit_price.bind{|p| p.right.toOption}.orSome(job_item.unit_price) %>
         <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
-      <td><%= "$%.2f" % job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) %></td>
+      <td><%= job_item.install_cost.map{|e| e.cata(Functions.const("(error)"), lambda{|c| "$%.2f" % c})}.orSome("(none)") %></td>
+      <td><%= "$%.2f" % job_item.compute_total.bind{|p| p.right.toOption}.orSome(job_item.unit_price * job_item.quantity) %></td>
       <td><%= job_item.comment %></td>
+      <td><%= link_to JobItem.model_name.human, job_item_path(job_item) %></td>
     </tr>
   <% end %>
 </table>

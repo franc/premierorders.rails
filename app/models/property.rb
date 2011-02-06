@@ -310,7 +310,7 @@ class Property < ActiveRecord::Base
   module IntegerProperty
     include Properties::JSONProperty
     def self.value_structure
-      [:value , :int]
+      [[:value , :int]]
     end
 
     def value
@@ -321,7 +321,7 @@ class Property < ActiveRecord::Base
   module Margin
     include Properties::JSONProperty
     def self.value_structure
-      [:factor , :float]
+      [[:factor , :float]]
     end
 
     def factor
@@ -332,7 +332,7 @@ class Property < ActiveRecord::Base
   module Surcharge
     include Properties::JSONProperty
     def self.value_structure
-      [:price , :float]
+      [[:price , :float]]
     end
 
     def price
@@ -464,7 +464,7 @@ class Property < ActiveRecord::Base
     DESCRIPTOR = PropertyDescriptor.new(:linear_units, [], [LinearUnits])
 
     def self.value_structure
-      [:linear_units , Properties::LinearConversions::UNITS]
+      [[:linear_units , Properties::LinearConversions::UNITS]]
     end
 
     def units

@@ -35,6 +35,11 @@
     <dt><%= label :job, :comment %></dt>
     <dd><%= @job.comment -%></dd>
 
+    <% if can? :manage, Job %>
+      <dt><%= label :job, :notes %></dt>
+      <dd><%= @job.notes -%></dd>
+    <% end %>
+
     <dt><%= label :job, :total %></dt>
     <dd>
       <%= "$%.2f" % @job.total -%><br/>

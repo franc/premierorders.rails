@@ -1,5 +1,8 @@
+require 'util/option'
+require 'util/either'
+
 class AssemblyHardwareItem
-  attr_reader :item, :quantity
+  attr_reader :item, :quantity, :weight, :install_cost
 
   def initialize(item)
     @item = item
@@ -8,10 +11,14 @@ class AssemblyHardwareItem
   end
 
   def add_hardware(job_item, assoc)
-    @quantity += job_item.dimension_eval(assoc.qty_expr(:in, color.orSome(nil)))
+    job_item.dimension_eval(assoc.qty_expr(:in)).right.each do |qty|
+      @quantity += qty
+    end
 
     assoc.cost_expr(:in, color.orSome(nil), []).each do |expr| 
-      @total_price += job_item.dimension_eval(expr)
+      job_item.dimension_eval(expr).right.each do |price|
+        @total_price += price
+      end
     end
 
     self
@@ -46,18 +53,30 @@ class AssemblyHardwareItem
 
   def compute_unit_price
     Option.iif(@quantity > 0) do
-      @total_price / @quantity
+      Either.right(@total_price / @quantity)
     end
   end
 
   def unit_price
     # This is wrong, but it requires rework of the display to correct it. So this is a hack
     # to allow continued reuse of jobs/_items_table.html.erb
-    compute_unit_price.orSome(0.0)
+    compute_unit_price.bind{|e| e.right.toOption}.orSome(0.0)
   end
 
   def compute_total
-    Option.some(@total_price)
+    Option.some(Either.right(@total_price))
+  end
+
+  def weight
+    Option.new(item.weight).map do |w|
+      Either.right(w * @quantity)
+    end
+  end
+
+  def install_cost
+    Option.new(item.install_cost).map do |w|
+      Either.right(w * @quantity)
+    end
   end
 
   def comment

@@ -1,6 +1,8 @@
 require 'property.rb'
 require 'util/option'
-require 'lib/expressions.rb'
+require 'expressions'
+require 'monoid'
+require 'semigroup'
 
 class Item < ActiveRecord::Base
   include Expressions, Items::Margins, Items::Surcharges
@@ -191,6 +193,14 @@ class Item < ActiveRecord::Base
     item_query.traverse_item(self, contexts)
   end
 
+  def weight_expr(units, contexts)
+    query(PropertySum.new(units){|item| item.weight}, contexts)
+  end
+
+  def install_cost_expr(units, contexts)
+    query(PropertySum.new(units){|item| item.install_cost}, contexts)
+  end
+
   def next_item
     Item.find_by_sql(['SELECT * FROM items where name in (select min(name) from items where name > ?)', self.name])
   end
@@ -200,24 +210,33 @@ class Item < ActiveRecord::Base
   end
 end
 
-class ListMonoid
-  def zero
-    []
-  end
-
-  def append(o1, o2)
-    o1 + o2
-  end
-end
-
 class HardwareQuery < ItemQuery
   def initialize(&item_test)
-    super(ListMonoid.new)
+    super(Monoid::ARRAY_APPEND)
     @item_test = item_test
   end
 
-  def query_item_component(assoc)
-    assoc.kind_of?(ItemHardware) && (@item_test.nil? || @item_test.call(assoc.component)) ? [assoc] : []
+  def query_item_component(assoc, contexts)
+    hardware = assoc.kind_of?(ItemHardware) && (@item_test.nil? || @item_test.call(assoc.component)) ? [assoc] : []
+    super(assoc, contexts) + hardware
+  end
+end
+
+class PropertySum < ItemQuery
+  include Expressions
+
+  def initialize(units, &prop)
+    super(Monoid::OptionM.new(Semigroup::SUM))
+    @prop = prop
+    @units = units
+  end
+
+  def query_item(item)
+    Option.new(@prop.call(item)).map{|w| term(w)}
+  end
+
+  def query_item_component(assoc, contexts)
+    assoc.component.query(self, contexts).map{|expr| assoc.qty_expr(@units) * expr}
   end
 end
 

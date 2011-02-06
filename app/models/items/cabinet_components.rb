@@ -30,12 +30,15 @@ class CabinetShelf < ItemComponent
     properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
   end
 
+  def qty_expr(units)
+    r_qtys.empty? ? term(quantity) : sum(*r_qtys.map{|v| v.expr(units)})
+  end
+
   def cost_expr(units, color, contexts)
     component.cost_expr(units, color, contexts, W, D).map do |component_cost|
       edge_cost = edgeband_cost_expr({:front => W}, units, color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      qty_expr = r_qtys.empty? ? term(quantity) : sum(*r_qtys.map{|v| v.expr(units)})
-      apply_margin(mult(qty_expr, subtotal))
+      apply_margin(mult(qty_expr(units), subtotal))
     end
   end
 end

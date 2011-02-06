@@ -1,5 +1,25 @@
 module Expressions
-  class Sum
+  class Expr
+    include Expressions
+
+    def +(other)
+      sum(self, other)
+    end
+
+    def -(other)
+      sub(self, other)
+    end
+
+    def *(other)
+      mult(self, other)
+    end
+
+    def /(other)
+      div(self, other)
+    end
+  end
+
+  class Sum < Expr
     attr_reader :exprs
 
     def initialize(*exprs)
@@ -26,7 +46,7 @@ module Expressions
     alias_method :==, :eql?
   end
 
-  class Mult
+  class Mult < Expr
     def initialize(*exprs)
       @exprs = exprs
     end  
@@ -51,7 +71,7 @@ module Expressions
     alias_method :==, :eql?
   end
 
-  class Div
+  class Div < Expr
     attr_reader :numerator, :denominator
     def initialize(numerator, denominator)
       @numerator = numerator
@@ -77,7 +97,7 @@ module Expressions
     alias_method :==, :eql?
   end
 
-  class Sub
+  class Sub < Expr
     attr_reader :minuend, :subtrahend
     def initialize(minuend, subtrahend)
       @minuend = minuend
@@ -103,7 +123,7 @@ module Expressions
     alias_method :==, :eql?
   end
 
-  class Term
+  class Term < Expr
     attr_reader :value
     def initialize(value)
       @value = value
@@ -128,7 +148,7 @@ module Expressions
     alias_method :==, :eql?
   end
 
-  class Ranged
+  class Ranged < Expr
     include Expressions
     attr_reader :var, :min, :max, :result
     def initialize(var, min, max, result)

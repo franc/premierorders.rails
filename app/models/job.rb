@@ -1,8 +1,10 @@
 require 'rexml/document'
 require 'csv'
 require 'json'
+require 'item.rb'
 require 'property.rb'
-require 'util/option.rb'
+require 'util/option'
+require 'monoid'
 
 class Job < ActiveRecord::Base
   belongs_to :franchisee, :include => :users
@@ -240,17 +242,17 @@ class Job < ActiveRecord::Base
 
   def inventory_items_total
     order_items_total = job_items.inject(0.0) do |total, job_item|
-      job_item.inventory? ? total + job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) : total
+      job_item.inventory? ? total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity) : total
     end
 
     component_inventory_hardware.inject(order_items_total) do |total, hardware_item|
-      total + hardware_item.compute_total.orSome(0.0)
+      total + hardware_item.compute_total.bind{|t| t.right.toOption}.orSome(0.0)
     end
   end
 
   def non_inventory_items_total
     job_items.inject(0.0) do |total, job_item|
-      job_item.inventory? ? total : total + job_item.compute_total.orSome(job_item.unit_price * job_item.quantity)
+      job_item.inventory? ? total : total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity)
     end
   end
 
@@ -316,20 +318,9 @@ class Job < ActiveRecord::Base
   end
 end
 
-class UniquenessMonoid
-  def zero
-    Option.none()
-  end
-
-  def append(o1, o2)
-    raise "Found conflicting values: #{o1.inspect} vs #{o2.inspect}" if o1.any?{|v1| o2.any?{|v2| v1 != v2}}
-    o1.orElse(o2)    
-  end
-end
-
 class ColorQuery < ItemQuery
   def initialize(property_family, dvinci_color_code, &value_test)
-    super(UniquenessMonoid.new)
+    super(Monoid::UNIQ)
     @property_family = property_family
     @dvinci_color_code = dvinci_color_code
     @value_test = value_test

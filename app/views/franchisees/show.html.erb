@@ -26,7 +26,8 @@
     <dd><%= @franchisee.website %></dd>
     <dt><%= label :franchisee, :credit_status %></dt>
     <dd><span style="color: <%= @franchisee.credit_status.try(:downcase) %>"><%= @franchisee.credit_status %></span></dd>
-
+    <dt><%= label :franchisee, :notes %></dt>
+    <dd><%= @franchisee.notes %></dd>
     <dt><%= label :franchisee, :addresses %></dt>
     <dd><%= render :partial => 'addresses', :locals => {:mode => :show} %></dd>
   </dl>

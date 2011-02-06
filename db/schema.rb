@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110131002855) do
+ActiveRecord::Schema.define(:version => 20110206042757) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20110131002855) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "credit_status",      :limit => 32
+    t.text     "notes"
   end
 
   create_table "item_component_properties", :force => true do |t|
@@ -105,6 +106,8 @@ ActiveRecord::Schema.define(:version => 20110131002855) do
     t.string   "type"
     t.float    "base_price"
     t.string   "vendor"
+    t.float    "weight"
+    t.float    "install_cost"
   end
 
   create_table "job_item_properties", :force => true do |t|
@@ -172,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20110131002855) do
     t.string   "tracking_number"
     t.string   "ship_method"
     t.integer  "primary_contact_id"
+    t.text     "notes"
   end
 
   create_table "properties", :force => true do |t|
