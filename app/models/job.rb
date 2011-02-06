@@ -3,6 +3,7 @@ require 'csv'
 require 'json'
 require 'property.rb'
 require 'util/option.rb'
+require 'models/item.rb'
 
 class Job < ActiveRecord::Base
   belongs_to :franchisee, :include => :users
