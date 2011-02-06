@@ -1,7 +1,7 @@
 module JobsHelper
   def unit_price_mismatch(job_item)
     job_item.compute_unit_price.bind do |computed_price|
-      computed_price.right.toOption.map do |success|
+      computed_price.right.toOption.bind do |success|
         difference = (success - job_item.unit_price).to_f
         Option.iif(difference.abs / success.to_f > 0.005) { difference }
       end
