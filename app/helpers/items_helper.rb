@@ -36,11 +36,11 @@ module ItemsHelper
 
   def next_item_path(item)
     items = item.previous_item
-    items.empty? ? item : item_path(items[0])
+    items.empty? ? item_path(item) : item_path(items[0])
   end
 
   def previous_item_path(item)
     items = item.next_item
-    items.empty? ? item : item_path(items[0])
+    items.empty? ? item_path(item) : item_path(items[0])
   end
 end
