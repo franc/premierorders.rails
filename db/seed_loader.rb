@@ -9,7 +9,7 @@ class SeedLoader
     @seed_data_dir = "#{File.dirname(__FILE__)}/seed_data"
   end
 
-  def random_password(len)
+  def self.random_password(len)
     Array.new(len){|i| PASSWORD_SYMBOLS[rand(PASSWORD_SYMBOLS.size)]}.join
   end
 
@@ -55,7 +55,7 @@ class SeedLoader
       )
 
       unless row[cols.index("Email")].nil?
-        contact = User.find_or_create_by_email(row[cols.index("Email")].strip, :password => random_password(10), :phone => row[cols.index("Other Phone")])
+        contact = User.find_or_create_by_email(row[cols.index("Email")].strip, :password => SeedLoader.random_password(10), :phone => row[cols.index("Other Phone")])
         FranchiseeContact.find_or_create_by_franchisee_id_and_user_id(franchisee.id, contact.id, :contact_type => 'primary')
       end
 
@@ -77,7 +77,7 @@ class SeedLoader
 
   def create_user(row, cols) 
     unless row[cols.index("Email")].nil? || row[cols.index("Email")].strip.empty?
-      password = random_password(10)
+      password = SeedLoader.random_password(10)
       user = User.find_by_email(row[cols.index("Email")].strip.downcase)
 
       user ||= User.create(:email => row[cols.index("Email")].strip.downcase, :password => password)
