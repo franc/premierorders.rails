@@ -52,6 +52,7 @@ class JobItem < ActiveRecord::Base
         hardware_cost = inventory_hardware.values.inject(0.0) {|total, i| total + i.total_price}
         base_price.map{|b| b.right.map{|v| v - hardware_cost}}
       rescue
+        logger.error $!.backtrace.join("\n")
         Option.some(Either.left($!.message))
       end
     end

@@ -159,7 +159,7 @@ class Job < ActiveRecord::Base
         if product_code_matchdata
           color_code = product_code_matchdata.captures[3]
           logger.info("Searching for color #{color_code} in #{i.color_opts.inspect}")
-          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == color_code}).each do |opt|
+          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip[1..2] == color_code[1..2]}).each do |opt|
             job_item.job_item_properties.create(
               :family => Property::Color::DESCRIPTOR.family,
               :module_names => Property::Color::DESCRIPTOR.module_names,
