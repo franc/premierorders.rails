@@ -266,7 +266,7 @@ class Job < ActiveRecord::Base
     end
 
     aggregated = job_items.inject({}) do |m, job_item|
-      m.merge(job_item.inventory_hardware) do |h1, h2|
+      m.merge(job_item.inventory_hardware) do |k, h1, h2|
         h1 + h2
       end
     end
