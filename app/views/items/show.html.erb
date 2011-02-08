@@ -98,6 +98,10 @@
     <dd><%= @item.purchase_part_id %></dd>
     <dt><%= label :item, :base_price %></dt>
     <dd><%= @item.base_price %></dd>
+    <dt><%= label :item, :rebate_factor %></dt>
+    <dd><%= @item.rebate_factor %></dd>
+    <dt><%= label :item, :retail_multiplier %></dt>
+    <dd><%= @item.retail_multiplier %></dd>
     <dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>

@@ -91,11 +91,11 @@ class Item < ActiveRecord::Base
   end
 
   def apply_retail_multiplier(expr)
-    div(expr, term(0.4))
+    div(expr, term(retail_multiplier))
   end
 
   def apply_rebate_factor(expr)
-    div(expr, term(0.92))
+    div(expr, term(rebate_factor))
   end
 
   def price_expr(units, color, contexts)
