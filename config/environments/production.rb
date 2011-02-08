@@ -42,10 +42,10 @@ PgRails::Application.configure do
     :address              => "mail.premierorders.net",
     :port                 => 587,
     :domain               => 'premierorders.net',
-    :user_name            => 'mailer',
+    :user_name            => 'mailer@premierorders.net',
     :password             => 'Skooter123',
     :authentication       => 'plain',
-    :enable_starttls_auto => true  
+    :enable_starttls_auto => false  
   }
 
   config.action_mailer.default_url_options = { :host => "tl.premierorders.net" }
