@@ -69,7 +69,6 @@ class PropertiesController < ApplicationController
         v.each do |idx, v|
           pv = PropertyValue.create(
             :name => v[:name],
-            :dvinci_id => v[:dvinci_id],
             :value_str => JSON.generate(v[:fields]),
             :module_names => @property.module_names
           )
@@ -80,7 +79,6 @@ class PropertiesController < ApplicationController
       else
         pv = PropertyValue.find(k)
         pv.name = v[:name]
-        pv.dvinci_id = v[:dvinci_id]
         pv.value_str = JSON.generate(v[:fields])
         pv.save
       end
