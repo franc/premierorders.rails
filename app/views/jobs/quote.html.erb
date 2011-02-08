@@ -91,11 +91,13 @@
     <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !i.inventory?}} %></dd>
   </dl>
 
-  <p id="inventory-items">THE FOLLOWING INVENTORY ITEMS ARE REQUIRED BUT NOT INCLUDED WITH THIS ORDER:</p>
-  <dl class="inventory_items">
-    <dt>Inventory Items ($<%= "%0.2f" % @job.inventory_items_total %>)</dt>
-    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.inventory_items} %></dd>
-  </dl>
+  <div class="inventory_items<%= @job.job_items.select{|i| i.inventory?}.empty? ? " inventory_items_empty" : "" %>">
+    <p id="inventory-items">THE FOLLOWING INVENTORY ITEMS ARE REQUIRED BUT NOT INCLUDED WITH THIS ORDER:</p>
+    <dl class="inventory_items">
+      <dt>Inventory Items ($<%= "%0.2f" % @job.inventory_items_total %>)</dt>
+      <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.inventory?}} %></dd>
+    </dl>
+  </div>
 
   <hr />
 
@@ -155,13 +157,15 @@
       margin: 0;
       float: left;
     }
-    dl.special_instructions, dl.items, dl.inventory_items, dl.shipping_address, dl.billing_address,
+    dl.items, dl.inventory_items, dl.shipping_address, dl.billing_address,
     dl.special_instructions dt, dl.items dt, dl.inventory_items dt, dl.shipping_address dt, dl.billing_address dt,
     dl.special_instructions dd, dl.items dd, dl.inventory_items dd, dl.shipping_address dd, dl.billing_address dd,
     dl.franchisee-name dt, dl.franchisee-phone dt, dl.franchisee-fax dt, dl.franchisee-web dt,
     dl.franchisee-name dd, dl.franchisee-phone dd, dl.franchisee-fax dd, dl.franchisee-web dd{
       clear: both; float: none; width: 100%;
     }
+    dl.special_instructions, dl.job_total {width: 55%; margin-top: 2em; float: left;}
+    dl.job_total dt {text-align: left;}
     dl.ship_date {margin-top: 1em;}
     dl.job_total {margin: 1.5em 0;}
     dl.inventory_items {margin-bottom: 5em;}
@@ -186,6 +190,7 @@
 
   <style type="text/css" media="print">
     #quote-title {text-align: center;}
+    #quote-footer {font-size: .9em;}
     #print-logo {float: left;}
     body {
       background-color: white;
@@ -194,5 +199,10 @@
     }
     a {color: black; text-decoration: none;}
     #auth_nav, #nav, #local_nav {display: none;}
+    table.item_table td.item_purchase_part_id,
+    table.item_table th.item_purchase_part_id {
+      display: none;
+    }
+    div.inventory_items_empty {display: none;}
   </style>
 <% end %>
