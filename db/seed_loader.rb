@@ -371,14 +371,15 @@ class SeedLoader
     File.open("generated_tab_errors.out", "w") do |err|
     File.open("generated_tab_missing.out", "w") do |missing|
     File.open("generated_tab_mismatch.out", "w") do |mismatch|
-    File.open("generated_tab.csv", "w") do |out|
+    File.open("bridge_generated.tab", "w") do |out|
       with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
         part_id, catalog_id, dvinci_id, description, flag, price, *xs = row
 
         item = Item.find_by_dvinci_id(item_dvinci_key)
         if item.nil? 
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
-          missing.puts(CSV.generate_line(row))
+          missing.puts(row.join("\t"))
+          out.puts(row.join("\t"))
         else
           begin
             item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
@@ -390,7 +391,7 @@ class SeedLoader
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs))
+            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t"))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
           end
