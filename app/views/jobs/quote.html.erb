@@ -95,7 +95,7 @@
     <p id="inventory-items">THE FOLLOWING INVENTORY ITEMS ARE REQUIRED BUT NOT INCLUDED WITH THIS ORDER:</p>
     <dl class="inventory_items">
       <dt>Inventory Items ($<%= "%0.2f" % @job.inventory_items_total %>)</dt>
-      <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.inventory_items}} %></dd>
+      <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.inventory_items} %></dd>
     </dl>
   </div>
 

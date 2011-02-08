@@ -275,8 +275,8 @@ class Job < ActiveRecord::Base
   end
 
   def inventory_items
-    inventory_items_on_order = job_items.order('tracking_id').select{|i| i.inventory?}
-    inventory_items_on_order + component_inventory_hardware
+    @inventory_items ||= job_items.order('tracking_id').select{|i| i.inventory?} + component_inventory_hardware
+    @inventory_items
   end
 
   private
