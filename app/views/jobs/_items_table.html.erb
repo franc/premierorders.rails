@@ -1,45 +1,45 @@
-<table>
+<table class="item_table<%= job_items.empty? ? " empty" : "" %>">
   <tr>
-    <th>ID</th>
-    <th>Item Name</th>
+    <th class="item_id">ID</th>
+    <th class="item_name">Item Name</th>
     <% if can? :manage, Job %>
-      <th>Purchase Part ID</th>
+      <th class="item_purchase_part_id">Purchase Part ID</th>
     <% end %>
-    <th>Color</th>
-    <th>Quantity</th>
-    <th>Width</th>
-    <th>Height</th>
-    <th>Depth</th>
-    <th>Weight</th>
-    <th>Unit Price</th>
-    <th>Total</th>
-    <th>Special Instructions</th>
-    <th>Actions</th>
+    <th class="item_color">Color</th>
+    <th class="item_quantity">Quantity</th>
+    <th class="item_width">Width</th>
+    <th class="item_height">Height</th>
+    <th class="item_depth">Depth</th>
+    <th class="item_weight">Weight</th>
+    <th class="item_unit_price">Unit Price</th>
+    <th class="item_total">Total</th>
+    <th class="item_special_instructions">Special Instructions</th>
+    <th class="item_actions">Actions</th>
   </tr>
   <% job_items.each_with_index do |job_item, i| %>
     <tr class="<%=unit_price_class(job_item)%>">
-      <td><%= job_item.tracking_id %></td>
+      <td class="item_id"><%= job_item.tracking_id %></td>
       <% if job_item.item && can?(:read, job_item.item) %>
-        <td><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
+        <td class="item_name"><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
       <% else %>
-        <td><%= job_item.item_name %></td>
+        <td class="item_name"><%= job_item.item_name %></td>
       <% end %>
       <% if can? :manage, Job %>
-        <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
+        <td class="item_purchase_part_id"><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
       <% end %>
-      <td><%= job_item.color.orSome('') %></td>
-      <td><%= job_item.quantity.to_i %></td>
-      <td><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
-      <td><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
-      <td><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
-      <td><%= job_item.weight.map{|e| e.cata(Functions.const("(error)"), lambda{|w| "%.3f" % w})}.orSome("(none)") %></td>
-      <td>
+      <td class="item_color"><%= job_item.color.orSome('') %></td>
+      <td class="item_quantity"><%= job_item.quantity.to_i %></td>
+      <td class="item_width"><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
+      <td class="item_height"><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
+      <td class="item_depth"><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
+      <td class="item_weight"><%= job_item.weight.map{|e| e.cata(Functions.const("(error)"), lambda{|w| "%.3f" % w})}.orSome("(none)") %></td>
+      <td class="item_unit_price">
         <%= "$%.2f" % job_item.compute_unit_price.bind{|p| p.right.toOption.map{|v| v - job_item.hardware_cost}}.orSome(job_item.unit_price) %>
         <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
-      <td><%= "$%.2f" % job_item.compute_total.bind{|p| p.right.toOption.map{|v| v - job_item.hardware_total}}.orSome(job_item.unit_price * job_item.quantity) %></td>
-      <td><%= job_item.comment %></td>
-      <td><%= link_to JobItem.model_name.human, job_item_path(job_item) %></td>
+      <td class="item_total"><%= "$%.2f" % job_item.compute_total.bind{|p| p.right.toOption.map{|v| v - job_item.hardware_total}}.orSome(job_item.unit_price * job_item.quantity) %></td>
+      <td class="item_special_instruction"><%= job_item.comment %></td>
+      <td class="item_actions"><%= link_to JobItem.model_name.human, job_item_path(job_item) %></td>
     </tr>
   <% end %>
 </table>
