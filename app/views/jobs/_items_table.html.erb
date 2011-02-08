@@ -1,34 +1,34 @@
-<table>
+<table class="item_table<%= job_items.length ? "" : " empty" %>">
   <tr>
-    <th>ID</th>
-    <th>Item Name</th>
-    <th>Purchase Part ID</th>
-    <th>Color</th>
-    <th>Quantity</th>
-    <th>Width</th>
-    <th>Height</th>
-    <th>Depth</th>
-    <th>Unit Price</th>
-    <th>Total</th>
-    <th>Special Instructions</th>
+    <th class="item_id">ID</th>
+    <th class="item_name">Item Name</th>
+    <th class="item_purchase_part_id">Purchase Part ID</th>
+    <th class="item_color">Color</th>
+    <th class="item_quantity">Quantity</th>
+    <th class="item_width">Width</th>
+    <th class="item_height">Height</th>
+    <th class="item_depth">Depth</th>
+    <th class="item_unit_price">Unit Price</th>
+    <th class="item_total">Total</th>
+    <th class="item_special_instructions">Special Instructions</th>
   </tr>
   <% job_items.each_with_index do |job_item, i| %>
     <% color_property = job_item.job_item_properties.find_by_family(:color) %>
     <tr class="<%=unit_price_class(job_item)%>">
-      <td><%= job_item.tracking_id %></td>
-      <td><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
-      <td><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
-      <td><%= color_property ? color_property.color : '' %></td>
-      <td><%= job_item.quantity.to_i %></td>
-      <td><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
-      <td><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
-      <td><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
-      <td>
+      <td class="item_id"><%= job_item.tracking_id %></td>
+      <td class="item_name"><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
+      <td class="item_purchase_part_id"><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
+      <td class="item_color"><%= color_property ? color_property.color : '' %></td>
+      <td class="item_quantity"><%= job_item.quantity.to_i %></td>
+      <td class="item_width"><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
+      <td class="item_height"><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
+      <td class="item_depth"><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
+      <td class="item_unit_price">
         <%= "$%.2f" % job_item.compute_unit_price.orSome(job_item.unit_price) %>
         <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
-      <td><%= "$%.2f" % job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) %></td>
-      <td><%= job_item.comment %></td>
+      <td class="item_total"><%= "$%.2f" % job_item.compute_total.orSome(job_item.unit_price * job_item.quantity) %></td>
+      <td class="item_special_instructions"><%= job_item.comment %></td>
     </tr>
   <% end %>
 </table>
