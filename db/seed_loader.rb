@@ -9,7 +9,7 @@ class SeedLoader
     @seed_data_dir = "#{File.dirname(__FILE__)}/seed_data"
   end
 
-  def random_password(len)
+  def self.random_password(len)
     Array.new(len){|i| PASSWORD_SYMBOLS[rand(PASSWORD_SYMBOLS.size)]}.join
   end
 
@@ -55,7 +55,7 @@ class SeedLoader
       )
 
       unless row[cols.index("Email")].nil?
-        contact = User.find_or_create_by_email(row[cols.index("Email")].strip, :password => random_password(10), :phone => row[cols.index("Other Phone")])
+        contact = User.find_or_create_by_email(row[cols.index("Email")].strip, :password => SeedLoader.random_password(10), :phone => row[cols.index("Other Phone")])
         FranchiseeContact.find_or_create_by_franchisee_id_and_user_id(franchisee.id, contact.id, :contact_type => 'primary')
       end
 
@@ -77,7 +77,7 @@ class SeedLoader
 
   def create_user(row, cols) 
     unless row[cols.index("Email")].nil? || row[cols.index("Email")].strip.empty?
-      password = random_password(10)
+      password = SeedLoader.random_password(10)
       user = User.find_by_email(row[cols.index("Email")].strip.downcase)
 
       user ||= User.create(:email => row[cols.index("Email")].strip.downcase, :password => password)
@@ -131,40 +131,43 @@ class SeedLoader
     end
 
     dv_colors = data_map("#{@seed_data_dir}/dvinci_colors.csv")
-    CSV.open("#{@seed_data_dir}/#{filename}", "r") do |row|
-      part_id, catalog_id, dvinci_id, description, *xs = row
-      next if part_id == 'PartID' || dvinci_id.nil?
+    File.open("#{@seed_data_dir}/#{filename}", "r") do |file|
+      file.each_line do |line|
+        row = line.split("\t")
+        part_id, catalog_id, dvinci_id, description, *xs = row
+        next if part_id == 'PartID' || dvinci_id.nil?
 
-      dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
-      if dvinci_id_matchdata.nil?
-        puts "Could not determine product information for row: #{row.inspect}"
-      else
-        t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
-
-        category, color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : [nil, nil]
-        base_description = color.nil? ? description : description.gsub(/[,|]?\s*#{color}/i, '')
-        color_match = base_description != description
-
-        # restore the original description and 15-digit id if the color was not found in the description
-        # rewrite the item name only for manufactured products; need distinct purchasing skus for different 
-        # purchased products, even though this means a lot of data duplication
-        item_dvinci_key = if purchasing == 'M' || purchasing == 'B'
-          o3 = case dv_sizes[t2]
-            when nil then t3
-            when ['x'] then 'x'
-            else
-              Option.new(dv_sizes[t2].detect{|n| t3 =~ /^#{n}/}).map{|n| "#{n}x"}.orSome(t3)
-          end
-               
-          o4 = color_match ? 'x' : color_key
-          "#{t1}.#{t2}.#{o3}.#{o4}.#{t5}#{purchasing}" 
+        dvinci_id_matchdata = dvinci_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/)
+        if dvinci_id_matchdata.nil?
+          puts "Could not determine product information for row: #{row.inspect}"
         else
-          dvinci_id
+          t1, t2, t3, color_key, t5, purchasing = dvinci_id_matchdata.captures
+
+          category, color = dv_colors.has_key?(color_key) ? dv_colors[color_key].call(description) : [nil, nil]
+          base_description = color.nil? ? description : description.gsub(/[,|]?\s*#{color}/i, '')
+          color_match = base_description != description
+
+          # restore the original description and 15-digit id if the color was not found in the description
+          # rewrite the item name only for manufactured products; need distinct purchasing skus for different 
+          # purchased products, even though this means a lot of data duplication
+          item_dvinci_key = if purchasing == 'M' || purchasing == 'B'
+            o3 = case dv_sizes[t2]
+              when nil then t3
+              when ['x'] then 'x'
+              else
+                Option.new(dv_sizes[t2].detect{|n| t3 =~ /^#{n}/}).map{|n| "#{n}x"}.orSome(t3)
+            end
+                 
+            o4 = color_match ? 'x' : color_key
+            "#{t1}.#{t2}.#{o3}.#{o4}.#{t5}#{purchasing}" 
+          else
+            dvinci_id
+          end
+
+          item_desc = ((purchasing == 'M' || purchasing == 'B') && color_match) ? base_description : description
+
+          block.call(row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match)
         end
-
-        item_desc = ((purchasing == 'M' || purchasing == 'B') && color_match) ? base_description : description
-
-        block.call(row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match)
       end
     end
   end
@@ -371,14 +374,15 @@ class SeedLoader
     File.open("generated_tab_errors.out", "w") do |err|
     File.open("generated_tab_missing.out", "w") do |missing|
     File.open("generated_tab_mismatch.out", "w") do |mismatch|
-    File.open("generated_tab.csv", "w") do |out|
+    File.open("bridge_generated.tab", "w") do |out|
       with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
         part_id, catalog_id, dvinci_id, description, flag, price, *xs = row
 
         item = Item.find_by_dvinci_id(item_dvinci_key)
         if item.nil? 
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
-          missing.puts(CSV.generate_line(row))
+          missing.puts(row.join("\t"))
+          out.puts(row.join("\t"))
         else
           begin
             item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
@@ -390,7 +394,7 @@ class SeedLoader
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
-            out.puts(CSV.generate_line([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs))
+            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t"))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
           end

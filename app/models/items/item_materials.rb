@@ -23,7 +23,8 @@ module ItemMaterials
       raise "Could not determine material values from #{mprop}" 
     elsif mvalues.length > 1 
       mvalues.detect do |v| 
-        (v.respond_to?(:dvinci_id) && v.dvinci_id.strip == color.strip) || v.color.strip.casecmp(color.strip) == 0
+        (v.respond_to?(:dvinci_id) && v.dvinci_id && color && v.dvinci_id.strip == color.strip) || 
+        (v.color && color && v.color.strip.casecmp(color.strip) == 0)
       end 
     else
       mvalues[0]

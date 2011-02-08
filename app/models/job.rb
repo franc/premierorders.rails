@@ -159,7 +159,7 @@ class Job < ActiveRecord::Base
         if product_code_matchdata
           color_code = product_code_matchdata.captures[3]
           logger.info("Searching for color #{color_code} in #{i.color_opts.inspect}")
-          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip == color_code}).each do |opt|
+          Option.new(i.color_opts.detect{|opt| opt.dvinci_id.strip[1..2] == color_code[1..2]}).each do |opt|
             job_item.job_item_properties.create(
               :family => Property::Color::DESCRIPTOR.family,
               :module_names => Property::Color::DESCRIPTOR.module_names,
@@ -266,12 +266,8 @@ class Job < ActiveRecord::Base
     end
 
     aggregated = job_items.inject({}) do |m, job_item|
-      Option.new(job_item.item).inject(m) do |mm, item| 
-        item.query(hardware_query, []).inject(mm) do |mmm, item_hardware| 
-          mmm[item_hardware.component] ||= AssemblyHardwareItem.new(item_hardware.component)
-          mmm[item_hardware.component].add_hardware(job_item, item_hardware)
-          mmm
-        end
+      m.merge(job_item.inventory_hardware) do |k, h1, h2|
+        h1 + h2
       end
     end
 
@@ -296,7 +292,7 @@ class Job < ActiveRecord::Base
       job_item.item_name      
     ]
 
-    panel_query = ColorQuery.new('panel_material', job_item.dvinci_color_code)
+    panel_query = ColorQuery.new('panel_material', job_item.dvinci_color_code) {|v| v.thickness(:in) != 0.25}
     panel_material = Option.new(job_item.item).bind {|i| i.query(panel_query, [])}
 
     eb_query = ColorQuery.new('edge_band', job_item.dvinci_color_code) {|v| v.width == 19 }
