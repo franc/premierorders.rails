@@ -56,6 +56,10 @@ class AssemblyHardwareItem
     Option.none
   end
 
+  def hardware_cost
+    0.0
+  end
+
   def compute_unit_price
     Option.iif(@quantity > 0) do
       Either.right(@total_price / @quantity)
@@ -70,6 +74,10 @@ class AssemblyHardwareItem
 
   def compute_total
     Option.some(Either.right(@total_price))
+  end
+
+  def hardware_total
+    0.0
   end
 
   def weight

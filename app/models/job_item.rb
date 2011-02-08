@@ -45,12 +45,14 @@ class JobItem < ActiveRecord::Base
     item.nil? ? "#{ingest_desc}: #{ingest_id}" : item.name
   end
 
+  def hardware_cost
+    inventory_hardware.values.inject(0.0) {|total, i| total + i.total_price}
+  end
+
   def compute_unit_price
     Option.new(item).bind do |i|
       begin
-        base_price = i.rebated_cost_expr(:in, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
-        hardware_cost = inventory_hardware.values.inject(0.0) {|total, i| total + i.total_price}
-        base_price.map{|b| b.right.map{|v| v - hardware_cost}}
+        i.rebated_cost_expr(:in, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
       rescue
         logger.error $!.backtrace.join("\n")
         Option.some(Either.left($!.message))
@@ -63,13 +65,15 @@ class JobItem < ActiveRecord::Base
       i.purchasing == 'Inventory'
     end
 
-    Option.new(item).inject({}) do |mm, i| 
+    @inventory_hardware ||= Option.new(item).inject({}) do |mm, i| 
       i.query(hardware_query, []).inject(mm) do |mmm, item_hardware| 
         mmm[item_hardware.component] ||= AssemblyHardwareItem.new(item_hardware.component)
         mmm[item_hardware.component].add_hardware(self, item_hardware)
         mmm
       end
     end
+
+    @inventory_hardware
   end
 
   def weight
@@ -107,5 +111,9 @@ class JobItem < ActiveRecord::Base
 
   def compute_total
     compute_unit_price.map{|e| e.right.map{|t| t * quantity}}
+  end
+
+  def hardware_total
+    hardware_cost * quantity
   end
 end
