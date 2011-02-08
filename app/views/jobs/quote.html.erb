@@ -88,7 +88,12 @@
 
   <dl class="items">
     <dt>Items ($<%= "%0.2f" % @job.non_inventory_items_total %>)</dt>
-    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !i.inventory?}} %></dd>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| !(i.inventory? || i.buyout?)}} %></dd>
+  </dl>
+  
+  <dl class="items">
+    <dt>Buyout Items ($<%= "%0.2f" % @job.buyout_items_total %>)</dt>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.buyout?}} %></dd>
   </dl>
 
   <div class="inventory_items<%= @job.inventory_items.empty? ? " inventory_items_empty" : "" %>">

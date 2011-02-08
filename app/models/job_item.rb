@@ -15,6 +15,10 @@ class JobItem < ActiveRecord::Base
     (item && item.purchasing == 'Inventory') || ingest_id.strip[-1,1] == 'I'
   end
 
+  def buyout?
+    (item && item.purchasing == 'Buyout') || ingest_id.strip[-1,1] == 'B'
+  end
+
   def width
     dimensions_property.bind do |p|
       Option.call(:width, p)
