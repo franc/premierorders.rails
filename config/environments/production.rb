@@ -39,11 +39,11 @@ PgRails::Application.configure do
   #config.action_mailer.delivery_method = :sendmail
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address              => "mail.premiergarage.com",
+    :address              => "mail.premierorders.net",
     :port                 => 587,
-    :domain               => 'premiergarage.com',
-    :user_name            => 'customerservice',
-    :password             => 'Premier1617',
+    :domain               => 'premierorders.net',
+    :user_name            => 'mailer',
+    :password             => 'Skooter123',
     :authentication       => 'plain',
     :enable_starttls_auto => true  
   }
