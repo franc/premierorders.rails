@@ -13,7 +13,7 @@
     <dt><%= label :franchisee, :users %></dt>
     <dd>
       <ul>
-        <% @franchisee.users.each do |user| %>
+        <% @franchisee.users.select{|u| u.id != @franchisee.primary_contact.try(:user).try(:id)}.each do |user| %>
           <li><%= user.name %></li>
         <% end %>
       <ul>
