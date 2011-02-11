@@ -101,7 +101,7 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 -- Name: addresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('addresses_id_seq', 80, true);
+SELECT pg_catalog.setval('addresses_id_seq', 81, true);
 
 
 --
@@ -160,7 +160,7 @@ ALTER SEQUENCE franchisee_addresses_id_seq OWNED BY franchisee_addresses.id;
 -- Name: franchisee_addresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_addresses_id_seq', 72, true);
+SELECT pg_catalog.setval('franchisee_addresses_id_seq', 73, true);
 
 
 --
@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 211, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 216, true);
 
 
 --
@@ -257,7 +257,7 @@ ALTER SEQUENCE franchisees_id_seq OWNED BY franchisees.id;
 -- Name: franchisees_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisees_id_seq', 67, true);
+SELECT pg_catalog.setval('franchisees_id_seq', 68, true);
 
 
 --
@@ -1134,6 +1134,7 @@ COPY addresses (id, address1, address2, city, state, postal_code, country, creat
 78	3768 SW 30 Ave		Hollywood	FL	33312	\N	2011-02-11 18:24:03.114129	2011-02-11 18:24:03.114129
 79	3768 SW 30 Ave		Hollywood	FL	33312	\N	2011-02-11 18:24:06.709501	2011-02-11 18:24:06.709501
 80	120 Clair Dr.		Piedmont	SC	29673	\N	2011-02-11 18:27:30.287182	2011-02-11 18:27:30.287182
+81	123		asdlkf	kk	12345	\N	2011-02-11 19:17:59.557273	2011-02-11 19:17:59.557273
 \.
 
 
@@ -1322,6 +1323,7 @@ COPY franchisee_addresses (id, franchisee_id, address_id, address_type, created_
 70	66	78	Billing	2011-02-11 18:24:03.117635	2011-02-11 18:24:03.117635
 71	66	79	Shipping	2011-02-11 18:24:06.713574	2011-02-11 18:24:30.48902
 72	67	80	Billing	2011-02-11 18:27:30.291651	2011-02-11 18:27:30.291651
+73	68	81	Billing	2011-02-11 19:17:59.570816	2011-02-11 19:17:59.570816
 \.
 
 
@@ -1468,6 +1470,11 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 206	66	94	primary	2011-02-11 18:24:09.367709	2011-02-11 18:25:47.526266
 210	67	95	\N	2011-02-11 18:31:33.839193	2011-02-11 18:31:33.839193
 211	67	95	primary	2011-02-11 18:31:51.914643	2011-02-11 18:31:51.914643
+212	3	3	primary	2011-02-11 19:02:04.28534	2011-02-11 19:02:04.28534
+213	20	19	primary	2011-02-11 19:04:02.903243	2011-02-11 19:04:02.903243
+214	21	20	primary	2011-02-11 19:04:58.87972	2011-02-11 19:04:58.87972
+215	14	13	primary	2011-02-11 19:05:12.074819	2011-02-11 19:05:12.074819
+216	68	89	primary	2011-02-11 19:18:02.389418	2011-02-11 19:18:02.389418
 \.
 
 
@@ -1492,10 +1499,10 @@ COPY franchisees (id, franchise_name, phone, fax, website, margin_cabinets, marg
 4	TL of Madison	(608) 318-1667	(608) 318-0665		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:32.15076	2011-02-11 18:01:06.437083	Green	Billing: PO Box 383\tSun Praire\tWI\t53590
 1	TL of Orange	(714) 637-2100	(714) 637-1400		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:31.726499	2011-02-11 17:46:26.677237	Green	
 20	TL of Orange County	(949) 297-3951	(949) 297-3953		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:34.307223	2011-02-11 17:49:20.653192	Green	
-3	TL of Puyallup WA	(253) 261-4253	(253) 447-4575		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:32.024482	2011-01-30 20:57:05.291021	Green	\N
+21	TL of Southeast Wisconsin	(262) 633-8850	(262) 866-2093		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:34.432099	2011-02-11 19:04:58.875244	Green	
 17	TL of San Diego CA	(760) 931-1160	(760) 931-1105		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:33.832797	2011-01-30 20:58:13.884264	Green	\N
 60	PG of Southwest Florida	(239) 949-5584	(239) 949-9923		\N	\N	\N	\N	\N	\N	2011-02-11 18:02:10.916813	2011-02-11 18:02:10.916813	Green	
-21	TL of Southeast Wisconsin	(262) 633-8850	(262) 866-2093		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:34.432099	2011-01-30 20:58:35.838175	Green	\N
+68	Z test	555-555-5555			\N	\N	\N	\N	\N	\N	2011-02-11 19:17:24.961239	2011-02-11 19:17:24.961239	Green	
 25	TL of Southern Alberta	(403) 315-0323	(403) 257-5012		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:35.072395	2011-01-30 21:00:27.233167	Green	\N
 53	TL of Knoxville	(865)947-8686			\N	\N	\N	\N	\N	\N	2011-02-11 16:31:27.046586	2011-02-11 16:31:27.046586	Green	
 2	TL of Kelowna	(250) 452-9575	(250) 764-9576		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:31.89999	2011-02-11 16:33:13.202599	Green	
@@ -1543,6 +1550,7 @@ COPY franchisees (id, franchise_name, phone, fax, website, margin_cabinets, marg
 65	TL of Phoenix	480-483-3030		480-483-7895	\N	\N	\N	\N	\N	\N	2011-02-11 18:20:57.147679	2011-02-11 18:20:57.147679	Green	
 66	TL of Miami Beach	(954) 797-9275	(954) 797-9726		\N	\N	\N	\N	\N	\N	2011-02-11 18:23:26.554021	2011-02-11 18:23:26.554021	Green	
 67	TL of Western Carolina	864-295-4100	864-295-9642		\N	\N	\N	\N	\N	\N	2011-02-11 18:27:03.666661	2011-02-11 18:27:03.666661	Green	
+3	TL of Puyallup WA	(253) 261-4253	(253) 447-4575		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:32.024482	2011-02-11 19:02:04.280514	Green	
 \.
 
 
@@ -4737,8 +4745,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 51	\N	Dalawna	Dillman	480-483-3030		480-483-7895	ddillman@premiergarage.com	$2a$10$BobgDLbaUTnRj/mLYlwzyuOuzMi.DidT3w7MPY3xfM82NoJi1V6bi	$2a$10$BobgDLbaUTnRj/mLYlwzyu	\N	\N	\N	6	2011-02-07 16:20:05.759254	2011-01-30 20:40:29.163697	174.79.54.226	70.176.124.201	2011-01-06 23:44:42.653941	2011-02-11 17:47:46.185439
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$hiJTCKugu/62u4ca7t5mAuSZHXuN6zVXUVCRwPb1vJofUfVaDsiqy	$2a$10$hiJTCKugu/62u4ca7t5mAu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.284249	2011-02-11 15:28:40.875758
 53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	af1grgyB-glnPvpSxdNN	2011-02-11 14:11:03.548477	16	2011-02-11 14:15:01.617687	2011-02-11 14:11:03.553611	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-11 14:15:01.618307
-49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$stbPQKL64gMgsRaP7F8XneewfofYa.GsHvhoYX0bXCF75NlXZK526	$2a$10$stbPQKL64gMgsRaP7F8Xne	RnN3DfgYNLvfm-bFe8JS	oDLTclH6iJkdaxm63SX-	2011-02-08 18:08:00.873253	32	2011-02-08 18:08:00.880333	2011-02-08 02:33:51.871506	98.245.88.239	98.245.88.239	2011-01-01 19:06:38.040379	2011-02-08 18:08:00.881018
-32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	8fsY4Orq6kiZD2LqOvJa	\N	\N	61	2011-02-11 18:40:28.072195	2011-02-10 19:41:29.506066	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-02-11 18:41:22.259183
+32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	8fsY4Orq6kiZD2LqOvJa	\N	\N	62	2011-02-11 19:40:48.178636	2011-02-11 18:40:28.072195	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-02-11 19:40:48.179524
 63	\N	Daryl	Ellison	(205)956-3939		(205) 956-3939	dellison@tailoredliving.com	$2a$10$0G4IjJxgMrd8hXlDXDnI8u1bAsf1HG8sG0/c.8me6.25WjrB/Mkxe	$2a$10$0G4IjJxgMrd8hXlDXDnI8u	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 14:59:30.879529	2011-02-11 14:59:30.879529
 66	\N	Joseph	Chang	(951)653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-02-11 15:33:26.75444
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$VtCo.uf5VG/3R3.e3bbhxuwnn6ZkFRURUBD.yEWGF8jL5JcfRadxq	$2a$10$VtCo.uf5VG/3R3.e3bbhxu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:36:07.879298	2011-02-11 15:36:07.879298
@@ -4776,6 +4783,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 93	\N	Ed	Brady	888-542-1221		410-569-9646	delval@PremierGarage.com	$2a$10$XVq3306yf4veXgICj5yCdOjgAvlI342p7oobfTsDA28wX49Fo9MtS	$2a$10$XVq3306yf4veXgICj5yCdO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:19:32.770532	2011-02-11 18:19:32.770532
 94	\N	Scott	House	(954) 797-9275		(954) 797-9726	scott.house.sf@premiergarage.com	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu/yVyH7JlGx1xEsCndFzXIqi5nAxroUS	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:25:32.24439	2011-02-11 18:25:32.24439
 95	\N	Frank	Pochiro	864-295-4100		864-295-9642	westerncarolinas@premiergarage.com	$2a$10$jUfQAhje/wwFlOJQmDU43.ZWB1RxFFyyWqPLYsqpXHjjCfN8EDvYK	$2a$10$jUfQAhje/wwFlOJQmDU43.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:28:30.675844	2011-02-11 18:31:33.831547
+49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$stbPQKL64gMgsRaP7F8XneewfofYa.GsHvhoYX0bXCF75NlXZK526	$2a$10$stbPQKL64gMgsRaP7F8Xne	-W3o5-vHOaA63l1wj80T	oDLTclH6iJkdaxm63SX-	2011-02-08 18:08:00.873253	32	2011-02-08 18:08:00.880333	2011-02-08 02:33:51.871506	98.245.88.239	98.245.88.239	2011-01-01 19:06:38.040379	2011-02-11 19:58:29.565345
 \.
 
 
