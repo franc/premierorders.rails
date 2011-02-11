@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 216, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 217, true);
 
 
 --
@@ -831,7 +831,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('roles_id_seq', 4, true);
+SELECT pg_catalog.setval('roles_id_seq', 5, true);
 
 
 --
@@ -1443,7 +1443,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 180	56	84	\N	2011-02-11 17:45:25.583117	2011-02-11 17:45:25.583117
 179	56	84	primary	2011-02-11 17:44:43.86304	2011-02-11 17:45:44.718222
 181	8	51	\N	2011-02-11 17:47:46.191931	2011-02-11 17:47:46.191931
-182	8	59	\N	2011-02-11 17:48:24.844285	2011-02-11 17:48:24.844285
 184	20	19	\N	2011-02-11 17:49:48.266787	2011-02-11 17:49:48.266787
 185	20	45	\N	2011-02-11 17:50:16.88018	2011-02-11 17:50:16.88018
 187	57	85	\N	2011-02-11 17:52:17.374355	2011-02-11 17:52:17.374355
@@ -1475,6 +1474,7 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 214	21	20	primary	2011-02-11 19:04:58.87972	2011-02-11 19:04:58.87972
 215	14	13	primary	2011-02-11 19:05:12.074819	2011-02-11 19:05:12.074819
 216	68	89	primary	2011-02-11 19:18:02.389418	2011-02-11 19:18:02.389418
+217	8	59	\N	2011-02-11 21:38:46.362443	2011-02-11 21:38:46.362443
 \.
 
 
@@ -4579,6 +4579,7 @@ COPY roles (id, name) FROM stdin;
 2	franchisee
 3	product_admin
 4	customer_service
+5	accounting
 \.
 
 
@@ -4604,6 +4605,7 @@ COPY schema_migrations (version) FROM stdin;
 20110206020759
 20110206042757
 20110208234259
+20110211213114
 \.
 
 
@@ -4678,7 +4680,6 @@ COPY user_roles (user_id, role_id) FROM stdin;
 84	2
 51	3
 51	4
-59	4
 19	2
 45	2
 85	2
@@ -4694,6 +4695,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 57	2
 94	2
 95	2
+59	5
 \.
 
 
@@ -4741,7 +4743,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 5	Mr.	Todd	Carter	(703) 707-0009	(703) 217-8217	(703) 889-5133	tcarter@closettailors.com	$2a$10$eJKywvdryMeEhZDIa26H3.tyvmChU3zOj0XbTQBEaB8u1.jZsh4a2	$2a$10$eJKywvdryMeEhZDIa26H3.	\N	\N	\N	3	2011-02-11 17:41:41.570908	2011-02-05 03:27:45.242304	174.79.54.226	71.196.137.193	2011-01-01 18:53:32.475866	2011-02-11 17:41:41.571673
 55	\N	Test2	User2				divisidera@gmail.com	$2a$10$j3OqWEyN9bsBZDc8B9rqJOot80ydg0608BB/XxH0khvncoJwAzTrG	$2a$10$j3OqWEyN9bsBZDc8B9rqJO	Fttey0xtfhjmfBFqemTy	\N	\N	1	2011-02-06 19:04:28.151609	2011-02-06 19:04:28.151609	71.196.137.193	71.196.137.193	2011-01-25 16:13:52.429598	2011-02-06 19:08:03.533115
 57	\N	Starla	Reichow	480-483-3030		480-483-7895	sreichow@premiergarage.com	$2a$10$T4Lrm08rGA8p749rc7PNPepYB2xQkmFocezJ4k1TwcH7vrtZjh1Ei	$2a$10$T4Lrm08rGA8p749rc7PNPe	\N	\N	\N	3	2011-02-05 03:50:59.191057	2011-02-05 03:49:57.120622	71.196.137.193	71.196.137.193	2011-01-27 00:19:16.5581	2011-02-11 18:21:54.712844
-59	\N	Theresia	Lampe	480-483-3030		480-483-7895	tlampe@premiergarage.com	$2a$10$04D8hnWQWeeyZJXpbYlt2OsuGRM/gz0xo6BZTf4pmtWMt3QKuNKme	$2a$10$04D8hnWQWeeyZJXpbYlt2O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-27 00:30:04.370057	2011-02-11 17:48:24.837841
+59	\N	Theresia	Lampe	480-483-3030		480-483-7895	tlampe@premiergarage.com	$2a$10$hhs6anLSTrWi46oOFhSPiOzU/dE9dZSGr3bzNEa0i.BvEs2tv5p/m	$2a$10$hhs6anLSTrWi46oOFhSPiO	\N	\N	\N	1	2011-02-11 21:39:10.318037	2011-02-11 21:39:10.318037	174.79.54.226	174.79.54.226	2011-01-27 00:30:04.370057	2011-02-11 21:39:10.31924
 51	\N	Dalawna	Dillman	480-483-3030		480-483-7895	ddillman@premiergarage.com	$2a$10$BobgDLbaUTnRj/mLYlwzyuOuzMi.DidT3w7MPY3xfM82NoJi1V6bi	$2a$10$BobgDLbaUTnRj/mLYlwzyu	\N	\N	\N	6	2011-02-07 16:20:05.759254	2011-01-30 20:40:29.163697	174.79.54.226	70.176.124.201	2011-01-06 23:44:42.653941	2011-02-11 17:47:46.185439
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$hiJTCKugu/62u4ca7t5mAuSZHXuN6zVXUVCRwPb1vJofUfVaDsiqy	$2a$10$hiJTCKugu/62u4ca7t5mAu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.284249	2011-02-11 15:28:40.875758
 53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	af1grgyB-glnPvpSxdNN	2011-02-11 14:11:03.548477	16	2011-02-11 14:15:01.617687	2011-02-11 14:11:03.553611	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-11 14:15:01.618307
