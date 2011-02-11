@@ -84,9 +84,16 @@ class UsersController < ApplicationController
 
       if @user.update_attributes(params[:user])
         if can? :manage, User 
+          current_contact_types = @user.franchisee_contacts.inject({}) do |m, c| 
+            m[c.franchisee_id.to_i] = c.contact_type; m
+          end
+
           @user.franchisee_contacts.clear
           params[:user][:franchisees].each do |id|
-            @user.franchisee_contacts.create(:franchisee_id => id)
+            @user.franchisee_contacts.create(
+              :franchisee_id => id, 
+              :contact_type => current_contact_types[id.to_i] 
+            )
           end
         end
 

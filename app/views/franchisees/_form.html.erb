@@ -72,7 +72,7 @@
       <dt><%= f.label :franchise_name %></dt>
       <dd><%= f.text_field :franchise_name %></dd>
       <dt><%= f.label :primary_contact%></dt>
-      <dd><%= collection_select(:primary_contact, :user_id, User.order(:last_name, :first_name), :id, :name, {:selected => @franchisee.primary_contact.try(:user_id)}) %></dd> 
+      <dd><%= collection_select(:primary_contact, :user_id, User.order(:last_name, :first_name), :id, :name, {:selected => @franchisee.primary_contact.try(:user_id), :include_blank => true}) %></dd> 
       <dt><%= f.label :phone %></dt>
       <dd><%= f.text_field :phone %></dd>
       <dt><%= f.label :fax %></dt>
