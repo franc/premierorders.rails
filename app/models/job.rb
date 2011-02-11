@@ -293,10 +293,10 @@ class Job < ActiveRecord::Base
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
-      job_item.width,
-      job_item.height,
-      job_item.depth,
-      job_item.item.nil? ? nil : job_item.item.cutrite_id,
+      job_item.width.orSome(''),
+      job_item.height.orSome(''),
+      job_item.depth.orSome(''),
+      job_item.item.nil? ? '' : job_item.item.cutrite_id,
       job_item.item_name      
     ]
 
