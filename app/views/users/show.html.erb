@@ -4,6 +4,14 @@
     <dd><%= @user.first_name %></dd>
     <dt><%= label :user, :last_name %></dt>
     <dd><%= @user.last_name %></dd>
+    <dt><%= label :user, :franchisees %></dt>
+    <dd>
+      <ul>
+        <% @user.franchisees.each do |f| %>
+          <li><%= f.franchise_name %></li>
+        <% end %>
+      </ul>
+    </dd>
     <dt><%= label :user, :phone %></dt>
     <dd><%= @user.phone %></dd>
     <dt><%= label :user, :phone2 %></dt>
