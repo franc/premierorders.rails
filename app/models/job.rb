@@ -34,7 +34,9 @@ class Job < ActiveRecord::Base
   SHIPMENT_OPTIONS = ["PremierRoute", "LTL", "Drop Ship", "Ground", "2nd Day", "Overnight"]
 
   def is_manageable_by(user)
-    franchisee.users.any?{|u| u.id == user.id} || primary_contact == user || placed_by == user
+    (franchisee && franchisee.users.any?{|u| u.id == user.id}) || 
+    primary_contact == user || 
+    placed_by == user
   end
 
   def ship_to
@@ -285,6 +287,10 @@ class Job < ActiveRecord::Base
   def inventory_items
     @inventory_items ||= job_items.order('tracking_id').select{|i| i.inventory?} + component_inventory_hardware
     @inventory_items
+  end
+
+  def to_s
+    "#{Job.model_name.human} #{name}"
   end
 
   private

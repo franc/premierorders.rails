@@ -2,7 +2,7 @@ require 'date'
 require 'job.rb'
 
 class JobsController < ApplicationController
-  load_and_authorize_resource :except => [:new, :create, :index]
+  load_and_authorize_resource :except => [:create, :index]
 
   # GET /jobs
   # GET /jobs.xml
@@ -35,7 +35,7 @@ class JobsController < ApplicationController
   # GET /jobs/new.xml
   def new
     @job = Job.new
-    @franchisees = if can? :manage, @job
+    @franchisees = if can? :manage, Job
       Franchisee.order(:franchise_name)
     else
       current_user.franchisees.order(:franchise_name)

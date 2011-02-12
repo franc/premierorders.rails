@@ -90,7 +90,9 @@
 </dl>
 
 <% content_for :local_nav do %>
-  <%= link_to t(:edit), edit_job_path(@job) %> |
+  <% if can? :update, @job %>
+    <%= link_to t(:edit), edit_job_path(@job) %> |
+  <% end %>
   <%= link_to t(:quote), quote_job_path(@job) %> |
   <% if can? :manage, @job %>
     <%= link_to t(:cutrite), cutrite_job_path(@job) %> |

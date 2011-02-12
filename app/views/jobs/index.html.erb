@@ -23,10 +23,8 @@
     <th>Special Instructions</th>
     <% if can? :manage, Job %>
       <th>Credit Status</th>
-      <th colspan="5">Actions</th>
-    <% else %>
-      <th colspan="2">Actions</th>
     <% end %>
+    <th>Actions</th>
   </tr>
   <% @jobs.each do |job| %>
     <tr>
@@ -49,12 +47,9 @@
 
       <% if can? :manage, job %>
         <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
-        <td><%= link_to 'Manage', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-        <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
+        <td><%= link_to 'Manage', job %> | <%= link_to 'Edit', edit_job_path(job) %> | <%= link_to 'Cutrite', cutrite_job_path(job) %></td>
       <% else %>
-        <td><%= link_to 'Manage', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
+        <td><%= link_to 'Manage', job %> <% if can? :update, job %>| <%= link_to 'Edit', edit_job_path(job) %><% end %></td>
       <% end %>
 
       <% if can? :destroy, job %>
@@ -67,5 +62,7 @@
 <%= will_paginate @jobs unless @jobs.empty? %>
 
 <% content_for :local_nav do %>
-  <%= link_to "New #{Job.model_name.human}", new_job_path %>
+  <% if can? :create, Job %>
+    <%= link_to "New #{Job.model_name.human}", new_job_path %>
+  <% end %>
 <% end %>
