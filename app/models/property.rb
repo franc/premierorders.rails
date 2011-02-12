@@ -420,18 +420,35 @@ class Property < ActiveRecord::Base
     end
   end
 
-  module EdgeBand
+  module LinearPricing
     include Expressions, Properties::JSONProperty, Properties::LinearConversions
+
+    def self.value_structure
+      [
+        [:price , :float],
+        [:price_units , Properties::LinearConversions::UNITS]
+      ]
+    end
+
+    def price(units)
+      convert(extract(:price).to_f, units, extract(:price_units).to_sym)
+    end
+
+    def cost_expr(units, length_expr)
+      mult(term(price(units)), length_expr)
+    end
+  end
+
+  module EdgeBand
+    include LinearPricing
     def self.value_structure
       [
         [:color , :string],
         [:dvinci_id , :string],
         [:cutrite_code , :string],
         [:width , :float],
-        [:width_units , Properties::LinearConversions::UNITS],
-        [:price , :float],
-        [:price_units , Properties::LinearConversions::UNITS]
-      ]
+        [:width_units , Properties::LinearConversions::UNITS]
+      ] + LinearPricing.value_structure
     end
 
     def color
@@ -448,14 +465,6 @@ class Property < ActiveRecord::Base
 
     def width
       extract(:width).to_f
-    end
-
-    def price(units)
-      convert(extract(:price).to_f, units, extract(:price_units).to_sym)
-    end
-
-    def cost_expr(units, length_expr)
-      mult(term(price(units)), length_expr)
     end
   end
 

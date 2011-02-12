@@ -66,8 +66,6 @@
   <dl class="property_value">
     <dt>Value Name:</dt>
     <dd><%= text_field_tag "property_value[new][name]", nil, {:class => 'property_value_field'} %></dd>
-    <dt>D'Vinci ID:</dt>
-    <dd><%= text_field_tag "property_value[new][dvinci_id]", nil, {:class => 'property_value_field'} %></dd>
     <% @property.value_structure.each do |name, type| %>
       <dt><%= name.to_s.titlecase %>:</dt>
       <dd><%= property_value_field_tag("property_value[new][fields][#{name}]", type) %></dd>

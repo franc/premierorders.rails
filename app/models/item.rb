@@ -5,7 +5,7 @@ require 'monoid'
 require 'semigroup'
 
 class Item < ActiveRecord::Base
-  include Expressions, Items::Margins, Items::Surcharges
+  include Expressions, Items::Margins, Items::Surcharges, Items::Pricing
 
   has_many :item_properties, :dependent => :destroy
 	has_many :properties, :through => :item_properties, :extend => Properties::Association
@@ -83,7 +83,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.optional_properties
-    [MARGIN, SURCHARGE, RANGED_SURCHARGE]
+    [MARGIN, SURCHARGE, RANGED_SURCHARGE, LINEAR]
   end
 
   def property_value(descriptor)
@@ -108,6 +108,7 @@ class Item < ActiveRecord::Base
 
   def cost_expr(units, color, contexts)
     base_expr = self.base_price.nil? || self.base_price == 0 ? [] : [term(self.base_price)]
+    property_pricing = self.property_pricing_expr(units).to_a
     
     selected_component_associations = if contexts.nil? || contexts.empty?
       item_components
@@ -123,7 +124,7 @@ class Item < ActiveRecord::Base
       assoc.cost_expr(units, color, contexts).map{|e| exprs << e}.orSome(exprs)
     end
 
-    subtotal_exprs = base_expr + component_exprs + surcharge_exprs(units)
+    subtotal_exprs = base_expr + property_pricing + component_exprs + surcharge_exprs(units)
     if subtotal_exprs.empty?
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
