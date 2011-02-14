@@ -691,7 +691,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 122, true);
+SELECT pg_catalog.setval('jobs_id_seq', 123, true);
 
 
 --
@@ -3862,6 +3862,7 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method, primary_contact_id, notes) FROM stdin;
 122	8	35	38	test	SO - 22	\N	2011-02-12 05:14:27.004134	2011-02-12 05:20:50.22048	021011-1.xml	text/xml	30472	2011-02-12 05:14:27.001046	\N	Placed	\N	\N	just a test	2011-02-12 05:20:10	35	\N	LTL	\N	\N
 121	10	36	2	the one you asked me for	SO - 21	\N	2011-02-10 21:40:40.80802	2011-02-12 05:20:58.292603	Todd Carter Pricing Issues.xml	application/octet-stream	36044	2011-02-10 21:40:40.805993	\N	Created	\N	\N	Don't produce 	2011-02-10 21:41:44	36	\N	\N	36	\N
+123	1	1	1	White	\N	\N	2011-02-14 21:58:37.468796	2011-02-14 21:58:37.468796	615_white_ordered Parts List.xlsx	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet	13676	2011-02-14 21:58:37.465303	\N	\N	\N	\N		\N	\N	\N	\N	\N	\N
 120	8	35	38	test 0210-1	\N	\N	2011-02-10 20:52:54.954682	2011-02-10 20:52:54.954682	021011-1.xml	text/xml	30472	2011-02-10 20:52:54.952261	\N	\N	\N	\N	testing dvi build 1199	\N	\N	\N	\N	\N	\N
 \.
 
@@ -4810,7 +4811,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tkwstorage.com	$2a$10$2GpCmKcvnROf4BesohQXcu9ampnBTLdmDTbhLpikDDVkllrTKqcPa	$2a$10$2GpCmKcvnROf4BesohQXcu	\N	\N	\N	4	2011-02-06 00:58:18.675541	2011-02-05 22:52:44.633438	71.196.137.193	184.220.184.75	2011-01-01 18:53:32.256749	2011-02-06 00:58:18.676577
 36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$xo/nM73amtMdms4dwF9inuMDAlqSmZjcO0QPfsL.iFf6U83uDdeMu	$2a$10$xo/nM73amtMdms4dwF9inu	\N	\N	\N	3	2011-02-10 21:39:28.996215	2011-02-09 15:54:36.451137	67.203.136.36	67.203.136.36	2011-01-01 18:53:36.829115	2011-02-10 21:39:28.997063
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:37.748043	2011-02-11 15:02:38.399442
-1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@tailoredliving.com	$2a$10$oNmnLyJDPsg9wsOwShovJO8j/K.1qLIdNxzTmxjBELh/Zvvvq09CS	$2a$10$oNmnLyJDPsg9wsOwShovJO	\N	\N	\N	11	2011-02-01 01:37:23.339761	2011-01-26 13:29:47.229576	71.196.137.193	184.250.160.131	2011-01-01 18:53:31.856627	2011-02-11 15:13:37.22113
 22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.831371	2011-02-11 15:37:35.458327
 26	Mr.	Calvin	Connell	(208) 733-6768	(208) 280-0880	(208) 733-6768	cconnell@tailoredliving.com	$2a$10$L34zvvTQ6Cujakc.zlzPDuZenFpHabWniwKGbngEO67wN6ThjchXa	$2a$10$L34zvvTQ6Cujakc.zlzPDu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.426306	2011-02-11 15:42:17.587949
 15	Mr.	Dan	Kerth	(859) 488-0078	(859) 866-8266	(859) 488-0079	dckerth@tailoredliving.com	$2a$10$dN/ZEOlxbZ3vnZ7d80DCcOzSvIlP009q6bvvMDIiIibb2GU0T7Xny	$2a$10$dN/ZEOlxbZ3vnZ7d80DCcO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.810296	2011-02-11 15:50:01.193305
@@ -4826,6 +4826,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 45	Ms.	Jackie	Poehlman	(949) 831-3244	(949)939-6845	(949) 297-3953	jpoehlman@tailoredliving.com	$2a$10$h2/BHnBLmWipNnMCVTNwSOL0CW/1MOwG5R6cmaF9TS3JqS.lres1m	$2a$10$h2/BHnBLmWipNnMCVTNwSO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:37.963796	2011-02-11 17:50:16.872148
 20	Mr.	Jeffery	Vlasak	(262) 633-8850	(262) 488-3826	(262) 866-2093	jvlasak@tailoredliving.com	$2a$10$j9DCWY7J.99SOjfcaQH9ye2opLsFYmOE.mal2aTRwod/BLSkztxkq	$2a$10$j9DCWY7J.99SOjfcaQH9ye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.535755	2011-02-11 17:58:42.001612
 34	Mrs.	Yolanda	Quihuis	623-792-2308		(480) 483-7895	yquihuis@premiergarage.com	$2a$10$BT03LR43InvaehkVDC/WLOTkEjXaawfGLRCkTqlhEg9iO034OgFlu	$2a$10$BT03LR43InvaehkVDC/WLO	3ZBUI-8hDNdnOvQffTrM	\N	\N	2	2011-02-01 23:48:23.787014	2011-01-26 22:55:55.999978	174.79.54.226	71.196.137.193	2011-01-01 18:53:36.603664	2011-02-12 16:05:21.367742
+1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@tailoredliving.com	$2a$10$oNmnLyJDPsg9wsOwShovJO8j/K.1qLIdNxzTmxjBELh/Zvvvq09CS	$2a$10$oNmnLyJDPsg9wsOwShovJO	\N	\N	\N	12	2011-02-14 21:57:48.384914	2011-02-01 01:37:23.339761	67.203.136.36	71.196.137.193	2011-01-01 18:53:31.856627	2011-02-14 21:57:48.385765
 47	Mr.	David	Stauber	(503) 390-0522	(503) 302-9473		dstauber@livingtailored.com	$2a$10$v2ODLxkKYSmlDTuAgKg6R.jvRGiDQfA1VhgE5G9sqemO1MZXtCSa2	$2a$10$v2ODLxkKYSmlDTuAgKg6R.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.282367	2011-01-01 18:53:38.40561
 23	Mr.	Ron	Blaski	(805) 462-8133	(805) 610-3358	(805) 466-4642	rblaski@tailoredliving.com	$2a$10$xy7AywGy7mafASpjkxrKKOGGp/RlPRYWPiQKYFyvxhOvHcgxy5s46	$2a$10$xy7AywGy7mafASpjkxrKKO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.048918	2011-01-01 18:53:38.43325
 48	Mr.	Travis	Leduc	(403) 315-0323		(403) 257-5012	ctsa@tailoredlving.com	$2a$10$yCpq6r/scwz8JUz3XBhO.e55OnfAYV.g/bnmAKv9qQoPjMyN6Rzga	$2a$10$yCpq6r/scwz8JUz3XBhO.e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.537552	2011-01-01 18:53:38.544167
