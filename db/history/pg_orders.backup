@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1309, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1310, true);
 
 
 --
@@ -735,7 +735,7 @@ ALTER SEQUENCE properties_id_seq OWNED BY properties.id;
 -- Name: properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('properties_id_seq', 123, true);
+SELECT pg_catalog.setval('properties_id_seq', 124, true);
 
 
 --
@@ -791,7 +791,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 325, true);
+SELECT pg_catalog.setval('property_values_id_seq', 326, true);
 
 
 --
@@ -2879,6 +2879,7 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1307	704	120	\N
 1308	158	123	\N
 1309	516	123	\N
+1310	99	124	\N
 \.
 
 
@@ -2890,7 +2891,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 549	ZZ Panel 06 DON'T DELETE	building block: 1/4 inch panel		\N			2011-01-01 20:34:10.316243	2011-01-07 17:41:24.972736	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 68	ZH Jewelry Tray (18)	Jewelry Tray (18)		\N	000.984.018.000.00P		2011-01-01 18:53:52.578565	2011-01-26 19:31:27.259193	Purchased	JT18	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 603	ZH Murphy Bed Hardware Set King		ABF-M/ABF-K	\N			2011-01-11 05:35:59.132818	2011-01-26 19:34:16.95902	Purchased	10063	Item	809.85000000000002		\N	\N	0.92000000000000004	0.40000000000000002
-99	ZH Closet Rod | Matte Nickel	Wardrobe Tube Al Ni Matt 1 5/16	801.42.600	\N	000.801.042.600.00I		2011-01-01 18:53:53.512515	2011-01-26 19:22:40.247983	Inventory	30077	ScaledItem	11.859999999999999		\N	\N	0.92000000000000004	0.40000000000000002
+99	ZH Closet Rod | Matte Nickel	Wardrobe Tube Al Ni Matt 1 5/16	801.42.600	\N	000.801.042.600.00I		2011-01-01 18:53:53.512515	2011-02-13 23:57:41.473689	Inventory	30077	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 626	ZZ HO Base Cabinet Shell DON'T DELETE			\N			2011-01-12 22:49:22.538239	2011-01-12 22:49:22.538239	Manufactured		Shell	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 584	ZZ Nailer DON'T DELETE	Building block: nailer		\N			2011-01-06 15:16:57.152294	2011-01-12 17:27:15.91801	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 551	ZZ HOp Adj Shelf DON'T DELETE	building block: home office adjustable shelf 3/4 inch		\N			2011-01-01 22:46:37.657789	2011-01-12 21:47:42.764442	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
@@ -3992,6 +3993,7 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 121	86.5 Margin (Decore)	margin	Margin	2011-02-04 20:40:06.725606	2011-02-04 20:42:26.726173
 122	65 Margin	margin	Margin	2011-02-08 16:47:24.221774	2011-02-08 16:47:24.221774
 123	64 Margin	margin	Margin	2011-02-08 16:50:06.06634	2011-02-08 16:50:06.06634
+124	Lin Ft Closet Rod Matte Nickel	linear_pricing	LinearPricing	2011-02-13 23:57:21.703224	2011-02-13 23:57:21.703224
 \.
 
 
@@ -4324,6 +4326,7 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 121	323
 123	324
 122	325
+124	326
 \.
 
 
@@ -4417,6 +4420,7 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 156	Base Molding: 2-1/2", 426-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.332886	2011-01-02 01:58:03.332886
 195	20	Margin	{"factor":".2"}	2011-01-06 07:27:37.538169	2011-01-12 02:32:14.271898
 258	49	Margin	{"factor":".49"}	2011-01-13 05:27:35.62733	2011-01-13 05:27:35.62733
+326	Matte Nickel	LinearPricing	{"price":"1.4825","price_units":"ft"}	2011-02-13 23:57:21.713497	2011-02-13 23:57:21.713497
 265	0-30" 38 qty	RangedValue	{"max":"30","variable_units":"in","value":"38","min":"","variable":"width"}	2011-01-13 14:53:34.499727	2011-01-13 14:53:34.499727
 266	30+" 39 qty	RangedValue	{"max":"","variable_units":"in","value":"39","min":"30","variable":"width"}	2011-01-13 14:53:34.51526	2011-01-13 14:53:34.51526
 283	50.5	Margin	{"factor":".505"}	2011-01-13 21:33:47.843146	2011-01-13 21:36:41.163226
