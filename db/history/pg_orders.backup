@@ -101,7 +101,7 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 -- Name: addresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('addresses_id_seq', 81, true);
+SELECT pg_catalog.setval('addresses_id_seq', 82, true);
 
 
 --
@@ -160,7 +160,7 @@ ALTER SEQUENCE franchisee_addresses_id_seq OWNED BY franchisee_addresses.id;
 -- Name: franchisee_addresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_addresses_id_seq', 73, true);
+SELECT pg_catalog.setval('franchisee_addresses_id_seq', 74, true);
 
 
 --
@@ -1135,6 +1135,7 @@ COPY addresses (id, address1, address2, city, state, postal_code, country, creat
 79	3768 SW 30 Ave		Hollywood	FL	33312	\N	2011-02-11 18:24:06.709501	2011-02-11 18:24:06.709501
 80	120 Clair Dr.		Piedmont	SC	29673	\N	2011-02-11 18:27:30.287182	2011-02-11 18:27:30.287182
 81	123		asdlkf	kk	12345	\N	2011-02-11 19:17:59.557273	2011-02-11 19:17:59.557273
+82	#2 451 Adams Rd.		Kelowna	BC	V1W-5G8	\N	2011-02-16 19:10:47.269716	2011-02-16 19:10:47.269716
 \.
 
 
@@ -1324,6 +1325,7 @@ COPY franchisee_addresses (id, franchisee_id, address_id, address_type, created_
 72	67	80	Billing	2011-02-11 18:27:30.291651	2011-02-11 18:27:30.291651
 73	68	81	Billing	2011-02-11 19:17:59.570816	2011-02-11 19:17:59.570816
 4	4	6	Shipping	2011-01-01 18:53:32.323211	2011-02-16 18:18:04.515903
+74	2	82	Shipping	2011-02-16 19:10:47.27628	2011-02-16 19:10:47.27628
 \.
 
 
