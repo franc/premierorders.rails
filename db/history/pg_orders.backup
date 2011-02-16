@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 3438, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 3440, true);
 
 
 --
@@ -540,7 +540,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 2386, true);
+SELECT pg_catalog.setval('job_items_id_seq', 2387, true);
 
 
 --
@@ -586,7 +586,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 143, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 144, true);
 
 
 --
@@ -691,7 +691,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 154, true);
+SELECT pg_catalog.setval('jobs_id_seq', 155, true);
 
 
 --
@@ -4124,6 +4124,8 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 3436	2384	\N	dimensions	\N		{"linear_units":"in"}	2011-02-15 23:38:24.006202	2011-02-15 23:38:24.006202
 3437	2385	\N	dimensions	\N		{"linear_units":"in"}	2011-02-15 23:38:24.017638	2011-02-15 23:38:24.017638
 3438	2386	\N	dimensions	\N		{"linear_units":"in"}	2011-02-15 23:38:24.180358	2011-02-15 23:38:24.180358
+3439	2387	\N	dimensions	\N	Depth,Height,Width	{"height":"4.6875","width":"28.9375","depth":"13.75","linear_units":"in"}	2011-02-16 00:37:32.86279	2011-02-16 00:37:32.86279
+3440	2387	\N	color	\N	Color	{"color":"White"}	2011-02-16 00:37:32.875953	2011-02-16 00:37:32.875953
 \.
 
 
@@ -4480,6 +4482,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 2384	154	4	000.117.031.334.00I	4		2011-02-15 23:38:24.001649	2011-02-15 23:38:24.001649	1.0444500000000001	22	ZH Handle Bronze | 128mm	\N
 2385	154	103	000.803.056.100.00I	12		2011-02-15 23:38:24.013129	2011-02-15 23:38:24.013129	2.2133333333333298	23	ZH Pole Cups (pair) | Oil Rubbed Bronze	\N
 2386	154	12	000.102.100.000.00I	48		2011-02-15 23:38:24.023959	2011-02-15 23:38:24.023959	0.022935416666666701	24	ZH Shelf Pin (Spoon)	\N
+2387	155	198	000.024.002.051.00B	1	*Using Easy Close Accuride slides, 1 1/16" less than opening	2011-02-16 00:37:32.858138	2011-02-16 00:37:32.858138	24.308900000000001	12	Drawer Box	\N
 \.
 
 
@@ -4505,6 +4508,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 140	151	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 19:02:38.588933	2011-02-15 19:02:38.588933
 142	153	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 22:11:41.477296	2011-02-15 22:11:41.477296
 143	154	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 23:38:22.330835	2011-02-15 23:38:22.330835
+144	155	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-16 00:37:32.852121	2011-02-16 00:37:32.852121
 \.
 
 
@@ -4513,7 +4517,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	40	2011-01-23 05:52:19.75042	2011-02-15 23:41:01.84071
+1	2011	41	2011-01-23 05:52:19.75042	2011-02-16 00:37:47.567974
 \.
 
 
@@ -4522,13 +4526,14 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 --
 
 COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method, primary_contact_id, notes) FROM stdin;
-141	4	4	6	Boldebuck - Pantry	SO - 30	\N	2011-02-15 16:02:46.013679	2011-02-15 16:06:28.399699	Boldebuck - Pantry.xml	text/xml	16430	2011-02-15 16:02:46.011538	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Special\r\n1) 10" Depth Materials	2011-02-15 16:06:28	4	\N	\N	29	\N
 142	4	4	6	Boldebuck - Mudroom	SO - 31	\N	2011-02-15 16:28:03.846773	2011-02-15 16:31:14.277949	Boldebuck - Mudroom.xml	text/xml	17841	2011-02-15 16:28:03.844846	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:31:14	4	\N	\N	\N	\N
 143	4	4	6	Boldebuck - Annaka	SO - 32	\N	2011-02-15 16:40:30.107612	2011-02-15 16:41:21.862995	Boldebuck - Annaka.xml	text/xml	26726	2011-02-15 16:40:30.105785	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:41:21	4	\N	\N	\N	\N
 154	13	12	16	Thatcher	SO - 40	\N	2011-02-15 23:38:21.966347	2011-02-15 23:41:01.844343	Thatcher_02_15 Parts List.xml	text/xml	21013	2011-02-15 23:38:21.963814	\N	Placed	\N	\N	Would like to ship with my SRS order I placed today if possible, thanks.	2011-02-15 23:41:01	12	\N	\N	\N	\N
 144	4	4	6	Boldebuck - Hanna	SO - 33	\N	2011-02-15 16:57:05.757071	2011-02-15 16:59:34.36416	Boldebuck - Hanna.xml	text/xml	25967	2011-02-15 16:57:05.755159	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted Items were modified in excel sheet to account for 2 cut to fit sections	2011-02-15 16:59:34	4	\N	\N	29	\N
 145	4	4	6	Boldebuck - Entry	SO - 34	\N	2011-02-15 17:06:04.58462	2011-02-15 17:06:25.313435	Boldebuck - Entry.xml	text/xml	6622	2011-02-15 17:06:04.580546	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 17:06:25	4	\N	\N	\N	\N
+155	4	4	6	Reddy - Replacement Drawer Box	SO - 41	\N	2011-02-16 00:37:32.781674	2011-02-16 00:37:47.586431	Reddy - Replacement Drawer Box.xml	application/octet-stream	6907	2011-02-16 00:37:32.779089	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n*Replacement for previously ordered materials.  "Reddy - Kartik's Closet", was ordered pre D'Vinci 4.1 so dimensions were different also I needed specific sizing for soft close slides.\r\n\r\n**Please check previous order submitted to assure correct size is sent	2011-02-16 00:37:47	4	\N	\N	\N	\N
 146	4	4	6	Boldebuck - Bath Linen	SO - 35	\N	2011-02-15 17:14:10.569762	2011-02-15 17:16:02.110043	Boldebuck - Bath Linen.xml	text/xml	5540	2011-02-15 17:14:10.567723	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted item is for wall cleat material.\r\nNeed: (4) 1.50" x 96" strips, edge band 1 long & 2 short	2011-02-15 17:16:02	4	\N	\N	29	\N
+141	4	4	38	Boldebuck - Pantry	SO - 30	\N	2011-02-15 16:02:46.013679	2011-02-16 00:44:09.542964	Boldebuck - Pantry.xml	text/xml	16430	2011-02-15 16:02:46.011538	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Special\r\n1) 10" Depth Materials	2011-02-15 16:06:28	4		PremierRoute	29	
 132	4	4	38	Boldebuck - Master	SO - 24	\N	2011-02-15 00:11:33.052152	2011-02-15 20:22:49.130647	Boldebuck - Master.xml	application/octet-stream	41490	2011-02-15 00:11:33.049771	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 00:13:55	4		PremierRoute	4	
 148	4	4	6	Boldebuck - Hall Closet	SO - 36	\N	2011-02-15 17:26:12.266383	2011-02-15 17:27:43.586367	Boldebuck - Hall Closet.xml	text/xml	7315	2011-02-15 17:26:12.26471	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted item is for wall cleat material.\r\nNeed: (2) 1.50" x 96" strips, edge band 1 long & 2 short	2011-02-15 17:26:43	4	\N	\N	29	\N
 150	4	4	6	McElrone - ReOrder	SO - 37	\N	2011-02-15 17:59:37.956567	2011-02-15 18:00:39.94146	McElrone - ReOrder 2.xml	text/xml	21555	2011-02-15 17:59:37.954406	\N	Placed	\N	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 18:00:39	4	\N	\N	\N	\N
