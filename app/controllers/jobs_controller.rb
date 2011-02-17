@@ -55,7 +55,7 @@ class JobsController < ApplicationController
     else
       current_user.franchisees.order(:franchise_name)
     end
-    @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
+    @addresses = @job.franchisee ? @job.franchisee.addresses : (@franchisees.nil? || @franchisees.empty? ? [] : @franchisees[0].addresses)
   end
 
   # POST /jobs
