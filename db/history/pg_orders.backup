@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 224, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 225, true);
 
 
 --
@@ -912,7 +912,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('users_id_seq', 99, true);
+SELECT pg_catalog.setval('users_id_seq', 100, true);
 
 
 --
@@ -1479,6 +1479,7 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 221	8	97	\N	2011-02-16 18:28:06.771958	2011-02-16 18:28:06.771958
 222	17	16	primary	2011-02-16 21:10:33.259042	2011-02-16 21:10:33.259042
 224	5	99	\N	2011-02-17 15:22:54.153496	2011-02-17 15:22:54.153496
+225	41	100	\N	2011-02-18 00:30:51.971819	2011-02-18 00:30:51.971819
 \.
 
 
@@ -1533,7 +1534,6 @@ COPY franchisees (id, franchise_name, phone, fax, website, margin_cabinets, marg
 38	TL of Tampa	(813)909-2957	(813)909-2967		\N	\N	\N	\N	\N	\N	2011-02-11 15:38:17.357222	2011-02-11 15:38:17.357222	Green	
 39	TL of Boise	(208)737-4657	(208)733-6768		\N	\N	\N	\N	\N	\N	2011-02-11 15:41:11.209596	2011-02-11 15:41:11.209596	Green	
 40	TL of Chicagoland	(630)289-7760			\N	\N	\N	\N	\N	\N	2011-02-11 15:43:26.484244	2011-02-11 15:43:26.484244	Green	
-41	TL of Indianapolis	(317)842-4272			\N	\N	\N	\N	\N	\N	2011-02-11 15:45:43.680366	2011-02-11 15:45:43.680366	Green	
 42	TL of Lexington	(859)881-0760			\N	\N	\N	\N	\N	\N	2011-02-11 15:48:06.563615	2011-02-11 15:48:06.563615	Green	
 43	TL of Lake Charles	(337)564-0322	(337)564-0323		\N	\N	\N	\N	\N	\N	2011-02-11 15:50:38.411687	2011-02-11 15:50:38.411687	Green	
 44	TL of Novi	(248)669-8900			\N	\N	\N	\N	\N	\N	2011-02-11 15:53:08.453727	2011-02-11 15:53:08.453727	Green	
@@ -1555,6 +1555,7 @@ COPY franchisees (id, franchise_name, phone, fax, website, margin_cabinets, marg
 66	TL of Miami Beach	(954) 797-9275	(954) 797-9726		\N	\N	\N	\N	\N	\N	2011-02-11 18:23:26.554021	2011-02-11 18:23:26.554021	Green	
 67	TL of Western Carolina	864-295-4100	864-295-9642		\N	\N	\N	\N	\N	\N	2011-02-11 18:27:03.666661	2011-02-11 18:27:03.666661	Green	
 3	TL of Puyallup WA	(253) 261-4253	(253) 447-4575		\N	\N	\N	\N	\N	\N	2011-01-01 18:53:32.024482	2011-02-11 19:02:04.280514	Green	
+41	TL of Indy	(317)842-4272			\N	\N	\N	\N	\N	\N	2011-02-11 15:45:43.680366	2011-02-18 00:35:41.074232	Green	
 \.
 
 
@@ -6044,6 +6045,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 32	1
 49	1
 99	2
+100	2
 23	2
 30	2
 2	2
@@ -6221,6 +6223,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$SbKU6fEH5quJZ6JWA9Taoeq5ybgChv9WxccJLwsg.p8kO2kra/c1y	$2a$10$SbKU6fEH5quJZ6JWA9Taoe	\N	\N	\N	0	\N	\N	\N	\N	2011-02-16 23:04:54.013023	2011-02-16 23:04:54.013023
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	2	2011-02-17 15:24:30.435841	2011-02-17 15:23:04.620353	72.66.62.197	72.66.62.197	2011-02-17 15:18:30.360419	2011-02-17 15:24:30.436454
 78	\N	Dave	Galt	(701)281-0558		(701)281-0568	dgalt@tailoredliving.com	$2a$10$1kCTBmCuZB59.p7hZJkB..d/caHKpVhCKai4Uo6lJclobHPQjqgEi	$2a$10$1kCTBmCuZB59.p7hZJkB..	\N	\N	\N	2	2011-02-17 18:20:16.439636	2011-02-15 15:08:08.270598	69.178.221.211	69.178.221.211	2011-02-11 16:13:15.331096	2011-02-17 18:20:16.440675
+100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-18 00:30:51.948611	2011-02-18 00:30:51.948611
 \.
 
 
