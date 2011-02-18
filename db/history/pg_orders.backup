@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1318, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1321, true);
 
 
 --
@@ -735,7 +735,7 @@ ALTER SEQUENCE properties_id_seq OWNED BY properties.id;
 -- Name: properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('properties_id_seq', 124, true);
+SELECT pg_catalog.setval('properties_id_seq', 126, true);
 
 
 --
@@ -791,7 +791,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 326, true);
+SELECT pg_catalog.setval('property_values_id_seq', 328, true);
 
 
 --
@@ -2880,10 +2880,12 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1310	99	124	\N
 1313	41	44	\N
 1314	42	44	\N
-1315	40	44	\N
 1316	553	44	\N
 1317	554	44	\N
 1318	555	44	\N
+1319	40	62	\N
+1320	100	125	\N
+1321	98	126	\N
 \.
 
 
@@ -3069,7 +3071,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 4	ZH Handle Bronze | 128mm	Handle St Oil-Rubbed Bzd M4 Ctc 128Mm	117.31.334	\N	000.117.031.334.00I		2011-01-01 18:53:39.034691	2011-01-26 19:27:18.124004	Inventory	10011	Item	0.93999999999999995		\N	\N	0.92000000000000004	0.40000000000000002
 53	ZH Shoe Fence (18) | Matte Nickel	Shoe Fence, steel, matte nickel, 17"	547.51.602	\N	000.547.051.602.00P		2011-01-01 18:53:51.103007	2011-01-26 19:40:23.204927	Purchased	30068	Item	2.5760000000000001		\N	\N	0.92000000000000004	0.40000000000000002
 109	ZH Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.102.100.000.00I		2011-01-01 18:53:53.629835	2011-01-26 19:39:55.477903	Inventory	1021	Item	0.0138		\N	\N	0.92000000000000004	0.40000000000000002
-98	ZH Closet Rod | Polished Chrome	Wardrobe Tube Alu. Chr Pol. 1 5/16	801.42.200	\N	000.801.042.200.00I		2011-01-01 18:53:53.498595	2011-01-26 19:23:17.107803	Inventory	30078	Item	10.82		\N	\N	0.92000000000000004	0.40000000000000002
 264	NX Base Cabinet 1 Drawer 1 Door	NX Base Cabinet 1 Drawer 1 Door 		\N	000.211.233.x.00M	NX-C-1AS	2011-01-01 18:54:10.337867	2011-01-31 16:09:48.468218	Manufactured	Garage_Cabinets	Cabinet	\N		\N	\N	0.92000000000000004	0.40000000000000002
 22	Decor Crown Molding - 423 | Antique White	Decor Crown Molding - 423 | Antique White		\N	000.301.000.002.00P	DS-CM-423	2011-01-01 18:53:39.169096	2011-01-30 17:43:37.713287	Purchased		Item	26.170000000000002		\N	\N	0.92000000000000004	0.40000000000000002
 32	Decor Crown Molding - 423 | Chocolate Apple	Decor Crown Molding - 423 | Chocolate Apple		\N	000.301.000.007.00P	DS-CM-423	2011-01-01 18:53:39.528872	2011-01-30 17:44:30.468061	Purchased		Item	29.93		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3096,6 +3097,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 92	ZH Sliding Wire Basket (18x11x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 11"h	547.35.146	\N	000.547.035.146.00P		2011-01-01 18:53:53.394364	2011-01-26 19:52:36.587607	Purchased	30022-1	Item	21.52		\N	\N	0.92000000000000004	0.40000000000000002
 87	ZH Sliding Wire Basket (24x17x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 23"w x 17"h	547.36.648	\N	000.547.036.648.00P		2011-01-01 18:53:53.197429	2011-01-26 20:00:50.775359	Purchased	30045-1	Item	26.84		\N	\N	0.92000000000000004	0.40000000000000002
 58	ZH Shoe Fence (30) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 29"	547.51.104	\N	000.547.051.104.00P		2011-01-01 18:53:51.297559	2011-01-26 19:41:50.779331	Purchased	30067	Item	3.6899999999999999		\N	\N	0.92000000000000004	0.40000000000000002
+98	ZH Closet Rod | Polished Chrome	Wardrobe Tube Alu. Chr Pol. 1 5/16	801.42.200	\N	000.801.042.200.00I		2011-01-01 18:53:53.498595	2011-02-18 19:32:38.014743	Inventory	30078	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 55	ZH Shoe Fence (30) | Matte Nickel	Shoe Fence, steel, matt nickel, 29"	547.51.604	\N	000.547.051.604.00P		2011-01-01 18:53:51.220906	2011-01-26 19:41:39.751976	Purchased	30070	Item	3.8199999999999998		\N	\N	0.92000000000000004	0.40000000000000002
 73	ZH Sliding Wire Basket (30x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 6"h	547.37.242	\N	000.547.037.242.00P		2011-01-01 18:53:52.630794	2011-01-26 20:10:58.575652	Purchased	30012-1	Item	22.120000000000001		\N	\N	0.92000000000000004	0.40000000000000002
 79	ZH Sliding Wire Basket (30x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 17"h	547.41.248	\N	000.547.041.248.00P		2011-01-01 18:53:52.799206	2011-01-26 20:09:35.831537	Purchased	30011-1	Item	30.93		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3126,9 +3128,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 122	ZH Sliding Wire Basket (18x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 11"h	547.35.626	\N	000.547.035.626.00P		2011-01-01 18:53:53.877789	2011-01-26 19:51:48.154131	Purchased		Item	18.75		\N	\N	0.92000000000000004	0.40000000000000002
 128	ZH Sliding Wire Basket (18x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 6"h	547.35.262	\N	000.547.035.262.00P		2011-01-01 18:53:54.20815	2011-01-26 19:57:54.022969	Purchased	30015-1	Item	19.25		\N	\N	0.92000000000000004	0.40000000000000002
 104	ZH Hang Bracket | Left	Cabinet Hanger St Galv Lh	290.02.711	\N	000.290.002.711.00I		2011-01-01 18:53:53.597598	2011-01-26 19:28:23.714124	Inventory	10008	Item	0.92000000000000004		\N	\N	0.92000000000000004	0.40000000000000002
-100	ZH Closet Rod | Oil Rubbed Bronze	Wardrobe Tube Alu. Oil Rubbed Bzd 1 5/16	801.42.100	\N	000.801.042.100.00I		2011-01-01 18:53:53.526258	2011-01-26 19:23:02.5185	Inventory	30079	Item	12.952		\N	\N	0.92000000000000004	0.40000000000000002
 124	ZH Sliding Wire Basket (30x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 11"h	547.37.626	\N	000.547.037.626.00P		2011-01-01 18:53:53.958893	2011-01-26 20:04:15.615158	Purchased		Item	25		\N	\N	0.92000000000000004	0.40000000000000002
 103	ZH Pole Cup | Oil Rubbed Bronze	Wardrobe Tube Support Zn. Oil- Rubbed Bzd For 1 5/16	803.56.100	\N	000.803.056.100.00I		2011-01-01 18:53:53.585173	2011-02-18 18:21:30.438769	Inventory	30082	Item	0.996		\N	\N	0.92000000000000004	0.40000000000000002
+100	ZH Closet Rod | Oil Rubbed Bronze	Wardrobe Tube Alu. Oil Rubbed Bzd 1 5/16	801.42.100	\N	000.801.042.100.00I		2011-01-01 18:53:53.526258	2011-02-18 19:31:47.543265	Inventory	30079	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 126	ZH Sliding Wire Basket (24x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 11"h	547.36.628	\N	000.547.036.628.00P		2011-01-01 18:53:54.146194	2011-01-26 20:00:24.77571	Purchased	30039-1	Item	26		\N	\N	0.92000000000000004	0.40000000000000002
 114	ZH Sliding Wire Basket (24x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 11"h	547.40.226	\N	000.547.040.226.00P		2011-01-01 18:53:53.686941	2011-01-26 19:58:15.112728	Purchased		Item	24.809999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 125	ZH Sliding Wire Basket (18x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 17"h	547.35.628	\N	000.547.035.628.00P		2011-01-01 18:53:54.07906	2011-01-26 19:54:00.350664	Purchased		Item	22.5		\N	\N	0.92000000000000004	0.40000000000000002
@@ -5433,6 +5435,8 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 122	65 Margin	margin	Margin	2011-02-08 16:47:24.221774	2011-02-08 16:47:24.221774
 123	64 Margin	margin	Margin	2011-02-08 16:50:06.06634	2011-02-08 16:50:06.06634
 124	Lin Ft Closet Rod Matte Nickel	linear_pricing	LinearPricing	2011-02-13 23:57:21.703224	2011-02-13 23:57:21.703224
+125	Lin Ft Closet Rod Oiled Bronze	linear_pricing	LinearPricing	2011-02-18 19:31:36.782554	2011-02-18 19:31:36.782554
+126	Lin Ft Closet Rod Polished Chrome	linear_pricing	LinearPricing	2011-02-18 19:32:32.012155	2011-02-18 19:32:32.012155
 \.
 
 
@@ -5766,6 +5770,8 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 123	324
 122	325
 124	326
+125	327
+126	328
 \.
 
 
@@ -5866,8 +5872,10 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 196	23	Margin	{"factor":".23"}	2011-01-06 07:31:18.829202	2011-01-12 03:11:02.519949
 208	12 inch	Depth	{"linear_units":"in","depth":"(((D > 13.5)*(D<=15.5)) ? 1 : 0)"}	2011-01-12 13:56:56.511038	2011-01-12 13:56:56.511038
 259	0-30" 22 qty	RangedValue	{"max":"30","variable_units":"in","value":"22","min":"","variable":"width"}	2011-01-13 14:12:45.832527	2011-01-13 14:12:45.832527
+327	lin ft	LinearPricing	{"price":"1.619","price_units":"ft"}	2011-02-18 19:31:36.801623	2011-02-18 19:31:36.801623
 293	33	Margin	{"factor":".33","float":""}	2011-01-19 22:25:44.062047	2011-01-19 22:25:44.062047
 309	Hardware 17%	Margin	{"factor":"0.9022","float":""}	2011-01-21 23:50:39.835047	2011-01-22 05:39:19.345538
+328	lin ft	LinearPricing	{"price":"1.3525","price_units":"ft"}	2011-02-18 19:32:32.015521	2011-02-18 19:32:32.015521
 197	22	Margin	{"factor":".22"}	2011-01-06 07:32:48.411856	2011-01-12 03:11:26.986673
 210	70	Margin	{"factor":".7"}	2011-01-12 16:51:32.176998	2011-01-12 16:51:32.176998
 245	Hardware 1%	Margin	{"factor":"4.0"}	2011-01-13 03:50:05.715225	2011-01-13 03:50:05.715225
@@ -6277,7 +6285,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	10	2011-02-02 00:58:16.647804	2011-01-26 14:00:00.768041	98.227.34.3	69.174.58.44	2011-01-23 16:28:32.887677	2011-02-02 00:58:16.648734
 54	\N	Test	User	222-222-2222			test@hylotech.com	$2a$10$U7zCzKW787M7GA0wmwK7Fenitw2Yqx3KunqQ6x1rgISlm.HQZN86u	$2a$10$U7zCzKW787M7GA0wmwK7Fe	DBGnjCTJvWF9sMHP6Ogj	\N	\N	2	2011-02-05 18:13:38.576164	2011-01-25 16:01:52.288137	98.245.88.239	98.245.88.239	2011-01-25 16:00:52.065032	2011-02-05 18:13:47.247457
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:27:04.739565	2011-02-11 15:27:04.739565
-53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	\N	\N	26	2011-02-18 13:56:51.467105	2011-02-17 22:37:20.705978	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-18 13:56:51.468019
 5	Mr.	Todd	Carter	(703) 707-0009	(703) 217-8217	(703) 889-5133	tcarter@closettailors.com	$2a$10$eJKywvdryMeEhZDIa26H3.tyvmChU3zOj0XbTQBEaB8u1.jZsh4a2	$2a$10$eJKywvdryMeEhZDIa26H3.	\N	\N	\N	3	2011-02-11 17:41:41.570908	2011-02-05 03:27:45.242304	174.79.54.226	71.196.137.193	2011-01-01 18:53:32.475866	2011-02-11 17:41:41.571673
 55	\N	Test2	User2				divisidera@gmail.com	$2a$10$j3OqWEyN9bsBZDc8B9rqJOot80ydg0608BB/XxH0khvncoJwAzTrG	$2a$10$j3OqWEyN9bsBZDc8B9rqJO	Fttey0xtfhjmfBFqemTy	\N	\N	1	2011-02-06 19:04:28.151609	2011-02-06 19:04:28.151609	71.196.137.193	71.196.137.193	2011-01-25 16:13:52.429598	2011-02-06 19:08:03.533115
 57	\N	Starla	Reichow	480-483-3030		480-483-7895	sreichow@premiergarage.com	$2a$10$T4Lrm08rGA8p749rc7PNPepYB2xQkmFocezJ4k1TwcH7vrtZjh1Ei	$2a$10$T4Lrm08rGA8p749rc7PNPe	\N	\N	\N	3	2011-02-05 03:50:59.191057	2011-02-05 03:49:57.120622	71.196.137.193	71.196.137.193	2011-01-27 00:19:16.5581	2011-02-11 18:21:54.712844
@@ -6287,6 +6294,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 66	\N	Joseph	Chang	(951)653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-02-11 15:33:26.75444
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$VtCo.uf5VG/3R3.e3bbhxuwnn6ZkFRURUBD.yEWGF8jL5JcfRadxq	$2a$10$VtCo.uf5VG/3R3.e3bbhxu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:36:07.879298	2011-02-11 15:36:07.879298
 40	Mr.	Don	Shultz	(623) 792-2227	(602) 763-0344	(480) 483-7895	dshultz@premiergarage.com	$2a$10$MG7jvb2ANcQol09CUGjYXe3pGvKSKwfCY47Ui1lB96ELXFL7WPVy6	$2a$10$MG7jvb2ANcQol09CUGjYXe	\N	oVK11K-WIYyMB1g4KThR	2011-02-09 20:00:44.187164	1	2011-02-09 20:00:44.190719	2011-02-09 20:00:44.190719	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.279262	2011-02-09 20:00:44.19123
+53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	\N	\N	27	2011-02-18 19:56:43.928945	2011-02-18 13:56:51.467105	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-18 19:56:43.930065
 64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$jHR4hGGLk8bnj.4HUJvhW.w.gs9ifSRzHnGRCW488uTvU6Rz7Afqy	$2a$10$jHR4hGGLk8bnj.4HUJvhW.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:09:59.375718	2011-02-11 15:09:59.375718
 68	\N	Dave	Williamson	(813)909-2957		(813)909-2967	dwilliamson@tailoredliving.com	$2a$10$0lA6JZrGpaBBGTWOr1Jju./bZUOxpBhUopLErh4XeLKYpC2Yf2Lhm	$2a$10$0lA6JZrGpaBBGTWOr1Jju.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:40:12.31394	2011-02-11 15:40:12.31394
 69	\N	Bill	Bruneman	(630)289-7760			bkbruneman@tailoredliving.com	$2a$10$JvGmZM1XoN/T/0fecH5WWOyFW9ejX7UHKm2O1zIA5E.0YhHJuaMsG	$2a$10$JvGmZM1XoN/T/0fecH5WWO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:44:13.571037	2011-02-11 15:44:13.571037
