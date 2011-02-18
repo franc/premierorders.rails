@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 226, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 228, true);
 
 
 --
@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1310, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1318, true);
 
 
 --
@@ -1334,6 +1334,7 @@ COPY franchisee_addresses (id, franchisee_id, address_id, address_type, created_
 --
 
 COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, updated_at) FROM stdin;
+228	8	58	\N	2011-02-18 18:03:29.977375	2011-02-18 18:03:29.977375
 2	2	2	primary	2011-01-01 18:53:32.006987	2011-01-01 18:53:32.006987
 23	24	23	primary	2011-01-01 18:53:35.054096	2011-01-01 18:53:35.054096
 27	28	27	primary	2011-01-01 18:53:35.551742	2011-01-01 18:53:35.551742
@@ -1479,7 +1480,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 222	17	16	primary	2011-02-16 21:10:33.259042	2011-02-16 21:10:33.259042
 224	5	99	\N	2011-02-17 15:22:54.153496	2011-02-17 15:22:54.153496
 225	41	100	\N	2011-02-18 00:30:51.971819	2011-02-18 00:30:51.971819
-226	8	58	\N	2011-02-18 17:59:34.647974	2011-02-18 17:59:34.647974
 \.
 
 
@@ -2528,7 +2528,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 928	111	65	\N
 1065	21	32	front
 931	90	65	\N
-932	553	69	\N
 939	85	65	\N
 940	94	65	\N
 942	142	65	\N
@@ -2568,7 +2567,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 998	253	56	\N
 999	627	58	\N
 1000	627	6	\N
-1085	511	106	\N
 1086	501	48	\N
 1089	502	50	\N
 1090	500	50	\N
@@ -2621,10 +2619,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 638	35	9	bottom
 641	36	9	front
 774	35	44	\N
-789	554	56	\N
-790	555	54	\N
-791	41	56	\N
-792	42	56	\N
 642	36	9	top
 643	36	9	bottom
 646	34	9	front
@@ -2741,7 +2735,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 902	71	65	\N
 903	137	65	\N
 904	146	65	\N
-907	40	56	\N
 908	123	65	\N
 910	84	65	\N
 911	93	65	\N
@@ -2885,6 +2878,12 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1308	158	123	\N
 1309	516	123	\N
 1310	99	124	\N
+1313	41	44	\N
+1314	42	44	\N
+1315	40	44	\N
+1316	553	44	\N
+1317	554	44	\N
+1318	555	44	\N
 \.
 
 
@@ -2893,10 +2892,13 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 --
 
 COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at, updated_at, purchasing, purchase_part_id, type, base_price, vendor, weight, install_cost, rebate_factor, retail_multiplier) FROM stdin;
+553	CL Hanging Partition - Square- Left	Closet system hanging partition - square bottom - left stop drilled		\N	000.910.16x.x.00M	CL-HPS-L	2011-01-02 01:57:22.321891	2011-01-30 21:26:30.183759	Manufactured	Closets	ClosetPartition	\N		\N	\N	0.92000000000000004	0.40000000000000002
+555	CL Hanging Partition - Square - Thru	Closet system hanging partition -square bottom - thru drilled		\N	000.910.26x.x.00M	CL-HPS-T	2011-01-02 02:02:33.954763	2011-01-30 21:26:51.122066	Manufactured	Closets	ClosetPartition	\N		\N	\N	0.92000000000000004	0.40000000000000002
+591	ZH Pole Cup | Matte Nickel	Wardrobe Tube Support Zn Ni Matt F/1 5/16	803.56.600	\N	000.803.056.600.00I		2011-01-07 04:14:09.625673	2011-02-18 18:20:14.107429	Inventory	30080	Item	0.86499999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 549	ZZ Panel 06 DON'T DELETE	building block: 1/4 inch panel		\N			2011-01-01 20:34:10.316243	2011-01-07 17:41:24.972736	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
-68	ZH Jewelry Tray (18)	Jewelry Tray (18)		\N	000.984.018.000.00P		2011-01-01 18:53:52.578565	2011-01-26 19:31:27.259193	Purchased	JT18	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 603	ZH Murphy Bed Hardware Set King		ABF-M/ABF-K	\N			2011-01-11 05:35:59.132818	2011-01-26 19:34:16.95902	Purchased	10063	Item	809.85000000000002		\N	\N	0.92000000000000004	0.40000000000000002
 99	ZH Closet Rod | Matte Nickel	Wardrobe Tube Al Ni Matt 1 5/16	801.42.600	\N	000.801.042.600.00I		2011-01-01 18:53:53.512515	2011-02-13 23:57:41.473689	Inventory	30077	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
+101	ZH Pole Cup | Polished Chrome	Wardrobe Tube Support Zn. Chr Pol. For 1 5/16	803.56.200	\N	000.803.056.200.00I		2011-01-01 18:53:53.539074	2011-02-18 18:22:02.689735	Inventory	30081	Item	0.86399999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 626	ZZ HO Base Cabinet Shell DON'T DELETE			\N			2011-01-12 22:49:22.538239	2011-01-12 22:49:22.538239	Manufactured		Shell	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 584	ZZ Nailer DON'T DELETE	Building block: nailer		\N			2011-01-06 15:16:57.152294	2011-01-12 17:27:15.91801	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 551	ZZ HOp Adj Shelf DON'T DELETE	building block: home office adjustable shelf 3/4 inch		\N			2011-01-01 22:46:37.657789	2011-01-12 21:47:42.764442	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
@@ -2908,7 +2910,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 557	ZZ NX Tall Cabinet Shell w/VD DON'T DELETE	building block: NX tall cabinet shell with 1 vertical divider		\N			2011-01-02 03:43:52.024461	2011-01-12 20:18:25.775612	Manufactured		Shell	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 80	ZH Sliding Wire Basket (18x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 6"h	547.38.242	\N	000.547.038.222.00P		2011-01-01 18:53:52.819495	2011-01-26 19:56:40.477613	Purchased	30043-1	Item	19.07		\N	\N	0.92000000000000004	0.40000000000000002
 632	ZZ HO Wall Bed DON'T DELETE			\N			2011-01-13 19:49:20.417448	2011-01-13 19:49:20.417448	Manufactured		Shell	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
-101	ZH Pole Cups (pair) | Polished Chrome	Wardrobe Tube Support Zn. Chr Pol. For 1 5/16	803.56.200	\N	000.803.056.200.00I		2011-01-01 18:53:53.539074	2011-01-26 19:35:34.642874	Inventory	30081	Item	1.728		\N	\N	0.92000000000000004	0.40000000000000002
 633	ZZ HOp WB Nailer DON'T DELETE			\N			2011-01-13 19:56:47.039275	2011-01-13 19:57:43.591171	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 168	ZH Drawer Slide | 3/4 ext | 20 inch	Soft-Roller 100Lbs St White 500mm 20 inch	7111KSC20W	\N	007.111.KSC.20W.00I		2011-01-01 18:53:55.811642	2011-01-26 19:25:10.094186	Inventory	10037	Item	1.0800000000000001		\N	\N	0.92000000000000004	0.40000000000000002
 93	ZH Sliding Wire Basket (24x11x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 11"h	547.36.146	\N	000.547.036.146.00P		2011-01-01 18:53:53.409919	2011-01-26 19:58:38.766981	Purchased	30025-1	Item	25.48		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3026,7 +3027,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 528	Decor Door - DR1 | Cut for Glass	Decor Door - DR1 | Cut for Glass 		\N	000.122.000.x.00B	DS-D-DR1-CFG	2011-01-01 18:54:28.420835	2011-01-31 15:54:56.403511	Buyout	Buyout_Door	PremiumDoor	\N		\N	\N	0.92000000000000004	0.40000000000000002
 229	CL Corner Adj Safety Shelf	CL Corner Adj Safety Shelf 		\N	000.936.x.x.00M	CL-CASS	2011-01-01 18:54:05.604995	2011-01-30 21:24:51.653699	Manufactured	Closets	ClosetShelf	\N		\N	\N	0.92000000000000004	0.40000000000000002
 41	CL Hanging Partition - Radius - Left	CL Hanging Partition Radius Bottom - Left Stop Drilled		\N	000.910.15x.x.00M	CL-HPR-L	2011-01-01 18:53:43.492396	2011-01-30 21:25:57.036	Manufactured	Closets	ClosetPartition	\N		\N	\N	0.92000000000000004	0.40000000000000002
-553	CL Hanging Partition - Square- Left	Closet system hanging partition - square bottom - left stop drilled		\N	000.910.16x.x.00M	CL-HPS-L	2011-01-02 01:57:22.321891	2011-01-30 21:26:30.183759	Manufactured	Closets	ClosetPartition	\N		\N	\N	0.92000000000000004	0.40000000000000002
 34	CL Upright Partition - BaseNotch - Thru	CL Upright Partition - BaseNotch - Thru 		\N	000.912.2x.x.00M	CL-VUN-T	2011-01-01 18:53:39.578869	2011-01-30 21:31:31.97903	Manufactured	Closets	ClosetPartition	\N		\N	\N	0.92000000000000004	0.40000000000000002
 631	ZH Screw (Drawer Front Fastener)	Screw, #8 x 1' (Box Qty 500)	0167081602	\N			2011-01-13 18:10:40.066913	2011-02-06 18:59:10.858105	Inventory	1002	Item	0.01166		\N	\N	0.92000000000000004	0.40000000000000002
 147	ZH Sliding Wire Basket (24x6x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 23"w x 6"h	547.36.162	\N	000.547.036.162.00P		2011-01-01 18:53:54.861522	2011-01-26 20:03:56.567227	Purchased	30034-1	Item	21.109999999999999		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3034,7 +3034,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 165	ZH Drawer Slide | 3/4 ext | 14 inch	Soft-Roller 100Lbs St White 350mm 14 inch	7111KSC14W	\N	007.111.KSC.14W.00I		2011-01-01 18:53:55.796305	2011-01-26 19:24:29.475216	Inventory	10034	Item	0.76000000000000001		\N	\N	0.92000000000000004	0.40000000000000002
 72	ZH Sliding Wire Basket (24x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 23"w x 6"h	547.36.242	\N	000.547.036.242.00P		2011-01-01 18:53:52.618048	2011-01-26 20:03:06.272942	Purchased	30009-1	Item	19.859999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 199	ZH Hinge Plate	Hinge Plate 0mm (300/box)	65BARGL09	\N	000.102.500.000.00I		2011-01-01 18:53:57.210508	2011-01-26 19:30:20.661024	Inventory	1025	Item	0.40000000000000002		\N	\N	0.92000000000000004	0.40000000000000002
-69	ZH Jewelry Tray (24)	 Jewelry Tray (24)		\N	000.984.024.000.00P		2011-01-01 18:53:52.586366	2011-01-26 19:31:41.664274	Purchased	JT24	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 65	ZH Valet Rod | Polished Chrome	Synergy Closet Valet, aluminum, chrome-plated polished, plastic, black, 14 1/8" length	808.71.203	\N	000.808.071.203.00P		2011-01-01 18:53:52.320897	2011-01-26 20:16:58.698791	Purchased		Item	16.739999999999998		\N	\N	0.92000000000000004	0.40000000000000002
 202	ZH Screw (Drawer Slide 3/4 Ext)	Screw Epoxy Slides steel, zinc-plated T17 undercut flat head phillips drive #7 x 7/16" (1000/box)	0161050802	\N	000.104.900.000.00I		2011-01-01 18:53:57.225669	2011-01-26 19:37:49.067862	Inventory	1049	Item	0.0051999999999999998		\N	\N	0.92000000000000004	0.40000000000000002
 160	ZH Tilt-Out Hamper (24)	Synergy Tilt-Out Hamper, steel, black, 22 1/4" width, 2 black nylon bags included	547.43.303	\N	000.547.043.303.00P		2011-01-01 18:53:55.633423	2011-01-26 20:16:11.67755	Purchased	30086	Item	57.130000000000003		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3059,14 +3058,12 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 227	CL Adj Safety Shelf	CL Adj Safety Shelf 		\N	000.935.x.x.00M	CL-ASS	2011-01-01 18:54:02.875931	2011-01-30 21:23:48.459437	Manufactured	Closets	ClosetShelf	\N		\N	\N	0.92000000000000004	0.40000000000000002
 45	CL Adjustable Shelf	CL Adjustable Shelf 		\N	000.931.x.x.00M	CL-AS	2011-01-01 18:53:47.38817	2011-01-30 21:24:13.850068	Manufactured	Closets	ClosetShelf	\N		\N	\N	0.92000000000000004	0.40000000000000002
 197	Drawer Box	Drawer Box		\N	000.024.001.051.00B	DBX	2011-01-01 18:53:57.174129	2011-02-02 20:45:52.544462	Buyout	Buyout_Drawerbox	Drawer	6		\N	\N	0.92000000000000004	0.40000000000000002
-555	CL Hanging Partition - Square - Thru	Closet system hanging partition -square bottom - thru drilled		\N	000.910.26x.x.00M	CL-HPS-T	2011-01-02 02:02:33.954763	2011-01-30 21:26:51.122066	Manufactured	Closets	ClosetPartition	\N		\N	\N	0.92000000000000004	0.40000000000000002
 5	ZH Handle Black | 128mm	Handle St.Bl.Matt M4 Ctc 128Mm	117.31.330	\N	000.117.031.330.00I		2011-01-01 18:53:39.039357	2011-01-26 19:27:05.441581	Inventory	10013	Item	0.88		\N	\N	0.92000000000000004	0.40000000000000002
 12	ZH Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.102.100.000.00I		2011-01-01 18:53:39.072234	2011-01-26 19:40:08.706436	Inventory	1021	Item	0.0138		\N	\N	0.92000000000000004	0.40000000000000002
 592	ZH Wood Dowels 8mm x 30mm	Dowel Wood 8 x 30mm (Box Qty 2,000)	71510830	\N			2011-01-07 04:54:03.46847	2011-01-26 20:18:55.07727	Inventory	1010	Item	0.0091000000000000004		\N	\N	0.92000000000000004	0.40000000000000002
 50	ZH Shoe Fence (18) | Polished Chrome	Shoe Fence, steel, chrome, 17"	547.51.202	\N	000.547.051.202.00P		2011-01-01 18:53:50.898259	2011-01-26 19:40:51.799199	Purchased	30062	Item	2.7440000000000002		\N	\N	0.92000000000000004	0.40000000000000002
 13	ZH Screw (Drawer Slide Full Ext)	Screw Bb Slides Pn Hd Ph Drv #8 X 7/16	013.09.900	\N	000.013.009.900.00I		2011-01-01 18:53:39.076796	2011-01-26 19:38:14.385803	Inventory	10025	Item	0.014999999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 2	ZH Handle Chrome | 128mm	Handle St.Chr.Pol.M4 Ctc.128Mm	117.31.230	\N	000.117.031.230.00I		2011-01-01 18:53:39.024264	2011-01-26 19:27:36.469739	Inventory	10014	Item	0.96999999999999997		\N	\N	0.92000000000000004	0.40000000000000002
-591	ZH Pole Cups (pair) | Matte Nickel	Wardrobe Tube Support Zn Ni Matt F/1 5/16	803.56.600	\N	000.803.056.600.00I		2011-01-07 04:14:09.625673	2011-01-26 19:35:01.119163	Inventory	30080	Item	1.73		\N	\N	0.92000000000000004	0.40000000000000002
 593	ZH Screw (Assembly) 2 inch	Screw, #6 x 2' (Box Qty 3,500)	0461062408	\N			2011-01-07 04:56:59.068395	2011-01-26 19:36:19.867691	Inventory	1005	Item	0.0080800000000000004		\N	\N	0.92000000000000004	0.40000000000000002
 52	ZH Shoe Fence (30) | Polished Chrome	Shoe Fence, steel, chrome, 29"	547.51.204	\N	000.547.051.204.00P		2011-01-01 18:53:51.089851	2011-01-26 19:42:02.157526	Purchased	30064	Item	4.1299999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 4	ZH Handle Bronze | 128mm	Handle St Oil-Rubbed Bzd M4 Ctc 128Mm	117.31.334	\N	000.117.031.334.00I		2011-01-01 18:53:39.034691	2011-01-26 19:27:18.124004	Inventory	10011	Item	0.93999999999999995		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3118,7 +3115,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 90	ZH Sliding Wire Basket (24x6x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 6h	547.36.142	\N	000.547.036.142.00P		2011-01-01 18:53:53.332436	2011-01-26 20:02:55.273926	Purchased	30027-1	Item	20.300000000000001		\N	\N	0.92000000000000004	0.40000000000000002
 71	ZH Sliding Wire Basket (18x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 17"w x 6"h	547.35.242	\N	000.547.035.242.00P		2011-01-01 18:53:52.604856	2011-01-26 19:57:15.454377	Purchased	30006-1	Item	17.969999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 82	ZH Sliding Wire Basket (30x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 29"w x 6"h	547.37.642	\N	000.547.037.642.00P		2011-01-01 18:53:53.001264	2011-01-26 20:10:36.776588	Purchased	30049-1	Item	23.66		\N	\N	0.92000000000000004	0.40000000000000002
-70	ZH Jewelry Tray (30)	Jewelry Tray (30)		\N	000.984.030.000.00P		2011-01-01 18:53:52.594879	2011-01-26 19:31:57.238382	Purchased	JT30	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 7	ZH Hinge Plate	Hinge Plate	65BARGL09	\N	000.102.500.000.00I		2011-01-01 18:53:39.049462	2011-01-26 19:30:04.263096	Inventory	1025	Item	0.40000000000000002		\N	\N	0.92000000000000004	0.40000000000000002
 595	ZH MiniFix (Post)	8M 24M Quickfit TI3 Dowl S-Tan	6705395871	\N			2011-01-07 05:00:43.365099	2011-01-26 19:33:40.108415	Inventory	10051	Item	0.0596		\N	\N	0.92000000000000004	0.40000000000000002
 59	ZH Tie Rack | Polished Chrome	Synergy Tie Rack with Slide, aluminum, chrome-plated polished, plastic, black, 13 7/8" length	807.67.203	\N	000.807.067.203.00P		2011-01-01 18:53:51.385759	2011-01-26 20:15:50.163437	Purchased		Item	21.300000000000001		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3129,10 +3125,10 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 43	CL Backing Panel	CL Backing Panel 		\N	000.960.000.x.00M	CL-BKP	2011-01-01 18:53:45.006308	2011-01-30 21:24:25.140692	Manufactured	Closets	BackingPanel	\N		\N	\N	0.92000000000000004	0.40000000000000002
 122	ZH Sliding Wire Basket (18x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 11"h	547.35.626	\N	000.547.035.626.00P		2011-01-01 18:53:53.877789	2011-01-26 19:51:48.154131	Purchased		Item	18.75		\N	\N	0.92000000000000004	0.40000000000000002
 128	ZH Sliding Wire Basket (18x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 6"h	547.35.262	\N	000.547.035.262.00P		2011-01-01 18:53:54.20815	2011-01-26 19:57:54.022969	Purchased	30015-1	Item	19.25		\N	\N	0.92000000000000004	0.40000000000000002
-103	ZH Pole Cups (pair) | Oil Rubbed Bronze	Wardrobe Tube Support Zn. Oil- Rubbed Bzd For 1 5/16	803.56.100	\N	000.803.056.100.00I		2011-01-01 18:53:53.585173	2011-01-26 19:35:17.37833	Inventory	30082	Item	1.992		\N	\N	0.92000000000000004	0.40000000000000002
 104	ZH Hang Bracket | Left	Cabinet Hanger St Galv Lh	290.02.711	\N	000.290.002.711.00I		2011-01-01 18:53:53.597598	2011-01-26 19:28:23.714124	Inventory	10008	Item	0.92000000000000004		\N	\N	0.92000000000000004	0.40000000000000002
 100	ZH Closet Rod | Oil Rubbed Bronze	Wardrobe Tube Alu. Oil Rubbed Bzd 1 5/16	801.42.100	\N	000.801.042.100.00I		2011-01-01 18:53:53.526258	2011-01-26 19:23:02.5185	Inventory	30079	Item	12.952		\N	\N	0.92000000000000004	0.40000000000000002
 124	ZH Sliding Wire Basket (30x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 11"h	547.37.626	\N	000.547.037.626.00P		2011-01-01 18:53:53.958893	2011-01-26 20:04:15.615158	Purchased		Item	25		\N	\N	0.92000000000000004	0.40000000000000002
+103	ZH Pole Cup | Oil Rubbed Bronze	Wardrobe Tube Support Zn. Oil- Rubbed Bzd For 1 5/16	803.56.100	\N	000.803.056.100.00I		2011-01-01 18:53:53.585173	2011-02-18 18:21:30.438769	Inventory	30082	Item	0.996		\N	\N	0.92000000000000004	0.40000000000000002
 126	ZH Sliding Wire Basket (24x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 11"h	547.36.628	\N	000.547.036.628.00P		2011-01-01 18:53:54.146194	2011-01-26 20:00:24.77571	Purchased	30039-1	Item	26		\N	\N	0.92000000000000004	0.40000000000000002
 114	ZH Sliding Wire Basket (24x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 11"h	547.40.226	\N	000.547.040.226.00P		2011-01-01 18:53:53.686941	2011-01-26 19:58:15.112728	Purchased		Item	24.809999999999999		\N	\N	0.92000000000000004	0.40000000000000002
 125	ZH Sliding Wire Basket (18x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 17"h	547.35.628	\N	000.547.035.628.00P		2011-01-01 18:53:54.07906	2011-01-26 19:54:00.350664	Purchased		Item	22.5		\N	\N	0.92000000000000004	0.40000000000000002
@@ -6156,7 +6152,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 99	2
 100	2
 23	2
-58	5
+58	1
 30	2
 2	2
 48	2
