@@ -19,21 +19,21 @@ class JobItem < ActiveRecord::Base
     (item && item.purchasing == 'Buyout') || ingest_id.strip[-1,1] == 'B'
   end
 
-  def width
+  def width(units = :in)
     dimensions_property.bind do |p|
-      Option.call(:width, p)
+      Option.call(:width, p, units)
     end
   end
 
-  def height
+  def height(units = :in)
     dimensions_property.bind do |p|
-      Option.call(:height, p)
+      Option.call(:height, p, units)
     end
   end
 
-  def depth
+  def depth(units = :in)
     dimensions_property.bind do |p|
-      Option.call(:depth, p)
+      Option.call(:depth, p, units)
     end
   end
 
@@ -53,10 +53,10 @@ class JobItem < ActiveRecord::Base
     inventory_hardware.values.inject(0.0) {|total, i| total + i.total_price}
   end
 
-  def compute_unit_price
+  def compute_unit_price(units = :in)
     Option.new(item).bind do |i|
       begin
-        i.rebated_cost_expr(:in, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+        i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
       rescue
         logger.error $!.backtrace.join("\n")
         Option.some(Either.left($!.message))
@@ -80,20 +80,20 @@ class JobItem < ActiveRecord::Base
     @inventory_hardware
   end
 
-  def weight
+  def weight(units = :in)
     Option.new(item).bind do |i|
       begin
-        i.weight_expr(:in, []).map {|expr| dimension_eval(expr)}
+        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
       rescue
         Option.some(Either.left($!.message))
       end
     end
   end
 
-  def install_cost
+  def install_cost(units = :in)
     Option.new(item).bind do |i|
       begin
-        i.install_cost_expr(:in, []).map {|expr| dimension_eval(expr)}
+        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
       rescue
         Option.some(Either.left($!.message))
       end

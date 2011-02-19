@@ -238,8 +238,8 @@ class Job < ActiveRecord::Base
     ]
   end
 
-  def cutrite_items_data
-    job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
+  def cutrite_items_data(units = :mm)
+    job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item, units)}
   end
 
   def job_items_total(&item_test)
@@ -295,13 +295,13 @@ class Job < ActiveRecord::Base
 
   private
 
-  def cutrite_item_data(job_item)
+  def cutrite_item_data(job_item, units = :mm)
     basic_attr_values = [
       job_item.quantity.to_i,
       job_item.comment,
-      job_item.width.orSome(''),
-      job_item.height.orSome(''),
-      job_item.depth.orSome(''),
+      job_item.width(units).map{|v| "%.1f" % v}.orSome(''),
+      job_item.height(units).map{|v| "%.1f" % v}.orSome(''),
+      job_item.depth(units).map{|v| "%.1f" % v}.orSome(''),
       job_item.item.nil? ? '' : job_item.item.cutrite_id,
       job_item.item_name      
     ]

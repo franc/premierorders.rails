@@ -19,8 +19,8 @@ module Option
     bool ? Option.new(value.call) : None::NONE
   end
 
-  def self.call(sym, obj)
-    obj.respond_to?(sym) ? Option.new(obj.send(sym)) : None::NONE
+  def self.call(sym, obj, *args, &block)
+    obj.respond_to?(sym) ? Option.new(obj.send(sym, *args, &block)) : None::NONE
   end
 
   def self.fromString(value)
