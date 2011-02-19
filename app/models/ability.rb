@@ -32,7 +32,7 @@ class Ability
         job.new_record? || job.is_manageable_by(user)  
       end
       can :destroy, Job do |job|
-        job.is_manageable_by(user) && (job.status.nil? || job.status = 'Created')
+        job.is_manageable_by(user) && (job.status.nil? || job.status == 'Created')
       end
       can [:create, :read, :update, :destroy], [JobProperty, JobItem] do |x|
         x.new_record? || x.job.is_manageable_by(user)

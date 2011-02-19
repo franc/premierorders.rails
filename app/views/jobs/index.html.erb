@@ -44,17 +44,10 @@
         <td><%= job.ship_method %></td>
       <% end %>
       <td><%= job.comment %></td>
-
       <% if can? :manage, job %>
         <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
-        <td><%= link_to 'Manage', job %> | <%= link_to 'Edit', edit_job_path(job) %> | <%= link_to 'Cutrite', cutrite_job_path(job) %></td>
-      <% else %>
-        <td><%= link_to 'Manage', job %> <% if can? :update, job %>| <%= link_to 'Edit', edit_job_path(job) %><% end %></td>
       <% end %>
-
-      <% if can? :destroy, job %>
-        <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
+      <td><%= raw action_links(job).join("&nbsp;|&nbsp;") %></td>
     </tr>
   <% end %>
 </table>

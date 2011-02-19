@@ -1,3 +1,5 @@
+require 'util/option'
+
 module JobsHelper
   def unit_price_mismatch(job_item)
     job_item.compute_unit_price.bind do |computed_price|
@@ -23,5 +25,16 @@ module JobsHelper
       end,
       'price_not_computed'
     )
+  end
+
+  def action_links(job)
+    if can? :manage, job
+      [link_to('Manage', job), link_to('Edit', edit_job_path(job)), link_to('Cutrite', cutrite_job_path(job))] + 
+      Option.iif(can? :destroy, job){ link_to('Delete', job, :confirm => 'Are you sure?', :method => :delete) }.to_a
+    else 
+      [link_to('Manage', job)] +
+      Option.iif(can? :update, job){ link_to('Edit', edit_job_path(job)) }.to_a + 
+      Option.iif(can? :destroy, job){ link_to('Delete', job, :confirm => 'Are you sure?', :method => :delete) }.to_a
+    end
   end
 end
