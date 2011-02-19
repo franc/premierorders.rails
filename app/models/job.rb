@@ -179,7 +179,7 @@ class Job < ActiveRecord::Base
         serial_no = JobSerialNumber.find_by_year(date.year) || JobSerialNumber.new(:year => date.year, :max_serial => 2000)
         serial_no.max_serial += 1
         self.status = 'Placed' 
-        self.job_number = "SO - #{serial_no.max_serial}"
+        self.job_number = "SO-#{serial_no.max_serial}"
         self.placement_date = date 
         self.placed_by = current_user
         logger.info( self.inspect)
