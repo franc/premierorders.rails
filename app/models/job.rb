@@ -39,6 +39,10 @@ class Job < ActiveRecord::Base
     placed_by == user
   end
 
+  def bill_to
+    billing_address || franchisee.billing_address || ship_to
+  end
+
   def ship_to
     shipping_address || franchisee.shipping_address
   end
