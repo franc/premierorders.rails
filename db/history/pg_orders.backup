@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 231, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 232, true);
 
 
 --
@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 5312, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 5336, true);
 
 
 --
@@ -540,7 +540,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 3558, true);
+SELECT pg_catalog.setval('job_items_id_seq', 3575, true);
 
 
 --
@@ -586,7 +586,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 181, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 182, true);
 
 
 --
@@ -691,7 +691,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 197, true);
+SELECT pg_catalog.setval('jobs_id_seq', 198, true);
 
 
 --
@@ -1448,7 +1448,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 189	58	86	\N	2011-02-11 17:55:15.231986	2011-02-11 17:55:15.231986
 188	58	86	primary	2011-02-11 17:54:20.700433	2011-02-11 17:55:33.233869
 191	59	87	\N	2011-02-11 17:57:13.681267	2011-02-11 17:57:13.681267
-80	8	97	primary	2011-02-05 03:50:37.429068	2011-02-16 18:31:33.863831
 190	59	87	primary	2011-02-11 17:56:29.758643	2011-02-11 17:57:34.907104
 192	21	20	\N	2011-02-11 17:58:42.008575	2011-02-11 17:58:42.008575
 194	60	88	\N	2011-02-11 18:03:58.2274	2011-02-11 18:03:58.2274
@@ -1466,6 +1465,7 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 207	66	94	\N	2011-02-11 18:25:32.260586	2011-02-11 18:25:32.260586
 206	66	94	primary	2011-02-11 18:24:09.367709	2011-02-11 18:25:47.526266
 229	1	89	\N	2011-02-18 21:05:28.516118	2011-02-18 21:05:28.516118
+232	4	97	\N	2011-02-19 22:09:41.769214	2011-02-19 22:09:41.769214
 210	67	95	\N	2011-02-11 18:31:33.839193	2011-02-11 18:31:33.839193
 211	67	95	primary	2011-02-11 18:31:51.914643	2011-02-11 18:31:51.914643
 212	3	3	primary	2011-02-11 19:02:04.28534	2011-02-11 19:02:04.28534
@@ -1476,7 +1476,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 218	8	34	\N	2011-02-12 16:05:21.610048	2011-02-12 16:05:21.610048
 219	4	4	primary	2011-02-15 01:25:54.498514	2011-02-15 01:25:54.498514
 220	10	96	\N	2011-02-16 17:56:01.199436	2011-02-16 17:56:01.199436
-221	8	97	\N	2011-02-16 18:28:06.771958	2011-02-16 18:28:06.771958
 222	17	16	primary	2011-02-16 21:10:33.259042	2011-02-16 21:10:33.259042
 224	5	99	\N	2011-02-17 15:22:54.153496	2011-02-17 15:22:54.153496
 225	41	100	\N	2011-02-18 00:30:51.971819	2011-02-18 00:30:51.971819
@@ -5882,7 +5881,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	61	2011-01-23 05:52:19.75042	2011-02-19 21:16:00.787907
+1	2011	62	2011-01-23 05:52:19.75042	2011-02-19 22:41:57.887734
 \.
 
 
@@ -6786,6 +6785,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 89	2
 101	2
 2	2
+97	2
 48	2
 29	2
 47	2
@@ -6861,7 +6861,6 @@ COPY user_roles (user_id, role_id) FROM stdin;
 34	4
 4	2
 96	2
-97	2
 16	2
 98	4
 \.
@@ -6916,13 +6915,13 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 71	\N	Kenny	Keeling	(859)881-0760			kkeeling@tailoredliving.com	$2a$10$kSldxQKtYoNh6kADUrfiXOuPiR.U/6QSOmIH1gSYahFxYVwbDqeHK	$2a$10$kSldxQKtYoNh6kADUrfiXO	\N	\N	\N	1	2011-02-17 16:47:46.235589	2011-02-17 16:47:46.235589	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-02-17 16:47:46.236232
 66	\N	Joseph	Chang	(951)653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-02-11 15:33:26.75444
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$VtCo.uf5VG/3R3.e3bbhxuwnn6ZkFRURUBD.yEWGF8jL5JcfRadxq	$2a$10$VtCo.uf5VG/3R3.e3bbhxu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:36:07.879298	2011-02-11 15:36:07.879298
-32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	\N	\N	87	2011-02-19 21:49:34.500426	2011-02-19 19:39:06.639642	70.176.124.201	70.176.124.201	2011-01-01 18:53:36.365777	2011-02-19 21:49:34.501588
 53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	\N	\N	29	2011-02-18 21:09:35.836135	2011-02-18 21:03:06.185875	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-18 21:09:35.837053
 64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$jHR4hGGLk8bnj.4HUJvhW.w.gs9ifSRzHnGRCW488uTvU6Rz7Afqy	$2a$10$jHR4hGGLk8bnj.4HUJvhW.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:09:59.375718	2011-02-11 15:09:59.375718
 68	\N	Dave	Williamson	(813)909-2957		(813)909-2967	dwilliamson@tailoredliving.com	$2a$10$0lA6JZrGpaBBGTWOr1Jju./bZUOxpBhUopLErh4XeLKYpC2Yf2Lhm	$2a$10$0lA6JZrGpaBBGTWOr1Jju.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:40:12.31394	2011-02-11 15:40:12.31394
 69	\N	Bill	Bruneman	(630)289-7760			bkbruneman@tailoredliving.com	$2a$10$JvGmZM1XoN/T/0fecH5WWOyFW9ejX7UHKm2O1zIA5E.0YhHJuaMsG	$2a$10$JvGmZM1XoN/T/0fecH5WWO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:44:13.571037	2011-02-11 15:44:13.571037
 72	\N	Samantha	Hebert	(337)564-0322		(337)564-0323	shebert@tailoredliving.com	$2a$10$5dKxgGtmnPC7piB3M/o3CeJ2B1biE3rBx4ucOXxbuneILSQ4QmPim	$2a$10$5dKxgGtmnPC7piB3M/o3Ce	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:52:08.12167	2011-02-11 15:52:08.12167
 73	\N	Jim	Gessler	(248)669-8900			jgessler@tailoredliving.com	$2a$10$z5XQd8XZleOMPbdAFxx8W.FV4T1wxcJjJ3QkFTbvD2KijuecHSfZy	$2a$10$z5XQd8XZleOMPbdAFxx8W.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:54:37.090809	2011-02-11 15:54:37.090809
+32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	\N	\N	88	2011-02-19 22:43:40.419234	2011-02-19 21:49:34.500426	70.176.124.201	70.176.124.201	2011-01-01 18:53:36.365777	2011-02-19 22:43:40.420309
 60	\N	Steve	Bisch	(636) 399-8262	(636) 399-8262	(314) 434-1976	sbisch@tailoredliving.com	$2a$10$OIKMvh3KJPb/y4smzl1kMu62KumAEkBUxb8CRZ2B5DQZzwSjf9sfa	$2a$10$OIKMvh3KJPb/y4smzl1kMu	\N	\N	\N	5	2011-02-15 03:02:06.309912	2011-02-10 04:41:19.18874	174.79.54.226	174.79.54.226	2011-01-27 18:32:44.56832	2011-02-15 03:02:06.310739
 59	\N	Theresia	Lampe	480-483-3030		480-483-7895	tlampe@premiergarage.com	$2a$10$hhs6anLSTrWi46oOFhSPiOzU/dE9dZSGr3bzNEa0i.BvEs2tv5p/m	$2a$10$hhs6anLSTrWi46oOFhSPiO	\N	\N	\N	2	2011-02-12 16:05:49.537255	2011-02-11 21:39:10.318037	184.247.42.94	174.79.54.226	2011-01-27 00:30:04.370057	2011-02-12 16:05:49.538084
 42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$6D5IPHbt1ZDvqKYPR1ubNOv/VvEOn5J15JtKhtGsTPynH8JBrSOX2	$2a$10$6D5IPHbt1ZDvqKYPR1ubNO	oIXcV0yZ7p6DLczNcZzj	\N	\N	43	2011-02-18 03:04:22.525118	2011-02-17 20:11:01.683033	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-02-18 03:04:22.526202
@@ -6952,7 +6951,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 94	\N	Scott	House	(954) 797-9275		(954) 797-9726	scott.house.sf@premiergarage.com	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu/yVyH7JlGx1xEsCndFzXIqi5nAxroUS	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:25:32.24439	2011-02-11 18:25:32.24439
 95	\N	Frank	Pochiro	864-295-4100		864-295-9642	westerncarolinas@premiergarage.com	$2a$10$jUfQAhje/wwFlOJQmDU43.ZWB1RxFFyyWqPLYsqpXHjjCfN8EDvYK	$2a$10$jUfQAhje/wwFlOJQmDU43.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:28:30.675844	2011-02-11 18:31:33.831547
 100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	\N	\N	3	2011-02-18 20:18:43.841496	2011-02-18 17:14:46.884043	69.219.227.57	69.219.227.57	2011-02-18 00:30:51.948611	2011-02-18 20:19:05.066008
-97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	2	2011-02-16 18:32:17.804113	2011-02-16 18:29:52.50564	174.79.54.226	174.79.54.226	2011-02-16 18:28:06.756767	2011-02-16 18:32:17.804941
+97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	3	2011-02-19 22:10:17.040106	2011-02-16 18:32:17.804113	70.176.124.201	174.79.54.226	2011-02-16 18:28:06.756767	2011-02-19 22:10:17.041033
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	\N	\N	1	2011-02-16 20:41:30.189054	2011-02-16 20:41:30.189054	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-02-16 20:41:30.189847
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$SbKU6fEH5quJZ6JWA9Taoeq5ybgChv9WxccJLwsg.p8kO2kra/c1y	$2a$10$SbKU6fEH5quJZ6JWA9Taoe	\N	\N	\N	0	\N	\N	\N	\N	2011-02-16 23:04:54.013023	2011-02-16 23:04:54.013023
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	2	2011-02-17 15:24:30.435841	2011-02-17 15:23:04.620353	72.66.62.197	72.66.62.197	2011-02-17 15:18:30.360419	2011-02-17 15:24:30.436454
