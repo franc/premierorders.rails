@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1321, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1322, true);
 
 
 --
@@ -2882,9 +2882,9 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1316	553	44	\N
 1317	554	44	\N
 1318	555	44	\N
-1319	40	62	\N
 1320	100	125	\N
 1321	98	126	\N
+1322	40	44	\N
 \.
 
 
@@ -2905,7 +2905,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 641	PG Stainless Workbench 120 X 25	PG Stainless Workbench 120 X 25		\N	000.991.890.104.00P	NX-CTOP-SS	2011-01-21 01:24:54.719654	2011-02-18 22:44:04.151393	Purchased	890104	Item	452.63999999999999		\N	0.16	0.92000000000000004	0.40000000000000002
 230	CL Hamper Door - flat	CL Hamper Door - flat 		\N	000.140.000.x.00M	CL-HPD	2011-01-01 18:54:06.016939	2011-02-18 22:00:43.846118	Manufactured	Closets	Door	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 42	CL Hanging Partition - Radius - Right	CL Hanging Partition Radius Bottom - Right Stop Drilled		\N	000.910.35x.x.00M	CL-HPR-R	2011-01-01 18:53:43.944414	2011-02-18 22:01:20.785114	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
-40	CL Hanging Partition - Radius - Thru	CL Hanging Partition Radius Bottom - Thru Drilled		\N	000.910.25x.x.00M	CL-HPR-T	2011-01-01 18:53:43.331732	2011-02-18 22:01:34.703207	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
 248	CL Hutch Panel 36 - Left	CL Hutch Panel 36 - Left 		\N	000.202.036.x.00M	CL-VHP-36-L	2011-01-01 18:54:08.339914	2011-02-18 22:04:28.225931	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
 254	CL Hutch Panel 44 - Left	CL Hutch Panel 44 - Left 		\N	000.202.044.x.00M	CL-VHP-44-L	2011-01-01 18:54:09.089408	2011-02-18 22:06:00.554928	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
 31	Decor Crown Molding - 424 | Mahogany Impressions	Decor Crown Molding - 424 | Mahogany Impressions		\N	000.302.000.006.00P	DS-CM-424	2011-01-01 18:53:39.48964	2011-02-18 22:15:42.453568	Purchased		Item	32.399999999999999		\N	0.45000000000000001	0.92000000000000004	0.40000000000000002
@@ -2913,6 +2912,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 533	NX Corner Cabinet 1 Door 1 Adj Shelf	NX Corner Cabinet 1 Door 1 Adj Shelf 		\N	000.308.332.x.00M	NX-CC-1AS	2011-01-01 18:54:28.497383	2011-02-18 22:38:49.677556	Manufactured	Garage_Cabinets	CornerCabinet	\N		\N	0.75	0.92000000000000004	0.40000000000000002
 637	PG Stainless Workbench 24 X 25	PG Stainless Workbench 24 X 25		\N	000.991.890.100.00P	NX-CTOP-SS	2011-01-21 01:24:54.699345	2011-02-18 22:44:14.304972	Purchased	890100	Item	126.5		\N	0.16	0.92000000000000004	0.40000000000000002
 638	PG Stainless Workbench 48 X 25	PG Stainless Workbench 48 X 25		\N	000.991.890.101.00P	NX-CTOP-SS	2011-01-21 01:24:54.704496	2011-02-18 22:44:24.33515	Purchased	890101	Item	231.84		\N	0.16	0.92000000000000004	0.40000000000000002
+40	CL Hanging Partition - Radius - Thru	CL Hanging Partition Radius Bottom - Thru Drilled		\N	000.910.25x.x.00M	CL-HPR-T	2011-01-01 18:53:43.331732	2011-02-18 22:01:34.703207	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
 250	CL Hutch Panel 44 - BaseNotch - Thru	CL Hutch Panel 44 - BaseNotch - Thru 		\N	000.211.044.x.00M	CL-VHPN-44-T	2011-01-01 18:54:08.772561	2011-02-18 22:05:47.061693	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
 617	CL Island Back Panel 	CL Island Back Panel 		\N	000.960.103.x.00M	CL-IBP	2011-01-12 00:14:00.186554	2011-02-18 22:06:43.068042	Manufactured	Closets	Door	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 35	CL Upright Partition - BaseNotch - Left	CL Upright Partition - BaseNotch - Left 		\N	000.912.1x.x.00M	CL-VUN-L	2011-01-01 18:53:39.592444	2011-02-18 22:08:51.6028	Manufactured	Closets	ClosetPartition	\N		\N	0.044999999999999998	0.92000000000000004	0.40000000000000002
@@ -7081,10 +7081,10 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 55	\N	Test2	User2				divisidera@gmail.com	$2a$10$j3OqWEyN9bsBZDc8B9rqJOot80ydg0608BB/XxH0khvncoJwAzTrG	$2a$10$j3OqWEyN9bsBZDc8B9rqJO	Fttey0xtfhjmfBFqemTy	\N	\N	1	2011-02-06 19:04:28.151609	2011-02-06 19:04:28.151609	71.196.137.193	71.196.137.193	2011-01-25 16:13:52.429598	2011-02-06 19:08:03.533115
 57	\N	Starla	Reichow	480-483-3030		480-483-7895	sreichow@premiergarage.com	$2a$10$T4Lrm08rGA8p749rc7PNPepYB2xQkmFocezJ4k1TwcH7vrtZjh1Ei	$2a$10$T4Lrm08rGA8p749rc7PNPe	\N	\N	\N	3	2011-02-05 03:50:59.191057	2011-02-05 03:49:57.120622	71.196.137.193	71.196.137.193	2011-01-27 00:19:16.5581	2011-02-11 18:21:54.712844
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$hiJTCKugu/62u4ca7t5mAuSZHXuN6zVXUVCRwPb1vJofUfVaDsiqy	$2a$10$hiJTCKugu/62u4ca7t5mAu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.284249	2011-02-11 15:28:40.875758
-35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	83	2011-02-19 00:37:02.384768	2011-02-19 00:20:41.802513	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-02-19 00:37:02.385826
 71	\N	Kenny	Keeling	(859)881-0760			kkeeling@tailoredliving.com	$2a$10$kSldxQKtYoNh6kADUrfiXOuPiR.U/6QSOmIH1gSYahFxYVwbDqeHK	$2a$10$kSldxQKtYoNh6kADUrfiXO	\N	\N	\N	1	2011-02-17 16:47:46.235589	2011-02-17 16:47:46.235589	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-02-17 16:47:46.236232
 66	\N	Joseph	Chang	(951)653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-02-11 15:33:26.75444
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$VtCo.uf5VG/3R3.e3bbhxuwnn6ZkFRURUBD.yEWGF8jL5JcfRadxq	$2a$10$VtCo.uf5VG/3R3.e3bbhxu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:36:07.879298	2011-02-11 15:36:07.879298
+35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	84	2011-02-20 03:14:37.336085	2011-02-19 00:37:02.384768	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-02-20 03:14:37.33689
 53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	\N	\N	29	2011-02-18 21:09:35.836135	2011-02-18 21:03:06.185875	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-18 21:09:35.837053
 64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$jHR4hGGLk8bnj.4HUJvhW.w.gs9ifSRzHnGRCW488uTvU6Rz7Afqy	$2a$10$jHR4hGGLk8bnj.4HUJvhW.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:09:59.375718	2011-02-11 15:09:59.375718
 68	\N	Dave	Williamson	(813)909-2957		(813)909-2967	dwilliamson@tailoredliving.com	$2a$10$0lA6JZrGpaBBGTWOr1Jju./bZUOxpBhUopLErh4XeLKYpC2Yf2Lhm	$2a$10$0lA6JZrGpaBBGTWOr1Jju.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:40:12.31394	2011-02-11 15:40:12.31394
