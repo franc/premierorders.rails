@@ -13,41 +13,12 @@
 <table>
   <tr>
     <th><%=Franchisee.model_name.human%> Name</th>
-    <th><%=Job.model_name.human%> Name</th>
-    <th><%=Job.model_name.human%> Number</th>
-    <th>Upload Date</th>
-    <th>Due Date</th>
-    <th>Ship Date</th>
-    <th>Status</th>
-    <th>Ship Via</th>
-    <th>Special Instructions</th>
-    <% if can? :manage, Job %>
-      <th>Credit Status</th>
-    <% end %>
-    <th>Actions</th>
+    <%= render :partial => 'job_cols_headers' %>
   </tr>
   <% @jobs.each do |job| %>
     <tr>
       <td><%= job.franchisee.franchise_name %></td>
-      <td><%= link_to job.name, quote_job_path(job) %></td>
-      <td><%= job.job_number %></td>
-      <td><%= job.created_at %></td>
-      <% if can? :manage, job %>
-        <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
-        <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
-        <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, job.status), :class => 'job_status') -%></td>
-        <td><%= select_tag("job[#{job.id}][ship_method]", options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, job.ship_method), :class => 'job_status') -%></td>
-      <% else %>
-        <td><%= job.due_date %></td>
-        <td><%= job.ship_date %></td>
-        <td><%= job.status %></td>
-        <td><%= job.ship_method %></td>
-      <% end %>
-      <td><%= job.comment %></td>
-      <% if can? :manage, job %>
-        <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
-      <% end %>
-      <td><%= raw action_links(job).join("&nbsp;|&nbsp;") %></td>
+      <%= render :partial => 'job_cols', :locals => {:job => job} %>
     </tr>
   <% end %>
 </table>

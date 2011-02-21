@@ -10,5 +10,7 @@ class Franchisee < ActiveRecord::Base
            :conditions => {:address_type => 'billing'}
 	has_one  :shipping_address, :class_name => 'FranchiseeAddress',
            :conditions => {:address_type => 'shipping'}
+
+  has_many :jobs
 end
 

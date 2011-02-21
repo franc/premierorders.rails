@@ -30,6 +30,15 @@
     <dd><%= @franchisee.notes %></dd>
     <dt><%= label :franchisee, :addresses %></dt>
     <dd><%= render :partial => 'addresses', :locals => {:mode => :show} %></dd>
+    <dt><%= label :franchisee, :jobs %></dt>
+    <dd>
+      <table>
+        <tr><%= render :partial => 'jobs/job_cols_headers' %></tr>
+        <% @franchisee.jobs.each do |job| %>
+          <tr><%= render :partial => 'jobs/job_cols', :locals => {:job => job} %></tr>
+        <% end %>
+      </table>
+    </dd>
   </dl>
 </div>
 

@@ -1,0 +1,13 @@
+    <th><%=Job.model_name.human%> Name</th>
+    <th><%=Job.model_name.human%> Number</th>
+    <th>Upload Date</th>
+    <th>Due Date</th>
+    <th>Ship Date</th>
+    <th>Status</th>
+    <th>Ship Via</th>
+    <th>Special Instructions</th>
+    <% if can? :manage, Job %>
+      <th>Credit Status</th>
+    <% end %>
+    <th>Actions</th>
+
