@@ -28,11 +28,14 @@
         <dt><%= f.label :tracking_number %></dt>
         <dd><%= f.text_field :tracking_number %></dd>
       <% end %>
-      <dt><%= f.label :special_instructions %></dt>
-      <dd><%= f.text_area :comment %></dd>
       <% if can? :manage, Job %>
+        <dt><%= f.label :special_instructions %></dt>
+        <dd><%= f.text_area :comment %></dd>
         <dt><%= f.label :notes %></dt>
         <dd><%= f.text_area :notes %></dd>
+      <% else %>
+        <dt><%= f.label :special_instructions %></dt>
+        <dd><%= @job.comment %></dd>
       <% end %>
     </dl>
   </div>
