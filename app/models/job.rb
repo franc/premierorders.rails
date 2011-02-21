@@ -226,8 +226,8 @@ class Job < ActiveRecord::Base
       name,
       '', '', '',
       franchisee.franchise_name,
-      shipping_address.address1 + (shipping_address.address2 || ''),
-      "#{ship_to.city} #{ship_to.state} #{ship_to.postal_code}",
+      ship_to.map{|addr| "#{addr.address1} #{addr.address2}"}.orSome(''),
+      ship_to.map{|addr| "#{addr.city}, #{addr.state} #{addr.postal_code}"}.orSome(''),
       franchisee.phone,
       franchisee.fax,
       mfg_plant
