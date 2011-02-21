@@ -40,11 +40,11 @@ class Job < ActiveRecord::Base
   end
 
   def bill_to
-    billing_address || franchisee.billing_address || ship_to
+    Option.new(billing_address).orElse(Option.new(franchisee.billing_address).map{|ba| ba.address}).orElse(ship_to)
   end
 
   def ship_to
-    shipping_address || franchisee.shipping_address
+    Option.new(shipping_address).orElse(Option.new(franchisee.shipping_address).map{|sa| sa.address})
   end
 
   def property_names

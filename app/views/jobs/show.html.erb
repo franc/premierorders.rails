@@ -30,7 +30,7 @@
     <dd><%= @job.franchisee.franchise_name -%> (Credit status: <span style="color: <%= @job.franchisee.credit_status -%>"><%= @job.franchisee.credit_status -%></span>) </dd>
 
     <dt><%= label :job, :ship_to %></dt>
-    <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
+    <dd><%= @job.ship_to.map{|a| a.single_line}.orSome('') -%></dd>
 
     <dt><%= label :job, :comment %></dt>
     <dd><%= @job.comment -%></dd>

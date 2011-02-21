@@ -9,12 +9,12 @@
         <dt>Bill To</dt>
         <dd>
           <%= @job.franchisee.franchise_name -%>
-          <% if @job.bill_to %>
-            <br/><%= @job.bill_to.address1 -%>
-            <% if @job.bill_to.address2 %>
-              <br/><%= @job.bill_to.address2 -%>
+          <% @job.bill_to.each do |addr| %>
+            <br/><%= addr.address1 -%>
+            <% if addr.address2 %>
+              <br/><%= addr.address2 -%>
             <% end %>
-            <br/><%= @job.bill_to.city -%>, <%= @job.bill_to.state -%> <%= @job.bill_to.postal_code -%>
+            <br/><%= addr.city -%>, <%= addr.state -%> <%= addr.postal_code -%>
           <% end %>
         </dd>
       </dl>
@@ -24,12 +24,12 @@
         <dt>Ship To</dt>
         <dd>
           <%= @job.franchisee.franchise_name -%>
-          <% if @job.ship_to %>
-            <br/><%= @job.ship_to.address1 -%>
-            <% if @job.ship_to.address2 %>
-              <br/><%= @job.ship_to.address2 -%>
+          <% @job.ship_to.each do |addr| %>
+            <br/><%= addr.address1 -%>
+            <% if addr.address2 %>
+              <br/><%= addr.address2 -%>
             <% end %>
-            <br/><%= @job.ship_to.city -%>, <%= @job.ship_to.state -%> <%= @job.ship_to.postal_code -%>
+            <br/><%= addr.city -%>, <%= addr.state -%> <%= addr.postal_code -%>
           <% end %>
         </dd>
       </dl>
@@ -108,19 +108,16 @@
 
   <div id="quote-footer">
     <dl class="franchisee-name">
-        <dt>PremierGarage Systems LLC</dt>
-        <dd>
-          21405 N. 15th Lane <br> Phoenix AZ 85027
-        </dd>
+        <dt>PremierGarage Systems</dt>
     </dl>
 
     <dl class="franchisee-phone">
-      <dt>CUSTOMER SERVICE: 866-761-8981</dt>
+      <dt>Toll Free: 866-761-8981</dt>
       <dd></dd>
     </dl>
 
     <dl class="franchisee-fax">
-      <dt>FAX: 480.483.3795</dt>
+      <dt>Fax: 480.483.3795</dt>
       <dd></dd>
     </dl>
 
