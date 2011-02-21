@@ -55,6 +55,7 @@ module Properties
         case type
           when :int   then string_value.to_i
           when :float then string_value.to_f
+          when :decimal then BigDecimal.new(string_value.to_s)
           else string_value
         end
       else
@@ -333,11 +334,11 @@ class Property < ActiveRecord::Base
   module Surcharge
     include Properties::JSONProperty
     def self.value_structure
-      [[:price , :float]]
+      [[:price , :decimal]]
     end
 
     def price
-      BigDecimal.new(extract(:price))
+      extract(:price, :decimal)
     end
   end
 
@@ -352,7 +353,7 @@ class Property < ActiveRecord::Base
         [:cutrite_code , :string],
         [:thickness , :float],
         [:thickness_units , Properties::LinearConversions::UNITS],
-        [:price , :float],
+        [:price , :decimal],
         [:price_units , Properties::SquareConversions::UNITS],
         [:weight , :float],
         [:waste_factor , :float]
@@ -380,7 +381,7 @@ class Property < ActiveRecord::Base
     end
 
     def price
-      BigDecimal.new(extract(:price))
+      extract(:price, :decimal)
     end
 
     def waste_factor
@@ -430,13 +431,13 @@ class Property < ActiveRecord::Base
 
     def self.value_structure
       [
-        [:price , :float],
+        [:price , :decimal],
         [:price_units , Properties::LinearConversions::UNITS]
       ]
     end
 
     def price(units)
-      convert(BigDecimal.new(extract(:price)), units, extract(:price_units).to_sym)
+      convert(extract(:price, :decimal), units, extract(:price_units).to_sym)
     end
 
     def cost_expr(units, length_expr)
