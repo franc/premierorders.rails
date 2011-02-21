@@ -1,7 +1,10 @@
 require 'util/option'
 require 'util/either'
+require 'expressions'
 
 class JobItem < ActiveRecord::Base
+  include Expressions
+
 	belongs_to :job
   belongs_to :item
 	has_many   :job_item_properties, :dependent => :destroy, :extend => Properties::Association
@@ -60,21 +63,6 @@ class JobItem < ActiveRecord::Base
     item.nil? ? "(unavailable)" : item.purchasing
   end
 
-  def hardware_cost
-    inventory_hardware.values.inject(0.0) {|total, i| total + i.total_price}
-  end
-
-  def compute_unit_price(units = :in)
-    Option.new(item).bind do |i|
-      begin
-        i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
-      rescue
-        logger.error $!.backtrace.join("\n")
-        Option.some(Either.left($!.message))
-      end
-    end
-  end
-
   def inventory_hardware
     hardware_query = HardwareQuery.new do |i|
       i.purchasing == 'Inventory'
@@ -111,24 +99,40 @@ class JobItem < ActiveRecord::Base
     end
   end
 
-  def dimension_eval(expr)
-    w = width.orSome(nil)
-    h = height.orSome(nil)
-    d = depth.orSome(nil)
-    compiled_expr = expr.compile.gsub(/W/,'w').gsub(/H/,'h').gsub(/D/,'d')
-    begin
-      Either.right(eval(compiled_expr))
-    rescue
-      logger.error("Unable to evaluate expression (#{compiled_expr}) at w = #{w}, h = #{h}, d = #{d}")
-      Either.left("Unable to evaluate expression (#{compiled_expr}) at w = #{w}, h = #{h}, d = #{d}")
+  def hardware_cost
+    inventory_hardware.values.inject(BigDecimal.new("0.00")) {|total, i| total + i.total_price}
+  end
+
+  def compute_unit_price(units = :in)
+    Option.new(item).bind do |i|
+      begin
+        i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+      rescue
+        logger.error "Error computing unit price: #{$!.message}\n #{$!.backtrace.join("\n")}"
+        Option.some(Either.left($!.message))
+      end
     end
   end
 
-  def compute_total
-    compute_unit_price.map{|e| e.right.map{|t| t * quantity}}
+  def compute_total(units = :in)
+    compute_unit_price(units).map{|e| e.right.map{|t| t * quantity}}
   end
 
-  def hardware_total
-    hardware_cost * quantity
+  def net_unit_price(units = :in)
+    compute_unit_price(units).bind{|p| p.right.toOption.map{|v| v - hardware_cost}}.orSome(unit_price)
+  end
+
+  def net_total(units = :in)
+    net_unit_price(units) * quantity
+  end
+
+  def dimension_eval(expr)
+    vars = {ZERO => BigDecimal.new("0.00")}.merge(width.to_h(W)).merge(height.to_h(H)).merge(depth.to_h(D))
+    begin
+      Either.right(expr.evaluate(vars))
+    rescue
+      logger.error("Unable to evaluate expression (#{expr}) at #{vars.inspect}: \n#{$!.message}")
+      Either.left("Unable to evaluate expression (#{expr}) at #{vars.inspect}")
+    end
   end
 end

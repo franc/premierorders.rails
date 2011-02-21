@@ -4,7 +4,7 @@ require 'util/either'
 class AssemblyHardwareItem
   attr_reader :item, :quantity, :weight, :install_cost, :total_price
 
-  def initialize(item, quantity = 0.0, total_price = 0.0)
+  def initialize(item, quantity = 0, total_price = BigDecimal.new("0.00"))
     @item = item
     @quantity = quantity
     @total_price = total_price
@@ -56,28 +56,24 @@ class AssemblyHardwareItem
     Option.none
   end
 
-  def hardware_cost
-    0.0
-  end
-
   def compute_unit_price
     Option.iif(@quantity > 0) do
       Either.right(@total_price / @quantity)
     end
   end
 
-  def unit_price
-    # This is wrong, but it requires rework of the display to correct it. So this is a hack
-    # to allow continued reuse of jobs/_items_table.html.erb
-    compute_unit_price.bind{|e| e.right.toOption}.orSome(0.0)
+  def net_unit_price
+    @total_price / @quantity
   end
+
+  alias_method :unit_price, :net_unit_price
 
   def compute_total
     Option.some(Either.right(@total_price))
   end
 
-  def hardware_total
-    0.0
+  def net_total
+    @total_price
   end
 
   def weight

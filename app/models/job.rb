@@ -248,7 +248,7 @@ class Job < ActiveRecord::Base
 
   def inventory_items_total
     @inventory_items_total ||= component_inventory_hardware.inject(total{|i| i.inventory?}) do |tot, hardware_item|
-      tot + hardware_item.compute_total.bind{|t| t.right.toOption}.orSome(0.0)
+      tot + hardware_item.net_total
     end
 
     @inventory_items_total
@@ -256,9 +256,8 @@ class Job < ActiveRecord::Base
 
   def total 
     if block_given?
-      job_items.select{|i| yield(i)}.inject(0.0) do |tot, job_item|
-        logger.info("Adding for #{job_item.item_name} - #{job_item.item_purchasing}")
-        tot + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity)
+      job_items.select{|i| yield(i)}.inject(BigDecimal.new("0.00")) do |tot, job_item|
+        tot + job_item.net_total
       end
     else
       total{|i| !i.inventory?}

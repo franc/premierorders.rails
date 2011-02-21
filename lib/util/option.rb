@@ -92,6 +92,10 @@ class Some
     f.call(@value)
   end
 
+  def filter(&f)
+    f.call(@value) ? self : None::NONE
+  end
+
   def orLazy(&f)
     @value
   end
@@ -104,8 +108,16 @@ class Some
     "Some(#{@value.inspect})"
   end
 
+  def some
+    @value
+  end
+
   def to_s
     @value.to_s
+  end
+
+  def to_h(key)
+    {key => @value}
   end
 end
 
@@ -118,6 +130,10 @@ class None
     default
   end
 
+  def filter(&f)
+    NONE
+  end
+
   def orLazy(&f)
     f.call
   end
@@ -128,6 +144,10 @@ class None
 
   def inspect
     "None"
+  end
+
+  def to_h(key)
+    {}
   end
 
   alias_method :to_s, :inspect

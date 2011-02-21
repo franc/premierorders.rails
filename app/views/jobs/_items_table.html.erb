@@ -34,10 +34,10 @@
       <td class="item_depth"><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
       <td class="item_weight"><%= job_item.weight.map{|e| e.cata(Functions.const("(error)"), lambda{|w| "%.3f" % w})}.orSome("(none)") %></td>
       <td class="item_unit_price">
-        <%= "$%.2f" % job_item.compute_unit_price.bind{|p| p.right.toOption.map{|v| v - job_item.hardware_cost}}.orSome(job_item.unit_price) %>
+        <%= "$%.2f" % job_item.net_unit_price %>
         <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
-      <td class="item_total"><%= "$%.2f" % job_item.compute_total.bind{|p| p.right.toOption.map{|v| v - job_item.hardware_total}}.orSome(job_item.unit_price * job_item.quantity) %></td>
+      <td class="item_total"><%= "$%.2f" % job_item.net_total %></td>
       <td class="item_special_instruction"><%= job_item.comment %></td>
       <td class="item_actions"><%= link_to JobItem.model_name.human, job_item_path(job_item) %></td>
     </tr>
