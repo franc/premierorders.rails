@@ -11,12 +11,19 @@ class JobItem < ActiveRecord::Base
     @dimensions_property
   end
 
+  def purchasing_type?(*types)
+    types.any? do |type|
+      item_purchasing.casecmp(type) == 0 || 
+      ingest_id.strip[-1,1].casecmp(type[0...1]) == 0
+    end
+  end
+
   def inventory?
-    (item && item.purchasing == 'Inventory') || ingest_id.strip[-1,1] == 'I'
+    purchasing_type?('Inventory')
   end
 
   def buyout?
-    (item && item.purchasing == 'Buyout') || ingest_id.strip[-1,1] == 'B'
+    purchasing_type?('Buyout')
   end
 
   def width(units = :in)
@@ -47,6 +54,10 @@ class JobItem < ActiveRecord::Base
 
   def item_name
     item.nil? ? "#{ingest_desc}: #{ingest_id}" : item.name
+  end
+
+  def item_purchasing
+    item.nil? ? "(unavailable)" : item.purchasing
   end
 
   def hardware_cost

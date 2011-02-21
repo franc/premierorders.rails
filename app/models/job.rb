@@ -246,32 +246,23 @@ class Job < ActiveRecord::Base
     job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item, units)}
   end
 
-  def job_items_total(&item_test)
-    job_items.select{|i| item_test.call(i)}.inject(0.0) do |total, job_item|
-      total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity)
-    end
-  end
-
   def inventory_items_total
-    @inventory_items_total ||= component_inventory_hardware.inject(job_items_total{|i| i.inventory?}) do |total, hardware_item|
-      total + hardware_item.compute_total.bind{|t| t.right.toOption}.orSome(0.0)
+    @inventory_items_total ||= component_inventory_hardware.inject(total{|i| i.inventory?}) do |tot, hardware_item|
+      tot + hardware_item.compute_total.bind{|t| t.right.toOption}.orSome(0.0)
     end
 
     @inventory_items_total
   end
 
-  def non_inventory_items_total
-    @non_inventory_items_total ||= job_items_total{|i| !(i.inventory? || i.buyout?)}
-    @non_inventory_items_total
-  end
-
-  def buyout_items_total
-    @buyout_items_total ||= job_items_total{|i| i.buyout?}
-    @buyout_items_total
-  end
-
   def total 
-    non_inventory_items_total + buyout_items_total
+    if block_given?
+      job_items.select{|i| yield(i)}.inject(0.0) do |tot, job_item|
+        logger.info("Adding for #{job_item.item_name} - #{job_item.item_purchasing}")
+        tot + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity)
+      end
+    else
+      total{|i| !i.inventory?}
+    end
   end
 
   def component_inventory_hardware
