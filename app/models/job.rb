@@ -110,7 +110,7 @@ class Job < ActiveRecord::Base
       !SKIP_ROWS.any?{|l| r[0].to_s =~ l}
     end
 
-    item_rows.each_with_index do |row, i|
+    item_rows.each_with_index do |row, tracking_id|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
 
@@ -134,7 +134,7 @@ class Job < ActiveRecord::Base
           :quantity  => item_quantity,
           :comment   => special_instructions,
           :unit_price => unit_price,
-          :tracking_id => i + 1
+          :tracking_id => tracking_id + 1
       }
 
       # Add the item reference to the job item, if an item is known
