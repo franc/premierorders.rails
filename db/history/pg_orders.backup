@@ -660,7 +660,8 @@ CREATE TABLE jobs (
     tracking_number character varying(255),
     ship_method character varying(255),
     primary_contact_id integer,
-    notes text
+    notes text,
+    billing_address_id integer
 );
 
 
@@ -1276,56 +1277,56 @@ COPY franchisee_addresses (id, franchisee_id, address_id, address_type, created_
 26	26	32	billing	2011-01-01 18:53:35.311241	2011-01-01 18:53:35.311241
 27	27	34	billing	2011-01-01 18:53:35.434567	2011-01-01 18:53:35.434567
 28	28	36	billing	2011-01-01 18:53:35.555273	2011-01-01 18:53:35.555273
-14	14	17	Billing	2011-01-01 18:53:33.565495	2011-01-25 04:59:24.528423
-29	6	37	Shipping	2011-01-27 18:26:30.516642	2011-01-27 18:26:30.516642
-8	8	12	Billing	2011-01-01 18:53:32.929274	2011-02-07 15:16:09.507304
-30	8	38	Shipping	2011-02-07 15:15:19.499871	2011-02-07 15:18:02.564258
-31	31	39	Billing	2011-02-11 14:58:19.169577	2011-02-11 14:58:19.169577
-32	32	40	Billing	2011-02-11 15:04:54.877723	2011-02-11 15:04:54.877723
-33	33	41	Billing	2011-02-11 15:09:06.817853	2011-02-11 15:09:06.817853
-34	34	42	Billing	2011-02-11 15:23:57.744618	2011-02-11 15:23:57.744618
-35	35	43	Billing	2011-02-11 15:26:18.460588	2011-02-11 15:26:18.460588
-19	19	22	Shipping	2011-01-01 18:53:34.294639	2011-02-11 15:29:12.114214
-36	19	44	Billing	2011-02-11 15:29:36.496556	2011-02-11 15:29:36.496556
-37	36	45	Billing	2011-02-11 15:32:08.347161	2011-02-11 15:32:08.347161
-38	37	46	Billing	2011-02-11 15:35:17.231973	2011-02-11 15:35:17.231973
-39	38	47	Billing	2011-02-11 15:38:44.327882	2011-02-11 15:38:44.327882
-40	39	48	Billing	2011-02-11 15:41:39.664108	2011-02-11 15:41:39.664108
-41	40	49	Billing	2011-02-11 15:44:49.823711	2011-02-11 15:44:49.823711
-42	41	50	Billing	2011-02-11 15:46:09.897825	2011-02-11 15:46:09.897825
-43	42	51	Billing	2011-02-11 15:48:31.706471	2011-02-11 15:48:31.706471
-44	43	52	Billing	2011-02-11 15:51:08.951797	2011-02-11 15:51:08.951797
-45	44	53	Billing	2011-02-11 15:53:41.011346	2011-02-11 15:53:41.011346
-46	45	54	Billing	2011-02-11 16:00:54.233056	2011-02-11 16:00:54.233056
-47	46	55	Billing	2011-02-11 16:04:45.637786	2011-02-11 16:04:45.637786
-48	47	56	Billing	2011-02-11 16:07:33.971604	2011-02-11 16:07:33.971604
-49	48	57	Billing	2011-02-11 16:09:59.919393	2011-02-11 16:09:59.919393
-50	49	58	Billing	2011-02-11 16:12:31.387281	2011-02-11 16:12:31.387281
-51	50	59	Billing	2011-02-11 16:15:07.280258	2011-02-11 16:15:07.280258
-52	50	60	Shipping	2011-02-11 16:15:11.075474	2011-02-11 16:15:19.234546
-53	51	61	Billing	2011-02-11 16:17:14.77723	2011-02-11 16:17:14.77723
-54	52	62	Billing	2011-02-11 16:24:56.469627	2011-02-11 16:24:56.469627
-55	53	63	Billing	2011-02-11 16:31:51.318756	2011-02-11 16:31:51.318756
-56	54	64	Billing	2011-02-11 16:34:32.90571	2011-02-11 16:34:32.90571
-57	30	65	Billing	2011-02-11 16:36:57.588022	2011-02-11 16:36:57.588022
-58	55	66	Billing	2011-02-11 16:45:29.438699	2011-02-11 16:45:29.438699
-59	56	67	Billing	2011-02-11 17:44:41.786029	2011-02-11 17:44:41.786029
-60	57	68	Billing	2011-02-11 17:51:29.681044	2011-02-11 17:51:29.681044
-61	58	69	Billing	2011-02-11 17:54:20.676942	2011-02-11 17:54:20.676942
-62	59	70	Billing	2011-02-11 17:56:28.119194	2011-02-11 17:56:28.119194
-63	4	71	Billing	2011-02-11 17:59:54.525194	2011-02-11 17:59:54.525194
-64	60	72	Billing	2011-02-11 18:03:15.010307	2011-02-11 18:03:15.010307
-65	61	73	Billing	2011-02-11 18:06:31.233159	2011-02-11 18:06:31.233159
-66	62	74	Billing	2011-02-11 18:10:19.414683	2011-02-11 18:10:19.414683
-67	63	75	Billing	2011-02-11 18:13:23.240705	2011-02-11 18:13:23.240705
-68	64	76	Billing	2011-02-11 18:18:52.753418	2011-02-11 18:18:52.753418
-69	65	77	Billing	2011-02-11 18:21:19.51605	2011-02-11 18:21:19.51605
-70	66	78	Billing	2011-02-11 18:24:03.117635	2011-02-11 18:24:03.117635
-71	66	79	Shipping	2011-02-11 18:24:06.713574	2011-02-11 18:24:30.48902
-72	67	80	Billing	2011-02-11 18:27:30.291651	2011-02-11 18:27:30.291651
-73	68	81	Billing	2011-02-11 19:17:59.570816	2011-02-11 19:17:59.570816
-4	4	6	Shipping	2011-01-01 18:53:32.323211	2011-02-16 18:18:04.515903
-74	2	82	Shipping	2011-02-16 19:10:47.27628	2011-02-16 19:10:47.27628
+29	6	37	shipping	2011-01-27 18:26:30.516642	2011-01-27 18:26:30.516642
+30	8	38	shipping	2011-02-07 15:15:19.499871	2011-02-07 15:18:02.564258
+19	19	22	shipping	2011-01-01 18:53:34.294639	2011-02-11 15:29:12.114214
+52	50	60	shipping	2011-02-11 16:15:11.075474	2011-02-11 16:15:19.234546
+14	14	17	billing	2011-01-01 18:53:33.565495	2011-01-25 04:59:24.528423
+8	8	12	billing	2011-01-01 18:53:32.929274	2011-02-07 15:16:09.507304
+31	31	39	billing	2011-02-11 14:58:19.169577	2011-02-11 14:58:19.169577
+32	32	40	billing	2011-02-11 15:04:54.877723	2011-02-11 15:04:54.877723
+33	33	41	billing	2011-02-11 15:09:06.817853	2011-02-11 15:09:06.817853
+34	34	42	billing	2011-02-11 15:23:57.744618	2011-02-11 15:23:57.744618
+35	35	43	billing	2011-02-11 15:26:18.460588	2011-02-11 15:26:18.460588
+36	19	44	billing	2011-02-11 15:29:36.496556	2011-02-11 15:29:36.496556
+37	36	45	billing	2011-02-11 15:32:08.347161	2011-02-11 15:32:08.347161
+38	37	46	billing	2011-02-11 15:35:17.231973	2011-02-11 15:35:17.231973
+39	38	47	billing	2011-02-11 15:38:44.327882	2011-02-11 15:38:44.327882
+40	39	48	billing	2011-02-11 15:41:39.664108	2011-02-11 15:41:39.664108
+41	40	49	billing	2011-02-11 15:44:49.823711	2011-02-11 15:44:49.823711
+42	41	50	billing	2011-02-11 15:46:09.897825	2011-02-11 15:46:09.897825
+43	42	51	billing	2011-02-11 15:48:31.706471	2011-02-11 15:48:31.706471
+44	43	52	billing	2011-02-11 15:51:08.951797	2011-02-11 15:51:08.951797
+45	44	53	billing	2011-02-11 15:53:41.011346	2011-02-11 15:53:41.011346
+46	45	54	billing	2011-02-11 16:00:54.233056	2011-02-11 16:00:54.233056
+47	46	55	billing	2011-02-11 16:04:45.637786	2011-02-11 16:04:45.637786
+48	47	56	billing	2011-02-11 16:07:33.971604	2011-02-11 16:07:33.971604
+49	48	57	billing	2011-02-11 16:09:59.919393	2011-02-11 16:09:59.919393
+50	49	58	billing	2011-02-11 16:12:31.387281	2011-02-11 16:12:31.387281
+51	50	59	billing	2011-02-11 16:15:07.280258	2011-02-11 16:15:07.280258
+53	51	61	billing	2011-02-11 16:17:14.77723	2011-02-11 16:17:14.77723
+54	52	62	billing	2011-02-11 16:24:56.469627	2011-02-11 16:24:56.469627
+55	53	63	billing	2011-02-11 16:31:51.318756	2011-02-11 16:31:51.318756
+56	54	64	billing	2011-02-11 16:34:32.90571	2011-02-11 16:34:32.90571
+57	30	65	billing	2011-02-11 16:36:57.588022	2011-02-11 16:36:57.588022
+58	55	66	billing	2011-02-11 16:45:29.438699	2011-02-11 16:45:29.438699
+59	56	67	billing	2011-02-11 17:44:41.786029	2011-02-11 17:44:41.786029
+60	57	68	billing	2011-02-11 17:51:29.681044	2011-02-11 17:51:29.681044
+61	58	69	billing	2011-02-11 17:54:20.676942	2011-02-11 17:54:20.676942
+62	59	70	billing	2011-02-11 17:56:28.119194	2011-02-11 17:56:28.119194
+63	4	71	billing	2011-02-11 17:59:54.525194	2011-02-11 17:59:54.525194
+64	60	72	billing	2011-02-11 18:03:15.010307	2011-02-11 18:03:15.010307
+65	61	73	billing	2011-02-11 18:06:31.233159	2011-02-11 18:06:31.233159
+71	66	79	shipping	2011-02-11 18:24:06.713574	2011-02-11 18:24:30.48902
+4	4	6	shipping	2011-01-01 18:53:32.323211	2011-02-16 18:18:04.515903
+74	2	82	shipping	2011-02-16 19:10:47.27628	2011-02-16 19:10:47.27628
+66	62	74	billing	2011-02-11 18:10:19.414683	2011-02-11 18:10:19.414683
+67	63	75	billing	2011-02-11 18:13:23.240705	2011-02-11 18:13:23.240705
+68	64	76	billing	2011-02-11 18:18:52.753418	2011-02-11 18:18:52.753418
+69	65	77	billing	2011-02-11 18:21:19.51605	2011-02-11 18:21:19.51605
+70	66	78	billing	2011-02-11 18:24:03.117635	2011-02-11 18:24:03.117635
+72	67	80	billing	2011-02-11 18:27:30.291651	2011-02-11 18:27:30.291651
+73	68	81	billing	2011-02-11 19:17:59.570816	2011-02-11 19:17:59.570816
 \.
 
 
@@ -6079,43 +6080,43 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: pg_orders
 --
 
-COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method, primary_contact_id, notes) FROM stdin;
-161	1	1	1	615_White Revised	SO - 44	\N	2011-02-16 23:39:18.171869	2011-02-17 22:00:59.695438	615_white_revised_ordered Parts List.xml	text/xml	59940	2011-02-16 23:39:18.167913	Phoenix	Confirmed	2011-03-03	\N	This is to replace SO#23.  Rush is not necessary (need to have in house by March 7-8)	2011-02-16 23:42:34	1		PremierRoute	30	
-153	41	70	50	Recktenwall_Garage	SO - 39	\N	2011-02-15 22:11:41.3838	2011-02-17 21:53:47.226266	Recktenwall_Garage Parts List.xml	text/xml	9242	2011-02-15 22:11:41.381547	Phoenix	Confirmed	2011-03-01	\N	Premier Route	2011-02-15 22:13:40	70		PremierRoute	70	
-154	13	12	16	Thatcher	SO - 40	\N	2011-02-15 23:38:21.966347	2011-02-16 18:08:48.162772	Thatcher_02_15 Parts List.xml	text/xml	21013	2011-02-15 23:38:21.963814	Phoenix	Confirmed	2011-03-01	\N	Would like to ship with my SRS order I placed today if possible, thanks.	2011-02-15 23:41:01	12		PremierRoute	12	
-163	20	32	23	Lopez - Room 4	SO - 49	\N	2011-02-17 00:07:16.68204	2011-02-17 20:23:51.017835	Lopez, Jennilyn Parts List room 4.xml	application/xml	12349	2011-02-17 00:07:16.680314	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:40:03	19		PremierRoute	19	
-142	4	4	6	Boldebuck - Mudroom	SO - 31	\N	2011-02-15 16:28:03.846773	2011-02-17 21:50:28.016745	Boldebuck - Mudroom.xml	text/xml	17841	2011-02-15 16:28:03.844846	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:31:14	4		PremierRoute	29	
-134	11	10	14	Williams Nursery	SO - 25	\N	2011-02-15 00:58:06.423211	2011-02-17 21:47:12.791062	Williams Residence Parts List.xls	application/vnd.ms-excel	16326	2011-02-15 00:58:06.421461	Phoenix	Confirmed	2011-03-01	\N		2011-02-15 00:58:26	10		PremierRoute	10	
-183	4	4	6	Bergman - Additional Parts	SO - 54	\N	2011-02-18 17:04:19.456665	2011-02-19 04:30:49.657989	Bergman - Additional Parts.xml	application/octet-stream	8209	2011-02-18 17:04:19.452998	Phoenix	Confirmed	2011-03-04	\N	** He Needs The Inventory Item Fulfilled **	2011-02-18 17:07:05	4		PremierRoute	29	
-135	11	10	14	Toland Master Closet	SO - 26	\N	2011-02-15 01:05:59.848632	2011-02-17 21:49:13.792685	Toland Master Closet Parts List.xls	application/octet-stream	43011	2011-02-15 01:05:59.846467	Phoenix	Confirmed	2011-03-01	\N	Please make Baseboard Notch 1" x 4"	2011-02-15 01:06:46	10		PremierRoute	10	
-136	11	10	14	Bland Master Closet	SO - 27	\N	2011-02-15 01:15:28.49248	2011-02-17 21:49:44.80839	Bland Master Closet Parts List.xls	application/octet-stream	27768	2011-02-15 01:15:28.490392	Phoenix	Confirmed	2011-03-01	\N	Please make Base Notch 1" x 4"	2011-02-15 01:16:28	10		PremierRoute	10	
-141	4	4	6	Boldebuck - Pantry	SO - 30	\N	2011-02-15 16:02:46.013679	2011-02-17 21:49:53.19125	Boldebuck - Pantry.xml	text/xml	16430	2011-02-15 16:02:46.011538	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Special\r\n1) 10" Depth Materials	2011-02-15 16:06:28	4		PremierRoute	29	
-143	4	4	6	Boldebuck - Annaka	SO - 32	\N	2011-02-15 16:40:30.107612	2011-02-17 21:50:39.693922	Boldebuck - Annaka.xml	text/xml	26726	2011-02-15 16:40:30.105785	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:41:21	4		PremierRoute	29	
-144	4	4	6	Boldebuck - Hanna	SO - 33	\N	2011-02-15 16:57:05.757071	2011-02-17 21:50:48.201107	Boldebuck - Hanna.xml	text/xml	25967	2011-02-15 16:57:05.755159	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted Items were modified in excel sheet to account for 2 cut to fit sections	2011-02-15 16:59:34	4		PremierRoute	29	
-160	4	4	6	McElrone - ReOrder	SO - 43	\N	2011-02-16 23:16:35.436135	2011-02-17 20:22:33.713918	McElrone - ReOrder 3.xml	application/octet-stream	21619	2011-02-16 23:16:35.434207	Phoenix	Confirmed	2011-03-02	\N	Ship Date: 02/30/11\r\n\r\nPG Preferred Shipping	2011-02-16 23:18:58	4		PremierRoute	29	
-145	4	4	6	Boldebuck - Entry	SO - 34	\N	2011-02-15 17:06:04.58462	2011-02-17 21:51:01.960996	Boldebuck - Entry.xml	text/xml	6622	2011-02-15 17:06:04.580546	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 17:06:25	4		PremierRoute	29	
-146	4	4	6	Boldebuck - Bath Linen	SO - 35	\N	2011-02-15 17:14:10.569762	2011-02-17 21:51:37.479559	Boldebuck - Bath Linen.xml	text/xml	5540	2011-02-15 17:14:10.567723	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted item is for wall cleat material.\r\nNeed: (4) 1.50" x 96" strips, edge band 1 long & 2 short	2011-02-15 17:16:02	4		PremierRoute	29	
-162	20	32	23	Lopez - Room 3	SO - 50	\N	2011-02-17 00:05:07.563875	2011-02-17 22:01:21.546836	Lopez, Jennilyn Parts List room 3..xml	application/xml	29591	2011-02-17 00:05:07.561871	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:41:32	19		PremierRoute	19	
-148	4	4	6	Boldebuck - Hall Closet	SO - 36	\N	2011-02-15 17:26:12.266383	2011-02-17 21:52:02.697196	Boldebuck - Hall Closet.xml	text/xml	7315	2011-02-15 17:26:12.26471	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted item is for wall cleat material.\r\nNeed: (2) 1.50" x 96" strips, edge band 1 long & 2 short	2011-02-15 17:26:43	4		PremierRoute	29	
-172	20	19	23	Pray	SO - 47	\N	2011-02-17 05:35:34.477573	2011-02-17 20:55:59.15792	Pray, Mark & Barbara Parts List.xml	text/xml	26675	2011-02-17 05:35:34.474178	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:37:10	19		PremierRoute	19	
-132	4	4	6	Boldebuck - Master	SO - 24	\N	2011-02-15 00:11:33.052152	2011-02-17 21:46:36.273722	Boldebuck - Master.xml	application/octet-stream	41490	2011-02-15 00:11:33.049771	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 00:13:55	4		PremierRoute	4	
-169	20	19	23	Mooney, Dan	SO - 46	\N	2011-02-17 03:01:29.382984	2011-02-17 20:48:37.125246	Mooney, Dan Parts List.xml	text/xml	19473	2011-02-17 03:01:29.380443	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 03:15:59	19		PremierRoute	19	
-165	20	32	23	Lopez - Room 5	SO - 48	\N	2011-02-17 00:09:35.656778	2011-02-17 20:26:13.409045	Lopez, Jennilyn Parts List room 5.xml	application/xml	13144	2011-02-17 00:09:35.655044	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:39:25	19		PremierRoute	19	
-151	4	4	6	Rakel - Master	SO - 38	\N	2011-02-15 19:02:38.093818	2011-02-17 21:53:19.819594	Rakel - Master.xml	application/octet-stream	32187	2011-02-15 19:02:38.09206	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 19:04:57	4		PremierRoute	29	
-159	17	16	20	Robert Sayson	SO - 42	\N	2011-02-16 22:16:56.425917	2011-02-21 14:35:04.392427	Robert Sayson 2-16-11.dvi Parts List.xml	text/xml	54162	2011-02-16 22:16:56.423682	Phoenix	Confirmed	2011-03-03	\N	Need two boxes of mini cam assemblies	2011-02-16 22:22:59	16		PremierRoute	16	
-175	49	78	58	Galt Seasonal	SO - 51	\N	2011-02-17 18:29:51.276923	2011-02-18 14:27:43.181035	Galt Seasonal Parts List.xml	text/xml	23891	2011-02-17 18:29:51.274924	Phoenix	Confirmed	2011-03-04	\N	Corner Braces- 40 x 40 PaRT# 260.28.504\r\nFlat countersunk head screws- type 17\r\n     #6 x 5/8" part# 010.71.043\r\n     #8 x 1 1/4" part# 010.21.068\r\nSleeve Type cam shelf lock pin\r\n     part# 263.24.943\r\n\r\nPlease add these parts to my order	2011-02-17 18:30:42	78		PremierRoute	78	
-186	1	1	1	702_Daniel	SO - 55	\N	2011-02-18 21:28:37.070847	2011-02-18 21:29:14.577925	daniel_0216 Parts List.xml	text/xml	17221	2011-02-18 21:28:37.067734	\N	Placed	\N	\N		2011-02-18 21:29:14	1	\N	\N	\N	\N
-155	4	4	6	Reddy - Replacement Drawer Box	SO - 41	\N	2011-02-16 00:37:32.781674	2011-02-17 22:08:23.237433	Reddy - Replacement Drawer Box.xml	application/octet-stream	6907	2011-02-16 00:37:32.779089	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n*Replacement for previously ordered materials.  "Reddy - Kartik's Closet", was ordered pre D'Vinci 4.1 so dimensions were different also I needed specific sizing for soft close slides.\r\n\r\n**Please check previous order submitted to assure correct size is sent	2011-02-16 00:37:47	4		PremierRoute	4	2/17 left msg with Tim - is this warranty?\r\n2/17 per Tim not a warranty issue, they ruined drawer.
-188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-02-18 22:08:46.075122	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	\N	Placed	\N	\N		2011-02-18 22:08:46	1	\N	\N	\N	\N
-194	33	101	41	Pradhan, Shailandra	SO - 58	\N	2011-02-19 03:29:55.568528	2011-02-19 03:39:44.86418	Pradhan Shailendra.dvi Parts List.xml	text/xml	52269	2011-02-19 03:29:55.565205	\N	Placed	\N	\N		2011-02-19 03:39:44	101	\N	\N	\N	\N
-195	33	101	41	Harger, Eric	SO - 59	\N	2011-02-19 04:00:45.997162	2011-02-19 04:01:40.782588	Harger, Eric.dvi Parts List.xml	text/xml	66139	2011-02-19 04:00:45.953419	\N	Placed	\N	\N		2011-02-19 04:01:40	101	\N	\N	\N	\N
-179	4	4	6	Bergman - Master	SO - 52	\N	2011-02-17 23:41:28.757889	2011-02-19 04:11:55.492336	Bergman - Master.xml	application/octet-stream	34213	2011-02-17 23:41:28.7557	Phoenix	Confirmed	2011-03-04	\N	Ship Date: 03/01/11\r\n\r\nPG Preferred Shipping	2011-02-17 23:42:54	4		PremierRoute	29	
-182	31	63	39	Birmingham Home Show	SO - 53	\N	2011-02-18 16:09:56.161773	2011-02-19 04:18:07.999359	2011 Bham Home Show Parts List.xml	application/octet-stream	38291	2011-02-18 16:09:56.157867	Phoenix	Confirmed	2011-03-04	\N	Need delivery by March 7 for home show that weekend. Can you drop on the way to Atlanta.\r\n\r\nNeed the following hardware:\r\n\r\nhutch base corner bracket\r\nmini fix cam\r\nhutch angle bracket\r\nmini fix post\r\nscrew corner brace\r\nscrew angle brackets	2011-02-18 16:21:29	63		PremierRoute	63	
-193	4	32	6	Driftmier - Garage	SO - 57	\N	2011-02-19 01:48:31.419348	2011-02-19 04:33:26.521999	Driftmier 2.dvi Parts List.xml	application/xml	23538	2011-02-19 01:48:31.417269	Phoenix	Confirmed	2011-03-04	\N	** Custom Order **	2011-02-19 02:15:40	32		PremierRoute	29	
-196	9	32	13	Valles - Garage	SO - 60	\N	2011-02-19 05:26:43.436919	2011-02-19 05:33:13.174014	Valles, Carlos and Natalie.dvi Parts List.xml	application/xml	23079	2011-02-19 05:26:43.4338	Phoenix	Confirmed	2011-03-04	\N	** Classic Cabinets with Powder Coated doors and PremierAccess **	2011-02-19 05:30:42	32		PremierRoute	9	Look in the folder for the list of classic parts.
-197	4	4	6	Johnson - Pantry	SO-61	\N	2011-02-19 21:13:57.500721	2011-02-19 21:16:00.79341	Johnson - Pantry.xml	application/octet-stream	21559	2011-02-19 21:13:57.496739	\N	Placed	\N	\N		2011-02-19 21:16:00	4	\N	\N	\N	\N
-199	4	4	6	Gransee - All Closets	SO-63	\N	2011-02-20 00:45:06.662741	2011-02-20 00:50:49.795874	Gransee - All Closets.xml	application/octet-stream	53835	2011-02-20 00:45:06.660364	\N	Placed	\N	\N		2011-02-20 00:50:49	4	\N	\N	\N	\N
-200	46	75	55	RainesGarage	\N	\N	2011-02-21 16:42:49.646798	2011-02-21 16:42:49.646798	Raines Parts List.xml	text/xml	8587	2011-02-21 16:42:49.643859	\N	\N	\N	\N		\N	\N	\N	\N	\N	\N
+COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number, salesperson_id, created_at, updated_at, dvinci_xml_file_name, dvinci_xml_content_type, dvinci_xml_file_size, dvinci_xml_updated_at, mfg_plant, status, due_date, ship_date, comment, placement_date, placed_by_id, tracking_number, ship_method, primary_contact_id, notes, billing_address_id) FROM stdin;
+161	1	1	1	615_White Revised	SO - 44	\N	2011-02-16 23:39:18.171869	2011-02-17 22:00:59.695438	615_white_revised_ordered Parts List.xml	text/xml	59940	2011-02-16 23:39:18.167913	Phoenix	Confirmed	2011-03-03	\N	This is to replace SO#23.  Rush is not necessary (need to have in house by March 7-8)	2011-02-16 23:42:34	1		PremierRoute	30		\N
+153	41	70	50	Recktenwall_Garage	SO - 39	\N	2011-02-15 22:11:41.3838	2011-02-17 21:53:47.226266	Recktenwall_Garage Parts List.xml	text/xml	9242	2011-02-15 22:11:41.381547	Phoenix	Confirmed	2011-03-01	\N	Premier Route	2011-02-15 22:13:40	70		PremierRoute	70		\N
+154	13	12	16	Thatcher	SO - 40	\N	2011-02-15 23:38:21.966347	2011-02-16 18:08:48.162772	Thatcher_02_15 Parts List.xml	text/xml	21013	2011-02-15 23:38:21.963814	Phoenix	Confirmed	2011-03-01	\N	Would like to ship with my SRS order I placed today if possible, thanks.	2011-02-15 23:41:01	12		PremierRoute	12		\N
+163	20	32	23	Lopez - Room 4	SO - 49	\N	2011-02-17 00:07:16.68204	2011-02-17 20:23:51.017835	Lopez, Jennilyn Parts List room 4.xml	application/xml	12349	2011-02-17 00:07:16.680314	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:40:03	19		PremierRoute	19		\N
+142	4	4	6	Boldebuck - Mudroom	SO - 31	\N	2011-02-15 16:28:03.846773	2011-02-17 21:50:28.016745	Boldebuck - Mudroom.xml	text/xml	17841	2011-02-15 16:28:03.844846	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:31:14	4		PremierRoute	29		\N
+134	11	10	14	Williams Nursery	SO - 25	\N	2011-02-15 00:58:06.423211	2011-02-17 21:47:12.791062	Williams Residence Parts List.xls	application/vnd.ms-excel	16326	2011-02-15 00:58:06.421461	Phoenix	Confirmed	2011-03-01	\N		2011-02-15 00:58:26	10		PremierRoute	10		\N
+159	17	16	20	Robert Sayson	SO - 42	\N	2011-02-16 22:16:56.425917	2011-02-21 17:38:05.422828	Robert Sayson 2-16-11.dvi Parts List.xml	text/xml	54162	2011-02-16 22:16:56.423682	Phoenix	Confirmed	2011-03-03	\N	Need two boxes of mini cam assemblies\r\n\r\nCAN YOU PLEASE ADD 1-14"WIDE TOP \r\nSHELF 96" LONG?	2011-02-16 22:22:59	16		PremierRoute	16		\N
+183	4	4	6	Bergman - Additional Parts	SO - 54	\N	2011-02-18 17:04:19.456665	2011-02-19 04:30:49.657989	Bergman - Additional Parts.xml	application/octet-stream	8209	2011-02-18 17:04:19.452998	Phoenix	Confirmed	2011-03-04	\N	** He Needs The Inventory Item Fulfilled **	2011-02-18 17:07:05	4		PremierRoute	29		\N
+135	11	10	14	Toland Master Closet	SO - 26	\N	2011-02-15 01:05:59.848632	2011-02-17 21:49:13.792685	Toland Master Closet Parts List.xls	application/octet-stream	43011	2011-02-15 01:05:59.846467	Phoenix	Confirmed	2011-03-01	\N	Please make Baseboard Notch 1" x 4"	2011-02-15 01:06:46	10		PremierRoute	10		\N
+136	11	10	14	Bland Master Closet	SO - 27	\N	2011-02-15 01:15:28.49248	2011-02-17 21:49:44.80839	Bland Master Closet Parts List.xls	application/octet-stream	27768	2011-02-15 01:15:28.490392	Phoenix	Confirmed	2011-03-01	\N	Please make Base Notch 1" x 4"	2011-02-15 01:16:28	10		PremierRoute	10		\N
+141	4	4	6	Boldebuck - Pantry	SO - 30	\N	2011-02-15 16:02:46.013679	2011-02-17 21:49:53.19125	Boldebuck - Pantry.xml	text/xml	16430	2011-02-15 16:02:46.011538	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Special\r\n1) 10" Depth Materials	2011-02-15 16:06:28	4		PremierRoute	29		\N
+143	4	4	6	Boldebuck - Annaka	SO - 32	\N	2011-02-15 16:40:30.107612	2011-02-17 21:50:39.693922	Boldebuck - Annaka.xml	text/xml	26726	2011-02-15 16:40:30.105785	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:41:21	4		PremierRoute	29		\N
+144	4	4	6	Boldebuck - Hanna	SO - 33	\N	2011-02-15 16:57:05.757071	2011-02-17 21:50:48.201107	Boldebuck - Hanna.xml	text/xml	25967	2011-02-15 16:57:05.755159	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted Items were modified in excel sheet to account for 2 cut to fit sections	2011-02-15 16:59:34	4		PremierRoute	29		\N
+160	4	4	6	McElrone - ReOrder	SO - 43	\N	2011-02-16 23:16:35.436135	2011-02-17 20:22:33.713918	McElrone - ReOrder 3.xml	application/octet-stream	21619	2011-02-16 23:16:35.434207	Phoenix	Confirmed	2011-03-02	\N	Ship Date: 02/30/11\r\n\r\nPG Preferred Shipping	2011-02-16 23:18:58	4		PremierRoute	29		\N
+145	4	4	6	Boldebuck - Entry	SO - 34	\N	2011-02-15 17:06:04.58462	2011-02-17 21:51:01.960996	Boldebuck - Entry.xml	text/xml	6622	2011-02-15 17:06:04.580546	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 17:06:25	4		PremierRoute	29		\N
+146	4	4	6	Boldebuck - Bath Linen	SO - 35	\N	2011-02-15 17:14:10.569762	2011-02-17 21:51:37.479559	Boldebuck - Bath Linen.xml	text/xml	5540	2011-02-15 17:14:10.567723	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted item is for wall cleat material.\r\nNeed: (4) 1.50" x 96" strips, edge band 1 long & 2 short	2011-02-15 17:16:02	4		PremierRoute	29		\N
+162	20	32	23	Lopez - Room 3	SO - 50	\N	2011-02-17 00:05:07.563875	2011-02-17 22:01:21.546836	Lopez, Jennilyn Parts List room 3..xml	application/xml	29591	2011-02-17 00:05:07.561871	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:41:32	19		PremierRoute	19		\N
+148	4	4	6	Boldebuck - Hall Closet	SO - 36	\N	2011-02-15 17:26:12.266383	2011-02-17 21:52:02.697196	Boldebuck - Hall Closet.xml	text/xml	7315	2011-02-15 17:26:12.26471	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted item is for wall cleat material.\r\nNeed: (2) 1.50" x 96" strips, edge band 1 long & 2 short	2011-02-15 17:26:43	4		PremierRoute	29		\N
+172	20	19	23	Pray	SO - 47	\N	2011-02-17 05:35:34.477573	2011-02-17 20:55:59.15792	Pray, Mark & Barbara Parts List.xml	text/xml	26675	2011-02-17 05:35:34.474178	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:37:10	19		PremierRoute	19		\N
+132	4	4	6	Boldebuck - Master	SO - 24	\N	2011-02-15 00:11:33.052152	2011-02-17 21:46:36.273722	Boldebuck - Master.xml	application/octet-stream	41490	2011-02-15 00:11:33.049771	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 00:13:55	4		PremierRoute	4		\N
+169	20	19	23	Mooney, Dan	SO - 46	\N	2011-02-17 03:01:29.382984	2011-02-17 20:48:37.125246	Mooney, Dan Parts List.xml	text/xml	19473	2011-02-17 03:01:29.380443	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 03:15:59	19		PremierRoute	19		\N
+165	20	32	23	Lopez - Room 5	SO - 48	\N	2011-02-17 00:09:35.656778	2011-02-17 20:26:13.409045	Lopez, Jennilyn Parts List room 5.xml	application/xml	13144	2011-02-17 00:09:35.655044	Phoenix	Confirmed	2011-03-03	\N		2011-02-17 05:39:25	19		PremierRoute	19		\N
+151	4	4	6	Rakel - Master	SO - 38	\N	2011-02-15 19:02:38.093818	2011-02-17 21:53:19.819594	Rakel - Master.xml	application/octet-stream	32187	2011-02-15 19:02:38.09206	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 19:04:57	4		PremierRoute	29		\N
+175	49	78	58	Galt Seasonal	SO - 51	\N	2011-02-17 18:29:51.276923	2011-02-18 14:27:43.181035	Galt Seasonal Parts List.xml	text/xml	23891	2011-02-17 18:29:51.274924	Phoenix	Confirmed	2011-03-04	\N	Corner Braces- 40 x 40 PaRT# 260.28.504\r\nFlat countersunk head screws- type 17\r\n     #6 x 5/8" part# 010.71.043\r\n     #8 x 1 1/4" part# 010.21.068\r\nSleeve Type cam shelf lock pin\r\n     part# 263.24.943\r\n\r\nPlease add these parts to my order	2011-02-17 18:30:42	78		PremierRoute	78		\N
+186	1	1	1	702_Daniel	SO - 55	\N	2011-02-18 21:28:37.070847	2011-02-18 21:29:14.577925	daniel_0216 Parts List.xml	text/xml	17221	2011-02-18 21:28:37.067734	\N	Placed	\N	\N		2011-02-18 21:29:14	1	\N	\N	\N	\N	\N
+155	4	4	6	Reddy - Replacement Drawer Box	SO - 41	\N	2011-02-16 00:37:32.781674	2011-02-17 22:08:23.237433	Reddy - Replacement Drawer Box.xml	application/octet-stream	6907	2011-02-16 00:37:32.779089	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n*Replacement for previously ordered materials.  "Reddy - Kartik's Closet", was ordered pre D'Vinci 4.1 so dimensions were different also I needed specific sizing for soft close slides.\r\n\r\n**Please check previous order submitted to assure correct size is sent	2011-02-16 00:37:47	4		PremierRoute	4	2/17 left msg with Tim - is this warranty?\r\n2/17 per Tim not a warranty issue, they ruined drawer.	\N
+188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-02-18 22:08:46.075122	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	\N	Placed	\N	\N		2011-02-18 22:08:46	1	\N	\N	\N	\N	\N
+194	33	101	41	Pradhan, Shailandra	SO - 58	\N	2011-02-19 03:29:55.568528	2011-02-19 03:39:44.86418	Pradhan Shailendra.dvi Parts List.xml	text/xml	52269	2011-02-19 03:29:55.565205	\N	Placed	\N	\N		2011-02-19 03:39:44	101	\N	\N	\N	\N	\N
+195	33	101	41	Harger, Eric	SO - 59	\N	2011-02-19 04:00:45.997162	2011-02-19 04:01:40.782588	Harger, Eric.dvi Parts List.xml	text/xml	66139	2011-02-19 04:00:45.953419	\N	Placed	\N	\N		2011-02-19 04:01:40	101	\N	\N	\N	\N	\N
+179	4	4	6	Bergman - Master	SO - 52	\N	2011-02-17 23:41:28.757889	2011-02-19 04:11:55.492336	Bergman - Master.xml	application/octet-stream	34213	2011-02-17 23:41:28.7557	Phoenix	Confirmed	2011-03-04	\N	Ship Date: 03/01/11\r\n\r\nPG Preferred Shipping	2011-02-17 23:42:54	4		PremierRoute	29		\N
+182	31	63	39	Birmingham Home Show	SO - 53	\N	2011-02-18 16:09:56.161773	2011-02-19 04:18:07.999359	2011 Bham Home Show Parts List.xml	application/octet-stream	38291	2011-02-18 16:09:56.157867	Phoenix	Confirmed	2011-03-04	\N	Need delivery by March 7 for home show that weekend. Can you drop on the way to Atlanta.\r\n\r\nNeed the following hardware:\r\n\r\nhutch base corner bracket\r\nmini fix cam\r\nhutch angle bracket\r\nmini fix post\r\nscrew corner brace\r\nscrew angle brackets	2011-02-18 16:21:29	63		PremierRoute	63		\N
+193	4	32	6	Driftmier - Garage	SO - 57	\N	2011-02-19 01:48:31.419348	2011-02-19 04:33:26.521999	Driftmier 2.dvi Parts List.xml	application/xml	23538	2011-02-19 01:48:31.417269	Phoenix	Confirmed	2011-03-04	\N	** Custom Order **	2011-02-19 02:15:40	32		PremierRoute	29		\N
+196	9	32	13	Valles - Garage	SO - 60	\N	2011-02-19 05:26:43.436919	2011-02-19 05:33:13.174014	Valles, Carlos and Natalie.dvi Parts List.xml	application/xml	23079	2011-02-19 05:26:43.4338	Phoenix	Confirmed	2011-03-04	\N	** Classic Cabinets with Powder Coated doors and PremierAccess **	2011-02-19 05:30:42	32		PremierRoute	9	Look in the folder for the list of classic parts.	\N
+197	4	4	6	Johnson - Pantry	SO-61	\N	2011-02-19 21:13:57.500721	2011-02-19 21:16:00.79341	Johnson - Pantry.xml	application/octet-stream	21559	2011-02-19 21:13:57.496739	\N	Placed	\N	\N		2011-02-19 21:16:00	4	\N	\N	\N	\N	\N
+199	4	4	6	Gransee - All Closets	SO-63	\N	2011-02-20 00:45:06.662741	2011-02-20 00:50:49.795874	Gransee - All Closets.xml	application/octet-stream	53835	2011-02-20 00:45:06.660364	\N	Placed	\N	\N		2011-02-20 00:50:49	4	\N	\N	\N	\N	\N
+200	46	75	55	RainesGarage	\N	\N	2011-02-21 16:42:49.646798	2011-02-21 16:42:49.646798	Raines Parts List.xml	text/xml	8587	2011-02-21 16:42:49.643859	\N	\N	\N	\N		\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -6959,6 +6960,7 @@ COPY schema_migrations (version) FROM stdin;
 20110206042757
 20110208234259
 20110211213114
+20110221173135
 \.
 
 
@@ -7072,7 +7074,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 9	\N	John	Scheschuk	(972) 740-9944		(972)767-4301	jkscheschuk@tailoredliving.com	$2a$10$jNtaLJjEzHhQh8z.X4jmZewypyRNviD/2LDy9/a1ICFD.SYdMCTSW	$2a$10$jNtaLJjEzHhQh8z.X4jmZe	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.043335	2011-02-11 15:18:03.190987
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:37.748043	2011-02-11 15:02:38.399442
-16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	\N	\N	3	2011-02-16 22:11:32.314103	2011-02-16 21:12:49.52494	76.205.198.73	76.205.198.73	2011-01-01 18:53:33.935232	2011-02-16 22:24:23.561106
+16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	B_kl-WzcHe_XkZjS7K_m	2011-02-21 17:35:03.908946	4	2011-02-21 17:35:03.92604	2011-02-16 22:11:32.314103	76.205.198.73	76.205.198.73	2011-01-01 18:53:33.935232	2011-02-21 17:35:03.926955
 26	Mr.	Calvin	Connell	(208) 733-6768	(208) 280-0880	(208) 733-6768	cconnell@tailoredliving.com	$2a$10$L34zvvTQ6Cujakc.zlzPDuZenFpHabWniwKGbngEO67wN6ThjchXa	$2a$10$L34zvvTQ6Cujakc.zlzPDu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.426306	2011-02-11 15:42:17.587949
 15	Mr.	Dan	Kerth	(859) 488-0078	(859) 866-8266	(859) 488-0079	dckerth@tailoredliving.com	$2a$10$dN/ZEOlxbZ3vnZ7d80DCcOzSvIlP009q6bvvMDIiIibb2GU0T7Xny	$2a$10$dN/ZEOlxbZ3vnZ7d80DCcO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.810296	2011-02-11 15:50:01.193305
 11	Mrs.	Meri Lynn	Bisch	(636) 728-0333	(636) 399-9529	(314)434-1976	mlbisch@tailoredliving.com	$2a$10$ADDAS8SmsuiYYeZKnzUNnOotiUtMQw4.rDlDTYZby2k/6Joy7g8La	$2a$10$ADDAS8SmsuiYYeZKnzUNnO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.30654	2011-02-11 16:03:31.935311
@@ -7141,7 +7143,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 93	\N	Ed	Brady	888-542-1221		410-569-9646	delval@PremierGarage.com	$2a$10$XVq3306yf4veXgICj5yCdOjgAvlI342p7oobfTsDA28wX49Fo9MtS	$2a$10$XVq3306yf4veXgICj5yCdO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:19:32.770532	2011-02-11 18:19:32.770532
 94	\N	Scott	House	(954) 797-9275		(954) 797-9726	scott.house.sf@premiergarage.com	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu/yVyH7JlGx1xEsCndFzXIqi5nAxroUS	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:25:32.24439	2011-02-11 18:25:32.24439
 95	\N	Frank	Pochiro	864-295-4100		864-295-9642	westerncarolinas@premiergarage.com	$2a$10$jUfQAhje/wwFlOJQmDU43.ZWB1RxFFyyWqPLYsqpXHjjCfN8EDvYK	$2a$10$jUfQAhje/wwFlOJQmDU43.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:28:30.675844	2011-02-11 18:31:33.831547
-100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	\N	\N	3	2011-02-18 20:18:43.841496	2011-02-18 17:14:46.884043	69.219.227.57	69.219.227.57	2011-02-18 00:30:51.948611	2011-02-18 20:19:05.066008
+100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	cwcE2GFX8NvyrMbp8ARj	2011-02-21 17:28:19.451146	4	2011-02-21 17:28:19.457816	2011-02-18 20:18:43.841496	69.219.227.57	69.219.227.57	2011-02-18 00:30:51.948611	2011-02-21 17:28:19.458702
 97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	3	2011-02-19 22:10:17.040106	2011-02-16 18:32:17.804113	70.176.124.201	174.79.54.226	2011-02-16 18:28:06.756767	2011-02-19 22:10:17.041033
 75	\N	Rick	Wunderlich	(636)300-0015		(636)300-0017	rwunderlich@tailoredliving.com	$2a$10$/0AogAFZwjhoF.QPJKqS1er1ojp72AxBrwKiHHenkr9kQnkA6CsD6	$2a$10$/0AogAFZwjhoF.QPJKqS1e	\N	\N	\N	1	2011-02-21 16:37:58.661748	2011-02-21 16:37:58.661748	24.207.254.174	24.207.254.174	2011-02-11 16:05:54.075362	2011-02-21 16:37:58.662585
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	\N	\N	1	2011-02-16 20:41:30.189054	2011-02-16 20:41:30.189054	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-02-16 20:41:30.189847
@@ -7445,6 +7447,14 @@ ALTER TABLE ONLY job_items
 
 ALTER TABLE ONLY job_properties
     ADD CONSTRAINT job_properties_job_id_fkey FOREIGN KEY (job_id) REFERENCES jobs(id);
+
+
+--
+-- Name: jobs_billing_address_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: pg_orders
+--
+
+ALTER TABLE ONLY jobs
+    ADD CONSTRAINT jobs_billing_address_id_fkey FOREIGN KEY (billing_address_id) REFERENCES addresses(id);
 
 
 --
