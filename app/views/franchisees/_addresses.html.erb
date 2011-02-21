@@ -42,7 +42,7 @@
         <td>
           <% if mode == :edit %>
             <%= select_tag "franchisee_address[#{a.id}][address_type]", 
-                           options_for_select([['Billing', 'Billing'], ['Shipping', 'Shipping']], a.address_type.try(:titlecase)),
+                           options_for_select([['Billing', 'billing'], ['Shipping', 'shipping']], a.address_type.try(:titlecase)),
                            {:class => 'address_type_select'} %>
           <% else %>
             <%= a.address_type.try(:titlecase) %>

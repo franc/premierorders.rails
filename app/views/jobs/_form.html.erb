@@ -10,6 +10,8 @@
       <dd><%= collection_select(:job, :primary_contact_id, Option.new(@job.franchisee).map{|v| v.users}.orSome([]), :id, :name) %></dd>
       <dt><%= f.label :shipping_address %></dt>
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
+      <dt><%= f.label :billing_address %></dt>
+      <dd><%= collection_select(:job, :billing_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
       <% if can? :manage, @job %>
