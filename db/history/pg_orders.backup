@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1322, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1334, true);
 
 
 --
@@ -736,7 +736,7 @@ ALTER SEQUENCE properties_id_seq OWNED BY properties.id;
 -- Name: properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('properties_id_seq', 126, true);
+SELECT pg_catalog.setval('properties_id_seq', 138, true);
 
 
 --
@@ -792,7 +792,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 328, true);
+SELECT pg_catalog.setval('property_values_id_seq', 340, true);
 
 
 --
@@ -2886,6 +2886,18 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1320	100	125	\N
 1321	98	126	\N
 1322	40	44	\N
+1323	22	127	\N
+1324	23	128	\N
+1325	26	129	\N
+1326	27	130	\N
+1327	28	131	\N
+1328	29	132	\N
+1329	32	133	\N
+1330	33	134	\N
+1331	207	135	\N
+1332	208	136	\N
+1333	16	137	\N
+1334	17	138	\N
 \.
 
 
@@ -2908,7 +2920,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 42	CL Hanging Partition - Radius - Right	CL Hanging Partition Radius Bottom - Right Stop Drilled		\N	000.910.35x.x.00M	CL-HPR-R	2011-01-01 18:53:43.944414	2011-02-18 22:01:20.785114	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 248	CL Hutch Panel 36 - Left	CL Hutch Panel 36 - Left 		\N	000.202.036.x.00M	CL-VHP-36-L	2011-01-01 18:54:08.339914	2011-02-18 22:04:28.225931	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 254	CL Hutch Panel 44 - Left	CL Hutch Panel 44 - Left 		\N	000.202.044.x.00M	CL-VHP-44-L	2011-01-01 18:54:09.089408	2011-02-18 22:06:00.554928	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
-31	Decor Crown Molding - 424 | Mahogany Impressions	Decor Crown Molding - 424 | Mahogany Impressions		\N	000.302.000.006.00P	DS-CM-424	2011-01-01 18:53:39.48964	2011-02-18 22:15:42.453568	Purchased		Item	32.40		\N	0.45	0.92000000000000004	0.40000000000000002
 521	Decor Door - KB732	Decor Door - KB732 		\N	000.105.000.x.00B	DS-D-KB732	2011-01-01 18:54:28.097805	2011-02-18 22:18:57.154687	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 533	NX Corner Cabinet 1 Door 1 Adj Shelf	NX Corner Cabinet 1 Door 1 Adj Shelf 		\N	000.308.332.x.00M	NX-CC-1AS	2011-01-01 18:54:28.497383	2011-02-18 22:38:49.677556	Manufactured	Garage_Cabinets	CornerCabinet	\N		\N	0.75	0.92000000000000004	0.40000000000000002
 637	PG Stainless Workbench 24 X 25	PG Stainless Workbench 24 X 25		\N	000.991.890.100.00P	NX-CTOP-SS	2011-01-21 01:24:54.699345	2011-02-18 22:44:14.304972	Purchased	890100	Item	126.50		\N	0.16	0.92000000000000004	0.40000000000000002
@@ -3084,18 +3095,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 13	ZH Screw (Drawer Slide Full Ext)	Screw Bb Slides Pn Hd Ph Drv #8 X 7/16	013.09.900	\N	000.013.009.900.00I		2011-01-01 18:53:39.076796	2011-01-26 19:38:14.385803	Inventory	10025	Item	0.02		\N	\N	0.92000000000000004	0.40000000000000002
 593	ZH Screw (Assembly) 2 inch	Screw, #6 x 2' (Box Qty 3,500)	0461062408	\N			2011-01-07 04:56:59.068395	2011-01-26 19:36:19.867691	Inventory	1005	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
 109	ZH Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.102.100.000.00I		2011-01-01 18:53:53.629835	2011-01-26 19:39:55.477903	Inventory	1021	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
-30	Decor Crown Molding - 423 | Mahogany Impressions	Decor Crown Molding - 423 | Mahogany Impressions		\N	000.301.000.006.00P	DS-CM-423	2011-01-01 18:53:39.477703	2011-02-18 22:13:35.222706	Purchased		Item	29.93		\N	0.45	0.92000000000000004	0.40000000000000002
 98	ZH Closet Rod | Polished Chrome	Wardrobe Tube Alu. Chr Pol. 1 5/16	801.42.200	\N	000.801.042.200.00I		2011-01-01 18:53:53.498595	2011-02-18 22:51:18.061594	Inventory	30078	Item	\N		\N	0.02	0.92000000000000004	0.40000000000000002
 247	CL Hutch Panel 36 - Thru	CL Hutch Panel 36 - Thru 		\N	000.201.036.x.00M	CL-VHP-36-T	2011-01-01 18:54:08.325118	2011-02-18 22:05:04.479255	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
-22	Decor Crown Molding - 423 | Antique White	Decor Crown Molding - 423 | Antique White		\N	000.301.000.002.00P	DS-CM-423	2011-01-01 18:53:39.169096	2011-02-18 22:12:30.180351	Purchased		Item	26.17		\N	0.45	0.92000000000000004	0.40000000000000002
-32	Decor Crown Molding - 423 | Chocolate Apple	Decor Crown Molding - 423 | Chocolate Apple		\N	000.301.000.007.00P	DS-CM-423	2011-01-01 18:53:39.528872	2011-02-18 22:12:55.52241	Purchased		Item	29.93		\N	0.45	0.92000000000000004	0.40000000000000002
-24	Decor Crown Molding - 423 | Folkstone Gray	Decor Crown Molding - 423 | Folkstone Gray		\N	000.301.000.003.00P	DS-CM-423	2011-01-01 18:53:39.317517	2011-02-18 22:13:10.343747	Purchased		Item	26.17		\N	0.45	0.92000000000000004	0.40000000000000002
-16	Decor Crown Molding - 423 | White	Decor Crown Molding - 423 | White		\N	000.301.000.001.00P	DS-CM-423	2011-01-01 18:53:39.090582	2011-02-18 22:13:45.558045	Purchased		Item	25.03		\N	0.45	0.92000000000000004	0.40000000000000002
-28	Decor Crown Molding - 423 | Wild Apple	Decor Crown Molding - 423 | Wild Apple		\N	000.301.000.005.00P	DS-CM-423	2011-01-01 18:53:39.426923	2011-02-18 22:13:55.834862	Purchased		Item	29.93		\N	0.45	0.92000000000000004	0.40000000000000002
-23	Decor Crown Molding - 424 | Antique White	Decor Crown Molding - 424 | Antique White		\N	000.302.000.002.00P	DS-CM-424	2011-01-01 18:53:39.182511	2011-02-18 22:14:43.087395	Purchased		Item	27.74		\N	0.45	0.92000000000000004	0.40000000000000002
-27	Decor Crown Molding - 424 | Carmel Apple	Decor Crown Molding - 424 | Carmel Apple		\N	000.302.000.004.00P	DS-CM-424	2011-01-01 18:53:39.387617	2011-02-18 22:14:53.837188	Purchased		Item	32.40		\N	0.45	0.92000000000000004	0.40000000000000002
-33	Decor Crown Molding - 424 | Chocolate Apple	Decor Crown Molding - 424 | Chocolate Apple		\N	000.302.000.007.00P	DS-CM-424	2011-01-01 18:53:39.541751	2011-02-18 22:15:04.939313	Purchased		Item	32.40		\N	0.45	0.92000000000000004	0.40000000000000002
-29	Decor Crown Molding - 424 | Wild Apple	Decor Crown Molding - 424 | Wild Apple		\N	000.302.000.005.00P	DS-CM-424	2011-01-01 18:53:39.439565	2011-02-18 22:16:07.726279	Purchased		Item	32.40		\N	0.45	0.92000000000000004	0.40000000000000002
 106	Molding nailer	Molding nailer		\N	000.999.010.000.00M	CP-MN	2011-01-01 18:53:53.615499	2011-02-18 22:36:00.221846	Manufactured	Misc_Wood	BackingPanel	\N		\N	0.03	0.92000000000000004	0.40000000000000002
 264	NX Base Cabinet 1 Drawer 1 Door	NX Base Cabinet 1 Drawer 1 Door 		\N	000.211.233.x.00M	NX-C-1AS	2011-01-01 18:54:10.337867	2011-02-18 22:36:30.695928	Manufactured	Garage_Cabinets	Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 564	Powder Coated Door (23.875 x 23) | GRANITE	Powder Coated Door (23.875 x 23) | GRANITE	NX 23.875 x 22.552 Granite	\N	000.880.300.a12.00P	PC-D	2011-01-04 06:35:34.340626	2011-02-18 22:44:57.650757	Purchased	880300a	Item	16.16		\N	0.05	0.92000000000000004	0.40000000000000002
@@ -3107,6 +3108,14 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 581	Powder Coated Drawer Front (23.875 x 7.5625) | RED	Powder Coated Drawer Front (23.875 x 7.5625) | RED	NX 23.875 x 7.434 Red	\N	000.880.500.b12.00P	PC-DF	2011-01-04 06:35:34.440935	2011-02-18 22:48:58.711059	Purchased	880500b	Item	7.84		\N	0.05	0.92000000000000004	0.40000000000000002
 4	ZH Handle Bronze | 128mm	Handle St Oil-Rubbed Bzd M4 Ctc 128Mm	117.31.334	\N	000.117.031.334.00I		2011-01-01 18:53:39.034691	2011-02-18 22:54:05.390732	Inventory	10011	Item	0.94		\N	0.03	0.92000000000000004	0.40000000000000002
 2	ZH Handle Chrome | 128mm	Handle St.Chr.Pol.M4 Ctc.128Mm	117.31.230	\N	000.117.031.230.00I		2011-01-01 18:53:39.024264	2011-02-18 22:54:17.079722	Inventory	10014	Item	0.97		\N	0.03	0.92000000000000004	0.40000000000000002
+22	Decor Crown Molding - 423 | Antique White	Decor Crown Molding - 423 | Antique White		\N	000.301.000.002.00P	DS-CM-423	2011-01-01 18:53:39.169096	2011-02-22 17:31:56.490501	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+23	Decor Crown Molding - 424 | Antique White	Decor Crown Molding - 424 | Antique White		\N	000.302.000.002.00P	DS-CM-424	2011-01-01 18:53:39.182511	2011-02-22 17:34:35.101154	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+27	Decor Crown Molding - 424 | Carmel Apple	Decor Crown Molding - 424 | Carmel Apple		\N	000.302.000.004.00P	DS-CM-424	2011-01-01 18:53:39.387617	2011-02-22 17:38:19.895106	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+28	Decor Crown Molding - 423 | Wild Apple	Decor Crown Molding - 423 | Wild Apple		\N	000.301.000.005.00P	DS-CM-423	2011-01-01 18:53:39.426923	2011-02-22 17:39:56.083847	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+29	Decor Crown Molding - 424 | Wild Apple	Decor Crown Molding - 424 | Wild Apple		\N	000.302.000.005.00P	DS-CM-424	2011-01-01 18:53:39.439565	2011-02-22 17:41:15.506792	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+32	Decor Crown Molding - 423 | Chocolate Apple	Decor Crown Molding - 423 | Chocolate Apple		\N	000.301.000.007.00P	DS-CM-423	2011-01-01 18:53:39.528872	2011-02-22 17:44:15.743721	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+33	Decor Crown Molding - 424 | Chocolate Apple	Decor Crown Molding - 424 | Chocolate Apple		\N	000.302.000.007.00P	DS-CM-424	2011-01-01 18:53:39.541751	2011-02-22 17:45:28.030663	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+16	Decor Crown Molding - 423 | White	Decor Crown Molding - 423 | White		\N	000.301.000.001.00P	DS-CM-423	2011-01-01 18:53:39.090582	2011-02-22 17:51:08.556508	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 53	ZH Shoe Fence (18) | Matte Nickel	Shoe Fence, steel, matte nickel, 17"	547.51.602	\N	000.547.051.602.00P		2011-01-01 18:53:51.103007	2011-02-18 23:05:08.529428	Purchased	30068	Item	2.58		\N	0.07	0.92000000000000004	0.40000000000000002
 56	ZH Shoe Fence (18) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 17"	547.51.102	\N	000.547.051.102.00P		2011-01-01 18:53:51.236121	2011-02-18 23:05:17.385404	Purchased	30065	Item	2.51		\N	0.07	0.92000000000000004	0.40000000000000002
 58	ZH Shoe Fence (30) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 29"	547.51.104	\N	000.547.051.104.00P		2011-01-01 18:53:51.297559	2011-02-18 23:06:14.888012	Purchased	30067	Item	3.69		\N	0.07	0.92000000000000004	0.40000000000000002
@@ -3119,7 +3128,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 100	ZH Closet Rod | Oil Rubbed Bronze	Wardrobe Tube Alu. Oil Rubbed Bzd 1 5/16	801.42.100	\N	000.801.042.100.00I		2011-01-01 18:53:53.526258	2011-02-18 22:51:07.7433	Inventory	30079	Item	\N		\N	0.02	0.92000000000000004	0.40000000000000002
 43	CL Backing Panel	CL Backing Panel 		\N	000.960.000.x.00M	CL-BKP	2011-01-01 18:53:45.006308	2011-02-18 21:58:33.799248	Manufactured	Closets	BackingPanel	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 18	CTOP - 3/4 in. melamine	CTOP 3/4 in. melamine		\N	000.401.000.x.00M	MEL-CTOP-19	2011-01-01 18:53:39.115352	2011-02-18 22:11:21.068381	Manufactured	Worksurfaces	Countertop	\N		\N	0.03	0.92000000000000004	0.40000000000000002
-17	Decor Crown Molding - 424 | White	Decor Crown Molding - 424 | White		\N	000.302.000.001.00P	DS-CM-424	2011-01-01 18:53:39.10285	2011-02-18 22:15:55.446785	Purchased		Item	26.51		\N	0.45	0.92000000000000004	0.40000000000000002
 104	ZH Hang Bracket | Left	Cabinet Hanger St Galv Lh	290.02.711	\N	000.290.002.711.00I		2011-01-01 18:53:53.597598	2011-02-18 22:54:48.672115	Inventory	10008	Item	0.92		\N	0.03	0.92000000000000004	0.40000000000000002
 105	ZH Hang Bracket | Right	Cabinet Hanger St Galv Rh	290.02.710	\N	000.290.002.710.00I		2011-01-01 18:53:53.602502	2011-02-18 22:55:02.830982	Inventory	10009	Item	0.92		\N	0.03	0.92000000000000004	0.40000000000000002
 7	ZH Hinge Plate	Hinge Plate	65BARGL09	\N	000.102.500.000.00I		2011-01-01 18:53:39.049462	2011-02-18 23:01:39.336331	Inventory	1025	Item	0.40		\N	0.01	0.92000000000000004	0.40000000000000002
@@ -3230,10 +3238,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 286	CTOP - Classic (3 Week Lead Time) | Laminate 7921 Tuscan Walnut	CTOP - Classic (3 Week Lead Time) | Laminate 7921 Tuscan Walnut		\N	000.401.000.316.00P	LAM-CTOP-CL	2011-01-01 18:54:13.796147	2011-01-30 16:22:51.611932	Purchased		Item	185.85		\N	\N	0.92000000000000004	0.40000000000000002
 287	CTOP - Classic (3 Week Lead Time) | Laminate 7942 Cocobala	CTOP - Classic (3 Week Lead Time) | Laminate 7942 Cocobala		\N	000.401.000.317.00P	LAM-CTOP-CL	2011-01-01 18:54:13.896094	2011-01-30 16:23:08.602142	Purchased		Item	240.62		\N	\N	0.92000000000000004	0.40000000000000002
 288	CTOP - Classic (3 Week Lead Time) | Laminate 7948 Mambo	CTOP - Classic (3 Week Lead Time) | Laminate 7948 Mambo		\N	000.401.000.318.00P	LAM-CTOP-CL	2011-01-01 18:54:14.136405	2011-01-30 16:23:46.247623	Purchased		Item	211.69		\N	\N	0.92000000000000004	0.40000000000000002
-209	Decor Crown Molding - 423 | Windswept Pewter	Decor Crown Molding - 423 | Windswept Pewter		\N	000.301.000.009.00P	DS-CM-423	2011-01-01 18:53:57.427746	2011-02-18 22:14:31.299277	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 244	CL Hutch Panel 36 - BaseNotch - Thru	CL Hutch Panel 36 - BaseNotch - Thru 		\N	000.211.036.x.00M	CL-VHPN-36-T	2011-01-01 18:54:08.096697	2011-02-18 22:04:15.051066	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
-207	Decor Crown Molding - 423 | Hardrock Maple	Decor Crown Molding - 423 | Hardrock Maple		\N	000.301.000.010.00P	DS-CM-423	2011-01-01 18:53:57.251766	2011-02-18 22:13:25.045284	Purchased		Item	29.93		\N	0.45	0.92000000000000004	0.40000000000000002
-208	Decor Crown Molding - 424 | Hardrock Maple	Decor Crown Molding - 424 | Hardrock Maple		\N	000.302.000.010.00P	DS-CM-424	2011-01-01 18:53:57.282305	2011-02-18 22:15:28.836936	Purchased		Item	32.40		\N	0.45	0.92000000000000004	0.40000000000000002
 233	Decor Hamper Door - DR8	Decor Hamper Door - DR8 		\N	000.143.000.x.00B	DS-HD-DR8	2011-01-01 18:54:06.360219	2011-02-18 22:21:18.199767	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 263	NX Base Cabinet 1 Door	NX Base Cabinet 1 Door 		\N	000.101.233.x.00M	NX-C-1AS	2011-01-01 18:54:10.080876	2011-02-18 22:36:15.802784	Manufactured	Garage_Cabinets	Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 503	NX Workbench Top (Corner)	NX Workbench Top (Corner)		\N	000.400.005.x.00M	NX-CWTOP	2011-01-01 18:54:27.719043	2011-02-18 22:42:36.505026	Manufactured	Garage_Cabinets	Countertop	\N		\N	0.16	0.92000000000000004	0.40000000000000002
@@ -3242,6 +3247,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 181	ZH Wardrobe Lift (26-35) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.602	\N	000.805.031.602.00P		2011-01-01 18:53:56.098468	2011-02-18 23:26:56.190083	Purchased		Item	69.68		\N	0.13	0.92000000000000004	0.40000000000000002
 185	ZH Wardrobe Lift (35-47) | Black	Wardrobe Lift, steel, black, plastic, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.303	\N	000.805.031.303.00P		2011-01-01 18:53:56.342484	2011-02-18 23:27:15.208557	Purchased		Item	49.50		\N	0.13	0.92000000000000004	0.40000000000000002
 179	ZH Wardrobe Lift (35-47) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.203	\N	000.805.031.203.00P		2011-01-01 18:53:56.068112	2011-02-18 23:27:34.419786	Purchased	30076	Item	40.82		\N	0.13	0.92000000000000004	0.40000000000000002
+208	Decor Crown Molding - 424 | Hardrock Maple	Decor Crown Molding - 424 | Hardrock Maple		\N	000.302.000.010.00P	DS-CM-424	2011-01-01 18:53:57.282305	2011-02-22 17:48:52.851304	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 663	ZH SlatWall J Molding (4/box) | Black	SlatWall J Molding (4/box) | Black	HST4088L	\N	000.990.320.4JM.00I		2011-01-21 01:24:55.102906	2011-01-26 19:47:13.490182	Purchased	3204-JM	Item	5.25		\N	\N	0.92000000000000004	0.40000000000000002
 661	ZH SlatWall T Molding (4/box) | Black	SlatWall T Molding (4/box) | Black	HST4008D	\N	000.990.320.4DM.00I		2011-01-21 01:24:55.092916	2011-01-26 19:48:49.762074	Purchased	3204-DM	Item	5.38		\N	\N	0.92000000000000004	0.40000000000000002
 655	ZH SlatWall T Molding (4/box) | Maple	SlatWall T Molding (4/box) | Maple	HST9008D	\N	000.990.320.3DM.00I		2011-01-21 01:24:55.063253	2011-01-26 19:49:27.391306	Purchased	3203-DM	Item	5.38		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3260,8 +3266,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 251	CL Hutch Panel 44 - BaseNotch - Left	CL Hutch Panel 44 - BaseNotch - Left 		\N	000.212.044.x.00M	CL-VHPN-44-L	2011-01-01 18:54:08.865431	2011-02-18 22:05:17.257021	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 255	CL Hutch Panel 44 - Right	CL Hutch Panel 44 - Right 		\N	000.203.044.x.00M	CL-VHP-44-R	2011-01-01 18:54:09.108601	2011-02-18 22:06:12.632327	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 253	CL Hutch Panel 44 - Thru	CL Hutch Panel 44 - Thru 		\N	000.201.044.x.00M	CL-VHP-44-T	2011-01-01 18:54:09.076726	2011-02-18 22:06:23.801742	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
-212	Decor Crown Molding - 424 | Windswept Bronze	Decor Crown Molding - 424 | Windswept Bronze		\N	000.302.000.008.00P	DS-CM-424	2011-01-01 18:53:57.627785	2011-02-18 22:16:19.269122	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
-210	Decor Crown Molding - 424 | Windswept Pewter	Decor Crown Molding - 424 | Windswept Pewter		\N	000.302.000.009.00P	DS-CM-424	2011-01-01 18:53:57.473181	2011-02-18 22:16:29.66618	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 234	Decor Hamper Door - AMS329	Decor Hamper Door - AMS329 		\N	000.144.000.x.00B	DS-HD-AMS329	2011-01-01 18:54:06.468895	2011-02-18 22:20:33.988409	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 509	HO Hutch - Vert Divider	HO Hutch - Vert Divider 		\N	000.441.351.x.00M	HO-HCV-5AS	2011-01-01 18:54:27.858712	2011-02-18 22:33:45.383344	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 265	NX Base Cabinet 2 Drawer (15/15)	NX Base Cabinet 2 Drawer (15/15) 		\N	000.240.233.x.00M	NX-C	2011-01-01 18:54:10.399828	2011-02-18 22:36:59.267842	Manufactured	Garage_Cabinets	Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002
@@ -3499,13 +3503,11 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 319	CTOP - Tempo (3 Week Lead Time) | Laminate 4791 Willowstone	CTOP - Tempo (3 Week Lead Time) | Laminate 4791 Willowstone		\N	000.401.002.307.00P	LAM-CTOP-TE	2011-01-01 18:54:17.30119	2011-01-30 17:34:34.331462	Purchased		Item	186.46		\N	\N	0.92000000000000004	0.40000000000000002
 697	ZO Door Processing	Door processing operation		\N			2011-02-02 04:35:55.78472	2011-02-02 04:35:55.78472	Manufactured		Item	4.00		\N	\N	0.92000000000000004	0.40000000000000002
 698	ZO Drawer Front Processing	Drawer front processing operation.		\N			2011-02-02 04:36:39.280728	2011-02-02 04:36:39.280728	Purchased		Item	4.00		\N	\N	0.92000000000000004	0.40000000000000002
-211	Decor Crown Molding - 423 | Windswept Bronze	Decor Crown Molding - 423 | Windswept Bronze		\N	000.301.000.008.00P	DS-CM-423	2011-01-01 18:53:57.516415	2011-02-18 22:14:18.822282	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 252	CL Hutch Panel 44 - BaseNotch - Right	CL Hutch Panel 44 - BaseNotch - Right 		\N	000.213.044.x.00M	CL-VHPN-44-R	2011-01-01 18:54:08.968802	2011-02-18 22:05:30.039126	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
-26	Decor Crown Molding - 423 | Carmel Apple	Decor Crown Molding - 423 | Carmel Apple		\N	000.301.000.004.00P	DS-CM-423	2011-01-01 18:53:39.373062	2011-02-18 22:12:43.393833	Purchased		Item	29.93		\N	0.45	0.92000000000000004	0.40000000000000002
-25	Decor Crown Molding - 424 | Folkstone Gray	Decor Crown Molding - 424 | Folkstone Gray		\N	000.302.000.003.00P	DS-CM-424	2011-01-01 18:53:39.331962	2011-02-18 22:15:18.422612	Purchased		Item	27.74		\N	0.45	0.92000000000000004	0.40000000000000002
 529	Decor Door - DR8 | Cut for Glass	Decor Door - DR8 | Cut for Glass 		\N	000.123.000.x.00B	DS-D-DR8-CFG	2011-01-01 18:54:28.434684	2011-02-18 22:18:19.899393	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 527	Decor Door - JR7 | Cut for Glass	Decor Door - JR7 | Cut for Glass 		\N	000.121.000.x.00B	DS-D-JR7-CFG	2011-01-01 18:54:28.406864	2011-02-18 22:18:45.098819	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 525	Decor Drawer Front - AMS329	Decor Drawer Front - AMS329 		\N	000.204.000.x.00B	DS-DF-AMS329	2011-01-01 18:54:28.249725	2011-02-18 22:19:14.6884	Buyout	Buyout_Door	PremiumDrawerfront	\N		\N	0.05	0.92000000000000004	0.40000000000000002
+26	Decor Crown Molding - 423 | Carmel Apple	Decor Crown Molding - 423 | Carmel Apple		\N	000.301.000.004.00P	DS-CM-423	2011-01-01 18:53:39.373062	2011-02-22 17:36:48.418901	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 522	Decor Drawer Front - JR7	Decor Drawer Front - JR7 		\N	000.201.000.x.00B	DS-DF-JR7	2011-01-01 18:54:28.117271	2011-02-18 22:20:06.926591	Buyout	Buyout_Door	PremiumDrawerfront	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 526	Decor Drawer Front - KB732	Decor Drawer Front - KB732 		\N	000.205.000.x.00B	DS-DF-KB732	2011-01-01 18:54:28.290566	2011-02-18 22:20:21.221549	Buyout	Buyout_Door	PremiumDrawerfront	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 232	Decor Hamper Door - DR1	Decor Hamper Door - DR1 		\N	000.142.000.x.00B	DS-HD-DR1	2011-01-01 18:54:06.240982	2011-02-18 22:20:46.467655	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
@@ -3535,6 +3537,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 691	ZH The Basket (6/box)	~ The Basket (6/box)	7110-5620-50	\N	000.995.301.900.00I		2011-01-21 01:24:55.247347	2011-02-22 16:28:54.677975	Inventory	3019	Item	8.90		\N	\N	0.92000000000000004	0.40000000000000002
 60	ZH Tie Rack | Matte Nickel	Synergy Tie Rack with Slide, aluminum, nickel-plated matt, plastic, black, 13 7/8" length	807.67.603	\N	000.807.067.603.00P		2011-01-01 18:53:51.399991	2011-02-22 16:26:49.734613	Purchased		Item	21.87		\N	0.07	0.92000000000000004	0.40000000000000002
 676	ZH The Bike Rack & Basket (4/box)	~ The Bike Rack & Basket (4/box)	7110-5040-50	\N	000.995.300.400.00I		2011-01-21 01:24:55.171361	2011-02-22 16:27:56.057654	Inventory	3004	Item	12.70		\N	\N	0.92000000000000004	0.40000000000000002
+207	Decor Crown Molding - 423 | Hardrock Maple	Decor Crown Molding - 423 | Hardrock Maple		\N	000.301.000.010.00P	DS-CM-423	2011-01-01 18:53:57.251766	2011-02-22 17:47:44.42429	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
+17	Decor Crown Molding - 424 | White	Decor Crown Molding - 424 | White		\N	000.302.000.001.00P	DS-CM-424	2011-01-01 18:53:39.10285	2011-02-22 17:52:27.911075	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 \.
 
 
@@ -6757,6 +6761,18 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 124	Lin Ft Closet Rod Matte Nickel	linear_pricing	LinearPricing	2011-02-13 23:57:21.703224	2011-02-13 23:57:21.703224
 125	Lin Ft Closet Rod Oiled Bronze	linear_pricing	LinearPricing	2011-02-18 19:31:36.782554	2011-02-18 19:31:36.782554
 126	Lin Ft Closet Rod Polished Chrome	linear_pricing	LinearPricing	2011-02-18 19:32:32.012155	2011-02-18 19:32:32.012155
+127	Lin Ft Crown 423 Ant White	linear_pricing	LinearPricing	2011-02-22 17:31:48.886148	2011-02-22 17:31:48.886148
+128	Lin Ft Crown 424 Ant White	linear_pricing	LinearPricing	2011-02-22 17:34:27.252724	2011-02-22 17:34:27.252724
+129	Lin Ft Crown 423 Carmel Apple	linear_pricing	LinearPricing	2011-02-22 17:36:34.876728	2011-02-22 17:36:34.876728
+130	Lin Ft Crown 424 Carmel Apple	linear_pricing	LinearPricing	2011-02-22 17:38:14.280595	2011-02-22 17:38:14.280595
+131	Lin Ft Crown 423 Wild Apple	linear_pricing	LinearPricing	2011-02-22 17:39:48.454988	2011-02-22 17:39:48.454988
+132	Lin Ft Crown 424 Wild Apple	linear_pricing	LinearPricing	2011-02-22 17:41:07.709696	2011-02-22 17:41:07.709696
+133	Lin Ft Crown 423 Choc Apple	linear_pricing	LinearPricing	2011-02-22 17:44:09.197455	2011-02-22 17:44:09.197455
+134	Lin Ft Crown 424 Choc Apple	linear_pricing	LinearPricing	2011-02-22 17:45:22.313367	2011-02-22 17:45:22.313367
+135	Lin Ft Crown 423 Hardrock Maple	linear_pricing	LinearPricing	2011-02-22 17:47:38.108192	2011-02-22 17:47:38.108192
+136	Lin Ft Crown 424 Hardrock Maple	linear_pricing	LinearPricing	2011-02-22 17:48:47.622317	2011-02-22 17:48:47.622317
+137	Lin Ft Crown 423 White	linear_pricing	LinearPricing	2011-02-22 17:51:00.614879	2011-02-22 17:51:00.614879
+138	Lin Ft Crown 424 White	linear_pricing	LinearPricing	2011-02-22 17:52:22.834964	2011-02-22 17:52:22.834964
 \.
 
 
@@ -7092,6 +7108,18 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 124	326
 125	327
 126	328
+127	329
+128	330
+129	331
+130	332
+131	333
+132	334
+133	335
+134	336
+135	337
+136	338
+137	339
+138	340
 \.
 
 
@@ -7249,6 +7277,9 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 303	Hardware 40%	Margin	{"factor":"0.654","float":""}	2011-01-21 21:47:28.911045	2011-01-22 05:58:12.060009
 307	Hardware 33%	Margin	{"factor":"0.72825","float":""}	2011-01-21 21:59:26.715414	2011-01-22 06:01:54.28421
 157	Base Molding: 2-1/2", 426-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 10.05, "price_units": "ft"}	2011-01-02 01:58:03.344799	2011-01-02 01:58:03.344799
+329	423 Ant White	LinearPricing	{"price":"3.27125","price_units":"ft"}	2011-02-22 17:31:48.896442	2011-02-22 17:31:48.896442
+330	424 Ant White	LinearPricing	{"price":"3.4675","price_units":"ft"}	2011-02-22 17:34:27.256226	2011-02-22 17:34:27.256226
+336	424 Choc Apple	LinearPricing	{"price":"4.05","price_units":"ft"}	2011-02-22 17:45:22.317397	2011-02-22 17:45:22.317397
 166	JR7/AMS329/DRS131/KB732/DBQ816/DR8/Filler A/DR1: Cut for Glass,469 Option Surcharge	Surcharge	{"price": 15.00}	2011-01-02 03:40:59.385121	2011-01-02 03:40:59.385121
 169	DRS131/DBQ816/KB732/JR7/DR8/AMS329/DR1: French Lite Door Option Surcharge	Surcharge	{"price": 7.50}	2011-01-02 03:41:00.623873	2011-01-02 03:41:00.623873
 170	Base Molding/Crown Molding/Fluted Molding/Scribe Molding Option Surcharge	Surcharge	{"price": 10.00}	2011-01-02 03:41:00.672279	2011-01-02 03:41:00.672279
@@ -7300,6 +7331,12 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 30	Laminate 4887 Tan Soapstone	Color	{"color":"Laminate 4887 Tan Soapstone","dvinci_id":"315"}	2011-01-01 18:54:13.714368	2011-01-01 18:54:13.763876
 31	Laminate 7921 Tuscan Walnut	Color	{"color":"Laminate 7921 Tuscan Walnut","dvinci_id":"316"}	2011-01-01 18:54:13.824507	2011-01-01 18:54:13.876669
 321	BirchPly13	Material	{"price":".014","waste_factor":"","thickness":"13","weight":"1.25","cutrite_code":"","color":"","price_units":"in","thickness_units":"mm","dvinci_id":""}	2011-02-02 20:49:02.50733	2011-02-09 00:01:24.754735
+331	423 Carmel Apple	LinearPricing	{"price":"3.74125","price_units":"ft"}	2011-02-22 17:36:34.884836	2011-02-22 17:36:34.884836
+332	424 Carmel Apple	LinearPricing	{"price":"4.05","price_units":"ft"}	2011-02-22 17:38:14.284985	2011-02-22 17:38:14.284985
+333	423 Wild Apple	LinearPricing	{"price":"3.74125","price_units":"ft"}	2011-02-22 17:39:48.459146	2011-02-22 17:39:48.459146
+334	424 Wild Apple	LinearPricing	{"price":"4.05","price_units":"ft"}	2011-02-22 17:41:07.713808	2011-02-22 17:41:07.713808
+335	423 Choc Apple	LinearPricing	{"price":"3.74125","price_units":"ft"}	2011-02-22 17:44:09.200823	2011-02-22 17:44:09.200823
+339	423 White	LinearPricing	{"price":"3.12875","price_units":"ft"}	2011-02-22 17:51:00.619029	2011-02-22 17:51:00.619029
 32	Laminate 7942 Cocobala	Color	{"color":"Laminate 7942 Cocobala","dvinci_id":"317"}	2011-01-01 18:54:13.985847	2011-01-01 18:54:14.006245
 34	Laminate 10776 Kingstone Maple	Color	{"color":"Laminate 10776 Kingstone Maple","dvinci_id":"319"}	2011-01-01 18:54:14.62576	2011-01-01 18:54:14.789209
 35	Laminate D92 Dove Grey	Color	{"color":"Laminate D92 Dove Grey","dvinci_id":"320"}	2011-01-01 18:54:15.122372	2011-01-01 18:54:15.306135
@@ -7380,6 +7417,9 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 224	HR Maple Edge 25mm	EdgeBand	{"price":"0.0897","width_units":"mm","cutrite_code":".5x25-MAP","price_units":"ft","color":"Hardrock Maple","dvinci_id":"010","width":"25"}	2011-01-12 19:40:28.373546	2011-01-12 19:40:28.373546
 225	Ant White Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-ANT","price_units":"ft","color":"Antique White","dvinci_id":"002","width":"25"}	2011-01-12 19:40:28.388062	2011-01-12 19:40:28.388062
 240	Wild Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-13 02:52:08.231369	2011-02-08 23:58:24.196806
+337	423 Hardrock Maple	LinearPricing	{"price":"3.74125","price_units":"ft"}	2011-02-22 17:47:38.115881	2011-02-22 17:47:38.115881
+338	424 Hardrock Maple	LinearPricing	{"price":"4.05","price_units":"ft"}	2011-02-22 17:48:47.625645	2011-02-22 17:48:47.625645
+340	424 White	LinearPricing	{"price":"3.31375","price_units":"ft"}	2011-02-22 17:52:22.838739	2011-02-22 17:52:22.838739
 226	Folk Gray Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-GRY","price_units":"ft","color":"Folkstone Gray","dvinci_id":"003","width":"25"}	2011-01-12 19:40:28.403451	2011-01-12 19:40:28.403451
 227	Carmel Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-DES","price_units":"ft","color":"Carmel Apple","dvinci_id":"004","width":"25"}	2011-01-12 19:40:28.419187	2011-01-12 19:40:28.419187
 228	Wild Apple Edge 25mm	EdgeBand	{"price":"0.1060","width_units":"mm","cutrite_code":".5x25-AUT","price_units":"ft","color":"Wild Apple","dvinci_id":"005","width":"25"}	2011-01-12 19:40:28.434545	2011-01-12 19:40:28.434545
