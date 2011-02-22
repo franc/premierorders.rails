@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 233, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 234, true);
 
 
 --
@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 5699, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 5733, true);
 
 
 --
@@ -540,7 +540,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 3794, true);
+SELECT pg_catalog.setval('job_items_id_seq', 3816, true);
 
 
 --
@@ -586,7 +586,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 188, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 189, true);
 
 
 --
@@ -692,7 +692,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 204, true);
+SELECT pg_catalog.setval('jobs_id_seq', 205, true);
 
 
 --
@@ -1338,7 +1338,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 228	8	58	\N	2011-02-18 18:03:29.977375	2011-02-18 18:03:29.977375
 2	2	2	primary	2011-01-01 18:53:32.006987	2011-01-01 18:53:32.006987
 231	33	101	\N	2011-02-19 03:19:39.637942	2011-02-19 03:19:39.637942
-233	8	97	\N	2011-02-21 18:08:25.020532	2011-02-21 18:08:25.020532
 23	24	23	primary	2011-01-01 18:53:35.054096	2011-01-01 18:53:35.054096
 27	28	27	primary	2011-01-01 18:53:35.551742	2011-01-01 18:53:35.551742
 28	5	28	associate	2011-01-01 18:53:35.743284	2011-01-01 18:53:35.743284
@@ -1467,6 +1466,7 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 207	66	94	\N	2011-02-11 18:25:32.260586	2011-02-11 18:25:32.260586
 206	66	94	primary	2011-02-11 18:24:09.367709	2011-02-11 18:25:47.526266
 229	1	89	\N	2011-02-18 21:05:28.516118	2011-02-18 21:05:28.516118
+234	4	97	\N	2011-02-21 23:10:52.307647	2011-02-21 23:10:52.307647
 210	67	95	\N	2011-02-11 18:31:33.839193	2011-02-11 18:31:33.839193
 211	67	95	primary	2011-02-11 18:31:51.914643	2011-02-11 18:31:51.914643
 212	3	3	primary	2011-02-11 19:02:04.28534	2011-02-11 19:02:04.28534
@@ -6374,7 +6374,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	66	2011-01-23 05:52:19.75042	2011-02-21 22:34:59.230776
+1	2011	67	2011-01-23 05:52:19.75042	2011-02-21 23:47:07.78548
 \.
 
 
@@ -6415,13 +6415,13 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 193	4	32	6	Driftmier - Garage	SO - 57	\N	2011-02-19 01:48:31.419348	2011-02-19 04:33:26.521999	Driftmier 2.dvi Parts List.xml	application/xml	23538	2011-02-19 01:48:31.417269	Phoenix	Confirmed	2011-03-04	\N	** Custom Order **	2011-02-19 02:15:40	32		PremierRoute	29		\N
 203	9	9	13	Schessler	SO-65	\N	2011-02-21 19:12:23.412248	2011-02-21 19:20:02.222323	Schessler - parts list - final.xml	text/xml	20623	2011-02-21 19:12:23.407979	Phoenix	Confirmed	2011-03-04	\N		2011-02-21 19:17:52	9		PremierRoute	9		13
 188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-02-21 19:37:23.949463	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	Phoenix	Confirmed	2011-03-07	\N		2011-02-18 22:08:46	1		PremierRoute	30		1
-200	46	75	55	RainesGarage	\N	\N	2011-02-21 16:42:49.646798	2011-02-21 16:42:49.646798	Raines Parts List.xml	text/xml	8587	2011-02-21 16:42:49.643859	\N	\N	\N	\N		\N	\N	\N	\N	\N	\N	\N
 194	33	101	41	Pradhan, Shailandra	SO - 58	\N	2011-02-19 03:29:55.568528	2011-02-21 19:39:18.736459	Pradhan Shailendra.dvi Parts List.xml	text/xml	52269	2011-02-19 03:29:55.565205	Phoenix	Confirmed	2011-03-07	\N		2011-02-19 03:39:44	101		PremierRoute	101		41
 202	17	16	20	Steven Kling	SO-64	\N	2011-02-21 18:18:13.752988	2011-02-21 18:18:59.884518	Steven Kling.GOOD 2-21-11  dvi.dvi Parts List.xml	text/xml	31974	2011-02-21 18:18:13.749293	\N	Placed	\N	\N	Please add 1 top shelf 12" wide 96" long\r\nthanks\r\n	2011-02-21 18:18:59	16	\N	\N	\N	\N	\N
 195	33	101	41	Harger, Eric	SO - 59	\N	2011-02-19 04:00:45.997162	2011-02-21 19:42:19.160837	Harger, Eric.dvi Parts List.xml	text/xml	66139	2011-02-19 04:00:45.953419	Phoenix	Confirmed	2011-03-07	\N		2011-02-19 04:01:40	101		PremierRoute	101		41
 197	4	4	6	Johnson - Pantry	SO-61	\N	2011-02-19 21:13:57.500721	2011-02-21 20:15:01.551415	Johnson - Pantry.xml	application/octet-stream	21559	2011-02-19 21:13:57.496739	Phoenix	Confirmed	2011-03-07	\N		2011-02-19 21:16:00	4		PremierRoute	29		6
 199	4	4	6	Gransee - All Closets	SO-63	\N	2011-02-20 00:45:06.662741	2011-02-21 20:17:22.020531	Gransee - All Closets.xml	application/octet-stream	53835	2011-02-20 00:45:06.660364	Phoenix	Confirmed	2011-03-07	\N		2011-02-20 00:50:49	4		PremierRoute	29		6
 204	4	4	6	Marcus Arter - Master(s), Pantry, Studio	SO-66	\N	2011-02-21 22:31:01.164473	2011-02-21 22:34:59.235744	Marcus - Masters, Pantry, Studio.xml	application/octet-stream	57083	2011-02-21 22:31:01.161055	\N	Placed	\N	\N		2011-02-21 22:34:59	4	\N	\N	\N	\N	\N
+200	46	75	55	RainesGarage	SO-67	\N	2011-02-21 16:42:49.646798	2011-02-21 23:47:07.78947	Raines Parts List.xml	text/xml	8587	2011-02-21 16:42:49.643859	\N	Placed	\N	\N		2011-02-21 23:47:07	75	\N	\N	75	\N	55
 \.
 
 
@@ -7285,10 +7285,10 @@ COPY user_roles (user_id, role_id) FROM stdin;
 89	2
 101	2
 2	2
-97	2
 48	2
 29	2
 102	4
+97	2
 47	2
 28	2
 27	2
@@ -7416,7 +7416,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 71	\N	Kenny	Keeling	(859)881-0760			kkeeling@tailoredliving.com	$2a$10$kSldxQKtYoNh6kADUrfiXOuPiR.U/6QSOmIH1gSYahFxYVwbDqeHK	$2a$10$kSldxQKtYoNh6kADUrfiXO	\N	\N	\N	1	2011-02-17 16:47:46.235589	2011-02-17 16:47:46.235589	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-02-17 16:47:46.236232
 66	\N	Joseph	Chang	(951)653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-02-11 15:33:26.75444
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$VtCo.uf5VG/3R3.e3bbhxuwnn6ZkFRURUBD.yEWGF8jL5JcfRadxq	$2a$10$VtCo.uf5VG/3R3.e3bbhxu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:36:07.879298	2011-02-11 15:36:07.879298
-32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	\N	\N	90	2011-02-21 16:09:51.309235	2011-02-21 13:29:26.840275	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-02-21 16:09:51.310157
+32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	VlOxNG8-ltnccDq-oNuO	2011-02-21 23:12:41.565954	93	2011-02-21 23:12:41.570381	2011-02-21 23:12:10.142573	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-02-21 23:12:41.570998
 64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$jHR4hGGLk8bnj.4HUJvhW.w.gs9ifSRzHnGRCW488uTvU6Rz7Afqy	$2a$10$jHR4hGGLk8bnj.4HUJvhW.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:09:59.375718	2011-02-11 15:09:59.375718
 68	\N	Dave	Williamson	(813)909-2957		(813)909-2967	dwilliamson@tailoredliving.com	$2a$10$0lA6JZrGpaBBGTWOr1Jju./bZUOxpBhUopLErh4XeLKYpC2Yf2Lhm	$2a$10$0lA6JZrGpaBBGTWOr1Jju.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:40:12.31394	2011-02-11 15:40:12.31394
 69	\N	Bill	Bruneman	(630)289-7760			bkbruneman@tailoredliving.com	$2a$10$JvGmZM1XoN/T/0fecH5WWOyFW9ejX7UHKm2O1zIA5E.0YhHJuaMsG	$2a$10$JvGmZM1XoN/T/0fecH5WWO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:44:13.571037	2011-02-11 15:44:13.571037
@@ -7450,8 +7450,8 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 93	\N	Ed	Brady	888-542-1221		410-569-9646	delval@PremierGarage.com	$2a$10$XVq3306yf4veXgICj5yCdOjgAvlI342p7oobfTsDA28wX49Fo9MtS	$2a$10$XVq3306yf4veXgICj5yCdO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:19:32.770532	2011-02-11 18:19:32.770532
 94	\N	Scott	House	(954) 797-9275		(954) 797-9726	scott.house.sf@premiergarage.com	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu/yVyH7JlGx1xEsCndFzXIqi5nAxroUS	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:25:32.24439	2011-02-11 18:25:32.24439
 95	\N	Frank	Pochiro	864-295-4100		864-295-9642	westerncarolinas@premiergarage.com	$2a$10$jUfQAhje/wwFlOJQmDU43.ZWB1RxFFyyWqPLYsqpXHjjCfN8EDvYK	$2a$10$jUfQAhje/wwFlOJQmDU43.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:28:30.675844	2011-02-11 18:31:33.831547
-97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	3	2011-02-19 22:10:17.040106	2011-02-16 18:32:17.804113	70.176.124.201	174.79.54.226	2011-02-16 18:28:06.756767	2011-02-19 22:10:17.041033
-75	\N	Rick	Wunderlich	(636)300-0015		(636)300-0017	rwunderlich@tailoredliving.com	$2a$10$/0AogAFZwjhoF.QPJKqS1er1ojp72AxBrwKiHHenkr9kQnkA6CsD6	$2a$10$/0AogAFZwjhoF.QPJKqS1e	\N	\N	\N	3	2011-02-21 18:44:56.10374	2011-02-21 18:10:48.433092	24.207.254.174	24.207.254.174	2011-02-11 16:05:54.075362	2011-02-21 18:44:56.104906
+75	\N	Rick	Wunderlich	(636)300-0015		(636)300-0017	rwunderlich@tailoredliving.com	$2a$10$/0AogAFZwjhoF.QPJKqS1er1ojp72AxBrwKiHHenkr9kQnkA6CsD6	$2a$10$/0AogAFZwjhoF.QPJKqS1e	\N	\N	\N	5	2011-02-21 23:28:59.860665	2011-02-21 23:08:21.747069	24.207.254.174	24.207.254.174	2011-02-11 16:05:54.075362	2011-02-21 23:28:59.861779
+97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	4	2011-02-21 23:11:21.696772	2011-02-19 22:10:17.040106	174.79.54.226	70.176.124.201	2011-02-16 18:28:06.756767	2011-02-21 23:12:01.733094
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	\N	\N	1	2011-02-16 20:41:30.189054	2011-02-16 20:41:30.189054	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-02-16 20:41:30.189847
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$SbKU6fEH5quJZ6JWA9Taoeq5ybgChv9WxccJLwsg.p8kO2kra/c1y	$2a$10$SbKU6fEH5quJZ6JWA9Taoe	\N	\N	\N	0	\N	\N	\N	\N	2011-02-16 23:04:54.013023	2011-02-16 23:04:54.013023
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	2	2011-02-17 15:24:30.435841	2011-02-17 15:23:04.620353	72.66.62.197	72.66.62.197	2011-02-17 15:18:30.360419	2011-02-17 15:24:30.436454
