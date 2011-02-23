@@ -28,7 +28,7 @@ class Ability
     can [:read, :update], User, :id => user.id
  
     if user.role? :franchisee
-      can [:create, :read, :update, :place_order, :quote], Job do |job|
+      can [:create, :read, :update, :place_order], Job do |job|
         job.new_record? || job.is_manageable_by(user)  
       end
       can :destroy, Job do |job|
