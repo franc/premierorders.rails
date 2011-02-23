@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 6176, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 6216, true);
 
 
 --
@@ -540,7 +540,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 4091, true);
+SELECT pg_catalog.setval('job_items_id_seq', 4111, true);
 
 
 --
@@ -586,7 +586,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 205, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 209, true);
 
 
 --
@@ -692,7 +692,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 222, true);
+SELECT pg_catalog.setval('jobs_id_seq', 226, true);
 
 
 --
@@ -5568,16 +5568,16 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 6164	4084	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.628826	2011-02-23 20:48:31.628826
 6165	4085	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.643221	2011-02-23 20:48:31.643221
 6166	4086	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.65885	2011-02-23 20:48:31.65885
-6167	4087	\N	dimensions	\N	Depth,Width,Height	{"height":"1.5","depth":"40.351399999999998","width":"96","linear_units":"in"}	2011-02-23 20:57:29.937067	2011-02-23 20:57:29.937067
-6168	4087	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:29.950359	2011-02-23 20:57:29.950359
-6169	4088	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"26","linear_units":"in"}	2011-02-23 20:57:29.9619	2011-02-23 20:57:29.9619
-6170	4088	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:29.975739	2011-02-23 20:57:29.975739
-6171	4089	\N	dimensions	\N	Depth,Width	{"depth":"24","width":"44","linear_units":"in"}	2011-02-23 20:57:29.987115	2011-02-23 20:57:29.987115
-6172	4089	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:30.000587	2011-02-23 20:57:30.000587
-6173	4090	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"96","linear_units":"in"}	2011-02-23 20:57:30.011274	2011-02-23 20:57:30.011274
-6174	4090	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:30.165588	2011-02-23 20:57:30.165588
-6175	4091	\N	dimensions	\N	Depth,Width	{"depth":"16","width":"50","linear_units":"in"}	2011-02-23 20:57:30.180558	2011-02-23 20:57:30.180558
-6176	4091	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:30.195388	2011-02-23 20:57:30.195388
+6207	4107	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"96","linear_units":"in"}	2011-02-23 21:07:59.412019	2011-02-23 21:07:59.412019
+6208	4107	\N	color	\N	Color	{"color":"White"}	2011-02-23 21:07:59.423988	2011-02-23 21:07:59.423988
+6209	4108	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"26","linear_units":"in"}	2011-02-23 21:07:59.435288	2011-02-23 21:07:59.435288
+6210	4108	\N	color	\N	Color	{"color":"White"}	2011-02-23 21:07:59.448853	2011-02-23 21:07:59.448853
+6211	4109	\N	dimensions	\N	Depth,Width	{"depth":"24","width":"44","linear_units":"in"}	2011-02-23 21:07:59.45952	2011-02-23 21:07:59.45952
+6212	4109	\N	color	\N	Color	{"color":"White"}	2011-02-23 21:07:59.472179	2011-02-23 21:07:59.472179
+6213	4110	\N	dimensions	\N	Depth,Width	{"depth":"16","width":"50","linear_units":"in"}	2011-02-23 21:07:59.482484	2011-02-23 21:07:59.482484
+6214	4110	\N	color	\N	Color	{"color":"White"}	2011-02-23 21:07:59.494442	2011-02-23 21:07:59.494442
+6215	4111	\N	dimensions	\N	Depth,Width	{"depth":"1.5","width":"96","linear_units":"in"}	2011-02-23 21:07:59.504293	2011-02-23 21:07:59.504293
+6216	4111	\N	color	\N	Color	{"color":"White"}	2011-02-23 21:07:59.628052	2011-02-23 21:07:59.628052
 \.
 
 
@@ -6821,11 +6821,11 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4084	221	201	000.100.300.000.00I	8		2011-02-23 20:48:31.623703	2011-02-23 20:48:31.623703	0.01	35	ZH Screw (Euro)	\N
 4085	221	228	000.282.024.720.00I	12		2011-02-23 20:48:31.637423	2011-02-23 20:48:31.637423	0.12	36	ZH Shelf Pin (Safety Shelf)	\N
 4086	221	160	000.547.043.303.00P	1		2011-02-23 20:48:31.652699	2011-02-23 20:48:31.652699	63.48	37	ZH Tilt-Out Hamper (24)	\N
-4087	222	48	000.934.091.001.00M	14		2011-02-23 20:57:29.932069	2011-02-23 20:57:29.932069	0.00	1	CL Top Shelf | White	\N
-4088	222	45	000.931.021.001.00M	4		2011-02-23 20:57:29.957041	2011-02-23 20:57:29.957041	3.71	2	CL Adjustable Shelf | White	\N
-4089	222	45	000.931.021.001.00M	8		2011-02-23 20:57:29.98251	2011-02-23 20:57:29.98251	1.85	3	CL Adjustable Shelf | White	\N
-4090	222	48	000.934.091.001.00M	15		2011-02-23 20:57:30.006739	2011-02-23 20:57:30.006739	2.69	4	CL Top Shelf | White	\N
-4091	222	48	000.934.092.001.00M	4		2011-02-23 20:57:30.174382	2011-02-23 20:57:30.174382	22.98	5	CL Top Shelf | White	\N
+4107	226	48	000.934.094.001.00M	15		2011-02-23 21:07:59.407512	2011-02-23 21:07:59.407512	7.73	1	CL Top Shelf | White	\N
+4108	226	48	000.934.094.001.00M	4		2011-02-23 21:07:59.429967	2011-02-23 21:07:59.429967	28.99	2	CL Top Shelf | White	\N
+4109	226	48	000.934.091.001.00M	8		2011-02-23 21:07:59.455091	2011-02-23 21:07:59.455091	1.29	3	CL Top Shelf | White	\N
+4110	226	48	000.934.092.001.00M	4		2011-02-23 21:07:59.47823	2011-02-23 21:07:59.47823	11.17	4	CL Top Shelf | White	\N
+4111	226	48	000.934.092.001.00M	14	*Wall Cleats	2011-02-23 21:07:59.50011	2011-02-23 21:07:59.50011	3.19	5	CL Top Shelf | White	\N
 \.
 
 
@@ -6859,13 +6859,13 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 123	134	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 00:58:06.591852	2011-02-15 00:58:06.591852
 124	135	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 01:06:00.444601	2011-02-15 01:06:00.444601
 125	136	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 01:15:28.792562	2011-02-15 01:15:28.792562
-205	222	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-23 20:57:29.924759	2011-02-23 20:57:29.924759
 130	141	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:02:46.195672	2011-02-15 16:02:46.195672
 131	142	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:28:04.159495	2011-02-15 16:28:04.159495
 132	143	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:40:30.525755	2011-02-15 16:40:30.525755
 133	144	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:57:06.157757	2011-02-15 16:57:06.157757
 134	145	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 17:06:04.670249	2011-02-15 17:06:04.670249
 135	146	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 17:14:10.632388	2011-02-15 17:14:10.632388
+209	226	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-23 21:07:59.401111	2011-02-23 21:07:59.401111
 137	148	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 17:26:12.446979	2011-02-15 17:26:12.446979
 140	151	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 19:02:38.588933	2011-02-15 19:02:38.588933
 142	153	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 22:11:41.477296	2011-02-15 22:11:41.477296
@@ -6893,7 +6893,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	80	2011-01-23 05:52:19.75042	2011-02-23 20:51:12.852272
+1	2011	81	2011-01-23 05:52:19.75042	2011-02-23 21:08:23.120303
 \.
 
 
@@ -6952,7 +6952,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-02-22 22:58:29.619936	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14
 215	17	16	20	Steven Kling	SO-75	\N	2011-02-22 21:10:50.448263	2011-02-23 13:56:24.268547	Steven Kling.GOOD dvi.dvi Parts List.xml	text/xml	38455	2011-02-22 21:10:50.446296	Phoenix	Confirmed	2011-03-09	\N		2011-02-22 21:18:44	16		PremierRoute	16		20
 221	8	35	38	email test	SO-80	\N	2011-02-23 20:48:29.367511	2011-02-23 20:51:12.856372	021011-1.xml	text/xml	30472	2011-02-23 20:48:29.365521	\N	Placed	\N	\N	do not process, just a test	2011-02-23 20:51:12	35	\N	\N	\N	\N	\N
-222	4	4	6	Marcus/Arter - Standard Closets	\N	\N	2011-02-23 20:57:29.823226	2011-02-23 20:57:29.823226	Marcus - Standard Closets.xml	application/octet-stream	10270	2011-02-23 20:57:29.821423	\N	\N	\N	\N		\N	\N	\N	\N	\N	\N	\N
+226	4	4	6	Marcus/Arter - Standard Closets	SO-81	\N	2011-02-23 21:07:59.297772	2011-02-23 21:08:23.1244	Marcus - Basic Closets.xml	application/octet-stream	9896	2011-02-23 21:07:59.295518	\N	Placed	\N	\N		2011-02-23 21:08:23	4	\N	\N	\N	\N	\N
 \.
 
 
@@ -7963,7 +7963,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	3	2011-02-22 01:01:45.870037	2011-02-17 17:25:28.836968	67.78.112.191	108.116.4.29	2011-01-01 18:53:33.181217	2011-02-22 01:57:31.706079
 1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@tailoredliving.com	$2a$10$qqBeeyOALViNUPJznyjMEuyImInYrz1Qz4g7mkaDoO4aRnyi0Wfsm	$2a$10$qqBeeyOALViNUPJznyjMEu	\N	\N	\N	22	2011-02-22 21:17:25.635281	2011-02-22 16:51:12.792237	67.203.136.36	67.203.136.36	2011-01-01 18:53:31.856627	2011-02-22 21:17:25.636408
 16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	B_kl-WzcHe_XkZjS7K_m	2011-02-21 17:35:03.908946	6	2011-02-22 21:02:09.392091	2011-02-21 18:04:43.331368	64.134.234.181	76.205.198.73	2011-01-01 18:53:33.935232	2011-02-22 21:02:09.392994
-4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	-uy_QCYCy-jPKcsPeEs1	2011-02-16 18:47:53.542215	18	2011-02-23 18:39:44.01719	2011-02-22 23:04:41.573217	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-23 18:39:44.017907
+4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	-lsWULb3FikcXV38S_0a	2011-02-23 21:02:20.870478	19	2011-02-23 21:02:20.874626	2011-02-23 18:39:44.01719	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-23 21:02:20.8753
 22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	1	2011-02-16 22:03:46.211842	2011-02-16 22:03:46.211842	174.47.44.30	174.47.44.30	2011-01-01 18:53:34.831371	2011-02-16 22:03:46.212528
 36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$xo/nM73amtMdms4dwF9inuMDAlqSmZjcO0QPfsL.iFf6U83uDdeMu	$2a$10$xo/nM73amtMdms4dwF9inu	\N	GcjZOL2QVIrULbqUr-ED	2011-02-17 16:53:59.462804	6	2011-02-17 16:53:59.466653	2011-02-17 16:50:40.874378	67.203.136.36	66.93.64.100	2011-01-01 18:53:36.829115	2011-02-17 16:53:59.467221
 45	Ms.	Jackie	Poehlman	(949) 831-3244	(949)939-6845	(949) 297-3953	jpoehlman@tailoredliving.com	$2a$10$h2/BHnBLmWipNnMCVTNwSOL0CW/1MOwG5R6cmaF9TS3JqS.lres1m	$2a$10$h2/BHnBLmWipNnMCVTNwSO	\N	\N	\N	1	2011-02-17 03:27:12.45661	2011-02-17 03:27:12.45661	68.231.204.109	68.231.204.109	2011-01-01 18:53:37.963796	2011-02-17 03:27:12.457361
