@@ -1,4 +1,5 @@
 <% 
+render_for ||= :web
 unless self.respond_to? :can? 
   def can?(*args)
     false
@@ -22,7 +23,9 @@ end
     <th class="item_unit_price">Unit Price</th>
     <th class="item_total">Total</th>
     <th class="item_special_instructions">Special Instructions</th>
-    <th class="item_actions">Actions</th>
+    <% if render_for == :web %>
+      <th class="item_actions">Actions</th>
+    <% end %>
   </tr>
   <% job_items.each_with_index do |job_item, i| %>
     <tr class="<%=unit_price_class(job_item)%>">
@@ -47,11 +50,13 @@ end
       </td>
       <td class="item_total"><%= "$%.2f" % job_item.net_total %></td>
       <td class="item_special_instruction"><%= job_item.comment %></td>
-      <td class="item_actions">
-        <% unless job_item.kind_of? AssemblyHardwareItem %>
-          <%= link_to JobItem.model_name.human, job_item_path(job_item) %>
-        <% end %>
-      </td>
+      <% if render_for == :web %>
+        <td class="item_actions">
+          <% unless job_item.kind_of? AssemblyHardwareItem %>
+            <%= link_to JobItem.model_name.human, job_item_path(job_item) %>
+          <% end %>
+        </td>
+      <% end %>
     </tr>
   <% end %>
 </table>

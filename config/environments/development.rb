@@ -25,6 +25,7 @@ PgRails::Application.configure do
   config.active_record.logger = Logger.new('log/activerecord.log')
   config.active_record.logger.level = Logger::INFO
 
+  config.action_mailer.perform_deliveries = true 
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

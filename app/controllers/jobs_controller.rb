@@ -57,6 +57,7 @@ class JobsController < ApplicationController
     begin
       @job = Job.new(params[:job])
       @job.customer = current_user
+      @job.primary_contact = current_user
 
       respond_to do |format|
         if @job.save
