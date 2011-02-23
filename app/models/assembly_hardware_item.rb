@@ -12,12 +12,12 @@ class AssemblyHardwareItem
 
   def add_hardware(job_item, assoc)
     job_item.dimension_eval(assoc.qty_expr(:in)).right.each do |qty|
-      @quantity += qty
+      @quantity += (qty * job_item.quantity)
     end
 
     assoc.cost_expr(:in, color.orSome(nil), []).each do |expr| 
       job_item.dimension_eval(expr).right.each do |price|
-        @total_price += price
+        @total_price += (price * job_item.quantity)
       end
     end
 
@@ -27,6 +27,11 @@ class AssemblyHardwareItem
   def +(other)
     raise "Item mismatch: #{@item} is not equal to #{other.item}" unless @item == other.item
     AssemblyHardwareItem.new(@item, @quantity + other.quantity, @total_price + other.total_price)
+  end
+
+  def *(qty)
+    @quantity *= qty
+    @total_price *= qty
   end
 
   def tracking_id

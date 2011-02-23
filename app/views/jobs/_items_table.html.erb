@@ -39,7 +39,11 @@
       </td>
       <td class="item_total"><%= "$%.2f" % job_item.net_total %></td>
       <td class="item_special_instruction"><%= job_item.comment %></td>
-      <td class="item_actions"><%= link_to JobItem.model_name.human, job_item_path(job_item) %></td>
+      <td class="item_actions">
+        <% unless job_item.kind_of? AssemblyHardwareItem %>
+          <%= link_to JobItem.model_name.human, job_item_path(job_item) %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>

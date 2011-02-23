@@ -50,6 +50,8 @@
     <dd><%= @job_item.comment %></dd>
     <dt><%= label :job_item, :properties %></dt>
     <dd></dd>
+    <dt>Component Hardware</dt>
+    <dd><%= render :partial => 'jobs/items_table', :locals => {:job_items => @job_item.inventory_hardware.values} %></dd>
   </dl>
 </div>
 
