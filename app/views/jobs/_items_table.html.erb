@@ -1,3 +1,11 @@
+<% 
+unless self.respond_to? :can? 
+  def can?(*args)
+    false
+  end
+end
+%>
+
 <table class="item_table<%= job_items.empty? ? " empty" : "" %>">
   <tr>
     <th class="item_id">ID</th>

@@ -82,7 +82,7 @@
     <dt><%= label :job, :total %></dt>
     <dd>
       <%= "$%.2f" % @job.total -%><br/>
-      <% if @job.placement_date.nil? %><%= button_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
+      <% if @job.placement_date.nil? || @job.status == 'Created' %><%= button_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
     </dd>
   </dl>
 
