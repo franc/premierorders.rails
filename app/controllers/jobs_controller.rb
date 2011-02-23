@@ -24,13 +24,6 @@ class JobsController < ApplicationController
     end
   end
 
-  def quote
-    respond_to do |format|
-      format.html # quote.html.erb
-      format.xml  { render :xml => @job }
-    end
-  end
-
   # GET /jobs/new
   # GET /jobs/new.xml
   def new
@@ -64,6 +57,7 @@ class JobsController < ApplicationController
     begin
       @job = Job.new(params[:job])
       @job.customer = current_user
+      @job.primary_contact = current_user
 
       respond_to do |format|
         if @job.save
@@ -110,6 +104,7 @@ class JobsController < ApplicationController
     @job.place_order(DateTime.now, current_user)
     respond_to do |format|
       if @job.save
+        OrderPlacedMailer.order_placed_email(@job).deliver
         format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
         format.xml  { head :ok }
       else
