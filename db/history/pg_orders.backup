@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 235, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 236, true);
 
 
 --
@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 6115, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 6176, true);
 
 
 --
@@ -540,7 +540,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 4049, true);
+SELECT pg_catalog.setval('job_items_id_seq', 4091, true);
 
 
 --
@@ -586,7 +586,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 203, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 205, true);
 
 
 --
@@ -692,7 +692,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 220, true);
+SELECT pg_catalog.setval('jobs_id_seq', 222, true);
 
 
 --
@@ -1479,6 +1479,7 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 219	4	4	primary	2011-02-15 01:25:54.498514	2011-02-15 01:25:54.498514
 220	10	96	\N	2011-02-16 17:56:01.199436	2011-02-16 17:56:01.199436
 222	17	16	primary	2011-02-16 21:10:33.259042	2011-02-16 21:10:33.259042
+236	8	35	primary	2011-02-23 20:50:10.622428	2011-02-23 20:50:10.622428
 224	5	99	\N	2011-02-17 15:22:54.153496	2011-02-17 15:22:54.153496
 225	41	100	\N	2011-02-18 00:30:51.971819	2011-02-18 00:30:51.971819
 \.
@@ -5516,6 +5517,67 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 6113	4048	\N	dimensions	\N	Depth,Width,Height	{"height":"83.150","depth":"20.000","width":"48.000","linear_units":"in"}	2011-02-23 19:58:29.456838	2011-02-23 19:58:29.456838
 6114	4048	\N	color	\N	Color	{"color":"Windswept Bronze"}	2011-02-23 19:58:29.496035	2011-02-23 19:58:29.496035
 6115	4049	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 19:58:29.50539	2011-02-23 19:58:29.50539
+6116	4050	\N	dimensions	\N	Depth,Width	{"depth":"14.000","width":"24.000","linear_units":"in"}	2011-02-23 20:48:29.873393	2011-02-23 20:48:29.873393
+6117	4050	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:29.891017	2011-02-23 20:48:29.891017
+6118	4051	\N	dimensions	\N	Depth,Width	{"depth":"14.000","width":"24.000","linear_units":"in"}	2011-02-23 20:48:29.903503	2011-02-23 20:48:29.903503
+6119	4051	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:29.917599	2011-02-23 20:48:29.917599
+6120	4052	\N	dimensions	\N	Depth,Width,Height	{"height":"31.001","depth":"14.000","width":"25.500","linear_units":"in"}	2011-02-23 20:48:30.214225	2011-02-23 20:48:30.214225
+6121	4052	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:30.266977	2011-02-23 20:48:30.266977
+6122	4053	\N	dimensions	\N	Depth,Width,Height	{"height":"36.039","depth":"20.000","width":"25.500","linear_units":"in"}	2011-02-23 20:48:30.279005	2011-02-23 20:48:30.279005
+6123	4053	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:30.515169	2011-02-23 20:48:30.515169
+6124	4054	\N	dimensions	\N	Depth,Height	{"height":"85.125","depth":"14.000","linear_units":"in"}	2011-02-23 20:48:30.540054	2011-02-23 20:48:30.540054
+6125	4054	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:30.551788	2011-02-23 20:48:30.551788
+6126	4055	\N	dimensions	\N	Depth,Height	{"height":"85.125","depth":"20.000","linear_units":"in"}	2011-02-23 20:48:30.573855	2011-02-23 20:48:30.573855
+6127	4055	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:30.585498	2011-02-23 20:48:30.585498
+6128	4056	\N	dimensions	\N	Depth,Width	{"depth":"24.000","width":"25.500","linear_units":"in"}	2011-02-23 20:48:30.602629	2011-02-23 20:48:30.602629
+6129	4056	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-02-23 20:48:30.613861	2011-02-23 20:48:30.613861
+6130	4057	\N	dimensions	\N	Width,Height	{"height":"30.111","width":"12.625","linear_units":"in"}	2011-02-23 20:48:30.625627	2011-02-23 20:48:30.625627
+6131	4057	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.645081	2011-02-23 20:48:30.645081
+6132	4058	\N	dimensions	\N	Width,Height	{"height":"12.475","width":"25.375","linear_units":"in"}	2011-02-23 20:48:30.794484	2011-02-23 20:48:30.794484
+6133	4058	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.816908	2011-02-23 20:48:30.816908
+6134	4059	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"24.625","linear_units":"in"}	2011-02-23 20:48:30.829439	2011-02-23 20:48:30.829439
+6135	4059	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.847664	2011-02-23 20:48:30.847664
+6136	4060	\N	dimensions	\N	Width,Height	{"height":"8.693","width":"24.625","linear_units":"in"}	2011-02-23 20:48:30.860386	2011-02-23 20:48:30.860386
+6137	4060	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.878314	2011-02-23 20:48:30.878314
+6138	4061	\N	dimensions	\N	Width,Height	{"height":"8.693","width":"25.375","linear_units":"in"}	2011-02-23 20:48:30.890426	2011-02-23 20:48:30.890426
+6139	4061	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.906974	2011-02-23 20:48:30.906974
+6140	4062	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"25.375","linear_units":"in"}	2011-02-23 20:48:30.919217	2011-02-23 20:48:30.919217
+6141	4062	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.935771	2011-02-23 20:48:30.935771
+6142	4063	\N	dimensions	\N	Width,Height	{"height":"26.331","width":"24.625","linear_units":"in"}	2011-02-23 20:48:30.969503	2011-02-23 20:48:30.969503
+6143	4063	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-02-23 20:48:30.986444	2011-02-23 20:48:30.986444
+6144	4064	\N	dimensions	\N	Depth,Width,Height	{"height":"9.500","depth":"19.750","width":"23.000","linear_units":"in"}	2011-02-23 20:48:30.996848	2011-02-23 20:48:30.996848
+6145	4065	\N	dimensions	\N	Depth,Width,Height	{"height":"7.000","depth":"19.750","width":"23.000","linear_units":"in"}	2011-02-23 20:48:31.144593	2011-02-23 20:48:31.144593
+6146	4066	\N	dimensions	\N	Depth,Width,Height	{"height":"7.000","depth":"13.750","width":"23.000","linear_units":"in"}	2011-02-23 20:48:31.166241	2011-02-23 20:48:31.166241
+6147	4067	\N	dimensions	\N	Depth,Width,Height	{"height":"4.500","depth":"19.750","width":"23.000","linear_units":"in"}	2011-02-23 20:48:31.188337	2011-02-23 20:48:31.188337
+6148	4068	\N	dimensions	\N	Depth,Width,Height	{"height":"4.500","depth":"13.750","width":"23.000","linear_units":"in"}	2011-02-23 20:48:31.209257	2011-02-23 20:48:31.209257
+6149	4069	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.22879	2011-02-23 20:48:31.22879
+6150	4070	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.242052	2011-02-23 20:48:31.242052
+6151	4071	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.255784	2011-02-23 20:48:31.255784
+6152	4072	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.270129	2011-02-23 20:48:31.270129
+6153	4073	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.284149	2011-02-23 20:48:31.284149
+6154	4074	\N	dimensions	\N	Width	{"width":"23.750","linear_units":"in"}	2011-02-23 20:48:31.299316	2011-02-23 20:48:31.299316
+6155	4075	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.313414	2011-02-23 20:48:31.313414
+6156	4076	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.343363	2011-02-23 20:48:31.343363
+6157	4077	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.525101	2011-02-23 20:48:31.525101
+6158	4078	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.542396	2011-02-23 20:48:31.542396
+6159	4079	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.556851	2011-02-23 20:48:31.556851
+6160	4080	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.570895	2011-02-23 20:48:31.570895
+6161	4081	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.586031	2011-02-23 20:48:31.586031
+6162	4082	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.600693	2011-02-23 20:48:31.600693
+6163	4083	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.61509	2011-02-23 20:48:31.61509
+6164	4084	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.628826	2011-02-23 20:48:31.628826
+6165	4085	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.643221	2011-02-23 20:48:31.643221
+6166	4086	\N	dimensions	\N		{"linear_units":"in"}	2011-02-23 20:48:31.65885	2011-02-23 20:48:31.65885
+6167	4087	\N	dimensions	\N	Depth,Width,Height	{"height":"1.5","depth":"40.351399999999998","width":"96","linear_units":"in"}	2011-02-23 20:57:29.937067	2011-02-23 20:57:29.937067
+6168	4087	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:29.950359	2011-02-23 20:57:29.950359
+6169	4088	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"26","linear_units":"in"}	2011-02-23 20:57:29.9619	2011-02-23 20:57:29.9619
+6170	4088	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:29.975739	2011-02-23 20:57:29.975739
+6171	4089	\N	dimensions	\N	Depth,Width	{"depth":"24","width":"44","linear_units":"in"}	2011-02-23 20:57:29.987115	2011-02-23 20:57:29.987115
+6172	4089	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:30.000587	2011-02-23 20:57:30.000587
+6173	4090	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"96","linear_units":"in"}	2011-02-23 20:57:30.011274	2011-02-23 20:57:30.011274
+6174	4090	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:30.165588	2011-02-23 20:57:30.165588
+6175	4091	\N	dimensions	\N	Depth,Width	{"depth":"16","width":"50","linear_units":"in"}	2011-02-23 20:57:30.180558	2011-02-23 20:57:30.180558
+6176	4091	\N	color	\N	Color	{"color":"White"}	2011-02-23 20:57:30.195388	2011-02-23 20:57:30.195388
 \.
 
 
@@ -6722,6 +6784,48 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4047	220	516	000.100.000.008.00M	4		2011-02-23 19:58:29.161286	2011-02-23 19:58:29.161286	81.68	1	Door - Flat | Windswept Bronze	\N
 4048	220	256	000.402.493.008.00M	2		2011-02-23 19:58:29.451461	2011-02-23 19:58:29.451461	416.00	2	NX Tall Cabinet 2 Door | Windswept Bronze	\N
 4049	220	5	000.117.031.330.00I	4		2011-02-23 19:58:29.500964	2011-02-23 19:58:29.500964	2.44	3	ZH Handle Black | 128mm	\N
+4050	221	227	000.935.011.010.00M	3		2011-02-23 20:48:29.867442	2011-02-23 20:48:29.867442	7.45	1	CL Adj Safety Shelf | Hardrock Maple	\N
+4051	221	44	000.930.011.010.00M	5		2011-02-23 20:48:29.898584	2011-02-23 20:48:29.898584	7.45	2	CL Cam Shelf | Hardrock Maple	\N
+4052	221	694	000.306.922.010.00M	1		2011-02-23 20:48:30.208335	2011-02-23 20:48:30.208335	58.17	3	CL Hutch 2 Door | Hardrock Maple	\N
+4053	221	531	000.300.131.010.00M	1		2011-02-23 20:48:30.274076	2011-02-23 20:48:30.274076	50.30	4	CL Hutch Base | Hardrock Maple	\N
+4054	221	34	000.912.271.010.00M	2		2011-02-23 20:48:30.534859	2011-02-23 20:48:30.534859	25.10	5	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N
+4055	221	34	000.912.273.010.00M	1		2011-02-23 20:48:30.568963	2011-02-23 20:48:30.568963	35.43	6	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N
+4056	221	18	000.401.000.010.00M	1		2011-02-23 20:48:30.597872	2011-02-23 20:48:30.597872	9.09	7	CTOP - 3/4 in. melamine | Hardrock Maple	\N
+4057	221	518	000.102.000.010.00B	2		2011-02-23 20:48:30.620533	2011-02-23 20:48:30.620533	44.14	8	Decor Door - DR1 | Hardrock Maple	\N
+4058	221	523	000.202.000.010.00B	1		2011-02-23 20:48:30.651817	2011-02-23 20:48:30.651817	43.11	9	Decor Drawer Front - DR1 | Hardrock Maple	\N
+4059	221	523	000.202.000.010.00B	1		2011-02-23 20:48:30.823928	2011-02-23 20:48:30.823928	24.17	10	Decor Drawer Front - DR1 | Hardrock Maple	\N
+4060	221	523	000.202.000.010.00B	1		2011-02-23 20:48:30.854815	2011-02-23 20:48:30.854815	31.32	11	Decor Drawer Front - DR1 | Hardrock Maple	\N
+4061	221	523	000.202.000.010.00B	1		2011-02-23 20:48:30.885113	2011-02-23 20:48:30.885113	32.07	12	Decor Drawer Front - DR1 | Hardrock Maple	\N
+4062	221	523	000.202.000.010.00B	2		2011-02-23 20:48:30.913935	2011-02-23 20:48:30.913935	24.71	13	Decor Drawer Front - DR1 | Hardrock Maple	\N
+4063	221	232	000.142.000.010.00B	1		2011-02-23 20:48:30.964312	2011-02-23 20:48:30.964312	75.01	14	Decor Hamper Door - DR1 | Hardrock Maple	\N
+4064	221	702	000.024.004.050.00B	1		2011-02-23 20:48:30.992041	2011-02-23 20:48:30.992041	34.39	15	Drawer Box | Birch	\N
+4065	221	701	000.024.003.050.00B	1		2011-02-23 20:48:31.137999	2011-02-23 20:48:31.137999	30.06	16	Drawer Box | Birch	\N
+4066	221	701	000.024.003.050.00B	1		2011-02-23 20:48:31.160005	2011-02-23 20:48:31.160005	25.55	17	Drawer Box | Birch	\N
+4067	221	700	000.024.002.050.00B	2		2011-02-23 20:48:31.180701	2011-02-23 20:48:31.180701	25.72	18	Drawer Box | Birch	\N
+4068	221	700	000.024.002.050.00B	1		2011-02-23 20:48:31.203735	2011-02-23 20:48:31.203735	21.82	19	Drawer Box | Birch	\N
+4069	221	217	000.104.700.000.00I	6		2011-02-23 20:48:31.223559	2011-02-23 20:48:31.223559	0.02	20	ZH Bumper Stop	\N
+4070	221	236	000.263.050.705.00I	20		2011-02-23 20:48:31.236772	2011-02-23 20:48:31.236772	0.11	21	ZH Cam - Flush | White	\N
+4071	221	156	000.263.024.972.00I	2		2011-02-23 20:48:31.250266	2011-02-23 20:48:31.250266	0.08	22	ZH Cam (Double Stud)	\N
+4072	221	155	000.263.020.847.00I	16		2011-02-23 20:48:31.264441	2011-02-23 20:48:31.264441	0.05	23	ZH Cam (Screw-In Stud)	\N
+4073	221	238	000.263.059.430.00I	20		2011-02-23 20:48:31.278784	2011-02-23 20:48:31.278784	0.01	24	ZH Cam Cover | Beige	\N
+4074	221	100	000.801.042.100.00I	1		2011-02-23 20:48:31.293965	2011-02-23 20:48:31.293965	3.60	25	ZH Closet Rod | Oil Rubbed Bronze	\N
+4075	221	172	000.FU3.173.314.00I	2		2011-02-23 20:48:31.308144	2011-02-23 20:48:31.308144	3.51	26	ZH Drawer Slide | Full ext | 14 inch	\N
+4076	221	175	000.FU3.173.320.00I	4		2011-02-23 20:48:31.338878	2011-02-23 20:48:31.338878	5.11	27	ZH Drawer Slide | Full ext | 20 inch	\N
+4077	221	221	000.365.075.710.00P	2		2011-02-23 20:48:31.35171	2011-02-23 20:48:31.35171	2.11	28	ZH Flap Stay | White	\N
+4078	221	4	000.117.031.334.00I	9		2011-02-23 20:48:31.536063	2011-02-23 20:48:31.536063	1.04	29	ZH Handle Bronze | 128mm	\N
+4079	221	200	000.100.520.000.00I	2		2011-02-23 20:48:31.551094	2011-02-23 20:48:31.551094	1.35	30	ZH Hinge | Half Overlay	\N
+4080	221	199	000.102.500.000.00I	2		2011-02-23 20:48:31.565297	2011-02-23 20:48:31.565297	0.62	31	ZH Hinge Plate	\N
+4081	221	103	000.803.056.100.00I	2		2011-02-23 20:48:31.579511	2011-02-23 20:48:31.579511	2.21	32	ZH Pole Cups (pair) | Oil Rubbed Bronze	\N
+4082	221	218	000.022.035.234.00I	2		2011-02-23 20:48:31.595322	2011-02-23 20:48:31.595322	0.03	33	ZH Screw (Doors Handles)	\N
+4083	221	219	000.022.035.259.00I	4		2011-02-23 20:48:31.609115	2011-02-23 20:48:31.609115	0.04	34	ZH Screw (Drawer Front Handles DR1)	\N
+4084	221	201	000.100.300.000.00I	8		2011-02-23 20:48:31.623703	2011-02-23 20:48:31.623703	0.01	35	ZH Screw (Euro)	\N
+4085	221	228	000.282.024.720.00I	12		2011-02-23 20:48:31.637423	2011-02-23 20:48:31.637423	0.12	36	ZH Shelf Pin (Safety Shelf)	\N
+4086	221	160	000.547.043.303.00P	1		2011-02-23 20:48:31.652699	2011-02-23 20:48:31.652699	63.48	37	ZH Tilt-Out Hamper (24)	\N
+4087	222	48	000.934.091.001.00M	14		2011-02-23 20:57:29.932069	2011-02-23 20:57:29.932069	0.00	1	CL Top Shelf | White	\N
+4088	222	45	000.931.021.001.00M	4		2011-02-23 20:57:29.957041	2011-02-23 20:57:29.957041	3.71	2	CL Adjustable Shelf | White	\N
+4089	222	45	000.931.021.001.00M	8		2011-02-23 20:57:29.98251	2011-02-23 20:57:29.98251	1.85	3	CL Adjustable Shelf | White	\N
+4090	222	48	000.934.091.001.00M	15		2011-02-23 20:57:30.006739	2011-02-23 20:57:30.006739	2.69	4	CL Top Shelf | White	\N
+4091	222	48	000.934.092.001.00M	4		2011-02-23 20:57:30.174382	2011-02-23 20:57:30.174382	22.98	5	CL Top Shelf | White	\N
 \.
 
 
@@ -6751,9 +6855,11 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 202	219	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-23 19:56:14.800002	2011-02-23 19:56:14.800002
 203	220	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-23 19:58:29.154767	2011-02-23 19:58:29.154767
 121	132	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 00:11:33.513301	2011-02-15 00:11:33.513301
+204	221	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-23 20:48:29.857798	2011-02-23 20:48:29.857798
 123	134	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 00:58:06.591852	2011-02-15 00:58:06.591852
 124	135	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 01:06:00.444601	2011-02-15 01:06:00.444601
 125	136	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 01:15:28.792562	2011-02-15 01:15:28.792562
+205	222	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-23 20:57:29.924759	2011-02-23 20:57:29.924759
 130	141	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:02:46.195672	2011-02-15 16:02:46.195672
 131	142	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:28:04.159495	2011-02-15 16:28:04.159495
 132	143	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-15 16:40:30.525755	2011-02-15 16:40:30.525755
@@ -6787,7 +6893,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	79	2011-01-23 05:52:19.75042	2011-02-23 19:58:58.824544
+1	2011	80	2011-01-23 05:52:19.75042	2011-02-23 20:51:12.852272
 \.
 
 
@@ -6845,6 +6951,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 179	4	4	6	Bergman - Master	SO - 52	\N	2011-02-17 23:41:28.757889	2011-02-22 20:48:40.412474	Bergman - Master.xml	application/octet-stream	34213	2011-02-17 23:41:28.7557	Phoenix	Confirmed	2011-03-04	\N	Ship Date: 03/01/11\r\n\r\nPG Preferred Shipping	2011-02-17 23:42:54	4		PremierRoute	29	2/22 per Eric add #1070 drawer glides qty 15 to order. cs	6
 212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-02-22 22:58:29.619936	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14
 215	17	16	20	Steven Kling	SO-75	\N	2011-02-22 21:10:50.448263	2011-02-23 13:56:24.268547	Steven Kling.GOOD dvi.dvi Parts List.xml	text/xml	38455	2011-02-22 21:10:50.446296	Phoenix	Confirmed	2011-03-09	\N		2011-02-22 21:18:44	16		PremierRoute	16		20
+221	8	35	38	email test	SO-80	\N	2011-02-23 20:48:29.367511	2011-02-23 20:51:12.856372	021011-1.xml	text/xml	30472	2011-02-23 20:48:29.365521	\N	Placed	\N	\N	do not process, just a test	2011-02-23 20:51:12	35	\N	\N	\N	\N	\N
+222	4	4	6	Marcus/Arter - Standard Closets	\N	\N	2011-02-23 20:57:29.823226	2011-02-23 20:57:29.823226	Marcus - Standard Closets.xml	application/octet-stream	10270	2011-02-23 20:57:29.821423	\N	\N	\N	\N		\N	\N	\N	\N	\N	\N	\N
 \.
 
 
