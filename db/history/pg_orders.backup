@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1334, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1347, true);
 
 
 --
@@ -443,7 +443,7 @@ ALTER SEQUENCE items_id_seq OWNED BY items.id;
 -- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('items_id_seq', 704, true);
+SELECT pg_catalog.setval('items_id_seq', 708, true);
 
 
 --
@@ -2900,6 +2900,19 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1332	208	136	\N
 1333	16	137	\N
 1334	17	138	\N
+1335	705	9	top
+1336	705	9	right
+1337	705	9	bottom
+1338	705	6	\N
+1339	706	7	\N
+1340	706	32	right
+1341	707	6	\N
+1342	707	9	top
+1343	707	9	right
+1344	707	9	bottom
+1345	707	9	left
+1346	708	6	\N
+1347	708	9	right
 \.
 
 
@@ -2981,6 +2994,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 660	ZH SlatWall 12 x 96 (4/box) |Maple	SlatWall 12 x 96 (4/box) |Maple	HSW5008	\N	000.990.320.30W.00I		2011-01-21 01:24:55.088016	2011-02-22 22:30:11.533438	Inventory	3203-W	Item	27.44		\N	0.15	0.92000000000000004	0.40000000000000002
 670	ZH SlatWall Drywall Screws (1000/box) | Gray	SlatWall Drywall Screws (1000/box) | Gray	HSWS300G	\N	000.990.320.50S.00I		2011-01-21 01:24:55.138712	2011-02-22 22:34:36.638618	Inventory	3205-S	Item	0.03		\N	\N	0.92000000000000004	0.40000000000000002
 669	ZH SlatWall J Molding (4/box) | Gray	SlatWall J Molding (4/box) | Gray	HST3088L	\N	000.990.320.5JM.00I		2011-01-21 01:24:55.133653	2011-02-22 22:36:07.092613	Inventory	3205-JM	Item	5.25		\N	\N	0.92000000000000004	0.40000000000000002
+708	WXL Internal Component	Vertical divider or fixed shelf, 3/4"		\N			2011-02-24 05:57:52.34226	2011-02-24 05:59:23.1443	Buyout		FinishedPanel	\N		\N	\N	\N	\N
 463	CTOP Corner - Futura (3 Week Lead Time) | Laminate 7921 Tuscan Walnut	CTOP Corner - Futura (3 Week Lead Time) | Laminate 7921 Tuscan Walnut		\N	000.402.003.316.00P	LAM-CCTOP-FU	2011-01-01 18:54:26.757975	2011-01-30 16:39:51.912634	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
 467	CTOP Corner - Futura (3 Week Lead Time) | Laminate D92 Dove Grey	CTOP Corner - Futura (3 Week Lead Time) | Laminate D92 Dove Grey		\N	000.402.003.320.00P	LAM-CCTOP-FU	2011-01-01 18:54:26.977066	2011-01-30 16:40:46.038628	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
 450	CTOP Corner - Futura | Laminate 4552 Ebony Star	CTOP Corner - Futura | Laminate 4552 Ebony Star		\N	000.402.003.303.00P	LAM-CCTOP-FU	2011-01-01 18:54:26.073479	2011-01-30 16:41:00.044608	Purchased		Item	210.46		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3541,6 +3555,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 648	ZH SlatWall 12 x 96 (4/box) |White	SlatWall 12 x 96 (4/box) |White	HSW1008	\N	000.990.320.10W.00I		2011-01-21 01:24:55.02821	2011-02-22 22:30:49.992686	Inventory	3201-W	Item	18.16		\N	0.15	0.92000000000000004	0.40000000000000002
 664	ZH SlatWall Drywall Screws (1000/box) | Black	SlatWall Drywall Screws (1000/box) | Black	HSWS400B	\N	000.990.320.40S.00I		2011-01-21 01:24:55.107741	2011-02-22 22:34:19.673517	Inventory	3204-S	Item	0.03		\N	\N	0.92000000000000004	0.40000000000000002
 671	ZH SlatWall U Edge Molding (4/box) | Gray	SlatWall U Edge Molding (4/box) | Gray	HST3008E	\N	000.990.320.50U.00I		2011-01-21 01:24:55.143909	2011-02-22 22:39:31.679612	Inventory	3205-U	Item	3.50		\N	\N	0.92000000000000004	0.40000000000000002
+705	WXL Side Panel			\N			2011-02-24 05:13:10.13227	2011-02-24 05:41:01.524617	Manufactured		FinishedPanel	\N		\N	\N	\N	\N
+706	WXL Deck	Deck		\N			2011-02-24 05:47:03.869535	2011-02-24 05:47:03.869535	Manufactured		FinishedPanel	\N		\N	\N	\N	\N
+707	WXL Door			\N			2011-02-24 05:48:25.530857	2011-02-24 05:48:25.530857	Manufactured		FinishedPanel	\N		\N	\N	\N	\N
 \.
 
 
