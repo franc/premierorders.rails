@@ -63,6 +63,7 @@ class Item < ActiveRecord::Base
       ClosetPartition,
       ClosetShelf,
       BackingPanel,
+      FinishedPanel,
       ScaledItem
     ]
   end

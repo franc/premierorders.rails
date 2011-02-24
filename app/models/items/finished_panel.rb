@@ -13,8 +13,20 @@ class FinishedPanel < Item
     end
   end
 
+  def self.banded_edges
+    {:left => L, :right => L, :top => W, :bottom => W}
+  end
+
   def material_descriptor
     Panel::MATERIAL
+  end
+
+  def l_expr
+    L
+  end
+
+  def w_expr
+    W
   end
 
   def cost_expr(units, color, contexts)
@@ -24,7 +36,7 @@ class FinishedPanel < Item
       edgeband_cost_expr(self.class.banded_edges, units, color)
     end
 
-    material_cost = material(Panel::MATERIAL, color).cost_expr(self.class.l_expr, self.class.w_expr, units)
+    material_cost = material(Panel::MATERIAL, color).cost_expr(l_expr, w_expr, units)
     subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
     item_total = apply_margin(subtotal)
     

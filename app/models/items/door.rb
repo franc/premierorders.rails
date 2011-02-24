@@ -10,11 +10,11 @@ class Door < FinishedPanel
     {:left => H, :right => H, :top => W, :bottom => W}
   end
 
-  def self.l_expr
+  def l_expr
     H
   end
 
-  def self.w_expr
+  def w_expr
     W
   end
 end
