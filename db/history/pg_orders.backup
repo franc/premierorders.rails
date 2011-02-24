@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1348, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1350, true);
 
 
 --
@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 6820, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 6885, true);
 
 
 --
@@ -540,7 +540,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 4473, true);
+SELECT pg_catalog.setval('job_items_id_seq', 4514, true);
 
 
 --
@@ -586,7 +586,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 236, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 240, true);
 
 
 --
@@ -692,7 +692,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 255, true);
+SELECT pg_catalog.setval('jobs_id_seq', 259, true);
 
 
 --
@@ -2916,7 +2916,7 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1345	707	9	left
 1346	708	6	\N
 1347	708	9	right
-1348	106	6	\N
+1349	106	57	\N
 \.
 
 
@@ -3134,7 +3134,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 32	Decor Crown Molding - 423 | Chocolate Apple	Decor Crown Molding - 423 | Chocolate Apple		\N	000.301.000.007.00P		2011-01-01 18:53:39.528872	2011-02-24 14:49:22.281636	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 33	Decor Crown Molding - 424 | Chocolate Apple	Decor Crown Molding - 424 | Chocolate Apple		\N	000.302.000.007.00P		2011-01-01 18:53:39.541751	2011-02-24 14:50:23.620043	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 16	Decor Crown Molding - 423 | White	Decor Crown Molding - 423 | White		\N	000.301.000.001.00P		2011-01-01 18:53:39.090582	2011-02-24 14:49:46.164493	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
-106	Molding nailer	Molding nailer		\N	000.999.010.000.00M	CP-MN	2011-01-01 18:53:53.615499	2011-02-18 22:36:00.221846	Manufactured	Misc_Wood	BackingPanel	\N		\N	0.03	0.92000000000000004	0.40000000000000002
+106	Molding nailer	Molding nailer		\N	000.999.010.000.00M	CP-MN	2011-01-01 18:53:53.615499	2011-02-18 22:36:00.221846	Manufactured	Misc_Wood	Panel	\N		\N	0.03	0.92000000000000004	0.40000000000000002
 53	ZH Shoe Fence (18) | Matte Nickel	Shoe Fence, steel, matte nickel, 17"	547.51.602	\N	000.547.051.602.00P		2011-01-01 18:53:51.103007	2011-02-18 23:05:08.529428	Purchased	30068	Item	2.58		\N	0.07	0.92000000000000004	0.40000000000000002
 56	ZH Shoe Fence (18) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 17"	547.51.102	\N	000.547.051.102.00P		2011-01-01 18:53:51.236121	2011-02-18 23:05:17.385404	Purchased	30065	Item	2.51		\N	0.07	0.92000000000000004	0.40000000000000002
 58	ZH Shoe Fence (30) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 29"	547.51.104	\N	000.547.051.104.00P		2011-01-01 18:53:51.297559	2011-02-18 23:06:14.888012	Purchased	30067	Item	3.69		\N	0.07	0.92000000000000004	0.40000000000000002
@@ -3466,7 +3466,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 625	ZZ NX Tall Cabinet Shell DON'T DELETE			\N			2011-01-12 21:58:05.526486	2011-01-12 21:58:05.526486	Manufactured		Shell	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 552	ZZ HO Tall Cabinet Shell w/VD DON'T DELETE	building block: home office tall cabinet shell with 1 vertical divider		\N			2011-01-02 00:28:22.162265	2011-01-13 15:10:53.010798	Manufactured		Shell	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 385	CTOP Corner - Classic (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP Corner - Classic (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.402.000.301.00P	LAM-CCTOP-CL	2011-01-01 18:54:22.245911	2011-01-30 16:29:38.586614	Purchased		Item	185.85		\N	\N	0.92000000000000004	0.40000000000000002
-636	CTOP - Butcher Block	CTOP - Butcher Block		\N	000.401.004.400.00P	NX-CTOP-BB	2011-01-21 01:24:54.683772	2011-02-02 06:00:23.600531	Purchased	Worksurfaces	ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002
 289	CTOP - Classic (3 Week Lead Time) | Laminate 10776 Kingstone Maple	CTOP - Classic (3 Week Lead Time) | Laminate 10776 Kingstone Maple		\N	000.401.000.319.00P	LAM-CTOP-CL	2011-01-01 18:54:14.484486	2011-01-30 16:15:54.777151	Purchased		Item	185.85		\N	\N	0.92000000000000004	0.40000000000000002
 271	CTOP - Classic (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP - Classic (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.401.000.301.00P	LAM-CTOP-CL	2011-01-01 18:54:11.811055	2011-01-30 16:16:14.430145	Purchased		Item	185.85		\N	\N	0.92000000000000004	0.40000000000000002
 278	CTOP - Classic (3 Week Lead Time) | Laminate 4794 Windswept Bronze	CTOP - Classic (3 Week Lead Time) | Laminate 4794 Windswept Bronze		\N	000.401.000.308.00P	LAM-CTOP-CL	2011-01-01 18:54:12.456636	2011-01-30 16:19:17.982534	Purchased		Item	240.62		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3491,6 +3490,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 634	CL Island Top (3/4 inch)	Closet Island Top 3/4 inch thick		\N	000.960.200.x.00M	MEL-CTOP-19	2011-01-15 18:44:56.729008	2011-02-22 19:11:41.001297	Manufactured	Closets	Countertop	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 530	Decor Door - AMS329 | Cut for Glass	Decor Door - AMS329 | Cut for Glass 		\N	000.124.000.x.00B	DS-DR-CFG	2011-01-01 18:54:28.448628	2011-02-24 14:55:22.591023	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 524	Decor Drawer Front - DR8	Decor Drawer Front - DR8 		\N	000.203.000.x.00B	DS-DF	2011-01-01 18:54:28.15596	2011-02-24 14:58:14.086884	Buyout	Buyout_Door	PremiumDrawerfront	\N		\N	0.05	0.92000000000000004	0.40000000000000002
+636	CTOP - Butcher Block	CTOP - Butcher Block		\N	000.401.004.400.00P	NX-CTOP-BB	2011-01-21 01:24:54.683772	2011-02-24 22:23:10.937293	Purchased	890003	ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002
 457	CTOP Corner - Futura (3 Week Lead Time) | Laminate 4882 Oiled Soapstone	CTOP Corner - Futura (3 Week Lead Time) | Laminate 4882 Oiled Soapstone		\N	000.402.003.310.00P	LAM-CCTOP-FU	2011-01-01 18:54:26.553285	2011-01-30 16:38:30.534303	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
 459	CTOP Corner - Futura (3 Week Lead Time) | Laminate 4884 Flame Soapstone	CTOP Corner - Futura (3 Week Lead Time) | Laminate 4884 Flame Soapstone		\N	000.402.003.312.00P	LAM-CCTOP-FU	2011-01-01 18:54:26.608339	2011-01-30 16:39:02.687305	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
 468	CTOP Corner - Futura (3 Week Lead Time) | Laminate D403 White Sand	CTOP Corner - Futura (3 Week Lead Time) | Laminate D403 White Sand		\N	000.402.003.321.00P	LAM-CCTOP-FU	2011-01-01 18:54:27.011921	2011-01-30 16:40:32.157177	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
@@ -5914,6 +5914,30 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 6807	4465	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:38:37.477442	2011-02-24 21:38:37.477442
 6808	4466	\N	dimensions	\N	Width,Height,Depth	{"depth":"23","linear_units":"in","height":"45.353999999999999","width":"48"}	2011-02-24 21:38:37.776149	2011-02-24 21:38:37.776149
 6809	4466	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:38:37.821018	2011-02-24 21:38:37.821018
+6821	4474	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"79.245000000000005","width":"23.875"}	2011-02-24 22:11:04.102311	2011-02-24 22:11:04.102311
+6822	4474	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.120007	2011-02-24 22:11:04.120007
+6823	4475	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"79.245000000000005","width":"17.875"}	2011-02-24 22:11:04.129757	2011-02-24 22:11:04.129757
+6824	4475	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.144269	2011-02-24 22:11:04.144269
+6825	4476	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"79.37","width":"18"}	2011-02-24 22:11:04.370833	2011-02-24 22:11:04.370833
+6826	4476	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.411049	2011-02-24 22:11:04.411049
+6827	4477	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"79.37","width":"36"}	2011-02-24 22:11:04.717295	2011-02-24 22:11:04.717295
+6828	4477	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.759586	2011-02-24 22:11:04.759586
+6829	4478	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"79.37","width":"48"}	2011-02-24 22:11:05.056868	2011-02-24 22:11:05.056868
+6830	4478	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:05.241428	2011-02-24 22:11:05.241428
+6831	4479	\N	dimensions	\N	Depth,Width,Height	{"depth":"16","linear_units":"in","height":"79.37","width":"48"}	2011-02-24 22:11:05.521248	2011-02-24 22:11:05.521248
+6832	4479	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:05.566427	2011-02-24 22:11:05.566427
+6833	4480	\N	dimensions	\N		{"linear_units":"in"}	2011-02-24 22:11:05.577019	2011-02-24 22:11:05.577019
+6845	4488	\N	dimensions	\N	Depth,Width,Height	{"depth":"21.5","linear_units":"in","height":"2.5","width":"21.5"}	2011-02-24 22:21:29.01289	2011-02-24 22:21:29.01289
+6846	4488	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:21:29.025069	2011-02-24 22:21:29.025069
+6847	4489	\N	dimensions	\N	Depth,Width,Height	{"depth":"21.5","linear_units":"in","height":"11","width":"21.5"}	2011-02-24 22:21:29.036344	2011-02-24 22:21:29.036344
+6848	4489	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:21:29.047764	2011-02-24 22:21:29.047764
+6849	4490	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"30.236000000000001","width":"48"}	2011-02-24 22:21:29.114082	2011-02-24 22:21:29.114082
+6850	4490	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:21:29.153039	2011-02-24 22:21:29.153039
+6851	4491	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"30.236000000000001","width":"24"}	2011-02-24 22:21:29.163208	2011-02-24 22:21:29.163208
+6852	4491	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:21:29.34727	2011-02-24 22:21:29.34727
+6853	4492	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"30.111000000000001","width":"23.875"}	2011-02-24 22:21:29.35808	2011-02-24 22:21:29.35808
+6854	4493	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"7.375","width":"23.875"}	2011-02-24 22:21:29.372102	2011-02-24 22:21:29.372102
+6855	4494	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"7.375","width":"23.875"}	2011-02-24 22:21:29.387127	2011-02-24 22:21:29.387127
 \.
 
 
@@ -7350,6 +7374,20 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4464	253	581	000.880.500.b12.00P	6		2011-02-24 21:31:17.749975	2011-02-24 21:31:17.749975	8.62	12	Powder Coated Drawer Front (23.875 x 7.5625) | RED	\N
 4465	254	516	000.100.000.009.00M	10		2011-02-24 21:38:37.455624	2011-02-24 21:38:37.455624	21.25	1	Door - Flat | Windswept Pewter	\N
 4466	254	258	000.302.443.009.00M	5		2011-02-24 21:38:37.769797	2011-02-24 21:38:37.769797	158.95	2	NX Over Cabinet 2 Door | Windswept Pewter	\N
+4474	256	516	000.100.000.001.00M	8		2011-02-24 22:11:04.092439	2011-02-24 22:11:04.092439	20.57	1	Door - Flat | White	\N
+4475	256	516	000.100.000.001.00M	5		2011-02-24 22:11:04.125637	2011-02-24 22:11:04.125637	16.83	2	Door - Flat | White	\N
+4476	256	257	000.402.483.001.00M	1		2011-02-24 22:11:04.366163	2011-02-24 22:11:04.366163	95.64	3	NX Tall Cabinet 1 Door | White	\N
+4477	256	256	000.402.493.001.00M	2		2011-02-24 22:11:04.712054	2011-02-24 22:11:04.712054	135.39	4	NX Tall Cabinet 2 Door | White	\N
+4478	256	256	000.402.493.001.00M	1		2011-02-24 22:11:05.052105	2011-02-24 22:11:05.052105	162.02	5	NX Tall Cabinet 2 Door | White	\N
+4479	256	256	000.402.493.001.00M	3		2011-02-24 22:11:05.516172	2011-02-24 22:11:05.516172	125.48	6	NX Tall Cabinet 2 Door | White	\N
+4480	256	3	000.117.031.632.00I	13		2011-02-24 22:11:05.572298	2011-02-24 22:11:05.572298	1.08	7	ZH Handle Nickel | 128mm	\N
+4488	258	197	000.024.001.051.00B	3		2011-02-24 22:21:29.006538	2011-02-24 22:21:29.006538	22.19	1	Drawer Box	\N
+4489	258	194	000.024.005.051.00B	2		2011-02-24 22:21:29.031187	2011-02-24 22:21:29.031187	36.76	2	Drawer Box	\N
+4490	258	262	000.102.433.001.00M	1		2011-02-24 22:21:29.109244	2011-02-24 22:21:29.109244	96.93	3	NX Base Cabinet 2 Door | White	\N
+4491	258	265	000.240.233.001.00M	1		2011-02-24 22:21:29.158832	2011-02-24 22:21:29.158832	50.97	4	NX Base Cabinet 2 Drawer (15/15) | White	\N
+4492	258	575	000.880.310.b12.00P	2		2011-02-24 22:21:29.353324	2011-02-24 22:21:29.353324	22.08	5	Powder Coated Door (23.875 x 30) | RED	\N
+4493	258	583	000.880.502.b12.00P	2		2011-02-24 22:21:29.367586	2011-02-24 22:21:29.367586	8.62	6	Powder Coated Drawer Front (23.875 x 3.71875) | RED	\N
+4494	258	581	000.880.500.b12.00P	3		2011-02-24 22:21:29.382329	2011-02-24 22:21:29.382329	8.62	7	Powder Coated Drawer Front (23.875 x 7.5625) | RED	\N
 \.
 
 
@@ -7423,6 +7461,8 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 232	251	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-24 21:18:33.100466	2011-02-24 21:18:33.100466
 234	253	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-24 21:31:15.599632	2011-02-24 21:31:15.599632
 235	254	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-24 21:38:37.313803	2011-02-24 21:38:37.313803
+237	256	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-24 22:11:04.079687	2011-02-24 22:11:04.079687
+239	258	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-24 22:21:28.860525	2011-02-24 22:21:28.860525
 \.
 
 
@@ -7431,7 +7471,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	98	2011-01-23 05:52:19.75042	2011-02-24 21:39:31.597926
+1	2011	100	2011-01-23 05:52:19.75042	2011-02-24 22:22:43.853262
 \.
 
 
@@ -7471,6 +7511,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 155	4	4	6	Reddy - Replacement Drawer Box	SO - 41	\N	2011-02-16 00:37:32.781674	2011-02-17 22:08:23.237433	Reddy - Replacement Drawer Box.xml	application/octet-stream	6907	2011-02-16 00:37:32.779089	Phoenix	Confirmed	2011-03-01	\N	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n*Replacement for previously ordered materials.  "Reddy - Kartik's Closet", was ordered pre D'Vinci 4.1 so dimensions were different also I needed specific sizing for soft close slides.\r\n\r\n**Please check previous order submitted to assure correct size is sent	2011-02-16 00:37:47	4		PremierRoute	4	2/17 left msg with Tim - is this warranty?\r\n2/17 per Tim not a warranty issue, they ruined drawer.	\N
 254	20	19	23	Green room 6	SO-98	\N	2011-02-24 21:38:37.25544	2011-02-24 21:39:31.602827	Green, Robert Parts List room 6.xml	text/xml	6258	2011-02-24 21:38:37.253336	\N	Placed	\N	\N		2011-02-24 21:39:31	19	\N	\N	19	\N	\N
 253	20	19	23	Green room 5	SO-97	\N	2011-02-24 21:31:15.295672	2011-02-24 21:45:25.632678	Green, Robert Parts List room 5.xml	text/xml	14572	2011-02-24 21:31:15.29373	\N	Placed	\N	\N		2011-02-24 21:34:13	19	\N	\N	19	\N	23
+256	9	9	13	Scarborough	SO-99	\N	2011-02-24 22:11:03.941059	2011-02-24 22:12:54.518473	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	11567	2011-02-24 22:11:03.936409	\N	Placed	\N	\N		2011-02-24 22:12:54	9	\N	\N	9	\N	\N
 196	9	32	13	Valles - Garage	SO - 60	\N	2011-02-19 05:26:43.436919	2011-02-21 18:59:37.388514	Valles, Carlos and Natalie.dvi Parts List.xml	application/xml	23079	2011-02-19 05:26:43.4338	Phoenix	Confirmed	2011-03-04	\N	** Classic cabinetry with powder coated doors with Premier Access. **\r\n\r\nI need a confirmat bit (the lower priced version).\r\n\r\nI also need pricing on the adjustable feet.\r\n	2011-02-19 05:30:42	32		PremierRoute	9	Look in the folder for the list of classic parts.	13
 182	31	63	39	Birmingham Home Show	SO - 53	\N	2011-02-18 16:09:56.161773	2011-02-19 04:18:07.999359	2011 Bham Home Show Parts List.xml	application/octet-stream	38291	2011-02-18 16:09:56.157867	Phoenix	Confirmed	2011-03-04	\N	Need delivery by March 7 for home show that weekend. Can you drop on the way to Atlanta.\r\n\r\nNeed the following hardware:\r\n\r\nhutch base corner bracket\r\nmini fix cam\r\nhutch angle bracket\r\nmini fix post\r\nscrew corner brace\r\nscrew angle brackets	2011-02-18 16:21:29	63		PremierRoute	63		\N
 193	4	32	6	Driftmier - Garage	SO - 57	\N	2011-02-19 01:48:31.419348	2011-02-19 04:33:26.521999	Driftmier 2.dvi Parts List.xml	application/xml	23538	2011-02-19 01:48:31.417269	Phoenix	Confirmed	2011-03-04	\N	** Custom Order **	2011-02-19 02:15:40	32		PremierRoute	29		\N
@@ -7501,6 +7542,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 245	9	9	13	Yorn	SO-91	\N	2011-02-24 18:40:28.218114	2011-02-24 20:45:11.155628	Yorn, Ken Parts List.xls	application/vnd.ms-excel	10109	2011-02-24 18:40:28.21606	Phoenix	Confirmed	2011-03-10	\N		2011-02-24 18:46:41	9		PremierRoute	9		13
 217	33	101	41	Noori, Geeta	SO-76	\N	2011-02-23 19:11:48.593726	2011-02-24 19:23:44.03674	Noori, Geeta.dvi Parts List.xml	text/xml	39039	2011-02-23 19:11:48.589497	Phoenix	Confirmed	2011-03-10	\N		2011-02-23 19:12:45	101		PremierRoute	101		41
 218	28	103	36	Battle	SO-77	\N	2011-02-23 19:53:34.343507	2011-02-24 19:28:54.151568	Battle Parts List.xls	application/vnd.ms-excel	15274	2011-02-23 19:53:34.339902	Phoenix	Confirmed	2011-03-10	\N		2011-02-23 19:54:49	103		PremierRoute	103		36
+258	20	19	23	Green Room 7	SO-100	\N	2011-02-24 22:21:28.758247	2011-02-24 22:22:43.860419	Green, Robert Parts List room 7.xml	text/xml	10326	2011-02-24 22:21:28.755965	\N	Placed	\N	\N	Please check the drawer bank on this job.  I need a 5 drawer bank, but the drawers and drawer fronts don't match the description.	2011-02-24 22:22:43	19	\N	\N	19	\N	\N
 232	20	19	23	Bramco Builders	SO-84	\N	2011-02-23 23:44:48.455371	2011-02-24 20:28:52.420856	Bramco Builders Newport Parts List.xml	text/xml	22287	2011-02-23 23:44:48.45203	Phoenix	Confirmed	2011-03-10	\N		2011-02-23 23:47:23	19		PremierRoute	19		23
 244	5	99	8	Rubino Garage	SO-90	\N	2011-02-24 18:18:50.747896	2011-02-24 20:43:09.974157	Rubino Garage Parts List.xml	application/octet-stream	22295	2011-02-24 18:18:50.745878	Phoenix	Confirmed	2011-03-10	\N	Order Slat wall items as indicated in the notes column.	2011-02-24 18:20:18	99		PremierRoute	99		8
 246	33	101	41	Bumb, George	SO-92	\N	2011-02-24 20:18:54.618866	2011-02-24 20:52:07.964805	Bumb, George.dvi Parts List.xml	text/xml	23035	2011-02-24 20:18:54.47945	Phoenix	Confirmed	2011-03-10	\N		2011-02-24 20:19:43	101		PremierRoute	101		41
@@ -8495,10 +8537,10 @@ COPY user_roles (user_id, role_id) FROM stdin;
 COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypted_password, password_salt, reset_password_token, remember_token, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at) FROM stdin;
 9	\N	John	Scheschuk	(972) 740-9944		(972)767-4301	jkscheschuk@tailoredliving.com	$2a$10$.lKODjWLGeUJECuIqHoIcOrOkKsm0Ru9490fpfCiDjAbWydYHvgQ.	$2a$10$.lKODjWLGeUJECuIqHoIcO	\N	\N	\N	3	2011-02-24 18:40:00.947792	2011-02-24 17:42:26.863684	216.215.73.209	216.215.73.209	2011-01-01 18:53:33.043335	2011-02-24 18:40:00.948783
 28	Ms.	Tiffany	Travis	(703) 707-0009		(703) 889-5133	ttravis@closettrailors.com	$2a$10$iCfva.Tv4seNOft6LTZmMu4jR5zm5bbhIsUfmwj8vqUR6.S4lgs16	$2a$10$iCfva.Tv4seNOft6LTZmMu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.671535	2011-01-01 18:53:35.691498
-19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	rZSdTecN1yIE71gx4PVB	2011-02-23 23:20:27.637136	7	2011-02-24 19:50:58.993386	2011-02-23 23:20:27.641465	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-02-24 19:50:58.993999
 29	Ms.	Mary Beth	Lorenz	(608) 318-1667		(608) 318-0665	ctmadison@closettailors.com	$2a$10$OHOoEpiikKAW3Jlhm.3FQeRak.JlPGt8Cx/eOR0GcYB1B46v9SBDu	$2a$10$OHOoEpiikKAW3Jlhm.3FQe	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.854706	2011-01-01 18:53:35.887619
 30	Ms.	Estela	Estrada	(714) 637-2100		(714) 998-8901	estela@homefranchiseeconcepts.com	$2a$10$cFthe26Eeb2RAC4Lj2MJ8edHzNF0SnQ5cd6EmJWJLcT57he/MLCU.	$2a$10$cFthe26Eeb2RAC4Lj2MJ8e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:36.124513	2011-01-01 18:53:36.130825
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
+19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	3x_FByrAeszpEIJc3njw	2011-02-24 22:25:38.074673	8	2011-02-24 22:25:38.079098	2011-02-24 19:50:58.993386	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-02-24 22:25:38.079867
 8	\N	Customer Service	PG	480-483-3030		480-483-7895	info@premiergarage.com	$2a$10$B8ij4mhstLCYA3L69NAF5OgSwt2Gl2.hjC333B9JTG9VUHWn0E8qK	$2a$10$B8ij4mhstLCYA3L69NAF5O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.919109	2011-01-27 00:32:32.680546
 31	Mrs.	Jodi	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$jr.WGscm43bzYLCqH41RruYwank5yL6wuAcliLkD9IznX8jtk.kry	$2a$10$jr.WGscm43bzYLCqH41Rru	\N	\N	\N	2	2011-01-27 18:37:39.160114	2011-01-27 18:24:05.937583	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.240116	2011-01-30 21:09:00.185987
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
@@ -8525,6 +8567,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 23	Mr.	Ron	Blaski	(805) 462-8133	(805) 610-3358	(805) 466-4642	rblaski@tailoredliving.com	$2a$10$xy7AywGy7mafASpjkxrKKOGGp/RlPRYWPiQKYFyvxhOvHcgxy5s46	$2a$10$xy7AywGy7mafASpjkxrKKO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.048918	2011-01-01 18:53:38.43325
 48	Mr.	Travis	Leduc	(403) 315-0323		(403) 257-5012	ctsa@tailoredlving.com	$2a$10$yCpq6r/scwz8JUz3XBhO.e55OnfAYV.g/bnmAKv9qQoPjMyN6Rzga	$2a$10$yCpq6r/scwz8JUz3XBhO.e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.537552	2011-01-01 18:53:38.544167
 27	Mr.	William	Welborn	(972) 247-3030	(214) 251-9736		dallas@premiergarage.com	$2a$10$DFnI.5P9MkRoJUsNExSD/uP1FqMTc3pXe3yFv2u.tjJmK2d/SwRv.	$2a$10$DFnI.5P9MkRoJUsNExSD/u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.546803	2011-01-01 18:53:38.611661
+42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$6D5IPHbt1ZDvqKYPR1ubNOv/VvEOn5J15JtKhtGsTPynH8JBrSOX2	$2a$10$6D5IPHbt1ZDvqKYPR1ubNO	oIXcV0yZ7p6DLczNcZzj	\N	\N	53	2011-02-24 22:34:11.61207	2011-02-24 12:51:01.643935	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-02-24 22:34:11.612898
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	10	2011-02-02 00:58:16.647804	2011-01-26 14:00:00.768041	98.227.34.3	69.174.58.44	2011-01-23 16:28:32.887677	2011-02-02 00:58:16.648734
 54	\N	Test	User	222-222-2222			test@hylotech.com	$2a$10$U7zCzKW787M7GA0wmwK7Fenitw2Yqx3KunqQ6x1rgISlm.HQZN86u	$2a$10$U7zCzKW787M7GA0wmwK7Fe	DBGnjCTJvWF9sMHP6Ogj	\N	\N	2	2011-02-05 18:13:38.576164	2011-01-25 16:01:52.288137	98.245.88.239	98.245.88.239	2011-01-25 16:00:52.065032	2011-02-05 18:13:47.247457
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:27:04.739565	2011-02-11 15:27:04.739565
@@ -8537,7 +8580,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 71	\N	Kenny	Keeling	(859)881-0760			kkeeling@tailoredliving.com	$2a$10$kSldxQKtYoNh6kADUrfiXOuPiR.U/6QSOmIH1gSYahFxYVwbDqeHK	$2a$10$kSldxQKtYoNh6kADUrfiXO	\N	\N	\N	1	2011-02-17 16:47:46.235589	2011-02-17 16:47:46.235589	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-02-17 16:47:46.236232
 66	\N	Joseph	Chang	(951)653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-02-11 15:33:26.75444
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$VtCo.uf5VG/3R3.e3bbhxuwnn6ZkFRURUBD.yEWGF8jL5JcfRadxq	$2a$10$VtCo.uf5VG/3R3.e3bbhxu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:36:07.879298	2011-02-11 15:36:07.879298
-42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$6D5IPHbt1ZDvqKYPR1ubNOv/VvEOn5J15JtKhtGsTPynH8JBrSOX2	$2a$10$6D5IPHbt1ZDvqKYPR1ubNO	oIXcV0yZ7p6DLczNcZzj	\N	\N	52	2011-02-24 12:51:01.643935	2011-02-24 04:36:31.093821	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-02-24 12:51:01.644817
 35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	86	2011-02-24 03:10:32.34013	2011-02-20 17:02:52.94493	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-02-24 03:10:32.341048
 64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$jHR4hGGLk8bnj.4HUJvhW.w.gs9ifSRzHnGRCW488uTvU6Rz7Afqy	$2a$10$jHR4hGGLk8bnj.4HUJvhW.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:09:59.375718	2011-02-11 15:09:59.375718
 68	\N	Dave	Williamson	(813)909-2957		(813)909-2967	dwilliamson@tailoredliving.com	$2a$10$0lA6JZrGpaBBGTWOr1Jju./bZUOxpBhUopLErh4XeLKYpC2Yf2Lhm	$2a$10$0lA6JZrGpaBBGTWOr1Jju.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:40:12.31394	2011-02-11 15:40:12.31394
