@@ -224,7 +224,9 @@ class Job < ActiveRecord::Base
 
 
   def cutrite_job_data
-    ['', name, '', '', '',] + cutrite_address_data
+    (['', name, '', '', '',] + cutrite_address_data).map do |v|
+      v.to_s.gsub(/[,'"]/,'')
+    end
   end
 
   def cutrite_address_data
@@ -314,7 +316,9 @@ class Job < ActiveRecord::Base
       eb_material.map{|m| m.cutrite_code}.orSome('')
     ]
 
-    basic_attr_values + custom_attr_values + [job_item.job.job_number, job_item.job.name] + cutrite_address_data
+    (basic_attr_values + custom_attr_values + [job_item.job.job_number, job_item.job.name] + cutrite_address_data).map do |v|
+      v.to_s.gsub(/[,'"]/,'')
+    end
   end
 end
 
