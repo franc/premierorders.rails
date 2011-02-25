@@ -22,8 +22,8 @@ PgRails::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.active_record.logger = Logger.new('log/activerecord.log')
-  config.active_record.logger.level = Logger::INFO
+  #config.active_record.logger = Logger.new('log/activerecord.log')
+  #config.active_record.logger.level = Logger::INFO
 
   config.action_mailer.perform_deliveries = true 
   config.action_mailer.raise_delivery_errors = true

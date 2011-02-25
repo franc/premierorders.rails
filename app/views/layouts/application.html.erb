@@ -10,14 +10,14 @@
   <%= yield(:head) %>
 </head>
 <body>
-  <div id="auth_nav">
+  <nav id="auth_nav">
     <% if user_signed_in? %>
       Signed in as <%= link_to current_user.email, user_path(current_user) -%>. <%= link_to t(:sign_out), destroy_user_session_path %>
     <% else %>
       <%= link_to t(:sign_in), new_user_session_path %>
     <% end %>
-  </div>
-  <div id="nav">
+  </nav>
+  <nav id="nav">
     <ul>
       <% if user_signed_in? %>
         <li><%= link_to Job.model_name.human.pluralize, jobs_path %></li>
@@ -34,13 +34,17 @@
         <% if can? :manage, User %>
           <li><%= link_to User.model_name.human.pluralize, users_path %></li>
         <% end %>
+
+        <% if can? :manage, Job %>
+          <li><%= link_to ProductionBatch.model_name.human.pluralize.titlecase, production_batches_path %></li>
+        <% end %>
       <% end %>
     </ul>
-  </div>
+  </nav>
 
-  <div id="local_nav">
+  <nav id="local_nav">
     <%= yield(:local_nav) %>
-  </div>
+  </nav>
   
   <div id="content">
     <% flash.each do |name, msg| %>

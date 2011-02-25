@@ -1,0 +1,35 @@
+<h1>Listing production_batches</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Batch no</th>
+    <th>Mfg plant</th>
+    <th>Description</th>
+    <th>Closing date</th>
+    <th>Actions</th>
+  </tr>
+
+<% @production_batches.each do |production_batch| %>
+  <tr>
+    <td><%= production_batch.name %></td>
+    <td><%= production_batch.status.try(:titlecase) %></td>
+    <td><%= production_batch.batch_no %></td>
+    <td><%= production_batch.mfg_plant %></td>
+    <td><%= production_batch.description %></td>
+    <td><%= production_batch.closing_date %></td>
+    <td>
+      <%= link_to 'Edit', edit_production_batch_path(production_batch) %> |
+      <%= link_to 'Cutrite', cutrite_production_batch_path(production_batch) %> |
+      <%= link_to 'Download', download_production_batch_path(production_batch) %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= content_for :local_nav do %>
+  <%= link_to 'New Production batch', new_production_batch_path %>
+<% end %>

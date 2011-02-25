@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @production_batch.name %>
+</p>
+
+<p>
+  <b>Batch no:</b>
+  <%= @production_batch.batch_no %>
+</p>
+
+<p>
+  <b>Mfg plant:</b>
+  <%= @production_batch.mfg_plant %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @production_batch.description %>
+</p>
+
+<p>
+  <b>Closing date:</b>
+  <%= @production_batch.closing_date %>
+</p>
+
+
+<%= content_for :local_nav do %>
+  <%= link_to 'Edit', edit_production_batch_path(@production_batch) %> |
+  <%= link_to 'Back', production_batches_path %>
+<% end %>

@@ -3,6 +3,7 @@ require 'job.rb'
 
 class JobsController < ApplicationController
   load_and_authorize_resource :except => [:create, :index]
+  helper :production_batches
 
   # GET /jobs
   # GET /jobs.xml
@@ -81,21 +82,17 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
-    if request.xhr?
-      if @job.update_attributes(params[:job])
-        render :json => {:updated => 'success'}
+    @production_batch = ProductionBatch.find(params[:job][:production_batch_id])
+    respond_to do |format|
+      logger.info("Found production batch #{@production_batch.inspect}")
+      if @job.update_production_batch(@production_batch) || @job.update_attributes(params[:job])
+        format.js   { render :json => {:updated => 'success'} }
+        format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+        format.xml  { head :ok }
       else
-        render :json => {:updated => 'error'}
-      end
-    else
-      respond_to do |format|
-        if @job.update_attributes(params[:job])
-          format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
-          format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
-        end
+        format.js   { render :json => {:updated => 'error'} }
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -117,7 +114,7 @@ class JobsController < ApplicationController
   def cutrite
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @cutrite_data }
+      format.xml  { render :xml => @job.to_cutrite_data }
     end
   end
 

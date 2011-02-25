@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110221173135) do
+ActiveRecord::Schema.define(:version => 20110225185236) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -124,17 +124,18 @@ ActiveRecord::Schema.define(:version => 20110221173135) do
   end
 
   create_table "job_items", :force => true do |t|
-    t.integer  "job_id",                                       :null => false
+    t.integer  "job_id",                                            :null => false
     t.integer  "item_id"
     t.string   "ingest_id"
     t.float    "quantity"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "unit_price",     :precision => 8, :scale => 2
+    t.decimal  "unit_price",          :precision => 8, :scale => 2
     t.integer  "tracking_id"
     t.string   "ingest_desc"
-    t.decimal  "override_price", :precision => 8, :scale => 2
+    t.decimal  "override_price",      :precision => 8, :scale => 2
+    t.integer  "production_batch_id"
   end
 
   create_table "job_properties", :force => true do |t|
@@ -179,6 +180,17 @@ ActiveRecord::Schema.define(:version => 20110221173135) do
     t.integer  "primary_contact_id"
     t.text     "notes"
     t.integer  "billing_address_id"
+  end
+
+  create_table "production_batches", :force => true do |t|
+    t.string   "name"
+    t.string   "batch_no"
+    t.string   "mfg_plant"
+    t.string   "status"
+    t.text     "description"
+    t.date     "closing_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "properties", :force => true do |t|

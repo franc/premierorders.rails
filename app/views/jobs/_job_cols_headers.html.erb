@@ -5,9 +5,8 @@
     <th>Ship Date</th>
     <th>Status</th>
     <th>Ship Via</th>
+    <% if can? :manage, Job %><th>Production Batch</th><% end %>
     <th>Special Instructions</th>
-    <% if can? :manage, Job %>
-      <th>Credit Status</th>
-    <% end %>
+    <% if can? :manage, Job %><th>Credit Status</th><% end %>
     <th>Actions</th>
 

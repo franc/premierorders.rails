@@ -112,6 +112,10 @@ class Some
     @value
   end
 
+  def forall(&f)
+    f.call(@value)
+  end
+
   def to_s
     @value.to_s
   end
@@ -140,6 +144,10 @@ class None
 
   def orElseLazy(&f)
     f.call
+  end
+
+  def forall(&f)
+    true
   end
 
   def inspect

@@ -7,6 +7,7 @@ class JobItem < ActiveRecord::Base
 
 	belongs_to :job
   belongs_to :item
+  belongs_to :production_batch
 	has_many   :job_item_properties, :dependent => :destroy, :extend => Properties::Association
 
   def dimensions_property 

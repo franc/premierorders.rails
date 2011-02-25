@@ -1,4 +1,11 @@
 PgRails::Application.routes.draw do
+  resources :production_batches do
+    member do
+      get 'cutrite'
+      get 'download'
+    end
+  end
+ 
   resources :job_items
 
   resources :franchisee_addresses

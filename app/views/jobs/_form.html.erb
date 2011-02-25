@@ -16,7 +16,7 @@
       <dd><%= f.text_field :name %></dd>
       <% if can? :manage, @job %>
         <dt><%= f.label :mfg_plant %></dt>
-        <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
+        <dd><%= f.select(:mfg_plant, options_for_select(Job::MFG_PLANT_OPTIONS.map{|v| [v,v]}, @job.mfg_plant) -%></dd>
         <dt><%= f.label :status %></dt>
         <dd><%= f.select :status, options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, @job.status) -%></dd>
         <dt><%= f.label :due_date %></dt>
