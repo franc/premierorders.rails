@@ -194,8 +194,8 @@ class Job < ActiveRecord::Base
   end
 
   def to_cutrite_data
-    job_lines  = [cutrite_job_header, cutrite_job_data]
-    item_lines = [cutrite_items_header] + cutrite_items_data
+    job_lines  = [CUTRITE_JOB_HEADER, cutrite_job_data]
+    item_lines = [CUTRITE_ITEMS_HEADER] + cutrite_items_data
 
     (job_lines + item_lines)
   end
@@ -204,41 +204,37 @@ class Job < ActiveRecord::Base
     to_cutrite_data.map{|l| CSV.generate_line(l)}.join("\n")
   end
 
-  def cutrite_job_header
-    [
-      '',
-      'Job Name',
-      '',
-      '',
-      '',
-      'Account Name',
-      'Shipping Address',
-      'Shipping City Shipping State Shipping Postal Code',
-      'Phone',
-      'Fax',
-      'MFG Plant'
-    ]
-  end
+  CUTRITE_ADDRESS_HEADER = [
+    'Account Name',
+    'Shipping Address',
+    'Shipping City State Postal Code',
+    'Phone',
+    'Fax',
+    'MFG Plant'
+  ]
+
+  CUTRITE_JOB_HEADER = ['', 'Job Name', '', '', ''] + CUTRITE_ADDRESS_HEADER
+
+  CUTRITE_ITEMS_HEADER = [
+    'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID', 'Description',
+    'Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2',
+    'Door Material', 'Door Edge', 
+    'SO Number'
+  ] + CUTRITE_ADDRESS_HEADER
+
 
   def cutrite_job_data
+    ['', name, '', '', '',] + cutrite_address_data
+  end
+
+  def cutrite_address_data
     [
-      '',
-      name,
-      '', '', '',
       franchisee.franchise_name,
       ship_to.map{|addr| "#{addr.address1} #{addr.address2}"}.orSome(''),
       ship_to.map{|addr| "#{addr.city}, #{addr.state} #{addr.postal_code}"}.orSome(''),
       franchisee.phone,
       franchisee.fax,
       mfg_plant
-    ]
-  end
-
-  def cutrite_items_header
-    [
-      'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID', 'Description',
-      'Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2',
-      'Door Material', 'Door Edge', 'SO Number'
     ]
   end
 
@@ -318,7 +314,7 @@ class Job < ActiveRecord::Base
       eb_material.map{|m| m.cutrite_code}.orSome('')
     ]
 
-    basic_attr_values + custom_attr_values + [job_item.job.job_number]
+    basic_attr_values + custom_attr_values + [job_item.job.job_number] + cutrite_address_data
   end
 end
 
