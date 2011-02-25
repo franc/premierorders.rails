@@ -219,7 +219,7 @@ class Job < ActiveRecord::Base
     'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID', 'Description',
     'Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2',
     'Door Material', 'Door Edge', 
-    'SO Number'
+    'SO Number', 'Job Name'
   ] + CUTRITE_ADDRESS_HEADER
 
 
@@ -314,7 +314,7 @@ class Job < ActiveRecord::Base
       eb_material.map{|m| m.cutrite_code}.orSome('')
     ]
 
-    basic_attr_values + custom_attr_values + [job_item.job.job_number] + cutrite_address_data
+    basic_attr_values + custom_attr_values + [job_item.job.job_number, job_item.job.name] + cutrite_address_data
   end
 end
 
