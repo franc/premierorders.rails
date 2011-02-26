@@ -54,7 +54,7 @@ module Cutrite
       eb_material.map{|m| m.cutrite_code}.orSome('')
     ]
 
-    (basic_attr_values + custom_attr_values + [job_item.job.job_number, job_item.job.name] + job_item.job.cutrite_address_data).map do |v|
+    (basic_attr_values + custom_attr_values + ["#{job_item.job.job_number}/#{job_item.tracking_id}", job_item.job.name] + job_item.job.cutrite_address_data).map do |v|
       v.to_s.gsub(/[,'"]/,'')
     end
   end
