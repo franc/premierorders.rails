@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 7335, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 7341, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 4784, true);
+SELECT pg_catalog.setval('job_items_id_seq', 4787, true);
 
 
 --
@@ -587,7 +587,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 253, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 254, true);
 
 
 --
@@ -693,7 +693,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 272, true);
+SELECT pg_catalog.setval('jobs_id_seq', 273, true);
 
 
 --
@@ -4575,6 +4575,12 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 4454	3011	\N	dimensions	\N	Depth,Height,Width	{"height":"7","width":"23","depth":"19.75","linear_units":"in"}	2011-02-17 18:29:52.062537	2011-02-17 18:29:52.062537
 4455	3011	\N	color	\N	Color	{"color":"White"}	2011-02-17 18:29:52.072486	2011-02-17 18:29:52.072486
 4456	3012	\N	dimensions	\N	Depth,Height,Width	{"height":"4.5","width":"23","depth":"19.75","linear_units":"in"}	2011-02-17 18:29:52.081554	2011-02-17 18:29:52.081554
+7336	4785	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"42","linear_units":"in"}	2011-02-26 20:07:39.463224	2011-02-26 20:07:39.463224
+7337	4785	\N	color	\N	Color	{"color":"Antique White"}	2011-02-26 20:07:39.479228	2011-02-26 20:07:39.479228
+7338	4786	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"42","linear_units":"in"}	2011-02-26 20:07:39.489568	2011-02-26 20:07:39.489568
+7339	4786	\N	color	\N	Color	{"color":"Antique White"}	2011-02-26 20:07:39.501974	2011-02-26 20:07:39.501974
+7340	4787	\N	dimensions	\N	Height,Depth	{"depth":"14","height":"80.5","linear_units":"in"}	2011-02-26 20:07:39.524252	2011-02-26 20:07:39.524252
+7341	4787	\N	color	\N	Color	{"color":"Antique White"}	2011-02-26 20:07:39.649449	2011-02-26 20:07:39.649449
 4071	2786	\N	dimensions	\N	Height,Width	{"height":"29.850999999999999","width":"23.875","linear_units":"in"}	2011-02-17 03:01:29.610923	2011-02-17 03:01:29.610923
 4072	2786	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-17 03:01:29.627698	2011-02-17 03:01:29.627698
 4073	2787	\N	dimensions	\N	Height,Width	{"height":"75.465999999999994","width":"23.875","linear_units":"in"}	2011-02-17 03:01:29.640643	2011-02-17 03:01:29.640643
@@ -7768,6 +7774,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4585	263	5	000.117.031.330.00I	8		2011-02-25 15:21:15.135512	2011-02-25 15:21:15.135512	2.44	10	ZH Handle Black | 128mm	\N	\N
 4783	272	201	000.100.300.000.00I	40		2011-02-26 18:14:35.145892	2011-02-26 18:14:35.145892	0.04	47	ZH Screw (Euro)	\N	\N
 4784	272	12	000.102.100.000.00I	78		2011-02-26 18:14:35.156751	2011-02-26 18:14:35.156751	0.06	48	ZH Shelf Pin (Spoon)	\N	\N
+4785	273	227	000.935.041.002.00M	4		2011-02-26 20:07:39.452856	2011-02-26 20:07:39.452856	62.98	1	CL Adj Safety Shelf | Antique White	\N	\N
+4786	273	44	000.930.041.002.00M	1		2011-02-26 20:07:39.485239	2011-02-26 20:07:39.485239	35.99	2	CL Cam Shelf | Antique White	\N	\N
 4624	268	316	000.401.002.304.00P	1		2011-02-25 16:26:13.761106	2011-02-26 04:18:19.578739	202.67	3	CTOP - Tempo (3 Week Lead Time) | Laminate 4781 Sunstone	\N	1
 4642	268	507	000.308.232.001.00M	1		2011-02-25 16:26:15.516645	2011-02-26 04:18:19.582375	66.11	21	HO Corner Upper | White	\N	1
 4728	271	4	000.117.031.334.00I	9		2011-02-26 16:03:28.184452	2011-02-26 16:03:28.184452	1.04	29	ZH Handle Bronze | 128mm	\N	\N
@@ -7793,6 +7801,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4780	272	101	000.803.056.200.00I	28		2011-02-26 18:14:35.111724	2011-02-26 18:14:35.111724	4.80	44	ZH Pole Cups (pair) | Polished Chrome	\N	\N
 4781	272	220	000.022.035.350.00I	20		2011-02-26 18:14:35.123101	2011-02-26 18:14:35.123101	0.12	45	ZH Screw (Drawer Front Handles)	\N	\N
 4782	272	202	000.104.900.000.00I	80		2011-02-26 18:14:35.134115	2011-02-26 18:14:35.134115	0.02	46	ZH Screw (Drawer Slide 3/4 Ext)	\N	\N
+4787	273	555	000.910.261.002.00M	2		2011-02-26 20:07:39.519607	2011-02-26 20:07:39.519607	104.90	3	CL Hanging Partition - Square - Thru | Antique White	\N	\N
 4304	237	45	000.931.011.001.00M	6		2011-02-24 17:47:30.668622	2011-02-24 17:47:30.668622	5.06	1	CL Adjustable Shelf | White	\N	\N
 4305	237	45	000.931.981.001.00M	7		2011-02-24 17:47:30.886471	2011-02-24 17:47:30.886471	3.80	2	CL Adjustable Shelf | White	\N	\N
 4306	237	44	000.930.981.001.00M	3		2011-02-24 17:47:30.923264	2011-02-24 17:47:30.923264	4.30	3	CL Cam Shelf | White	\N	\N
@@ -8099,6 +8108,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 251	270	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-25 22:54:18.809362	2011-02-25 22:54:18.809362
 252	271	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-26 16:03:26.736724	2011-02-26 16:03:26.736724
 253	272	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-26 18:14:33.586673	2011-02-26 18:14:33.586673
+254	273	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-26 20:07:39.440693	2011-02-26 20:07:39.440693
 \.
 
 
@@ -8107,7 +8117,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	108	2011-01-23 05:52:19.75042	2011-02-25 22:59:23.410294
+1	2011	109	2011-01-23 05:52:19.75042	2011-02-26 20:07:50.079874
 \.
 
 
@@ -8192,6 +8202,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 265	41	70	50	Stilwell_Garage	SO-103	\N	2011-02-25 16:15:59.689229	2011-02-25 21:04:00.569495	Stilwell_Garage Parts List.xml	text/xml	7764	2011-02-25 16:15:59.685027	Phoenix	Confirmed	2011-03-11	\N	Premier Route	2011-02-25 16:17:55	70		PremierRoute	70		50
 268	41	70	50	Smith_Office	SO-106	\N	2011-02-25 16:26:13.435457	2011-02-25 21:24:42.33856	Smith_Office Parts List.xml	text/xml	28115	2011-02-25 16:26:13.432795	Phoenix	Confirmed	2011-03-11	\N	Premier Route	2011-02-25 16:30:06	70		PremierRoute	70		50
 271	65	89	77	test order 1 	\N	\N	2011-02-26 16:03:26.394091	2011-02-26 16:03:26.394091	021011-1.xml	text/xml	30472	2011-02-26 16:03:26.390243	\N	\N	\N	\N	for batch and shipping tests only	\N	\N	\N	\N	89	\N	\N
+273	4	4	6	Haag - ReOrder	SO-109	\N	2011-02-26 20:07:39.34218	2011-02-26 20:07:50.084228	Haag - ReOrder.xml	application/octet-stream	8246	2011-02-26 20:07:39.337918	\N	Placed	\N	\N	**Due to a plan change these additional materials are needed to finish the job in which the clients have already moved in to the new home**\r\n\r\nIf possible please sneak this in on the next possible order to be shipped out!!\r\n	2011-02-26 20:07:50	4	\N	\N	4	\N	\N
 \.
 
 
@@ -9199,8 +9210,8 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
 19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	\N	\N	9	2011-02-25 22:52:42.885377	2011-02-24 22:25:38.079098	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-02-25 23:02:43.137696
 8	\N	Customer Service	PG	480-483-3030		480-483-7895	info@premiergarage.com	$2a$10$B8ij4mhstLCYA3L69NAF5OgSwt2Gl2.hjC333B9JTG9VUHWn0E8qK	$2a$10$B8ij4mhstLCYA3L69NAF5O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.919109	2011-01-27 00:32:32.680546
-4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	-lsWULb3FikcXV38S_0a	2011-02-23 21:02:20.870478	22	2011-02-26 18:00:58.52997	2011-02-24 17:33:02.367351	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-26 18:00:58.530569
 34	Mrs.	Yolanda	Quihuis	623-792-2308		(480) 483-7895	yquihuis@premiergarage.com	$2a$10$juxBicxGxmlHLdVPujeo4unPsEebEhd.O.sN3wjHq9fgW1P445p/u	$2a$10$juxBicxGxmlHLdVPujeo4u	\N	VS-UZecfzT95ORhxjaBk	2011-02-16 13:51:40.156431	41	2011-02-26 15:03:08.26919	2011-02-25 22:24:47.248125	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.603664	2011-02-26 15:03:08.269795
+4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	-lsWULb3FikcXV38S_0a	2011-02-23 21:02:20.870478	23	2011-02-26 20:26:41.873792	2011-02-26 18:00:58.52997	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-26 20:26:41.874406
 31	Mrs.	Jodi	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$jr.WGscm43bzYLCqH41RruYwank5yL6wuAcliLkD9IznX8jtk.kry	$2a$10$jr.WGscm43bzYLCqH41Rru	\N	\N	\N	2	2011-01-27 18:37:39.160114	2011-01-27 18:24:05.937583	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.240116	2011-01-30 21:09:00.185987
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:37.748043	2011-02-11 15:02:38.399442
