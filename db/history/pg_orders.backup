@@ -490,7 +490,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 7263, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 7335, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 4736, true);
+SELECT pg_catalog.setval('job_items_id_seq', 4784, true);
 
 
 --
@@ -587,7 +587,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 252, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 253, true);
 
 
 --
@@ -693,7 +693,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 271, true);
+SELECT pg_catalog.setval('jobs_id_seq', 272, true);
 
 
 --
@@ -3003,7 +3003,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 204	ZH Hutch Base Angle Bracket	Hutch Base Angle Bracket Zinc Plated....	260.34.005	\N	000.260.034.005.00I		2011-01-01 18:53:57.235534	2011-02-18 23:02:03.43254	Inventory	10048	Item	0.21		\N	0.03	0.92000000000000004	0.40000000000000002
 51	ZH Shoe Fence (24) | Polished Chrome	Shoe Fence, steel, chrome, 23"	547.51.203	\N	000.547.051.203.00P		2011-01-01 18:53:51.054929	2011-02-18 23:05:55.588742	Purchased	30063	Item	3.44		\N	0.07	0.92000000000000004	0.40000000000000002
 92	ZH Sliding Wire Basket (18x11x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 11"h	547.35.146	\N	000.547.035.146.00P		2011-01-01 18:53:53.394364	2011-02-18 23:08:01.505726	Purchased	30022-1	Item	21.52		\N	0.10	0.92000000000000004	0.40000000000000002
-119	ZH Sliding Wire Basket (18x6x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 6"h	547.35.622	\N	000.547.035.622.00P		2011-01-01 18:53:53.752304	2011-02-18 23:10:44.726266	Purchased		Item	16.75		\N	0.10	0.92000000000000004	0.40000000000000002
 123	ZH Sliding Wire Basket (24x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 11"h	547.36.626	\N	000.547.036.626.00P		2011-01-01 18:53:53.893371	2011-02-18 23:12:31.167314	Purchased	30038-1	Item	24.00		\N	0.10	0.92000000000000004	0.40000000000000002
 77	ZH Sliding Wire Basket (18x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 17"w x 17"h	547.35.248	\N	000.547.035.248.00P		2011-01-01 18:53:52.684273	2011-02-18 23:09:52.747504	Purchased	30005-1	Item	22.51		\N	0.10	0.92000000000000004	0.40000000000000002
 549	ZZ Panel 06 DON'T DELETE	building block: 1/4 inch panel		\N			2011-01-01 20:34:10.316243	2011-01-07 17:41:24.972736	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
@@ -3013,6 +3012,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 178	ZH Wardrobe Lift (26-35) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.202	\N	000.805.031.202.00P		2011-01-01 18:53:56.023107	2011-02-18 23:27:05.035824	Purchased	30075	Item	39.54		\N	0.13	0.92000000000000004	0.40000000000000002
 93	ZH Sliding Wire Basket (24x11x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 11"h	547.36.146	\N	000.547.036.146.00P		2011-01-01 18:53:53.409919	2011-02-18 23:13:11.979698	Purchased	30025-1	Item	25.48		\N	0.10	0.92000000000000004	0.40000000000000002
 521	Decor Door - KB732	Decor Door - KB732 		\N	000.105.000.x.00B	DS-DR	2011-01-01 18:54:28.097805	2011-02-24 14:57:33.11639	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
+119	ZH Sliding Wire Basket (18x6x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 6"h	547.35.622	\N	000.547.035.622.00P		2011-01-01 18:53:53.752304	2011-02-26 18:13:36.697634	Purchased	30098-1	Item	16.75		\N	0.10	0.92000000000000004	0.40000000000000002
 133	ZH Sliding Wire Basket (30x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 11"h	547.41.266	\N	000.547.041.266.00P		2011-01-01 18:53:54.428492	2011-02-18 23:20:46.066319	Purchased	30019-1	Item	26.34		\N	0.10	0.92000000000000004	0.40000000000000002
 99	ZH Closet Rod | Matte Nickel	Wardrobe Tube Al Ni Matt 1 5/16	801.42.600	\N	000.801.042.600.00I		2011-01-01 18:53:53.512515	2011-02-18 22:50:56.325895	Inventory	30077	Item	\N		\N	0.02	0.92000000000000004	0.40000000000000002
 101	ZH Pole Cup | Polished Chrome	Wardrobe Tube Support Zn. Chr Pol. For 1 5/16	803.56.200	\N	000.803.056.200.00I		2011-01-01 18:53:53.539074	2011-02-18 23:04:31.847064	Inventory	30081	Item	0.86		\N	0.01	0.92000000000000004	0.40000000000000002
@@ -3060,12 +3060,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 470	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 1595 Black	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 1595 Black		\N	000.402.004.302.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.039552	2011-01-30 16:43:01.776981	Purchased		Item	177.85		\N	\N	0.92000000000000004	0.40000000000000002
 471	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4552 Ebony Star	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4552 Ebony Star		\N	000.402.004.303.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.05451	2011-01-30 16:43:20.017035	Purchased		Item	228.31		\N	\N	0.92000000000000004	0.40000000000000002
 262	NX Base Cabinet 2 Door	NX Base Cabinet 2 Door 		\N	000.102.433.x.00M	NX-C-1AS	2011-01-01 18:54:09.878699	2011-02-18 22:36:45.43818	Manufactured	Garage_Cabinets	Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002
-62	ZH Belt Rack | Polished Chrome	Belt Rack W/Slide-ATL Al Chr Pol/Bl Pl 13 7/8	807.67.213	\N	000.807.067.213.00P		2011-01-01 18:53:51.535374	2011-02-18 22:49:46.735734	Purchased		Item	20.06		\N	0.07	0.92000000000000004	0.40000000000000002
 6	ZH Hinge | Full Overlay	Hinge Full Overlay  (300/box)	65C2R9A99	\N	000.311.060.560.00I		2011-01-01 18:53:39.043881	2011-02-18 23:00:57.742928	Inventory	1026	Item	0.69		\N	0.01	0.92000000000000004	0.40000000000000002
 83	ZH Sliding Wire Basket (18x11x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 11"h	547.38.246	\N	000.547.038.246.00P		2011-01-01 18:53:53.046685	2011-02-18 23:07:43.579455	Purchased	30041-1	Item	20.30		\N	0.10	0.92000000000000004	0.40000000000000002
 95	ZH Sliding Wire Basket (18x17x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 17"h	547.35.148	\N	000.547.035.148.00P		2011-01-01 18:53:53.449682	2011-02-18 23:09:41.154636	Purchased	30023-1	Item	27.86		\N	0.10	0.92000000000000004	0.40000000000000002
-110	ZH Sliding Wire Basket (18x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 6"h	547.38.222	\N	000.547.038.222.00P		2011-01-01 18:53:53.635417	2011-02-18 23:10:56.585731	Purchased		Item	17.11		\N	0.10	0.92000000000000004	0.40000000000000002
-182	ZH Wardrobe Lift (35-47) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.603	\N	000.805.031.603.00P		2011-01-01 18:53:56.21133	2011-02-18 23:27:25.704296	Purchased		Item	71.24		\N	0.13	0.92000000000000004	0.40000000000000002
 472	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4781 Sunstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4781 Sunstone		\N	000.402.004.304.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.109294	2011-01-30 16:43:33.473693	Purchased		Item	228.31		\N	\N	0.92000000000000004	0.40000000000000002
 473	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4789 Limestone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4789 Limestone		\N	000.402.004.305.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.123116	2011-01-30 16:43:45.761381	Purchased		Item	228.31		\N	\N	0.92000000000000004	0.40000000000000002
 438	CTOP Corner - Tempo (3 Week Lead Time) | Laminate 4884 Flame Soapstone	CTOP Corner - Tempo (3 Week Lead Time) | Laminate 4884 Flame Soapstone		\N	000.402.002.312.00P	LAM-CCTOP-TE	2011-01-01 18:54:25.790373	2011-01-30 17:15:57.030115	Purchased		Item	146.46		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3085,6 +3082,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 475	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4791 Willowstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4791 Willowstone		\N	000.402.004.307.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.219394	2011-01-30 16:44:14.418842	Purchased		Item	228.31		\N	\N	0.92000000000000004	0.40000000000000002
 535	NX Corner Cabinet 1 Door 3 Adj Shelf	NX Corner Cabinet 1 Door 3 Adj Shelf 		\N	000.308.382.x.00M	NX-CC-3AS	2011-01-01 18:54:28.52887	2011-02-18 22:39:20.612567	Manufactured	Garage_Cabinets	CornerCabinet	\N		\N	0.75	0.92000000000000004	0.40000000000000002
 519	Decor Door - DR8	Decor Door - DR8 		\N	000.103.000.x.00B	DS-DR	2011-01-01 18:54:28.06988	2011-02-24 14:56:29.829558	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
+62	ZH Belt Rack | Polished Chrome	Belt Rack W/Slide-ATL Al Chr Pol/Bl Pl 13 7/8	807.67.213	\N	000.807.067.213.00P		2011-01-01 18:53:51.535374	2011-02-26 18:01:04.371601	Purchased	30093	Item	20.06		\N	0.07	0.92000000000000004	0.40000000000000002
+110	ZH Sliding Wire Basket (18x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 6"h	547.38.222	\N	000.547.038.222.00P		2011-01-01 18:53:53.635417	2011-02-26 18:14:26.190206	Purchased	30099-1	Item	17.11		\N	0.10	0.92000000000000004	0.40000000000000002
 476	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4794 Windswept Bronze	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4794 Windswept Bronze		\N	000.402.004.308.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.233121	2011-01-30 16:44:28.866218	Purchased		Item	228.31		\N	\N	0.92000000000000004	0.40000000000000002
 478	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4882 Oiled Soapstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4882 Oiled Soapstone		\N	000.402.004.310.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.26252	2011-01-30 16:45:27.169556	Purchased		Item	177.85		\N	\N	0.92000000000000004	0.40000000000000002
 479	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4883 Sable Soapstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4883 Sable Soapstone		\N	000.402.004.311.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.292759	2011-01-30 16:45:49.148308	Purchased		Item	177.85		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3097,7 +3096,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 39	CL Upright Partition - Right	CL Upright Partition - Right 		\N	000.911.3x.x.00M	CL-VU-R	2011-01-01 18:53:39.920172	2011-02-18 22:09:45.080704	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 19	CTOP - 1 in. melamine	CTOP 1 in. melamine		\N	000.501.000.x.00M	MEL-CTOP-25	2011-01-01 18:53:39.129346	2011-02-18 22:10:12.582585	Manufactured	Worksurfaces	Countertop	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 508	HO Hutch	HO Hutch 		\N	000.441.151.x.00M	HO-HC-3AS	2011-01-01 18:54:27.8462	2011-02-18 22:33:30.181911	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	0.45	0.92000000000000004	0.40000000000000002
-64	ZH Belt Rack | Oil Rubbed Bronze	Belt Rack W/Slide Al Dk Oil-Rub.Bzd/Bl Pl 13 7/8	807.67.113	\N	000.807.067.113.00P		2011-01-01 18:53:52.201527	2011-02-18 22:49:36.772136	Purchased		Item	22.23		\N	0.07	0.92000000000000004	0.40000000000000002
 489	CTOP Corner - Geneva (3 Week Lead Time) | Laminate D403 White Sand	CTOP Corner - Geneva (3 Week Lead Time) | Laminate D403 White Sand		\N	000.402.004.321.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.475349	2011-01-30 16:48:23.696289	Purchased		Item	177.85		\N	\N	0.92000000000000004	0.40000000000000002
 488	CTOP Corner - Geneva (3 Week Lead Time) | Laminate D92 Dove Grey	CTOP Corner - Geneva (3 Week Lead Time) | Laminate D92 Dove Grey		\N	000.402.004.320.00P	LAM-CCTOP-GEN	2011-01-01 18:54:27.461395	2011-01-30 16:48:35.647154	Purchased		Item	177.85		\N	\N	0.92000000000000004	0.40000000000000002
 587	ZH Screw (Hinge Fastening) PART OF A SET	M4 screw with raised head and cross-slot Z, size 2 nickel-plated 11mm\r\n	267.00.720	\N			2011-01-07 00:22:48.609149	2011-01-26 19:38:42.784912	Manufactured		Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3120,6 +3118,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 512	HO Wall Bed Full	HO Wall Bed Full 		\N	000.491.581.x.00M	HO-WBF	2011-01-01 18:54:27.941587	2011-02-18 22:35:07.66213	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	5.00	0.92000000000000004	0.40000000000000002
 513	HO Wall Bed Queen	HO Wall Bed Queen 		\N	000.492.681.x.00M	HO-WBQ	2011-01-01 18:54:27.954427	2011-02-18 22:35:27.283285	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	5.00	0.92000000000000004	0.40000000000000002
 517	Decor Door - JR7	Decor Door - JR7 		\N	000.101.000.x.00B	DS-DR	2011-01-01 18:54:28.028853	2011-02-24 14:57:04.627226	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
+64	ZH Belt Rack | Oil Rubbed Bronze	Belt Rack W/Slide Al Dk Oil-Rub.Bzd/Bl Pl 13 7/8	807.67.113	\N	000.807.067.113.00P		2011-01-01 18:53:52.201527	2011-02-26 18:00:27.084488	Purchased	30092	Item	22.23		\N	0.07	0.92000000000000004	0.40000000000000002
 536	NX Corner Cabinet 1 Door 4 Adj Shelf	NX Corner Cabinet 1 Door 4 Adj Shelf 		\N	000.308.392.x.00M	NX-CC-4AS	2011-01-01 18:54:28.54176	2011-02-18 22:39:36.09585	Manufactured	Garage_Cabinets	CornerCabinet	\N		\N	0.75	0.92000000000000004	0.40000000000000002
 574	Powder Coated Door (23.875 x 23) | RED	Powder Coated Door (23.875 x 23) | RED	NX 23.875 x 22.552 Red	\N	000.880.300.b12.00P	PC-D	2011-01-04 06:35:34.405158	2011-02-18 22:45:09.433122	Purchased	880300b	Item	16.16		\N	0.05	0.92000000000000004	0.40000000000000002
 565	Powder Coated Door (23.875 x 30) | GRANITE	Powder Coated Door (23.875 x 30) | GRANITE	NX 23.875 x 30.111 Granite	\N	000.880.310.a12.00P	PC-D	2011-01-04 06:35:34.356161	2011-02-18 22:45:19.369682	Purchased	880310a	Item	20.25		\N	0.05	0.92000000000000004	0.40000000000000002
@@ -3161,7 +3160,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 147	ZH Sliding Wire Basket (24x6x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 23"w x 6"h	547.36.162	\N	000.547.036.162.00P		2011-01-01 18:53:54.861522	2011-02-18 23:18:29.721762	Purchased	30034-1	Item	21.11		\N	0.10	0.92000000000000004	0.40000000000000002
 139	ZH Sliding Wire Basket (30x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 6"h	547.37.662	\N	000.547.037.662.00P		2011-01-01 18:53:54.668509	2011-02-18 23:23:35.475779	Purchased	30058-1	Item	26.21		\N	0.10	0.92000000000000004	0.40000000000000002
 160	ZH Tilt-Out Hamper (24)	Synergy Tilt-Out Hamper, steel, black, 22 1/4" width, 2 black nylon bags included	547.43.303	\N	000.547.043.303.00P		2011-01-01 18:53:55.633423	2011-02-18 23:25:15.642784	Purchased	30086	Item	57.13		\N	0.25	0.92000000000000004	0.40000000000000002
-183	ZH Wardrobe Lift (20-26) | Black	Wardrobe Lift, steel, black, plastic, black, 21 1/4" - 26", 26 lbs load capacity	805.31.301	\N	000.805.031.301.00P		2011-01-01 18:53:56.321925	2011-02-18 23:26:17.664712	Purchased		Item	48.02		\N	0.13	0.92000000000000004	0.40000000000000002
 13	ZH Screw (Drawer Slide Full Ext)	Screw Bb Slides Pn Hd Ph Drv #8 X 7/16	013.09.900	\N	000.013.009.900.00I		2011-01-01 18:53:39.076796	2011-01-26 19:38:14.385803	Inventory	10025	Item	0.02		\N	\N	0.92000000000000004	0.40000000000000002
 593	ZH Screw (Assembly) 2 inch	Screw, #6 x 2' (Box Qty 3,500)	0461062408	\N			2011-01-07 04:56:59.068395	2011-01-26 19:36:19.867691	Inventory	1005	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
 109	ZH Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.102.100.000.00I		2011-01-01 18:53:53.629835	2011-01-26 19:39:55.477903	Inventory	1021	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3188,6 +3186,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 106	Molding nailer	Molding nailer		\N	000.999.010.000.00M	CP-MN	2011-01-01 18:53:53.615499	2011-02-18 22:36:00.221846	Manufactured	Misc_Wood	Panel	\N		\N	0.03	0.92000000000000004	0.40000000000000002
 66	ZH Valet Rod | Matte Nickel	Synergy Closet Valet, aluminum, nickel-plated matt, plastic, black, 14 1/8" length	808.71.603	\N	000.808.071.603.00P		2011-01-01 18:53:52.469514	2011-02-26 17:56:10.957627	Purchased	30112	Item	17.15		\N	0.07	0.92000000000000004	0.40000000000000002
 65	ZH Valet Rod | Polished Chrome	Synergy Closet Valet, aluminum, chrome-plated polished, plastic, black, 14 1/8" length	808.71.203	\N	000.808.071.203.00P		2011-01-01 18:53:52.320897	2011-02-26 17:58:00.886871	Purchased	30114	Item	16.74		\N	0.07	0.92000000000000004	0.40000000000000002
+183	ZH Wardrobe Lift (20-26) | Black	Wardrobe Lift, steel, black, plastic, black, 21 1/4" - 26", 26 lbs load capacity	805.31.301	\N	000.805.031.301.00P		2011-01-01 18:53:56.321925	2011-02-26 18:06:59.130841	Purchased	30115	Item	48.02		\N	0.13	0.92000000000000004	0.40000000000000002
 53	ZH Shoe Fence (18) | Matte Nickel	Shoe Fence, steel, matte nickel, 17"	547.51.602	\N	000.547.051.602.00P		2011-01-01 18:53:51.103007	2011-02-18 23:05:08.529428	Purchased	30068	Item	2.58		\N	0.07	0.92000000000000004	0.40000000000000002
 56	ZH Shoe Fence (18) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 17"	547.51.102	\N	000.547.051.102.00P		2011-01-01 18:53:51.236121	2011-02-18 23:05:17.385404	Purchased	30065	Item	2.51		\N	0.07	0.92000000000000004	0.40000000000000002
 58	ZH Shoe Fence (30) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 29"	547.51.104	\N	000.547.051.104.00P		2011-01-01 18:53:51.297559	2011-02-18 23:06:14.888012	Purchased	30067	Item	3.69		\N	0.07	0.92000000000000004	0.40000000000000002
@@ -3205,7 +3204,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 7	ZH Hinge Plate	Hinge Plate	65BARGL09	\N	000.102.500.000.00I		2011-01-01 18:53:39.049462	2011-02-18 23:01:39.336331	Inventory	1025	Item	0.40		\N	0.01	0.92000000000000004	0.40000000000000002
 57	ZH Shoe Fence (24) | Oil Rubbed Bronze	Shoe Fence, steel, dark oil rubbed bronze, 23"	547.51.103	\N	000.547.051.103.00P		2011-01-01 18:53:51.284913	2011-02-18 23:05:44.357978	Purchased	30066	Item	3.02		\N	0.07	0.92000000000000004	0.40000000000000002
 55	ZH Shoe Fence (30) | Matte Nickel	Shoe Fence, steel, matt nickel, 29"	547.51.604	\N	000.547.051.604.00P		2011-01-01 18:53:51.220906	2011-02-18 23:06:05.047839	Purchased	30070	Item	3.82		\N	0.07	0.92000000000000004	0.40000000000000002
-122	ZH Sliding Wire Basket (18x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 11"h	547.35.626	\N	000.547.035.626.00P		2011-01-01 18:53:53.877789	2011-02-18 23:07:14.529145	Purchased		Item	18.75		\N	0.10	0.92000000000000004	0.40000000000000002
 86	ZH Sliding Wire Basket (18x17x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 17"h	547.35.648	\N	000.547.035.648.00P		2011-01-01 18:53:53.184097	2011-02-18 23:09:29.625264	Purchased	30042-1	Item	24.51		\N	0.10	0.92000000000000004	0.40000000000000002
 89	ZH Sliding Wire Basket (18x6x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 17"w x 6"h	547.35.142	\N	000.547.035.142.00P		2011-01-01 18:53:53.229037	2011-02-18 23:11:20.315006	Purchased	30024-1	Item	20.10		\N	0.10	0.92000000000000004	0.40000000000000002
 71	ZH Sliding Wire Basket (18x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 17"w x 6"h	547.35.242	\N	000.547.035.242.00P		2011-01-01 18:53:52.604856	2011-02-18 23:11:33.805789	Purchased	30006-1	Item	17.97		\N	0.10	0.92000000000000004	0.40000000000000002
@@ -3215,12 +3213,13 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 78	ZH Sliding Wire Basket (24x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 23"w x 17"h	547.40.248	\N	000.547.040.248.00P		2011-01-01 18:53:52.740245	2011-02-18 23:15:36.975744	Purchased	30008-1	Item	26.60		\N	0.10	0.92000000000000004	0.40000000000000002
 81	ZH Sliding Wire Basket (24x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 23"w x 6"h	547.36.642	\N	000.547.036.642.00P		2011-01-01 18:53:52.890631	2011-02-18 23:17:17.772587	Purchased	30046-1	Item	22.80		\N	0.10	0.92000000000000004	0.40000000000000002
 90	ZH Sliding Wire Basket (24x6x14) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 14"d x 23"w x 6h	547.36.142	\N	000.547.036.142.00P		2011-01-01 18:53:53.332436	2011-02-18 23:17:43.108712	Purchased	30027-1	Item	20.30		\N	0.10	0.92000000000000004	0.40000000000000002
-124	ZH Sliding Wire Basket (30x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 11"h	547.37.626	\N	000.547.037.626.00P		2011-01-01 18:53:53.958893	2011-02-18 23:19:31.534956	Purchased		Item	25.00		\N	0.10	0.92000000000000004	0.40000000000000002
 85	ZH Sliding Wire Basket (30x11x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 29"w x 11"h	547.37.646	\N	000.547.037.646.00P		2011-01-01 18:53:53.123341	2011-02-18 23:19:50.626851	Purchased	30047-1	Item	25.17		\N	0.10	0.92000000000000004	0.40000000000000002
 76	ZH Sliding Wire Basket (30x11x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 11"h	547.41.246	\N	000.547.041.246.00P		2011-01-01 18:53:52.671263	2011-02-18 23:20:12.894764	Purchased	30010-1	Item	24.27		\N	0.10	0.92000000000000004	0.40000000000000002
 88	ZH Sliding Wire Basket (30x17x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 29"w x 17"h	547.37.648	\N	000.547.037.648.00P		2011-01-01 18:53:53.216421	2011-02-18 23:21:20.004179	Purchased	30048-1	Item	29.68		\N	0.10	0.92000000000000004	0.40000000000000002
 79	ZH Sliding Wire Basket (30x17x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 17"h	547.41.248	\N	000.547.041.248.00P		2011-01-01 18:53:52.799206	2011-02-18 23:21:43.08334	Purchased	30011-1	Item	30.93		\N	0.10	0.92000000000000004	0.40000000000000002
 97	ZH Sliding Wire Basket (30x17x14) | Oil Rubbed Bronze	Closet Basket, steel, white, 14"d x 29"w x 17"h	547.37.748 	\N	000.547.037.748.00P		2011-01-01 18:53:53.476159	2011-02-26 17:47:53.308047	Purchased	30090-1	Item	28.01		\N	0.10	0.92000000000000004	0.40000000000000002
+124	ZH Sliding Wire Basket (30x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 11"h	547.37.626	\N	000.547.037.626.00P		2011-01-01 18:53:53.958893	2011-02-26 18:17:39.306801	Purchased	30103-1	Item	25.00		\N	0.10	0.92000000000000004	0.40000000000000002
+122	ZH Sliding Wire Basket (18x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 11"h	547.35.626	\N	000.547.035.626.00P		2011-01-01 18:53:53.877789	2011-02-26 18:19:46.830238	Purchased	30094-1	Item	18.75		\N	0.10	0.92000000000000004	0.40000000000000002
 82	ZH Sliding Wire Basket (30x6x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 29"w x 6"h	547.37.642	\N	000.547.037.642.00P		2011-01-01 18:53:53.001264	2011-02-18 23:22:58.058381	Purchased	30049-1	Item	23.66		\N	0.10	0.92000000000000004	0.40000000000000002
 73	ZH Sliding Wire Basket (30x6x14) | Polished Chrome	Closet Basket, steel, chrome-plated, 14"d x 29"w x 6"h	547.37.242	\N	000.547.037.242.00P		2011-01-01 18:53:52.630794	2011-02-18 23:23:19.651992	Purchased	30012-1	Item	22.12		\N	0.10	0.92000000000000004	0.40000000000000002
 173	ZH Drawer Slide | Full ext | 16 inch	Drawer glide 16 inch full extension 100Lb	FU3173316	\N	000.FU3.173.316.00I		2011-01-01 18:53:55.925264	2011-01-26 19:26:01.1562	Inventory		Item	3.82		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3229,22 +3228,16 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 175	ZH Drawer Slide | Full ext | 20 inch	Drawer glide 20 inch full extension 100Lb	FU3173320	\N	000.FU3.173.320.00I		2011-01-01 18:53:56.00019	2011-01-26 19:26:25.392858	Inventory		Item	4.29		\N	\N	0.92000000000000004	0.40000000000000002
 156	ZH Cam (Double Stud)	Rafix Dbl.Bolt St.Zip 5/7 F.19Mm	263.24.972	\N	000.263.024.972.00I		2011-01-01 18:53:55.385639	2011-01-26 19:21:56.551639	Inventory	10019	Item	0.07		\N	\N	0.92000000000000004	0.40000000000000002
 171	ZH Drawer Slide | Full ext | 12 inch	Drawer glide 12 inch full extension 100Lb	FU3173312	\N	000.FU3.173.312.00I		2011-01-01 18:53:55.826341	2011-01-26 19:25:35.504736	Inventory	10073	Item	2.98		\N	\N	0.92000000000000004	0.40000000000000002
-113	ZH Sliding Wire Basket (18x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 11"h	547.38.226	\N	000.547.038.226.00P		2011-01-01 18:53:53.673204	2011-02-18 23:07:30.243241	Purchased		Item	19.86		\N	0.10	0.92000000000000004	0.40000000000000002
 140	ZH Sliding Wire Basket (18x11x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 17"w x 11"h	547.35.666	\N	000.547.035.666.00P		2011-01-01 18:53:54.681235	2011-02-18 23:08:25.623696	Purchased	30050-1	Item	21.65		\N	0.10	0.92000000000000004	0.40000000000000002
 131	ZH Sliding Wire Basket (18x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 17"w x 11"h	547.35.266	\N	000.547.035.266.00P		2011-01-01 18:53:54.258039	2011-02-18 23:08:48.359259	Purchased	30013-1	Item	21.05		\N	0.10	0.92000000000000004	0.40000000000000002
-125	ZH Sliding Wire Basket (18x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 17"h	547.35.628	\N	000.547.035.628.00P		2011-01-01 18:53:54.07906	2011-02-18 23:09:02.157804	Purchased		Item	22.50		\N	0.10	0.92000000000000004	0.40000000000000002
 137	ZH Sliding Wire Basket (18x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 17"w x 6"h	547.35.662	\N	000.547.035.662.00P		2011-01-01 18:53:54.619103	2011-02-18 23:11:45.662198	Purchased	30052-1	Item	20.70		\N	0.10	0.92000000000000004	0.40000000000000002
-114	ZH Sliding Wire Basket (24x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 11"h	547.40.226	\N	000.547.040.226.00P		2011-01-01 18:53:53.686941	2011-02-18 23:12:43.991653	Purchased		Item	24.81		\N	0.10	0.92000000000000004	0.40000000000000002
 141	ZH Sliding Wire Basket (24x11x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 23"w x 11"h	547.36.666	\N	000.547.036.666.00P		2011-01-01 18:53:54.700015	2011-02-18 23:13:37.655767	Purchased	30053-1	Item	25.05		\N	0.10	0.92000000000000004	0.40000000000000002
 132	ZH Sliding Wire Basket (24x11x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 23"w x 11"h	547.36.266	\N	000.547.036.266.00P		2011-01-01 18:53:54.38009	2011-02-18 23:14:14.443403	Purchased	30016-1	Item	23.51		\N	0.10	0.92000000000000004	0.40000000000000002
 126	ZH Sliding Wire Basket (24x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 11"h	547.36.628	\N	000.547.036.628.00P		2011-01-01 18:53:54.146194	2011-02-18 23:14:43.532067	Purchased	30039-1	Item	26.00		\N	0.10	0.92000000000000004	0.40000000000000002
-117	ZH Sliding Wire Basket (24x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 17"h	547.36.228 	\N	000.547.036.228.00P		2011-01-01 18:53:53.725988	2011-02-18 23:15:01.437637	Purchased		Item	26.18		\N	0.10	0.92000000000000004	0.40000000000000002
 144	ZH Sliding Wire Basket (24x17x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 23"w x 17"h	547.36.668	\N	000.547.036.668.00P		2011-01-01 18:53:54.789717	2011-02-18 23:15:50.144794	Purchased	30054-1	Item	27.95		\N	0.10	0.92000000000000004	0.40000000000000002
 135	ZH Sliding Wire Basket (24x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 23"w x 17"h	547.40.268	\N	000.547.040.268.00P		2011-01-01 18:53:54.555586	2011-02-18 23:16:25.785266	Purchased	30017-1	Item	28.55		\N	0.10	0.92000000000000004	0.40000000000000002
-111	ZH Sliding Wire Basket (24x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 6"h	547.40.222 	\N	000.547.040.222.00P		2011-01-01 18:53:53.648484	2011-02-18 23:17:06.430193	Purchased		Item	19.77		\N	0.10	0.92000000000000004	0.40000000000000002
 138	ZH Sliding Wire Basket (24x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 23"w x 6"h	547.36.662	\N	000.547.036.662.00P		2011-01-01 18:53:54.638615	2011-02-18 23:18:05.905097	Purchased	30055-1	Item	24.09		\N	0.10	0.92000000000000004	0.40000000000000002
 129	ZH Sliding Wire Basket (24x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 23"w x 6"h	547.36.262	\N	000.547.036.262.00P		2011-01-01 18:53:54.221078	2011-02-18 23:18:54.01233	Purchased	30018-1	Item	22.56		\N	0.10	0.92000000000000004	0.40000000000000002
-115	ZH Sliding Wire Basket (30x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 11"h	547.37.226 	\N	000.547.037.226.00P		2011-01-01 18:53:53.699484	2011-02-18 23:19:41.108135	Purchased		Item	25.42		\N	0.10	0.92000000000000004	0.40000000000000002
 136	ZH Sliding Wire Basket (30x17x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 17"h	547.41.268	\N	000.547.041.268.00P		2011-01-01 18:53:54.573313	2011-02-18 23:22:18.100281	Purchased	30020-1	Item	34.16		\N	0.10	0.92000000000000004	0.40000000000000002
 646	ZH SlatWall Drywall Screws (1000/box) | White	SlatWall Drywall Screws (1000/box) | White	HSWS100W	\N	000.990.320.10S.00I		2011-01-21 01:24:55.018215	2011-02-22 22:35:27.573395	Inventory	3201-S	Item	0.03		\N	\N	0.92000000000000004	0.40000000000000002
 118	ZH Sliding Wire Basket (30x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 17"h	547.37.228 	\N	000.547.037.228.00P		2011-01-01 18:53:53.738219	2011-02-26 17:46:55.928226	Purchased	30106-1	Item	28.76		\N	0.10	0.92000000000000004	0.40000000000000002
@@ -3252,6 +3245,12 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 112	ZH Sliding Wire Basket (30x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 6"h	547.37.222 	\N	000.547.037.222.00P		2011-01-01 18:53:53.661007	2011-02-26 17:50:35.849861	Purchased	30108-1	Item	19.21		\N	0.10	0.92000000000000004	0.40000000000000002
 91	ZH Sliding Wire Basket (30x6x14) | Oil Rubbed Bronze	DOES THIS ITEM EXIST?	547.37.142	\N	000.547.037.142.00P		2011-01-01 18:53:53.349157	2011-02-26 17:52:04.222577	Purchased	30089-1	Item	23.88		\N	0.10	0.92000000000000004	0.40000000000000002
 59	ZH Tie Rack | Polished Chrome	Synergy Tie Rack with Slide, aluminum, chrome-plated polished, plastic, black, 13 7/8" length	807.67.203	\N	000.807.067.203.00P		2011-01-01 18:53:51.385759	2011-02-26 17:54:36.989306	Purchased	30111	Item	21.30		\N	0.07	0.92000000000000004	0.40000000000000002
+125	ZH Sliding Wire Basket (18x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 17"w x 17"h	547.35.628	\N	000.547.035.628.00P		2011-01-01 18:53:54.07906	2011-02-26 18:12:16.227309	Purchased	30096-1	Item	22.50		\N	0.10	0.92000000000000004	0.40000000000000002
+114	ZH Sliding Wire Basket (24x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 11"h	547.40.226	\N	000.547.040.226.00P		2011-01-01 18:53:53.686941	2011-02-26 18:15:18.524835	Purchased	30100-1	Item	24.81		\N	0.10	0.92000000000000004	0.40000000000000002
+117	ZH Sliding Wire Basket (24x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 17"h	547.36.228 	\N	000.547.036.228.00P		2011-01-01 18:53:53.725988	2011-02-26 18:16:13.549439	Purchased	30101-1	Item	26.18		\N	0.10	0.92000000000000004	0.40000000000000002
+111	ZH Sliding Wire Basket (24x6x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 23"w x 6"h	547.40.222 	\N	000.547.040.222.00P		2011-01-01 18:53:53.648484	2011-02-26 18:17:05.734416	Purchased	30102-1	Item	19.77		\N	0.10	0.92000000000000004	0.40000000000000002
+115	ZH Sliding Wire Basket (30x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 29"w x 11"h	547.37.226 	\N	000.547.037.226.00P		2011-01-01 18:53:53.699484	2011-02-26 18:18:16.851553	Purchased	30104-1	Item	25.42		\N	0.10	0.92000000000000004	0.40000000000000002
+113	ZH Sliding Wire Basket (18x11x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 11"h	547.38.226	\N	000.547.038.226.00P		2011-01-01 18:53:53.673204	2011-02-26 18:20:52.480716	Purchased	30095-1	Item	19.86		\N	0.10	0.92000000000000004	0.40000000000000002
 130	ZH Sliding Wire Basket (30x6x16) | Polished Chrome	Closet Basket, steel, chrome-plated, 16"d x 29"w x 6"h	547.37.262	\N	000.547.037.262.00P		2011-01-01 18:53:54.233435	2011-02-18 23:23:58.002356	Purchased	30021-1	Item	24.31		\N	0.10	0.92000000000000004	0.40000000000000002
 155	ZH Cam (Screw-In Stud)	Rafix Bolt St.Zip Dia. 7X11Mm 5Mm	263.20.847	\N	000.263.020.847.00I		2011-01-01 18:53:55.380916	2011-01-26 19:22:22.365742	Inventory	10040	Item	0.04		\N	\N	0.92000000000000004	0.40000000000000002
 167	ZH Drawer Slide | 3/4 ext | 18 inch	Soft-Roller 100Lbs St White 450mm 18 inch	7111KSC18W	\N	007.111.KSC.18W.00I		2011-01-01 18:53:55.806307	2011-01-26 19:24:55.671058	Inventory	10036	Item	1.05		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3285,7 +3284,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 645	ZH SlatWall J Molding (4/box) | White	SlatWall J Molding (4/box) | White	HST1088L	\N	000.990.320.1JM.00I		2011-01-21 01:24:55.013337	2011-02-22 22:36:59.916936	Inventory	3201-JM	Item	5.25		\N	\N	0.92000000000000004	0.40000000000000002
 649	ZH SlatWall T Molding (4/box) | Taupe	SlatWall T Molding (4/box) | Taupe	HST2008D	\N	000.990.320.2DM.00I		2011-01-21 01:24:55.033244	2011-02-22 22:38:50.060715	Inventory	3202-DM	Item	5.38		\N	\N	0.92000000000000004	0.40000000000000002
 647	ZH SlatWall U Edge Molding (4/box) | White	SlatWall U Edge Molding (4/box) | White	HST1008E	\N	000.990.320.10U.00I		2011-01-21 01:24:55.023174	2011-02-22 22:41:51.508792	Inventory	3201-U	Item	3.50		\N	\N	0.92000000000000004	0.40000000000000002
-180	ZH Wardrobe Lift (20-26) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.601 	\N	000.805.031.601.00P		2011-01-01 18:53:56.083546	2011-02-18 23:26:26.911003	Purchased		Item	68.46		\N	0.13	0.92000000000000004	0.40000000000000002
 598	ZZ NXp Panel 25 DON'T DELETE	building block: 1 inch panel		\N			2011-01-07 17:24:43.476855	2011-01-12 20:23:08.623935	Manufactured		Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002
 225	ZH Jewelry Tray | Black Velvet | (27-13/16 x 18-5/8 x 2)	Jewelry Tray | Black Velvet | (27-13/16 x 18-5/8 x 2)	CLO2606-2718-03	\N	000.984.278.000.00P		2011-01-01 18:54:02.750921	2011-01-26 19:32:55.35436	Purchased	30118	Item	30.86		\N	\N	0.92000000000000004	0.40000000000000002
 222	ZH Jewelry Tray | Black Velvet | (21-13/16 x 12-5/8 x 2)	Jewelry Tray | Black Velvet | (21-13/16 x 12-5/8 x 2)	CLO2606-2112-27	\N	000.984.212.000.00P		2011-01-01 18:54:02.699268	2011-01-26 19:32:13.161101	Purchased	30115	Item	23.42		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3310,12 +3308,13 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 503	NX Workbench Top (Corner)	NX Workbench Top (Corner)		\N	000.400.005.x.00M	NX-CWTOP	2011-01-01 18:54:27.719043	2011-02-18 22:42:36.505026	Manufactured	Garage_Cabinets	Countertop	\N		\N	0.16	0.92000000000000004	0.40000000000000002
 177	ZH Wardrobe Lift (20-26) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.201	\N	000.805.031.201.00P		2011-01-01 18:53:56.010967	2011-02-18 23:26:36.521657	Purchased	30074	Item	38.92		\N	0.13	0.92000000000000004	0.40000000000000002
 600	ZH Keyboard Tray - 200 | Black	Standard Keyboard System-Model 200-75 lbs.	632.52.300	\N	000.632.052.300.00P		2011-01-08 16:09:48.889058	2011-02-18 23:02:43.855643	Purchased		Item	88.28		\N	0.25	0.92000000000000004	0.40000000000000002
-181	ZH Wardrobe Lift (26-35) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.602	\N	000.805.031.602.00P		2011-01-01 18:53:56.098468	2011-02-18 23:26:56.190083	Purchased		Item	69.68		\N	0.13	0.92000000000000004	0.40000000000000002
-185	ZH Wardrobe Lift (35-47) | Black	Wardrobe Lift, steel, black, plastic, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.303	\N	000.805.031.303.00P		2011-01-01 18:53:56.342484	2011-02-18 23:27:15.208557	Purchased		Item	49.50		\N	0.13	0.92000000000000004	0.40000000000000002
 179	ZH Wardrobe Lift (35-47) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.203	\N	000.805.031.203.00P		2011-01-01 18:53:56.068112	2011-02-18 23:27:34.419786	Purchased	30076	Item	40.82		\N	0.13	0.92000000000000004	0.40000000000000002
 208	Decor Crown Molding - 424 | Hardrock Maple	Decor Crown Molding - 424 | Hardrock Maple		\N	000.302.000.010.00P		2011-01-01 18:53:57.282305	2011-02-24 14:50:32.008057	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002
 656	ZH SlatWall Corner Molding (4/box) | Maple	SlatWall Corner Molding (4/box) | Maple	HST9008M	\N	000.990.320.3IO.00I		2011-01-21 01:24:55.068208	2011-02-22 22:32:37.437435	Inventory	3203-IOC	Item	6.55		\N	\N	0.92000000000000004	0.40000000000000002
 233	Decor Hamper Door - DR8	Decor Hamper Door - DR8 		\N	000.143.000.x.00B	DS-HD	2011-01-01 18:54:06.360219	2011-02-24 14:59:15.71853	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
+180	ZH Wardrobe Lift (20-26) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.601 	\N	000.805.031.601.00P		2011-01-01 18:53:56.083546	2011-02-26 18:07:48.112466	Purchased	30116	Item	68.46		\N	0.13	0.92000000000000004	0.40000000000000002
+181	ZH Wardrobe Lift (26-35) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.602	\N	000.805.031.602.00P		2011-01-01 18:53:56.098468	2011-02-26 18:09:04.566531	Purchased	30118	Item	69.68		\N	0.13	0.92000000000000004	0.40000000000000002
+185	ZH Wardrobe Lift (35-47) | Black	Wardrobe Lift, steel, black, plastic, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.303	\N	000.805.031.303.00P		2011-01-01 18:53:56.342484	2011-02-26 18:09:55.044039	Purchased	30119	Item	49.50		\N	0.13	0.92000000000000004	0.40000000000000002
 292	CTOP - Nova (3 Week Lead Time) | Laminate 1573 Frosty White	CTOP - Nova (3 Week Lead Time) | Laminate 1573 Frosty White		\N	000.401.001.301.00P	LAM-CTOP-NO	2011-01-01 18:54:15.606085	2011-01-30 17:28:38.868238	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
 293	CTOP - Nova (3 Week Lead Time) | Laminate 1595 Black	CTOP - Nova (3 Week Lead Time) | Laminate 1595 Black		\N	000.401.001.302.00P	LAM-CTOP-NO	2011-01-01 18:54:15.62886	2011-01-30 17:29:24.246475	Purchased		Item	166.15		\N	\N	0.92000000000000004	0.40000000000000002
 294	CTOP - Nova (3 Week Lead Time) | Laminate 4552 Ebony Star	CTOP - Nova (3 Week Lead Time) | Laminate 4552 Ebony Star		\N	000.401.001.303.00P	LAM-CTOP-NO	2011-01-01 18:54:15.859052	2011-01-30 17:29:35.060414	Purchased		Item	210.46		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3460,7 +3459,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 534	NX Corner Cabinet 1 Door 2 Adj Shelf	NX Corner Cabinet 1 Door 2 Adj Shelf 		\N	000.308.342.x.00M	NX-CC-2AS	2011-01-01 18:54:28.5141	2011-02-18 22:39:04.787928	Manufactured	Garage_Cabinets	CornerCabinet	\N		\N	0.75	0.92000000000000004	0.40000000000000002
 602	ZH Murphy Bed Hardware Set Single/Twin		SBF-M/SBF-S	\N			2011-01-11 05:33:20.126027	2011-02-18 23:03:39.35095	Purchased	10060	Item	425.54		\N	1.00	0.92000000000000004	0.40000000000000002
 94	ZH Sliding Wire Basket (30x11x14) | Oil Rubbed Bronze		547.37.146	\N	000.547.037.146.00P		2011-01-01 18:53:53.436093	2011-02-18 23:20:01.047851	Purchased	30028-1	Item	26.76		\N	0.10	0.92000000000000004	0.40000000000000002
-184	ZH Wardrobe Lift (26-35) | Black	Wardrobe Lift, steel, black, plastic, black, 26" - 35 1/16", 26 lbs load capacity	805.31.302 	\N	000.805.031.302.00P		2011-01-01 18:53:56.336387	2011-02-18 23:26:45.902384	Purchased		Item	48.74		\N	0.13	0.92000000000000004	0.40000000000000002
 217	ZH Bumper Stop	Bumper Stop Self Adhesive Poly Clear .335 Wide x .805 Thick (Box Qty. 5400)	7129BS7SD	\N	000.104.700.000.00I		2011-01-01 18:54:02.48911	2011-01-26 19:20:20.277021	Inventory	1047	Item	0.02		\N	\N	0.92000000000000004	0.40000000000000002
 607	ZH Cam Cover | Tan	Rafix Cover Cap Pl Tan For Flush Cams. use with Carmel Apple	263.59.133	\N	000.263.059.133.00I		2011-01-11 17:01:29.039953	2011-01-26 19:21:16.614833	Purchased	10042	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
 166	ZH Drawer Slide | 3/4 ext | 16 inch	Soft-Roller 100Lbs St White 400mm 16 inch	7111KSC16W	\N	007.111.KSC.16W.00I		2011-01-01 18:53:55.801622	2011-01-26 19:24:42.927754	Inventory	10035	Item	0.81		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3528,7 +3526,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 614	CL Island Thru Panel 	CL Island Thru Panel 		\N	000.960.102.x.00M	CL-ITP	2011-01-12 00:14:00.110891	2011-02-18 22:07:19.779663	Manufactured	Closets	ClosetPartition	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 514	HO Bookcase	HO Bookcase 		\N	000.400.181.x.00M	HO-TC-5AS	2011-01-01 18:54:27.966772	2011-02-18 22:32:05.483636	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 515	HO Bookcase - Vert Divider	HO Bookcase - Vert Divider 		\N	000.401.381.x.00M	HO-TCV-10AS	2011-01-01 18:54:27.978979	2011-02-18 22:32:23.131197	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	0.35	0.92000000000000004	0.40000000000000002
-116	ZH Sliding Wire Basket (18x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 17"h	547.35.228 	\N	000.547.035.228.00P		2011-01-01 18:53:53.712979	2011-02-18 23:09:15.023176	Purchased		Item	20.59		\N	0.10	0.92000000000000004	0.40000000000000002
 142	ZH Sliding Wire Basket (30x11x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 11"h	547.37.666	\N	000.547.037.666.00P		2011-01-01 18:53:54.712775	2011-02-18 23:20:24.485022	Purchased	30056-1	Item	28.25		\N	0.10	0.92000000000000004	0.40000000000000002
 395	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4883 Sable Soapstone	CTOP Corner - Classic (3 Week Lead Time) | Laminate 4883 Sable Soapstone		\N	000.402.000.311.00P	LAM-CCTOP-CL	2011-01-01 18:54:23.068882	2011-01-30 16:32:47.722038	Purchased		Item	185.85		\N	\N	0.92000000000000004	0.40000000000000002
 403	CTOP Corner - Classic (3 Week Lead Time) | Laminate 10776 Kingstone Maple	CTOP Corner - Classic (3 Week Lead Time) | Laminate 10776 Kingstone Maple		\N	000.402.000.319.00P	LAM-CCTOP-CL	2011-01-01 18:54:23.355838	2011-01-30 16:29:19.7736	Purchased		Item	185.85		\N	\N	0.92000000000000004	0.40000000000000002
@@ -3616,6 +3613,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 127	ZH Sliding Wire Basket (30x17x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 29"w x 17"h\r\n	547.37.628	\N	000.547.037.628.00P		2011-01-01 18:53:54.187019	2011-02-26 17:42:19.590641	Purchased	30105-1	Item	28.00		\N	0.10	0.92000000000000004	0.40000000000000002
 67	ZH Valet Rod | Oil Rubbed Bronze	Synergy Closet Valet, aluminum, dark oil rubbed bronzed, plastic, black, 14 1/8" length	808.71.103	\N	000.808.071.103.00P		2011-01-01 18:53:52.492961	2011-02-26 17:56:52.793256	Purchased	30113	Item	17.79		\N	0.07	0.92000000000000004	0.40000000000000002
 63	ZH Belt Rack | Matte Nickel	Belt Rack W/Slide Al Ni Matt/Bl Pl 13 7/8	807.67.613	\N	000.807.067.613.00P		2011-01-01 18:53:51.574608	2011-02-26 17:59:42.0778	Purchased	30091	Item	20.42	Hafele	\N	0.07	0.92000000000000004	0.40000000000000002
+184	ZH Wardrobe Lift (26-35) | Black	Wardrobe Lift, steel, black, plastic, black, 26" - 35 1/16", 26 lbs load capacity	805.31.302 	\N	000.805.031.302.00P		2011-01-01 18:53:56.336387	2011-02-26 18:08:27.529891	Purchased	30117	Item	48.74		\N	0.13	0.92000000000000004	0.40000000000000002
+182	ZH Wardrobe Lift (35-47) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.603	\N	000.805.031.603.00P		2011-01-01 18:53:56.21133	2011-02-26 18:10:32.35765	Purchased	30120	Item	71.24		\N	0.13	0.92000000000000004	0.40000000000000002
+116	ZH Sliding Wire Basket (18x17x12) | Polished Chrome	Closet Basket, steel, chrome-plated, 12"d x 17"w x 17"h	547.35.228 	\N	000.547.035.228.00P		2011-01-01 18:53:53.712979	2011-02-26 18:12:57.723686	Purchased	30097-1	Item	20.59		\N	0.10	0.92000000000000004	0.40000000000000002
 \.
 
 
@@ -6252,6 +6252,17 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 6740	4427	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:11:20.490605	2011-02-24 21:11:20.490605
 6741	4428	\N	dimensions	\N	Width,Height,Depth	{"depth":"23","linear_units":"in","height":"86.929000000000002","width":"18"}	2011-02-24 21:11:20.760281	2011-02-24 21:11:20.760281
 6742	4428	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:11:20.801205	2011-02-24 21:11:20.801205
+7264	4737	\N	dimensions	\N	Width,Depth	{"depth":"16.000","width":"29.500","linear_units":"in"}	2011-02-26 18:14:33.618932	2011-02-26 18:14:33.618932
+7265	4737	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.639587	2011-02-26 18:14:33.639587
+7266	4738	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"24.000","linear_units":"in"}	2011-02-26 18:14:33.650686	2011-02-26 18:14:33.650686
+7267	4738	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.663092	2011-02-26 18:14:33.663092
+7268	4739	\N	dimensions	\N	Width,Depth	{"depth":"16.000","width":"18.000","linear_units":"in"}	2011-02-26 18:14:33.673515	2011-02-26 18:14:33.673515
+7269	4739	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.684758	2011-02-26 18:14:33.684758
+7270	4740	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"32.000","linear_units":"in"}	2011-02-26 18:14:33.694436	2011-02-26 18:14:33.694436
+7271	4740	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.705596	2011-02-26 18:14:33.705596
+7272	4741	\N	dimensions	\N	Width,Depth	{"depth":"16.000","width":"21.000","linear_units":"in"}	2011-02-26 18:14:33.71583	2011-02-26 18:14:33.71583
+7273	4741	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.727902	2011-02-26 18:14:33.727902
+7274	4742	\N	dimensions	\N	Width,Depth	{"depth":"16.000","width":"24.000","linear_units":"in"}	2011-02-26 18:14:33.739628	2011-02-26 18:14:33.739628
 6754	4436	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"30.111000000000001","width":"23.875"}	2011-02-24 21:18:33.113658	2011-02-24 21:18:33.113658
 6755	4436	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:18:33.128953	2011-02-24 21:18:33.128953
 6756	4437	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"90.585999999999999","width":"23.875"}	2011-02-24 21:18:33.14021	2011-02-24 21:18:33.14021
@@ -6260,10 +6271,46 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 6759	4438	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:18:33.387585	2011-02-24 21:18:33.387585
 6760	4439	\N	dimensions	\N	Width,Height,Depth	{"depth":"23","linear_units":"in","height":"90.710999999999999","width":"48"}	2011-02-24 21:18:33.663304	2011-02-24 21:18:33.663304
 6761	4439	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:18:33.703362	2011-02-24 21:18:33.703362
+7275	4742	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.876086	2011-02-26 18:14:33.876086
+7276	4743	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"24.000","linear_units":"in"}	2011-02-26 18:14:33.888551	2011-02-26 18:14:33.888551
+7277	4743	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.902302	2011-02-26 18:14:33.902302
+7278	4744	\N	dimensions	\N	Width,Depth	{"depth":"16.000","width":"29.500","linear_units":"in"}	2011-02-26 18:14:33.913526	2011-02-26 18:14:33.913526
+7279	4744	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.928179	2011-02-26 18:14:33.928179
+7280	4745	\N	dimensions	\N	Width,Depth	{"depth":"16.000","width":"18.000","linear_units":"in"}	2011-02-26 18:14:33.939903	2011-02-26 18:14:33.939903
+7281	4745	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:33.951765	2011-02-26 18:14:33.951765
+7282	4746	\N	dimensions	\N	Height,Depth	{"depth":"16.000","height":"80.500","linear_units":"in"}	2011-02-26 18:14:33.991823	2011-02-26 18:14:33.991823
+7283	4746	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.002664	2011-02-26 18:14:34.002664
+7284	4747	\N	dimensions	\N	Height,Depth	{"depth":"14.000","height":"80.500","linear_units":"in"}	2011-02-26 18:14:34.038338	2011-02-26 18:14:34.038338
+7285	4747	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.163814	2011-02-26 18:14:34.163814
+7286	4748	\N	dimensions	\N	Height,Depth	{"depth":"14.000","height":"47.750","linear_units":"in"}	2011-02-26 18:14:34.204144	2011-02-26 18:14:34.204144
+7287	4748	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.215821	2011-02-26 18:14:34.215821
+7288	4749	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"45.000","linear_units":"in"}	2011-02-26 18:14:34.227861	2011-02-26 18:14:34.227861
+7289	4749	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.240978	2011-02-26 18:14:34.240978
+7290	4750	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"61.500","linear_units":"in"}	2011-02-26 18:14:34.251481	2011-02-26 18:14:34.251481
+7291	4750	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.264365	2011-02-26 18:14:34.264365
+7292	4751	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"63.500","linear_units":"in"}	2011-02-26 18:14:34.274844	2011-02-26 18:14:34.274844
+7293	4751	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.286665	2011-02-26 18:14:34.286665
+7294	4752	\N	dimensions	\N	Width,Depth	{"depth":"14.000","width":"60.500","linear_units":"in"}	2011-02-26 18:14:34.297012	2011-02-26 18:14:34.297012
+7295	4752	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.310226	2011-02-26 18:14:34.310226
+7296	4753	\N	dimensions	\N	Height,Depth	{"depth":"16.000","height":"15.875","linear_units":"in"}	2011-02-26 18:14:34.455897	2011-02-26 18:14:34.455897
+7297	4753	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.469254	2011-02-26 18:14:34.469254
+7298	4754	\N	dimensions	\N	Width,Height,Depth	{"depth":"13.750","height":"9.500","width":"23.000","linear_units":"in"}	2011-02-26 18:14:34.480699	2011-02-26 18:14:34.480699
+7299	4754	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.496439	2011-02-26 18:14:34.496439
 6806	4465	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"45.228999999999999","width":"23.875"}	2011-02-24 21:38:37.46096	2011-02-24 21:38:37.46096
 6807	4465	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:38:37.477442	2011-02-24 21:38:37.477442
 6808	4466	\N	dimensions	\N	Width,Height,Depth	{"depth":"23","linear_units":"in","height":"45.353999999999999","width":"48"}	2011-02-24 21:38:37.776149	2011-02-24 21:38:37.776149
 6809	4466	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-02-24 21:38:37.821018	2011-02-24 21:38:37.821018
+7300	4755	\N	dimensions	\N	Width,Height,Depth	{"depth":"13.750","height":"7.000","width":"23.000","linear_units":"in"}	2011-02-26 18:14:34.507488	2011-02-26 18:14:34.507488
+7301	4755	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.518375	2011-02-26 18:14:34.518375
+7302	4756	\N	dimensions	\N	Width,Height,Depth	{"depth":"15.750","height":"4.500","width":"23.000","linear_units":"in"}	2011-02-26 18:14:34.528533	2011-02-26 18:14:34.528533
+7303	4756	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.539623	2011-02-26 18:14:34.539623
+7304	4757	\N	dimensions	\N	Width,Height,Depth	{"depth":"13.750","height":"4.500","width":"23.000","linear_units":"in"}	2011-02-26 18:14:34.549513	2011-02-26 18:14:34.549513
+7305	4757	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.559557	2011-02-26 18:14:34.559557
+7306	4758	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"24.625","linear_units":"in"}	2011-02-26 18:14:34.569807	2011-02-26 18:14:34.569807
+7307	4758	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.596724	2011-02-26 18:14:34.596724
+7308	4759	\N	dimensions	\N	Width,Height	{"height":"8.693","width":"24.625","linear_units":"in"}	2011-02-26 18:14:34.608173	2011-02-26 18:14:34.608173
+7309	4759	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.6235	2011-02-26 18:14:34.6235
+7310	4760	\N	dimensions	\N	Width,Height	{"height":"11.213","width":"24.625","linear_units":"in"}	2011-02-26 18:14:34.746842	2011-02-26 18:14:34.746842
 6821	4474	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"79.245000000000005","width":"23.875"}	2011-02-24 22:11:04.102311	2011-02-24 22:11:04.102311
 6822	4474	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.120007	2011-02-24 22:11:04.120007
 6823	4475	\N	dimensions	\N	Width,Height	{"linear_units":"in","height":"79.245000000000005","width":"17.875"}	2011-02-24 22:11:04.129757	2011-02-24 22:11:04.129757
@@ -6272,11 +6319,36 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 6826	4476	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.411049	2011-02-24 22:11:04.411049
 6827	4477	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"79.37","width":"36"}	2011-02-24 22:11:04.717295	2011-02-24 22:11:04.717295
 6828	4477	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:04.759586	2011-02-24 22:11:04.759586
+7311	4760	\N	color	\N	Color	{"color":"White"}	2011-02-26 18:14:34.766595	2011-02-26 18:14:34.766595
+7312	4761	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:34.776791	2011-02-26 18:14:34.776791
+7313	4762	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:34.786074	2011-02-26 18:14:34.786074
+7314	4763	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:34.797805	2011-02-26 18:14:34.797805
+7315	4764	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:34.808523	2011-02-26 18:14:34.808523
+7316	4765	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:34.818888	2011-02-26 18:14:34.818888
 6829	4478	\N	dimensions	\N	Depth,Width,Height	{"depth":"23","linear_units":"in","height":"79.37","width":"48"}	2011-02-24 22:11:05.056868	2011-02-24 22:11:05.056868
 6830	4478	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:05.241428	2011-02-24 22:11:05.241428
 6831	4479	\N	dimensions	\N	Depth,Width,Height	{"depth":"16","linear_units":"in","height":"79.37","width":"48"}	2011-02-24 22:11:05.521248	2011-02-24 22:11:05.521248
 6832	4479	\N	color	\N	Color	{"color":"White"}	2011-02-24 22:11:05.566427	2011-02-24 22:11:05.566427
 6833	4480	\N	dimensions	\N		{"linear_units":"in"}	2011-02-24 22:11:05.577019	2011-02-24 22:11:05.577019
+7317	4766	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:34.82907	2011-02-26 18:14:34.82907
+7318	4767	\N	dimensions	\N	Width	{"width":"23.750","linear_units":"in"}	2011-02-26 18:14:34.83954	2011-02-26 18:14:34.83954
+7319	4768	\N	dimensions	\N	Width	{"width":"31.750","linear_units":"in"}	2011-02-26 18:14:34.849754	2011-02-26 18:14:34.849754
+7320	4769	\N	dimensions	\N	Width	{"width":"44.750","linear_units":"in"}	2011-02-26 18:14:34.860573	2011-02-26 18:14:34.860573
+7321	4770	\N	dimensions	\N	Width	{"width":"61.250","linear_units":"in"}	2011-02-26 18:14:34.870974	2011-02-26 18:14:34.870974
+7322	4771	\N	dimensions	\N	Width	{"width":"63.250","linear_units":"in"}	2011-02-26 18:14:34.883521	2011-02-26 18:14:34.883521
+7323	4772	\N	dimensions	\N	Width	{"width":"60.250","linear_units":"in"}	2011-02-26 18:14:34.895902	2011-02-26 18:14:34.895902
+7324	4773	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.026921	2011-02-26 18:14:35.026921
+7325	4774	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.041969	2011-02-26 18:14:35.041969
+7326	4775	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.055056	2011-02-26 18:14:35.055056
+7327	4776	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.067627	2011-02-26 18:14:35.067627
+7328	4777	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.081951	2011-02-26 18:14:35.081951
+7329	4778	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.093794	2011-02-26 18:14:35.093794
+7330	4779	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.105162	2011-02-26 18:14:35.105162
+7331	4780	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.116288	2011-02-26 18:14:35.116288
+7332	4781	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.127411	2011-02-26 18:14:35.127411
+7333	4782	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.138369	2011-02-26 18:14:35.138369
+7334	4783	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.150286	2011-02-26 18:14:35.150286
+7335	4784	\N	dimensions	\N		{"linear_units":"in"}	2011-02-26 18:14:35.161238	2011-02-26 18:14:35.161238
 \.
 
 
@@ -7219,6 +7291,15 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 3639	200	258	000.302.443.009.00M	3		2011-02-21 16:42:50.54695	2011-02-21 16:42:50.54695	92.24	5	NX Over Cabinet 2 Door | Windswept Pewter	\N	\N
 3640	200	256	000.402.493.009.00M	1		2011-02-21 16:42:51.018378	2011-02-21 16:42:51.018378	153.87	6	NX Tall Cabinet 2 Door | Windswept Pewter	\N	\N
 3641	200	3	000.117.031.632.00I	10		2011-02-21 16:42:51.076995	2011-02-21 16:42:51.076995	1.08	7	ZH Handle Nickel | 128mm	\N	\N
+4755	272	195	000.024.003.051.00B	4		2011-02-26 18:14:34.502078	2011-02-26 18:14:34.502078	63.13	19	Drawer Box	\N	\N
+4756	272	198	000.024.002.051.00B	2		2011-02-26 18:14:34.523963	2011-02-26 18:14:34.523963	57.16	20	Drawer Box	\N	\N
+4757	272	198	000.024.002.051.00B	2		2011-02-26 18:14:34.545009	2011-02-26 18:14:34.545009	53.97	21	Drawer Box	\N	\N
+4758	272	162	000.200.000.001.00M	4		2011-02-26 18:14:34.565367	2011-02-26 18:14:34.565367	21.18	22	Drawer Front - Flat | White	\N	\N
+4759	272	162	000.200.000.001.00M	4		2011-02-26 18:14:34.603488	2011-02-26 18:14:34.603488	22.78	23	Drawer Front - Flat | White	\N	\N
+4760	272	162	000.200.000.001.00M	2		2011-02-26 18:14:34.740285	2011-02-26 18:14:34.740285	24.37	24	Drawer Front - Flat | White	\N	\N
+4761	272	\N	001.2378	4		2011-02-26 18:14:34.772345	2011-02-26 18:14:34.772345	22.32	25	Top Shelf Support (Corbel) - White	\N	\N
+4762	272	217	000.104.700.000.00I	20		2011-02-26 18:14:34.781678	2011-02-26 18:14:34.781678	0.05	26	ZH Bumper Stop	\N	\N
+4763	272	236	000.263.050.705.00I	254		2011-02-26 18:14:34.793386	2011-02-26 18:14:34.793386	0.27	27	ZH Cam - Flush | White	\N	\N
 4659	269	40	000.910.251.001.00M	7		2011-02-25 16:36:22.954723	2011-02-26 04:18:16.725013	15.82	11	CL Hanging Partition - Radius - Thru | White	\N	1
 3718	203	45	000.931.011.001.00M	17		2011-02-21 19:12:23.649354	2011-02-21 19:12:23.649354	5.06	1	CL Adjustable Shelf | White	\N	\N
 3719	203	44	000.930.981.001.00M	6		2011-02-21 19:12:23.680864	2011-02-21 19:12:23.680864	4.30	2	CL Cam Shelf | White	\N	\N
@@ -7230,6 +7311,32 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 3725	203	230	000.140.000.001.00M	1		2011-02-21 19:12:23.947205	2011-02-21 19:12:23.947205	10.08	8	CL Hamper Door - flat | White	\N	\N
 4660	269	555	000.910.261.001.00M	11		2011-02-25 16:36:22.987332	2011-02-26 04:18:16.730644	29.14	12	CL Hanging Partition - Square - Thru | White	\N	1
 4645	268	505	000.301.131.001.00M	1		2011-02-25 16:26:16.33098	2011-02-26 04:18:19.571115	38.03	24	HO Upper 1 Door | White	\N	1
+4737	272	45	000.931.022.001.00M	3		2011-02-26 18:14:33.600062	2011-02-26 18:14:33.600062	17.72	1	CL Adjustable Shelf | White	\N	\N
+4738	272	45	000.931.011.001.00M	6		2011-02-26 18:14:33.6461	2011-02-26 18:14:33.6461	12.66	2	CL Adjustable Shelf | White	\N	\N
+4739	272	45	000.931.982.001.00M	6		2011-02-26 18:14:33.66872	2011-02-26 18:14:33.66872	10.81	3	CL Adjustable Shelf | White	\N	\N
+4740	272	44	000.930.031.001.00M	4		2011-02-26 18:14:33.690192	2011-02-26 18:14:33.690192	19.12	4	CL Cam Shelf | White	\N	\N
+4741	272	44	000.930.012.001.00M	5		2011-02-26 18:14:33.71124	2011-02-26 18:14:33.71124	14.29	5	CL Cam Shelf | White	\N	\N
+4742	272	44	000.930.012.001.00M	12		2011-02-26 18:14:33.734606	2011-02-26 18:14:33.734606	16.34	6	CL Cam Shelf | White	\N	\N
+4743	272	44	000.930.011.001.00M	16		2011-02-26 18:14:33.883478	2011-02-26 18:14:33.883478	14.34	7	CL Cam Shelf | White	\N	\N
+4744	272	44	000.930.032.001.00M	3		2011-02-26 18:14:33.908647	2011-02-26 18:14:33.908647	20.08	8	CL Cam Shelf | White	\N	\N
+4745	272	44	000.930.982.001.00M	9		2011-02-26 18:14:33.934882	2011-02-26 18:14:33.934882	12.25	9	CL Cam Shelf | White	\N	\N
+4746	272	40	000.910.252.001.00M	10		2011-02-26 18:14:33.986915	2011-02-26 18:14:33.986915	75.44	10	CL Hanging Partition - Radius - Thru | White	\N	\N
+4747	272	40	000.910.251.001.00M	3		2011-02-26 18:14:34.033444	2011-02-26 18:14:34.033444	66.24	11	CL Hanging Partition - Radius - Thru | White	\N	\N
+4748	272	40	000.910.251.001.00M	8		2011-02-26 18:14:34.198344	2011-02-26 18:14:34.198344	39.55	12	CL Hanging Partition - Radius - Thru | White	\N	\N
+4749	272	48	000.934.091.001.00M	1		2011-02-26 18:14:34.222488	2011-02-26 18:14:34.222488	9.54	13	CL Top Shelf | White	\N	\N
+4750	272	48	000.934.091.001.00M	1		2011-02-26 18:14:34.247044	2011-02-26 18:14:34.247044	19.48	14	CL Top Shelf | White	\N	\N
+4751	272	48	000.934.091.001.00M	1		2011-02-26 18:14:34.270172	2011-02-26 18:14:34.270172	20.10	15	CL Top Shelf | White	\N	\N
+4752	272	48	000.934.091.001.00M	1		2011-02-26 18:14:34.292252	2011-02-26 18:14:34.292252	19.16	16	CL Top Shelf | White	\N	\N
+4753	272	37	000.911.272.001.00M	2		2011-02-26 18:14:34.448957	2011-02-26 18:14:34.448957	10.63	17	CL Upright Partition - Thru | White	\N	\N
+4754	272	196	000.024.004.051.00B	2		2011-02-26 18:14:34.475413	2011-02-26 18:14:34.475413	72.28	18	Drawer Box	\N	\N
+4764	272	156	000.263.024.972.00I	68		2011-02-26 18:14:34.804045	2011-02-26 18:14:34.804045	0.20	28	ZH Cam (Double Stud)	\N	\N
+4765	272	155	000.263.020.847.00I	118		2011-02-26 18:14:34.81475	2011-02-26 18:14:34.81475	0.12	29	ZH Cam (Screw-In Stud)	\N	\N
+4766	272	237	000.263.059.730.00I	254		2011-02-26 18:14:34.824892	2011-02-26 18:14:34.824892	0.03	30	ZH Cam Cover | White	\N	\N
+4767	272	98	000.801.042.200.00I	8		2011-02-26 18:14:34.835269	2011-02-26 18:14:34.835269	7.51	31	ZH Closet Rod | Polished Chrome	\N	\N
+4768	272	98	000.801.042.200.00I	2		2011-02-26 18:14:34.845595	2011-02-26 18:14:34.845595	11.27	32	ZH Closet Rod | Polished Chrome	\N	\N
+4769	272	98	000.801.042.200.00I	1		2011-02-26 18:14:34.856141	2011-02-26 18:14:34.856141	15.03	33	ZH Closet Rod | Polished Chrome	\N	\N
+4770	272	98	000.801.042.200.00I	1		2011-02-26 18:14:34.866727	2011-02-26 18:14:34.866727	22.54	34	ZH Closet Rod | Polished Chrome	\N	\N
+4771	272	98	000.801.042.200.00I	1		2011-02-26 18:14:34.877953	2011-02-26 18:14:34.877953	22.54	35	ZH Closet Rod | Polished Chrome	\N	\N
 3726	203	563	000.970.024.001.00M	3		2011-02-21 19:12:23.97588	2011-02-21 19:12:23.97588	2.99	9	CL Toe Kick | White	\N	\N
 3727	203	35	000.912.181.001.00M	5		2011-02-21 19:12:24.140694	2011-02-21 19:12:24.140694	21.52	10	CL Upright Partition - BaseNotch - Left | White	\N	\N
 3728	203	36	000.912.381.001.00M	5		2011-02-21 19:12:24.176484	2011-02-21 19:12:24.176484	21.52	11	CL Upright Partition - BaseNotch - Right | White	\N	\N
@@ -7659,6 +7766,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4583	263	256	000.402.493.010.00M	1		2011-02-25 15:21:15.029813	2011-02-25 15:21:15.029813	370.75	8	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N
 4584	263	502	000.400.004.403.00M	1		2011-02-25 15:21:15.114078	2011-02-25 15:21:15.114078	133.90	9	NX Workbench Top (Finished Ends) | Ebony Star	\N	\N
 4585	263	5	000.117.031.330.00I	8		2011-02-25 15:21:15.135512	2011-02-25 15:21:15.135512	2.44	10	ZH Handle Black | 128mm	\N	\N
+4783	272	201	000.100.300.000.00I	40		2011-02-26 18:14:35.145892	2011-02-26 18:14:35.145892	0.04	47	ZH Screw (Euro)	\N	\N
+4784	272	12	000.102.100.000.00I	78		2011-02-26 18:14:35.156751	2011-02-26 18:14:35.156751	0.06	48	ZH Shelf Pin (Spoon)	\N	\N
 4624	268	316	000.401.002.304.00P	1		2011-02-25 16:26:13.761106	2011-02-26 04:18:19.578739	202.67	3	CTOP - Tempo (3 Week Lead Time) | Laminate 4781 Sunstone	\N	1
 4642	268	507	000.308.232.001.00M	1		2011-02-25 16:26:15.516645	2011-02-26 04:18:19.582375	66.11	21	HO Corner Upper | White	\N	1
 4728	271	4	000.117.031.334.00I	9		2011-02-26 16:03:28.184452	2011-02-26 16:03:28.184452	1.04	29	ZH Handle Bronze | 128mm	\N	\N
@@ -7673,6 +7782,17 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 3239	188	\N	000.	3	for garage cabinet	2011-02-18 22:06:45.022824	2011-02-26 16:55:25.789663	45.00	12	3 equal drawers for 30wide base cabinet	\N	2
 3249	188	44	000.930.012.001.00M	7		2011-02-18 22:06:45.541718	2011-02-26 16:55:25.818024	5.58	11	CL Cam Shelf | White	\N	2
 3264	188	260	000.302.430.001.00M	1		2011-02-18 22:06:47.172425	2011-02-26 16:55:25.859689	48.22	26	NX Upper Cabinet 2 Door | White	\N	2
+4772	272	98	000.801.042.200.00I	1		2011-02-26 18:14:34.891101	2011-02-26 18:14:34.891101	22.54	36	ZH Closet Rod | Polished Chrome	\N	\N
+4773	272	165	007.111.KSC.14W.00I	8		2011-02-26 18:14:34.902833	2011-02-26 18:14:34.902833	2.38	37	ZH Drawer Slide | 3/4 ext | 14 inch	\N	\N
+4774	272	166	007.111.KSC.16W.00I	2		2011-02-26 18:14:35.036259	2011-02-26 18:14:35.036259	2.53	38	ZH Drawer Slide | 3/4 ext | 16 inch	\N	\N
+4775	272	2	000.117.031.230.00I	10		2011-02-26 18:14:35.049679	2011-02-26 18:14:35.049679	2.69	39	ZH Handle Chrome | 128mm	\N	\N
+4776	272	104	000.290.002.711.00I	8		2011-02-26 18:14:35.062539	2011-02-26 18:14:35.062539	2.56	40	ZH Hang Bracket | Left	\N	\N
+4777	272	105	000.290.002.710.00I	8		2011-02-26 18:14:35.077115	2011-02-26 18:14:35.077115	2.56	41	ZH Hang Bracket | Right	\N	\N
+4778	272	107	000.290.011.901.00I	7		2011-02-26 18:14:35.089128	2011-02-26 18:14:35.089128	8.30	42	ZH Hang Rail	\N	\N
+4779	272	590	000.290.012.781.00I	7		2011-02-26 18:14:35.100449	2011-02-26 18:14:35.100449	3.75	43	ZH Hang Rail Cover | White	\N	\N
+4780	272	101	000.803.056.200.00I	28		2011-02-26 18:14:35.111724	2011-02-26 18:14:35.111724	4.80	44	ZH Pole Cups (pair) | Polished Chrome	\N	\N
+4781	272	220	000.022.035.350.00I	20		2011-02-26 18:14:35.123101	2011-02-26 18:14:35.123101	0.12	45	ZH Screw (Drawer Front Handles)	\N	\N
+4782	272	202	000.104.900.000.00I	80		2011-02-26 18:14:35.134115	2011-02-26 18:14:35.134115	0.02	46	ZH Screw (Drawer Slide 3/4 Ext)	\N	\N
 4304	237	45	000.931.011.001.00M	6		2011-02-24 17:47:30.668622	2011-02-24 17:47:30.668622	5.06	1	CL Adjustable Shelf | White	\N	\N
 4305	237	45	000.931.981.001.00M	7		2011-02-24 17:47:30.886471	2011-02-24 17:47:30.886471	3.80	2	CL Adjustable Shelf | White	\N	\N
 4306	237	44	000.930.981.001.00M	3		2011-02-24 17:47:30.923264	2011-02-24 17:47:30.923264	4.30	3	CL Cam Shelf | White	\N	\N
@@ -7978,6 +8098,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 250	269	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-25 16:36:22.378611	2011-02-25 16:36:22.378611
 251	270	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-25 22:54:18.809362	2011-02-25 22:54:18.809362
 252	271	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-26 16:03:26.736724	2011-02-26 16:03:26.736724
+253	272	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-02-26 18:14:33.586673	2011-02-26 18:14:33.586673
 \.
 
 
@@ -8027,6 +8148,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 249	20	19	23	Green room 3	SO-95	\N	2011-02-24 21:11:19.796613	2011-02-25 18:15:21.643633	Green, Robert Parts List room 3.xml	text/xml	8778	2011-02-24 21:11:19.794634	Phoenix	Confirmed	2011-03-11	\N		2011-02-24 21:12:36	19		PremierRoute	19		23
 254	20	19	23	Green room 6	SO-98	\N	2011-02-24 21:38:37.25544	2011-02-25 18:33:40.223993	Green, Robert Parts List room 6.xml	text/xml	6258	2011-02-24 21:38:37.253336	Phoenix	Confirmed	2011-03-11	\N		2011-02-24 21:39:31	19		PremierRoute	19		23
 264	28	103	36	Littenberg	SO-102	\N	2011-02-25 15:21:31.429528	2011-02-25 18:44:49.036585	Littenberg Parts List.xls	application/vnd.ms-excel	11578	2011-02-25 15:21:31.426831	Phoenix	Confirmed	2011-03-11	\N		2011-02-25 15:23:15	103		PremierRoute	103		36
+272	59	87	70	Bauer	\N	\N	2011-02-26 18:14:33.020409	2011-02-26 18:14:33.020409	Bauer_Merrimac.dvi Parts List.xml	application/octet-stream	39020	2011-02-26 18:14:33.015063	\N	\N	\N	\N		\N	\N	\N	\N	87	\N	\N
 196	9	32	13	Valles - Garage	SO - 60	\N	2011-02-19 05:26:43.436919	2011-02-21 18:59:37.388514	Valles, Carlos and Natalie.dvi Parts List.xml	application/xml	23079	2011-02-19 05:26:43.4338	Phoenix	Confirmed	2011-03-04	\N	** Classic cabinetry with powder coated doors with Premier Access. **\r\n\r\nI need a confirmat bit (the lower priced version).\r\n\r\nI also need pricing on the adjustable feet.\r\n	2011-02-19 05:30:42	32		PremierRoute	9	Look in the folder for the list of classic parts.	13
 182	31	63	39	Birmingham Home Show	SO - 53	\N	2011-02-18 16:09:56.161773	2011-02-19 04:18:07.999359	2011 Bham Home Show Parts List.xml	application/octet-stream	38291	2011-02-18 16:09:56.157867	Phoenix	Confirmed	2011-03-04	\N	Need delivery by March 7 for home show that weekend. Can you drop on the way to Atlanta.\r\n\r\nNeed the following hardware:\r\n\r\nhutch base corner bracket\r\nmini fix cam\r\nhutch angle bracket\r\nmini fix post\r\nscrew corner brace\r\nscrew angle brackets	2011-02-18 16:21:29	63		PremierRoute	63		\N
 193	4	32	6	Driftmier - Garage	SO - 57	\N	2011-02-19 01:48:31.419348	2011-02-19 04:33:26.521999	Driftmier 2.dvi Parts List.xml	application/xml	23538	2011-02-19 01:48:31.417269	Phoenix	Confirmed	2011-03-04	\N	** Custom Order **	2011-02-19 02:15:40	32		PremierRoute	29		\N
@@ -9077,6 +9199,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
 19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	\N	\N	9	2011-02-25 22:52:42.885377	2011-02-24 22:25:38.079098	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-02-25 23:02:43.137696
 8	\N	Customer Service	PG	480-483-3030		480-483-7895	info@premiergarage.com	$2a$10$B8ij4mhstLCYA3L69NAF5OgSwt2Gl2.hjC333B9JTG9VUHWn0E8qK	$2a$10$B8ij4mhstLCYA3L69NAF5O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.919109	2011-01-27 00:32:32.680546
+4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	-lsWULb3FikcXV38S_0a	2011-02-23 21:02:20.870478	22	2011-02-26 18:00:58.52997	2011-02-24 17:33:02.367351	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-26 18:00:58.530569
 34	Mrs.	Yolanda	Quihuis	623-792-2308		(480) 483-7895	yquihuis@premiergarage.com	$2a$10$juxBicxGxmlHLdVPujeo4unPsEebEhd.O.sN3wjHq9fgW1P445p/u	$2a$10$juxBicxGxmlHLdVPujeo4u	\N	VS-UZecfzT95ORhxjaBk	2011-02-16 13:51:40.156431	41	2011-02-26 15:03:08.26919	2011-02-25 22:24:47.248125	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.603664	2011-02-26 15:03:08.269795
 31	Mrs.	Jodi	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$jr.WGscm43bzYLCqH41RruYwank5yL6wuAcliLkD9IznX8jtk.kry	$2a$10$jr.WGscm43bzYLCqH41Rru	\N	\N	\N	2	2011-01-27 18:37:39.160114	2011-01-27 18:24:05.937583	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.240116	2011-01-30 21:09:00.185987
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
@@ -9093,7 +9216,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 20	Mr.	Jeffery	Vlasak	(262) 633-8850	(262) 488-3826	(262) 866-2093	jvlasak@tailoredliving.com	$2a$10$j9DCWY7J.99SOjfcaQH9ye2opLsFYmOE.mal2aTRwod/BLSkztxkq	$2a$10$j9DCWY7J.99SOjfcaQH9ye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.535755	2011-02-11 17:58:42.001612
 10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	3	2011-02-22 01:01:45.870037	2011-02-17 17:25:28.836968	67.78.112.191	108.116.4.29	2011-01-01 18:53:33.181217	2011-02-22 01:57:31.706079
 16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	B_kl-WzcHe_XkZjS7K_m	2011-02-21 17:35:03.908946	6	2011-02-22 21:02:09.392091	2011-02-21 18:04:43.331368	64.134.234.181	76.205.198.73	2011-01-01 18:53:33.935232	2011-02-22 21:02:09.392994
-4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	-lsWULb3FikcXV38S_0a	2011-02-23 21:02:20.870478	21	2011-02-24 17:33:02.367351	2011-02-24 15:23:16.915051	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-24 17:33:02.368613
 22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	1	2011-02-16 22:03:46.211842	2011-02-16 22:03:46.211842	174.47.44.30	174.47.44.30	2011-01-01 18:53:34.831371	2011-02-16 22:03:46.212528
 36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$xo/nM73amtMdms4dwF9inuMDAlqSmZjcO0QPfsL.iFf6U83uDdeMu	$2a$10$xo/nM73amtMdms4dwF9inu	\N	GcjZOL2QVIrULbqUr-ED	2011-02-17 16:53:59.462804	6	2011-02-17 16:53:59.466653	2011-02-17 16:50:40.874378	67.203.136.36	66.93.64.100	2011-01-01 18:53:36.829115	2011-02-17 16:53:59.467221
 45	Ms.	Jackie	Poehlman	(949) 831-3244	(949)939-6845	(949) 297-3953	jpoehlman@tailoredliving.com	$2a$10$h2/BHnBLmWipNnMCVTNwSOL0CW/1MOwG5R6cmaF9TS3JqS.lres1m	$2a$10$h2/BHnBLmWipNnMCVTNwSO	\N	\N	\N	1	2011-02-17 03:27:12.45661	2011-02-17 03:27:12.45661	68.231.204.109	68.231.204.109	2011-01-01 18:53:37.963796	2011-02-17 03:27:12.457361
@@ -9148,7 +9270,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 101	\N	Veny	Pirochta	650-286-9676	650-826-1000	650-286-9690	venyp@tailoredliving.com	$2a$10$iNba5BuOtSaV0HFQHfUfsed/PBOx89PRr6.yULCFsVQaQ3pBFrkLy	$2a$10$iNba5BuOtSaV0HFQHfUfse	\N	-NrVV6aDr6Qet-_L0SRb	2011-02-19 03:22:49.123982	5	2011-02-24 20:18:26.715699	2011-02-23 19:11:15.360168	69.106.228.120	69.106.228.120	2011-02-19 03:17:56.740706	2011-02-24 20:18:26.716299
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	4	2011-02-24 18:06:49.379536	2011-02-24 16:20:19.781828	72.66.62.197	72.66.62.197	2011-02-17 15:18:30.360419	2011-02-24 18:24:34.413973
 100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	xcrNEqUK1KEERpNJ5X17	2011-02-24 16:29:55.526253	12	2011-02-24 20:15:43.135262	2011-02-24 19:44:55.895746	69.219.227.57	69.219.227.57	2011-02-18 00:30:51.948611	2011-02-24 20:15:43.135875
-87	\N	Julee	Barnett	(608)630-0246			jtbarnett@tailoredliving.com	$2a$10$nW2MhmhsTsOZvbE4V3Hhge8mCRrbT5dMr2/QmgAA27SBYSLJEYBSi	$2a$10$nW2MhmhsTsOZvbE4V3Hhge	\N	\N	\N	1	2011-02-25 02:12:36.4559	2011-02-25 02:12:36.4559	96.61.56.66	96.61.56.66	2011-02-11 17:57:13.665014	2011-02-25 02:12:36.456483
 102	\N	Jason	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$Dlcm5kqfV1yAd8Kz5id09uckJkWRwj/x3dOlO1ejzf9csPRnHrNR.	$2a$10$Dlcm5kqfV1yAd8Kz5id09u	\N	\N	\N	6	2011-02-26 15:53:50.465389	2011-02-25 20:39:43.588275	68.228.225.20	174.79.54.226	2011-02-21 19:54:37.738913	2011-02-26 15:53:50.466445
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	3fKkUt4AXqpG-i6UGliu	2011-02-22 19:00:48.119409	2	2011-02-22 19:00:51.544035	2011-02-16 20:41:30.189054	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-02-22 19:00:51.544781
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$SbKU6fEH5quJZ6JWA9Taoeq5ybgChv9WxccJLwsg.p8kO2kra/c1y	$2a$10$SbKU6fEH5quJZ6JWA9Taoe	\N	\N	\N	0	\N	\N	\N	\N	2011-02-16 23:04:54.013023	2011-02-16 23:04:54.013023
@@ -9157,6 +9278,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	5	2011-02-25 23:07:06.334879	2011-02-21 23:11:21.696772	174.79.54.226	174.79.54.226	2011-02-16 18:28:06.756767	2011-02-25 23:07:06.335875
 78	\N	Dave	Galt	(701)281-0558		(701)281-0568	dgalt@tailoredliving.com	$2a$10$1kCTBmCuZB59.p7hZJkB..d/caHKpVhCKai4Uo6lJclobHPQjqgEi	$2a$10$1kCTBmCuZB59.p7hZJkB..	\N	\N	\N	2	2011-02-17 18:20:16.439636	2011-02-15 15:08:08.270598	69.178.221.211	69.178.221.211	2011-02-11 16:13:15.331096	2011-02-17 18:20:16.440675
 89	\N	Customer	A	303-578-9085			divisidera@gmail.com	$2a$10$MUZ7No7mXdh5149aCsytb.ZIppO6SdfvWLbFbnHzZ3wFm3Z2L96X2	$2a$10$MUZ7No7mXdh5149aCsytb.	\N	\N	\N	2	2011-02-26 16:02:39.223263	2011-02-18 21:05:46.212082	71.196.137.193	71.196.137.193	2011-02-11 18:07:39.459118	2011-02-26 16:02:39.224075
+87	\N	Julee	Barnett	(608)630-0246			jtbarnett@tailoredliving.com	$2a$10$nW2MhmhsTsOZvbE4V3Hhge8mCRrbT5dMr2/QmgAA27SBYSLJEYBSi	$2a$10$nW2MhmhsTsOZvbE4V3Hhge	\N	\N	\N	2	2011-02-26 18:10:37.68395	2011-02-25 02:12:36.4559	96.61.56.66	96.61.56.66	2011-02-11 17:57:13.665014	2011-02-26 18:36:15.652751
 49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$auN9mhf3YPJqlsDpQQszKee3FvMmxMBr..NZyMV1ZwQSxke70Cs2G	$2a$10$auN9mhf3YPJqlsDpQQszKe	\N	jQr9XAygDu4gcgYYJE6O	2011-02-19 17:51:34.126281	38	2011-02-23 18:26:52.319692	2011-02-22 16:15:04.250216	98.245.88.239	67.217.228.116	2011-01-01 19:06:38.040379	2011-02-23 18:26:52.320343
 104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	NKPSdpdqzsjajvoJoQzA	2011-02-24 17:45:06.438803	2	2011-02-24 17:45:06.442498	2011-02-24 17:29:35.77322	99.150.147.113	99.150.147.113	2011-02-24 17:28:44.010247	2011-02-24 17:45:06.443047
 \.
