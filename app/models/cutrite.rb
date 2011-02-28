@@ -37,7 +37,8 @@ module Cutrite
     ]
 
     panel_query = ColorQuery.new('panel_material', job_item.dvinci_color_code) {|v| v.thickness(:in) != 0.25}
-    panel_material = Option.new(job_item.item).bind {|i| i.query(panel_query, [])}
+    door_query = ColorQuery.new('door_material', job_item.dvinci_color_code)
+    panel_material = Option.new(job_item.item).bind{|i| i.query(panel_query, []).orElseLazy{i.query(door_query, [])}}
 
     eb_query = ColorQuery.new('edge_band', job_item.dvinci_color_code) {|v| v.width == 19 }
     eb_material = Option.new(job_item.item).bind {|i| i.query(eb_query, [])}
