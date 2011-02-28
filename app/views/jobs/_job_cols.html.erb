@@ -1,6 +1,6 @@
       <td><%= link_to job.name, job_path(job) %></td>
       <td><%= job.job_number %></td>
-      <td><%= job.created_at %></td>
+      <td><%= job.placement_date %></td>
       <% if can? :manage, job %>
         <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
         <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
