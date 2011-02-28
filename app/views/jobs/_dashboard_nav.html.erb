@@ -7,7 +7,7 @@
   </tr>
   <% jobs.each do |job| %>
     <tr>
-      <td><%= link_to job.name, jobs_path(job) %></td>
+      <td><%= link_to job.name, job_path(job) %></td>
       <td><%= job.job_number %></td>
       <td><%= job.due_date %></td>
       <td><%= job_status_select(job) %></td>
