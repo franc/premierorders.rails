@@ -7,7 +7,7 @@
         <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, job.status), :class => 'job_status') -%></td>
         <td><%= select_tag("job[#{job.id}][ship_method]", options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, job.ship_method), :class => 'job_status') -%></td>
         <td>
-          <%= job.production_batches_closed? ? 
+          <%= (job.production_batches_closed? || job.status.nil? || job.status == 'Created') ? 
               job.production_batches.to_a.map{|b| b.name}.join("<br/>") : 
               production_batch_select(job) %>
         </td>

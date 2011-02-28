@@ -54,6 +54,7 @@ class JobsController < ApplicationController
   def create
     begin
       @job = Job.new(params[:job])
+      @job.status = 'Created'
       @job.customer = current_user
       @job.primary_contact = current_user
 
