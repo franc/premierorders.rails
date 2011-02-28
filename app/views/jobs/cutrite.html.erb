@@ -7,7 +7,7 @@
 <table class="cutrite_csv_items">
   <tr><% Job::CUTRITE_ITEMS_HEADER[0...14].each do |label| -%><th><%= label -%></th><% end %></tr>
   <% @job.cutrite_items_data.each_with_index do |row, i| -%>
-    <tr><% row.[0...14]each do |col| -%><td><%= col -%></td><% end %></tr>
+    <tr><% row[0...14].each do |col| -%><td><%= col -%></td><% end %></tr>
   <% end %>
 </table>
 

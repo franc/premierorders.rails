@@ -5,7 +5,7 @@ require 'items/panel.rb'
 class FinishedPanel < Item
   include ItemMaterials, PanelEdgePricing, Items::Margins
 
-  def self.required_properties
+  def self.optional_properties
     if self.respond_to?(:banded_edges) && !self.banded_edges.empty?
       [Panel::MATERIAL, PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])]
     else
