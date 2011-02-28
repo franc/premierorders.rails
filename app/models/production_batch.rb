@@ -14,6 +14,14 @@ class ProductionBatch < ActiveRecord::Base
     (job_lines + item_lines)
   end
 
+  def open?
+    status == 'closed'
+  end
+
+  def closed?
+    status == 'closed'
+  end
+
   def cutrite_batch_data
     ['', name, '', '', '',].map do |v|
       v.to_s.gsub(/[,'"]/,'')

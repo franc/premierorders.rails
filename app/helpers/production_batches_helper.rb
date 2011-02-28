@@ -1,13 +1,19 @@
 module ProductionBatchesHelper
-  def open_batch_options(selected)
-    opts = if (selected.forall{|id| id != -1})
-      ProductionBatch.find_all_by_status(:open).map{|batch| [batch.name, batch.id]}
-    else
-      [['(multiple)', -1]] + ProductionBatch.find_all_by_status(:open).map {|batch| [batch.name, batch.id]}
-    end 
+  def production_batch_select(job)
+    option_tags = options_for_select(
+      ProductionBatch.find_all_by_status(:open).map{|batch| [batch.name, batch.id]},
+      job.production_batches.to_a.map{|b| b.id}
+    )
 
-    logger.info("Selected production batch from #{opts.inspect} is #{selected.inspect}")
+    select_opts = {
+       :class => 'job_production_batch', 
+       :include_blank => true
+    }
 
-    options_for_select(opts, selected.orSome(nil))
+    if (job.production_batches.size > 1) 
+      select_opts[:multiple] = true
+    end
+
+    select_tag("job[#{job.id}][production_batch_id]", option_tags, select_opts) 
   end
 end

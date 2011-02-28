@@ -12,7 +12,6 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @jobs }
     end
   end
 
@@ -21,7 +20,6 @@ class JobsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @job }
     end
   end
 
@@ -38,7 +36,6 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @job }
     end
   end
 
@@ -67,10 +64,8 @@ class JobsController < ApplicationController
           end
           @job.save
           format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
-          format.xml  { render :xml => @job, :status => :created, :location => @job }
         else
           format.html { render :action => "new" }
-          format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
         end
       end
     rescue FormatException => ex
@@ -84,18 +79,23 @@ class JobsController < ApplicationController
   def update
     @production_batch = ProductionBatch.find_by_id(params[:job][:production_batch_id])
     respond_to do |format|
-      if @production_batch && @job.update_production_batch(@production_batch) 
-        format.js   { render :json => {:updated => 'success'} }
-        format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
-        format.xml  { head :ok }
+      if params[:job].key?(:production_batch_id) 
+        @job.update_production_batch(@production_batch).cata( 
+          lambda do |error|
+            format.js   { render :json => {:updated => 'error', :error => error} }
+            format.html { render :action => "edit" }
+          end,
+          lambda do |error|
+            format.js   { render :json => {:updated => 'success'} }
+            format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+          end
+        )
       elsif @job.update_attributes(params[:job])
         format.js   { render :json => {:updated => 'success'} }
         format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
-        format.xml  { head :ok }
       else
         format.js   { render :json => {:updated => 'error'} }
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -106,10 +106,8 @@ class JobsController < ApplicationController
       if @job.save
         OrderPlacedMailer.order_placed_email(@job).deliver
         format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
-        format.xml  { head :ok }
       else
         format.html { redirect_to(@job, :error => "Order could not be placed: #{@job.errors}.") }
-        format.xml  { render :xml => @job.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -117,7 +115,6 @@ class JobsController < ApplicationController
   def cutrite
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @job.to_cutrite_data }
     end
   end
 
@@ -134,7 +131,6 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(jobs_url) }
-      format.xml  { head :ok }
     end
   end
 end

@@ -199,43 +199,31 @@ class Job < ActiveRecord::Base
 
   # returns any common batch id for the order; nil if no batch is set, and -1 if items
   # are in multiple batches.
-  def production_batch_id
-    result = job_items.inject(Option.none) do |v, ji|
-      current = Option.new(ji.production_batch_id)
-      v.orElse(current).bind do |previous|
-        previous == ji.production_batch_id || previous == -1 ? current : Some.new(-1)
-      end
+  def production_batches
+    job_items.inject(Set.new) do |v, job_item|
+      job_item.production_batch.nil? ? v : v.add(job_item.production_batch)
     end
+  end
 
-    result
+  def production_batches_closed?
+    job_items.all?{|i| i.production_batch && i.production_batch.closed?}
   end
 
   def update_production_batch(batch)
-    ok = batch && batch.status != 'closed'
-    if ok
+    if batch && batch.closed?
+      Left.new("Unable to update production batch for #{name}: batch is closed.")
+    elsif production_batches_closed?
+      Left.new("Unable to update production batch for #{name}: all items already assigned to closed batches.")
+    else
       job_items.each do |job_item|
-        if job_item.production_batch 
-          unless job_item.production_batch.status == 'closed'
-            job_item.production_batch = batch
-            job_item.save
-            ok = true
-          end
-        else
+        unless job_item.production_batch && job_item.production_batch.closed? 
           job_item.production_batch = batch
           job_item.save
-          ok = true
         end
       end
-    end
 
-    if ok
-      save
-    else
-      logger.error("Unable to update production batch for #{name}: batch is closed, or all items already assigned to other closed batches.")
-      errors << "Unable to update production batch for #{name}: batch is closed, or all items already assigned to other closed batches."
+      Right.new(batch)
     end
-
-    ok
   end
 
   CUTRITE_JOB_HEADER = ['', 'Job Name', '', '', ''] + CUTRITE_ADDRESS_HEADER

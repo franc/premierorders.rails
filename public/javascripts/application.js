@@ -12,7 +12,8 @@ var update_notice = function(data) {
   if (data['updated'] === 'success') {
     $("#notice").html("Update successful.")
   } else {
-    $("#notice").html('<span style="color:red">Update error! Please file a bug describing what happened.</span>')
+    var message = (data['error'] === undefined) ? "Unexpected error! Please file a bug describing what you were doing." : data['error'];
+    $("#notice").html('<span style="color:red">'+message+'</span>')
   }
 };
 
