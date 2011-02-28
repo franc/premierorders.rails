@@ -5,11 +5,22 @@
       $(".job_status").change(post_this_update);
       $(".job_ship_method").change(post_this_update);
       $(".job_production_batch").change(post_this_update);
+      $("#job_status_filter").change(
+        function(ev) {
+          $("#job_filters").submit();
+        }
+      );
     });
   </script>
 <% end %>
 
 <h2><%= Job.model_name.human.pluralize %></h2>
+<form id="job_filters">
+  <span id="job_filters">
+    <strong>Status: </strong> <%= select_tag 'status', options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, params[:status]), :id => 'job_status_filter', :include_blank => true %>
+  </span>
+</form>
+
 <p id="notice"><%= notice %></p>
 
 <table>

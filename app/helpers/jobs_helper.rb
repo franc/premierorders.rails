@@ -48,6 +48,7 @@ module JobsHelper
       :class => 'job_status'
     ) 
   end
+
   def job_ship_method_select(job)
     select_tag(
       "job[#{job.id}][ship_method]", 
