@@ -3,6 +3,7 @@
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
       $(".job_status").change(post_this_update);
+      $(".job_ship_method").change(post_this_update);
       $(".job_production_batch").change(post_this_update);
     });
   </script>
@@ -28,6 +29,7 @@
 
 <% content_for :local_nav do %>
   <% if can? :create, Job %>
+    <%= link_to "Dashboard", url_for(:action => 'dashboard', :controller => 'jobs') %> | 
     <%= link_to "New #{Job.model_name.human}", new_job_path %>
   <% end %>
 <% end %>

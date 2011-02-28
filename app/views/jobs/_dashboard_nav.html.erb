@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Order Name</th>
+    <th>SO #</th>
+    <th>Due Date</th>
+    <th>Status</th>
+  </tr>
+  <% jobs.each do |job| %>
+    <tr>
+      <td><%= link_to job.name, jobs_path(job) %></td>
+      <td><%= job.job_number %></td>
+      <td><%= job.due_date %></td>
+      <td><%= job_status_select(job) %></td>
+    </tr>
+  <% end %>
+</table>
+

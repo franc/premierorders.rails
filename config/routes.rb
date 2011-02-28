@@ -46,6 +46,7 @@ PgRails::Application.routes.draw do
   match 'properties/search' => 'properties#search'
   resources :properties 
 
+  match 'jobs/dashboard' => 'jobs#dashboard'
   resources :jobs do
     member do
       get 'cutrite'

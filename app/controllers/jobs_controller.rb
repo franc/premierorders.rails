@@ -2,13 +2,13 @@ require 'date'
 require 'job.rb'
 
 class JobsController < ApplicationController
-  load_and_authorize_resource :except => [:create, :index]
+  load_and_authorize_resource :except => [:create, :index, :dashboard]
   helper :production_batches
 
   # GET /jobs
   # GET /jobs.xml
   def index
-    @jobs = Job.order('jobs.created_at DESC NULLS LAST, jobs.due_date DESC NULLS LAST').select{|j| can? :read, j}.paginate(:page => params[:page], :per_page => 20)
+    @jobs = Job.order('jobs.created_at DESC NULLS LAST, jobs.due_date NULLS LAST').select{|j| can? :read, j}.paginate(:page => params[:page], :per_page => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,6 +20,18 @@ class JobsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
+    end
+  end
+
+  def dashboard
+    @jobs = Job.order('jobs.due_date NULLS LAST').select{|j| can? :read, j}
+
+    @jobs_in_init = @jobs.select{|j| j.has_status?('Created', 'Placed', 'On Hold')}
+    @jobs_in_progress = @jobs.select{|j| j.has_status?('Confirmed', 'Ready For Production', 'In Production')}
+    @jobs_in_ship = @jobs.select{|j| j.has_status?('Ready to Ship', 'Hold Shipment', 'Shipped')}
+
+    respond_to do |format|
+      format.html # dashboard.html.erb
     end
   end
 

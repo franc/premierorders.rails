@@ -57,6 +57,12 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def has_status?(*statii)
+    statii.any? do |stat|
+      (status.nil? && stat == 'Created') || (status && stat.casecmp(status) == 0)
+    end
+  end
+
   def decompose_xml(xml)
     doc = REXML::Document.new(xml)
     doc.get_elements("//Row").inject([]) do |rows, row_element|

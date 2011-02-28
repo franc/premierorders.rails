@@ -1,0 +1,37 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    jQuery(function($) { 
+      $(".job_status").change(post_this_update); 
+    });
+  </script>
+  <style>
+    .dash_col {
+      position: absolute;
+    }
+
+    .jobs_in_progress {
+      left: 33%
+    }
+
+    .jobs_in_ship {
+      left: 66%
+    }
+  </style>
+<% end %>
+
+<div class="dashboard">
+  <nav class="dash_col jobs_in_init" style="width: 30%">
+    <h3>New</h3>
+    <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_init} %>
+  </nav>
+
+  <nav class="dash_col jobs_in_progress" style="width: 30%">
+    <h3>In Progress</h3>
+    <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_progress} %>
+  </nav>
+
+  <nav class="dash_col jobs_in_ship" style="width: 30%">
+    <h3>Shipping</h3>
+    <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_ship} %>
+  </nav>
+</div>
