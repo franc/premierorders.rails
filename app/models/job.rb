@@ -308,7 +308,7 @@ end
 
 class ColorQuery < ItemQuery
   def initialize(property_family, dvinci_color_code, &value_test)
-    super(Monoid::UNIQ)
+    super(Monoid::Uniq.new {|v1, v2| v1.name == v2.name && v1.try(:dvinci_id) == v2.try(:dvinci_id)})
     @property_family = property_family
     @dvinci_color_code = dvinci_color_code
     @value_test = value_test

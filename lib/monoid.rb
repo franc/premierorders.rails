@@ -13,12 +13,16 @@ module Monoid
   end
 
   class Uniq
+    def initialize(&eq)
+      @eq = eq || lambda {|v1, v2| v1 == v2}
+    end
+
     def zero
       Option.none
     end
 
     def append(o1, o2)
-      raise "Found conflicting values: #{o1.inspect} vs #{o2.inspect}" if o1.any?{|v1| o2.any?{|v2| v1 != v2}}
+      raise "Found conflicting values: #{o1.inspect} vs #{o2.inspect}" if o1.any?{|v1| o2.any?{|v2| !@eq.call(v1, v2)}}
       o1.orElse(o2)    
     end
   end
