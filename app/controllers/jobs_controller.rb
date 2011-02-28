@@ -31,9 +31,9 @@ class JobsController < ApplicationController
   def dashboard
     @jobs = Job.order('jobs.due_date NULLS LAST, jobs.job_number NULLS LAST').select{|j| can? :read, j}
 
-    @jobs_in_init = @jobs.select{|j| j.has_status?('Created', 'Placed', 'On Hold')}
-    @jobs_in_progress = @jobs.select{|j| j.has_status?('Confirmed', 'Ready For Production', 'In Production')}
-    @jobs_in_ship = @jobs.select{|j| j.has_status?('Ready to Ship', 'Hold Shipment', 'Shipped')}
+    @jobs_in_init = @jobs.select{|j| j.has_status?(*Job::STATUS_GROUPS[0])}
+    @jobs_in_progress = @jobs.select{|j| j.has_status?(*Job::STATUS_GROUPS[1])}
+    @jobs_in_ship = @jobs.select{|j| j.has_status?(*Job::STATUS_GROUPS[2])}
 
     respond_to do |format|
       format.html # dashboard.html.erb
@@ -115,9 +115,13 @@ class JobsController < ApplicationController
           @job.save
           OrderMailer.order_shipped_email(@job).deliver
         end
-
-        format.js   { render :json => {:updated => 'success'} }
+        
         format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+        format.js   do
+          success_json = {:updated => 'success'} 
+          success_json[:status_group_changed] = true if Job.status_group_changed?(prior_status, @job.status)
+          render :json => success_json
+        end
       else
         format.js   { render :json => {:updated => 'error'} }
         format.html { render :action => "edit" }

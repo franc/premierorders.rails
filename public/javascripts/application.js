@@ -23,10 +23,11 @@ var ajax_error_alert = function (XMLHttpRequest, textStatus, errorThrown) {
 
 
 var post_this_update = function() {
-  post_update($(this));
+  var cont = arguments.length == 0 ? update_notice : arguments[0];
+  post_update($(this), cont);
 };
 
-var post_update = function(node) {
+var post_update = function(node, continuation) {
   // make a POST call and replace the content
   var value = node.val();
   var fields = /(\w+)\[([0-9]+)\]\[(\w+)\]/.exec(node.attr('name'));
@@ -35,7 +36,7 @@ var post_update = function(node) {
     '_method': 'PUT'
   };
   request[fields[1]+'[' + fields[3] + ']'] = value;
-  $.post("/"+fields[1]+"s/"+entity_id, request, update_notice, "json");
+  $.post("/"+fields[1]+"s/"+entity_id, request, continuation, "json");
 };
 
 var ajax_date = function(node) {
@@ -49,7 +50,7 @@ var ajax_date = function(node) {
         dateFormat: 'yy-mm-dd',
         defaultDate: current,
         onClose : function(dateText, node) {
-          if (dateText && dateText !== current) post_update($(this));
+          if (dateText && dateText !== current) post_update($(this), update_notice);
           enclosure.html(dateText); //restore the value irrespective if it has changed.
 	  ajax_date(enclosure);
         }

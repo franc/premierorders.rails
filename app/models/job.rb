@@ -20,22 +20,35 @@ class Job < ActiveRecord::Base
 
   has_attached_file :dvinci_xml
 
-  STATUS_OPTIONS = [
-    "Created",
-    "Placed",
-    "On Hold",
-    "Confirmed",
-    "Ready For Production",
-    "In Production",
-    "Ready to Ship",
-    "Hold Shipment",
-    "Shipped",
-    "Cancelled",
+  STATUS_GROUPS = [
+    [
+      "Created",
+      "Placed",
+      "On Hold"
+    ],
+    [
+      "Confirmed",
+      "Ready For Production",
+      "In Production"
+    ],
+    [
+      "Ready for Packing",
+      "Ready to Ship",
+      "Hold Shipment",
+      "Shipped"
+    ],
+    ["Cancelled"]
   ]
+
+  STATUS_OPTIONS = STATUS_GROUPS.flatten
 
   SHIPMENT_OPTIONS = ["PremierRoute", "LTL", "Drop Ship", "Ground", "2nd Day", "Overnight"]
 
   MFG_PLANT_OPTIONS = ['Phoenix', 'Atlanta']
+
+  def self.status_group_changed?(before, after)
+    STATUS_GROUPS.select{|v| v.include?(before)} != STATUS_GROUPS.select{|v| v.include?(after)}
+  end
 
   def is_manageable_by(user)
     (franchisee && franchisee.users.any?{|u| u.id == user.id}) || 

@@ -1,11 +1,20 @@
 <% content_for :head do %>
   <script type="text/javascript">
     jQuery(function($) { 
-      $(".job_status").change(post_this_update); 
+      $(".job_status").change(function() {
+        post_update($(this), function(data) {
+          if (data['status_group_changed']) {
+            document.location.reload();
+          } else {
+            update_notice(data);
+          }
+        });
+      }); 
     });
   </script>
   <style>
     .dash_col {
+      width: 30%;
       position: absolute;
     }
 
@@ -20,17 +29,17 @@
 <% end %>
 
 <div class="dashboard">
-  <nav class="dash_col jobs_in_init" style="width: 30%">
+  <nav class="dash_col jobs_in_init">
     <h3>Pre-Production</h3>
     <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_init} %>
   </nav>
 
-  <nav class="dash_col jobs_in_progress" style="width: 30%">
+  <nav class="dash_col jobs_in_progress">
     <h3>In Production</h3>
     <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_progress} %>
   </nav>
 
-  <nav class="dash_col jobs_in_ship" style="width: 30%">
+  <nav class="dash_col jobs_in_ship">
     <h3>Post-Production</h3>
     <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_ship} %>
   </nav>
