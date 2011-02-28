@@ -78,6 +78,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
+    prior_status = @job.status
     @production_batch = ProductionBatch.find_by_id(params[:job][:production_batch_id])
     respond_to do |format|
       if params[:job].key?(:production_batch_id) 
@@ -92,6 +93,12 @@ class JobsController < ApplicationController
           end
         )
       elsif @job.update_attributes(params[:job])
+        if @job.status == 'Shipped' && @job.status != prior_status
+          @job.ship_date ||= DateTime.now
+          @job.save
+          OrderMailer.order_shipped_email(@job).deliver
+        end
+
         format.js   { render :json => {:updated => 'success'} }
         format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
       else
@@ -105,7 +112,7 @@ class JobsController < ApplicationController
     @job.place_order(DateTime.now, current_user)
     respond_to do |format|
       if @job.save
-        OrderPlacedMailer.order_placed_email(@job).deliver
+        OrderMailer.order_placed_email(@job).deliver
         format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
       else
         format.html { redirect_to(@job, :error => "Order could not be placed: #{@job.errors}.") }
