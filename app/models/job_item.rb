@@ -23,7 +23,7 @@ class JobItem < ActiveRecord::Base
   end
 
   def production_batch_closed?
-    production_batch && production_batch.closed
+    production_batch && production_batch.closed?
   end
 
   def inventory?
