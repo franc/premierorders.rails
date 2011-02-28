@@ -82,10 +82,13 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   # PUT /jobs/1.xml
   def update
-    @production_batch = ProductionBatch.find(params[:job][:production_batch_id])
+    @production_batch = ProductionBatch.find_by_id(params[:job][:production_batch_id])
     respond_to do |format|
-      logger.info("Found production batch #{@production_batch.inspect}")
-      if @job.update_production_batch(@production_batch) || @job.update_attributes(params[:job])
+      if @production_batch && @job.update_production_batch(@production_batch) 
+        format.js   { render :json => {:updated => 'success'} }
+        format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+        format.xml  { head :ok }
+      elsif @job.update_attributes(params[:job])
         format.js   { render :json => {:updated => 'success'} }
         format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
         format.xml  { head :ok }
