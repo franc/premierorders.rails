@@ -11,13 +11,21 @@
   <dd><%= @production_batch.description %></dd>
   <dt>Closing date:</dt>
   <dd><%= @production_batch.closing_date %></dd>
-  <dt>Job Items</dt>
-  <dd><%= render :partial => 'jobs/items_table', :locals => {
-            :show_job_so => true,
-            :job_items => @production_batch.job_items.select{|i| i.purchasing_type?('Manufactured')}.sort {|a, b|
-              Some.new((a.job.job_number || a.job.name) <=> (b.job.job_number || b.job.name)).filter{|x| x != 0}.orSome(a.tracking_id <=> b.tracking_id)
-            }
-          } %></dd>
+  <dt>Orders</dt>
+  <dd>
+    <table>
+      <tr>
+        <th><%=Franchisee.model_name.human%> Name</th>
+        <%= render :partial => 'jobs/job_cols_headers' %>
+      </tr>
+      <% @production_batch.jobs.each do |job| %>
+        <tr>
+          <td><%= job.franchisee.franchise_name %></td>
+          <%= render :partial => 'jobs/job_cols', :locals => {:job => job} %>
+        </tr>
+      <% end %>
+    </table>
+  </dd>
 </dl>
 
 <%= content_for :local_nav do %>
