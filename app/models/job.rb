@@ -23,8 +23,8 @@ class Job < ActiveRecord::Base
   STATUS_OPTIONS = [
     "Created",
     "Placed",
-    "Confirmed",
     "On Hold",
+    "Confirmed",
     "Ready For Production",
     "In Production",
     "Ready to Ship",
@@ -206,7 +206,7 @@ class Job < ActiveRecord::Base
   end
 
   def production_batches_closed?
-    job_items.all?{|i| i.production_batch && i.production_batch.closed?}
+    job_items.select{|i| i.purchasing_type?('Manufactured')}.all?{|i| i.production_batch_closed?}
   end
 
   def update_production_batch(batch)
@@ -216,7 +216,7 @@ class Job < ActiveRecord::Base
       Left.new("Unable to update production batch for #{name}: all items already assigned to closed batches.")
     else
       job_items.each do |job_item|
-        unless job_item.production_batch && job_item.production_batch.closed? 
+        if job_item.purchasing_type?('Manufactured') && !job_item.production_batch_closed?
           job_item.production_batch = batch
           job_item.save
         end

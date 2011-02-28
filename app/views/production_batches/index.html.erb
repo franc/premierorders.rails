@@ -13,7 +13,7 @@
 
 <% @production_batches.each do |production_batch| %>
   <tr>
-    <td><%= production_batch.name %></td>
+    <td><%= link_to production_batch.name, production_batch_path(production_batch) %></td>
     <td><%= production_batch.status.try(:titlecase) %></td>
     <td><%= production_batch.batch_no %></td>
     <td><%= production_batch.mfg_plant %></td>

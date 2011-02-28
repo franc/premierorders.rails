@@ -22,6 +22,10 @@ class JobItem < ActiveRecord::Base
     end
   end
 
+  def production_batch_closed?
+    production_batch && production_batch.closed
+  end
+
   def inventory?
     purchasing_type?('Inventory')
   end

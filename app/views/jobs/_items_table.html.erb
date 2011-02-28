@@ -1,5 +1,6 @@
 <% 
 render_for ||= :web
+show_job_so ||= false
 unless self.respond_to? :can? 
   def can?(*args)
     false
@@ -9,6 +10,9 @@ end
 
 <table class="item_table<%= job_items.empty? ? " empty" : "" %>">
   <tr>
+    <% if show_job_so %>
+      <th class="order_number">SO #</th>
+    <% end %>
     <th class="item_id">ID</th>
     <th class="item_name">Item Name</th>
     <% if can? :manage, Job %>
@@ -29,6 +33,9 @@ end
   </tr>
   <% job_items.each_with_index do |job_item, i| %>
     <tr class="<%=unit_price_class(job_item)%>">
+      <% if show_job_so %>
+        <td class="order_number"><%= job_item.job.job_number %></td>
+      <% end %>
       <td class="item_id"><%= job_item.tracking_id %></td>
       <% if job_item.item && can?(:read, job_item.item) %>
         <td class="item_name"><%= job_item.item ? link_to(job_item.item_name, item_path(job_item.item)) : job_item.item_name %></td>
