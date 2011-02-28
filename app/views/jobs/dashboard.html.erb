@@ -21,17 +21,17 @@
 
 <div class="dashboard">
   <nav class="dash_col jobs_in_init" style="width: 30%">
-    <h3>New</h3>
+    <h3>Pre-Production</h3>
     <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_init} %>
   </nav>
 
   <nav class="dash_col jobs_in_progress" style="width: 30%">
-    <h3>In Progress</h3>
+    <h3>In Production</h3>
     <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_progress} %>
   </nav>
 
   <nav class="dash_col jobs_in_ship" style="width: 30%">
-    <h3>Shipping</h3>
+    <h3>Post-Production</h3>
     <%= render :partial => 'dashboard_nav', :locals => {:jobs => @jobs_in_ship} %>
   </nav>
 </div>
