@@ -176,11 +176,19 @@ module Expressions
     end
 
     def compile
-      @value.to_s
+      if @value.respond_to?(:round)
+        @value.round(11)
+      else
+        @value.to_s
+      end
     end
 
     def expr_eval(vars)
-      @value
+      if @value.respond_to?(:round)
+        @value.round(11)
+      else
+        @value
+      end
     end
 
     def eql?(other)
