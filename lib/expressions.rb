@@ -176,17 +176,13 @@ module Expressions
     end
 
     def compile
-      if @value.respond_to?(:round)
-        @value.round(11)
-      else
-        @value.to_s
-      end
+      expr_eval(nil).to_s
     end
 
     def expr_eval(vars)
-      if @value.respond_to?(:round)
+      begin
         @value.round(11)
-      else
+      rescue
         @value
       end
     end
