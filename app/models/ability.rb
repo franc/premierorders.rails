@@ -53,7 +53,7 @@ class Ability
 
     if user.role? :customer_service
       can :read, [Item, ItemComponent, ItemProperty, Property, PropertyValue, Franchisee, FranchiseeContact]
-      can :manage, [Job, JobProperty, JobItem, JobItemProperty, User, Address]
+      can :manage, [ProductionBatch, Job, JobProperty, JobItem, JobItemProperty, User, Address]
     end
 
     if user.role? :accounting
