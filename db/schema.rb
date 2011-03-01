@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110225185236) do
+ActiveRecord::Schema.define(:version => 20110301175246) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20110225185236) do
     t.decimal  "install_cost",                    :precision => 8, :scale => 2
     t.float    "rebate_factor"
     t.float    "retail_multiplier"
+    t.decimal  "sell_price",                      :precision => 8, :scale => 2
   end
 
   create_table "job_item_properties", :force => true do |t|
