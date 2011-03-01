@@ -204,7 +204,7 @@ ALTER SEQUENCE franchisee_contacts_id_seq OWNED BY franchisee_contacts.id;
 -- Name: franchisee_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('franchisee_contacts_id_seq', 240, true);
+SELECT pg_catalog.setval('franchisee_contacts_id_seq', 241, true);
 
 
 --
@@ -345,7 +345,7 @@ ALTER SEQUENCE item_components_id_seq OWNED BY item_components.id;
 -- Name: item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_components_id_seq', 600, true);
+SELECT pg_catalog.setval('item_components_id_seq', 601, true);
 
 
 --
@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1364, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1365, true);
 
 
 --
@@ -1494,7 +1494,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 171	11	10	\N	2011-02-11 16:43:30.464722	2011-02-11 16:43:30.464722
 172	26	25	primary	2011-02-11 16:44:27.245078	2011-02-11 16:44:27.245078
 173	55	36	primary	2011-02-11 16:45:31.228453	2011-02-11 16:45:31.228453
-174	14	13	\N	2011-02-11 16:46:32.797219	2011-02-11 16:46:32.797219
 175	11	10	primary	2011-02-11 16:47:52.414298	2011-02-11 16:47:52.414298
 176	13	12	\N	2011-02-11 17:23:08.135447	2011-02-11 17:23:08.135447
 177	13	12	primary	2011-02-11 17:23:32.776381	2011-02-11 17:23:32.776381
@@ -1531,7 +1530,6 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 212	3	3	primary	2011-02-11 19:02:04.28534	2011-02-11 19:02:04.28534
 213	20	19	primary	2011-02-11 19:04:02.903243	2011-02-11 19:04:02.903243
 214	21	20	primary	2011-02-11 19:04:58.87972	2011-02-11 19:04:58.87972
-215	14	13	primary	2011-02-11 19:05:12.074819	2011-02-11 19:05:12.074819
 217	8	59	\N	2011-02-11 21:38:46.362443	2011-02-11 21:38:46.362443
 218	8	34	\N	2011-02-12 16:05:21.610048	2011-02-12 16:05:21.610048
 219	4	4	primary	2011-02-15 01:25:54.498514	2011-02-15 01:25:54.498514
@@ -1541,6 +1539,7 @@ COPY franchisee_contacts (id, franchisee_id, user_id, contact_type, created_at, 
 224	5	99	\N	2011-02-17 15:22:54.153496	2011-02-17 15:22:54.153496
 225	41	100	\N	2011-02-18 00:30:51.971819	2011-02-18 00:30:51.971819
 239	69	104	primary	2011-02-24 17:44:52.318053	2011-02-24 17:44:52.318053
+241	14	13	primary	2011-03-01 00:08:01.531961	2011-03-01 00:08:01.531961
 \.
 
 
@@ -2328,6 +2327,7 @@ COPY item_components (id, item_id, component_id, quantity, type, created_at, upd
 598	694	6	4	ItemHardware	2011-02-08 02:15:20.330562	2011-02-08 02:15:20.330562	\N
 599	516	218	2	ItemHardware	2011-02-08 03:47:58.246107	2011-02-08 03:47:58.246107	\N
 600	709	218	2	ItemHardware	2011-02-28 23:53:08.526109	2011-02-28 23:53:08.526109	\N
+601	710	631	2	ItemHardware	2011-03-01 00:00:57.425846	2011-03-01 00:00:57.425846	\N
 \.
 
 
@@ -2988,6 +2988,7 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1362	710	9	bottom
 1363	710	9	left
 1364	710	60	\N
+1365	710	118	\N
 \.
 
 
@@ -8343,15 +8344,15 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 226	4	4	6	Marcus/Arter - Standard Closets	SO-81	\N	2011-02-23 21:07:59.297772	2011-02-24 20:22:59.176195	Marcus - Basic Closets.xml	application/octet-stream	9896	2011-02-23 21:07:59.295518	Phoenix	Confirmed	2011-03-10	\N		2011-02-23 21:08:23	4		PremierRoute	29		6
 231	20	19	23	Hogan re order	SO-82	\N	2011-02-23 23:21:40.616862	2011-02-24 20:24:25.574811	Hogan - ReOrder.xml	text/xml	19255	2011-02-23 23:21:40.610399	Phoenix	Confirmed	2011-03-10	\N	Please asap	2011-02-23 23:23:23	19		PremierRoute	19		23
 233	12	60	15	Bisch test order	SO-85	\N	2011-02-24 04:48:56.049282	2011-02-28 20:55:18.204195	021011-1.xml	text/xml	30472	2011-02-24 04:48:56.045667	Phoenix	Ready to Ship	2011-03-10	\N	Cindy, do not process this order.	2011-02-24 04:56:16	60		PremierRoute	60		15
-207	11	10	14	McCann Boys Closet	SO-69	\N	2011-02-22 01:21:23.559746	2011-02-22 22:38:24.650701	McCann Boys Room Parts List.xls	application/vnd.ms-excel	9733	2011-02-22 01:21:23.557945	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:21:36	10		PremierRoute	10		14
-208	11	10	14	McCann Daughters Closet	SO-70	\N	2011-02-22 01:22:06.900224	2011-02-22 22:40:11.054154	McCann Daughters Parts List.xls	application/vnd.ms-excel	14739	2011-02-22 01:22:06.898303	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:22:44	10		PremierRoute	10		14
-209	11	10	14	Leonard Garage	SO-71	\N	2011-02-22 01:23:17.323676	2011-02-22 22:46:17.61921	Leonard Garage Parts List.xls	application/vnd.ms-excel	10165	2011-02-22 01:23:17.321746	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:24:04	10		PremierRoute	10		14
+208	11	10	14	McCann Daughters Closet	SO-70	\N	2011-02-22 01:22:06.900224	2011-03-01 00:30:14.889038	McCann Daughters Parts List.xls	application/vnd.ms-excel	14739	2011-02-22 01:22:06.898303	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:22:44	10		PremierRoute	10		14
+209	11	10	14	Leonard Garage	SO-71	\N	2011-02-22 01:23:17.323676	2011-03-01 00:57:29.352926	Leonard Garage Parts List.xls	application/vnd.ms-excel	10165	2011-02-22 01:23:17.321746	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:24:04	10		PremierRoute	10		14
 210	11	10	14	McBurnett Garage 	SO-72	\N	2011-02-22 01:28:38.129379	2011-02-22 22:49:59.818001	McBurnett Garage Parts List.xls	application/vnd.ms-excel	15511	2011-02-22 01:28:38.127177	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:29:48	10		PremierRoute	10		14
 270	20	19	23	Delgado Garage	SO-108	\N	2011-02-25 22:54:18.629251	2011-02-28 17:04:49.237913	Delgado, Laura & Jeff Parts List.xml	text/xml	16187	2011-02-25 22:54:18.625461	Phoenix	Confirmed	2011-03-14	\N	please also ship 1 4 x8 bronze material	2011-02-25 22:59:23	19		PremierRoute	19		23
 288	8	35	38	ShippingEmailTest	SO-118	\N	2011-02-28 18:03:34.048446	2011-02-28 18:41:27.349276	FrontCodesTest3.xml	text/xml	17438	2011-02-28 18:03:34.043198	\N	Cancelled	\N	2011-02-28	don't process	2011-02-28 18:05:54	35	\N	\N	35	\N	\N
 212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-02-22 22:58:29.619936	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14
 215	17	16	20	Steven Kling	SO-75	\N	2011-02-22 21:10:50.448263	2011-02-23 13:56:24.268547	Steven Kling.GOOD dvi.dvi Parts List.xml	text/xml	38455	2011-02-22 21:10:50.446296	Phoenix	Confirmed	2011-03-09	\N		2011-02-22 21:18:44	16		PremierRoute	16		20
 188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-02-28 23:39:03.094434	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	Phoenix	Ready For Production	2011-03-07	\N		2011-02-18 22:08:46	1		PremierRoute	30		1
+207	11	10	14	McCann Boys Closet	SO-69	\N	2011-02-22 01:21:23.559746	2011-03-01 00:25:38.530716	McCann Boys Room Parts List.xls	application/vnd.ms-excel	9733	2011-02-22 01:21:23.557945	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:21:36	10		PremierRoute	10		14
 234	5	99	8	Rubino ShoeCubby	SO-86	\N	2011-02-24 16:51:35.575254	2011-02-24 20:32:31.375616	Rubino ShoeCubby Parts List.xml	text/xml	13183	2011-02-24 16:51:35.571839	Phoenix	Confirmed	2011-03-10	\N		2011-02-24 16:53:57	99		PremierRoute	99		8
 237	69	104	83	Boynton	SO-89	\N	2011-02-24 17:47:30.396745	2011-02-24 20:34:52.156	Boynton Closet Parts Lista.xml	application/octet-stream	17236	2011-02-24 17:47:30.391612	Phoenix	Confirmed	2011-03-10	\N		2011-02-24 18:02:28	104		PremierRoute	104		83
 238	9	9	13	Hersey	SO-88	\N	2011-02-24 17:48:42.216717	2011-02-24 20:36:47.288124	Hersey, Amy Parts List.xls	application/octet-stream	34015	2011-02-24 17:48:42.213797	Phoenix	Confirmed	2011-03-10	\N	All partitions must be edgebanded on the top too!	2011-02-24 17:53:46	9		PremierRoute	9		13
@@ -9294,6 +9295,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 103	2
 104	2
 89	2
+13	2
 47	2
 28	2
 27	2
@@ -9342,7 +9344,6 @@ COPY user_roles (user_id, role_id) FROM stdin;
 62	2
 25	2
 10	2
-13	2
 12	2
 3	2
 84	2
@@ -9388,6 +9389,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 12	\N	Keith	Garrett	(281) 748-7403		2812923300	kdgarrett@tailoredliving.com	$2a$10$WVWyPxrxwJjfIwO3tWoalun77RTRQ7FGFfGzeL81DRqsbzahSKOD.	$2a$10$WVWyPxrxwJjfIwO3tWoalu	\N	\N	\N	3	2011-02-28 19:18:39.684787	2011-02-28 16:39:17.0268	98.200.206.1	98.200.206.1	2011-01-01 18:53:33.430408	2011-02-28 19:18:39.685544
 4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	b_GFM7zKRVwLHUpWzLPA	2011-02-27 22:55:18.666809	25	2011-02-27 23:06:21.823936	2011-02-27 22:55:18.670832	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-02-27 23:06:21.824666
 9	\N	John	Scheschuk	(972) 740-9944		(972)767-4301	jkscheschuk@tailoredliving.com	$2a$10$.lKODjWLGeUJECuIqHoIcOrOkKsm0Ru9490fpfCiDjAbWydYHvgQ.	$2a$10$.lKODjWLGeUJECuIqHoIcO	\N	\N	\N	4	2011-02-28 20:07:03.536918	2011-02-24 18:40:00.947792	216.215.73.209	216.215.73.209	2011-01-01 18:53:33.043335	2011-02-28 20:19:52.699669
+13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$J8VkiErO7vN8MRsvlzGLLOELrxohX9v8BsDzCjtIY.emMCaA.lp96	$2a$10$J8VkiErO7vN8MRsvlzGLLO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.554435	2011-03-01 00:08:01.522488
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	\N	\N	2	2011-02-28 20:11:36.364691	2011-02-28 19:48:45.195683	70.66.153.10	70.66.153.10	2011-01-01 18:53:37.748043	2011-02-28 20:16:44.197612
 31	Mrs.	Jodi	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$jr.WGscm43bzYLCqH41RruYwank5yL6wuAcliLkD9IznX8jtk.kry	$2a$10$jr.WGscm43bzYLCqH41Rru	\N	\N	\N	2	2011-01-27 18:37:39.160114	2011-01-27 18:24:05.937583	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.240116	2011-01-30 21:09:00.185987
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
@@ -9397,7 +9399,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 17	Mr.	Peter	Selwyn	(613) 225-5218		(613) 225-5218	pwselwyn@tailoredliving.com	$2a$10$pWLfLCr8q6m5cqWnLHd.IOE5hcI2vb9cv6Lwh.vrgwu5duFa.S.m2	$2a$10$pWLfLCr8q6m5cqWnLHd.IO	\N	\N	\N	1	2011-02-17 19:16:00.605874	2011-02-17 19:16:00.605874	216.106.97.208	216.106.97.208	2011-01-01 18:53:34.153324	2011-02-17 19:51:32.48114
 46	Mr.	Jim	Friesen	(503) 390-0522	(503) 302-6029		jfriesen@tailoredliving.com	$2a$10$d1qe/mYTbWRWl7lko.J5h.xVbtQAMF1PsQOSVpKjsmBTZMU.GJrJa	$2a$10$d1qe/mYTbWRWl7lko.J5h.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.091546	2011-02-11 16:23:31.156631
 25	Mr.	Harrison	Rushton	(423) 517-0303	(423) 322-3629	(423) 517-0531	harushton@tailoredliving.com	$2a$10$.yVK9FbYq/YoL5IlF55nbOi022KRwX/7grrDJakHYoacJI7lKxej6	$2a$10$.yVK9FbYq/YoL5IlF55nbO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.298971	2011-02-11 16:41:57.485489
-13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$xJDcoAPu1y05y/54ifCtIu6Po1N7yegromRy8aJLl2rnWLum6MXe2	$2a$10$xJDcoAPu1y05y/54ifCtIu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.554435	2011-02-11 16:46:32.790676
 3	Mr.	Mike	Lyon	(253) 261-4253		(253) 447-4575	mlyon@closettailors.com	$2a$10$tAAc7rouXHHla0deiqJPq.m7DZ7KXZJ.Oe8lfrOsHHl6LDhKFIia6	$2a$10$tAAc7rouXHHla0deiqJPq.	\N	\N	\N	1	2011-02-11 17:41:20.482843	2011-02-11 17:41:20.482843	174.79.54.226	174.79.54.226	2011-01-01 18:53:32.127395	2011-02-11 17:41:20.483608
 20	Mr.	Jeffery	Vlasak	(262) 633-8850	(262) 488-3826	(262) 866-2093	jvlasak@tailoredliving.com	$2a$10$j9DCWY7J.99SOjfcaQH9ye2opLsFYmOE.mal2aTRwod/BLSkztxkq	$2a$10$j9DCWY7J.99SOjfcaQH9ye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:34.535755	2011-02-11 17:58:42.001612
 10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	3	2011-02-22 01:01:45.870037	2011-02-17 17:25:28.836968	67.78.112.191	108.116.4.29	2011-01-01 18:53:33.181217	2011-02-22 01:57:31.706079
