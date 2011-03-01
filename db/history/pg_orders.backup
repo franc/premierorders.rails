@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 1365, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 1369, true);
 
 
 --
@@ -2374,7 +2374,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 528	47	9	front
 529	47	9	left
 530	47	9	right
-531	47	11	\N
 532	46	6	\N
 537	230	6	\N
 542	230	34	\N
@@ -2490,12 +2489,10 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 519	44	9	front
 1010	613	9	bottom
 521	229	6	\N
-525	229	11	\N
 527	47	6	\N
 533	46	9	front
 534	46	9	left
 535	46	9	right
-536	46	11	\N
 538	230	9	left
 539	230	9	right
 540	230	9	top
@@ -2989,6 +2986,9 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 1363	710	9	left
 1364	710	60	\N
 1365	710	118	\N
+1366	229	62	\N
+1367	47	62	\N
+1369	46	51	\N
 \.
 
 
@@ -3119,7 +3119,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 587	ZH Screw (Hinge Fastening) PART OF A SET	M4 screw with raised head and cross-slot Z, size 2 nickel-plated 11mm\r\n	267.00.720	\N			2011-01-07 00:22:48.609149	2011-01-26 19:38:42.784912	Manufactured		Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002
 588	ZH Hinge Sleeve with Screws	Hinge Sleeve Set (for half overlay hinges)	267.00.013/267.00.720	\N			2011-01-07 00:24:54.992986	2011-01-26 19:30:35.039079	Inventory	Needed	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002
 586	ZH Screw (Hinge Sleeve) PART OF A SET	Sleeves with M4 Internal Thread 22mm	267.00.013	\N			2011-01-07 00:18:14.026608	2011-01-26 19:38:58.369129	Inventory		Item	0.05		\N	\N	0.92000000000000004	0.40000000000000002
-229	CL Corner Adj Safety Shelf	CL Corner Adj Safety Shelf 		\N	000.936.x.x.00M	CL-CASS	2011-01-01 18:54:05.604995	2011-02-18 21:59:24.415621	Manufactured	Closets	ClosetShelf	\N		\N	0.03	0.92000000000000004	0.40000000000000002
 41	CL Hanging Partition - Radius - Left	CL Hanging Partition Radius Bottom - Left Stop Drilled		\N	000.910.15x.x.00M	CL-HPR-L	2011-01-01 18:53:43.492396	2011-02-18 22:01:05.90648	Manufactured	Closets	ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 630	CL Hutch 1 Door	Closet Wall Hutch		\N	000.306.921.x.00M	CL-HC-2AS	2011-01-13 17:44:36.195287	2011-02-18 22:02:44.950965	Manufactured	Closets	Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002
 563	CL Toe Kick	Closet Toe Kick		\N	000.970.x.x.00M	CL-TOE	2011-01-04 05:22:03.751871	2011-02-18 22:08:08.642349	Manufactured	Closets	BackingPanel	\N		\N	0.10	0.92000000000000004	0.40000000000000002
@@ -3135,6 +3134,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 506	HO Upper 2 Door	HO Upper 2 Door 		\N	000.302.331.x.00M	HO-WC-2AS	2011-01-01 18:54:27.821167	2011-02-18 22:34:41.047448	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	1.00	0.92000000000000004	0.40000000000000002
 512	HO Wall Bed Full	HO Wall Bed Full 		\N	000.491.581.x.00M	HO-WBF	2011-01-01 18:54:27.941587	2011-02-18 22:35:07.66213	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	5.00	0.92000000000000004	0.40000000000000002
 513	HO Wall Bed Queen	HO Wall Bed Queen 		\N	000.492.681.x.00M	HO-WBQ	2011-01-01 18:54:27.954427	2011-02-18 22:35:27.283285	Manufactured	HomeOffice_Cabinets	Cabinet	\N		\N	5.00	0.92000000000000004	0.40000000000000002
+229	CL Corner Adj Safety Shelf	CL Corner Adj Safety Shelf 		\N	000.936.x.x.00M	CL-CASS	2011-01-01 18:54:05.604995	2011-02-18 21:59:24.415621	Manufactured	Closets	ClosetShelf	\N		\N	0.03	0.92000000000000004	0.40000000000000002
 517	Decor Door - JR7	Decor Door - JR7 		\N	000.101.000.x.00B	DS-DR	2011-01-01 18:54:28.028853	2011-02-24 14:57:04.627226	Buyout	Buyout_Door	PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002
 64	ZH Belt Rack | Oil Rubbed Bronze	Belt Rack W/Slide Al Dk Oil-Rub.Bzd/Bl Pl 13 7/8	807.67.113	\N	000.807.067.113.00P		2011-01-01 18:53:52.201527	2011-02-26 18:00:27.084488	Purchased	30092	Item	22.23		\N	0.07	0.92000000000000004	0.40000000000000002
 536	NX Corner Cabinet 1 Door 4 Adj Shelf	NX Corner Cabinet 1 Door 4 Adj Shelf 		\N	000.308.392.x.00M	NX-CC-4AS	2011-01-01 18:54:28.54176	2011-02-18 22:39:36.09585	Manufactured	Garage_Cabinets	CornerCabinet	\N		\N	0.75	0.92000000000000004	0.40000000000000002
@@ -8321,7 +8321,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 249	20	19	23	Green room 3	SO-95	\N	2011-02-24 21:11:19.796613	2011-02-25 18:15:21.643633	Green, Robert Parts List room 3.xml	text/xml	8778	2011-02-24 21:11:19.794634	Phoenix	Confirmed	2011-03-11	\N		2011-02-24 21:12:36	19		PremierRoute	19		23
 254	20	19	23	Green room 6	SO-98	\N	2011-02-24 21:38:37.25544	2011-02-25 18:33:40.223993	Green, Robert Parts List room 6.xml	text/xml	6258	2011-02-24 21:38:37.253336	Phoenix	Confirmed	2011-03-11	\N		2011-02-24 21:39:31	19		PremierRoute	19		23
 264	28	103	36	Littenberg	SO-102	\N	2011-02-25 15:21:31.429528	2011-02-25 18:44:49.036585	Littenberg Parts List.xls	application/vnd.ms-excel	11578	2011-02-25 15:21:31.426831	Phoenix	Confirmed	2011-03-11	\N		2011-02-25 15:23:15	103		PremierRoute	103		36
-295	8	35	38	NX Chocolate test	\N	\N	2011-02-28 23:31:47.060123	2011-02-28 23:31:47.060123	NXchocTest.xml	text/xml	5652	2011-02-28 23:31:47.058215	\N	Created	\N	\N	do not process	\N	\N	\N	\N	35	\N	\N
+295	8	35	38	NX Chocolate test	\N	\N	2011-02-28 23:31:47.060123	2011-03-01 01:39:32.052375	NXchocTest.xml	text/xml	5652	2011-02-28 23:31:47.058215	\N	Placed	\N	\N	do not process	\N	\N	\N	\N	35	\N	\N
 193	4	32	6	Driftmier - Garage	SO - 57	\N	2011-02-19 01:48:31.419348	2011-02-28 15:20:36.595948	Driftmier 2.dvi Parts List.xml	application/xml	23538	2011-02-19 01:48:31.417269	Phoenix	Ready For Production	2011-03-04	\N	** Custom Order **	2011-02-19 02:15:40	32		PremierRoute	29		\N
 182	31	63	39	Birmingham Home Show	SO - 53	\N	2011-02-18 16:09:56.161773	2011-02-28 15:20:45.89728	2011 Bham Home Show Parts List.xml	application/octet-stream	38291	2011-02-18 16:09:56.157867	Phoenix	Ready For Production	2011-03-04	\N	Need delivery by March 7 for home show that weekend. Can you drop on the way to Atlanta.\r\n\r\nNeed the following hardware:\r\n\r\nhutch base corner bracket\r\nmini fix cam\r\nhutch angle bracket\r\nmini fix post\r\nscrew corner brace\r\nscrew angle brackets	2011-02-18 16:21:29	63		PremierRoute	63		\N
 275	20	19	23	Baker back wall	SO-110	\N	2011-02-27 16:04:34.486037	2011-02-28 17:15:57.551838	Baker, Frank Parts List.xml	text/xml	8092	2011-02-27 16:04:34.484207	Phoenix	Confirmed	2011-03-14	\N		2011-02-27 16:06:08	19		PremierRoute	19		23
@@ -8346,10 +8346,10 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 233	12	60	15	Bisch test order	SO-85	\N	2011-02-24 04:48:56.049282	2011-02-28 20:55:18.204195	021011-1.xml	text/xml	30472	2011-02-24 04:48:56.045667	Phoenix	Ready to Ship	2011-03-10	\N	Cindy, do not process this order.	2011-02-24 04:56:16	60		PremierRoute	60		15
 208	11	10	14	McCann Daughters Closet	SO-70	\N	2011-02-22 01:22:06.900224	2011-03-01 00:30:14.889038	McCann Daughters Parts List.xls	application/vnd.ms-excel	14739	2011-02-22 01:22:06.898303	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:22:44	10		PremierRoute	10		14
 209	11	10	14	Leonard Garage	SO-71	\N	2011-02-22 01:23:17.323676	2011-03-01 00:57:29.352926	Leonard Garage Parts List.xls	application/vnd.ms-excel	10165	2011-02-22 01:23:17.321746	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:24:04	10		PremierRoute	10		14
-210	11	10	14	McBurnett Garage 	SO-72	\N	2011-02-22 01:28:38.129379	2011-02-22 22:49:59.818001	McBurnett Garage Parts List.xls	application/vnd.ms-excel	15511	2011-02-22 01:28:38.127177	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:29:48	10		PremierRoute	10		14
+210	11	10	14	McBurnett Garage 	SO-72	\N	2011-02-22 01:28:38.129379	2011-03-01 01:27:37.244102	McBurnett Garage Parts List.xls	application/vnd.ms-excel	15511	2011-02-22 01:28:38.127177	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:29:48	10		PremierRoute	10		14
+212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-03-01 01:41:10.838668	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14
 270	20	19	23	Delgado Garage	SO-108	\N	2011-02-25 22:54:18.629251	2011-02-28 17:04:49.237913	Delgado, Laura & Jeff Parts List.xml	text/xml	16187	2011-02-25 22:54:18.625461	Phoenix	Confirmed	2011-03-14	\N	please also ship 1 4 x8 bronze material	2011-02-25 22:59:23	19		PremierRoute	19		23
 288	8	35	38	ShippingEmailTest	SO-118	\N	2011-02-28 18:03:34.048446	2011-02-28 18:41:27.349276	FrontCodesTest3.xml	text/xml	17438	2011-02-28 18:03:34.043198	\N	Cancelled	\N	2011-02-28	don't process	2011-02-28 18:05:54	35	\N	\N	35	\N	\N
-212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-02-22 22:58:29.619936	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Confirmed	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14
 215	17	16	20	Steven Kling	SO-75	\N	2011-02-22 21:10:50.448263	2011-02-23 13:56:24.268547	Steven Kling.GOOD dvi.dvi Parts List.xml	text/xml	38455	2011-02-22 21:10:50.446296	Phoenix	Confirmed	2011-03-09	\N		2011-02-22 21:18:44	16		PremierRoute	16		20
 188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-02-28 23:39:03.094434	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	Phoenix	Ready For Production	2011-03-07	\N		2011-02-18 22:08:46	1		PremierRoute	30		1
 207	11	10	14	McCann Boys Closet	SO-69	\N	2011-02-22 01:21:23.559746	2011-03-01 00:25:38.530716	McCann Boys Room Parts List.xls	application/vnd.ms-excel	9733	2011-02-22 01:21:23.557945	Phoenix	Ready For Production	2011-03-08	\N		2011-02-22 01:21:36	10		PremierRoute	10		14
@@ -9409,13 +9409,13 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 23	Mr.	Ron	Blaski	(805) 462-8133	(805) 610-3358	(805) 466-4642	rblaski@tailoredliving.com	$2a$10$xy7AywGy7mafASpjkxrKKOGGp/RlPRYWPiQKYFyvxhOvHcgxy5s46	$2a$10$xy7AywGy7mafASpjkxrKKO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.048918	2011-01-01 18:53:38.43325
 48	Mr.	Travis	Leduc	(403) 315-0323		(403) 257-5012	ctsa@tailoredlving.com	$2a$10$yCpq6r/scwz8JUz3XBhO.e55OnfAYV.g/bnmAKv9qQoPjMyN6Rzga	$2a$10$yCpq6r/scwz8JUz3XBhO.e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.537552	2011-01-01 18:53:38.544167
 27	Mr.	William	Welborn	(972) 247-3030	(214) 251-9736		dallas@premiergarage.com	$2a$10$DFnI.5P9MkRoJUsNExSD/uP1FqMTc3pXe3yFv2u.tjJmK2d/SwRv.	$2a$10$DFnI.5P9MkRoJUsNExSD/u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.546803	2011-01-01 18:53:38.611661
-35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	100	2011-02-28 00:30:36.327408	2011-02-28 00:24:38.373821	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-02-28 00:30:36.328282
 42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$6D5IPHbt1ZDvqKYPR1ubNOv/VvEOn5J15JtKhtGsTPynH8JBrSOX2	$2a$10$6D5IPHbt1ZDvqKYPR1ubNO	oIXcV0yZ7p6DLczNcZzj	\N	\N	58	2011-02-28 19:01:41.336264	2011-02-28 03:15:58.908393	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-02-28 19:01:41.337188
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	J-Gh8RHeqTTwKZ-irZRE	2011-02-28 23:26:58.417802	4	2011-02-28 23:26:58.42509	2011-02-28 22:32:16.764971	71.189.51.241	67.203.136.36	2011-02-11 15:27:04.739565	2011-02-28 23:26:58.425727
 51	\N	Dalawna	Dillman	480-483-3030		480-483-7895	ddillman@premiergarage.com	$2a$10$hbkI3SZwvEVZeRv8gSc5neX0yJgvyD9RmMV0c6vkcrPTDrXjYvDrC	$2a$10$hbkI3SZwvEVZeRv8gSc5ne	\N	\N	\N	11	2011-02-28 20:26:29.727004	2011-02-25 19:37:34.996327	174.79.54.226	174.79.54.226	2011-01-06 23:44:42.653941	2011-02-28 20:26:29.727836
 70	\N	Jonathan	Elliott	(317)842-4272			jelliott@tailoredliving.com	$2a$10$69GVmRNLhgye703/6QZ41OzDdqzkcwIXghX0rnxWQP8XZorNTUTii	$2a$10$69GVmRNLhgye703/6QZ41O	\N	\N	\N	4	2011-02-25 16:12:55.788975	2011-02-18 20:20:34.174514	69.219.227.57	69.219.227.57	2011-02-11 15:47:02.028477	2011-02-25 16:37:35.415814
 32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	\N	\N	111	2011-02-28 21:20:07.613873	2011-02-28 20:25:27.048843	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-02-28 21:20:07.61496
 53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	\N	\N	38	2011-02-28 13:52:24.250327	2011-02-26 15:11:21.104227	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-02-28 13:52:24.251185
+35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	QHvzyaUWqnN83CeJyinp	2011-03-01 01:20:02.68702	102	2011-03-01 01:50:10.922719	2011-03-01 01:20:02.691848	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-03-01 01:50:10.923811
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	10	2011-02-02 00:58:16.647804	2011-01-26 14:00:00.768041	98.227.34.3	69.174.58.44	2011-01-23 16:28:32.887677	2011-02-02 00:58:16.648734
 54	\N	Test	User	222-222-2222			test@hylotech.com	$2a$10$U7zCzKW787M7GA0wmwK7Fenitw2Yqx3KunqQ6x1rgISlm.HQZN86u	$2a$10$U7zCzKW787M7GA0wmwK7Fe	DBGnjCTJvWF9sMHP6Ogj	\N	\N	2	2011-02-05 18:13:38.576164	2011-01-25 16:01:52.288137	98.245.88.239	98.245.88.239	2011-01-25 16:00:52.065032	2011-02-05 18:13:47.247457
 5	Mr.	Todd	Carter	(703) 707-0009	(703) 217-8217	(703) 889-5133	tcarter@closettailors.com	$2a$10$eJKywvdryMeEhZDIa26H3.tyvmChU3zOj0XbTQBEaB8u1.jZsh4a2	$2a$10$eJKywvdryMeEhZDIa26H3.	\N	\N	\N	3	2011-02-11 17:41:41.570908	2011-02-05 03:27:45.242304	174.79.54.226	71.196.137.193	2011-01-01 18:53:32.475866	2011-02-11 17:41:41.571673
