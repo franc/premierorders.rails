@@ -29,10 +29,16 @@
     <%= render :partial => 'job_cols_headers' %>
   </tr>
   <% @jobs.each do |job| %>
-    <tr>
+    <tr style="border-top: double">
       <td><%= job.franchisee.franchise_name %></td>
       <%= render :partial => 'job_cols', :locals => {:job => job} %>
     </tr>
+    <% if !job.comment.blank? %>
+      <tr><td colspan="2"><td colspan="<%= can?(:manage, Job) ? 9 : 7 %>"><%=job.comment%></td></tr>
+    <% end %>
+    <% if can?(:manage, Job) && !job.notes.blank? %>
+      <tr><td colspan="2"><td colspan="9"><%=job.notes%></td></tr>
+    <% end %>
   <% end %>
 </table>
 

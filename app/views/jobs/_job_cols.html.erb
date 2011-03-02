@@ -17,7 +17,6 @@
         <td><%= job.status %></td>
         <td><%= job.ship_method %></td>
       <% end %>
-      <td><%= job.comment %></td>
       <% if can? :manage, job %>
         <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
       <% end %>
