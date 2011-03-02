@@ -491,7 +491,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 7954, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 7963, true);
 
 
 --
@@ -542,7 +542,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 5168, true);
+SELECT pg_catalog.setval('job_items_id_seq', 5173, true);
 
 
 --
@@ -588,7 +588,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 281, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 282, true);
 
 
 --
@@ -694,7 +694,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 301, true);
+SELECT pg_catalog.setval('jobs_id_seq', 302, true);
 
 
 --
@@ -6503,6 +6503,15 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 7952	5166	\N	dimensions	\N		{"linear_units":"in"}	2011-03-02 01:55:19.042848	2011-03-02 01:55:19.042848
 7953	5167	\N	dimensions	\N		{"linear_units":"in"}	2011-03-02 01:55:19.054268	2011-03-02 01:55:19.054268
 7954	5168	\N	dimensions	\N		{"linear_units":"in"}	2011-03-02 01:55:19.065296	2011-03-02 01:55:19.065296
+7955	5169	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"30.111","width":"23.875"}	2011-03-02 03:53:35.399498	2011-03-02 03:53:35.399498
+7956	5169	\N	color	\N	Color	{"color":"Ruston Maple"}	2011-03-02 03:53:35.417302	2011-03-02 03:53:35.417302
+7957	5170	\N	dimensions	\N	Height,Width,Depth	{"depth":"17.000","linear_units":"in","height":"30.236","width":"48.000"}	2011-03-02 03:53:35.484586	2011-03-02 03:53:35.484586
+7958	5170	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-02 03:53:35.681063	2011-03-02 03:53:35.681063
+7959	5171	\N	dimensions	\N	Height,Width,Depth	{"depth":"13.000","linear_units":"in","height":"30.236","width":"48.000"}	2011-03-02 03:53:35.749557	2011-03-02 03:53:35.749557
+7960	5171	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-02 03:53:35.792122	2011-03-02 03:53:35.792122
+7961	5172	\N	dimensions	\N	Width,Depth	{"depth":"26.000","linear_units":"in","width":"48.000"}	2011-03-02 03:53:35.817272	2011-03-02 03:53:35.817272
+7962	5172	\N	color	\N	Color	{"color":"Ebony Star"}	2011-03-02 03:53:35.826442	2011-03-02 03:53:35.826442
+7963	5173	\N	dimensions	\N		{"linear_units":"in"}	2011-03-02 03:53:35.836163	2011-03-02 03:53:35.836163
 \.
 
 
@@ -6810,10 +6819,6 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 3072	179	563	000.970.030.010.00M	2	*Increased Qty to 2, need 1 extra	2011-02-17 23:41:29.595952	2011-02-17 23:41:29.595952	2.39	12	CL Toe Kick | Hardrock Maple	\N	\N
 3073	179	48	000.934.091.010.00M	2	*Changed for full qty needed	2011-02-17 23:41:29.619746	2011-02-17 23:41:29.619746	0.18	12	CL Top Shelf | Hardrock Maple	\N	\N
 3074	179	35	000.912.181.010.00M	2		2011-02-17 23:41:29.66408	2011-02-17 23:41:29.66408	28.04	12	CL Upright Partition - BaseNotch - Left | Hardrock Maple	\N	\N
-2359	153	516	000.100.000.010.00M	2		2011-02-15 22:11:41.483607	2011-02-15 22:11:41.483607	17.41	1	Door - Flat | Hardrock Maple	\N	\N
-2360	153	516	000.100.000.010.00M	2		2011-02-15 22:11:41.512115	2011-02-15 22:11:41.512115	28.11	2	Door - Flat | Hardrock Maple	\N	\N
-2361	153	256	000.402.493.010.00M	1		2011-02-15 22:11:41.819529	2011-02-15 22:11:41.819529	132.17	3	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N
-2362	153	256	000.402.493.010.00M	1		2011-02-15 22:11:42.156015	2011-02-15 22:11:42.156015	163.66	4	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N
 2363	154	45	000.931.022.001.00M	6		2011-02-15 23:38:22.358169	2011-02-15 23:38:22.358169	6.73	1	CL Adjustable Shelf | White	\N	\N
 3075	179	36	000.912.381.010.00M	1		2011-02-17 23:41:29.69748	2011-02-17 23:41:29.69748	28.04	13	CL Upright Partition - BaseNotch - Right | Hardrock Maple	\N	\N
 3076	179	34	000.912.281.010.00M	11		2011-02-17 23:41:29.72381	2011-02-17 23:41:29.72381	28.04	14	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N	\N
@@ -6837,6 +6842,9 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 2378	154	155	000.263.020.847.00I	64		2011-02-15 23:38:23.936461	2011-02-15 23:38:23.936461	0.05	16	ZH Cam (Screw-In Stud)	\N	\N
 2379	154	237	000.263.059.730.00I	80		2011-02-15 23:38:23.947857	2011-02-15 23:38:23.947857	0.01	17	ZH Cam Cover | White	\N	\N
 2380	154	100	000.801.042.100.00I	2		2011-02-15 23:38:23.958515	2011-02-15 23:38:23.958515	3.60	18	ZH Closet Rod | Oil Rubbed Bronze	\N	\N
+2361	153	256	000.402.493.010.00M	1		2011-02-15 22:11:41.819529	2011-03-02 03:44:35.572447	132.17	3	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N
+2362	153	256	000.402.493.010.00M	1		2011-02-15 22:11:42.156015	2011-03-02 03:44:35.576468	163.66	4	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N
+2360	153	516	000.100.000.010.00M	2		2011-02-15 22:11:41.512115	2011-03-02 03:44:35.567769	28.11	2	Door - Flat | Hardrock Maple	\N	\N
 2381	154	100	000.801.042.100.00I	1		2011-02-15 23:38:23.968909	2011-02-15 23:38:23.968909	5.40	19	ZH Closet Rod | Oil Rubbed Bronze	\N	\N
 2382	154	100	000.801.042.100.00I	2		2011-02-15 23:38:23.979068	2011-02-15 23:38:23.979068	3.60	20	ZH Closet Rod | Oil Rubbed Bronze	\N	\N
 2383	154	100	000.801.042.100.00I	1		2011-02-15 23:38:23.990197	2011-02-15 23:38:23.990197	5.40	21	ZH Closet Rod | Oil Rubbed Bronze	\N	\N
@@ -7785,6 +7793,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4594	264	502	000.400.004.403.00M	1		2011-02-25 15:21:33.478592	2011-02-25 15:21:33.478592	133.90	9	NX Workbench Top (Finished Ends) | Ebony Star	\N	\N
 4595	264	5	000.117.031.330.00I	8		2011-02-25 15:21:33.50725	2011-02-25 15:21:33.50725	2.44	10	ZH Handle Black | 128mm	\N	\N
 4622	268	\N	000.	10		2011-02-25 16:26:13.743787	2011-02-28 17:31:12.891198	0.00	1	1" x 96" Scribe, white	\N	\N
+2359	153	516	000.100.000.010.00M	2		2011-02-15 22:11:41.483607	2011-03-02 03:44:35.580071	17.41	1	Door - Flat | Hardrock Maple	\N	\N
+5169	302	518	000.102.000.010.00B	4		2011-03-02 03:53:35.394545	2011-03-02 03:53:35.394545	83.12	1	Decor Door - DR1 | Hardrock Maple	\N	\N
 4178	231	38	000.911.181.001.00M	1		2011-02-23 23:21:41.047802	2011-02-23 23:21:41.047802	21.52	1	Upright Partition Left Stop Drilled | WHITE	\N	\N
 4179	231	38	000.911.183.001.00M	2		2011-02-23 23:21:41.105305	2011-02-23 23:21:41.105305	15.25	2	Upright Partition Left Stop Drilled | WHITE	\N	\N
 4180	231	38	000.911.171.001.00M	6		2011-02-23 23:21:41.137936	2011-02-23 23:21:41.137936	3.21	3	Upright Partition Left Stop Drilled | WHITE	\N	\N
@@ -7821,6 +7831,10 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4211	232	168	007.111.KSC.20W.00I	8		2011-02-23 23:44:52.023339	2011-02-23 23:44:52.023339	1.35	19	ZH Drawer Slide | 3/4 ext | 20 inch	\N	\N
 4212	232	5	000.117.031.330.00I	28		2011-02-23 23:44:52.035782	2011-02-23 23:44:52.035782	0.98	20	ZH Handle Black | 128mm	\N	\N
 4213	232	693	000.995.302.100.00I	2		2011-02-23 23:44:52.046858	2011-02-23 23:44:52.046858	15.88	21	ZH The Grid (3/box)	\N	\N
+5170	302	262	000.102.433.010.00M	1		2011-03-02 03:53:35.478722	2011-03-02 03:53:35.478722	82.97	2	NX Base Cabinet 2 Door | Hardrock Maple	\N	\N
+5171	302	260	000.302.430.010.00M	1		2011-03-02 03:53:35.744354	2011-03-02 03:53:35.744354	68.71	3	NX Upper Cabinet 2 Door | Hardrock Maple	\N	\N
+5172	302	502	000.400.004.403.00M	1		2011-03-02 03:53:35.81191	2011-03-02 03:53:35.81191	53.56	4	NX Workbench Top (Finished Ends) | Ebony Star	\N	\N
+5173	302	5	000.117.031.330.00I	4		2011-03-02 03:53:35.831637	2011-03-02 03:53:35.831637	0.98	5	ZH Handle Black | 128mm	\N	\N
 4251	234	45	000.931.031.001.00M	5		2011-02-24 16:51:35.890649	2011-02-24 16:51:35.890649	0.72	1	CL Adjustable Shelf | White	\N	\N
 4252	234	43	000.960.000.001.00M	1		2011-02-24 16:51:35.942187	2011-02-24 16:51:35.942187	1.67	2	CL Backing Panel | White	\N	\N
 4253	234	44	000.930.041.001.00M	4		2011-02-24 16:51:35.962393	2011-02-24 16:51:35.962393	0.82	3	CL Cam Shelf | White	\N	\N
@@ -8339,6 +8353,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 277	297	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-01 16:42:55.664134	2011-03-01 16:42:55.664134
 279	299	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-01 19:38:07.601785	2011-03-01 19:38:07.601785
 281	301	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-02 01:55:17.51549	2011-03-02 01:55:17.51549
+282	302	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-02 03:53:35.387282	2011-03-02 03:53:35.387282
 \.
 
 
@@ -8424,6 +8439,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 238	9	9	13	Hersey	SO-88	\N	2011-02-24 17:48:42.216717	2011-03-01 16:16:09.189075	Hersey, Amy Parts List.xls	application/octet-stream	34015	2011-02-24 17:48:42.213797	Phoenix	Ready For Production	2011-03-10	\N	All partitions must be edgebanded on the top too!	2011-02-24 17:53:46	9		PremierRoute	9		13
 245	9	9	13	Yorn	SO-91	\N	2011-02-24 18:40:28.218114	2011-03-01 16:31:42.045647	Yorn, Ken Parts List.xls	application/vnd.ms-excel	10109	2011-02-24 18:40:28.21606	Phoenix	Ready For Production	2011-03-10	\N		2011-02-24 18:46:41	9		PremierRoute	9		13
 301	12	60	15	Bisch test order	\N	\N	2011-03-02 01:55:17.038665	2011-03-02 02:08:56.15514	021011-1.xml	text/xml	30472	2011-03-02 01:55:17.036665	Phoenix	Created	\N	\N	This line contains special instructions.	\N	\N		PremierRoute	60	This line contains notes.	15
+302	8	35	38	Garage Test	\N	\N	2011-03-02 03:53:35.307102	2011-03-02 03:53:35.307102	GarageTest.xml	text/xml	7157	2011-03-02 03:53:35.305101	\N	Created	\N	\N	test	\N	\N	\N	\N	35	\N	\N
 287	59	87	84	T Patterson	SO-117	\N	2011-02-28 17:29:07.486562	2011-03-01 04:02:33.464308	Tura_FINAL ORDER.dvi Parts List.xml	text/xml	25718	2011-02-28 17:29:07.481557	Phoenix	Confirmed	2011-03-15	\N	Please ship to 7182 Hwy 14, Suite 603 Middleton, WI 53562\r\n\r\nAll future shipment should go to this address.	2011-02-28 17:35:46	87		PremierRoute	87	Peter Saal: make sure to update the ship-to information for this customer.	70
 296	14	32	17	Replacement Door	SO-121	\N	2011-02-28 23:58:19.976712	2011-03-01 14:27:05.25691	Eddie Stribling.xml	application/xml	5531	2011-02-28 23:58:19.971894	Phoenix	Confirmed	2011-03-04	\N	We dropped it!  (can you ship with my LTL order?)	2011-02-28 23:59:59	32		LTL	13		17
 273	4	4	6	Haag - ReOrder	SO-109	\N	2011-02-26 20:07:39.34218	2011-02-28 17:14:30.91778	Haag - ReOrder.xml	application/octet-stream	8246	2011-02-26 20:07:39.337918	Phoenix	Confirmed	2011-03-14	\N	**Due to a plan change these additional materials are needed to finish the job in which the clients have already moved in to the new home**\r\n\r\nIf possible please sneak this in on the next possible order to be shipped out!!\r\n	2011-02-26 20:07:50	4		PremierRoute	4		6
