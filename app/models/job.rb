@@ -20,6 +20,13 @@ class Job < ActiveRecord::Base
 
   has_attached_file :dvinci_xml
 
+  searchable do
+    text :name, :boost => 2.0
+    text :job_item_names do
+      job_items.map{|job_item| job_item.item_name}
+    end
+  end
+
   STATUS_GROUPS = [
     [
       "Created",

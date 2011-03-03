@@ -8,12 +8,22 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
   def index
-    conditions = params.reject do |k, v|
-      !['status'].include?(k) || v.blank?
-    end
+    if params[:search]
+      @search = Job.search do 
+        with(:status).equal_to(params[:status]) unless params[:status].blank?
+        keywords(params[:search]) 
+        paginate(:page => params[:page], :per_page => 20)
+      end 
 
-    jobs_scope = conditions.empty? ? Job.select : Job.where(conditions.to_hash)
-    @jobs = jobs_scope.order('jobs.created_at DESC NULLS LAST, jobs.due_date NULLS LAST').select{|j| can? :read, j}.paginate(:page => params[:page], :per_page => 20)
+      @jobs = @search.results
+    else
+      conditions = params.reject do |k, v|
+        !['status'].include?(k) || v.blank?
+      end
+
+      jobs_scope = conditions.empty? ? Job.select : Job.where(conditions.to_hash)
+      @jobs = jobs_scope.order('jobs.created_at DESC NULLS LAST, jobs.due_date NULLS LAST').select{|j| can? :read, j}.paginate(:page => params[:page], :per_page => 20)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
