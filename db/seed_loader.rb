@@ -394,7 +394,7 @@ class SeedLoader
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
-            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t"))
+            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr, xs[0]]).join("\t"))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
           end
