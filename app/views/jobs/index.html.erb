@@ -23,7 +23,7 @@
 <form id="job_filters">
   <span id="job_filters">
     <strong>Status: </strong> <%= select_tag 'status', options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, params[:status]), :id => 'job_status_filter', :include_blank => true %>
-    <strong>Search: </strong> <input type="text" name="search" id="job_search"/>
+    <strong>Search: </strong> <input type="text" name="search" id="job_search" value="<%= params[:search] %>"/>
   </span>
 </form>
 
