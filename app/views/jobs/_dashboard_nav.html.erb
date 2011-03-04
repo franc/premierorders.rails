@@ -10,7 +10,11 @@
       <td><%= link_to job.name, job_path(job) %></td>
       <td><%= job.job_number %></td>
       <td><%= job.due_date %></td>
-      <td><%= job_status_select(job) %></td>
+      <% if can? :manage, job %>
+        <td><%= job_status_select(job) %></td>
+      <% else %>
+        <td><%= job.status %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
