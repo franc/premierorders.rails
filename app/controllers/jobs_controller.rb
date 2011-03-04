@@ -12,10 +12,9 @@ class JobsController < ApplicationController
       @search = Job.search do 
         with(:status).equal_to(params[:status]) unless params[:status].blank?
         keywords(params[:search]) 
-        paginate(:page => params[:page], :per_page => 20)
       end 
 
-      @jobs = @search.results.select{|j| can?(:read, j)}
+      @jobs = @search.results.select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
     else
       conditions = params.reject do |k, v|
         !['status'].include?(k) || v.blank?
