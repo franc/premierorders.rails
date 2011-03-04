@@ -15,14 +15,14 @@ class JobsController < ApplicationController
         paginate(:page => params[:page], :per_page => 20)
       end 
 
-      @jobs = @search.results
+      @jobs = @search.results.select{|j| can?(:read, j)}
     else
       conditions = params.reject do |k, v|
         !['status'].include?(k) || v.blank?
       end
 
       jobs_scope = conditions.empty? ? Job.select : Job.where(conditions.to_hash)
-      @jobs = jobs_scope.order('jobs.created_at DESC NULLS LAST, jobs.due_date NULLS LAST').select{|j| can? :read, j}.paginate(:page => params[:page], :per_page => 20)
+      @jobs = jobs_scope.order('jobs.created_at DESC NULLS LAST, jobs.due_date NULLS LAST').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
     end
 
     respond_to do |format|
