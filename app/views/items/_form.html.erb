@@ -180,9 +180,11 @@
   <div id="item_form_fields" class="form_fields">
     <dl>
     <dt><%= f.label :type %></dt>
-    <dd><%= f.select(:type, Item.item_types.map{|t| t.to_s}) %></dd>
+    <dd><%= f.select(:type, item_type_option_values) %></dd>
     <dt><%= f.label :name %></dt>
     <dd><%= f.text_field :name %></dd>
+    <dt><%= f.label :category %></dt>
+    <dd><%= f.select(:type, Item.categories.map{|c| [c.titlecase, c]}) %></dd>
     <dt><%= f.label :description %></dt>
     <dd><%= f.text_area :description %></dd>
 	  <dt><%= f.label :purchasing %></dt>

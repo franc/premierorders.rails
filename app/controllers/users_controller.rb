@@ -1,4 +1,4 @@
-require 'util/option'
+require 'fp'
 
 class UsersController < ApplicationController
   load_and_authorize_resource 

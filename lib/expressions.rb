@@ -1,5 +1,5 @@
-require 'util/option'
 require 'bigdecimal'
+require 'fp'
 
 module Expressions
   class Expr
@@ -54,7 +54,7 @@ module Expressions
       if self.eql?(expr)
         replacement
       else
-        Sum.new(@exprs.inject([]){|m, e| m << e.replace(expr, replacement)})
+        Sum.new(*(@exprs.inject([]){|m, e| m << e.replace(expr, replacement)}))
       end
     end
 
@@ -82,7 +82,7 @@ module Expressions
       if self.eql?(expr)
         replacement
       else
-        Mult.new(@exprs.inject([]){|m, e| m << e.replace(expr, replacement)})
+        Mult.new(*(@exprs.inject([]){|m, e| m << e.replace(expr, replacement)}))
       end
     end
 

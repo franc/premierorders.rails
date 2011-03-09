@@ -1,8 +1,6 @@
-require 'property.rb'
-require 'util/option'
+require 'properties'
 require 'expressions'
-require 'monoid'
-require 'semigroup'
+require 'fp'
 
 class Item < ActiveRecord::Base
   include Expressions, Items::Margins, Items::Surcharges, Items::Pricing
@@ -21,7 +19,11 @@ class Item < ActiveRecord::Base
   end
 
   def self.search(types, term)
-    Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
+    if (types.empty? || (types.length == 1 && types[0] == 'Item'))
+      Item.find_by_sql(["SELECT * FROM items WHERE name ILIKE ?", "%#{term}%"])
+    else
+      Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"])
+    end
   end
 
   def self.find_by_concrete_dvinci_id(id)
@@ -50,22 +52,27 @@ class Item < ActiveRecord::Base
   def self.item_types 
     [
       Item,
-      Cabinet,
-      CornerCabinet,
-      Countertop,
-      Shell,
-      Panel,
-      Door,
-      PremiumDoor,
-      PremiumDrawerfront,
-      FrenchLiteDoor,
-      Drawer,
-      ClosetPartition,
-      ClosetShelf,
-      BackingPanel,
-      FinishedPanel,
-      ScaledItem
+      Items::SushiListItem,
+      Items::Cabinet,
+      Items::CornerCabinet,
+      Items::Countertop,
+      Items::Shell,
+      Items::Panel,
+      Items::Door,
+      Items::PremiumDoor,
+      Items::PremiumDrawerfront,
+      Items::FrenchLiteDoor,
+      Items::Drawer,
+      Items::ClosetPartition,
+      Items::ClosetShelf,
+      Items::BackingPanel,
+      Items::FinishedPanel,
+      Items::ScaledItem
     ]
+  end
+
+  def self.categories
+    self.connection.execute("SELECT DISTINCT category FROM items ORDER BY category").map{|row| row['category']}.compact
   end
 
   def self.component_association_modules(mod)
@@ -80,7 +87,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.component_association_types
-    {:optional => [ItemHardware]}
+    {:optional => [Items::ItemHardware]}
   end
 
   def self.optional_properties
@@ -92,15 +99,17 @@ class Item < ActiveRecord::Base
   end
 
   def apply_retail_multiplier(expr)
-    div(expr, term(retail_multiplier))
+    Option.new(retail_multiplier).map{|m| div(expr, term(m))}.orSome(expr)
   end
 
   def apply_rebate_factor(expr)
-    div(expr, term(rebate_factor))
+    Option.new(rebate_factor).map{|f| div(expr, term(f))}.orSome(expr)
   end
 
   def price_expr(units, color, contexts)
-    rebated_cost_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+    Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}.orElseLazy do
+      rebated_cost_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+    end
   end
 
   def rebated_cost_expr(units, color, contexts)
@@ -108,7 +117,7 @@ class Item < ActiveRecord::Base
   end
 
   def cost_expr(units, color, contexts)
-    base_expr = self.base_price.nil? || self.base_price == 0 ? [] : [term(self.base_price)]
+    base_expr = Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}.to_a
     property_pricing = self.property_pricing_expr(units).to_a
     
     selected_component_associations = if contexts.nil? || contexts.empty?
@@ -196,11 +205,11 @@ class Item < ActiveRecord::Base
   end
 
   def weight_expr(units, contexts)
-    query(PropertySum.new(units){|item| item.weight}, contexts)
+    query(ItemQueries::PropertySum.new(units){|item| item.weight}, contexts)
   end
 
   def install_cost_expr(units, contexts)
-    query(PropertySum.new(units){|item| item.install_cost}, contexts)
+    query(ItemQueries::PropertySum.new(units){|item| item.install_cost}, contexts)
   end
 
   def next_item
@@ -211,47 +220,3 @@ class Item < ActiveRecord::Base
     Item.find_by_sql(['SELECT * FROM items where name in (select max(name) from items where name < ?)', self.name])
   end
 end
-
-class HardwareQuery < ItemQuery
-  def initialize(&item_test)
-    super(Monoid::ARRAY_APPEND)
-    @item_test = item_test
-  end
-
-  def query_item_component(assoc, contexts)
-    hardware = assoc.kind_of?(ItemHardware) && (@item_test.nil? || @item_test.call(assoc.component)) ? [assoc] : []
-    super(assoc, contexts) + hardware
-  end
-end
-
-class PropertySum < ItemQuery
-  include Expressions
-
-  def initialize(units, &prop)
-    super(Monoid::OptionM.new(Semigroup::SUM))
-    @prop = prop
-    @units = units
-  end
-
-  def query_item(item)
-    Option.new(@prop.call(item)).map{|w| term(w)}
-  end
-
-  def query_item_component(assoc, contexts)
-    assoc.component.query(self, contexts).map{|expr| assoc.qty_expr(@units) * expr}
-  end
-end
-
-require 'items/cabinet.rb'
-require 'items/corner_cabinet.rb'
-require 'items/shell.rb'
-require 'items/panel.rb'
-require 'items/countertop.rb'
-require 'items/door.rb'
-require 'items/drawer.rb'
-require 'items/closet_partition.rb'
-require 'items/closet_shelf.rb'
-require 'items/backing_panel.rb'
-require 'items/item_hardware.rb'
-require 'items/scaled_item.rb'
-

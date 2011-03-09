@@ -1,6 +1,4 @@
-require 'items/panel.rb'
-
-class BackingPanel < FinishedPanel
+class Items::BackingPanel < Items::FinishedPanel
   def l_expr 
     H
   end

@@ -1,6 +1,6 @@
 require 'csv'
 require 'set'
-require 'util/option'
+require 'fp'
 
 class SeedLoader
   PASSWORD_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a

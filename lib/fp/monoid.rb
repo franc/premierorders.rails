@@ -1,4 +1,4 @@
-require 'util/option'
+require 'fp/option'
 
 module Monoid
   class Sum

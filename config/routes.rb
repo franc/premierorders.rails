@@ -55,6 +55,10 @@ PgRails::Application.routes.draw do
     end
   end
 
+  match 'catalog_orders/catalog_json' => 'catalog_orders#catalog_json'
+  match 'catalog_orders/:id/add_item' => 'catalog_orders#update_item'
+  resources :catalog_orders
+
   resources :franchisees do
     member do
       get 'addresses'

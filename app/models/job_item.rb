@@ -1,6 +1,5 @@
-require 'util/option'
-require 'util/either'
 require 'expressions'
+require 'fp'
 
 class JobItem < ActiveRecord::Base
   include Expressions
@@ -18,7 +17,7 @@ class JobItem < ActiveRecord::Base
   def purchasing_type?(*types)
     types.any? do |type|
       item_purchasing.casecmp(type) == 0 || 
-      ingest_id.strip[-1,1].casecmp(type[0...1]) == 0
+      (ingest_id && ingest_id.strip[-1,1].casecmp(type[0...1]) == 0)
     end
   end
 
@@ -35,29 +34,38 @@ class JobItem < ActiveRecord::Base
   end
 
   def width(units = :in)
-    dimensions_property.bind do |p|
-      Option.call(:width, p, units)
+    dimensions_property.bind {|p| Option.call(:width, p, units)}.orElseLazy do
+      item && item.respond_to?(:width) ? item.width(units) : None::NONE
     end
   end
 
   def height(units = :in)
-    dimensions_property.bind do |p|
-      Option.call(:height, p, units)
+    dimensions_property.bind {|p| Option.call(:height, p, units)}.orElseLazy do
+      item && item.respond_to?(:height) ? item.height(units) : None::NONE
     end
   end
 
   def depth(units = :in)
-    dimensions_property.bind do |p|
-      Option.call(:depth, p, units)
+    dimensions_property.bind {|p| Option.call(:depth, p, units)}.orElseLazy do
+      item && item.respond_to?(:depth) ? item.depth(units) : None::NONE
     end
   end
 
   def color
-    Option.new(job_item_properties.find_by_family(:color)).map{|p| p.color}
+    Option.new(job_item_properties.find_by_family(:color)).map{|p| p.color}.orElseLazy do
+      Option.iif(item && item.respond_to?(:color)) do
+        item.color
+      end
+    end
   end
 
   def dvinci_color_code
-    ingest_id.match(/(\w{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/).captures[3]
+    id_parser = /(\w{3})\.(\w{3})\.(\w{3})\.(\w{3})\.(\d{2})(\w)/
+    Option.new(ingest_id).map{|iid| iid.match(id_parser).captures[3]}.orElseLazy do
+      Option.iif(item && item.respond_to?(:dvinci_color_code)) do
+        item.dvinci_color_code
+      end
+    end
   end
 
   def item_name
@@ -65,11 +73,11 @@ class JobItem < ActiveRecord::Base
   end
 
   def item_purchasing
-    item.nil? ? "(unavailable)" : item.purchasing
+    (item.nil? || item.purchasing.nil?) ? "(unavailable)" : item.purchasing
   end
 
   def inventory_hardware
-    hardware_query = HardwareQuery.new do |i|
+    hardware_query = ItemQueries::HardwareQuery.new do |i|
       i.purchasing == 'Inventory'
     end
 

@@ -1,5 +1,4 @@
 require 'date'
-require 'job.rb'
 
 class JobsController < ApplicationController
   load_and_authorize_resource :except => [:create, :index, :dashboard]
@@ -21,7 +20,7 @@ class JobsController < ApplicationController
       end
 
       jobs_scope = conditions.empty? ? Job.where("status != 'Cancelled'") : Job.where(conditions.to_hash)
-      @jobs = jobs_scope.order('jobs.placement_date DESC').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
+      @jobs = jobs_scope.where("status != 'In Construction'").order('jobs.placement_date DESC').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
     end
 
     respond_to do |format|

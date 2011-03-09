@@ -1,5 +1,5 @@
-require 'property.rb'
-require 'expressions.rb'
+require 'properties'
+require 'expressions'
 
 class ItemComponent < ActiveRecord::Base
   include Expressions
@@ -62,9 +62,3 @@ class ItemComponent < ActiveRecord::Base
     term(quantity)
   end
 end
-
-require 'items/shell_components.rb'
-require 'items/cabinet_components.rb'
-require 'items/corner_cabinet_components.rb'
-
-

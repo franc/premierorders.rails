@@ -1,10 +1,9 @@
 require 'rexml/document'
 require 'csv'
 require 'json'
-require 'item.rb'
-require 'property.rb'
-require 'util/option'
-require 'monoid'
+require 'fp'
+require 'item_queries'
+require 'properties'
 
 class Job < ActiveRecord::Base
   include Cutrite
@@ -298,7 +297,7 @@ class Job < ActiveRecord::Base
   end
 
   def component_inventory_hardware
-    hardware_query = HardwareQuery.new do |item|
+    hardware_query = ItemQueries::HardwareQuery.new do |item|
       item.purchasing == 'Inventory'
     end
 
@@ -321,28 +320,3 @@ class Job < ActiveRecord::Base
   end
 end
 
-class ColorQuery < ItemQuery
-  def initialize(property_family, dvinci_color_code, &value_test)
-    super(Monoid::Uniq.new {|v1, v2| v1.try(:dvinci_id) == v2.try(:dvinci_id)})
-    @property_family = property_family
-    @dvinci_color_code = dvinci_color_code
-    @value_test = value_test
-  end  
-
-  def query_property(property)
-    pv = Option.iif(property.family == @property_family) do
-      property.property_values.detect do |v|
-        v.respond_to?(:dvinci_id) && 
-        v.dvinci_id == @dvinci_color_code &&
-        (@value_test.nil? || @value_test.call(v))
-      end
-    end
-  end
-end
-
-class FormatException < RuntimeError
-  attr :message
-  def initialize(message)
-    @message = message
-  end
-end

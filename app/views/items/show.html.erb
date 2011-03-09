@@ -7,9 +7,10 @@
         {units: $("#price_expr_units").val(), color:$("#price_expr_color").val()}, 
         function(data) {
           $("#pricing_expression").children().remove();
-          $("#pricing_expression").append('<dt><%=@item.name%></dt><dd>'+data.expr+'</dd>');
+          $("#pricing_expression").append('<dt><%=@item.name%> Sales Price</dt><dd>'+data.price_expr+'</dd>');
+          $("#pricing_expression").append('<dt><%=@item.name%> Cost</dt><dd>'+data.cost_expr+'</dd>');
           for (var i = 0; i < data.components.length; i++) {
-            $("#pricing_expression").append('<dt>'+data.components[i].name+'</dt><dd>'+data.components[i].expr+'</dd>');
+            $("#pricing_expression").append('<dt>'+data.components[i].name+' Cost</dt><dd>'+data.components[i].cost_expr+'</dd>');
           }
         },
         "json"

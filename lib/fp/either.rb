@@ -1,4 +1,4 @@
-require 'util/option'
+require 'fp/option'
 
 module Either
   def self.left(v)
@@ -101,4 +101,3 @@ class RightProjection
 
   alias_method :each, :map
 end
-

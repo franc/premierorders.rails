@@ -53,6 +53,9 @@
 <% content_for :local_nav do %>
   <% if can? :create, Job %>
     <%= link_to "Dashboard", url_for(:action => 'dashboard', :controller => 'jobs') %> | 
-    <%= link_to "New #{Job.model_name.human}", new_job_path %>
+    <%= link_to "Upload #{Job.model_name.human}", new_job_path %>
+  <% end %>
+  <% if can? :create, CatalogOrder %>
+    | <%= link_to "New Catalog Order", new_catalog_order_path %>
   <% end %>
 <% end %>

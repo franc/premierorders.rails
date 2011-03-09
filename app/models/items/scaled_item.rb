@@ -1,8 +1,8 @@
-require 'property.rb'
-require 'util/option'
+require 'properties'
+require 'fp'
 
-class ScaledItem < Item
-  RANGED_PRICE = PropertyDescriptor.new(:ranged_price, [], [Property::RangedValue])
+class Items::ScaledItem < Item
+  RANGED_PRICE = Properties::PropertyDescriptor.new(:ranged_price, [], [Property::RangedValue])
 
   def self.required_properties
     [RANGED_PRICE]

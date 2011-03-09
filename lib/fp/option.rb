@@ -1,4 +1,4 @@
-require 'util/functions'
+require 'fp/functions'
 
 module Option
   include Enumerable
@@ -160,4 +160,3 @@ class None
 
   alias_method :to_s, :inspect
 end
-

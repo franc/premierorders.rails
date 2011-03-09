@@ -1,0 +1,249 @@
+<% content_for :html do %>manifest="catalog_orders"<% end %>
+
+<% content_for :head do %>
+  <style type="text/css">
+    label { width: 10em; float: left; }
+    label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+    em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+  </style>
+
+  <%= javascript_include_tag 'jquery.validate.min.js' %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
+  <script type="text/javascript">
+    function supports_offline() {
+      return !!window.applicationCache;
+    }
+
+    function supports_local_storage() {
+      try {
+        return 'localStorage' in window && window['localStorage'] !== null;
+      } catch(e){
+        return false;
+      }
+    }
+    
+    var update_catalog = function(current_order) {
+      /**
+       * Catalog data format is:
+       * {
+       *   version: int,
+       *   items: {
+       *     <id>: {
+       *       name: string,
+       *       category: string,
+       *       purchase_part_id: int,
+       *       sell_price: float
+       *     }
+       *   }
+       * }
+       */
+      var rerender_catalog = function(catalog_data) {
+        var build_item_row = function(item) {
+          var row = $(".prototype_item_row").clone();
+          row.removeClass("prototype_item_row");
+          row.addClass("item_row").addClass(item.category);
+          row.addClass("row_"+item.id);
+          $(".item_name", row).html(item.name);
+          $(".item_purchase_part_id", row).html(item.purchase_part_id);
+          $(".item_price", row).html("$"+parseFloat(item.sell_price).toFixed(2));
+          $(".item_qty_field", row).change(
+            function(ev) {
+              var quantity = $(ev.target).val();
+              current_order.order_data.quantities[item.id] = quantity;
+              $(".item_total", row).html("$"+(parseFloat(item.sell_price) * quantity).toFixed(2));
+              $("#items_total").html("$"+current_order.total(catalog_data).toFixed(2));
+            }
+          );
+          $(".totals_row").before(row);
+          row.show();
+        };
+
+        $(".item_row").remove();
+        var i;
+        for (i = 0; i < catalog_data.length; i++) {
+          build_item_row(catalog_data[i]);
+        }
+      };
+
+      var catalog_update_success = function(catalog_data) {
+        if (supports_local_storage()) {
+          //TODO: check version compatibility on the data.
+          localStorage['pg_catalog'] = JSON.stringify(catalog_data);
+          alert("Local storage has been initialized. You can use this webpage offline.");
+        } 
+
+        rerender_catalog(catalog_data);
+      };
+
+      var catalog_update_failure = function(jqXHR, textStatus, errorThrown) {
+        if (supports_local_storage() && localStorage['pg_catalog']) {
+          rerender_catalog(localStorage['pg_catalog']);
+        } else {
+          alert("We're sorry; it appears that you are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
+        }
+      }      
+
+      $.ajax({
+          url: "/catalog_orders/catalog_json",
+          success: catalog_update_success,
+          error: catalog_update_failure,
+          dataType: "json"
+      });
+    }
+
+    var order_placed_success = function(order_placed_data) {
+      if (order_placed_data["updated"] == "success") {
+        window.location = "/jobs/" + order_placed_data['job_id'];
+      } else {
+        alert("There was an error in order placement. Eventually this error message will be more informative.");
+      }
+      $.loading();
+    };
+
+    var order_placed_failure = function(current_order) {
+      return function(jqXHR, textStatus, errorThrown) {
+        if (supports_local_storage()) {
+          local_storage["order:" + current_order.order_data.name] = JSON.stringify(current_order.order_data);
+          alert("You appear to be offline, so your order has been placed into local storage for submission when you reconnect. Thanks!");
+          //todo: clear form.
+        } else {
+          alert("We're sorry; it appears that your are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
+        }
+        $.loading();
+      };
+    };
+
+    jQuery(function($) {
+      var current_order = {
+        order_data: {
+          quantities: {}
+        },
+        total: function(catalog_data) {
+          var i;
+          var result = 0.0;
+          for (i = 0; i < catalog_data.length; i++) {
+            var qty = this.order_data.quantities[catalog_data[i].id];
+            result = (qty === undefined) ? result : result + (catalog_data[i].sell_price * qty);
+          }
+          return result;
+        }
+      };
+
+      update_catalog(current_order);
+
+      var show_selected_rows = function() {
+        var item_id;
+        for (item_id in current_order.order_data.quantities) {
+          if (current_order.order_data.quantities[item_id] != 0) {
+            $(".row_"+item_id).show();
+          }
+        }
+      };
+
+      var apply_filter = function() {
+        var category = $("#item_category_filter").val();
+        if (category === "") {
+          $(".item_row").show();
+        } else {
+          $(".item_row").hide();
+          show_selected_rows();
+          $("."+category).show();
+        }
+
+        return false;
+      };
+
+      $("#item_category_filter").change(apply_filter);
+
+      $("#preview").click(function() {
+        $(".item_row").hide();
+        show_selected_rows();
+
+        return false;
+      });
+
+      $("#keep_shopping").click(apply_filter);
+
+      $("#place_order").click(function(ev) {
+        if ($("#catalog_form").validate().element("#order_name")) {
+          $.loading({ mask:true });
+          current_order.order_data.name = $("#order_name").val();
+          current_order.order_data.franchisee_id = $("#order_franchisee_id").val();
+          current_order.order_data.primary_contact_id = $("#order_primary_contact_id").val();
+          current_order.order_data.billing_address_id = $("#order_billing_address_id").val();
+          current_order.order_data.shipping_address_id = $("#order_shipping_address_id").val();
+
+          $.ajax({
+            url: "/catalog_orders",
+            type: "POST",
+            data: current_order.order_data,
+            success: order_placed_success,
+            error: order_placed_failure(current_order),
+            dataType: "json"
+          });
+        } 
+
+        return false;
+      });
+    });
+  </script>
+<% end %>
+
+<form id="catalog_form">
+  <dl>
+    <dt><%= label_tag :order_name %></dt>
+    <dd><%= text_field_tag :order_name, '', {:class => 'required', :minlength => '2'} %><em>*</em></dd>
+
+    <dt><%= label_tag :order_franchisee_id, 'Customer' %></dt>
+    <dd><%= select_tag(:order_franchisee_id, 
+            options_for_select(@franchisees.map{|v| [v.franchise_name, v.id]}), 
+            :id => 'order_franchisee_id') %></dd>
+
+    <dt><%= label_tag :primary_contact_id, 'Primary Contact' %></dt>
+    <dd><%= select_tag(:primary_contact_id, 
+            options_for_select(@franchisees[0].users.map{|v| ["#{v.last_name}, #{v.first_name}", v.id]}), 
+            :id=> 'order_primary_contact_id') %></dd>
+
+    <dt><%= label_tag :shipping_address_id, :shipping_address %></dt>
+    <dd><%= select_tag(:shipping_address_id,
+            options_for_select(@addresses.map{|v| [v.single_line, v.id]}), 
+            :id => 'order_shipping_address_id') %></dd>
+
+    <dt><%= label_tag :billing_address_id, :billing_address %></dt>
+    <dd><%= select_tag(:billing_address_id,
+            options_for_select(@addresses.map{|v| [v.single_line, v.id]}), 
+            :id => 'order_billing_address_id') %></dd>
+
+    <dt>Item Category</dt>
+    <dd><%= select_tag 'category', 
+            options_for_select(Item::categories.map{|v| [v.titlecase, v]}, params[:category]),
+            :id => 'item_category_filter', :include_blank => true %></dd>
+  </dl>
+
+  <table>
+    <tr>
+      <th>Description</th>
+      <th>Part #</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+    <tr class="prototype_item_row" style="display:none">
+      <td class="item_name"></td>
+      <td class="item_purchase_part_id"></td>
+      <td class="item_price"></td>
+      <td class="item_qty"><input type="text" class="item_qty_field" value="0" size="4"/></td>
+      <td class="item_total"></td>
+    </tr>
+    <tr class="totals_row">
+      <th colspan="4">Totals</th>
+      <th id="items_total"></th>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <input type="submit" id="preview" value="Preview"/>
+    <input type="submit" id="keep_shopping" value="Keep Shopping"/>
+    <input type="submit" id="place_order" value="Place Order"/>
+  </div>
+</form>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110301175246) do
+ActiveRecord::Schema.define(:version => 20110303055643) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -111,6 +111,8 @@ ActiveRecord::Schema.define(:version => 20110301175246) do
     t.float    "rebate_factor"
     t.float    "retail_multiplier"
     t.decimal  "sell_price",                      :precision => 8, :scale => 2
+    t.string   "category"
+    t.boolean  "in_catalog",                                                    :default => false
   end
 
   create_table "job_item_properties", :force => true do |t|
@@ -157,7 +159,7 @@ ActiveRecord::Schema.define(:version => 20110301175246) do
   end
 
   create_table "jobs", :force => true do |t|
-    t.integer  "franchisee_id",                         :null => false
+    t.integer  "franchisee_id",                                            :null => false
     t.integer  "customer_id"
     t.integer  "shipping_address_id"
     t.string   "name"
@@ -181,6 +183,7 @@ ActiveRecord::Schema.define(:version => 20110301175246) do
     t.integer  "primary_contact_id"
     t.text     "notes"
     t.integer  "billing_address_id"
+    t.string   "type",                                  :default => "Job"
   end
 
   create_table "production_batches", :force => true do |t|

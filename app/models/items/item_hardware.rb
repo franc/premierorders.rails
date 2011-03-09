@@ -1,10 +1,11 @@
-require 'property.rb'
+require 'property'
+require 'properties'
 
-class ItemHardware < ItemComponent
-  HEIGHT_QTY = PropertyDescriptor.new(:quantity_by_height, [], [Property::Height])
-  WIDTH_QTY  = PropertyDescriptor.new(:quantity_by_width,  [], [Property::Width])
-  DEPTH_QTY  = PropertyDescriptor.new(:quantity_by_depth,  [], [Property::Depth])
-  RANGED_QTY = PropertyDescriptor.new(:qty_by_range, [], [Property::RangedValue])
+class Items::ItemHardware < ItemComponent
+  HEIGHT_QTY = Properties::PropertyDescriptor.new(:quantity_by_height, [], [Property::Height])
+  WIDTH_QTY  = Properties::PropertyDescriptor.new(:quantity_by_width,  [], [Property::Width])
+  DEPTH_QTY  = Properties::PropertyDescriptor.new(:quantity_by_depth,  [], [Property::Depth])
+  RANGED_QTY = Properties::PropertyDescriptor.new(:qty_by_range, [], [Property::RangedValue])
 
   def self.component_types
     [Item]

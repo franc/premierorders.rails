@@ -1,15 +1,13 @@
-require 'property.rb'
-require 'items/item_materials.rb'
-require 'items/panel.rb'
+require 'fp'
 
-class FinishedPanel < Item
-  include ItemMaterials, PanelEdgePricing, Items::Margins
+class Items::FinishedPanel < Item
+  include Items::ItemMaterials, Items::PanelEdgePricing, Items::Margins
 
   def self.optional_properties
     if self.respond_to?(:banded_edges) && !self.banded_edges.empty?
-      [Panel::MATERIAL, PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])]
+      [Items::Panel::MATERIAL, PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])]
     else
-      [Panel::MATERIAL]
+      [Items::Panel::MATERIAL]
     end
   end
 
@@ -18,7 +16,7 @@ class FinishedPanel < Item
   end
 
   def material_descriptor
-    Panel::MATERIAL
+    Items::Panel::MATERIAL
   end
 
   def l_expr
@@ -36,7 +34,7 @@ class FinishedPanel < Item
       edgeband_cost_expr(self.class.banded_edges, units, color)
     end
 
-    material_cost = material(Panel::MATERIAL, color).cost_expr(l_expr, w_expr, units)
+    material_cost = material(Items::Panel::MATERIAL, color).cost_expr(l_expr, w_expr, units)
     subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
     item_total = apply_margin(subtotal)
     

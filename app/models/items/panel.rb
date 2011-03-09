@@ -1,17 +1,17 @@
-require 'property.rb'
-require 'items/item_materials.rb'
+require 'properties'
+require 'fp'
 
-class Panel < Item
-  include ItemMaterials
+class Items::Panel < Item
+  include Items::ItemMaterials
 
-  MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
+  MATERIAL = Properties::PropertyDescriptor.new(:panel_material, [], [Property::Material])
 
   def self.required_properties
     [MATERIAL]
   end
 
-  WIDTH  = PropertyDescriptor.new(:width, [], [Property::Width], 1)
-  LENGTH = PropertyDescriptor.new(:length, [], [Property::Length], 1)
+  WIDTH  = Properties::PropertyDescriptor.new(:width, [], [Property::Width], 1)
+  LENGTH = Properties::PropertyDescriptor.new(:length, [], [Property::Length], 1)
 
   def self.optional_properties
     super + [WIDTH, LENGTH]

@@ -1,15 +1,13 @@
-require 'property.rb'
-require 'items/item_materials.rb'
-require 'items/panel.rb'
-require 'util/option'
+require 'properties'
+require 'fp'
 
-class Drawer < Item
-  include ItemMaterials
+class Items::Drawer < Item
+  include Items::ItemMaterials
 
-  HEIGHT_DESCRIPTOR = PropertyDescriptor.new(:height, [], [Property::Height], 1)
+  HEIGHT_DESCRIPTOR = Properties::PropertyDescriptor.new(:height, [], [Property::Height], 1)
 
   def self.required_properties
-    [Panel::MATERIAL]
+    [Items::Panel::MATERIAL]
   end
 
   def self.optional_properties
@@ -17,7 +15,7 @@ class Drawer < Item
   end
   
   def material_descriptor
-    Panel::MATERIAL
+    Items::Panel::MATERIAL
   end
 
   def height_expr(units) 
@@ -25,7 +23,7 @@ class Drawer < Item
   end
 
   def cost_expr(units, color, contexts)
-    material_unit_cost = material(Panel::MATERIAL, color).cost_expr(term(1), term(1), units)
+    material_unit_cost = material(Items::Panel::MATERIAL, color).cost_expr(term(1), term(1), units)
     area_expr = sum(mult(term(2), height_expr(units), sum(D, W)), mult(D, W))
     subtotal = mult(area_expr, material_unit_cost) 
     item_total = apply_margin(subtotal)

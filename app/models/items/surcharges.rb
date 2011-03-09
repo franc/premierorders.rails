@@ -1,9 +1,10 @@
 require 'expressions'
+require 'properties'
 
 module Items::Surcharges
   include Expressions
-  SURCHARGE = PropertyDescriptor.new(:surcharge, [], [Property::Surcharge])
-  RANGED_SURCHARGE = PropertyDescriptor.new(:ranged_surcharge, [], [Property::RangedValue])
+  SURCHARGE = Properties::PropertyDescriptor.new(:surcharge, [], [Property::Surcharge])
+  RANGED_SURCHARGE = Properties::PropertyDescriptor.new(:ranged_surcharge, [], [Property::RangedValue])
 
   def surcharge_exprs(units)
     flat = properties.find_value(SURCHARGE).map{|v| term(v.price)}.to_a
@@ -12,6 +13,3 @@ module Items::Surcharges
     flat + ranged
   end
 end
-
-
-

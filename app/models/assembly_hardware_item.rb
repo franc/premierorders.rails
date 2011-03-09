@@ -1,5 +1,4 @@
-require 'util/option'
-require 'util/either'
+require 'fp'
 
 class AssemblyHardwareItem
   attr_reader :item, :quantity, :weight, :install_cost, :total_price

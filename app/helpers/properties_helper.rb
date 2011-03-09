@@ -6,11 +6,7 @@ module PropertiesHelper
     property = descriptor.create_property(property_json[:name])
 
     property_json[:values].values.each do |v|
-      property.property_values.create(
-        :name => v[:name],
-        :module_names => descriptor.module_names,
-        :value_str => JSON.generate(v[:fields])
-      )
+      property.create_value(v[:name], v[:fields])
     end
 
     property
