@@ -20,8 +20,8 @@ class JobsController < ApplicationController
         !['status'].include?(k) || v.blank?
       end
 
-      jobs_scope = conditions.empty? ? Job.select : Job.where(conditions.to_hash)
-      @jobs = jobs_scope.order('jobs.created_at DESC NULLS LAST, jobs.due_date NULLS LAST').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
+      jobs_scope = conditions.empty? ? Job.where("status != 'Cancelled'") : Job.where(conditions.to_hash)
+      @jobs = jobs_scope.order('jobs.placement_date DESC').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
     end
 
     respond_to do |format|
@@ -38,7 +38,7 @@ class JobsController < ApplicationController
   end
 
   def dashboard
-    @jobs = Job.order('jobs.due_date NULLS LAST, jobs.job_number NULLS LAST').select{|j| can? :read, j}
+    @jobs = Job.order('jobs.due_date DESC NULLS LAST, jobs.job_number NULLS LAST').select{|j| can? :read, j}
 
     @jobs_in_init = @jobs.select{|j| j.has_status?(*Job::STATUS_GROUPS[0])}
     @jobs_in_progress = @jobs.select{|j| j.has_status?(*Job::STATUS_GROUPS[1])}
@@ -119,6 +119,10 @@ class JobsController < ApplicationController
           end
         )
       elsif @job.update_attributes(params[:job])
+        if @job.status == 'Confirmed' && @job.status != prior_status
+          OrderMailer.order_placed_email(@job).deliver
+        end
+
         if @job.status == 'Shipped' && @job.status != prior_status
           @job.ship_date ||= DateTime.now
           @job.save
@@ -142,7 +146,6 @@ class JobsController < ApplicationController
     @job.place_order(DateTime.now, current_user)
     respond_to do |format|
       if @job.save
-        OrderMailer.order_placed_email(@job).deliver
         format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
       else
         format.html { redirect_to(@job, :error => "Order could not be placed: #{@job.errors}.") }
