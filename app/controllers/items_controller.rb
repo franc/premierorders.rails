@@ -204,7 +204,7 @@ class ItemsController < ApplicationController
 
   def property_descriptors
     if request.xhr?
-      render :json => Property.descriptors(Items.const_get(params[:mod])).to_json
+      render :json => Property.descriptors(Items.const_get(params[:mod].demodulize)).to_json
     end
   end
 
@@ -212,7 +212,7 @@ class ItemsController < ApplicationController
     authorize! :create, Property
 
     descriptor_id = params[:id].to_i
-    descriptor = Property.descriptors(Items.const_get(params[:mod]))[descriptor_id]
+    descriptor = Property.descriptors(Items.const_get(params[:mod].demodulize))[descriptor_id]
 
     render :partial => 'property_descriptor', :layout => false, :locals => {
       :descriptor => descriptor,
@@ -220,14 +220,8 @@ class ItemsController < ApplicationController
     }
   end
   
-  # def component_types
-  #   if request.xhr?
-  #     render :json => ItemComponent.component_modules(Items.const_get(params[:mod])).to_json
-  #   end
-  # end
-
   def component_association_types
-    type_map = Item.component_association_modules(Items.const_get(params[:mod])).values.flatten.inject([]) do |result, cmod|
+    type_map = Item.component_association_modules(Items.const_get(params[:mod].demodulize)).values.flatten.inject([]) do |result, cmod|
       result << { 
         :association_type => cmod.to_s.demodulize,
         :component_types  => ItemComponent.component_modules(cmod).map{|ct| ct.to_s.demodulize} 
