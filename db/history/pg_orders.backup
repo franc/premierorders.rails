@@ -540,7 +540,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 10683, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 10719, true);
 
 
 --
@@ -597,7 +597,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 6863, true);
+SELECT pg_catalog.setval('job_items_id_seq', 6881, true);
 
 
 --
@@ -643,7 +643,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 364, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 368, true);
 
 
 --
@@ -750,7 +750,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 395, true);
+SELECT pg_catalog.setval('jobs_id_seq', 400, true);
 
 
 --
@@ -897,7 +897,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 657, true);
+SELECT pg_catalog.setval('property_values_id_seq', 662, true);
 
 
 --
@@ -3067,7 +3067,6 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 656	37	9	front
 657	37	9	top
 658	37	9	bottom
-794	245	56	\N
 668	20	6	\N
 669	158	9	left
 670	158	9	right
@@ -4639,11 +4638,11 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 528	Decor Door - DR1 | Cut for Glass	Decor Door - DR1 | Cut for Glass 		\N	000.122.000.x.00B	DS-DR-CFG	2011-01-01 18:54:28.420835	2011-02-24 14:56:13.281467	Buyout	Buyout_Door	Items::PremiumDoor	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N
 709	Door - Flat NX	NX Door | Melamine		\N	000.120.000.x.00M	CP-DR	2011-02-28 23:50:57.191311	2011-02-28 23:50:57.191311	Manufactured	Garage_Cabinets	Items::Door	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	\N	\N
 710	Drawer Front - Flat NX	NX Drawer Front		\N	000.210.000.x.00M	CP-DF	2011-02-28 23:58:37.626605	2011-02-28 23:58:37.626605	Manufactured	Manufactured_Door	Items::Door	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	\N	\N
+245	CL Hutch Panel 36 - BaseNotch - Left	CL Hutch Panel 36 - BaseNotch - Left 		\N	000.212.036.x.00M	CL-VHPN-36-L	2011-01-01 18:54:08.11234	2011-02-18 22:03:45.874168	Manufactured	Closets	board	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N
 47	CL Corner Adjustable Shelf	CL Corner Adjustable Shelf 		\N	000.933.x.x.00M	CL-CAS	2011-01-01 18:53:49.77802	2011-02-18 21:59:53.956336	Manufactured	Closets	Items::ClosetShelf	\N		\N	0.03	0.92000000000000004	0.40000000000000002	\N	\N	\N
 46	CL Corner Cam Shelf	CL Corner Cam Shelf 		\N	000.932.x.x.00M	CL-CCS	2011-01-01 18:53:49.522936	2011-02-18 22:00:16.753805	Manufactured	Closets	Items::ClosetShelf	\N		\N	0.67	0.92000000000000004	0.40000000000000002	\N	\N	\N
 554	CL Hanging Partition - Square - Right	Closet system hanging partition - square bottom - right stop drilled		\N	000.910.36x.x.00M	CL-HPS-R	2011-01-02 01:58:36.441309	2011-02-18 22:02:05.400138	Manufactured	Closets	Items::ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N
 531	CL Hutch Base	CL Hutch Base Shell		\N	000.300.131.x.00M	CL-HBC	2011-01-01 18:54:28.461637	2011-02-18 22:03:15.947593	Manufactured	Closets	Items::Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002	\N	\N	\N
-245	CL Hutch Panel 36 - BaseNotch - Left	CL Hutch Panel 36 - BaseNotch - Left 		\N	000.212.036.x.00M	CL-VHPN-36-L	2011-01-01 18:54:08.11234	2011-02-18 22:03:45.874168	Manufactured	Closets	Items::ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N
 260	NX Upper Cabinet 2 Door	NX Upper Cabinet 2 Door 		\N	000.302.430.x.00M	NX-C-1AS	2011-01-01 18:54:09.658769	2011-02-18 22:42:14.429009	Manufactured	Garage_Cabinets	Items::Cabinet	\N		\N	0.50	0.92000000000000004	0.40000000000000002	\N	\N	\N
 230	CL Hamper Door - flat	CL Hamper Door - flat 		\N	000.140.000.x.00M	CL-HPD	2011-01-01 18:54:06.016939	2011-02-18 22:00:43.846118	Manufactured	Closets	Items::Door	\N		\N	0.25	0.92000000000000004	0.40000000000000002	\N	\N	\N
 42	CL Hanging Partition - Radius - Right	CL Hanging Partition Radius Bottom - Right Stop Drilled		\N	000.910.35x.x.00M	CL-HPR-R	2011-01-01 18:53:43.944414	2011-02-18 22:01:20.785114	Manufactured	Closets	Items::ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N
@@ -14283,12 +14282,12 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-03-09 20:54:21.736437	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	Phoenix	Shipped	2011-03-07	2011-03-09		2011-02-18 22:08:46	1		PremierRoute	30		1	\N
 226	4	4	6	Marcus/Arter - Standard Closets	SO-81	\N	2011-02-23 21:07:59.297772	2011-03-10 04:44:00.583287	Marcus - Basic Closets.xml	application/octet-stream	9896	2011-02-23 21:07:59.295518	Phoenix	Ready For Production	2011-03-10	\N		2011-02-23 21:08:23	4		PremierRoute	29		6	\N
 197	4	4	6	Johnson - Pantry	SO-61	\N	2011-02-19 21:13:57.500721	2011-03-08 23:30:40.096525	Johnson - Pantry.xml	application/octet-stream	21559	2011-02-19 21:13:57.496739	Phoenix	Shipped	2011-03-07	2011-03-08		2011-02-19 21:16:00	4		PremierRoute	29		6	\N
-394	69	104	83	Bentley Linen	SO-172	\N	2011-03-10 17:20:33.669471	2011-03-10 19:21:45.905774	Bentley Linen Closet.xml	text/xml	9846	2011-03-10 17:20:33.667114	Phoenix	Placed	\N	\N		2011-03-10 17:21:13	104		PremierRoute	104	3/10 can this ship ground? cs	83	Job
 231	20	19	23	Hogan re order	SO-82	\N	2011-02-23 23:21:40.616862	2011-03-09 20:54:26.628856	Hogan - ReOrder.xml	text/xml	19255	2011-02-23 23:21:40.610399	Phoenix	Shipped	2011-03-10	2011-03-09	Please asap	2011-02-23 23:23:23	19		PremierRoute	19		23	\N
 206	11	10	14	McCann Master Closet	SO-68	\N	2011-02-22 01:19:22.042242	2011-03-10 20:43:21.401808	McCann Master Parts List.xls	application/vnd.ms-excel	19673	2011-02-22 01:19:22.038523	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:20:32	10		PremierRoute	10	Chocolate Apple	14	\N
 234	5	99	8	Rubino ShoeCubby	SO-86	\N	2011-02-24 16:51:35.575254	2011-03-01 16:09:00.096541	Rubino ShoeCubby Parts List.xml	text/xml	13183	2011-02-24 16:51:35.571839	Phoenix	Ready For Production	2011-03-10	\N		2011-02-24 16:53:57	99		PremierRoute	99		8	\N
 207	11	10	14	McCann Boys Closet	SO-69	\N	2011-02-22 01:21:23.559746	2011-03-10 20:43:23.153574	McCann Boys Room Parts List.xls	application/vnd.ms-excel	9733	2011-02-22 01:21:23.557945	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:21:36	10		PremierRoute	10		14	\N
 212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-03-10 20:43:33.516126	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14	\N
+394	69	104	83	Bentley Linen	SO-172	\N	2011-03-10 17:20:33.669471	2011-03-10 21:18:24.726767	Bentley Linen Closet.xml	text/xml	9846	2011-03-10 17:20:33.667114	Phoenix	Confirmed	2011-03-18	\N		2011-03-10 17:21:13	104		Ground	104	3/10 can this ship ground? cs\r\n3/10 ok to ship ground, no confirmed ship date, best guess is 3/18/11. cs	83	Job
 210	11	10	14	McBurnett Garage 	SO-72	\N	2011-02-22 01:28:38.129379	2011-03-10 19:45:51.980119	McBurnett Garage Parts List.xls	application/vnd.ms-excel	15511	2011-02-22 01:28:38.127177	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:29:48	10		PremierRoute	10		14	\N
 159	17	16	20	Robert Sayson	SO - 42	\N	2011-02-16 22:16:56.425917	2011-03-09 16:11:51.341188	Robert Sayson 2-16-11.dvi Parts List.xml	text/xml	54162	2011-02-16 22:16:56.423682	Phoenix	Shipped	2011-03-03	2011-03-08	Need two boxes of mini cam assemblies	2011-02-16 22:22:59	16		PremierRoute	16	(The tops may not have been ordered the correct size. EH)	20	\N
 238	9	9	13	Hersey	SO-88	\N	2011-02-24 17:48:42.216717	2011-03-10 04:43:39.07732	Hersey, Amy Parts List.xls	application/octet-stream	34015	2011-02-24 17:48:42.213797	Phoenix	In Production	2011-03-10	\N	All partitions must be edgebanded on the top too!	2011-02-24 17:53:46	9		PremierRoute	9		13	\N
@@ -14344,7 +14343,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 194	33	101	41	Pradhan, Shailandra	SO - 58	\N	2011-02-19 03:29:55.568528	2011-03-10 19:44:43.690592	Pradhan Shailendra.dvi Parts List.xml	text/xml	52269	2011-02-19 03:29:55.565205	Phoenix	Ready to Ship	2011-03-07	\N		2011-02-19 03:39:44	101		PremierRoute	101		41	\N
 220	28	103	36	Paige	SO-79	\N	2011-02-23 19:58:29.086991	2011-03-10 04:43:05.900494	Paige add on Parts List.xls	application/vnd.ms-excel	6363	2011-02-23 19:58:29.085078	Phoenix	In Production	2011-03-10	\N		2011-02-23 19:58:58	103		PremierRoute	103		36	\N
 388	8	\N	38	Bisch Test Order	\N	\N	2011-03-10 05:01:54.136752	2011-03-10 14:18:47.068641	\N	\N	\N	\N	Phoenix	Placed	\N	\N		\N	\N		PremierRoute	59	This is a test order for the Sushi list.  Please do not delete.	38	CatalogOrder
-381	18	17	21	Cole 348	SO-166	\N	2011-03-09 03:23:09.967296	2011-03-10 19:54:19.876784	Cole2.dvi Parts List.xml	text/xml	23130	2011-03-09 03:23:09.965364	Phoenix	Confirmed	2011-03-25	\N	Please replace DR1 Decore drawer faces (qty 14)with Decore DR31 drawer faces.	2011-03-09 03:24:44	17		PremierRoute	17	3/10 sent email to Peter/Wendy on DR 31, replacement door and box amount on #1070. CS\r\n3/10 wants DRS 131, 1 box of #1070 and reaplacement door is not a warranty. CS	21	\N
+381	18	17	21	Cole 348	SO-166	\N	2011-03-09 03:23:09.967296	2011-03-10 21:16:42.919339	Cole2.dvi Parts List.xml	text/xml	23130	2011-03-09 03:23:09.965364	Phoenix	Confirmed	2011-03-25	\N	Please replace DR1 Decore drawer faces (qty 14)with Decore DR31 drawer faces.	2011-03-09 03:24:44	17		PremierRoute	17	3/10 sent email to Peter/Wendy on DR 31, replacement door and box amount on #1070. CS\r\n3/10 wants DRS 131, 1 box of #1070 and replacement drawer box is not a warranty. CS	21	\N
 \.
 
 
@@ -16505,6 +16504,11 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 961	655
 962	656
 963	657
+7	658
+7	659
+7	660
+7	661
+7	662
 \.
 
 
@@ -16650,7 +16654,7 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 126	Filler A Ruston Maple Door Material	Material	{"color": "Ruston Maple", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.074783	2011-01-02 01:58:01.074783
 127	Filler A Sable Glow Door Material	Material	{"color": "Sable Glow", "thickness": 0, "thickness_units": "mm", "price": 10.6, "price_units": "ft"}	2011-01-02 01:58:01.15695	2011-01-02 01:58:01.15695
 128	Filler A White Door Material	Material	{"color": "White", "thickness": 0, "thickness_units": "mm", "price": 8.1, "price_units": "ft"}	2011-01-02 01:58:01.267662	2011-01-02 01:58:01.267662
-52	Folkstone Gray	Material	{"price":".7053","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-01 19:43:30.237124	2011-02-08 23:56:32.103224
+51	Antique White	Material	{"price":".775","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-01 19:43:30.224966	2011-03-10 21:34:10.598059
 421	Powder Coated Door dimensions (23.875 x 30.75)	Area	{"width":"23.875","length":"30.75","linear_units":"in"}	2011-03-10 00:29:26.564655	2011-03-10 00:29:26.564655
 422	WXL Door dimensions (23.875 x 30.75)	Area	{"width":"23.875","length":"30.75","linear_units":"in"}	2011-03-10 00:29:26.596873	2011-03-10 00:29:26.596873
 423	Powder Coated Door dimensions (23.875 x 30.75)	Area	{"width":"23.875","length":"30.75","linear_units":"in"}	2011-03-10 00:29:26.67142	2011-03-10 00:29:26.67142
@@ -16668,8 +16672,8 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 200	62mm	Width	{"linear_units":"in","width":"2.441"}	2011-01-07 07:04:48.446713	2011-01-07 07:04:48.446713
 176	35	Margin	{"factor":".35"}	2011-01-03 03:54:21.733384	2011-01-12 02:28:08.283362
 425	WXL Door dimensions (23.875 x 30.75)	Area	{"width":"23.875","length":"30.75","linear_units":"in"}	2011-03-10 00:29:26.777784	2011-03-10 00:29:26.777784
-51	Antique White	Material	{"price":".745","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-01 19:43:30.224966	2011-03-10 20:19:32.708156
-62	Folkstone Gray	Material	{"price":".4866","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-01 20:39:20.423457	2011-03-10 20:23:36.268962
+52	Folkstone Gray	Material	{"price":".7083","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-01 19:43:30.237124	2011-03-10 21:34:10.602086
+62	Folkstone Gray	Material	{"price":".5166","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-01 20:39:20.423457	2011-03-10 21:41:25.31942
 139	Fluted Molding: 3-1/2", 431-8 Desert Glow Door Material	Material	{"color": "Desert Glow", "thickness": 0, "thickness_units": "mm", "price": 21.55, "price_units": "ft"}	2011-01-02 01:58:02.08626	2011-01-02 01:58:02.08626
 140	Fluted Molding: 3-1/2", 431-8 Folkstone Grey Door Material	Material	{"color": "Folkstone Grey", "thickness": 0, "thickness_units": "mm", "price": 19.75, "price_units": "ft"}	2011-01-02 01:58:02.106451	2011-01-02 01:58:02.106451
 141	Fluted Molding: 3-1/2", 431-8 Antique White Door Material	Material	{"color": "Antique White", "thickness": 0, "thickness_units": "mm", "price": 19.75, "price_units": "ft"}	2011-01-02 01:58:02.295798	2011-01-02 01:58:02.295798
@@ -16841,10 +16845,10 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 497	 dimensions (23.875 x 15.3125)	Area	{"width":"23.875","length":"15.3125","linear_units":"in"}	2011-03-10 00:29:34.969883	2011-03-10 00:29:34.969883
 498	WXL Door dimensions (23.875 x 15.3125)	Area	{"width":"23.875","length":"15.3125","linear_units":"in"}	2011-03-10 00:29:35.003968	2011-03-10 00:29:35.003968
 499	 dimensions (23.875 x 15.3125)	Area	{"width":"23.875","length":"15.3125","linear_units":"in"}	2011-03-10 00:29:35.080505	2011-03-10 00:29:35.080505
-56	White	Material	{"price":".780","waste_factor":".08","thickness":"1.000","weight":"3.3333","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 20:32:35.922055	2011-03-10 20:28:51.209006
 235	Antique White	Material	{"price":"1.06","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-13 01:26:23.6968	2011-03-10 20:53:33.970223
-201	White	Material	{"price":".6109","waste_factor":".05","thickness":".75","weight":"2.5","cutrite_code":"19-WHT-2S","price_units":"ft","color":"White","thickness_units":"in","dvinci_id":"001"}	2011-01-07 18:04:26.701052	2011-02-28 17:20:47.914021
-203	Windswept Bronze	Material	{"price":".835","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-BRO/WHT","price_units":"ft","color":"Windswept Bronze","thickness_units":"in","dvinci_id":"008"}	2011-01-07 18:04:26.734571	2011-02-28 17:20:47.921395
+216	Folkstone Gray	Material	{"price":".7083","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-FOL-2S","color":"Folkstone Gray","price_units":"ft","thickness_units":"in","dvinci_id":"003"}	2011-01-12 18:33:39.901835	2011-03-10 21:37:57.053449
+203	Windswept Bronze	Material	{"price":".839","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-BRO/WHT","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-07 18:04:26.734571	2011-03-10 21:37:57.072353
+56	White	Material	{"price":".810","waste_factor":".08","thickness":"1.000","weight":"3.3333","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 20:32:35.922055	2011-03-10 21:39:26.365084
 254	41.5	Margin	{"factor":".415"}	2011-01-13 05:00:23.931079	2011-01-13 05:00:23.931079
 255	42	Margin	{"factor":".42"}	2011-01-13 05:05:01.914053	2011-01-13 05:05:01.914053
 316	Hingebore	Surcharge	{"price":"3.00","float":""}	2011-02-01 19:11:40.798519	2011-02-01 19:11:40.798519
@@ -16873,7 +16877,7 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 30	Laminate 4887 Tan Soapstone	Color	{"color":"Laminate 4887 Tan Soapstone","dvinci_id":"315"}	2011-01-01 18:54:13.714368	2011-01-01 18:54:13.763876
 31	Laminate 7921 Tuscan Walnut	Color	{"color":"Laminate 7921 Tuscan Walnut","dvinci_id":"316"}	2011-01-01 18:54:13.824507	2011-01-01 18:54:13.876669
 321	BirchPly13	Material	{"price":".014","waste_factor":"0","thickness":"13","weight":"1.25","cutrite_code":"","price_units":"in","color":"Birch","thickness_units":"mm","dvinci_id":"050"}	2011-02-02 20:49:02.50733	2011-02-28 17:46:01.596346
-216	Folkstone Gray	Material	{"price":".7053","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-FOL-2S","price_units":"ft","color":"Folkstone Gray","thickness_units":"in","dvinci_id":"003"}	2011-01-12 18:33:39.901835	2011-02-28 17:20:47.90315
+201	White	Material	{"price":".630","waste_factor":".05","thickness":".75","weight":"2.5","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-07 18:04:26.701052	2011-03-10 21:37:57.064934
 335	423 Choc Apple	LinearPricing	{"price":"0.31177083333","price_units":"in"}	2011-02-22 17:44:09.200823	2011-02-28 23:44:02.841486
 339	423 White	LinearPricing	{"price":"0.26072916666","price_units":"in"}	2011-02-22 17:51:00.619029	2011-02-28 23:45:17.799997
 333	423 Wild Apple	LinearPricing	{"price":"0.31177083333","price_units":"in"}	2011-02-22 17:39:48.459146	2011-02-28 23:45:44.764597
@@ -16911,17 +16915,17 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 83	DRS131/DR1 Desert Glow Door Material	Material	{"price":"13.2","thickness":"0","cutrite_code":"19-CAR-2S","color":"Desert Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:57:57.347637	2011-01-02 03:01:21.52661
 84	DRS131/DR1 Folkstone Grey Door Material	Material	{"price":"12.0","thickness":"0","cutrite_code":"19-FOL-2S","color":"Folkstone Grey","price_units":"ft","thickness_units":"mm","dvinci_id":"003"}	2011-01-02 01:57:57.498395	2011-01-02 03:01:21.530366
 85	DRS131/DR1 Antique White Door Material	Material	{"price":"12.0","thickness":"0","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"mm","dvinci_id":"002"}	2011-01-02 01:57:57.667965	2011-01-02 03:01:21.534068
-49	Hardrock Maple	Material	{"price":".774","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-01 19:43:30.20049	2011-03-10 20:19:32.699978
-50	White	Material	{"price":".600","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 19:43:30.212786	2011-03-10 20:19:32.70416
-54	Wild Apple	Material	{"price":".750","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-01 19:43:30.261504	2011-03-10 20:19:32.718512
-58	Windswept Pewter	Material	{"price":".713","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-01 20:39:20.296068	2011-03-10 20:23:36.25455
-61	Antique White	Material	{"price":".654","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-01 20:39:20.351948	2011-03-10 20:23:36.265537
-60	White	Material	{"price":".374","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"06-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 20:39:20.338942	2011-03-10 20:23:36.261868
-63	Carmel Apple	Material	{"price":".716","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 20:39:20.437403	2011-03-10 20:23:36.272637
-64	Wild Apple	Material	{"price":".716","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-01 20:39:20.45073	2011-03-10 20:23:36.276158
-65	Chocolate Apple	Material	{"price":".716","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-01 20:39:20.494798	2011-03-10 20:23:36.279705
-48	Windswept Pewter	Material	{"price":"1.036","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-01 19:43:30.187892	2011-03-10 20:19:32.695801
-59	Hardrock Maple	Material	{"price":".597","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"06-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-01 20:39:20.325647	2011-03-10 20:23:36.258273
+50	White	Material	{"price":".630","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 19:43:30.212786	2011-03-10 21:34:10.594344
+54	Wild Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-01 19:43:30.261504	2011-03-10 21:34:10.610432
+58	Windswept Pewter	Material	{"price":".743","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-01 20:39:20.296068	2011-03-10 21:41:25.303968
+59	Hardrock Maple	Material	{"price":".627","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"06-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-01 20:39:20.325647	2011-03-10 21:41:25.30806
+63	Carmel Apple	Material	{"price":".746","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 20:39:20.437403	2011-03-10 21:41:25.323335
+61	Antique White	Material	{"price":".684","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-01 20:39:20.351948	2011-03-10 21:41:25.315746
+64	Wild Apple	Material	{"price":".746","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-01 20:39:20.45073	2011-03-10 21:41:25.327132
+65	Chocolate Apple	Material	{"price":".746","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-01 20:39:20.494798	2011-03-10 21:41:25.330913
+48	Windswept Pewter	Material	{"price":"1.066","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-01 19:43:30.187892	2011-03-10 21:34:10.586325
+49	Hardrock Maple	Material	{"price":".804","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-01 19:43:30.20049	2011-03-10 21:34:10.590393
+60	White	Material	{"price":".375","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"06-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-01 20:39:20.338942	2011-03-10 21:41:25.311892
 106	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Autumn Glow Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-WIL-2S","color":"Autumn Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:57:59.226407	2011-01-04 05:10:24.760353
 107	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Desert Glow Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-CAR-2S","color":"Desert Glow","price_units":"ft","thickness_units":"mm","dvinci_id":"004"}	2011-01-02 01:57:59.246316	2011-01-04 05:10:24.76435
 102	DR8/KB732/DRS131/DR1/DBQ816/AMS329/JR7: Slab DF Ruston Maple Door Material	Material	{"price":"10.25","waste_factor":"","thickness":"0","cutrite_code":"19-MAP-2S","color":"Ruston Maple","price_units":"ft","thickness_units":"mm","dvinci_id":"010"}	2011-01-02 01:57:59.165751	2011-01-04 05:10:24.776055
@@ -16996,11 +17000,11 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 242	Windswept Bronze	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-13 02:52:08.265909	2011-03-10 20:53:33.955863
 243	Windswept Pewter	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-13 02:52:08.282131	2011-03-10 20:53:33.959459
 244	Hardrock Maple	Material	{"price":"1.02","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-13 02:52:08.29689	2011-03-10 20:53:33.963102
-211	White	Material	{"price":".3453","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-12 17:51:38.749889	2011-02-08 23:58:46.040747
-202	Hardrock Maple	Material	{"price":".7206","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-MAP/WHT","price_units":"ft","color":"Hardrock Maple","thickness_units":"in","dvinci_id":"010"}	2011-01-07 18:04:26.721687	2011-02-28 17:20:47.917726
+198	PB19	Material	{"price":".470","waste_factor":".03","thickness":".75","weight":"2.5","cutrite_code":"19-RAW-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"000"}	2011-01-06 15:18:17.157484	2011-03-10 21:35:33.632923
+211	White	Material	{"price":".375","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-12 17:51:38.749889	2011-03-10 21:39:53.207063
 337	423 Hardrock Maple	LinearPricing	{"price":"0.31177083333","price_units":"in"}	2011-02-22 17:47:38.115881	2011-02-28 23:44:38.546019
-198	PB19	Material	{"price":".44","waste_factor":".03","thickness":".75","weight":"2.5","cutrite_code":"19-RAW-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"000"}	2011-01-06 15:18:17.157484	2011-02-09 00:00:05.387331
-215	Wild Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-WIL-2S","price_units":"ft","color":"Wild Apple","thickness_units":"in","dvinci_id":"005"}	2011-01-12 18:33:39.885205	2011-02-28 17:20:47.893714
+215	Wild Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-12 18:33:39.885205	2011-03-10 21:37:57.049498
+202	Hardrock Maple	Material	{"price":".748","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-MAP/WHT","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-07 18:04:26.721687	2011-03-10 21:37:57.068612
 506	WXL Internal Component dimensions (21.875 x 76)	Area	{"width":"21.875","length":"76","linear_units":"in"}	2011-03-10 00:29:35.634584	2011-03-10 00:29:35.634584
 143	JR7 Sable Glow Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-CHO-2S","price_units":"ft","color":"Sable Glow","thickness_units":"mm","dvinci_id":"007"}	2011-01-02 01:58:02.596498	2011-02-04 20:15:35.740986
 146	JR7 Autumn Glow Door Material	Material	{"price":"12.3","waste_factor":"","thickness":"0","cutrite_code":"19-WIL-2S","price_units":"ft","color":"Autumn Glow","thickness_units":"mm","dvinci_id":"005"}	2011-01-02 01:58:02.807216	2011-02-04 20:15:35.751648
@@ -17014,10 +17018,9 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 520	WXL Side Panel dimensions (16 x 31)	Area	{"width":"16","length":"31","linear_units":"in"}	2011-03-10 00:29:37.078249	2011-03-10 00:29:37.078249
 521	WXL Side Panel dimensions (16 x 31)	Area	{"width":"16","length":"31","linear_units":"in"}	2011-03-10 00:29:37.153091	2011-03-10 00:29:37.153091
 181	White	Material	{"price":".01375","waste_factor":"0","thickness":".5","weight":"1.6666","cutrite_code":"","color":"White","price_units":"in","thickness_units":"in","dvinci_id":"051"}	2011-01-03 23:57:34.312045	2011-02-09 00:02:11.234179
-204	Windswept Pewter	Material	{"price":".865","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-PEW/WHT","price_units":"ft","color":"Windswept Pewter","thickness_units":"in","dvinci_id":"009"}	2011-01-07 18:04:26.747598	2011-02-28 17:20:47.899188
-217	Antique White	Material	{"price":".8000","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-ANT-2S","price_units":"ft","color":"Antique White","thickness_units":"in","dvinci_id":"002"}	2011-01-12 18:33:39.919074	2011-02-28 17:20:47.906765
-218	Carmel Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CAR-2S","price_units":"ft","color":"Carmel Apple","thickness_units":"in","dvinci_id":"004"}	2011-01-12 18:33:39.935701	2011-02-28 17:20:47.910286
-214	Chocolate Apple	Material	{"price":".8944","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CHO-2S","price_units":"ft","color":"Chocolate Apple","thickness_units":"in","dvinci_id":"007"}	2011-01-12 18:33:39.861336	2011-02-28 17:20:47.924909
+217	Antique White	Material	{"price":".775","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-ANT-2S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-01-12 18:33:39.919074	2011-03-10 21:37:57.05739
+218	Carmel Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-12 18:33:39.935701	2011-03-10 21:37:57.061169
+214	Chocolate Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-12 18:33:39.861336	2011-03-10 21:37:57.07609
 507	WXL Internal Component dimensions (21.875 x 76)	Area	{"width":"21.875","length":"76","linear_units":"in"}	2011-03-10 00:29:35.695174	2011-03-10 00:29:35.695174
 508	WXL Internal Component dimensions (10.75 x 22.5)	Area	{"width":"10.75","length":"22.5","linear_units":"in"}	2011-03-10 00:29:35.964644	2011-03-10 00:29:35.964644
 509	WXL Internal Component dimensions (10.75 x 46.5)	Area	{"width":"10.75","length":"46.5","linear_units":"in"}	2011-03-10 00:29:36.029934	2011-03-10 00:29:36.029934
@@ -17046,6 +17049,7 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 536	WXL Side Panel dimensions (12 x 31)	Area	{"width":"12","length":"31","linear_units":"in"}	2011-03-10 00:29:38.763729	2011-03-10 00:29:38.763729
 537	WXL Side Panel dimensions (12 x 31)	Area	{"width":"12","length":"31","linear_units":"in"}	2011-03-10 00:29:38.832883	2011-03-10 00:29:38.832883
 538	WXL Side Panel dimensions (12 x 31)	Area	{"width":"12","length":"31","linear_units":"in"}	2011-03-10 00:29:38.90252	2011-03-10 00:29:38.90252
+204	Windswept Pewter	Material	{"price":".869","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-PEW/WHT","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-07 18:04:26.747598	2011-03-10 21:37:57.04205
 539	WXL Side Panel dimensions (12 x 31)	Area	{"width":"12","length":"31","linear_units":"in"}	2011-03-10 00:29:38.968872	2011-03-10 00:29:38.968872
 540	WXL Side Panel dimensions (16 x 23.25)	Area	{"width":"16","length":"23.25","linear_units":"in"}	2011-03-10 00:29:39.207421	2011-03-10 00:29:39.207421
 541	WXL Side Panel dimensions (16 x 23.25)	Area	{"width":"16","length":"23.25","linear_units":"in"}	2011-03-10 00:29:39.28147	2011-03-10 00:29:39.28147
@@ -17165,11 +17169,16 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 655	PG Stainless Workbench 48 X 25 dimensions (48 x 25)	Area	{"width":"48","length":"25","linear_units":"in"}	2011-03-10 00:29:50.274759	2011-03-10 00:29:50.274759
 656	PG Stainless Workbench 72 X 25 dimensions (72 x 25)	Area	{"width":"72","length":"25","linear_units":"in"}	2011-03-10 00:29:50.300793	2011-03-10 00:29:50.300793
 657	PG Stainless Workbench 96 X 25 dimensions (96 x 25)	Area	{"width":"96","length":"25","linear_units":"in"}	2011-03-10 00:29:50.329284	2011-03-10 00:29:50.329284
-55	Chocolate Apple	Material	{"price":".775","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-01 19:43:30.273722	2011-03-10 20:19:32.686133
-47	Windswept Bronze	Material	{"price":"1.008","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 19:43:30.167045	2011-03-10 20:19:32.691458
-53	Carmel Apple	Material	{"price":".750","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 19:43:30.249309	2011-03-10 20:19:32.714527
-57	Windswept Bronze	Material	{"price":".696","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 20:39:20.274224	2011-03-10 20:23:36.250597
 240	Wild Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-13 02:52:08.231369	2011-03-10 20:53:33.948359
+47	Windswept Bronze	Material	{"price":"1.038","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 19:43:30.167045	2011-03-10 21:34:10.582406
+53	Carmel Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CAR-2S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 19:43:30.249309	2011-03-10 21:34:10.605841
+55	Chocolate Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-CHO-2S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-01-01 19:43:30.273722	2011-03-10 21:35:00.341937
+658	Wild Apple	Material	{"price":"1.125","waste_factor":".15","thickness":"1","weight":"3.3333","cutrite_code":"25-WIL-1S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-03-10 21:05:19.111418	2011-03-10 21:39:26.369289
+659	Carmel Apple	Material	{"price":"1.125","waste_factor":".15","thickness":"1","weight":"3.3333","cutrite_code":"25-CAR-1S","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-03-10 21:05:19.132156	2011-03-10 21:39:26.373235
+660	Chocolate Apple	Material	{"price":"1.125","waste_factor":".15","thickness":"1","weight":"3.3333","cutrite_code":"25-CHO-1S","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-03-10 21:05:19.145434	2011-03-10 21:39:26.376936
+661	Antique White	Material	{"price":"1.058","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-ANT-1S","color":"Antique White","price_units":"ft","thickness_units":"in","dvinci_id":"002"}	2011-03-10 21:05:19.158331	2011-03-10 21:39:26.38056
+662		Material	{"price":"","waste_factor":"","thickness":"","weight":"","cutrite_code":"","color":"","price_units":"mm","thickness_units":"mm","dvinci_id":""}	2011-03-10 21:05:19.171098	2011-03-10 21:39:26.385185
+57	Windswept Bronze	Material	{"price":".726","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-BRO-2S","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 20:39:20.274224	2011-03-10 21:41:25.299815
 \.
 
 
