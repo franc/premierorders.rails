@@ -544,7 +544,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 6846, true);
+SELECT pg_catalog.setval('job_items_id_seq', 6850, true);
 
 
 --
@@ -697,7 +697,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 387, true);
+SELECT pg_catalog.setval('jobs_id_seq', 388, true);
 
 
 --
@@ -11059,9 +11059,11 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 5342	312	44	000.930.011.001.00M	3		2011-03-03 14:13:10.255716	2011-03-03 14:13:10.255716	14.34	6	CL Cam Shelf | White	\N	\N
 5343	312	41	000.910.151.001.00M	1		2011-03-03 14:13:10.314642	2011-03-03 14:13:10.314642	39.55	7	CL Hanging Partition - Radius - Left | White	\N	\N
 5344	312	42	000.910.351.001.00M	1		2011-03-03 14:13:10.355294	2011-03-03 14:13:10.355294	39.55	8	CL Hanging Partition - Radius - Right | White	\N	\N
+6847	388	1354	\N	5	\N	2011-03-10 05:01:54.360561	2011-03-10 05:01:54.360561	147.00	1	\N	\N	\N
 4209	232	256	000.402.493.010.00M	1		2011-02-23 23:44:51.797362	2011-03-09 19:14:13.882382	175.20	17	NX Tall Cabinet 2 Door | Hardrock Maple	\N	10
 4210	232	502	000.400.004.403.00M	1		2011-02-23 23:44:52.003219	2011-03-09 19:14:13.885256	103.59	18	NX Workbench Top (Finished Ends) | Ebony Star	\N	10
 4253	234	44	000.930.041.001.00M	4		2011-02-24 16:51:35.962393	2011-03-09 19:14:47.782591	0.82	3	CL Cam Shelf | White	\N	3
+6848	388	1162	\N	3	\N	2011-03-10 05:01:54.37154	2011-03-10 05:01:54.37154	15.06	2	\N	\N	\N
 5174	303	45	000.931.011.001.00M	6		2011-03-02 15:31:59.737623	2011-03-02 15:31:59.737623	5.06	1	CL Adjustable Shelf | White	\N	\N
 5175	303	44	000.930.031.001.00M	2		2011-03-02 15:31:59.80863	2011-03-02 15:31:59.80863	8.61	2	CL Cam Shelf | White	\N	\N
 5176	303	44	000.930.031.001.00M	2		2011-03-02 15:31:59.834595	2011-03-02 15:31:59.834595	8.07	3	CL Cam Shelf | White	\N	\N
@@ -11111,6 +11113,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4793	275	516	000.100.000.008.00M	2		2011-02-27 16:04:34.726183	2011-03-09 19:16:09.470147	31.86	2	Door - Flat | Windswept Bronze	\N	10
 4794	275	256	000.402.493.008.00M	1		2011-02-27 16:04:35.037964	2011-03-09 19:16:09.473647	178.88	3	NX Tall Cabinet 2 Door | Windswept Bronze	\N	10
 4795	275	256	000.402.493.008.00M	1		2011-02-27 16:04:35.366957	2011-03-09 19:16:09.476598	178.87	4	NX Tall Cabinet 2 Door | Windswept Bronze	\N	10
+6849	388	1129	\N	5	\N	2011-03-10 05:01:54.376369	2011-03-10 05:01:54.376369	18.52	3	\N	\N	\N
+6850	388	1121	\N	2	\N	2011-03-10 05:01:54.381245	2011-03-10 05:01:54.381245	15.06	4	\N	\N	\N
 3239	188	\N	000.	3	for garage cabinet	2011-02-18 22:06:45.022824	2011-02-28 18:09:13.867329	45.00	12	3 equal drawers for 30wide base cabinet	\N	\N
 4796	276	45	000.931.031.010.00M	2		2011-02-27 23:08:31.828332	2011-02-28 18:13:41.841578	22.49	1	CL Adjustable Shelf | Hardrock Maple	\N	\N
 4797	276	44	000.930.031.010.00M	4		2011-02-27 23:08:31.859339	2011-02-28 18:13:41.845385	25.48	2	CL Cam Shelf | Hardrock Maple	\N	\N
@@ -12357,6 +12361,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 151	4	4	6	Rakel - Master	SO - 38	\N	2011-02-15 19:02:38.093818	2011-03-04 21:02:31.698562	Rakel - Master.xml	application/octet-stream	32187	2011-02-15 19:02:38.09206	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 19:04:57	4		PremierRoute	29		\N	\N
 142	4	4	6	Boldebuck - Mudroom	SO - 31	\N	2011-02-15 16:28:03.846773	2011-03-04 21:02:08.627333	Boldebuck - Mudroom.xml	text/xml	17841	2011-02-15 16:28:03.844846	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:31:14	4		PremierRoute	29		\N	\N
 153	41	70	50	Recktenwall_Garage	SO - 39	\N	2011-02-15 22:11:41.3838	2011-03-02 20:32:44.721307	Recktenwall_Garage Parts List.xml	text/xml	9242	2011-02-15 22:11:41.381547	Phoenix	Shipped	2011-03-01	2011-03-02	Premier Route	2011-02-15 22:13:40	70		PremierRoute	70		\N	\N
+388	8	\N	38	Bisch Test Order	\N	\N	2011-03-10 05:01:54.136752	2011-03-10 05:01:54.136752	\N	\N	\N	\N	\N	Placed	\N	\N	\N	\N	\N	\N	\N	59	\N	38	CatalogOrder
 183	4	4	6	Bergman - Additional Parts	SO - 54	\N	2011-02-18 17:04:19.456665	2011-03-08 23:34:38.735055	Bergman - Additional Parts.xml	application/octet-stream	8209	2011-02-18 17:04:19.452998	Phoenix	Shipped	2011-03-04	2011-03-08	** He Needs The Inventory Item Fulfilled **	2011-02-18 17:07:05	4		PremierRoute	29		\N	\N
 143	4	4	6	Boldebuck - Annaka	SO - 32	\N	2011-02-15 16:40:30.107612	2011-03-04 21:02:12.438567	Boldebuck - Annaka.xml	text/xml	26726	2011-02-15 16:40:30.105785	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:41:21	4		PremierRoute	29		\N	\N
 145	4	4	6	Boldebuck - Entry	SO - 34	\N	2011-02-15 17:06:04.58462	2011-03-04 21:02:20.33326	Boldebuck - Entry.xml	text/xml	6622	2011-02-15 17:06:04.580546	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 17:06:25	4		PremierRoute	29		\N	\N
