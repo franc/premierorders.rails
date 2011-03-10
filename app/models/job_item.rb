@@ -12,10 +12,6 @@ class JobItem < ActiveRecord::Base
 	has_many   :job_item_properties, :dependent => :destroy, :extend => Properties::Association
   has_many   :job_item_components, :dependent => :destroy
 
-  before_save do
-    update_cached_values(:in)
-  end
-
   def dimensions_property 
     @dimensions_property ||= Option.new(job_item_properties.find_by_family(:dimensions))
     @dimensions_property

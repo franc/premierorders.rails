@@ -4,6 +4,7 @@ require 'json'
 require 'fp'
 require 'item_queries'
 require 'properties'
+require 'format_exception'
 
 class Job < ActiveRecord::Base
   include Cutrite

@@ -1,4 +1,5 @@
 require 'date'
+require 'format_exception'
 
 class JobsController < ApplicationController
   load_and_authorize_resource :except => [:create, :index, :dashboard]
@@ -89,6 +90,12 @@ class JobsController < ApplicationController
             @job.add_items_from_dvinci(f)
           end
           @job.save
+
+          @job.job_items.each do |job_item|
+            job_item.update_cached_values
+            job_item.save
+          end
+
           format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
         else
           format.html { render :action => "new" }
