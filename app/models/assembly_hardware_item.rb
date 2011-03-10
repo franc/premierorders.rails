@@ -1,26 +1,27 @@
 require 'fp'
 
 class AssemblyHardwareItem
-  attr_reader :item, :quantity, :weight, :install_cost, :total_price
+  attr_reader :item, :quantity, :total_price, :errors
 
-  def initialize(item, quantity = 0, total_price = BigDecimal.new("0.00"))
+  def initialize(item, quantity = 0, total_price = BigDecimal.new("0.0"))
     @item = item
+    @errors = []
     @quantity = quantity
     @total_price = total_price
   end
 
-  def add_hardware(job_item, assoc)
-    job_item.dimension_eval(assoc.qty_expr(:in)).right.each do |qty|
-      @quantity += (qty * job_item.quantity)
-    end
+  def add_hardware(job_item_component, job_item_qty)
+    raise "Item mismatch: #{@item} is not equal to #{job_item_component.item}" unless @item == job_item_component.item
+    component_quantity = job_item_component.quantity.cata(
+      lambda {|err| errors << err; 0},
+      lambda {|qty| qty}
+    )
 
-    assoc.cost_expr(:in, color.orSome(nil), []).each do |expr| 
-      job_item.dimension_eval(expr).right.each do |price|
-        @total_price += (price * job_item.quantity)
-      end
-    end
-
-    self
+    @quantity += (component_quantity * job_item_qty)
+    @total_price += job_item_component.unit_price.cata(
+      lambda {|err| errors << err; 0},
+      lambda {|price| price * (component_quantity * job_item_qty)}
+    )
   end
 
   def +(other)
@@ -42,7 +43,6 @@ class AssemblyHardwareItem
   end
 
   def color
-    #@job_item.color.bind{|c| Option.new(item.color_opts.find{|o| o.color == c})}
     Option.none
   end
 
@@ -60,30 +60,23 @@ class AssemblyHardwareItem
     Option.none
   end
 
-  def compute_unit_price
-    Option.iif(@quantity > 0) do
-      Either.right(@total_price / @quantity)
-    end
-  end
-
-  def net_unit_price
+  def unit_price
     @total_price / @quantity
   end
 
-  alias_method :unit_price, :net_unit_price
-
-  def compute_total
-    Option.some(Either.right(@total_price))
-  end
+  alias_method :net_unit_price, :unit_price
+  alias_method :computed_unit_price, :unit_price
 
   def net_total
     @total_price
   end
 
-  def weight
-    Option.new(item.weight).map do |w|
-      Either.right(w * @quantity)
-    end
+  def unit_price_mismatch
+    None::NONE
+  end
+
+  def unit_weight
+    nil
   end
 
   def install_cost

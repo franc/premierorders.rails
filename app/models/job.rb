@@ -297,10 +297,6 @@ class Job < ActiveRecord::Base
   end
 
   def component_inventory_hardware
-    hardware_query = ItemQueries::HardwareQuery.new do |item|
-      item.purchasing == 'Inventory'
-    end
-
     aggregated = job_items.inject({}) do |m, job_item|
       m.merge(job_item.inventory_hardware) do |k, h1, h2|
         h1 + h2

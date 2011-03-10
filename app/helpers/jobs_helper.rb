@@ -1,34 +1,17 @@
 require 'fp'
 
 module JobsHelper
-  def difference(computed, imported)
-    Option.some((computed.round(2) - imported.round(2)).abs).filter do |diff|
-      diff / imported > 0.005
-    end
-  end
-
-  def unit_price_mismatch(job_item)
-    job_item.compute_unit_price.bind do |computed_price|
-      computed_price.right.toOption.bind do |computed|
-        difference(computed, job_item.unit_price)
+  def unit_price_class(job_item)
+    job_item.unit_price_mismatch
+    if job_item.computed_unit_price
+      job_item.unit_price_mismatch.empty? ? '' : 'unit_price_mismatch'
+    else
+      case job_item.pricing_cache_status.to_sym
+        when :ok    then ''
+        when :error then 'price_calculation_error'
+        when :not_computed then 'price_not_computed'
       end
     end
-  end
-
-  def unit_price_class(job_item)
-    job_item.compute_unit_price.cata( 
-      lambda do |computed_price|
-        computed_price.cata(
-          lambda do |error| 
-            'price_calculation_error'
-          end,
-          lambda do |computed|
-            difference(computed, job_item.unit_price).cata(lambda {|v| 'unit_price_mismatch'}, '')
-          end
-        )
-      end,
-      'price_not_computed'
-    )
   end
 
   def action_links(job)

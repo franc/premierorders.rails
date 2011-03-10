@@ -23,7 +23,7 @@ end
     <th class="item_width">Width</th>
     <th class="item_height">Height</th>
     <th class="item_depth">Depth</th>
-    <th class="item_weight">Weight</th>
+    <th class="item_weight">Unit Weight</th>
     <th class="item_unit_price">Unit Price</th>
     <th class="item_total">Total</th>
     <th class="item_special_instructions">Special Instructions</th>
@@ -50,10 +50,10 @@ end
       <td class="item_width"><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
       <td class="item_height"><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
       <td class="item_depth"><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
-      <td class="item_weight"><%= job_item.weight.map{|e| e.cata(Functions.const("(error)"), lambda{|w| "%.3f" % w})}.orSome("(none)") %></td>
+      <td class="item_weight"><%= Option.new(job_item.unit_weight).map{|w| "%.3f" % w}.orSome("(none)") %></td>
       <td class="item_unit_price">
         <%= "$%.2f" % job_item.net_unit_price %>
-        <%= unit_price_mismatch(job_item).map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
+        <%= job_item.unit_price_mismatch.map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
       <td class="item_total"><%= "$%.2f" % job_item.net_total %></td>
       <td class="item_special_instruction"><%= job_item.comment %></td>

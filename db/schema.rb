@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110303055643) do
+ActiveRecord::Schema.define(:version => 20110308221135) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -115,6 +115,17 @@ ActiveRecord::Schema.define(:version => 20110303055643) do
     t.boolean  "in_catalog",                                                    :default => false
   end
 
+  create_table "job_item_components", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "job_item_id"
+    t.decimal  "unit_cost",     :precision => 8, :scale => 2
+    t.string   "cost_calc_err"
+    t.integer  "quantity"
+    t.string   "qty_calc_err"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "job_item_properties", :force => true do |t|
     t.integer  "job_item_id",  :null => false
     t.string   "ingest_id"
@@ -127,18 +138,24 @@ ActiveRecord::Schema.define(:version => 20110303055643) do
   end
 
   create_table "job_items", :force => true do |t|
-    t.integer  "job_id",                                            :null => false
+    t.integer  "job_id",                                                :null => false
     t.integer  "item_id"
     t.string   "ingest_id"
     t.float    "quantity"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "unit_price",          :precision => 8, :scale => 2
+    t.decimal  "unit_price",              :precision => 8, :scale => 2
     t.integer  "tracking_id"
     t.string   "ingest_desc"
-    t.decimal  "override_price",      :precision => 8, :scale => 2
+    t.decimal  "override_price",          :precision => 8, :scale => 2
     t.integer  "production_batch_id"
+    t.string   "cache_calculation_units"
+    t.string   "pricing_cache_status"
+    t.decimal  "computed_unit_price",     :precision => 8, :scale => 2
+    t.decimal  "unit_hardware_cost",      :precision => 8, :scale => 2
+    t.decimal  "unit_install_cost",       :precision => 8, :scale => 2
+    t.float    "unit_weight"
   end
 
   create_table "job_properties", :force => true do |t|

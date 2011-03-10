@@ -1,4 +1,6 @@
 require 'expressions'
+require 'properties'
+require 'item_queries'
 require 'fp'
 
 class JobItem < ActiveRecord::Base
@@ -8,6 +10,11 @@ class JobItem < ActiveRecord::Base
   belongs_to :item
   belongs_to :production_batch
 	has_many   :job_item_properties, :dependent => :destroy, :extend => Properties::Association
+  has_many   :job_item_components, :dependent => :destroy
+
+  before_save do
+    update_cached_values(:in)
+  end
 
   def dimensions_property 
     @dimensions_property ||= Option.new(job_item_properties.find_by_family(:dimensions))
@@ -77,47 +84,106 @@ class JobItem < ActiveRecord::Base
   end
 
   def inventory_hardware
+    @inventory_hardware ||= job_item_components.inject({}) do |m, job_item_component|
+      m[job_item_component.item] ||= AssemblyHardwareItem.new(job_item_component.item)
+      m[job_item_component.item].add_hardware(job_item_component, quantity)
+      m
+    end
+      
+    @inventory_hardware
+  end
+
+  def unit_price_mismatch
+    if self.computed_unit_price && self.unit_price
+      difference(self.computed_unit_price, self.unit_price)
+    else
+      None::NONE
+    end
+  end
+
+  def net_unit_price
+    computed_unit_price - unit_hardware_cost
+  end
+
+  def net_total
+    net_unit_price * quantity
+  end
+
+  # The following price attributes are used for display:
+  # computed_unit_price
+  # unit_price from import (for mismatch checking)
+  # weight
+  # hardware_cost
+  def update_cached_values(units = :in)
+    cache_inventory_hardware_components(units)
+    self.cache_calculation_units = units.to_s
+
+    cup = compute_unit_price(units)
+    self.computed_unit_price = cup.bind{|r| r.right.toOption}.orSome(nil)
+    self.pricing_cache_status = cup.cata(
+      lambda {|r| r.cata(
+        lambda {|err| :error},
+        lambda {|ok| :ok}
+      )},
+      :not_computed
+    )
+
+    self.unit_hardware_cost = compute_hardware_cost
+    self.unit_install_cost = compute_install_cost(units).bind{|r| r.right.toOption}.orSome(nil)
+    self.unit_weight = compute_weight(units).bind{|r| r.right.toOption}.orSome(nil)
+  end
+
+  private
+
+  def difference(computed, imported)
+    Option.some((computed.round(2) - imported.round(2)).abs).filter do |diff|
+      diff / imported > 0.005
+    end
+  end
+
+  PRICING_STATES = [
+    :not_computed,
+    :error,
+    :ok
+  ]
+
+  def cache_inventory_hardware_components(units = :in)
     hardware_query = ItemQueries::HardwareQuery.new do |i|
       i.purchasing == 'Inventory'
     end
 
-    @inventory_hardware ||= Option.new(item).inject({}) do |mm, i| 
-      i.query(hardware_query, []).inject(mm) do |mmm, item_hardware| 
-        mmm[item_hardware.component] ||= AssemblyHardwareItem.new(item_hardware.component)
-        mmm[item_hardware.component].add_hardware(self, item_hardware)
-        mmm
+    if item
+      job_item_components.clear
+      item.query(hardware_query, []).each do |item_hardware| 
+        # There is a bug here. Since the expression for the quantity expression may be derived
+        # from a deep traversal of the assembly tree, and since the traversal of the assembly tree
+        # may result in a function being applied to a dimension variable along the way, that function
+        # will not have been applied to the dimension value used by dimension_eval. In order to
+        # represent this correctly, it would be necessary to add a degree of laziness to the expression
+        # generation process such that in the generation of the AST, any association that applies
+        # a function to a dimension variable of the contained components composes that function and
+        # passes it downward so that it may be applied to the dimension variable at the lowest level. 
+        # Too complicated to tackle just now.
+
+        component = self.job_item_components.create(:item => item_hardware.component)
+        dimension_eval(item_hardware.qty_expr(units)).cata(
+          lambda {|err| component.qty_calc_err = err},
+          lambda {|qty| component.quantity = qty}
+        )
+
+        item_hardware.component.cost_expr(units, color.orSome(nil), []).each do |expr|
+          dimension_eval(expr).cata(
+            lambda{|err|  component.cost_calc_err = err},
+            lambda{|cost| component.unit_cost = cost}
+          )
+        end
+        component.save
       end
     end
-
-    @inventory_hardware
-  end
-
-  def weight(units = :in)
-    Option.new(item).bind do |i|
-      begin
-        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
-      rescue
-        Option.some(Either.left($!.message))
-      end
-    end
-  end
-
-  def install_cost(units = :in)
-    Option.new(item).bind do |i|
-      begin
-        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
-      rescue
-        Option.some(Either.left($!.message))
-      end
-    end
-  end
-
-  def hardware_cost
-    inventory_hardware.values.inject(BigDecimal.new("0.00")) {|total, i| total + i.total_price}
   end
 
   def compute_unit_price(units = :in)
-    Option.new(item).bind do |i|
+    computed_unit_price = Option.new(item).bind do |i|
       begin
         i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
       rescue
@@ -125,18 +191,36 @@ class JobItem < ActiveRecord::Base
         Option.some(Either.left($!.message))
       end
     end
+
+    computed_unit_price
   end
 
-  def compute_total(units = :in)
-    compute_unit_price(units).map{|e| e.right.map{|t| t * quantity}}
+  def compute_hardware_cost
+    job_item_components.inject(BigDecimal.new("0.00")) do |total, i| 
+      total + (i.unit_price.right.bind{|p| i.quantity.right.map{|q| p * q}}.right.orElse(0))
+    end
   end
 
-  def net_unit_price(units = :in)
-    compute_unit_price(units).bind{|p| p.right.toOption.map{|v| v - hardware_cost}}.orSome(unit_price)
+  def compute_install_cost(units = :in)
+    Option.new(item).bind do |i|
+      begin
+        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
+      rescue
+        logger.error "Error computing install cost: #{$!.message}\n #{$!.backtrace.join("\n")}"
+        Option.some(Either.left($!.message))
+      end
+    end
   end
 
-  def net_total(units = :in)
-    net_unit_price(units) * quantity
+  def compute_weight(units = :in)
+    Option.new(item).bind do |i|
+      begin
+        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
+      rescue
+        logger.error "Error computing weight: #{$!.message}\n #{$!.backtrace.join("\n")}"
+        Option.some(Either.left($!.message))
+      end
+    end
   end
 
   def dimension_eval(expr)
