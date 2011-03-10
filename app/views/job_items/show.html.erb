@@ -36,15 +36,12 @@
     <dd><%= @job_item.height.map{|w| "%.3f" % w}.orSome('(not specified)') %></dd>
     <dt><%= label :job_item, :depth %></dt>
     <dd><%= @job_item.depth.map{|w| "%.3f" % w}.orSome('(not specified)') %></dd>
-    <dt><%= label :job_item, :weight %></dt>
-    <dd><%= @job_item.weight.map{|e| e.cata(Functions::IDENTITY, lambda{|p| "%0.3f" % p})}.orSome("(not found)") %></dd>
+    <dt><%= label :job_item, :unit_weight %></dt>
+    <dd><%= Option.new(@job_item.unit_weight).map{|p| "%0.3f" % p}.orSome("(not found)") %></dd>
     <dt><%= label :job_item, :unit_price %></dt>
     <dd>
-      <%= @job_item.compute_unit_price.cata(
-            lambda{|e| e.cata(Functions::IDENTITY, lambda{|p| "$%0.2f" % p})},
-            "$%.2f" % @job_item.unit_price
-          ) %>
-      <%= unit_price_mismatch(@job_item).map{|m| "($%.2f)" % @job_item.unit_price}.orSome('') %>
+      <%= "$%.2f" % @job_item.net_unit_price %>
+      <%= @job_item.unit_price_mismatch.map{|m| "($%.2f)" % @job_item.unit_price}.orSome('') %>
     </dd>
     <dt><%= label :job_item, :special_instructions %></dt>
     <dd><%= @job_item.comment %></dd>
