@@ -4,7 +4,7 @@ class OrderMailer < ActionMailer::Base
 
   def order_placed_email(job)
     @job = job
-    mail(:to => @job.primary_contact.email,
+    mail(:to => @job.franchisee.primary_contact.email,
          :bcc => 'customerservice@premiergarage.com',
          :reply_to => 'customerservice@premiergarage.com',
          :subject => "Your PremierGarage order \"#{job.name}\" has been placed.")
@@ -12,7 +12,7 @@ class OrderMailer < ActionMailer::Base
 
   def order_shipped_email(job)
     @job = job
-    mail(:to => @job.primary_contact.email,
+    mail(:to => @job.franchisee.primary_contact.email,
          :bcc => 'customerservice@premiergarage.com',
          :reply_to => 'customerservice@premiergarage.com',
          :subject => "Your PremierGarage order \"#{job.name}\" has been shipped.")
