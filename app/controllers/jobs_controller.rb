@@ -4,6 +4,7 @@ require 'format_exception'
 class JobsController < ApplicationController
   load_and_authorize_resource :except => [:create, :index, :dashboard]
   helper :production_batches
+  helper :job_items
 
   # GET /jobs
   # GET /jobs.xml

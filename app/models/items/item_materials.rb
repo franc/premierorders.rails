@@ -16,7 +16,7 @@ module Items::ItemMaterials
       mvalues[0]
     end
 
-    raise "Could not determine material values for #{color} from #{mvalues}" if mval.nil?
+    raise "Could not determine material values for #{color} from: \n#{mvalues.join("\n")}" if mval.nil?
     mval
   end
 

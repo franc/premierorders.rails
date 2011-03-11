@@ -6,7 +6,11 @@ PgRails::Application.routes.draw do
     end
   end
  
-  resources :job_items
+  resources :job_items do
+    member do
+      get 'compute_unit_price'
+    end
+  end
 
   resources :franchisee_addresses
 

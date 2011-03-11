@@ -129,6 +129,47 @@ class JobItem < ActiveRecord::Base
     self.unit_weight = compute_weight(units).bind{|r| r.right.toOption}.orSome(nil)
   end
 
+  def compute_unit_price(units = :in)
+    computed_unit_price = Option.new(item).bind do |i|
+      begin
+        i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+      rescue
+        logger.error "Error computing unit price: #{$!.message}\n #{$!.backtrace.join("\n")}"
+        Option.some(Either.left($!.message))
+      end
+    end
+
+    computed_unit_price
+  end
+
+  def compute_hardware_cost
+    job_item_components.inject(BigDecimal.new("0.00")) do |total, i| 
+      total + (i.unit_price.right.bind{|p| i.quantity.right.map{|q| p * q}}.right.orElse(0))
+    end
+  end
+
+  def compute_install_cost(units = :in)
+    Option.new(item).bind do |i|
+      begin
+        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
+      rescue
+        logger.error "Error computing install cost: #{$!.message}\n #{$!.backtrace.join("\n")}"
+        Option.some(Either.left($!.message))
+      end
+    end
+  end
+
+  def compute_weight(units = :in)
+    Option.new(item).bind do |i|
+      begin
+        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
+      rescue
+        logger.error "Error computing weight: #{$!.message}\n #{$!.backtrace.join("\n")}"
+        Option.some(Either.left($!.message))
+      end
+    end
+  end
+
   private
 
   def difference(computed, imported)
@@ -174,47 +215,6 @@ class JobItem < ActiveRecord::Base
           )
         end
         component.save
-      end
-    end
-  end
-
-  def compute_unit_price(units = :in)
-    computed_unit_price = Option.new(item).bind do |i|
-      begin
-        i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
-      rescue
-        logger.error "Error computing unit price: #{$!.message}\n #{$!.backtrace.join("\n")}"
-        Option.some(Either.left($!.message))
-      end
-    end
-
-    computed_unit_price
-  end
-
-  def compute_hardware_cost
-    job_item_components.inject(BigDecimal.new("0.00")) do |total, i| 
-      total + (i.unit_price.right.bind{|p| i.quantity.right.map{|q| p * q}}.right.orElse(0))
-    end
-  end
-
-  def compute_install_cost(units = :in)
-    Option.new(item).bind do |i|
-      begin
-        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
-      rescue
-        logger.error "Error computing install cost: #{$!.message}\n #{$!.backtrace.join("\n")}"
-        Option.some(Either.left($!.message))
-      end
-    end
-  end
-
-  def compute_weight(units = :in)
-    Option.new(item).bind do |i|
-      begin
-        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
-      rescue
-        logger.error "Error computing weight: #{$!.message}\n #{$!.backtrace.join("\n")}"
-        Option.some(Either.left($!.message))
       end
     end
   end
