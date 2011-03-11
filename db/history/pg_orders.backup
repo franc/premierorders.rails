@@ -797,7 +797,7 @@ ALTER SEQUENCE production_batches_id_seq OWNED BY production_batches.id;
 -- Name: production_batches_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('production_batches_id_seq', 10, true);
+SELECT pg_catalog.setval('production_batches_id_seq', 11, true);
 
 
 --
@@ -11568,6 +11568,14 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 --
 
 COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, updated_at, unit_price, tracking_id, ingest_desc, override_price, production_batch_id, cache_calculation_units, pricing_cache_status, computed_unit_price, unit_hardware_cost, unit_install_cost, unit_weight) FROM stdin;
+4785	273	227	000.935.041.002.00M	4		2011-02-26 20:07:39.452856	2011-03-11 11:12:33.587111	62.98	1	CL Adj Safety Shelf | Antique White	\N	11	in	ok	13.32	0.00	0.03	\N
+4796	276	45	000.931.031.010.00M	2		2011-02-27 23:08:31.828332	2011-03-11 11:12:43.061851	22.49	1	CL Adjustable Shelf | Hardrock Maple	\N	11	in	ok	8.32	0.00	0.03	\N
+4819	278	44	000.930.011.001.00M	5		2011-02-27 23:48:30.477199	2011-03-11 11:12:47.987037	5.74	5	CL Cam Shelf | White	\N	11	in	ok	5.74	0.00	0.05	\N
+4820	278	555	000.910.261.001.00M	3		2011-02-27 23:48:30.516871	2011-03-11 11:12:47.990556	29.14	6	CL Hanging Partition - Square - Thru | White	\N	11	in	ok	18.22	0.00	0.05	\N
+4816	278	227	000.935.981.001.00M	2		2011-02-27 23:48:30.224518	2011-03-11 11:12:48.00201	4.24	2	CL Adj Safety Shelf | White	\N	11	in	ok	4.24	0.00	0.03	\N
+4928	287	45	000.931.031.010.00M	1		2011-02-28 17:29:07.88933	2011-03-11 11:12:55.948161	24.65	1	CL Adjustable Shelf | Hardrock Maple	\N	11	in	ok	9.86	0.00	0.03	\N
+4930	287	45	000.931.011.010.00M	7		2011-02-28 17:29:07.945529	2011-03-11 11:12:55.954784	16.43	3	CL Adjustable Shelf | Hardrock Maple	\N	11	in	ok	6.57	0.00	0.03	\N
+4833	279	256	000.402.493.009.00M	2		2011-02-28 16:39:48.292803	2011-03-11 11:13:04.055737	487.81	3	NX Tall Cabinet 2 Door | Windswept Pewter	\N	11	in	ok	195.07	13.54	1.41	\N
 2084	135	173	000.FU3.173.316.00I	14		2011-02-15 01:06:02.228231	2011-03-10 18:54:14.501701	4.49	43	ZH Drawer Slide | Full ext | 16 inch	\N	\N	in	ok	4.49	0.00	\N	\N
 1962	132	44	000.930.021.001.00M	7		2011-02-15 00:11:33.953276	2011-03-10 18:54:38.033789	7.17	9	CL Cam Shelf | White	\N	\N	in	ok	7.17	0.00	0.05	\N
 3378	193	\N	3040-B	2	Need this qty	2011-02-19 01:48:33.904237	2011-03-10 18:54:46.663208	16.50	12	ZH 12 inch. Veintilated Shelving Bracket for Grid	\N	\N	in	not_computed	\N	0.00	\N	\N
@@ -13051,8 +13059,6 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 5181	303	48	000.934.091.001.00M	1		2011-03-02 15:32:00.116121	2011-03-10 19:01:53.195638	11.20	8	CL Top Shelf | White	\N	\N	in	ok	12.80	0.00	0.03	\N
 5182	303	34	000.912.271.001.00M	5		2011-03-02 15:32:00.152929	2011-03-10 19:01:53.513145	19.25	9	CL Upright Partition - BaseNotch - Thru | White	\N	\N	in	ok	19.25	0.00	0.05	\N
 5183	303	34	000.912.271.001.00M	4		2011-03-02 15:32:00.188644	2011-03-10 19:01:53.840744	18.41	10	CL Upright Partition - BaseNotch - Thru | White	\N	\N	in	ok	18.41	0.00	0.05	\N
-4785	273	227	000.935.041.002.00M	4		2011-02-26 20:07:39.452856	2011-03-10 19:01:53.914601	62.98	1	CL Adj Safety Shelf | Antique White	\N	\N	in	ok	13.32	0.00	0.03	\N
-4786	273	44	000.930.041.002.00M	1		2011-02-26 20:07:39.485239	2011-03-10 19:01:54.214094	35.99	2	CL Cam Shelf | Antique White	\N	\N	in	ok	13.32	0.00	0.05	\N
 4624	268	316	000.401.002.304.00P	1		2011-02-25 16:26:13.761106	2011-03-10 19:01:54.244138	202.67	3	CTOP - Tempo (3 Week Lead Time) | Laminate 4781 Sunstone	\N	\N	in	ok	202.67	0.00	\N	\N
 4642	268	507	000.308.232.001.00M	1		2011-02-25 16:26:15.516645	2011-03-10 19:01:56.661047	66.11	21	HO Corner Upper | White	\N	\N	in	ok	66.08	11.10	0.54	\N
 5184	303	236	000.263.050.705.00I	68	1 box	2011-03-02 15:32:00.211531	2011-03-10 19:01:56.917491	0.11	11	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N
@@ -13076,7 +13082,6 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 5201	304	256	000.402.493.008.00M	3		2011-03-02 17:12:40.292732	2011-03-10 19:02:06.406322	177.65	7	NX Tall Cabinet 2 Door | Windswept Bronze	\N	\N	in	ok	177.59	13.54	1.41	\N
 5202	304	260	000.302.430.008.00M	2		2011-03-02 17:12:40.400249	2011-03-10 19:02:09.746788	65.29	8	NX Upper Cabinet 2 Door | Windswept Bronze	\N	\N	in	ok	65.31	7.05	0.58	\N
 4305	237	45	000.931.981.001.00M	7		2011-02-24 17:47:30.886471	2011-03-10 19:02:10.015511	3.80	2	CL Adjustable Shelf | White	\N	3	in	ok	3.80	0.00	0.03	\N
-4787	273	555	000.910.261.002.00M	2		2011-02-26 20:07:39.519607	2011-03-10 19:02:10.119443	104.90	3	CL Hanging Partition - Square - Thru | Antique White	\N	\N	in	ok	24.26	0.00	0.05	\N
 4306	237	44	000.930.981.001.00M	3		2011-02-24 17:47:30.923264	2011-03-10 19:02:10.431206	4.30	3	CL Cam Shelf | White	\N	3	in	ok	4.30	0.00	0.05	\N
 4307	237	44	000.930.021.001.00M	4		2011-02-24 17:47:30.956476	2011-03-10 19:02:10.497678	7.17	4	CL Cam Shelf | White	\N	3	in	ok	7.17	0.00	0.05	\N
 4311	237	236	000.263.050.705.00I	36		2011-02-24 17:47:31.234862	2011-03-10 19:02:10.780631	0.11	8	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N
@@ -13084,6 +13089,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4313	237	155	000.263.020.847.00I	20		2011-02-24 17:47:31.271531	2011-03-10 19:02:10.849102	0.05	10	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N
 4314	237	237	000.263.059.730.00I	36		2011-02-24 17:47:31.287287	2011-03-10 19:02:10.883519	0.01	11	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N
 4308	237	44	000.930.011.001.00M	2		2011-02-24 17:47:30.983043	2011-03-10 19:02:11.170098	5.74	5	CL Cam Shelf | White	\N	3	in	ok	5.74	0.00	0.05	\N
+4786	273	44	000.930.041.002.00M	1		2011-02-26 20:07:39.485239	2011-03-11 11:12:33.591509	35.99	2	CL Cam Shelf | Antique White	\N	11	in	ok	13.32	0.00	0.05	\N
+4787	273	555	000.910.261.002.00M	2		2011-02-26 20:07:39.519607	2011-03-11 11:12:33.594934	104.90	3	CL Hanging Partition - Square - Thru | Antique White	\N	11	in	ok	24.26	0.00	0.05	\N
 4309	237	40	000.910.251.001.00M	7		2011-02-24 17:47:31.041184	2011-03-10 19:02:11.519378	26.49	6	CL Hanging Partition - Radius - Thru | White	\N	3	in	ok	18.22	0.00	0.05	\N
 4310	237	48	000.934.091.001.00M	1		2011-02-24 17:47:31.06606	2011-03-10 19:02:11.621498	4.01	7	CL Top Shelf | White	\N	3	in	ok	8.01	0.00	0.03	\N
 4792	275	516	000.100.000.008.00M	2		2011-02-27 16:04:34.69662	2011-03-10 19:02:12.25829	31.86	1	Door - Flat | Windswept Bronze	\N	10	in	ok	31.86	0.06	0.05	\N
@@ -13093,8 +13100,6 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 6849	388	1129	\N	5	\N	2011-03-10 05:01:54.376369	2011-03-10 19:02:19.758354	18.52	3	\N	\N	\N	in	not_computed	\N	0.00	\N	\N
 6850	388	1121	\N	2	\N	2011-03-10 05:01:54.381245	2011-03-10 19:02:19.782893	15.06	4	\N	\N	\N	in	not_computed	\N	0.00	\N	\N
 3239	188	\N	000.	3	for garage cabinet	2011-02-18 22:06:45.022824	2011-03-10 19:02:19.7878	45.00	12	3 equal drawers for 30wide base cabinet	\N	\N	in	not_computed	\N	0.00	\N	\N
-4796	276	45	000.931.031.010.00M	2		2011-02-27 23:08:31.828332	2011-03-10 19:02:20.112476	22.49	1	CL Adjustable Shelf | Hardrock Maple	\N	\N	in	ok	8.32	0.00	0.03	\N
-4797	276	44	000.930.031.010.00M	4		2011-02-27 23:08:31.859339	2011-03-10 19:02:20.189787	25.48	2	CL Cam Shelf | Hardrock Maple	\N	\N	in	ok	9.43	0.00	0.05	\N
 4316	237	98	000.801.042.200.00I	4		2011-02-24 17:47:31.321389	2011-03-10 19:02:20.513347	4.51	13	ZH Closet Rod | Polished Chrome	\N	\N	in	ok	3.69	0.00	0.02	\N
 4317	237	104	000.290.002.711.00I	1		2011-02-24 17:47:31.342561	2011-03-10 19:02:20.55392	1.02	14	ZH Hang Bracket | Left	\N	\N	in	ok	1.02	0.00	0.03	\N
 4318	237	105	000.290.002.710.00I	4		2011-02-24 17:47:31.361467	2011-03-10 19:02:20.591382	1.02	15	ZH Hang Bracket | Right	\N	\N	in	ok	1.02	0.00	0.03	\N
@@ -13130,6 +13135,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4599	266	45	000.931.021.001.00M	1		2011-02-25 16:19:21.000463	2011-03-10 19:02:42.345543	6.33	2	CL Adjustable Shelf | White	\N	3	in	ok	6.33	0.00	0.03	\N
 4600	266	44	000.930.031.001.00M	3		2011-02-25 16:19:21.025736	2011-03-10 19:02:42.414773	7.95	3	CL Cam Shelf | White	\N	3	in	ok	8.61	0.00	0.05	\N
 4601	266	44	000.930.031.001.00M	6		2011-02-25 16:19:21.047424	2011-03-10 19:02:42.733905	8.13	4	CL Cam Shelf | White	\N	3	in	ok	8.13	0.00	0.05	\N
+4797	276	44	000.930.031.010.00M	4		2011-02-27 23:08:31.859339	2011-03-11 11:12:43.065317	25.48	2	CL Cam Shelf | Hardrock Maple	\N	11	in	ok	9.43	0.00	0.05	\N
 4602	266	44	000.930.031.001.00M	9		2011-02-25 16:19:21.068865	2011-03-10 19:02:42.802581	7.89	5	CL Cam Shelf | White	\N	3	in	ok	7.89	0.00	0.05	\N
 4603	266	44	000.930.022.001.00M	3		2011-02-25 16:19:21.09014	2011-03-10 19:02:43.108619	8.17	6	CL Cam Shelf | White	\N	3	in	ok	8.17	0.00	0.05	\N
 4604	266	44	000.930.021.001.00M	2		2011-02-25 16:19:21.242136	2011-03-10 19:02:43.179291	7.17	7	CL Cam Shelf | White	\N	3	in	ok	7.17	0.00	0.05	\N
@@ -13307,7 +13313,6 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4829	278	590	000.290.012.781.00I	1		2011-02-27 23:48:30.841027	2011-03-10 19:04:53.137337	1.50	15	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N
 4830	278	228	000.282.024.720.00I	48		2011-02-27 23:48:30.856379	2011-03-10 19:04:53.430626	0.12	16	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N
 2690	162	98	000.801.042.200.00I	1		2011-02-17 00:05:08.784061	2011-03-10 19:04:53.469887	3.01	24	ZH Closet Rod | Polished Chrome	\N	\N	in	ok	2.22	0.00	0.02	\N
-4819	278	44	000.930.011.001.00M	5		2011-02-27 23:48:30.477199	2011-03-10 19:04:53.763386	5.74	5	CL Cam Shelf | White	\N	\N	in	ok	5.74	0.00	0.05	\N
 5215	306	41	000.910.151.004.00M	1		2011-03-02 19:41:53.337287	2011-03-10 19:04:53.883421	18.89	6	CL Hanging Partition - Radius - Left | Carmel Apple	\N	\N	in	ok	12.98	0.00	0.05	\N
 5216	306	42	000.910.351.004.00M	1		2011-03-02 19:41:53.381176	2011-03-10 19:04:54.263036	18.89	7	CL Hanging Partition - Radius - Right | Carmel Apple	\N	\N	in	ok	12.98	0.00	0.05	\N
 5217	306	40	000.910.251.004.00M	3		2011-03-02 19:41:53.428975	2011-03-10 19:04:54.638365	18.89	8	CL Hanging Partition - Radius - Thru | Carmel Apple	\N	\N	in	ok	12.98	0.00	0.05	\N
@@ -13323,13 +13328,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 5227	307	34	000.912.271.005.00M	2	5x1 BaseNotch	2011-03-02 19:43:47.858052	2011-03-10 19:04:58.189881	29.10	8	CL Upright Partition - BaseNotch - Thru | Wild Apple	\N	\N	in	ok	29.10	0.00	0.05	\N
 5228	307	98	000.801.042.200.00I	3		2011-03-02 19:43:48.008489	2011-03-10 19:04:58.233922	4.51	9	ZH Closet Rod | Polished Chrome	\N	\N	in	ok	3.73	0.00	0.02	\N
 5229	307	98	000.801.042.200.00I	2		2011-03-02 19:43:48.021616	2011-03-10 19:04:58.273598	4.51	10	ZH Closet Rod | Polished Chrome	\N	\N	in	ok	3.98	0.00	0.02	\N
-4820	278	555	000.910.261.001.00M	3		2011-02-27 23:48:30.516871	2011-03-10 19:04:58.658964	29.14	6	CL Hanging Partition - Square - Thru | White	\N	\N	in	ok	18.22	0.00	0.05	\N
-4821	278	555	000.910.261.001.00M	2		2011-02-27 23:48:30.569291	2011-03-10 19:04:59.019619	17.40	7	CL Hanging Partition - Square - Thru | White	\N	\N	in	ok	10.88	0.00	0.05	\N
 4822	278	236	000.263.050.705.00I	36		2011-02-27 23:48:30.595934	2011-03-10 19:04:59.057327	0.11	8	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N
-4815	278	227	000.935.011.001.00M	10		2011-02-27 23:48:30.193231	2011-03-10 19:04:59.393085	5.74	1	CL Adj Safety Shelf | White	\N	\N	in	ok	5.74	0.00	0.03	\N
-4816	278	227	000.935.981.001.00M	2		2011-02-27 23:48:30.224518	2011-03-10 19:04:59.465994	4.24	2	CL Adj Safety Shelf | White	\N	\N	in	ok	4.24	0.00	0.03	\N
-4817	278	44	000.930.981.001.00M	2		2011-02-27 23:48:30.253603	2011-03-10 19:04:59.831333	3.71	3	CL Cam Shelf | White	\N	\N	in	ok	4.30	0.00	0.05	\N
-4818	278	44	000.930.011.001.00M	2		2011-02-27 23:48:30.442711	2011-03-10 19:04:59.904931	4.24	4	CL Cam Shelf | White	\N	\N	in	ok	4.24	0.00	0.05	\N
 4823	278	156	000.263.024.972.00I	6		2011-02-27 23:48:30.60993	2011-03-10 19:04:59.937968	0.08	9	ZH Cam (Double Stud)	\N	\N	in	ok	0.08	0.00	\N	\N
 4824	278	155	000.263.020.847.00I	24		2011-02-27 23:48:30.623613	2011-03-10 19:05:00.192567	0.05	10	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N
 4825	278	237	000.263.059.730.00I	36		2011-02-27 23:48:30.636575	2011-03-10 19:05:00.249263	0.01	11	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N
@@ -13353,24 +13352,22 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4852	280	155	000.263.020.847.00I	24		2011-02-28 16:39:58.659015	2011-03-10 19:05:03.697205	0.13	15	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N
 4853	280	237	000.263.059.730.00I	48		2011-02-28 16:39:58.670475	2011-03-10 19:05:04.011566	0.03	16	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N
 4854	280	12	000.102.100.000.00I	36		2011-02-28 16:39:58.683986	2011-03-10 19:05:04.051155	0.06	17	ZH Shelf Pin (Spoon)	\N	\N	in	ok	0.02	0.00	\N	\N
-4855	281	516	000.100.000.009.00M	3		2011-02-28 16:41:54.515755	2011-03-10 19:05:04.553375	39.97	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	15.99	0.06	0.05	\N
-4856	281	516	000.100.000.009.00M	2		2011-02-28 16:41:54.543285	2011-03-10 19:05:05.276	33.72	2	Door - Flat | Windswept Pewter	\N	\N	in	ok	13.49	0.06	0.05	\N
-4857	281	516	000.100.000.009.00M	4		2011-02-28 16:41:54.570331	2011-03-10 19:05:05.769915	85.50	3	Door - Flat | Windswept Pewter	\N	\N	in	ok	34.20	0.06	0.05	\N
 4858	281	198	000.024.002.051.00B	2		2011-02-28 16:41:54.593799	2011-03-10 19:05:06.085836	64.05	4	Drawer Box	\N	\N	in	ok	25.62	0.00	0.05	\N
 4859	281	194	000.024.005.051.00B	2		2011-02-28 16:41:54.612381	2011-03-10 19:05:06.375557	91.90	5	Drawer Box	\N	\N	in	ok	36.76	0.00	0.05	\N
-4860	281	162	000.200.000.009.00M	2		2011-02-28 16:41:54.631376	2011-03-10 19:05:06.886506	35.01	6	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	13.99	0.08	0.05	\N
-4861	281	162	000.200.000.009.00M	2		2011-02-28 16:41:54.795327	2011-03-10 19:05:07.596003	26.73	7	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	10.68	0.08	0.05	\N
-4862	281	264	000.211.233.009.00M	2		2011-02-28 16:41:55.070737	2011-03-10 19:05:12.029789	193.74	8	NX Base Cabinet 1 Drawer 1 Door | Windswept Pewter	\N	\N	in	ok	77.58	4.44	0.29	\N
-4863	281	266	000.201.515.009.00M	1		2011-02-28 16:41:55.195309	2011-03-10 19:05:15.314904	165.72	9	NX Base Cabinet 2 Drawer (15/15) | Windswept Pewter	\N	\N	in	ok	66.46	1.69	0.25	\N
-4864	281	259	000.301.243.009.00M	1		2011-02-28 16:41:55.497094	2011-03-10 19:05:19.004087	144.13	10	NX Over Cabinet 1 Door | Windswept Pewter	\N	\N	in	ok	57.69	4.14	0.37	\N
-4865	281	258	000.302.443.009.00M	1		2011-02-28 16:41:55.932488	2011-03-10 19:05:23.060159	214.20	11	NX Over Cabinet 2 Door | Windswept Pewter	\N	\N	in	ok	85.72	7.30	0.41	\N
-4866	281	256	000.402.493.009.00M	2		2011-02-28 16:41:56.405248	2011-03-10 19:05:26.881219	469.84	12	NX Tall Cabinet 2 Door | Windswept Pewter	\N	\N	in	ok	187.88	13.54	1.41	\N
-4867	281	499	000.400.001.403.00M	1		2011-02-28 16:41:56.470181	2011-03-10 19:05:27.238679	187.61	13	NX Workbench Top (Unfinished Ends) | Ebony Star	\N	\N	in	ok	75.04	0.00	0.16	\N
+4821	278	555	000.910.261.001.00M	2		2011-02-27 23:48:30.569291	2011-03-11 11:12:47.993845	17.40	7	CL Hanging Partition - Square - Thru | White	\N	11	in	ok	10.88	0.00	0.05	\N
+4815	278	227	000.935.011.001.00M	10		2011-02-27 23:48:30.193231	2011-03-11 11:12:47.997686	5.74	1	CL Adj Safety Shelf | White	\N	11	in	ok	5.74	0.00	0.03	\N
+4817	278	44	000.930.981.001.00M	2		2011-02-27 23:48:30.253603	2011-03-11 11:12:48.005819	3.71	3	CL Cam Shelf | White	\N	11	in	ok	4.30	0.00	0.05	\N
+4818	278	44	000.930.011.001.00M	2		2011-02-27 23:48:30.442711	2011-03-11 11:12:48.009179	4.24	4	CL Cam Shelf | White	\N	11	in	ok	4.24	0.00	0.05	\N
+4855	281	516	000.100.000.009.00M	3		2011-02-28 16:41:54.515755	2011-03-11 11:13:09.143745	39.97	1	Door - Flat | Windswept Pewter	\N	11	in	ok	15.99	0.06	0.05	\N
+4856	281	516	000.100.000.009.00M	2		2011-02-28 16:41:54.543285	2011-03-11 11:13:09.147368	33.72	2	Door - Flat | Windswept Pewter	\N	11	in	ok	13.49	0.06	0.05	\N
+4857	281	516	000.100.000.009.00M	4		2011-02-28 16:41:54.570331	2011-03-11 11:13:09.15061	85.50	3	Door - Flat | Windswept Pewter	\N	11	in	ok	34.20	0.06	0.05	\N
+4860	281	162	000.200.000.009.00M	2		2011-02-28 16:41:54.631376	2011-03-11 11:13:09.15436	35.01	6	Drawer Front - Flat | Windswept Pewter	\N	11	in	ok	13.99	0.08	0.05	\N
+4861	281	162	000.200.000.009.00M	2		2011-02-28 16:41:54.795327	2011-03-11 11:13:09.160046	26.73	7	Drawer Front - Flat | Windswept Pewter	\N	11	in	ok	10.68	0.08	0.05	\N
+4862	281	264	000.211.233.009.00M	2		2011-02-28 16:41:55.070737	2011-03-11 11:13:09.16335	193.74	8	NX Base Cabinet 1 Drawer 1 Door | Windswept Pewter	\N	11	in	ok	77.58	4.44	0.29	\N
+4863	281	266	000.201.515.009.00M	1		2011-02-28 16:41:55.195309	2011-03-11 11:13:09.166543	165.72	9	NX Base Cabinet 2 Drawer (15/15) | Windswept Pewter	\N	11	in	ok	66.46	1.69	0.25	\N
 4868	281	\N	000.	1		2011-02-28 16:41:56.490541	2011-03-10 19:05:27.244972	205.00	14	stailess handles	\N	\N	in	not_computed	\N	0.00	\N	\N
 4869	281	168	007.111.KSC.20W.00I	4		2011-02-28 16:41:56.499892	2011-03-10 19:05:27.282132	3.38	15	ZH Drawer Slide | 3/4 ext | 20 inch	\N	\N	in	ok	1.35	0.00	\N	\N
 4870	281	3	000.117.031.632.00I	13		2011-02-28 16:41:56.511753	2011-03-10 19:05:27.320692	2.69	16	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N
-4891	284	516	000.100.000.008.00M	2		2011-02-28 16:50:40.22843	2011-03-10 19:05:28.139828	65.28	1	Door - Flat | Windswept Bronze	\N	\N	in	ok	26.11	0.06	0.05	\N
-4892	284	257	000.402.483.008.00M	2		2011-02-28 16:50:40.544327	2011-03-10 19:05:32.517594	292.25	2	NX Tall Cabinet 1 Door | Windswept Bronze	\N	\N	in	ok	116.78	7.32	1.08	\N
 4893	284	5	000.117.031.330.00I	2		2011-02-28 16:50:40.600069	2011-03-10 19:05:32.555722	2.44	3	ZH Handle Black | 128mm	\N	\N	in	ok	0.98	0.00	0.03	\N
 4894	285	45	000.931.020.005.00M	2		2011-02-28 16:55:02.862301	2011-03-10 19:05:32.930736	8.22	1	CL Adjustable Shelf | Wild Apple	\N	\N	in	ok	8.22	0.00	0.03	\N
 4895	285	45	000.931.021.005.00M	2		2011-02-28 16:55:02.883792	2011-03-10 19:05:33.004519	9.53	2	CL Adjustable Shelf | Wild Apple	\N	\N	in	ok	9.53	0.00	0.03	\N
@@ -13382,25 +13379,10 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4901	285	98	000.801.042.200.00I	7	Need 1 box of closet rods	2011-02-28 16:55:03.375496	2011-03-10 19:05:34.310688	4.51	8	ZH Closet Rod | Polished Chrome	\N	\N	in	ok	3.73	0.00	0.02	\N
 4902	285	98	000.801.042.200.00I	1		2011-02-28 16:55:03.38603	2011-03-10 19:05:34.612265	4.51	9	ZH Closet Rod | Polished Chrome	\N	\N	in	ok	3.69	0.00	0.02	\N
 4903	285	59	000.807.067.203.00P	1		2011-02-28 16:55:03.396665	2011-03-10 19:05:34.655088	23.67	10	ZH Tie Rack | Polished Chrome	\N	\N	in	ok	23.67	0.00	0.07	\N
-4832	279	516	000.100.000.009.00M	4		2011-02-28 16:39:47.988281	2011-03-10 19:05:35.184239	91.98	2	Door - Flat | Windswept Pewter	\N	\N	in	ok	36.79	0.06	0.05	\N
-4834	279	256	000.402.493.009.00M	1		2011-02-28 16:39:48.621661	2011-03-10 19:05:39.305957	453.07	4	NX Tall Cabinet 2 Door | Windswept Pewter	\N	\N	in	ok	181.17	13.54	1.41	\N
 4835	279	\N	000.	1		2011-02-28 16:39:48.671974	2011-03-10 19:05:39.323593	115.00	5	stainless handles	\N	\N	in	not_computed	\N	0.00	\N	\N
 4836	279	\N	000.	1		2011-02-28 16:39:48.680938	2011-03-10 19:05:39.328111	115.00	6	Stainless handles	\N	\N	in	not_computed	\N	0.00	\N	\N
 4837	279	3	000.117.031.632.00I	6		2011-02-28 16:39:48.689448	2011-03-10 19:05:39.366556	2.69	7	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N
-4831	279	516	000.100.000.009.00M	2		2011-02-28 16:39:47.950533	2011-03-10 19:05:39.887406	82.63	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	33.05	0.06	0.05	\N
 5355	312	590	000.290.012.781.00I	1		2011-03-03 14:13:11.499355	2011-03-10 19:05:42.128895	3.75	19	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N
-4928	287	45	000.931.031.010.00M	1		2011-02-28 17:29:07.88933	2011-03-10 19:05:42.481181	24.65	1	CL Adjustable Shelf | Hardrock Maple	\N	\N	in	ok	9.86	0.00	0.03	\N
-4929	287	45	000.931.021.010.00M	5		2011-02-28 17:29:07.924133	2011-03-10 19:05:42.551532	20.54	2	CL Adjustable Shelf | Hardrock Maple	\N	\N	in	ok	8.22	0.00	0.03	\N
-4930	287	45	000.931.011.010.00M	7		2011-02-28 17:29:07.945529	2011-03-10 19:05:42.912098	16.43	3	CL Adjustable Shelf | Hardrock Maple	\N	\N	in	ok	6.57	0.00	0.03	\N
-4931	287	44	000.930.031.010.00M	4		2011-02-28 17:29:07.966459	2011-03-10 19:05:42.981116	27.94	4	CL Cam Shelf | Hardrock Maple	\N	\N	in	ok	11.17	0.00	0.05	\N
-4932	287	44	000.930.021.010.00M	7		2011-02-28 17:29:07.989968	2011-03-10 19:05:43.355994	23.28	5	CL Cam Shelf | Hardrock Maple	\N	\N	in	ok	9.31	0.00	0.05	\N
-4933	287	44	000.930.041.010.00M	2		2011-02-28 17:29:08.01162	2011-03-10 19:05:43.428547	32.59	6	CL Cam Shelf | Hardrock Maple	\N	\N	in	ok	13.04	0.00	0.05	\N
-4934	287	44	000.930.011.010.00M	7		2011-02-28 17:29:08.035982	2011-03-10 19:05:43.787685	18.62	7	CL Cam Shelf | Hardrock Maple	\N	\N	in	ok	7.45	0.00	0.05	\N
-4935	287	48	000.934.091.010.00M	1		2011-02-28 17:29:08.182161	2011-03-10 19:05:44.153147	38.90	8	CL Top Shelf | Hardrock Maple	\N	\N	in	ok	18.39	0.00	0.03	\N
-4936	287	48	000.934.091.010.00M	1		2011-02-28 17:29:08.206255	2011-03-10 19:05:44.255483	25.43	9	CL Top Shelf | Hardrock Maple	\N	\N	in	ok	15.03	0.00	0.03	\N
-4937	287	35	000.912.171.010.00M	1		2011-02-28 17:29:08.23855	2011-03-10 19:05:44.660268	55.47	10	CL Upright Partition - BaseNotch - Left | Hardrock Maple	\N	\N	in	ok	22.19	0.00	0.05	\N
-4938	287	34	000.912.271.010.00M	5		2011-02-28 17:29:08.268546	2011-03-10 19:05:45.065189	62.74	11	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N	\N	in	ok	25.10	0.00	0.05	\N
-4939	287	34	000.912.271.010.00M	5		2011-02-28 17:29:08.299119	2011-03-10 19:05:45.396604	55.47	12	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N	\N	in	ok	22.19	0.00	0.05	\N
 4940	287	236	000.263.050.705.00I	80		2011-02-28 17:29:08.31802	2011-03-10 19:05:45.456736	0.27	13	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N
 4941	287	156	000.263.024.972.00I	18		2011-02-28 17:29:08.430901	2011-03-10 19:05:45.492527	0.20	14	ZH Cam (Double Stud)	\N	\N	in	ok	0.08	0.00	\N	\N
 4942	287	155	000.263.020.847.00I	44		2011-02-28 17:29:08.44235	2011-03-10 19:05:45.525367	0.12	15	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N
@@ -13408,13 +13390,31 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4944	287	99	000.801.042.600.00I	2		2011-02-28 17:29:08.464195	2011-03-10 19:05:45.856172	16.47	17	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	5.70	0.00	0.02	\N
 4945	287	99	000.801.042.600.00I	2		2011-02-28 17:29:08.474888	2011-03-10 19:05:45.901946	12.35	18	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	4.87	0.00	0.02	\N
 4946	287	99	000.801.042.600.00I	1		2011-02-28 17:29:08.485253	2011-03-10 19:05:45.943426	8.24	19	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	3.26	0.00	0.02	\N
+4929	287	45	000.931.021.010.00M	5		2011-02-28 17:29:07.924133	2011-03-11 11:12:55.951721	20.54	2	CL Adjustable Shelf | Hardrock Maple	\N	11	in	ok	8.22	0.00	0.03	\N
+4931	287	44	000.930.031.010.00M	4		2011-02-28 17:29:07.966459	2011-03-11 11:12:55.957851	27.94	4	CL Cam Shelf | Hardrock Maple	\N	11	in	ok	11.17	0.00	0.05	\N
+4932	287	44	000.930.021.010.00M	7		2011-02-28 17:29:07.989968	2011-03-11 11:12:55.960934	23.28	5	CL Cam Shelf | Hardrock Maple	\N	11	in	ok	9.31	0.00	0.05	\N
+4933	287	44	000.930.041.010.00M	2		2011-02-28 17:29:08.01162	2011-03-11 11:12:55.963952	32.59	6	CL Cam Shelf | Hardrock Maple	\N	11	in	ok	13.04	0.00	0.05	\N
+4934	287	44	000.930.011.010.00M	7		2011-02-28 17:29:08.035982	2011-03-11 11:12:55.966987	18.62	7	CL Cam Shelf | Hardrock Maple	\N	11	in	ok	7.45	0.00	0.05	\N
+4935	287	48	000.934.091.010.00M	1		2011-02-28 17:29:08.182161	2011-03-11 11:12:55.970547	38.90	8	CL Top Shelf | Hardrock Maple	\N	11	in	ok	18.39	0.00	0.03	\N
+4936	287	48	000.934.091.010.00M	1		2011-02-28 17:29:08.206255	2011-03-11 11:12:55.974323	25.43	9	CL Top Shelf | Hardrock Maple	\N	11	in	ok	15.03	0.00	0.03	\N
+4937	287	35	000.912.171.010.00M	1		2011-02-28 17:29:08.23855	2011-03-11 11:12:55.977791	55.47	10	CL Upright Partition - BaseNotch - Left | Hardrock Maple	\N	11	in	ok	22.19	0.00	0.05	\N
+4938	287	34	000.912.271.010.00M	5		2011-02-28 17:29:08.268546	2011-03-11 11:12:55.981301	62.74	11	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N	11	in	ok	25.10	0.00	0.05	\N
+4939	287	34	000.912.271.010.00M	5		2011-02-28 17:29:08.299119	2011-03-11 11:12:55.984798	55.47	12	CL Upright Partition - BaseNotch - Thru | Hardrock Maple	\N	11	in	ok	22.19	0.00	0.05	\N
+4832	279	516	000.100.000.009.00M	4		2011-02-28 16:39:47.988281	2011-03-11 11:13:04.044494	91.98	2	Door - Flat | Windswept Pewter	\N	11	in	ok	36.79	0.06	0.05	\N
+4834	279	256	000.402.493.009.00M	1		2011-02-28 16:39:48.621661	2011-03-11 11:13:04.048879	453.07	4	NX Tall Cabinet 2 Door | Windswept Pewter	\N	11	in	ok	181.17	13.54	1.41	\N
+4831	279	516	000.100.000.009.00M	2		2011-02-28 16:39:47.950533	2011-03-11 11:13:04.05268	82.63	1	Door - Flat | Windswept Pewter	\N	11	in	ok	33.05	0.06	0.05	\N
+4864	281	259	000.301.243.009.00M	1		2011-02-28 16:41:55.497094	2011-03-11 11:13:09.169705	144.13	10	NX Over Cabinet 1 Door | Windswept Pewter	\N	11	in	ok	57.69	4.14	0.37	\N
+4865	281	258	000.302.443.009.00M	1		2011-02-28 16:41:55.932488	2011-03-11 11:13:09.17288	214.20	11	NX Over Cabinet 2 Door | Windswept Pewter	\N	11	in	ok	85.72	7.30	0.41	\N
+4866	281	256	000.402.493.009.00M	2		2011-02-28 16:41:56.405248	2011-03-11 11:13:09.176086	469.84	12	NX Tall Cabinet 2 Door | Windswept Pewter	\N	11	in	ok	187.88	13.54	1.41	\N
+4867	281	499	000.400.001.403.00M	1		2011-02-28 16:41:56.470181	2011-03-11 11:13:09.179265	187.61	13	NX Workbench Top (Unfinished Ends) | Ebony Star	\N	11	in	ok	75.04	0.00	0.16	\N
+4891	284	516	000.100.000.008.00M	2		2011-02-28 16:50:40.22843	2011-03-11 11:13:14.236288	65.28	1	Door - Flat | Windswept Bronze	\N	11	in	ok	26.11	0.06	0.05	\N
+4892	284	257	000.402.483.008.00M	2		2011-02-28 16:50:40.544327	2011-03-11 11:13:14.239868	292.25	2	NX Tall Cabinet 1 Door | Windswept Bronze	\N	11	in	ok	116.78	7.32	1.08	\N
 4947	287	99	000.801.042.600.00I	2		2011-02-28 17:29:08.495491	2011-03-10 19:05:46.233407	12.35	20	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	4.08	0.00	0.02	\N
 4948	287	99	000.801.042.600.00I	1		2011-02-28 17:29:08.505779	2011-03-10 19:05:46.275836	12.35	21	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	4.91	0.00	0.02	\N
 4949	287	591	000.803.056.600.00I	16		2011-02-28 17:29:08.51589	2011-03-10 19:05:46.312214	4.81	22	ZH Pole Cups (pair) | Matte Nickel	\N	\N	in	ok	0.97	0.00	0.01	\N
 4950	287	12	000.102.100.000.00I	52		2011-02-28 17:29:08.525953	2011-03-10 19:05:46.345642	0.06	23	ZH Shelf Pin (Spoon)	\N	\N	in	ok	0.02	0.00	\N	\N
 4951	287	84	000.547.036.646.00P	2		2011-02-28 17:29:08.536017	2011-03-10 19:05:46.666057	66.75	24	ZH Sliding Wire Basket (24x11x14) | Matte Nickel	\N	\N	in	ok	26.70	0.00	0.10	\N
 4971	289	18	000.401.000.009.00M	1		2011-02-28 20:09:03.65468	2011-03-10 19:05:46.769553	43.34	1	CTOP - 3/4 in. melamine | Windswept Pewter	\N	\N	in	ok	10.94	0.00	0.03	\N
-4833	279	256	000.402.493.009.00M	2		2011-02-28 16:39:48.292803	2011-03-10 19:05:50.475021	487.81	3	NX Tall Cabinet 2 Door | Windswept Pewter	\N	\N	in	ok	195.07	13.54	1.41	\N
 4972	289	18	000.401.000.009.00M	1		2011-02-28 20:09:03.693523	2011-03-10 19:05:50.840632	22.99	2	CTOP - 3/4 in. melamine | Windswept Pewter	\N	\N	in	ok	10.94	0.00	0.03	\N
 4973	290	516	000.100.000.010.00M	2		2011-02-28 20:15:34.880095	2011-03-10 19:05:51.646024	40.02	1	Door - Flat | Hardrock Maple	\N	\N	in	ok	14.40	0.06	0.05	\N
 4974	290	259	000.301.243.010.00M	2		2011-02-28 20:15:35.225346	2011-03-10 19:05:55.531607	247.29	2	NX Over Cabinet 1 Door | Hardrock Maple	\N	\N	in	ok	89.01	7.26	0.41	\N
@@ -14280,11 +14280,10 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 200	46	75	55	RainesGarage	SO-67	\N	2011-02-21 16:42:49.646798	2011-03-10 19:16:44.887797	Raines Parts List.xml	text/xml	8587	2011-02-21 16:42:49.643859	Atlanta	Shipped	2011-03-08	2011-03-10		2011-02-21 23:47:07	75		PremierRoute	75		55	\N
 208	11	10	14	McCann Daughters Closet	SO-70	\N	2011-02-22 01:22:06.900224	2011-03-10 20:43:25.285632	McCann Daughters Parts List.xls	application/vnd.ms-excel	14739	2011-02-22 01:22:06.898303	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:22:44	10		PremierRoute	10		14	\N
 188	1	1	1	703_Pauls	SO - 56	\N	2011-02-18 22:06:44.587238	2011-03-09 20:54:21.736437	pauls Parts List.xml	text/xml	40424	2011-02-18 22:06:44.584718	Phoenix	Shipped	2011-03-07	2011-03-09		2011-02-18 22:08:46	1		PremierRoute	30		1	\N
-226	4	4	6	Marcus/Arter - Standard Closets	SO-81	\N	2011-02-23 21:07:59.297772	2011-03-10 04:44:00.583287	Marcus - Basic Closets.xml	application/octet-stream	9896	2011-02-23 21:07:59.295518	Phoenix	Ready For Production	2011-03-10	\N		2011-02-23 21:08:23	4		PremierRoute	29		6	\N
+237	69	104	83	Boynton	SO-89	\N	2011-02-24 17:47:30.396745	2011-03-11 11:08:59.053925	Boynton Closet Parts Lista.xml	application/octet-stream	17236	2011-02-24 17:47:30.391612	Phoenix	In Production	2011-03-10	\N		2011-02-24 18:02:28	104		PremierRoute	104		83	\N
 197	4	4	6	Johnson - Pantry	SO-61	\N	2011-02-19 21:13:57.500721	2011-03-08 23:30:40.096525	Johnson - Pantry.xml	application/octet-stream	21559	2011-02-19 21:13:57.496739	Phoenix	Shipped	2011-03-07	2011-03-08		2011-02-19 21:16:00	4		PremierRoute	29		6	\N
 231	20	19	23	Hogan re order	SO-82	\N	2011-02-23 23:21:40.616862	2011-03-09 20:54:26.628856	Hogan - ReOrder.xml	text/xml	19255	2011-02-23 23:21:40.610399	Phoenix	Shipped	2011-03-10	2011-03-09	Please asap	2011-02-23 23:23:23	19		PremierRoute	19		23	\N
 206	11	10	14	McCann Master Closet	SO-68	\N	2011-02-22 01:19:22.042242	2011-03-10 20:43:21.401808	McCann Master Parts List.xls	application/vnd.ms-excel	19673	2011-02-22 01:19:22.038523	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:20:32	10		PremierRoute	10	Chocolate Apple	14	\N
-234	5	99	8	Rubino ShoeCubby	SO-86	\N	2011-02-24 16:51:35.575254	2011-03-01 16:09:00.096541	Rubino ShoeCubby Parts List.xml	text/xml	13183	2011-02-24 16:51:35.571839	Phoenix	Ready For Production	2011-03-10	\N		2011-02-24 16:53:57	99		PremierRoute	99		8	\N
 207	11	10	14	McCann Boys Closet	SO-69	\N	2011-02-22 01:21:23.559746	2011-03-10 20:43:23.153574	McCann Boys Room Parts List.xls	application/vnd.ms-excel	9733	2011-02-22 01:21:23.557945	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:21:36	10		PremierRoute	10		14	\N
 212	11	10	14	Clark/Pigeon Garage	SO-73	\N	2011-02-22 01:32:06.240038	2011-03-10 20:43:33.516126	Garag Parts List.xls	application/vnd.ms-excel	14809	2011-02-22 01:32:06.23808	Phoenix	Ready to Ship	2011-03-08	\N		2011-02-22 01:33:41	10		PremierRoute	10		14	\N
 394	69	104	83	Bentley Linen	SO-172	\N	2011-03-10 17:20:33.669471	2011-03-10 21:18:24.726767	Bentley Linen Closet.xml	text/xml	9846	2011-03-10 17:20:33.667114	Phoenix	Confirmed	2011-03-18	\N		2011-03-10 17:21:13	104		Ground	104	3/10 can this ship ground? cs\r\n3/10 ok to ship ground, no confirmed ship date, best guess is 3/18/11. cs	83	Job
@@ -14296,7 +14295,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 245	9	9	13	Yorn	SO-91	\N	2011-02-24 18:40:28.218114	2011-03-10 04:45:27.361588	Yorn, Ken Parts List.xls	application/vnd.ms-excel	10109	2011-02-24 18:40:28.21606	Phoenix	In Production	2011-03-10	\N		2011-02-24 18:46:41	9		PremierRoute	9		13	\N
 256	9	9	13	Scarborough	SO-99	\N	2011-02-24 22:11:03.941059	2011-03-10 04:45:37.428915	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	11567	2011-02-24 22:11:03.936409	Phoenix	In Production	2011-03-11	\N		2011-02-24 22:12:54	9		PremierRoute	9		13	\N
 383	6	31	9	Alpine	SO-168	\N	2011-03-09 20:48:41.967036	2011-03-10 19:18:34.760538	ALPINE STORAGE Parts List2.xml	text/xml	5665	2011-03-09 20:48:41.964875	Phoenix	Confirmed	\N	2011-03-25		2011-03-09 20:49:37	31		PremierRoute	31	Pewter.	9	\N
-237	69	104	83	Boynton	SO-89	\N	2011-02-24 17:47:30.396745	2011-03-01 16:12:24.915531	Boynton Closet Parts Lista.xml	application/octet-stream	17236	2011-02-24 17:47:30.391612	Phoenix	Ready For Production	2011-03-10	\N		2011-02-24 18:02:28	104		PremierRoute	104		83	\N
+234	5	99	8	Rubino ShoeCubby	SO-86	\N	2011-02-24 16:51:35.575254	2011-03-11 11:09:08.027532	Rubino ShoeCubby Parts List.xml	text/xml	13183	2011-02-24 16:51:35.571839	Phoenix	In Production	2011-03-10	\N		2011-02-24 16:53:57	99		PremierRoute	99		8	\N
+226	4	4	6	Marcus/Arter - Standard Closets	SO-81	\N	2011-02-23 21:07:59.297772	2011-03-11 11:08:36.780113	Marcus - Basic Closets.xml	application/octet-stream	9896	2011-02-23 21:07:59.295518	Phoenix	In Production	2011-03-10	\N		2011-02-23 21:08:23	4		PremierRoute	29		6	\N
 301	12	60	15	Bisch test order	\N	\N	2011-03-02 01:55:17.038665	2011-03-07 15:02:03.792734	021011-1.xml	text/xml	30472	2011-03-02 01:55:17.036665	Phoenix	Created	\N	\N	This line contains special instructions.	\N	\N		PremierRoute	60	This line contains notes.	15	\N
 203	9	9	13	Schessler	SO-65	\N	2011-02-21 19:12:23.412248	2011-03-04 20:37:09.971782	Schessler - parts list - final.xml	text/xml	20623	2011-02-21 19:12:23.407979	Phoenix	Shipped	2011-03-04	2011-03-04		2011-02-21 19:17:52	9		PremierRoute	9		13	\N
 320	5	99	8	Perman Laundry	SO-136	\N	2011-03-03 19:20:29.518842	2011-03-07 22:38:49.951112	Perman Laundry.xml	text/xml	16842	2011-03-03 19:20:29.516803	Phoenix	Confirmed	2011-03-17	\N	No Door order	2011-03-03 19:21:37	99		PremierRoute	99	3/7 per EH charge $2. for filler	8	\N
@@ -14306,19 +14306,19 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 285	17	16	20	Sean Spooner 2 	SO-116	\N	2011-02-28 16:55:02.711773	2011-03-08 20:32:42.422456	Sean Spooner 2-28 a .dvi Parts List.xml	text/xml	14250	2011-02-28 16:55:02.709871	Phoenix	Confirmed	2011-03-14	\N	WE NEED ASAP PLEASE\r\n\r\nTHANKS\r\n	2011-02-28 16:55:45	16		PremierRoute	16	Wild Apple.	20	\N
 354	4	4	6	Vitense - Master	SO-159	\N	2011-03-07 17:42:44.375746	2011-03-08 23:20:30.952269	Vitense - Master.xml	application/octet-stream	32990	2011-03-07 17:42:44.373489	Phoenix	Confirmed	2011-03-23	\N		2011-03-08 19:58:21	4		PremierRoute	4	3/8 sent email on special instruction, does he need this insert. CS\r\n3/8 confirmed from Tim doesn't need. CS	6	\N
 287	59	87	84	T Patterson	SO-117	\N	2011-02-28 17:29:07.486562	2011-03-08 20:34:00.028018	Tura_FINAL ORDER.dvi Parts List.xml	text/xml	25718	2011-02-28 17:29:07.481557	Phoenix	Confirmed	2011-03-15	\N	Please ship to 7182 Hwy 14, Suite 603 Middleton, WI 53562\r\n\r\nAll future shipment should go to this address.	2011-02-28 17:35:46	87		PremierRoute	87	Maple.	70	\N
-267	41	70	50	Smith_Laundry Room	SO-105	\N	2011-02-25 16:23:51.570393	2011-03-08 20:09:35.897595	Smith_Laundry Room Parts List.xml	text/xml	14870	2011-02-25 16:23:51.568345	Phoenix	Confirmed	2011-03-11	\N	Premier Route	2011-02-25 16:24:43	70		PremierRoute	70	White	50	\N
-269	4	4	6	Golstein - Masters	SO-107	\N	2011-02-25 16:36:21.989662	2011-03-08 20:14:45.62221	Goldstein - Masters.xml	application/octet-stream	35798	2011-02-25 16:36:21.987389	Phoenix	Confirmed	2011-03-11	\N		2011-02-25 16:38:29	4		PremierRoute	4	White	6	\N
+267	41	70	50	Smith_Laundry Room	SO-105	\N	2011-02-25 16:23:51.570393	2011-03-11 11:11:11.684643	Smith_Laundry Room Parts List.xml	text/xml	14870	2011-02-25 16:23:51.568345	Phoenix	In Production	2011-03-11	\N	Premier Route	2011-02-25 16:24:43	70		PremierRoute	70	White	50	\N
+265	41	70	50	Stilwell_Garage	SO-103	\N	2011-02-25 16:15:59.689229	2011-03-11 11:10:54.802559	Stilwell_Garage Parts List.xml	text/xml	7764	2011-02-25 16:15:59.685027	Phoenix	In Production	2011-03-11	\N	Premier Route	2011-02-25 16:17:55	70		PremierRoute	70	Maple	50	\N
 284	28	103	36	Doyle add on	SO-115	\N	2011-02-28 16:50:40.016167	2011-03-08 20:31:58.209911	Doyle Carroll add on Parts List.xls	application/vnd.ms-excel	6371	2011-02-28 16:50:40.014299	Phoenix	Confirmed	2011-03-14	\N		2011-02-28 16:51:03	103		PremierRoute	103	Bronze.	36	\N
-266	41	70	50	Riggin_Master Closet	SO-104	\N	2011-02-25 16:19:20.664875	2011-03-08 20:05:12.609609	Riggin_Master Closet Parts List.xml	text/xml	16696	2011-02-25 16:19:20.662829	Phoenix	Confirmed	2011-03-11	\N	Premier Route	2011-02-25 16:22:14	70		PremierRoute	70	White	50	\N
 352	20	19	23	Turkel Replacement door	SO-151	\N	2011-03-07 16:16:29.30774	2011-03-09 22:27:00.125526	Turkel, Catherinw Parts List replacement door.xml	text/xml	5386	2011-03-07 16:16:29.304226	Phoenix	Shipped	2011-03-09	2011-03-09		2011-03-07 16:16:46	19		PremierRoute	19	3/8 ok to add to truck leaving 3/9/11 cs	23	\N
 218	28	103	36	Battle	SO-77	\N	2011-02-23 19:53:34.343507	2011-03-10 04:43:13.575179	Battle Parts List.xls	application/vnd.ms-excel	15274	2011-02-23 19:53:34.339902	Phoenix	In Production	2011-03-10	\N		2011-02-23 19:54:49	103		PremierRoute	103	NX Windswept Bronze (Stock BB Size 72x25. EH)	36	\N
 232	20	19	23	Bramco Builders	SO-84	\N	2011-02-23 23:44:48.455371	2011-03-01 15:28:13.666449	Bramco Builders Newport Parts List.xml	text/xml	22287	2011-02-23 23:44:48.45203	Phoenix	Ready For Production	2011-03-10	\N		2011-02-23 23:47:23	19		PremierRoute	19		23	\N
 261	1	1	1	704_dorellfabric	SO-101	\N	2011-02-25 04:34:24.7025	2011-03-03 23:02:41.451538	dorellfabric Parts List.xml	text/xml	27343	2011-02-25 04:34:24.698972	Phoenix	Ready For Production	2011-03-11	\N		2011-02-25 04:35:26	1		PremierRoute	1		1	\N
-265	41	70	50	Stilwell_Garage	SO-103	\N	2011-02-25 16:15:59.689229	2011-03-08 20:03:20.270902	Stilwell_Garage Parts List.xml	text/xml	7764	2011-02-25 16:15:59.685027	Phoenix	Confirmed	2011-03-11	\N	Premier Route	2011-02-25 16:17:55	70		PremierRoute	70	Maple	50	\N
+266	41	70	50	Riggin_Master Closet	SO-104	\N	2011-02-25 16:19:20.664875	2011-03-11 11:11:01.182165	Riggin_Master Closet Parts List.xml	text/xml	16696	2011-02-25 16:19:20.662829	Phoenix	In Production	2011-03-11	\N	Premier Route	2011-02-25 16:22:14	70		PremierRoute	70	White	50	\N
 306	41	70	50	Burton_Laundry Room	SO-127	\N	2011-03-02 19:41:52.749279	2011-03-08 20:41:28.593448	Burton_Laundry Room Parts List.xml	text/xml	14711	2011-03-02 19:41:52.747335	Phoenix	Confirmed	2011-03-17	\N	Premier Route	2011-03-02 19:42:42	70		PremierRoute	70	Carmel Apple.	50	\N
 246	33	101	41	Bumb, George	SO-92	\N	2011-02-24 20:18:54.618866	2011-03-10 19:45:31.70208	Bumb, George.dvi Parts List.xml	text/xml	23035	2011-02-24 20:18:54.47945	Phoenix	Ready to Ship	2011-03-10	\N		2011-02-24 20:19:43	101		PremierRoute	101		41	\N
 296	14	32	17	Replacement Door	SO-121	\N	2011-02-28 23:58:19.976712	2011-03-08 20:36:56.750042	Eddie Stribling.xml	application/xml	5531	2011-02-28 23:58:19.971894	Phoenix	Shipped	2011-03-04	2011-03-02	We dropped it!  (can you ship with my LTL order?)	2011-02-28 23:59:59	32		LTL	13	Maple.	17	\N
 307	41	70	50	Burton_Closet	SO-128	\N	2011-03-02 19:43:47.287756	2011-03-08 20:42:13.002439	Burton_Closet Parts List.xml	text/xml	17578	2011-03-02 19:43:47.285113	Phoenix	Confirmed	2011-03-17	\N	Premier Route	2011-03-02 19:44:56	70		PremierRoute	70	Wild Apple.	50	\N
+269	4	4	6	Golstein - Masters	SO-107	\N	2011-02-25 16:36:21.989662	2011-03-11 11:08:49.672463	Goldstein - Masters.xml	application/octet-stream	35798	2011-02-25 16:36:21.987389	Phoenix	In Production	2011-03-11	\N		2011-02-25 16:38:29	4		PremierRoute	4	White	6	\N
 247	20	19	23	Green room 1	SO-93	\N	2011-02-24 21:04:57.333825	2011-03-01 16:39:41.385863	Green, Robert Parts List room1.xml	text/xml	6437	2011-02-24 21:04:57.193	Phoenix	Ready For Production	2011-03-11	\N		2011-02-24 21:06:11	19		PremierRoute	19		23	\N
 303	65	105	77	Reichow, Jody Closet	SO-124	\N	2011-03-02 15:31:59.333111	2011-03-08 20:38:18.487838	Reichow, Jody.dvi Parts List.xml	text/xml	22270	2011-03-02 15:31:59.329472	Phoenix	Confirmed	2011-03-17	\N		2011-03-02 16:21:01	106		PremierRoute	105	White.	77	\N
 304	14	13	17	Deverka	SO-125	\N	2011-03-02 17:12:39.350193	2011-03-08 20:39:42.397005	Deverka dvi Parts List.xml	text/xml	14024	2011-03-02 17:12:39.348146	Phoenix	Confirmed	2011-03-17	\N	Will I have this order by March 28th	2011-03-02 17:19:52	13		PremierRoute	13	Bronze.\r\n\r\nBB top should be 97 x 25 part #890004. CS	17	\N
@@ -14362,6 +14362,7 @@ COPY production_batches (id, name, batch_no, mfg_plant, status, description, clo
 1	6	79,77,102,91,88,99	Phoenix	open		2011-02-25	2011-02-25 22:49:43.43136	2011-03-08 00:57:43.20719
 10	8	84,93,94,95,96,98,108,110	Phoenix	open	O.C.	2011-03-09	2011-03-09 19:11:06.127531	2011-03-09 19:11:57.346013
 3	7	81,107,89,86,90,103,104,105,101	Phoenix	open		2011-02-25	2011-02-26 00:37:07.96521	2011-03-10 11:00:33.017431
+11	9	Batch 9	Phoenix	open	109,111,112,117,113,114,115\r\n	2011-03-11	2011-03-11 11:07:55.30486	2011-03-11 11:07:55.30486
 \.
 
 
@@ -17408,6 +17409,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 87	\N	Julee	Barnett	(608) 630-0246			jtbarnett@tailoredliving.com	$2a$10$nW2MhmhsTsOZvbE4V3Hhge8mCRrbT5dMr2/QmgAA27SBYSLJEYBSi	$2a$10$nW2MhmhsTsOZvbE4V3Hhge	\N	4dqQ-8j12CtYdm-QOyQ8	2011-02-28 16:48:13.123951	6	2011-03-01 17:18:47.196385	2011-02-28 17:26:28.929584	96.61.58.208	96.61.58.208	2011-02-11 17:57:13.665014	2011-03-04 15:51:38.786088
 89	\N	Customer	A	(303) 578-9085			divisidera@gmail.com	$2a$10$MUZ7No7mXdh5149aCsytb.ZIppO6SdfvWLbFbnHzZ3wFm3Z2L96X2	$2a$10$MUZ7No7mXdh5149aCsytb.	\N	\N	\N	7	2011-03-04 04:37:56.116807	2011-03-04 00:30:53.689678	71.196.137.193	71.196.137.193	2011-02-11 18:07:39.459118	2011-03-04 15:53:35.201348
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	3fKkUt4AXqpG-i6UGliu	2011-02-22 19:00:48.119409	2	2011-02-22 19:00:51.544035	2011-02-16 20:41:30.189054	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-02-22 19:00:51.544781
+102	\N	Jayson	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/..Y0uOHPRnN4CD7hzfQPYXWc8dvO963m	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/.	\N	\N	\N	26	2011-03-11 11:06:55.084734	2011-03-10 22:38:34.112475	174.79.54.226	174.79.54.226	2011-02-21 19:54:37.738913	2011-03-11 11:06:55.085508
 75	\N	Rick	Wunderlich	(636)300-0015		(636)300-0017	rwunderlich@tailoredliving.com	$2a$10$/0AogAFZwjhoF.QPJKqS1er1ojp72AxBrwKiHHenkr9kQnkA6CsD6	$2a$10$/0AogAFZwjhoF.QPJKqS1e	\N	\N	\N	14	2011-03-10 18:02:48.338877	2011-03-10 16:26:23.948277	24.207.254.174	24.207.254.174	2011-02-11 16:05:54.075362	2011-03-10 18:02:48.339786
 88	\N	Andrew	Amenta	(239) 949-5584		(239) 949-9923	swflorida@premiergarage.com	$2a$10$.cjW.GOIh3sr0CnoZA2NHOcGe3R0xoVPCQQnE2.EJ5JRZEp2pW8aW	$2a$10$.cjW.GOIh3sr0CnoZA2NHO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:03:58.211053	2011-03-04 15:54:26.992475
 78	\N	Dave	Galt	(701)281-0558		(701)281-0568	dgalt@tailoredliving.com	$2a$10$1kCTBmCuZB59.p7hZJkB..d/caHKpVhCKai4Uo6lJclobHPQjqgEi	$2a$10$1kCTBmCuZB59.p7hZJkB..	\N	\N	\N	2	2011-02-17 18:20:16.439636	2011-02-15 15:08:08.270598	69.178.221.211	69.178.221.211	2011-02-11 16:13:15.331096	2011-02-17 18:20:16.440675
@@ -17420,7 +17422,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 80	\N	Robert 	Chiavaroli	(732) 710-7426			rchiavaroli@tailoredliving.com	$2a$10$Y0mQQS3vGCrRCpA3rWPeFutYFlKyT1gVKr/kq6O3GoKwWuhIXTc9C	$2a$10$Y0mQQS3vGCrRCpA3rWPeFu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 16:17:59.828796	2011-03-04 15:55:40.593665
 84	\N	Rick	Cobb	(804) 355-1595			rcobb@tailoredliving.com	$2a$10$Kj2PkYxo/mIuyjYsTPM4tu18tEVCyWYfgALL.UsoLJm/9RVydCzwq	$2a$10$Kj2PkYxo/mIuyjYsTPM4tu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 17:45:25.56565	2011-03-04 15:55:55.766411
 35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	120	2011-03-11 03:58:41.902547	2011-03-11 03:11:33.411319	68.3.127.48	68.3.127.48	2011-01-01 18:53:36.717099	2011-03-11 03:58:41.903563
-102	\N	Jayson	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/..Y0uOHPRnN4CD7hzfQPYXWc8dvO963m	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/.	\N	\N	\N	25	2011-03-10 22:38:34.112475	2011-03-10 16:27:39.156697	174.79.54.226	174.79.54.226	2011-02-21 19:54:37.738913	2011-03-10 22:38:34.113254
 79	\N	Jay	Feingold	(201)487-8989		(201)487-8980	jfeingold@tailoredliving.com	$2a$10$3fSZb2MykWeLn53mcZ7lTe0/BUHil5vwyGUb.v9uZ7y/f47y1euQi	$2a$10$3fSZb2MykWeLn53mcZ7lTe	\N	Tyk2W2BiZYoiEo2z7Tqv	2011-03-07 20:49:07.291428	7	2011-03-07 20:49:07.295874	2011-03-04 22:01:01.62096	96.242.250.201	96.242.250.16	2011-02-11 16:16:07.72259	2011-03-07 20:49:07.296589
 104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	NKPSdpdqzsjajvoJoQzA	2011-02-24 17:45:06.438803	4	2011-03-10 17:15:48.544559	2011-03-10 14:07:44.629657	99.34.172.198	99.34.172.198	2011-02-24 17:28:44.010247	2011-03-10 17:15:48.545156
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	Y5dw-xQ_qsZY46vVquNH	2011-03-01 19:03:46.42973	13	2011-03-10 19:44:21.145979	2011-03-09 12:02:12.29919	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-10 19:44:21.146646
