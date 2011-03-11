@@ -31,6 +31,9 @@ class Ability
       can [:create, :read, :update, :place_order], Job do |job|
         job.new_record? || job.is_manageable_by(user)  
       end
+      can :update_instructions, Job do |job|
+        job.is_manageable_by(user) && (job.status.nil? || job.status == 'Created')
+      end
       can :destroy, Job do |job|
         job.is_manageable_by(user) && (job.status.nil? || job.status == 'Created')
       end
