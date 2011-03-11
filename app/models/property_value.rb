@@ -7,8 +7,6 @@ class PropertyValue < ActiveRecord::Base
 
   def field_values
     values = extract()
-    logger.info(values.inspect)
-    logger.info(value_structure.inspect)
     result = {}
     value_structure.each do |name, type|
       result[name] = {:type => type, :value => values[name.to_s]}

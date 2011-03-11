@@ -48,7 +48,9 @@ PgRails::Application.routes.draw do
   resources :item_component_properties
 
   match 'properties/search' => 'properties#search'
-  resources :properties 
+  resources :properties do
+    resources :property_values
+  end
 
   match 'jobs/dashboard' => 'jobs#dashboard'
   resources :jobs do

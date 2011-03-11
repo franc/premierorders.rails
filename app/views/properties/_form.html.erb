@@ -14,8 +14,27 @@
     jQuery(function($) {
       var new_value_fields = new_value_fields_generator();
       $("#add_property_value").click(function() {
-        $("#property_values").append(new_value_fields()).append("<hr/>");
+        $("#property_values").append(new_value_fields());
       });
+
+      $(".property_value_delete").hover(editIn, editOut);
+      $(".property_value_delete").click(
+        function(ev) {
+          var id = $(ev.target).attr("id").replace(/delete_value_/,'');
+          $.ajax({
+            url: "/properties/<%=@property.id%>/property_values/" + id,
+            type: "DELETE",
+            dataType: "json",
+            success: function(data) {
+              if (data['deleted'] === 'success') {
+                $(ev.target).closest('tr').remove();
+              } else {
+                alert("Something went wrong the property deletion, sorry ("+data['deleted']+")");
+              }
+            }
+          });
+        }
+      );
     });
   </script>
 <% end %>
@@ -40,18 +59,25 @@
       <dt><%= f.label :family %></dt>
       <dd><%= @property.family %></dd>
       <dt><%= f.label :values %> <span id="add_property_value">(+)</span></dt>
-      <dd id="property_values"> 
-        <% @property.property_values.each do |v| %>
-          <dl class="property_value">
-            <dt>Value Name:</dt>
-            <dd><%= text_field_tag "property_value[#{v.id}][name]", v.name, {:class => 'property_value_field'} %></dd>
-            <% v.field_values.each do |name, details| %>
-              <dt><%= name.to_s.titlecase %>:</dt>
-              <dd><%= property_value_field_tag("property_value[#{v.id}][fields][#{name}]", details[:type], details[:value]) %></dd>
+      <dd>
+        <table id="property_values">
+          <tr>
+            <th>Remove</th>
+            <th>Value Name</th>
+            <% @property.value_structure.each do |name, type| %>
+              <th><%= name.to_s.titlecase %></th>
             <% end %>
-          </dl>
-          <hr/>
-        <% end %>
+          </tr>
+          <% @property.property_values.each do |v| %>
+            <tr>
+              <td><span class="property_value_delete" id="delete_value_<%=v.id%>">(X)</span></td>
+              <td><%= text_field_tag "property_value[#{v.id}][name]", v.name, {:class => 'property_value_field'} %></td>
+              <% @property.value_structure.each do |name, type| %>
+                <td><%= property_value_field_tag("property_value[#{v.id}][fields][#{name}]", type, v.field_values[name][:value]) %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
       </dd>
     </dl>
   </div>
@@ -62,14 +88,12 @@
 <% end %>
 
 <!-- This prototype must remain outside of the form, so that it is not picked up inadvertently -->
-<dl class="property_value prototype">
-  <dl class="property_value">
-    <dt>Value Name:</dt>
-    <dd><%= text_field_tag "property_value[new][name]", nil, {:class => 'property_value_field'} %></dd>
+<table  class="property_value prototype">
+  <tr>
+    <td><%= text_field_tag "property_value[new][name]", nil, {:class => 'property_value_field'} %></td>
     <% @property.value_structure.each do |name, type| %>
-      <dt><%= name.to_s.titlecase %>:</dt>
-      <dd><%= property_value_field_tag("property_value[new][fields][#{name}]", type) %></dd>
+      <td><%= property_value_field_tag("property_value[new][fields][#{name}]", type) %></td>
     <% end %>
-  </dl>
-</dl>
+  </tr>
+</table>
 
