@@ -164,7 +164,7 @@
 
       $("#keep_shopping").click(apply_filter);
 
-      $("#place_order").click(function(ev) {
+      $("#create_order").click(function(ev) {
         if ($("#catalog_form").validate().element("#order_name")) {
           $.loading({ mask:true });
           current_order.order_data.name = $("#order_name").val();
@@ -244,6 +244,6 @@
   <div class="actions">
     <input type="submit" id="preview" value="Preview"/>
     <input type="submit" id="keep_shopping" value="Keep Shopping"/>
-    <input type="submit" id="place_order" value="Place Order"/>
+    <input type="submit" id="create_order" value="Create Order"/>
   </div>
 </form>
