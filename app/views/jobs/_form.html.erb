@@ -35,7 +35,7 @@
         <dd><%= f.text_area :notes %></dd>
       <% else %>
         <dt><%= f.label :special_instructions %></dt>
-        <dd><%= can?(:update_instructions, @job) ? f.text_area(:comment) : @job.comment %></dd>
+        <dd><%= f.text_area(:comment) %></dd>
       <% end %>
     </dl>
   </div>

@@ -129,7 +129,9 @@
 </div>
 
 <% content_for :local_nav do %>
-  <%= link_to 'Edit', edit_job_path(@job) %> |
+  <% if can? :update, Job %>
+    <%= link_to 'Edit', edit_job_path(@job) %> |
+  <% end %>
   <% if can? :manage, Job %>
     <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
   <% end %>

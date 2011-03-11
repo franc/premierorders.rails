@@ -28,13 +28,10 @@ class Ability
     can [:read, :update], User, :id => user.id
  
     if user.role? :franchisee
-      can [:create, :read, :update, :place_order], Job do |job|
+      can [:create, :read, :place_order], Job do |job|
         job.new_record? || job.is_manageable_by(user)  
       end
-      can :update_instructions, Job do |job|
-        job.is_manageable_by(user) && (job.status.nil? || job.status == 'Created')
-      end
-      can :destroy, Job do |job|
+      can [:update, :destroy], Job do |job|
         job.is_manageable_by(user) && (job.status.nil? || job.status == 'Created')
       end
       can [:create, :read, :update, :destroy], [JobProperty, JobItem] do |x|
