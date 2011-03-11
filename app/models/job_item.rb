@@ -98,7 +98,7 @@ class JobItem < ActiveRecord::Base
   end
 
   def net_unit_price
-    computed_unit_price - unit_hardware_cost
+    (computed_unit_price || unit_price) - unit_hardware_cost
   end
 
   def net_total
