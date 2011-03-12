@@ -80,7 +80,7 @@ module SushiLoader
       item = Item.find_by_purchase_part_id(purchase_part_id)
       if item
         begin
-          db_price = item.price_expr(:in, nil, []).evaluate({})
+          db_price = item.retail_price_expr(:in, nil, []).evaluate({})
           f.println(row + [db_price]) unless db_price == BigDecimal.new(cost)
         rescue
         end

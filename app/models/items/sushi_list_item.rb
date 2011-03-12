@@ -1,4 +1,5 @@
 require 'properties'
+require 'fp'
 
 class Items::SushiListItem < Item
   AREA = Properties::PropertyDescriptor.new(:area, [], [Property::Area])
@@ -40,8 +41,13 @@ class Items::SushiListItem < Item
     end
   end
 
+  def rebated_cost_expr(units, color, contexts)
+    cost_expr(units, color, contexts)
+  end
+
   def cost_expr(units, color, contexts)
-    base_expr = super(units, color, contexts)
+    use_color = Option.new(color).orElse(dvinci_color_code).orSome(nil)
+    base_expr = super(units, use_color, contexts)
     base_expr.map do |expr|
       area.map{|v| v.replace_variables(expr, units)}.orSome(expr)
     end

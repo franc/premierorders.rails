@@ -98,7 +98,17 @@ class JobItem < ActiveRecord::Base
   end
 
   def net_unit_price
-    (computed_unit_price || unit_price) - unit_hardware_cost
+    if pricing_cache_status.nil?
+      update_cached_values
+      self.save
+    end
+    
+    case pricing_cache_status.to_sym
+      when :ok then computed_unit_price - unit_hardware_cost
+      when :error then 0
+      when :not_computed 
+        unit_price.nil? ? 0 : unit_price - unit_hardware_cost
+    end
   end
 
   def net_total
@@ -132,7 +142,7 @@ class JobItem < ActiveRecord::Base
   def compute_unit_price(units = :in)
     computed_unit_price = Option.new(item).bind do |i|
       begin
-        i.rebated_cost_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+        i.wholesale_price_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
       rescue
         logger.error "Error computing unit price: #{$!.message}\n #{$!.backtrace.join("\n")}"
         Option.some(Either.left($!.message))

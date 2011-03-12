@@ -34,7 +34,7 @@
     <dt><%= label :job_item, :quantity %></dt>
     <dd><%= @job_item.quantity %></dd>
     <dt><%= label :job_item, :item_name %></dt>
-    <dd><%= @job_item.item_name %></dd>
+    <dd><%= @job_item.item.nil? ? @job_item.item_name : link_to(@job_item.item_name, item_path(@job_item.item)) %></dd>
     <dt><%= label :job_item, :description %></dt>
     <dd><%= @job_item.ingest_desc %></dd>
     <dt><%= label :job_item, :dvinci_id %></dt>

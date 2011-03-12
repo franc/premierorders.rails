@@ -57,20 +57,23 @@ class CatalogOrdersController < ApplicationController
       :status => 'Placed'
     )
     
-    tracking_id = 0
-    params[:quantities].each do |item_id, qty|
-      item = Item.find(item_id)
-      JobItem.create(
-        :job_id => @job.id,
-        :item_id => item.id,
-        :quantity => qty,
-        :unit_price => item.sell_price,
-        :tracking_id => (tracking_id += 1)
-      )
-    end
-
     respond_to do |format|
       if @job.save
+        tracking_id = 0
+        params[:quantities].each do |item_id, qty|
+          item = Item.find(item_id)
+          job_item = JobItem.create(
+            :job_id => @job.id,
+            :item_id => item.id,
+            :quantity => qty,
+            :unit_price => item.sell_price,
+            :tracking_id => (tracking_id += 1)
+          )
+
+          job_item.update_cached_values
+          job_item.save
+        end
+
         format.js   { render :json => {:updated => 'success', :job_id => @job.id } }
         format.html { render :action => "jobs/show" }
       else
