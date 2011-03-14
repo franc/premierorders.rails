@@ -211,6 +211,10 @@
 	  <dd><%= f.text_field :rebate_factor %></dd>
 	  <dt><%= f.label :retail_multiplier %></dt>
 	  <dd><%= f.text_field :retail_multiplier %></dd>
+	  <dt><%= f.label :ship_by, "Drop Ship" %></dt>
+	  <dd><%= f.check_box(:ship_by, {}, 'drop_ship') %></dd>
+	  <dt><%= f.label :in_catalog, "In Catalog" %></dt>
+	  <dd><%= f.check_box(:in_catalog, {}, 'true') %></dd>
 	</dl>
   </div>
   <div>

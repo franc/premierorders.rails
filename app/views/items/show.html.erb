@@ -105,6 +105,10 @@
     <dd><%= @item.rebate_factor %></dd>
     <dt><%= label :item, :retail_multiplier %></dt>
     <dd><%= @item.retail_multiplier %></dd>
+    <dt><%= label :item, :ship_by %></dt>
+    <dd><%= Option.new(@item.ship_by).map{|v| v.titlecase}.orSome('Standard') %></dd>
+    <dt><%= label :item, :in_catalog %></dt>
+    <dd><%= @item.in_catalog ? 'Yes' : 'No' %></dd>
     <dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>
