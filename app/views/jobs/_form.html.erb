@@ -33,6 +33,8 @@
         <dd><%= f.text_area :comment %></dd>
         <dt><%= f.label :notes %></dt>
         <dd><%= f.text_area :notes %></dd>
+        <dt><%= f.label :sales_category %></dt>
+        <dd><%= select_tag 'job[sales_category]', options_for_select({'Garage' => 'garage', 'Home Office' => 'home office', 'Closet' => 'closet', 'Other' => 'other'}, @job.job_items[0].sales_category), :include_blank => true %></dd>
       <% else %>
         <dt><%= f.label :special_instructions %></dt>
         <dd><%= f.text_area(:comment) %></dd>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110314164640) do
+ActiveRecord::Schema.define(:version => 20110314214145) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(:version => 20110314164640) do
     t.decimal  "unit_hardware_cost",      :precision => 8, :scale => 2
     t.decimal  "unit_install_cost",       :precision => 8, :scale => 2
     t.float    "unit_weight"
+    t.string   "sales_category"
   end
 
   create_table "job_properties", :force => true do |t|

@@ -109,9 +109,10 @@ class JobsController < ApplicationController
   # PUT /jobs/1.xml
   def update
     prior_status = @job.status
-    @production_batch = ProductionBatch.find_by_id(params[:job][:production_batch_id])
     respond_to do |format|
-      if params[:job].key?(:production_batch_id) 
+      production_batch_id = params[:job].delete(:production_batch_id)
+      if production_batch_id
+        @production_batch = ProductionBatch.find_by_id(params[:job][:production_batch_id])
         @job.update_production_batch(@production_batch).cata( 
           lambda do |error|
             format.js   { render :json => {:updated => 'error', :error => error} }
@@ -122,7 +123,16 @@ class JobsController < ApplicationController
             format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
           end
         )
-      elsif @job.update_attributes(params[:job])
+      end
+
+      sales_category = params[:job].delete(:sales_category)
+      if sales_category
+        @job.job_items.each do |job_item|
+          job_item.update_attributes(:sales_category => sales_category)
+        end
+      end
+
+      if @job.update_attributes(params[:job])
         if @job.status == 'Confirmed' && @job.status != prior_status
           OrderMailer.order_placed_email(@job).deliver
         end
