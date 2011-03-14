@@ -22,6 +22,7 @@ class Job < ActiveRecord::Base
 
   searchable do
     text :name, :boost => 2.0
+    string :job_number
     string :status
     text :job_item_names do
       job_items.map{|job_item| job_item.item_name}
