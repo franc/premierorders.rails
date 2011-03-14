@@ -313,6 +313,13 @@ class Job < ActiveRecord::Base
     @inventory_items
   end
 
+  def update_cached_values
+    job_items.each do |job_item|
+      job_item.update_cached_values
+      job_item.save
+    end
+  end
+
   def to_s
     "#{Job.model_name.human} #{name}"
   end

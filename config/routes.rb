@@ -57,6 +57,7 @@ PgRails::Application.routes.draw do
     member do
       get 'cutrite'
       get 'download'
+      get 'recalculate'
       post 'place_order'
     end
   end

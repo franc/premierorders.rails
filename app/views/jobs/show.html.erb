@@ -87,7 +87,7 @@
   </dl>
 
   <dl class="items">
-    <dt>Manufactured Items ($<%= "%0.2f" % @job.total{|i| i.purchasing_type? 'Manufactured'} %>)</dt>
+    <dt>Manufactured Items ($<%= "%0.2f" % @job.total{|i| i.purchasing_type? 'Manufactured'} %>) <%= link_to "recalculate", recalculate_job_path(@job) %></dt>
     <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.purchasing_type? 'Manufactured'}} %></dd>
   </dl>
   

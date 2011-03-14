@@ -92,10 +92,7 @@ class JobsController < ApplicationController
           end
           @job.save
 
-          @job.job_items.each do |job_item|
-            job_item.update_cached_values
-            job_item.save
-          end
+          @job.update_cached_values
 
           format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
         else
@@ -147,6 +144,11 @@ class JobsController < ApplicationController
         format.html { render :action => "edit" }
       end
     end
+  end
+
+  def recalculate
+    @job.update_cached_values
+    redirect_to :action => :show
   end
 
   def place_order
