@@ -106,9 +106,15 @@ class Item < ActiveRecord::Base
     Option.new(rebate_factor).map{|f| div(expr, term(f))}.orSome(expr)
   end
 
-  def price_expr(units, color, contexts)
+  def retail_price_expr(units, color, contexts)
+    wholesale_price_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+  end
+
+  # For the wholesale price, any explicit sell price value will override
+  # a price derived from assembly component values
+  def wholesale_price_expr(units, color, contexts)
     Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}.orElseLazy do
-      rebated_cost_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+      rebated_cost_expr(units, color, contexts)
     end
   end
 

@@ -238,7 +238,7 @@ class ItemsController < ApplicationController
     color = params[:color]
     if request.xhr?
       render :json => {
-        :price_expr => @item.price_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available"),
+        :retail_price_expr => @item.retail_price_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available"),
         :cost_expr => @item.cost_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available"),
         :components => component_exprs(units, color, @item)
       }

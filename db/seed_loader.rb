@@ -385,7 +385,7 @@ class SeedLoader
           out.puts(row.join("\t"))
         else
           begin
-            item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
+            item_pricing_expr = item.retail_price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
               err.puts "Could not determine pricing expression for row #{row.inspect}"
             end
 
