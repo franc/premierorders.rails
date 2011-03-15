@@ -165,9 +165,9 @@ class JobsController < ApplicationController
     @job.place_order(DateTime.now, current_user)
     respond_to do |format|
       if @job.save
-        format.html { redirect_to(@job, :notice => 'Order was successfully placed.') }
+        format.html { redirect_to(job_path(@job), :notice => 'Order was successfully placed.') }
       else
-        format.html { redirect_to(@job, :error => "Order could not be placed: #{@job.errors}.") }
+        format.html { redirect_to(job_path(@job), :error => "Order could not be placed: #{@job.errors}.") }
       end
     end
   end
