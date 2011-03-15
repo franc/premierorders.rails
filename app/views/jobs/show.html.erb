@@ -47,6 +47,14 @@
       <dd><%= @job.name -%></dd>
     </dl>
 
+    <dl class="primary_contact">
+      <dt><%= label :job, :primary_contact %></dt>
+      <dd>
+        <%= @job.primary_contact.name -%> 
+        (<a href="mailto:<%= @job.primary_contact.email %>"><%= @job.primary_contact.email %></a>)
+      </dd>
+    </dl>
+
     <dl class="mfg_plant">
       <dt><%= label :job, :mfg_plant %></dt>
       <dd><%= @job.mfg_plant -%></dd>
