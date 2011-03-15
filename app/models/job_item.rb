@@ -115,6 +115,10 @@ class JobItem < ActiveRecord::Base
     net_unit_price * quantity
   end
 
+  def hardware_total
+    unit_hardware_cost * quantity
+  end
+
   # The following price attributes are used for display:
   # computed_unit_price
   # unit_price from import (for mismatch checking)

@@ -38,6 +38,10 @@
         <% if can? :manage, Job %>
           <li><%= link_to ProductionBatch.model_name.human.pluralize.titlecase, production_batches_path %></li>
         <% end %>
+
+        <% if can? :view_reports, :all %>
+          <li><%= link_to 'Sales Report', '/reports/sales' %></li>
+        <% end %>
       <% end %>
     </ul>
   </nav>

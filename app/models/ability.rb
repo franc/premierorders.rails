@@ -57,11 +57,13 @@ class Ability
     end
 
     if user.role? :accounting
+      can :view_reports, :all
       can :read, [Item, ItemComponent, ItemProperty, Property, PropertyValue, Job, JobProperty, JobItem, JobItemProperty]
       can :manage, [User, Franchisee, FranchiseeContact, Address]
     end
 
     if user.role? :admin
+      can :view_reports, :all
       can :manage, :all
     end
   end
