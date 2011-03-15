@@ -3,18 +3,15 @@ require 'item_queries/item_query'
 module ItemQueries 
   class ColorQuery < ItemQuery
     def initialize(property_family, dvinci_color_code, &value_test)
-      super(Monoid::Uniq.new {|v1, v2| v1.try(:dvinci_id) == v2.try(:dvinci_id)})
+      super(Monoid::Pref.new(&value_test))
       @property_family = property_family
       @dvinci_color_code = dvinci_color_code
-      @value_test = value_test
     end  
 
     def query_property(property)
-      Option.iif(property.family.strip == @property_family.strip) do
+      Option.iif(property.family == @property_family) do
         property.property_values.detect do |v|
-          v.respond_to?(:dvinci_id) && 
-          v.dvinci_id == @dvinci_color_code &&
-          (@value_test.nil? || @value_test.call(v))
+          v.respond_to?(:dvinci_id) && v.dvinci_id == @dvinci_color_code
         end
       end
     end
