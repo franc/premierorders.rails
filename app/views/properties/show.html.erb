@@ -7,18 +7,23 @@
     <dt>Family:</dt>
     <dd><%= @property.family %></dd>
     <dt>Values:</dt>
-    <dd id="property_values"> 
-      <% @property.property_values.each do |v| %>
-        <dl class="property_value">
-          <dt>Value Name:</dt>
-          <dd><%= v.name %></dd>
-          <% v.field_values.each do |name, details| %>
-            <dt><%= name.to_s.titlecase %>:</dt>
-            <dd><%= details[:value] %></dd><br><br>
-          <% end %><br><br>
-        </dl>
-        <hr/>
-      <% end %>
+    <dd> 
+      <table id="property_values">
+        <tr>
+          <th>Value Name</th>
+          <% @property.value_structure.each do |name, type| %>
+            <th><%= name.to_s.titlecase %></th>
+          <% end %>
+        </tr>
+        <% @property.property_values.each do |v| %>
+          <tr>
+            <td><%= v.name %></td>
+            <% @property.value_structure.each do |name, type| %>
+              <td><%= v.field_values[name][:value] %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
     </dd>
   </dl>
 </div>
