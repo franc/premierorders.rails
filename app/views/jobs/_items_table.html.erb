@@ -15,9 +15,7 @@ end
     <% end %>
     <th class="item_id">ID</th>
     <th class="item_name">Item Name</th>
-    <% if can? :manage, Job %>
-      <th class="item_purchase_part_id">Purchase Part ID</th>
-    <% end %>
+    <th class="item_purchase_part_id">Purchase Part ID</th>
     <th class="item_color">Color</th>
     <th class="item_quantity">Quantity</th>
     <th class="item_width">Width</th>
@@ -42,9 +40,7 @@ end
       <% else %>
         <td class="item_name"><%= job_item.item_name %></td>
       <% end %>
-      <% if can? :manage, Job %>
-        <td class="item_purchase_part_id"><%= job_item.item ? job_item.item.purchase_part_id : nil %></td>
-      <% end %>
+      <td class="item_purchase_part_id"><%= job_item.item ? job_item.item.purchase_part_id.try(:titlecase) : nil %></td>
       <td class="item_color"><%= job_item.color.orSome('') %></td>
       <td class="item_quantity"><%= job_item.quantity.to_i %></td>
       <td class="item_width"><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
