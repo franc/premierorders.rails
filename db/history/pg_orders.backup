@@ -494,7 +494,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 4903, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 4904, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 12005, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 12009, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 7698, true);
+SELECT pg_catalog.setval('job_items_id_seq', 7700, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 428, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 429, true);
 
 
 --
@@ -752,7 +752,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 464, true);
+SELECT pg_catalog.setval('jobs_id_seq', 465, true);
 
 
 --
@@ -899,7 +899,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 665, true);
+SELECT pg_catalog.setval('property_values_id_seq', 672, true);
 
 
 --
@@ -5601,6 +5601,7 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 86	199	2795	0.57	\N	8	\N	2011-03-10 18:54:30.325765	2011-03-10 18:54:30.367125
 87	6	2795	0.98	\N	8	\N	2011-03-10 18:54:30.375268	2011-03-10 18:54:30.412212
 88	217	2795	0.02	\N	4	\N	2011-03-10 18:54:30.415177	2011-03-10 18:54:30.43575
+4904	220	7700	0.04	\N	2	\N	2011-03-15 15:30:34.836544	2011-03-15 15:30:34.860304
 96	12	2796	0.02	\N	4	\N	2011-03-10 18:54:32.933604	2011-03-10 18:54:33.078695
 97	592	2796	0.01	\N	20	\N	2011-03-10 18:54:33.082152	2011-03-10 18:54:33.107198
 98	9	2796	0.06	\N	12	\N	2011-03-10 18:54:33.110086	2011-03-10 18:54:33.139922
@@ -12654,6 +12655,10 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 12003	7696	\N	dimensions	\N		{"linear_units":"in"}	2011-03-15 14:52:19.333379	2011-03-15 14:52:19.333379
 12004	7697	\N	dimensions	\N		{"linear_units":"in"}	2011-03-15 14:52:19.345558	2011-03-15 14:52:19.345558
 12005	7698	\N	dimensions	\N		{"linear_units":"in"}	2011-03-15 14:52:19.357053	2011-03-15 14:52:19.357053
+12006	7699	\N	dimensions	\N	Depth,Height,Width	{"height":"4.5","depth":"21.5","linear_units":"in","width":"27.495999999999999"}	2011-03-15 15:30:34.609045	2011-03-15 15:30:34.609045
+12007	7699	\N	color	\N	Color	{"color":"White"}	2011-03-15 15:30:34.61923	2011-03-15 15:30:34.61923
+12008	7700	\N	dimensions	\N	Height,Width	{"height":"8.6929999999999996","linear_units":"in","width":"29.870999999999999"}	2011-03-15 15:30:34.630032	2011-03-15 15:30:34.630032
+12009	7700	\N	color	\N	Color	{"color":"White"}	2011-03-15 15:30:34.645339	2011-03-15 15:30:34.645339
 \.
 
 
@@ -13179,6 +13184,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 7696	464	80	000.547.038.222.00P	2		2011-03-15 14:52:19.32831	2011-03-15 14:52:23.469413	19.01	34	ZH Sliding Wire Basket (18x6x12) | Polished Chrome	\N	\N	in	ok	21.19	0.00	0.10	\N	\N
 7697	464	60	000.807.067.603.00P	1		2011-03-15 14:52:19.340291	2011-03-15 14:52:23.63644	24.30	35	ZH Tie Rack | Matte Nickel	\N	\N	in	ok	24.30	0.00	0.07	\N	\N
 7698	464	66	000.808.071.603.00P	1		2011-03-15 14:52:19.352055	2011-03-15 14:52:23.666611	19.06	36	ZH Valet Rod | Matte Nickel	\N	\N	in	ok	19.06	0.00	0.07	\N	\N
+7699	465	198	000.024.002.051.00B	3		2011-03-15 15:30:34.603887	2011-03-15 15:30:34.819367	34.16	1	Drawer Box | White	\N	\N	in	ok	29.26	0.00	0.05	\N	\N
+7700	465	162	000.200.000.001.00M	3		2011-03-15 15:30:34.625229	2011-03-15 15:30:35.042997	11.64	2	Drawer Front - Flat | White	\N	\N	in	ok	9.59	0.08	0.05	\N	\N
 5381	314	44	000.930.031.001.00M	2		2011-03-03 17:36:43.44783	2011-03-10 19:06:06.902595	8.61	4	CL Cam Shelf | White	\N	\N	in	ok	8.61	0.00	0.05	\N	\N
 5382	314	44	000.930.031.001.00M	2		2011-03-03 17:36:43.469257	2011-03-10 19:06:07.208328	7.83	5	CL Cam Shelf | White	\N	\N	in	ok	7.83	0.00	0.05	\N	\N
 5383	314	44	000.930.031.001.00M	2		2011-03-03 17:36:43.490627	2011-03-10 19:06:07.292642	7.80	6	CL Cam Shelf | White	\N	\N	in	ok	7.80	0.00	0.05	\N	\N
@@ -15761,6 +15768,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 426	462	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-15 01:55:55.488583	2011-03-15 01:55:55.488583
 427	463	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-15 14:37:59.724143	2011-03-15 14:37:59.724143
 428	464	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-15 14:52:18.104775	2011-03-15 14:52:18.104775
+429	465	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-15 15:30:34.598183	2011-03-15 15:30:34.598183
 \.
 
 
@@ -15858,6 +15866,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 394	69	104	83	Bentley Linen	SO-172	\N	2011-03-10 17:20:33.669471	2011-03-10 21:18:24.726767	Bentley Linen Closet.xml	text/xml	9846	2011-03-10 17:20:33.667114	Phoenix	Confirmed	2011-03-18	\N		2011-03-10 17:21:13	104		Ground	104	3/10 can this ship ground? cs\r\n3/10 ok to ship ground, no confirmed ship date, best guess is 3/18/11. cs	83	Job
 210	11	10	14	McBurnett Garage 	SO-72	\N	2011-02-22 01:28:38.129379	2011-03-11 17:20:55.560159	McBurnett Garage Parts List.xls	application/vnd.ms-excel	15511	2011-02-22 01:28:38.127177	Phoenix	Shipped	2011-03-08	2011-03-11		2011-02-22 01:29:48	10		PremierRoute	10		14	\N
 159	17	16	20	Robert Sayson	SO - 42	\N	2011-02-16 22:16:56.425917	2011-03-09 16:11:51.341188	Robert Sayson 2-16-11.dvi Parts List.xml	text/xml	54162	2011-02-16 22:16:56.423682	Phoenix	Shipped	2011-03-03	2011-03-08	Need two boxes of mini cam assemblies	2011-02-16 22:22:59	16		PremierRoute	16	(The tops may not have been ordered the correct size. EH)	20	\N
+465	1	32	1	Replacements for SO-56	\N	\N	2011-03-15 15:30:34.510311	2011-03-15 15:30:34.510311	Untitled Parts List.xml	application/xml	6343	2011-03-15 15:30:34.507653	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job
 383	6	31	9	Alpine	SO-168	\N	2011-03-09 20:48:41.967036	2011-03-11 13:49:57.136739	ALPINE STORAGE Parts List2.xml	text/xml	5665	2011-03-09 20:48:41.964875	Phoenix	Confirmed	2011-03-25	\N		2011-03-09 20:49:37	31		PremierRoute	31	Pewter.	9	\N
 195	33	101	41	Harger, Eric	SO - 59	\N	2011-02-19 04:00:45.997162	2011-03-11 22:05:44.256505	Harger, Eric.dvi Parts List.xml	text/xml	66139	2011-02-19 04:00:45.953419	Phoenix	Shipped	2011-03-07	2011-03-11		2011-02-19 04:01:40	101		PremierRoute	101		41	\N
 234	5	99	8	Rubino ShoeCubby	SO-86	\N	2011-02-24 16:51:35.575254	2011-03-11 11:09:08.027532	Rubino ShoeCubby Parts List.xml	text/xml	13183	2011-02-24 16:51:35.571839	Phoenix	In Production	2011-03-10	\N		2011-02-24 16:53:57	99		PremierRoute	99		8	\N
@@ -18098,6 +18107,13 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 7	663
 7	664
 7	665
+67	666
+67	667
+67	668
+67	669
+67	670
+67	671
+67	672
 \.
 
 
@@ -18590,7 +18606,7 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 243	Windswept Pewter	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-PEW-2S","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-01-13 02:52:08.282131	2011-03-10 20:53:33.959459
 244	Hardrock Maple	Material	{"price":"1.02","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-MAP-2S","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-13 02:52:08.29689	2011-03-10 20:53:33.963102
 198	PB19	Material	{"price":".470","waste_factor":".03","thickness":".75","weight":"2.5","cutrite_code":"19-RAW-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"000"}	2011-01-06 15:18:17.157484	2011-03-10 21:35:33.632923
-211	White	Material	{"price":".375","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"19-WHT-2S","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-12 17:51:38.749889	2011-03-10 21:39:53.207063
+211	White	Material	{"price":".375","thickness":".25","waste_factor":".1","cutrite_code":"06-WHT-2S","weight":".8333","color":"White","price_units":"ft","thickness_units":"in","dvinci_id":"001"}	2011-01-12 17:51:38.749889	2011-03-15 15:42:28.576523
 337	423 Hardrock Maple	LinearPricing	{"price":"0.31177083333","price_units":"in"}	2011-02-22 17:47:38.115881	2011-02-28 23:44:38.546019
 215	Wild Apple	Material	{"price":".780","waste_factor":".1","thickness":".75","weight":"2.5","cutrite_code":"19-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-12 18:33:39.885205	2011-03-10 21:37:57.049498
 202	Hardrock Maple	Material	{"price":".748","waste_factor":".08","thickness":".75","weight":"2.5","cutrite_code":"19-MAP/WHT","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-01-07 18:04:26.721687	2011-03-10 21:37:57.068612
@@ -18759,6 +18775,11 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 656	PG Stainless Workbench 72 X 25 dimensions (72 x 25)	Area	{"width":"72","length":"25","linear_units":"in"}	2011-03-10 00:29:50.300793	2011-03-10 00:29:50.300793
 657	PG Stainless Workbench 96 X 25 dimensions (96 x 25)	Area	{"width":"96","length":"25","linear_units":"in"}	2011-03-10 00:29:50.329284	2011-03-10 00:29:50.329284
 240	Wild Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-13 02:52:08.231369	2011-03-10 20:53:33.948359
+668	Antique White	Material	{"price":".654","waste_factor":".1","thickness":".25","weight":".8333","cutrite_code":"06-ANT-2S","price_units":"ft","color":"Antique White","thickness_units":"in","dvinci_id":"002"}	2011-03-15 15:42:28.501326	2011-03-15 15:42:28.501326
+669	Carmel Apple	Material	{"price":".716","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-CAR-2S","price_units":"ft","color":"Carmel Apple","thickness_units":"in","dvinci_id":"004"}	2011-03-15 15:42:28.515891	2011-03-15 15:42:28.515891
+670	Wild Apple	Material	{"price":".716","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-WLD-2S","price_units":"ft","color":"Wild Apple","thickness_units":"in","dvinci_id":"005"}	2011-03-15 15:42:28.529697	2011-03-15 15:42:28.529697
+671	Chocolate Apple	Material	{"price":".716","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-CHO-2S","price_units":"ft","color":"Chocolate Apple","thickness_units":"in","dvinci_id":"007"}	2011-03-15 15:42:28.544759	2011-03-15 15:42:28.544759
+672	Windswept Bronze	Material	{"price":".696","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-PEW-1S","price_units":"ft","color":"Windswept Bronze","thickness_units":"in","dvinci_id":"008"}	2011-03-15 15:42:28.560755	2011-03-15 15:42:28.560755
 658	Wild Apple	Material	{"price":"1.125","thickness":"1","waste_factor":".15","cutrite_code":"25-WIL-1S","weight":"3.3333","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-03-10 21:05:19.111418	2011-03-13 17:49:43.006027
 659	Carmel Apple	Material	{"price":"1.125","thickness":"1","waste_factor":".15","cutrite_code":"25-CAR-1S","weight":"3.3333","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-03-10 21:05:19.132156	2011-03-13 17:49:43.009668
 660	Chocolate Apple	Material	{"price":"1.125","thickness":"1","waste_factor":".15","cutrite_code":"25-CHO-1S","weight":"3.3333","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-03-10 21:05:19.145434	2011-03-13 17:49:43.013223
@@ -18770,6 +18791,8 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 47	Windswept Bronze	Material	{"price":"1.038","thickness":".75","waste_factor":".1","cutrite_code":"19-BRO-2S","weight":"2.5","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 19:43:30.167045	2011-03-14 19:31:19.050301
 53	Carmel Apple	Material	{"price":".780","thickness":".75","waste_factor":".1","cutrite_code":"19-CAR-2S","weight":"2.5","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 19:43:30.249309	2011-03-14 19:31:19.073815
 57	Windswept Bronze	Material	{"price":".726","thickness":".25","waste_factor":".15","cutrite_code":"06-BRO-2S","weight":".8333","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 20:39:20.274224	2011-03-14 19:32:41.268707
+666	Windswept Pewter	Material	{"price":".713","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-BRO-1S","price_units":"ft","color":"Windswept Pewter","thickness_units":"in","dvinci_id":"009"}	2011-03-15 15:42:28.45754	2011-03-15 15:42:28.45754
+667	Hardrock Maple	Material	{"price":".597","waste_factor":".15","thickness":".25","weight":".8333","cutrite_code":"06-MPL-1S","price_units":"ft","color":"Hardrock Maple","thickness_units":"in","dvinci_id":"010"}	2011-03-15 15:42:28.48546	2011-03-15 15:42:28.48546
 \.
 
 
@@ -19017,8 +19040,8 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	NKPSdpdqzsjajvoJoQzA	2011-02-24 17:45:06.438803	4	2011-03-10 17:15:48.544559	2011-03-10 14:07:44.629657	99.34.172.198	99.34.172.198	2011-02-24 17:28:44.010247	2011-03-10 17:15:48.545156
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	Y5dw-xQ_qsZY46vVquNH	2011-03-01 19:03:46.42973	15	2011-03-14 15:54:20.257939	2011-03-11 15:03:11.783855	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-14 15:54:20.258591
 105	\N	Jason	O'toole	602 763 0182			jotoole@premiergarage.com	$2a$10$ehHcfRTIhgDs0P39hXMxXezkf5GEcFCTvOu9sO08dA30m1ii4u6Me	$2a$10$ehHcfRTIhgDs0P39hXMxXe	\N	hk85iPoTVKKVjISlgHm0	2011-03-02 15:24:51.120151	3	2011-03-02 18:31:52.79696	2011-03-02 15:24:51.124456	75.226.24.93	174.79.54.226	2011-03-02 15:22:49.861246	2011-03-02 18:31:52.797551
-71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	7	2011-03-15 14:58:58.020756	2011-03-15 14:50:31.987183	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-03-15 14:58:58.021784
-106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	4	2011-03-07 16:00:08.609411	2011-03-04 18:02:44.383923	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-03-07 16:00:08.610506
+71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	8	2011-03-15 15:32:33.398519	2011-03-15 14:58:58.020756	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-03-15 15:32:33.399581
+106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	5	2011-03-15 15:44:30.670885	2011-03-07 16:00:08.609411	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-03-15 15:44:30.671623
 31	Mrs.	Jodi & Kevin	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$RSPC2iSiggXkH7WpZiMqc.vODnp/ZV95EMAK.evGVO76OSNQ/pH6C	$2a$10$RSPC2iSiggXkH7WpZiMqc.	\N	\N	\N	3	2011-03-09 19:37:38.216385	2011-01-27 18:37:39.160114	198.53.93.114	71.196.137.193	2011-01-01 18:53:36.240116	2011-03-09 20:57:11.804443
 \.
 
