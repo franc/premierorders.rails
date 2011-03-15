@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 11775, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 11782, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 7559, true);
+SELECT pg_catalog.setval('job_items_id_seq', 7563, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 421, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 422, true);
 
 
 --
@@ -752,7 +752,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 457, true);
+SELECT pg_catalog.setval('jobs_id_seq', 458, true);
 
 
 --
@@ -11904,6 +11904,13 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 10487	6730	\N	dimensions	\N		{"linear_units":"in"}	2011-03-09 02:42:02.618465	2011-03-09 02:42:02.618465
 10488	6731	\N	dimensions	\N		{"linear_units":"in"}	2011-03-09 02:42:02.629648	2011-03-09 02:42:02.629648
 10489	6732	\N	dimensions	\N		{"linear_units":"in"}	2011-03-09 02:42:02.640599	2011-03-09 02:42:02.640599
+11776	7560	\N	dimensions	\N	Depth,Width	{"depth":"14","linear_units":"in","width":"34.25"}	2011-03-14 23:00:34.875609	2011-03-14 23:00:34.875609
+11777	7560	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-14 23:00:34.888851	2011-03-14 23:00:34.888851
+11778	7561	\N	dimensions	\N	Depth,Width	{"depth":"14","linear_units":"in","width":"96"}	2011-03-14 23:00:34.900357	2011-03-14 23:00:34.900357
+11779	7561	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-14 23:00:34.913422	2011-03-14 23:00:34.913422
+11780	7562	\N	dimensions	\N	Depth,Width	{"depth":"24","linear_units":"in","width":"62.5"}	2011-03-14 23:00:34.92522	2011-03-14 23:00:34.92522
+11781	7562	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-14 23:00:34.938889	2011-03-14 23:00:34.938889
+11782	7563	\N	dimensions	\N		{"linear_units":"in"}	2011-03-14 23:00:34.949332	2011-03-14 23:00:34.949332
 10576	6786	\N	dimensions	\N	Width,Height	{"height":"6.173","width":"19.875","linear_units":"in"}	2011-03-09 03:23:10.708561	2011-03-09 03:23:10.708561
 10577	6786	\N	color	\N	Color	{"color":"White"}	2011-03-09 03:23:10.72298	2011-03-09 03:23:10.72298
 10578	6787	\N	dimensions	\N	Width,Depth,Height	{"height":"7","depth":"15.75","width":"18.25","linear_units":"in"}	2011-03-09 03:23:10.732252	2011-03-09 03:23:10.732252
@@ -12813,6 +12820,10 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 6517	370	516	000.100.000.009.00M	8		2011-03-08 15:19:00.348858	2011-03-14 22:51:22.278668	1.94	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	19.37	0.06	0.05	\N	
 4342	238	526	000.205.000.001.00B	1		2011-02-24 17:48:43.575463	2011-03-10 19:02:47.282767	9.02	20	Decor Drawer Front - KB732 | White	\N	\N	in	ok	9.01	0.08	0.05	\N	\N
 4377	244	671	000.990.320.50U.00I	1	Order 1 box	2011-02-24 18:18:52.795931	2011-03-10 19:03:14.089585	0.52	14	ZH SlatWall U Edge Molding (4/box) | Gray	\N	\N	in	ok	5.22	0.00	\N	\N	\N
+7560	458	44	000.930.041.007.00M	3		2011-03-14 23:00:34.870411	2011-03-14 23:00:35.152136	21.46	1	CL Cam Shelf | Chocolate Apple	\N	\N	in	ok	10.82	0.00	0.05	\N	\N
+7561	458	48	000.934.091.007.00M	1		2011-03-14 23:00:34.895245	2011-03-14 23:00:35.31996	46.68	2	CL Top Shelf | Chocolate Apple	\N	\N	in	ok	21.42	0.00	0.03	\N	\N
+7562	458	19	000.501.000.007.00M	1		2011-03-14 23:00:34.919801	2011-03-14 23:00:35.379894	82.25	3	CTOP - 1 in. melamine | Chocolate Apple	\N	\N	in	ok	32.90	0.00	0.25	\N	\N
+7563	458	2	000.117.031.230.00I	5	NEED TO ORDER BOX OF HANDLES	2011-03-14 23:00:34.944605	2011-03-14 23:00:35.40499	15.09	4	ZH Handle Chrome | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	\N
 2667	162	45	000.931.021.001.00M	1		2011-02-17 00:05:07.893588	2011-03-10 19:04:51.489408	5.99	1	CL Adjustable Shelf | White	\N	5	in	ok	5.99	0.00	0.03	\N	\N
 2671	162	44	000.930.031.001.00M	2		2011-02-17 00:05:08.120907	2011-03-10 19:04:51.557697	6.78	5	CL Cam Shelf | White	\N	5	in	ok	6.78	0.00	0.05	\N	\N
 5208	305	44	000.930.982.001.00M	2		2011-03-02 19:39:32.663536	2011-03-10 19:04:51.889322	3.10	4	CL Cam Shelf | White	\N	\N	in	ok	3.10	0.00	0.05	\N	\N
@@ -15408,6 +15419,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 415	451	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-14 20:15:38.691465	2011-03-14 20:15:38.691465
 416	452	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-14 20:16:39.587534	2011-03-14 20:16:39.587534
 417	453	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-14 20:16:49.486145	2011-03-14 20:16:49.486145
+422	458	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-14 23:00:34.863232	2011-03-14 23:00:34.863232
 \.
 
 
@@ -15571,6 +15583,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 423	8	32	38	Sample Cabinets	SO-174	\N	2011-03-11 18:28:00.050482	2011-03-11 18:28:36.625707	Sample Cabinets.xml	application/xml	6329	2011-03-11 18:28:00.046165	\N	Placed	\N	\N	Doors and Workbench tops are included in this product code. EH	2011-03-11 18:28:36	32	\N	\N	32	\N	\N	Job
 365	35	65	43	Archer walk in	SO-154	\N	2011-03-07 23:51:15.959001	2011-03-11 19:25:38.694584	Archer walk in Parts List.xml	text/xml	51530	2011-03-07 23:51:15.956746	Phoenix	Confirmed	2011-03-22	\N	Also Need box quantities of: 10054, 10050, 10048, 10051.	2011-03-08 00:06:19	65		PremierRoute	65	3/11 laminate top is the correct size stated. 	43	\N
 453	9	9	13	Scarborough	SO-192	\N	2011-03-14 20:16:49.018712	2011-03-14 20:19:19.612266	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	30086	2011-03-14 20:16:49.01654	\N	Placed	\N	\N	Five drawer cabinet:\r\n\r\n1. Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2. Next drawer from top down should be stationery drawer (1 vertical panel starts 2" from the back of the drawer front, and then there should be 4 additional spacers at 45 degrees\r\n\r\n3.  Next two drawers are equal in height:\r\n\r\nDrawer suspended underneath corner countertop:\r\n\r\n1.  Drawer front should be 2 1/4" if possible.  Width and depth are same dimensions Eric gave me.\r\n\r\n2.  Need hardware mounting kit for this drawer:\r\n\r\nThree drawer cabinet:\r\n\r\n1.  Should have 3 equal drawer font sizes (not file drawer and then two small drawers):\r\n\r\n30" wide file drawer cabinet\r\n\r\n1.  Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2.  Middle drawer should be file drawer with appropriate hardware\r\n\r\n3.  Bottom drawer should be whatever remaining space allows:\r\n\r\nPlease also make note the custom corner countertop should have a depth of 20" on each side in order to align with other cabinets:\r\n\r\nThere are lot of moving parts on this one so please call with questions.\r\n\r\n\r\n 	2011-03-14 20:19:19	9	\N	\N	9	\N	13	Job
+458	17	16	20	ROBERT SAYSON 2 	\N	\N	2011-03-14 23:00:34.748305	2011-03-14 23:01:18.746389	Robert Sayson 3-14-11.dvi Parts List.xml	text/xml	9250	2011-03-14 23:00:34.746072	\N	Created	\N	\N	noted on spreadshhet to order 1 box of chrome handles.\r\n\r\nNEED ORDER SHIPPED LTL OR OTHER ASAP	\N	\N	\N	\N	16	\N	20	Job
 \.
 
 
