@@ -1,6 +1,7 @@
 class OrderMailer < ActionMailer::Base
   default :from => "mailer@premierorders.net"
   helper :jobs
+  helper :job_items
 
   def order_placed_email(job)
     @job = job

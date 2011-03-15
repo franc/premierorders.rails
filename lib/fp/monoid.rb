@@ -27,6 +27,20 @@ module Monoid
     end
   end
 
+  class Pref
+    def initialize(&choice)
+      @choice = choice
+    end
+
+    def zero
+      Option.none
+    end
+
+    def append(o1, o2)
+      o1.map{|v1| o2.map{|v2| @choice.call(v1, v2)}.orSome(v1)}.orElse(o2)
+    end
+  end
+
   class OptionM
     def initialize(value_semigroup)
       @value_semigroup = value_semigroup
