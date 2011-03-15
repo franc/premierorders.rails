@@ -14,25 +14,28 @@
       <%= text_field_tag :end_date, @end_date, :class => 'date_field' %>
     </dd>
     <dt>Customer</dt>
-    <dd><%= select_tag :franchisee_id, options_from_collection_for_select(@franchisees, :id, :franchise_name, @franchisee ? @franchisee.id : nil) %></dd>
+    <dd><%= select_tag :franchisee_id, options_from_collection_for_select(@franchisees, :id, :franchise_name, @franchisee ? @franchisee.id : nil), :include_blank => true %></dd>
     <dt>&nbsp;</dt>
     <dd><%= submit_tag 'Run Report' %></dd>
     <dt>Totals</dt>
     <dd>
       <table>
-        <tr>
-          <th>Sales Category</th>
-          <th>Manufactured Total</th>
-          <th>Buyout Total</th>
-          <th>Inventory Total</th>
-        </tr>
-        <% @report_data.each do |cat, totals| %>
+        <% @report_data.each do |franchisee, sales_data| %>
+          <tr><th colspan="4"><%= franchisee.franchise_name %></th></tr>
           <tr>
-            <td><%= cat.titlecase %></td>
-            <td><%= totals[:manufactured] %></td>
-            <td><%= totals[:buyout] %></td>
-            <td><%= totals[:bulk_inventory] %></td>
+            <th>Sales Category</th>
+            <th>Manufactured Total</th>
+            <th>Buyout Total</th>
+            <th>Inventory Total</th>
           </tr>
+          <% sales_data.each do |cat, totals| %>
+            <tr>
+              <td><%= cat.titlecase %></td>
+              <td><%= totals[:manufactured] %></td>
+              <td><%= totals[:buyout] %></td>
+              <td><%= totals[:bulk_inventory] %></td>
+            </tr>
+          <% end %>
         <% end %>
       </table>
     </dd>
