@@ -35,10 +35,10 @@ class Job < ActiveRecord::Base
     [
       "Created",
       "Placed",
-      "On Hold"
+      "On Hold",
+      "Confirmed"
     ],
     [
-      "Confirmed",
       "Ready For Production",
       "In Production"
     ],
@@ -46,9 +46,11 @@ class Job < ActiveRecord::Base
       "Ready for Packing",
       "Ready to Ship",
       "Hold Shipment",
-      "Shipped"
     ],
-    ["Cancelled"]
+    [
+      "Shipped",
+      "Cancelled"
+    ]
   ]
 
   STATUS_OPTIONS = STATUS_GROUPS.flatten
