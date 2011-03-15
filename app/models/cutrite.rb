@@ -23,7 +23,7 @@ module Cutrite
   end
 
   def cutrite_items_data(units = :mm)
-    job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item, units)}
+    job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.blank?}.map{|job_item| cutrite_item_data(job_item, units)}
   end
 
   def cutrite_item_data(job_item, units = :mm)

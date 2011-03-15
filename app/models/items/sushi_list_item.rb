@@ -18,6 +18,12 @@ class Items::SushiListItem < Item
     @area
   end
 
+  def cutrite_id
+    logger.info("Attempting to read sushi list item cutrite id. #{components[0].cutrite_id}")
+    local = read_attribute(:cutrite_id)
+    local.nil? ? components[0].cutrite_id : local
+  end
+
   def purchase_part_id
     local = read_attribute(:purchase_part_id)
     local.nil? ? components[0].purchase_part_id : local
