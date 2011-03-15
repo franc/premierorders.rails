@@ -55,7 +55,7 @@ class CatalogOrdersController < ApplicationController
       :primary_contact_id => params[:primary_contact_id],
       :shipping_address_id => params[:shipping_address_id],
       :billing_address_id => params[:billing_address_id],
-      :status => 'Placed'
+      :status => 'Created'
     )
     
     respond_to do |format|
