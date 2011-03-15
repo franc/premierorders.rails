@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @start_date = params[:start_date]
     @end_date   = params[:end_date]
     @franchisee = Franchisee.find_by_id(params[:franchisee_id])
-    @franchisees = Franchisee.all
+    @franchisees = Franchisee.order(:franchise_name)
 
     if @start_date && @end_date 
       @jobs = Job.where(['ship_date >= ? and ship_date <= ?', @start_date, @end_date]) 
