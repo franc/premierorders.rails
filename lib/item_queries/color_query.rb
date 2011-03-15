@@ -10,7 +10,7 @@ module ItemQueries
     end  
 
     def query_property(property)
-      pv = Option.iif(property.family == @property_family) do
+      Option.iif(property.family.strip == @property_family.strip) do
         property.property_values.detect do |v|
           v.respond_to?(:dvinci_id) && 
           v.dvinci_id == @dvinci_color_code &&

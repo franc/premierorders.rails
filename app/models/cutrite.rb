@@ -38,10 +38,16 @@ module Cutrite
     ]
 
     custom_attr_values = job_item.dvinci_color_code.map do |color_code|
+      #logger.info("Querying for panel material for #{job_item.item_name}")
       panel_query = ItemQueries::ColorQuery.new('panel_material', color_code) {|v| v.thickness(:in) != 0.25}
-      door_query = ItemQueries::ColorQuery.new('door_material', color_code)
       panel_material = Option.new(job_item.item).bind do |i| 
-        i.query(panel_query, []).orElseLazy{i.query(door_query, [])}
+        i.query(panel_query, [])
+      end
+
+      #logger.info("Querying for door material for #{job_item.item_name}")
+      door_query = ItemQueries::ColorQuery.new('door_material', color_code)
+      door_material = Option.new(job_item.item).bind do |i| 
+        i.query(door_query, [])
       end
 
       eb_query = ItemQueries::ColorQuery.new('edge_band', color_code) {|v| v.width == 19 }
@@ -51,11 +57,11 @@ module Cutrite
       eb2_material = Option.new(job_item.item).bind {|i| i.query(eb2_query, [])}
 
       [
-        panel_material.map{|m| m.color}.orSome(''),
-        panel_material.map{|m| m.cutrite_code}.orSome(''),
+        panel_material.orElse(door_material).map{|m| m.color}.orSome(''),
+        panel_material.orElse(door_material).map{|m| m.cutrite_code}.orSome(''),
         eb_material.map{|m| m.cutrite_code}.orSome(''),
         eb2_material.map{|m| m.cutrite_code}.orSome(''),
-        panel_material.map{|m| m.cutrite_code}.orSome(''),
+        door_material.orElse(panel_material).map{|m| m.cutrite_code}.orSome(''),
         eb_material.map{|m| m.cutrite_code}.orSome('')
       ]
     end
