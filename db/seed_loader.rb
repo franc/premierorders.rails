@@ -371,10 +371,25 @@ class SeedLoader
   end
 
   def dump_tab_file(filename)
+    tab_headers = [
+      'PartID',
+      'CatalogID',
+      'PartString',
+      'Description',
+      'Quantity',
+      'Price',
+      'Labor',
+      'SpecialFlags',
+      'Weight',
+      'Image'
+    ]
+
     File.open("generated_tab_errors.out", "w") do |err|
     File.open("generated_tab_missing.out", "w") do |missing|
     File.open("generated_tab_mismatch.out", "w") do |mismatch|
     File.open("bridge_generated.tab", "w") do |out|
+      out.puts(tab_headers.join("\t"))
+
       with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
         part_id, catalog_id, dvinci_id, description, flag, price, *xs = row
 
@@ -394,7 +409,7 @@ class SeedLoader
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
-            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr, xs[0]]).join("\t"))
+            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t"))
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
           end
