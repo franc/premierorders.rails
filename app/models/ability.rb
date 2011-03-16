@@ -49,21 +49,21 @@ class Ability
 
     if user.role? :product_admin
       can :manage, [Item, ItemComponent, ItemProperty, Property, PropertyValue]
-      can [:create, :read, :update], [Job, JobProperty, JobItem, JobItemProperty]
+      can [:create, :read, :update, :cutrite, :download], [Job, JobProperty, JobItem, JobItemProperty]
       can :pg_internal_cap, :all
     end
 
     if user.role? :customer_service
       can :read, [Item, ItemComponent, ItemProperty, Property, PropertyValue, Franchisee, FranchiseeContact]
       can :manage, [ProductionBatch, User, Address]
-      can [:create, :read, :update], [Job, JobProperty, JobItem, JobItemProperty]
+      can [:create, :read, :update, :cutrite, :download], [Job, JobProperty, JobItem, JobItemProperty]
       can :pg_internal_cap, :all
     end
 
     if user.role? :accounting
       can :view_reports, :all
       can :read, [Item, ItemComponent, ItemProperty, Property, PropertyValue]
-      can [:create, :read, :update], [Job, JobProperty, JobItem, JobItemProperty]
+      can [:create, :read, :update, :cutrite, :download], [Job, JobProperty, JobItem, JobItemProperty]
       can :manage, [User, Franchisee, FranchiseeContact, Address]
       can :pg_internal_cap, :all
     end
