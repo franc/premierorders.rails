@@ -112,7 +112,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       production_batch_id = params[:job].delete(:production_batch_id)
       if production_batch_id
-        @production_batch = ProductionBatch.find_by_id(params[:job][:production_batch_id])
+        @production_batch = ProductionBatch.find_by_id(production_batch_id)
         @job.update_production_batch(@production_batch).cata( 
           lambda do |error|
             format.js   { render :json => {:updated => 'error', :error => error} }

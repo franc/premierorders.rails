@@ -6,11 +6,7 @@
         <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
         <td><%= job_status_select(job) -%></td>
         <td><%= job_ship_method_select(job) -%></td>
-        <td>
-          <%= (job.production_batches_closed? || job.status.nil? || job.status == 'Created') ? 
-              job.production_batches.to_a.map{|b| b.name}.join("<br/>") : 
-              production_batch_select(job) %>
-        </td>
+        <td><%= job_production_batch_select(job)%></td>
       <% else %>
         <td><%= job.due_date %></td>
         <td><%= job.ship_date %></td>

@@ -19,6 +19,14 @@ module JobsHelper
     ) 
   end
 
+  def job_production_batch_select(job)
+    if (job.production_batches_closed? || job.status.nil? || job.status == 'Created') 
+      job.production_batches.to_a.map{|b| b.name}.join("<br/>") 
+    else
+      production_batch_select(job)   
+    end
+  end
+
   def job_ship_method_select(job)
     select_tag(
       "job[#{job.id}][ship_method]", 
