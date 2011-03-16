@@ -136,7 +136,7 @@
         var item_id;
         for (item_id in current_order.order_data.quantities) {
           if (current_order.order_data.quantities[item_id] != 0) {
-            $(".row_"+item_id).show();
+            $(".prototype_item_row").after($(".row_"+item_id).show());
           }
         }
       };
