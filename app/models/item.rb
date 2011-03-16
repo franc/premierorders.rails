@@ -18,12 +18,33 @@ class Item < ActiveRecord::Base
     self.connection.execute(sql)
   end
 
-  def self.search(types, term)
+  def self.simple_search(types, term)
     if (types.empty? || (types.length == 1 && types[0] == 'Item'))
       Item.find_by_sql(["SELECT * FROM items WHERE name ILIKE ?", "%#{term}%"])
     else
       Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"])
     end
+  end
+
+  searchable do
+    text :name, :boost => 2.0
+    text :description
+    text :dvinci_id do
+      if dvinci_id
+        tokens = dvinci_id.split(/\./)
+        subsets = (1..tokens.length).inject([]) do |m, l|
+          (0..(tokens.length - l)).inject(m) do |mm, i|
+            mm << (tokens[i, l].join("."))
+          end
+        end
+
+        subsets.select{|tok| tok != 'x'}
+      end
+    end
+    string :type
+    string :category
+    string :purchase_part_id
+    string :cutrite_id
   end
 
   def self.find_by_concrete_dvinci_id(id)

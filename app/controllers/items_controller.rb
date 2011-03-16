@@ -16,12 +16,22 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    conditions = params.reject do |k, v|
-      !['type', 'category'].include?(k) || v.blank?
-    end
+    if params[:search]
+      @search = Item.search do 
+        with(:type).equal_to(params[:type]) unless params[:type].blank?
+        with(:category).equal_to(params[:category]) unless params[:category].blank?
+        keywords(params[:search]) 
+      end 
 
-    @items = conditions.empty? ? @items : @items.where(conditions.to_hash)
-    @items = @items.order(:name).paginate(:page => params[:page], :per_page => 50)
+      @items = @search.results.select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
+    else
+      conditions = params.reject do |k, v|
+        !['type', 'category'].include?(k) || v.blank?
+      end
+
+      @items = conditions.empty? ? @items : @items.where(conditions.to_hash)
+      @items = @items.order(:name).paginate(:page => params[:page], :per_page => 50)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -105,7 +115,7 @@ class ItemsController < ApplicationController
   end
 
   def search
-    @items = Item.search(params[:types], params[:term])
+    @items = Item.simple_search(params[:types], params[:term])
     if request.xhr?
       render :json => @items.map{|item| item_select_json(item)}
     end

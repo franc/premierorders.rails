@@ -7,6 +7,7 @@
 
       $("#item_type_filter").change(item_filters_submit);
       $("#item_category_filter").change(item_filters_submit);
+      $("#item_search").change(item_filters_submit);
     });
   </script>
 <% end %>
@@ -24,6 +25,9 @@
     <%= select_tag 'category', 
                    options_for_select(Item::categories.map{|v| [v.titlecase, v]}, params[:category]),
                    :id => 'item_category_filter', :include_blank => true %>
+
+    <strong>Search: </strong> 
+    <input type="text" name="search" id="item_search" value="<%= params[:search] %>"/>
   </span>
 </form>
 
