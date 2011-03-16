@@ -14,7 +14,7 @@
       <dd><%= collection_select(:job, :billing_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
-      <% if can? :manage, @job %>
+      <% if can? :pg_internal_cap, @job %>
         <dt><%= f.label :mfg_plant %></dt>
         <dd><%= f.select :mfg_plant, options_for_select(Job::MFG_PLANT_OPTIONS.map{|v| [v,v]}, @job.mfg_plant)  -%></dd>
         <dt><%= f.label :status %></dt>
@@ -27,8 +27,6 @@
         <dd><%= f.select :ship_method, options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, @job.ship_method) -%></dd>
         <dt><%= f.label :tracking_number %></dt>
         <dd><%= f.text_field :tracking_number %></dd>
-      <% end %>
-      <% if can? :manage, Job %>
         <dt><%= f.label :special_instructions %></dt>
         <dd><%= f.text_area :comment %></dd>
         <dt><%= f.label :notes %></dt>
