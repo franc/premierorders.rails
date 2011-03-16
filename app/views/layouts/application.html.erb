@@ -35,7 +35,7 @@
           <li><%= link_to User.model_name.human.pluralize, users_path %></li>
         <% end %>
 
-        <% if can? :manage, Job %>
+        <% if can? :manage, ProductionBatch %>
           <li><%= link_to ProductionBatch.model_name.human.pluralize.titlecase, production_batches_path %></li>
         <% end %>
 

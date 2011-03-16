@@ -25,7 +25,7 @@ end
     <th class="item_unit_price">Unit Price</th>
     <th class="item_total">Total</th>
     <th class="item_special_instructions">Special Instructions</th>
-    <% if render_for == :web && can?(:manage, Job) %>
+    <% if render_for == :web && can?(:pg_internal_cap, Job) %>
       <th class="item_actions">Actions</th>
     <% end %>
   </tr>
@@ -53,7 +53,7 @@ end
       </td>
       <td class="item_total"><%= "$%.2f" % job_item.net_total %></td>
       <td class="item_special_instruction"><%= job_item.comment %></td>
-      <% if render_for == :web && can?(:manage, Job) %>
+      <% if render_for == :web && can?(:pg_internal_cap, Job) %>
         <td class="item_actions">
           <% unless job_item.kind_of? AssemblyHardwareItem %>
             <%= link_to JobItem.model_name.human, job_item_path(job_item) %>

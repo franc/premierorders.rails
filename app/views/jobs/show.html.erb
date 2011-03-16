@@ -95,7 +95,7 @@
   </dl>
 
   <dl class="items">
-    <dt>Manufactured Items ($<%= "%0.2f" % @job.total{|i| i.purchasing_type? 'Manufactured'} %>) <% if can? :manage, Job %><%= link_to "recalculate", recalculate_job_path(@job) %><% end %></dt>
+    <dt>Manufactured Items ($<%= "%0.2f" % @job.total{|i| i.purchasing_type? 'Manufactured'} %>) <% if can? :pg_internal_cap, Job %><%= link_to "recalculate", recalculate_job_path(@job) %><% end %></dt>
     <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id').select{|i| i.purchasing_type? 'Manufactured'}} %></dd>
   </dl>
   
@@ -140,7 +140,7 @@
   <% if can? :update, Job %>
     <%= link_to 'Edit', edit_job_path(@job) %> |
   <% end %>
-  <% if can? :manage, Job %>
+  <% if can? :pg_internal_cap, Job %>
     <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
   <% end %>
   <%= link_to 'List', jobs_path %>

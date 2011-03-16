@@ -2,13 +2,11 @@ require 'fp'
 
 module JobsHelper
   def action_links(job)
-    if can? :manage, job
-      [link_to('Edit', edit_job_path(job)), link_to('Cutrite', cutrite_job_path(job))] + 
-      Option.iif(can? :destroy, job){ link_to('Delete', job, :confirm => 'Are you sure?', :method => :delete) }.to_a
-    else 
-      Option.iif(can? :update, job){ link_to('Edit', edit_job_path(job)) }.to_a + 
-      Option.iif(can? :destroy, job){ link_to('Delete', job, :confirm => 'Are you sure?', :method => :delete) }.to_a
-    end
+    links = []
+    links << link_to('Edit', edit_job_path(job)) if can? :update, job
+    links << link_to('Cutrite', cutrite_job_path(job)) if can? :pg_internal_cap, job
+    links << link_to('Delete', job, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, job
+    links
   end
 
   def job_status_select(job)

@@ -40,9 +40,9 @@
       <%= render :partial => 'job_cols', :locals => {:job => job} %>
     </tr>
     <% if !job.comment.blank? %>
-      <tr><td colspan="2"><td colspan="<%= can?(:manage, Job) ? 9 : 7 %>"><%=job.comment%></td></tr>
+      <tr><td colspan="2"><td colspan="<%= can?(:pg_internal_cap, Job) ? 9 : 7 %>"><%=job.comment%></td></tr>
     <% end %>
-    <% if can?(:manage, Job) && !job.notes.blank? %>
+    <% if can?(:pg_internal_cap, Job) && !job.notes.blank? %>
       <tr><td colspan="2"><td colspan="9"><%=job.notes%></td></tr>
     <% end %>
   <% end %>
