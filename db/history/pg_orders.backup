@@ -494,7 +494,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 5198, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 5230, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 12729, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 12748, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 8178, true);
+SELECT pg_catalog.setval('job_items_id_seq', 8188, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 449, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 450, true);
 
 
 --
@@ -752,7 +752,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 492, true);
+SELECT pg_catalog.setval('jobs_id_seq', 493, true);
 
 
 --
@@ -6971,6 +6971,12 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1238	218	4686	0.03	\N	2	\N	2011-03-10 19:00:14.437528	2011-03-10 19:00:14.456079
 1240	218	4687	0.03	\N	2	\N	2011-03-10 19:00:15.024623	2011-03-10 19:00:15.045653
 1242	220	4690	0.04	\N	2	\N	2011-03-10 19:00:15.430474	2011-03-10 19:00:15.448648
+5199	218	8179	0.03	\N	2	\N	2011-03-17 12:30:08.330435	2011-03-17 12:30:08.357716
+5200	218	8180	0.03	\N	2	\N	2011-03-17 12:30:08.61327	2011-03-17 12:30:08.773382
+5201	218	8181	0.03	\N	2	\N	2011-03-17 12:30:08.991423	2011-03-17 12:30:09.019908
+5202	218	8182	0.03	\N	2	\N	2011-03-17 12:30:09.232779	2011-03-17 12:30:09.259066
+5203	592	8183	0.01	\N	16	\N	2011-03-17 12:30:09.550014	2011-03-17 12:30:09.727552
+5204	9	8183	0.06	\N	12	\N	2011-03-17 12:30:09.731235	2011-03-17 12:30:09.763205
 1250	592	4696	0.01	\N	16	\N	2011-03-10 19:00:18.219263	2011-03-10 19:00:18.238546
 1251	9	4696	0.06	\N	12	\N	2011-03-10 19:00:18.240945	2011-03-10 19:00:18.269365
 1252	593	4696	0.02	\N	6	\N	2011-03-10 19:00:18.271641	2011-03-10 19:00:18.303315
@@ -6978,7 +6984,15 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1254	6	4696	0.98	\N	4	\N	2011-03-10 19:00:18.550934	2011-03-10 19:00:18.585332
 1255	199	4696	0.57	\N	4	\N	2011-03-10 19:00:18.587911	2011-03-10 19:00:18.617329
 1256	217	4696	0.02	\N	4	\N	2011-03-10 19:00:18.619632	2011-03-10 19:00:18.638021
+5205	593	8183	0.02	\N	6	\N	2011-03-17 12:30:09.766596	2011-03-17 12:30:09.800306
 1258	220	4691	0.04	\N	2	\N	2011-03-10 19:00:20.129273	2011-03-10 19:00:20.15044
+5206	12	8183	0.02	\N	4	\N	2011-03-17 12:30:09.803641	2011-03-17 12:30:09.975127
+5207	6	8183	0.98	\N	4	\N	2011-03-17 12:30:09.978442	2011-03-17 12:30:10.000131
+5208	199	8183	0.57	\N	4	\N	2011-03-17 12:30:10.003666	2011-03-17 12:30:10.026407
+5209	217	8183	0.02	\N	4	\N	2011-03-17 12:30:10.029623	2011-03-17 12:30:10.050245
+5210	12	8184	0.02	\N	4	\N	2011-03-17 12:30:11.367912	2011-03-17 12:30:11.394628
+5211	592	8184	0.01	\N	20	\N	2011-03-17 12:30:11.398036	2011-03-17 12:30:11.419952
+5212	9	8184	0.06	\N	12	\N	2011-03-17 12:30:11.423228	2011-03-17 12:30:11.453605
 1266	592	4694	0.01	\N	16	\N	2011-03-10 19:00:22.148171	2011-03-10 19:00:22.169866
 1267	9	4694	0.06	\N	12	\N	2011-03-10 19:00:22.172696	2011-03-10 19:00:22.202008
 1268	593	4694	0.02	\N	4	\N	2011-03-10 19:00:22.204333	2011-03-10 19:00:22.235769
@@ -6986,6 +7000,13 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1270	6	4694	0.98	\N	2	\N	2011-03-10 19:00:22.471365	2011-03-10 19:00:22.500885
 1271	199	4694	0.57	\N	2	\N	2011-03-10 19:00:22.503235	2011-03-10 19:00:22.532893
 1272	217	4694	0.02	\N	2	\N	2011-03-10 19:00:22.53519	2011-03-10 19:00:22.553639
+5213	593	8184	0.02	\N	6	\N	2011-03-17 12:30:11.456814	2011-03-17 12:30:11.626619
+5214	6	8184	0.98	\N	4	\N	2011-03-17 12:30:11.630179	2011-03-17 12:30:11.660302
+5215	199	8184	0.57	\N	4	\N	2011-03-17 12:30:11.663731	2011-03-17 12:30:11.694053
+5216	217	8184	0.02	\N	3	\N	2011-03-17 12:30:11.697121	2011-03-17 12:30:11.838304
+5217	12	8185	0.02	\N	4	\N	2011-03-17 12:30:13.106671	2011-03-17 12:30:13.13247
+5218	592	8185	0.01	\N	20	\N	2011-03-17 12:30:13.135898	2011-03-17 12:30:13.157025
+5219	9	8185	0.06	\N	12	\N	2011-03-17 12:30:13.160277	2011-03-17 12:30:13.18905
 1280	12	4698	0.02	\N	4	\N	2011-03-10 19:00:25.534158	2011-03-10 19:00:25.554368
 1281	592	4698	0.01	\N	20	\N	2011-03-10 19:00:25.556724	2011-03-10 19:00:25.797796
 1282	9	4698	0.06	\N	12	\N	2011-03-10 19:00:25.801611	2011-03-10 19:00:25.835756
@@ -6993,12 +7014,23 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1284	199	4698	0.57	\N	8	\N	2011-03-10 19:00:25.871766	2011-03-10 19:00:25.900173
 1285	6	4698	0.98	\N	8	\N	2011-03-10 19:00:25.902461	2011-03-10 19:00:25.930172
 1286	217	4698	0.02	\N	4	\N	2011-03-10 19:00:25.932544	2011-03-10 19:00:26.180094
+5220	593	8185	0.02	\N	8	\N	2011-03-17 12:30:13.192293	2011-03-17 12:30:13.383221
+5221	199	8185	0.57	\N	8	\N	2011-03-17 12:30:13.386887	2011-03-17 12:30:13.419861
+5222	6	8185	0.98	\N	8	\N	2011-03-17 12:30:13.423744	2011-03-17 12:30:13.452748
+5223	217	8185	0.02	\N	4	\N	2011-03-17 12:30:13.455975	2011-03-17 12:30:13.47627
+5224	592	8186	0.01	\N	16	\N	2011-03-17 12:30:14.860951	2011-03-17 12:30:14.887391
+5225	9	8186	0.06	\N	8	\N	2011-03-17 12:30:14.890674	2011-03-17 12:30:14.920034
+5226	593	8186	0.02	\N	6	\N	2011-03-17 12:30:14.923503	2011-03-17 12:30:15.091968
 1294	592	4692	0.01	\N	16	\N	2011-03-10 19:00:29.163868	2011-03-10 19:00:29.183209
 1295	9	4692	0.06	\N	12	\N	2011-03-10 19:00:29.185573	2011-03-10 19:00:29.216119
 1296	593	4692	0.02	\N	6	\N	2011-03-10 19:00:29.218583	2011-03-10 19:00:29.252251
 1297	12	4692	0.02	\N	4	\N	2011-03-10 19:00:29.254532	2011-03-10 19:00:29.271531
 1298	6	4692	0.98	\N	4	\N	2011-03-10 19:00:29.273735	2011-03-10 19:00:29.290287
 1299	199	4692	0.57	\N	4	\N	2011-03-10 19:00:29.519351	2011-03-10 19:00:29.543071
+5227	12	8186	0.02	\N	4	\N	2011-03-17 12:30:15.096001	2011-03-17 12:30:15.120605
+5228	6	8186	0.98	\N	4	\N	2011-03-17 12:30:15.124243	2011-03-17 12:30:15.15537
+5229	199	8186	0.57	\N	4	\N	2011-03-17 12:30:15.158769	2011-03-17 12:30:15.187851
+5230	217	8186	0.02	\N	4	\N	2011-03-17 12:30:15.19121	2011-03-17 12:30:15.371946
 1300	217	4692	0.02	\N	4	\N	2011-03-10 19:00:29.545614	2011-03-10 19:00:29.571155
 1308	592	4693	0.01	\N	16	\N	2011-03-10 19:00:32.366818	2011-03-10 19:00:32.623292
 1309	9	4693	0.06	\N	12	\N	2011-03-10 19:00:32.626986	2011-03-10 19:00:32.661635
@@ -13090,6 +13122,16 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 12452	8008	\N	color	\N	Color	{"color":"White"}	2011-03-15 22:42:20.61694	2011-03-15 22:42:20.61694
 12453	8009	\N	dimensions	\N	Depth,Width,Height	{"height":"7","linear_units":"in","depth":"13.75","width":"23"}	2011-03-15 22:42:20.628915	2011-03-15 22:42:20.628915
 12454	8009	\N	color	\N	Color	{"color":"White"}	2011-03-15 22:42:20.640899	2011-03-15 22:42:20.640899
+12739	8183	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:07.246718	2011-03-17 12:30:07.246718
+12740	8184	\N	dimensions	\N	Depth,Height,Width	{"linear_units":"in","height":"83.15","depth":"23","width":"23"}	2011-03-17 12:30:07.386383	2011-03-17 12:30:07.386383
+12741	8184	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:07.581898	2011-03-17 12:30:07.581898
+12742	8185	\N	dimensions	\N	Depth,Height,Width	{"linear_units":"in","height":"83.15","depth":"23","width":"47.25"}	2011-03-17 12:30:07.909364	2011-03-17 12:30:07.909364
+12743	8185	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:07.960637	2011-03-17 12:30:07.960637
+12744	8186	\N	dimensions	\N	Depth,Height,Width	{"linear_units":"in","height":"22.677","depth":"13","width":"48"}	2011-03-17 12:30:08.032548	2011-03-17 12:30:08.032548
+12745	8186	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:08.245102	2011-03-17 12:30:08.245102
+12746	8187	\N	dimensions	\N	Depth,Width	{"linear_units":"in","depth":"26","width":"48"}	2011-03-17 12:30:08.268393	2011-03-17 12:30:08.268393
+12747	8187	\N	color	\N	Color	{"color":"Ebony Star"}	2011-03-17 12:30:08.278128	2011-03-17 12:30:08.278128
+12748	8188	\N	dimensions	\N		{"linear_units":"in"}	2011-03-17 12:30:08.288654	2011-03-17 12:30:08.288654
 12455	8010	\N	dimensions	\N	Width,Height	{"height":"8.6929999999999996","linear_units":"in","width":"24.625"}	2011-03-15 22:42:20.652981	2011-03-15 22:42:20.652981
 12456	8010	\N	color	\N	Color	{"color":"White"}	2011-03-15 22:42:20.670549	2011-03-15 22:42:20.670549
 12457	8011	\N	dimensions	\N		{"linear_units":"in"}	2011-03-15 22:42:20.682278	2011-03-15 22:42:20.682278
@@ -13321,6 +13363,15 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 12696	8149	\N	dimensions	\N	Height,Depth,Width	{"height":"22.677","depth":"13.000","width":"48.000","linear_units":"in"}	2011-03-16 21:47:03.890778	2011-03-16 21:47:03.890778
 12697	8149	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-03-16 21:47:03.937675	2011-03-16 21:47:03.937675
 12698	8150	\N	dimensions	\N		{"linear_units":"in"}	2011-03-16 21:47:03.948417	2011-03-16 21:47:03.948417
+12730	8179	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"83.025000000000006","width":"23.5"}	2011-03-17 12:30:06.717924	2011-03-17 12:30:06.717924
+12731	8179	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:06.736939	2011-03-17 12:30:06.736939
+12732	8180	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"30.111000000000001","width":"23.875"}	2011-03-17 12:30:06.748709	2011-03-17 12:30:06.748709
+12733	8180	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:06.917272	2011-03-17 12:30:06.917272
+12734	8181	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"22.552","width":"23.875"}	2011-03-17 12:30:06.929761	2011-03-17 12:30:06.929761
+12735	8181	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:06.948693	2011-03-17 12:30:06.948693
+12736	8182	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"83.025000000000006","width":"22.875"}	2011-03-17 12:30:06.962917	2011-03-17 12:30:06.962917
+12737	8182	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-17 12:30:06.980152	2011-03-17 12:30:06.980152
+12738	8183	\N	dimensions	\N	Depth,Height,Width	{"linear_units":"in","height":"30.236000000000001","depth":"23","width":"48"}	2011-03-17 12:30:07.059949	2011-03-17 12:30:07.059949
 \.
 
 
@@ -13329,6 +13380,16 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 --
 
 COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, updated_at, unit_price, tracking_id, ingest_desc, override_price, production_batch_id, cache_calculation_units, pricing_cache_status, computed_unit_price, unit_hardware_cost, unit_install_cost, unit_weight, sales_category) FROM stdin;
+8179	493	516	000.100.000.007.00M	2		2011-03-17 12:30:06.708742	2011-03-17 12:30:08.597913	80.43	1	Door - Flat | Chocolate Apple	\N	\N	in	ok	26.30	0.06	0.05	\N	\N
+8180	493	516	000.100.000.007.00M	2		2011-03-17 12:30:06.743484	2011-03-17 12:30:08.850927	39.20	2	Door - Flat | Chocolate Apple	\N	\N	in	ok	13.16	0.06	0.05	\N	\N
+8181	493	516	000.100.000.007.00M	2		2011-03-17 12:30:06.924041	2011-03-17 12:30:09.216284	33.17	3	Door - Flat | Chocolate Apple	\N	\N	in	ok	11.24	0.06	0.05	\N	\N
+8182	493	516	000.100.000.007.00M	1		2011-03-17 12:30:06.956459	2011-03-17 12:30:09.463905	78.75	4	Door - Flat | Chocolate Apple	\N	\N	in	ok	25.77	0.06	0.05	\N	\N
+8183	493	262	000.102.433.007.00M	1		2011-03-17 12:30:07.054444	2011-03-17 12:30:11.115273	309.92	5	NX Base Cabinet 2 Door | Chocolate Apple	\N	\N	in	ok	138.97	7.30	0.33	\N	\N
+8184	493	257	000.402.483.007.00M	1		2011-03-17 12:30:07.3803	2011-03-17 12:30:12.877029	370.66	6	NX Tall Cabinet 1 Door | Chocolate Apple	\N	\N	in	ok	156.14	7.32	1.08	\N	\N
+8185	493	256	000.402.493.007.00M	1		2011-03-17 12:30:07.903381	2011-03-17 12:30:14.6203	515.76	7	NX Tall Cabinet 2 Door | Chocolate Apple	\N	\N	in	ok	232.82	13.54	1.41	\N	\N
+8186	493	260	000.302.430.007.00M	1		2011-03-17 12:30:08.026352	2011-03-17 12:30:16.433987	181.75	8	NX Upper Cabinet 2 Door | Chocolate Apple	\N	\N	in	ok	83.54	7.05	0.58	\N	\N
+8187	493	502	000.400.004.403.00M	1		2011-03-17 12:30:08.262558	2011-03-17 12:30:16.628263	147.55	9	NX Workbench Top (Finished Ends) | Ebony Star	\N	\N	in	ok	53.56	0.00	0.16	\N	\N
+8188	493	3	000.117.031.632.00I	7		2011-03-17 12:30:08.28341	2011-03-17 12:30:16.656646	2.97	10	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	\N
 7774	470	48	000.934.091.001.00M	3		2011-03-15 20:33:47.094211	2011-03-16 04:28:50.410489	2.95	1	CL Top Shelf | White	\N	\N	in	ok	16.14	0.00	0.03	\N	closet
 7775	470	99	000.801.042.600.00I	2		2011-03-15 20:33:47.116988	2011-03-16 04:28:50.414038	3.29	2	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	2.44	0.00	0.02	\N	closet
 7776	470	171	000.FU3.173.312.00I	5		2011-03-15 20:33:47.128336	2011-03-16 04:28:50.417199	3.59	3	ZH Drawer Slide | Full ext | 12 inch	\N	\N	in	ok	3.59	0.00	\N	\N	closet
@@ -16700,6 +16761,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 446	485	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-16 18:23:09.188175	2011-03-16 18:23:09.188175
 447	486	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-16 19:48:59.450805	2011-03-16 19:48:59.450805
 448	487	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-16 21:47:00.071322	2011-03-16 21:47:00.071322
+450	493	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-17 12:30:06.696505	2011-03-17 12:30:06.696505
 \.
 
 
@@ -16708,7 +16770,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	214	2011-01-23 05:52:19.75042	2011-03-16 21:50:22.361073
+1	2011	215	2011-01-23 05:52:19.75042	2011-03-17 12:33:30.023479
 \.
 
 
@@ -16857,6 +16919,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 370	5	99	8	Rubino Garage FINAL	SO-167	\N	2011-03-08 15:18:59.964906	2011-03-16 20:13:06.513167	Rubino Garage rev 2.xml	text/xml	20740	2011-03-08 15:18:59.96161	Phoenix	Shipped	\N	2011-03-16	Order Slatwall as specified in note field.	2011-03-09 13:47:28	99		PremierRoute	99	3/14/11 this order was formerly SO#90 CS	8	\N
 365	35	65	43	Archer walk in	SO-154	\N	2011-03-07 23:51:15.959001	2011-03-16 20:40:46.544461	Archer walk in Parts List.xml	text/xml	51530	2011-03-07 23:51:15.956746	Phoenix	Confirmed	2011-03-22	\N	Also Need box quantities of: 10054, 10050, 10048, 10051.	2011-03-08 00:06:19	65		PremierRoute	65	Choc Apple. 3/11 laminate top is the correct size stated. 	43	\N
 492	35	65	43	Coryell pantry	\N	\N	2011-03-16 23:17:10.802162	2011-03-16 23:17:10.802162	\N	\N	\N	\N	\N	Created	\N	\N	Hope to have in 2 weeks-	\N	\N	\N	\N	65	\N	\N	Job
+493	69	104	83	Larsen	SO-215	\N	2011-03-17 12:30:06.512276	2011-03-17 12:33:30.027501	Larsen Designs Parts List.xml	text/xml	14362	2011-03-17 12:30:06.508824	\N	Placed	\N	\N		2011-03-17 12:33:30	104	\N	\N	104	\N	\N	Job
 453	9	9	13	Scarborough	SO-192	\N	2011-03-14 20:16:49.018712	2011-03-15 21:31:58.516771	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	30086	2011-03-14 20:16:49.01654	Phoenix	On Hold	\N	\N	Five drawer cabinet:\r\n\r\n1. Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2. Next drawer from top down should be stationery drawer (1 vertical panel starts 2" from the back of the drawer front, and then there should be 4 additional spacers at 45 degrees\r\n\r\n3.  Next two drawers are equal in height:\r\n\r\nDrawer suspended underneath corner countertop:\r\n\r\n1.  Drawer front should be 2 1/4" if possible.  Width and depth are same dimensions Eric gave me.\r\n\r\n2.  Need hardware mounting kit for this drawer:\r\n\r\nThree drawer cabinet:\r\n\r\n1.  Should have 3 equal drawer font sizes (not file drawer and then two small drawers):\r\n\r\n30" wide file drawer cabinet\r\n\r\n1.  Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2.  Middle drawer should be file drawer with appropriate hardware\r\n\r\n3.  Bottom drawer should be whatever remaining space allows:\r\n\r\nPlease also make note the custom corner countertop should have a depth of 20" on each side in order to align with other cabinets:\r\n\r\nThere are lot of moving parts on this one so please call with questions.\r\n\r\n\r\n 	2011-03-14 20:19:19	9		PremierRoute	9	3/15/11 on hold till further instructions from Steve. CS	13	Job
 470	20	19	23	Stephenson stock items	SO-204	\N	2011-03-15 20:33:46.935464	2011-03-16 20:59:04.490664	Stevenson, Jan & Skip Parts List.xml	text/xml	12841	2011-03-15 20:33:46.933361	Phoenix	Confirmed	2011-03-31	\N		2011-03-15 20:34:27	19		PremierRoute	19	White, CS	23	Job
 273	4	4	6	Haag - ReOrder	SO-109	\N	2011-02-26 20:07:39.34218	2011-03-15 13:47:13.543017	Haag - ReOrder.xml	application/octet-stream	8246	2011-02-26 20:07:39.337918	Phoenix	In Production	2011-03-14	\N	**Due to a plan change these additional materials are needed to finish the job in which the clients have already moved in to the new home**\r\n\r\nIf possible please sneak this in on the next possible order to be shipped out!!\r\n	2011-02-26 20:07:50	4		PremierRoute	4	Antique White	6	\N
@@ -19988,8 +20051,8 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 75	\N	Rick	Wunderlich	(636)300-0015		(636)300-0017	rwunderlich@tailoredliving.com	$2a$10$/0AogAFZwjhoF.QPJKqS1er1ojp72AxBrwKiHHenkr9kQnkA6CsD6	$2a$10$/0AogAFZwjhoF.QPJKqS1e	\N	\N	\N	15	2011-03-14 19:10:44.283623	2011-03-10 18:02:48.338877	24.207.254.174	24.207.254.174	2011-02-11 16:05:54.075362	2011-03-14 19:10:44.284718
 100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	sFOOttVpvUb20i7PZ23b	2011-03-11 22:09:45.84513	23	2011-03-16 18:02:30.344638	2011-03-16 15:18:41.762103	76.214.105.130	76.214.105.130	2011-02-18 00:30:51.948611	2011-03-16 18:02:30.345561
 35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	127	2011-03-16 02:19:54.517075	2011-03-15 22:16:26.624987	207.13.6.149	207.13.6.149	2011-01-01 18:53:36.717099	2011-03-16 02:19:54.517779
-104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	NKPSdpdqzsjajvoJoQzA	2011-02-24 17:45:06.438803	4	2011-03-10 17:15:48.544559	2011-03-10 14:07:44.629657	99.34.172.198	99.34.172.198	2011-02-24 17:28:44.010247	2011-03-10 17:15:48.545156
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	jOc3kkmY18DJRm0bq1PR	2011-03-16 18:41:09.828619	24	2011-03-16 22:10:43.298664	2011-03-16 22:10:06.64564	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-16 22:10:43.299293
+104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	jVhrHPdnLXG0F6EaFS_0	2011-03-17 12:28:12.334906	5	2011-03-17 12:28:12.339619	2011-03-10 17:15:48.544559	99.27.16.134	99.34.172.198	2011-02-24 17:28:44.010247	2011-03-17 12:28:12.340465
 105	\N	Jason	O'toole	602 763 0182			jotoole@premiergarage.com	$2a$10$ehHcfRTIhgDs0P39hXMxXezkf5GEcFCTvOu9sO08dA30m1ii4u6Me	$2a$10$ehHcfRTIhgDs0P39hXMxXe	\N	hk85iPoTVKKVjISlgHm0	2011-03-02 15:24:51.120151	3	2011-03-02 18:31:52.79696	2011-03-02 15:24:51.124456	75.226.24.93	174.79.54.226	2011-03-02 15:22:49.861246	2011-03-02 18:31:52.797551
 106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	5	2011-03-15 15:44:30.670885	2011-03-07 16:00:08.609411	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-03-15 15:44:30.671623
 71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	9	2011-03-15 18:52:31.600366	2011-03-15 15:32:33.398519	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-03-15 18:52:31.601483
