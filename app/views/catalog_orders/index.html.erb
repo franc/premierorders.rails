@@ -196,7 +196,7 @@
 <h1>Catalog Order</h1>
 
 <form id="catalog_form">
-  <dl>
+  <dl style="clear: both">
     <dt><%= label_tag :order_name %></dt>
     <dd><%= text_field_tag :order_name, '', {:class => 'required', :minlength => '2'} %><em>*</em></dd>
 
@@ -225,7 +225,6 @@
             options_for_select(Item::categories.map{|v| [v.titlecase, v]}, params[:category]),
             :id => 'item_category_filter', :include_blank => true %></dd>
   </dl>
-
   <table>
     <tr>
       <th>Description</th>
