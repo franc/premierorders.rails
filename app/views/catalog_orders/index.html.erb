@@ -38,6 +38,7 @@
           $(".item_drop_ship", row).html((item.ship_by === 'drop_ship' ? "&#10003;" : ""));
           $(".item_purchase_part_id", row).html(item.purchase_part_id);
           $(".item_price", row).html("$"+parseFloat(item.sell_price).toFixed(2));
+          $(".item_qty_field", row).val(0);
           $(".item_qty_field", row).change(
             function(ev) {
               var quantity = $(ev.target).val();
