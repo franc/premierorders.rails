@@ -1,6 +1,6 @@
 <%= render 'form_js' %>
 
-<%= form_for @job, :html => { :multipart => true } do |f| %>
+<%= form_for @job, :as => :job, :url => job_path(@job), :html => { :multipart => true } do |f| %>
   <%= render :partial => 'form_errors' %>
   <div class="form_fields">
     <dl>

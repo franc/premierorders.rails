@@ -1,5 +1,4 @@
-<% content_for :html do %>manifest="catalog_orders"<% end %>
-
+<% content_for :html do %>manifest="/cache.manifest"<% end %>
 <% content_for :head do %>
   <style type="text/css">
     label { width: 10em; float: left; }
@@ -9,26 +8,18 @@
 
   <%= javascript_include_tag 'jquery.validate.min.js' %>
   <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
+  <%= javascript_include_tag 'path.min.js' %>
+  <%= javascript_include_tag 'catalog_orders.js' %>
   <script type="text/javascript">
-    function supports_offline() {
-      return !!window.applicationCache;
-    }
-
-    function supports_local_storage() {
-      try {
-        return 'localStorage' in window && window['localStorage'] !== null;
-      } catch(e){
-        return false;
-      }
-    }
-    
     var update_catalog = function(current_order) {
+      var catalog_storage_id = CatalogOrder.storage_root + '.catalog';
+
       /**
        * Catalog data format is:
        * {
        *   version: int,
        *   items: {
-       *     <id>: {
+       *     id: {
        *       name: string,
        *       category: string,
        *       purchase_part_id: int,
@@ -55,21 +46,29 @@
               $("#items_total").html("$"+current_order.total(catalog_data).toFixed(2));
             }
           );
-          $(".totals_row").before(row);
-          row.show();
+          return row;
         };
 
         $(".item_row").remove();
         var i;
         for (i = 0; i < catalog_data.length; i++) {
-          build_item_row(catalog_data[i]);
+          var item = catalog_data[i];
+          var row = build_item_row(item);
+
+          if (current_order.order_data.quantities[item.id]) {
+            $(".item_qty_field", row).val(current_order.order_data.quantities[item.id]);
+            $(".item_qty_field", row).change();
+          }
+
+          $(".totals_row").before(row);
+          row.show();
         }
       };
 
       var catalog_update_success = function(catalog_data) {
         if (supports_local_storage()) {
           //TODO: check version compatibility on the data.
-          localStorage['pg_catalog'] = JSON.stringify(catalog_data);
+          localStorage[catalog_storage_id] = JSON.stringify(catalog_data);
           alert("Local storage has been initialized. You can use this webpage offline.");
         } 
 
@@ -77,10 +76,11 @@
       };
 
       var catalog_update_failure = function(jqXHR, textStatus, errorThrown) {
-        if (supports_local_storage() && localStorage['pg_catalog']) {
-          rerender_catalog(localStorage['pg_catalog']);
+        if (supports_local_storage() && localStorage[catalog_storage_id]) {
+          rerender_catalog(JSON.parse(localStorage[catalog_storage_id]));
         } else {
           alert("We're sorry; it appears that you are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
+          window.location = "/offline.html"
         }
       }      
 
@@ -88,37 +88,14 @@
           url: "/catalog_orders/catalog_json",
           success: catalog_update_success,
           error: catalog_update_failure,
+          timeout: 3000,
           dataType: "json"
       });
-    }
-
-    var order_placed_success = function(order_placed_data) {
-      if (order_placed_data["updated"] == "success") {
-        window.location = "/jobs/" + order_placed_data['job_id'];
-      } else {
-        alert("There was an error in order placement. Eventually this error message will be more informative.");
-      }
-      $.loading();
     };
 
-    var order_placed_failure = function(current_order) {
-      return function(jqXHR, textStatus, errorThrown) {
-        if (supports_local_storage()) {
-          local_storage["order:" + current_order.order_data.name] = JSON.stringify(current_order.order_data);
-          alert("You appear to be offline, so your order has been placed into local storage for submission when you reconnect. Thanks!");
-          //todo: clear form.
-        } else {
-          alert("We're sorry; it appears that your are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
-        }
-        $.loading();
-      };
-    };
-
-    jQuery(function($) {
+    var load_order_page = function(current_order_data) {
       var current_order = {
-        order_data: {
-          quantities: {}
-        },
+        order_data: current_order_data,
         total: function(catalog_data) {
           var i;
           var result = 0.0;
@@ -127,10 +104,24 @@
             result = (qty === undefined) ? result : result + (catalog_data[i].sell_price * qty);
           }
           return result;
+        },
+        fill_form: function() {
+          if (this.order_data['name'] !== undefined) {
+            $("#order_name").val(this.order_data.name);
+            $("#order_franchisee_id").val(this.order_data.franchisee_id);
+            $("#order_primary_contact_id").val(this.order_data.primary_contact_id);
+            $("#order_billing_address_id").val(this.order_data.billing_address_id);
+            $("#order_shipping_address_id").val(this.order_data.shipping_address_id);
+          }
+        },
+        read_form: function() {
+          this.order_data.name = $("#order_name").val();
+          this.order_data.franchisee_id = $("#order_franchisee_id").val();
+          this.order_data.primary_contact_id = $("#order_primary_contact_id").val();
+          this.order_data.billing_address_id = $("#order_billing_address_id").val();
+          this.order_data.shipping_address_id = $("#order_shipping_address_id").val();
         }
       };
-
-      update_catalog(current_order);
 
       var show_selected_rows = function() {
         var item_id;
@@ -167,28 +158,42 @@
 
       $("#create_order").click(function(ev) {
         if ($("#catalog_form").validate().element("#order_name")) {
-          $.loading({ mask:true });
-          current_order.order_data.name = $("#order_name").val();
-          current_order.order_data.franchisee_id = $("#order_franchisee_id").val();
-          current_order.order_data.primary_contact_id = $("#order_primary_contact_id").val();
-          current_order.order_data.billing_address_id = $("#order_billing_address_id").val();
-          current_order.order_data.shipping_address_id = $("#order_shipping_address_id").val();
-
-          $.ajax({
-            url: "/catalog_orders",
-            type: "POST",
-            data: current_order.order_data,
-            success: order_placed_success,
-            error: order_placed_failure(current_order),
-            dataType: "json"
-          });
+          if (current_order.order_data.id === undefined) {
+            current_order.order_data.id = Math.floor((Math.random()*65535)+1);
+          }
+          current_order.read_form();
+          CatalogOrder.place(current_order.order_data);
         } 
 
         return false;
       });
+
+      update_catalog(current_order);
+      current_order.fill_form();
+    };
+
+    // Set up paths, then force the path to #!/new unless this was reached via an edit link.
+    jQuery(function() {
+      Path.map("#!/new").to(function() {
+        load_order_page({ quantities: {} });
+      });
+
+      Path.map("#!/edit/:id").to(function() {
+        var order_data = CatalogOrder.find_order(this.params['id']);
+        if (order_data === undefined) {
+          order_data = { quantities: {} };
+        }
+
+        load_order_page(order_data);
+      });
+
+      Path.root("#!/new");
+      Path.listen();
     });
   </script>
 <% end %>
+
+<h1>Catalog Order</h1>
 
 <form id="catalog_form">
   <dl>
@@ -250,3 +255,7 @@
     <input type="submit" id="create_order" value="Create Order"/>
   </div>
 </form>
+
+<% content_for :local_nav do %>
+  <%= link_to 'Back', jobs_path %>
+<% end %>

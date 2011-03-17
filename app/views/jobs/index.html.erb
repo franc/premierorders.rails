@@ -1,4 +1,6 @@
 <% content_for :head do %>
+  <%= stylesheet_link_tag :ajax_ui %>
+  <%= javascript_include_tag :ajax_ui %>
   <script type="text/javascript">
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
@@ -56,6 +58,6 @@
     <%= link_to "Upload #{Job.model_name.human}", new_job_path %>
   <% end %>
   <% if false #can? :create, CatalogOrder %>
-    | <%= link_to "New Catalog Order", new_catalog_order_path %>
+    | <%= link_to "New Catalog Order", catalog_orders_path %>
   <% end %>
 <% end %>

@@ -78,6 +78,9 @@ PgRails::Application.routes.draw do
   resources :addresses
 
   match 'reports/:action', :controller => 'reports'
+  match '/cache.manifest' => 'application#manifest'
+  match '/offline.html' => 'application#offline'
+  match '/ping' => 'application#ping'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,5 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
 var editIn = function() {
   $(this).css('color','red');
 };
@@ -20,7 +18,6 @@ var update_notice = function(data) {
 var ajax_error_alert = function (XMLHttpRequest, textStatus, errorThrown) {
   alert("Ooooops!, request failed with status: " + XMLHttpRequest.status + ' ' + XMLHttpRequest.responseText);
 }
-
 
 var post_this_update = function() {
   var cont = arguments.length == 0 ? update_notice : arguments[0];
@@ -61,5 +58,17 @@ var ajax_date = function(node) {
       input.focus();
     }
   );
+};
+
+var supports_offline = function() {
+  return !!window.applicationCache;
+};
+
+var supports_local_storage = function() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch(e){
+    return false;
+  }
 };
 
