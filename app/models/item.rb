@@ -87,6 +87,7 @@ class Item < ActiveRecord::Base
       Items::ClosetPartition,
       Items::ClosetShelf,
       Items::BackingPanel,
+      Items::MoldingNailer,
       Items::FinishedPanel,
       Items::ScaledItem
     ]

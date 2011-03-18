@@ -1,11 +1,12 @@
 require 'fp'
+require 'properties'
 
 class Items::FinishedPanel < Item
   include Items::ItemMaterials, Items::PanelEdgePricing, Items::Margins
 
   def self.optional_properties
     if self.respond_to?(:banded_edges) && !self.banded_edges.empty?
-      [Items::Panel::MATERIAL, PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])]
+      [Items::Panel::MATERIAL, Properties::PropertyDescriptor.new(:edge_band, banded_edges.keys, [Property::EdgeBand])]
     else
       [Items::Panel::MATERIAL]
     end
