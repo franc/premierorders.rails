@@ -397,7 +397,7 @@ class SeedLoader
         if item.nil? 
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
           missing.puts(row.join("\t"))
-          out.puts(row.join("\t"))
+          out.puts(row.join("\t").strip)
         else
           begin
             item_pricing_expr = item.retail_price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
@@ -409,7 +409,7 @@ class SeedLoader
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
-            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t"))
+            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t")).strip
           rescue
             err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
           end
