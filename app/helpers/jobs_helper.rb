@@ -5,7 +5,7 @@ module JobsHelper
     links = []
     links << link_to('Edit', edit_job_path(job)) if can? :update, job
     links << link_to('Cutrite', cutrite_job_path(job)) if can? :pg_internal_cap, job
-    links << link_to('Delete', job, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, job
+    links << link_to('Delete', job_path(job), :confirm => 'Are you sure?', :method => :delete) if can? :destroy, job
     links
   end
 
