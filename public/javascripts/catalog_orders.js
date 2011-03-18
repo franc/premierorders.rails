@@ -1,5 +1,5 @@
 var CatalogOrder = function() {
-  var instance = {
+  return {
     storage_root:       'net.premierorders',
     order_storage_root: 'net.premierorders.orders',
     find_order: function(id) {
@@ -10,16 +10,38 @@ var CatalogOrder = function() {
       localStorage[this.order_storage_root+"."+order_data.id] = JSON.stringify(order_data);
     },
     remove_local: function(order_data) {
-      localStorage[this.order_storage_root+"."+order_data.id] = undefined;
+      localStorage.removeItem(this.order_storage_root+"."+order_data.id);
+    },
+    local_orders: function() {
+      var result = [];
+      if (supports_local_storage()) {
+        var pattern = "^"+this.order_storage_root;
+        var matcher = new RegExp(pattern);
+        var key;
+        for (key in localStorage) {
+          if (matcher.test(key)) {
+            try {
+              var order = JSON.parse(localStorage[key]);
+              result.push(order);
+            } catch (ex) {
+              alert("Could not parse stored order for key "+key+"; removing from storage.");
+              localStorage.removeItem(key);
+            }
+          }
+        }
+      } 
+
+      return result;
     },
     place: function(order_data) {
+      var instance = this;
       $.loading({ mask:true });
       $.ajax({
         url: "/catalog_orders",
         type: "POST",
         data: order_data,
         success: function(order_placed_data) {
-          if (order_placed_data["updated"] == "success") {
+          if (order_placed_data["updated"] === "success") {
             instance.remove_local(order_data);
             window.location = "/jobs/" + order_placed_data['job_id'];
           } else {
@@ -41,8 +63,4 @@ var CatalogOrder = function() {
       });
     }
   };
-
-  return instance;
 }();
-
-

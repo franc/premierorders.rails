@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ping
-    render :json => "ok"
+    render :json => {:ok => true}
   end
 
   def offline
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def manifest
     text = <<-MANIFEST
       CACHE MANIFEST
-      # version 1.0.4
+      # version 1.0.24
       /offline.html
       /catalog_orders
 
