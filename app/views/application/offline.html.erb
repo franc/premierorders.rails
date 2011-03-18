@@ -4,17 +4,12 @@
   <title>Premier Garage Orders Offline</title>
   <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
   <%= javascript_include_tag 'catalog_orders.js' %>
-  <style>
-    .place_order {
-      display:none;
-    }
-  </style>
   
   <script type="text/javascript">
     jQuery(function($) {
-      var add_order_row = function(order_key) {
-        var order = JSON.parse(localStorage[order_key]);
+      var add_order_row = function(order) {
         var row = $("#offline_orders .order_row.prototype").clone();
 
         $(".order_name a", row).attr('href', "/catalog_orders/#!/edit/"+order.id).html(order.name);
@@ -27,16 +22,16 @@
 
       var build_order_list = function(online) {
         return function() {
-          if (supports_local_storage()) {
-            for (key in localStorage) {
-              if ((new RegExp('^'+CatalogOrder.order_storage_root)).test(key)) {
-                add_order_row(key);
-              }
-            }
+          var i = 0;
+          var orders = CatalogOrder.local_orders();
+          for (i = 0; i < orders.length; i++) {
+            add_order_row(orders[i]);
+          }
             
-            if (online) {
-              $(".place_order").show();
-            }
+          if (online) {
+            $(".place_order").show();
+          } else {
+            $(".place_order").hide();
           }
         };
       };
@@ -67,7 +62,7 @@
     </tr>
     <tr class="order_row prototype">
       <td class="order_name"><a href=""></a></td>
-      <td class="place_order"><button value="Place Order"/></td>
+      <td class="place_order"><button>Place Order</button></td>
     </tr>
   </table>
 </body>
