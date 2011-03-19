@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 8595, true);
+SELECT pg_catalog.setval('job_items_id_seq', 8599, true);
 
 
 --
@@ -752,7 +752,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 522, true);
+SELECT pg_catalog.setval('jobs_id_seq', 524, true);
 
 
 --
@@ -15135,6 +15135,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 7737	467	66	000.808.071.603.00P	1		2011-03-15 18:57:04.056519	2011-03-16 04:27:22.511124	19.06	34	ZH Valet Rod | Matte Nickel	\N	\N	in	ok	19.06	0.00	0.07	\N	closet
 5382	314	44	000.930.031.001.00M	2		2011-03-03 17:36:43.469257	2011-03-16 16:50:05.675333	7.83	5	CL Cam Shelf | White	\N	12	in	ok	7.83	0.00	0.05	\N	closet
 8586	522	263	000.101.233.009.00M	1		2011-03-18 21:44:01.416746	2011-03-18 21:47:42.822048	77.22	7	NX Base Cabinet 1 Door | Windswept Pewter	\N	\N	in	ok	77.39	4.14	0.29	\N	garage
+8596	523	1177	\N	1	\N	2011-03-19 19:39:04.169243	2011-03-19 19:39:04.191026	79.05	1	\N	\N	\N	in	ok	79.05	0.00	\N	\N	\N
+8597	523	1186	\N	1	\N	2011-03-19 19:39:04.195862	2011-03-19 19:39:04.212853	54.87	2	\N	\N	\N	in	ok	54.87	0.00	\N	\N	\N
 5401	314	236	000.263.050.705.00I	122	1 case	2011-03-03 17:36:44.372126	2011-03-16 04:04:12.371692	0.11	24	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	closet
 7407	449	573	000.880.502.a12.00P	2		2011-03-14 20:04:33.235551	2011-03-16 04:23:31.074205	8.62	12	Powder Coated Drawer Front (23.875 x 3.71875) | GRANITE	\N	\N	in	ok	8.61	0.08	0.05	\N	garage
 5391	314	563	000.970.012.001.00M	4		2011-03-03 17:36:43.818858	2011-03-16 16:50:05.691262	1.25	14	CL Toe Kick | White	\N	12	in	ok	1.44	0.00	0.10	\N	closet
@@ -15143,6 +15145,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 5394	314	35	000.912.171.001.00M	1	5x1 BaseNotch	2011-03-03 17:36:44.024587	2011-03-16 16:50:05.700687	4.29	17	CL Upright Partition - BaseNotch - Left | White	\N	12	in	ok	4.29	0.00	0.05	\N	closet
 5395	314	35	000.912.171.001.00M	4	5x1 BaseNotch	2011-03-03 17:36:44.051775	2011-03-16 16:50:05.703808	19.25	18	CL Upright Partition - BaseNotch - Left | White	\N	12	in	ok	19.25	0.00	0.05	\N	closet
 5396	314	36	000.912.371.001.00M	1	5x1 BaseNotch	2011-03-03 17:36:44.088293	2011-03-16 16:50:05.706912	4.29	19	CL Upright Partition - BaseNotch - Right | White	\N	12	in	ok	4.29	0.00	0.05	\N	closet
+8598	524	1178	\N	1	\N	2011-03-19 19:45:56.879604	2011-03-19 19:45:56.909773	79.05	1	\N	\N	\N	in	ok	79.05	0.00	\N	\N	\N
+8599	524	1186	\N	1	\N	2011-03-19 19:45:56.914869	2011-03-19 19:45:56.931858	54.87	2	\N	\N	\N	in	ok	54.87	0.00	\N	\N	\N
 7615	461	40	000.910.250.001.00M	2		2011-03-15 01:53:05.588364	2011-03-16 04:25:42.306254	13.62	10	CL Hanging Partition - Radius - Thru | White	\N	\N	in	ok	9.37	0.00	0.05	\N	closet
 7747	468	262	000.102.433.010.00M	1		2011-03-15 19:46:35.835193	2011-03-16 04:27:51.636145	96.03	10	NX Base Cabinet 2 Door | Hardrock Maple	\N	\N	in	ok	97.17	7.30	0.33	\N	garage
 7748	468	268	000.207.777.010.00M	1		2011-03-15 19:46:36.105517	2011-03-16 04:27:51.639477	58.20	11	NX Base Cabinet 4 Drawer (7/7/7/7) | Hardrock Maple	\N	\N	in	ok	59.83	2.15	0.25	\N	garage
@@ -17587,7 +17591,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	229	2011-01-23 05:52:19.75042	2011-03-18 21:44:23.824868
+1	2011	230	2011-01-23 05:52:19.75042	2011-03-19 19:47:38.496236
 \.
 
 
@@ -17605,6 +17609,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 153	41	70	50	Recktenwall_Garage	SO - 39	\N	2011-02-15 22:11:41.3838	2011-03-16 03:22:32.142711	Recktenwall_Garage Parts List.xml	text/xml	9242	2011-02-15 22:11:41.381547	Phoenix	Shipped	2011-03-01	2011-03-02	Premier Route	2011-02-15 22:13:40	70		PremierRoute	70		50	\N
 143	4	4	6	Boldebuck - Annaka	SO - 32	\N	2011-02-15 16:40:30.107612	2011-03-16 03:20:13.180272	Boldebuck - Annaka.xml	text/xml	26726	2011-02-15 16:40:30.105785	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:41:21	4		PremierRoute	29		6	\N
 154	13	12	16	Thatcher	SO - 40	\N	2011-02-15 23:38:21.966347	2011-03-16 03:22:57.154664	Thatcher_02_15 Parts List.xml	text/xml	21013	2011-02-15 23:38:21.963814	Phoenix	Shipped	2011-03-01	2011-03-02	Would like to ship with my SRS order I placed today if possible, thanks.	2011-02-15 23:41:01	12		PremierRoute	12		16	\N
+523	8	\N	38	Bisch Test Sushi Order	\N	\N	2011-03-19 19:39:04.12372	2011-03-19 19:39:04.12372	\N	\N	\N	\N	\N	Created	\N	\N	\N	\N	\N	\N	\N	59	\N	38	CatalogOrder
 372	14	13	17	Weishaar	SO-160	\N	2011-03-08 19:58:17.739434	2011-03-18 20:30:51.394111	Weishaar dvi Parts List.xml	text/xml	15998	2011-03-08 19:58:17.735615	Phoenix	In Production	2011-03-23	\N		2011-03-08 20:02:33	13		PremierRoute	13	Bronze, CS	17	\N
 510	59	87	70	Haydu	SO-224	\N	2011-03-17 23:03:31.307874	2011-03-18 20:36:43.976926	haydu_ORDER.dvi Parts List.xml	text/xml	12819	2011-03-17 23:03:31.303976	Phoenix	Confirmed	2011-04-04	\N		2011-03-18 15:16:59	87		PremierRoute	87	White, CS	70	Job
 144	4	4	6	Boldebuck - Hanna	SO - 33	\N	2011-02-15 16:57:05.757071	2011-03-16 03:20:34.782022	Boldebuck - Hanna.xml	text/xml	25967	2011-02-15 16:57:05.755159	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted Items were modified in excel sheet to account for 2 cut to fit sections	2011-02-15 16:59:34	4		PremierRoute	29		6	\N
@@ -17623,6 +17628,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 162	20	32	23	Lopez - Room 3	SO - 50	\N	2011-02-17 00:05:07.563875	2011-03-16 03:28:27.079231	Lopez, Jennilyn Parts List room 3..xml	application/xml	29591	2011-02-17 00:05:07.561871	Phoenix	Shipped	2011-03-03	2011-03-04		2011-02-17 05:41:32	19		PremierRoute	19		23	\N
 163	20	32	23	Lopez - Room 4	SO - 49	\N	2011-02-17 00:07:16.68204	2011-03-16 03:28:06.564614	Lopez, Jennilyn Parts List room 4.xml	application/xml	12349	2011-02-17 00:07:16.680314	Phoenix	Shipped	2011-03-03	2011-03-04		2011-02-17 05:40:03	19		PremierRoute	19		23	\N
 251	20	19	23	Green room 4	SO-96	\N	2011-02-24 21:18:33.022972	2011-03-17 18:25:05.234	Green, Robert Parts List room 4.xml	text/xml	7919	2011-02-24 21:18:33.020859	Phoenix	Shipped	2011-03-11	2011-03-17		2011-02-24 21:19:21	19		PremierRoute	19		23	\N
+524	8	\N	38	Bisch Test Sushi Order 2	SO-230	\N	2011-03-19 19:45:56.841353	2011-03-19 19:56:25.164294	\N	\N	\N	\N	\N	Confirmed	\N	\N	\N	2011-03-19 19:47:38	42	\N	\N	42	\N	38	CatalogOrder
 186	1	1	1	702_Daniel	SO - 55	\N	2011-02-18 21:28:37.070847	2011-03-09 20:54:20.044206	daniel_0216 Parts List.xml	text/xml	17221	2011-02-18 21:28:37.067734	Phoenix	Shipped	2011-03-07	2011-03-09		2011-02-18 21:29:14	1		PremierRoute	30		1	\N
 328	31	63	39	Parker Residents	SO-140	\N	2011-03-04 02:02:30.15791	2011-03-17 17:49:34.241907	Parker Residents Parts List.xml	text/xml	43382	2011-03-04 02:02:30.154144	Phoenix	In Production	2011-03-18	\N		2011-03-04 02:04:55	63		PremierRoute	63	Antique White	39	\N
 293	35	65	43	Zegers	SO-120	\N	2011-02-28 22:20:26.297337	2011-03-16 16:25:25.716024	Zegers revised Parts List.xml	application/octet-stream	18769	2011-02-28 22:20:26.293636	Phoenix	In Production	2011-03-16	\N		2011-02-28 22:45:32	65		PremierRoute	65	Carmel Apple.\r\n\r\nOnly needs 1 box of Cam Covers Tan cs	43	\N
@@ -17685,7 +17691,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 284	28	103	36	Doyle add on	SO-115	\N	2011-02-28 16:50:40.016167	2011-03-18 18:14:30.120716	Doyle Carroll add on Parts List.xls	application/vnd.ms-excel	6371	2011-02-28 16:50:40.014299	Phoenix	Shipped	2011-03-14	2011-03-18		2011-02-28 16:51:03	103		PremierRoute	103	Bronze.	36	\N
 305	41	70	50	Sufi_Linen Closet	SO-126	\N	2011-03-02 19:39:32.343202	2011-03-16 16:25:51.453096	Sufi_Linen Closet Parts List.xml	text/xml	9994	2011-03-02 19:39:32.341336	Phoenix	In Production	2011-03-17	\N	Premier Route	2011-03-02 19:40:38	70		PremierRoute	70	White.	50	\N
 354	4	4	6	Vitense - Master	SO-159	\N	2011-03-07 17:42:44.375746	2011-03-18 17:45:07.986251	Vitense - Master.xml	application/octet-stream	32990	2011-03-07 17:42:44.373489	Phoenix	In Production	2011-03-23	\N		2011-03-08 19:58:21	4		PremierRoute	4	3/8 sent email on special instruction, does he need this insert. CS\r\n3/8 confirmed from Tim doesn't need. CS\r\n\r\nWild Apple, CS	6	\N
-289	9	9	13	Simpson - Filler strip	SO-119	\N	2011-02-28 20:09:03.539527	2011-03-16 16:25:36.672164	Simpson, Hank and Julie - Filler strip.xls	application/vnd.ms-excel	7592	2011-02-28 20:09:03.393908	Phoenix	In Production	2011-03-16	\N		2011-02-28 20:09:47	9		PremierRoute	9	Pewter.	13	\N
+289	9	9	13	Simpson - Filler strip	SO-119	\N	2011-02-28 20:09:03.539527	2011-03-19 19:52:55.096226	Simpson, Hank and Julie - Filler strip.xls	application/vnd.ms-excel	7592	2011-02-28 20:09:03.393908	Phoenix	Shipped	2011-03-16	2011-03-19		2011-02-28 20:09:47	9		PremierRoute	9	Pewter.	13	\N
 449	9	9	13	Kissling	SO-189	\N	2011-03-14 20:04:30.661343	2011-03-18 22:40:27.109506	Kissling, Jeff Parts List.xls	application/vnd.ms-excel	18325	2011-03-14 20:04:30.656306	Phoenix	Confirmed	2011-03-30	\N	** Classic Order ** Powder Cost ** EH	2011-03-14 20:05:19	9		PremierRoute	9	Pewter, CS\r\n\r\ngranite doors in NX hold per Steve. CS\r\n\r\nNo Need For CutRite EH	13	Job
 322	5	99	8	Perman Jerry	SO-137	\N	2011-03-03 19:30:14.60861	2011-03-17 17:00:08.944339	Perman Jerry.xml	text/xml	21336	2011-03-03 19:30:14.606434	Phoenix	In Production	2011-03-17	\N		2011-03-03 19:30:38	99		PremierRoute	99	White.	8	\N
 267	41	70	50	Smith_Laundry Room	SO-105	\N	2011-02-25 16:23:51.570393	2011-03-16 17:28:48.254029	Smith_Laundry Room Parts List.xml	text/xml	14870	2011-02-25 16:23:51.568345	Phoenix	Shipped	2011-03-11	2011-03-16	Premier Route	2011-02-25 16:24:43	70		PremierRoute	70	White	50	\N
@@ -20837,14 +20843,14 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 51	\N	Dalawna	Dillman	(480) 483-3030		(48) 483-7895	ddillman@premiergarage.com	$2a$10$hbkI3SZwvEVZeRv8gSc5neX0yJgvyD9RmMV0c6vkcrPTDrXjYvDrC	$2a$10$hbkI3SZwvEVZeRv8gSc5ne	\N	\N	\N	18	2011-03-09 22:16:13.260659	2011-03-07 16:29:53.305804	174.79.54.226	174.79.54.226	2011-01-06 23:44:42.653941	2011-03-09 22:16:13.261557
 59	\N	Theresia	Lampe	480-483-3030		480-483-7895	tlampe@premiergarage.com	$2a$10$HMX94FokCY1KfxGnLFrp0O3S4pcdOIR/lGJqikRfa0bRgU.hZ3J9y	$2a$10$HMX94FokCY1KfxGnLFrp0O	\N	\N	\N	4	2011-03-11 15:25:53.401754	2011-03-04 18:45:02.652169	174.79.54.226	174.79.54.226	2011-01-27 00:30:04.370057	2011-03-11 15:25:53.402783
 53	\N	Cindy	Schmidt	480-483-3030		480-483-7895	cschmidt@premiergarage.com	$2a$10$cznJs66nT7EY9Fd41T4rXeOl7aMTmVzhZjIshVm9n30LMIR.weipS	$2a$10$cznJs66nT7EY9Fd41T4rXe	\N	\N	\N	56	2011-03-18 13:56:53.815543	2011-03-17 14:50:25.545447	174.79.54.226	174.79.54.226	2011-01-25 14:40:57.572165	2011-03-18 13:56:53.816657
-42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$fehc6g7h6Ccms63oTgO95.ZfbTdR4wLSIKpX.LfvDkeC0WTaBaHL2	$2a$10$fehc6g7h6Ccms63oTgO95.	\N	\N	\N	107	2011-03-18 11:57:54.111416	2011-03-18 00:04:55.830576	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-03-18 11:57:54.112398
+60	\N	Steve	Bisch	(636) 399-8262	(636) 399-8262	(314) 434-1976	sbisch@tailoredliving.com	$2a$10$OIKMvh3KJPb/y4smzl1kMu62KumAEkBUxb8CRZ2B5DQZzwSjf9sfa	$2a$10$OIKMvh3KJPb/y4smzl1kMu	\N	\N	\N	22	2011-03-19 19:42:08.01284	2011-03-19 19:41:28.570291	174.79.54.226	174.79.54.226	2011-01-27 18:32:44.56832	2011-03-19 19:42:08.013518
 58	\N	Jim	Edwards	(480) 483-3030		(480) 483-7895	jedwards@premiergarage.com	$2a$10$moAo/4mvyL3XAMJYgCyBwePloF5VDWDM2jxrZ4/0ZYt4TtPjwy1Je	$2a$10$moAo/4mvyL3XAMJYgCyBwe	\N	\N	\N	1	2011-02-18 17:58:47.287468	2011-02-18 17:58:47.287468	174.79.54.226	174.79.54.226	2011-01-27 00:20:08.250214	2011-03-04 15:57:46.428298
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	10	2011-02-02 00:58:16.647804	2011-01-26 14:00:00.768041	98.227.34.3	69.174.58.44	2011-01-23 16:28:32.887677	2011-02-02 00:58:16.648734
 69	\N	Bill	Bruneman	(630) 289-7760			bkbruneman@tailoredliving.com	$2a$10$JvGmZM1XoN/T/0fecH5WWOyFW9ejX7UHKm2O1zIA5E.0YhHJuaMsG	$2a$10$JvGmZM1XoN/T/0fecH5WWO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:44:13.571037	2011-03-04 15:55:00.521575
 66	\N	Joseph	Chang	(951) 653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-03-04 15:55:20.000456
 4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	b_GFM7zKRVwLHUpWzLPA	2011-02-27 22:55:18.666809	35	2011-03-16 22:30:05.061406	2011-03-12 18:08:26.2692	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-03-16 22:30:05.062456
 5	Mr.	Todd	Carter	(703) 707-0009	(703) 217-8217	(703) 889-5133	tcarter@closettailors.com	$2a$10$eJKywvdryMeEhZDIa26H3.tyvmChU3zOj0XbTQBEaB8u1.jZsh4a2	$2a$10$eJKywvdryMeEhZDIa26H3.	\N	CGJOEaRe2uICmKH_urK_	2011-03-15 14:10:26.09049	6	2011-03-15 14:10:26.094243	2011-03-10 15:41:20.254987	72.66.45.179	72.66.62.197	2011-01-01 18:53:32.475866	2011-03-15 14:10:26.094796
-60	\N	Steve	Bisch	(636) 399-8262	(636) 399-8262	(314) 434-1976	sbisch@tailoredliving.com	$2a$10$OIKMvh3KJPb/y4smzl1kMu62KumAEkBUxb8CRZ2B5DQZzwSjf9sfa	$2a$10$OIKMvh3KJPb/y4smzl1kMu	\N	\N	\N	19	2011-03-16 17:27:10.87263	2011-03-16 16:34:14.910254	174.79.54.226	174.79.54.226	2011-01-27 18:32:44.56832	2011-03-16 17:27:10.873508
+42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$fehc6g7h6Ccms63oTgO95.ZfbTdR4wLSIKpX.LfvDkeC0WTaBaHL2	$2a$10$fehc6g7h6Ccms63oTgO95.	\N	\N	\N	109	2011-03-19 19:46:28.648309	2011-03-19 19:33:11.324062	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-03-19 19:46:28.64939
 70	\N	Jonathan	Elliott	(317)842-4272			jelliott@tailoredliving.com	$2a$10$69GVmRNLhgye703/6QZ41OzDdqzkcwIXghX0rnxWQP8XZorNTUTii	$2a$10$69GVmRNLhgye703/6QZ41O	\N	\N	\N	40	2011-03-18 18:18:46.115783	2011-03-18 14:15:37.206957	76.214.105.130	76.214.105.130	2011-02-11 15:47:02.028477	2011-03-18 18:18:46.116482
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	vn55z1eUcseD8asR9jPd	2011-03-16 21:51:31.753771	13	2011-03-17 16:59:59.079235	2011-03-16 23:15:04.228719	71.189.51.241	71.189.51.241	2011-02-11 15:27:04.739565	2011-03-17 16:59:59.079901
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$PoJWJKjl53gcV8z9Ug9biuY01vyg/iTmDp1gIAk5/bTl7en6nCrKq	$2a$10$PoJWJKjl53gcV8z9Ug9biu	\N	\N	\N	1	2011-03-16 21:44:31.947804	2011-03-16 21:44:31.947804	69.104.240.9	69.104.240.9	2011-02-11 15:36:07.879298	2011-03-16 21:44:31.948417
