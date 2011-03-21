@@ -73,7 +73,6 @@ class Item < ActiveRecord::Base
   def self.item_types 
     [
       Item,
-      Items::SushiListItem,
       Items::Cabinet,
       Items::CornerCabinet,
       Items::Countertop,
@@ -89,6 +88,7 @@ class Item < ActiveRecord::Base
       Items::BackingPanel,
       Items::MoldingNailer,
       Items::FinishedPanel,
+      Items::ConfiguredItem,
       Items::ScaledItem
     ]
   end

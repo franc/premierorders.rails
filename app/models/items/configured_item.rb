@@ -1,12 +1,12 @@
 require 'properties'
 require 'fp'
 
-class Items::SushiListItem < Item
+class Items::ConfiguredItem < Item
   AREA = Properties::PropertyDescriptor.new(:area, [], [Property::Area])
   EDGE_BANDING = Properties::PropertyDescriptor.new(:edge_band, [], [Property::EdgeBand])
 
   def self.component_association_types
-    {:required => [Items::SushiItemChoice]}
+    {:required => [Items::ConfiguredComponent]}
   end
 
   def self.optional_properties

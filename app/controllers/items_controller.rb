@@ -16,14 +16,15 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    if params[:search]
+    if !params[:search].blank?
       @search = Item.search do 
         with(:type).equal_to(params[:type]) unless params[:type].blank?
         with(:category).equal_to(params[:category]) unless params[:category].blank?
-        keywords(params[:search]) 
+        keywords(params[:search])
+        paginate(:page => params[:page], :per_page => 50)
       end 
 
-      @items = @search.results.select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
+      @items = @search.results.select{|j| can?(:read, j)}
     else
       conditions = params.reject do |k, v|
         !['type', 'category'].include?(k) || v.blank?

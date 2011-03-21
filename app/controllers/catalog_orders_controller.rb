@@ -1,4 +1,6 @@
 class CatalogOrdersController < ApplicationController
+  load_and_authorize_resource :except => [:catalog_data]
+  
   # GET /catalog_orders
   def index
     @franchisees = can?(:manage, CatalogOrder) ?  Franchisee.order(:franchise_name) : current_user.franchisees.order(:franchise_name)

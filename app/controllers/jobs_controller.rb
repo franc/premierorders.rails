@@ -9,20 +9,24 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.xml
   def index
-    if params[:search]
+    if !params[:search].blank?
       @search = Job.search do 
         with(:status).equal_to(params[:status]) unless params[:status].blank?
+        without(:status).equal_to('Cancelled') if params[:status].blank?
+        without(:status).equal_to('In Construction') if params[:status].blank?
         keywords(params[:search]) 
+        order_by(:placement_date, :desc)
+        paginate(:page => params[:page])
       end 
 
-      @jobs = @search.results.select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
+      @jobs = @search.results.select{|j| can?(:read, j)}
     else
       conditions = params.reject do |k, v|
         !['status'].include?(k) || v.blank?
       end
 
       jobs_scope = conditions.empty? ? Job.where("status != 'Cancelled'") : Job.where(conditions.to_hash)
-      @jobs = jobs_scope.where("status != 'In Construction'").order('jobs.placement_date DESC').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 20)
+      @jobs = jobs_scope.where("status != 'In Construction'").order('jobs.placement_date DESC').select{|j| can?(:read, j)}.paginate(:page => params[:page], :per_page => 30)
     end
 
     respond_to do |format|
