@@ -3,8 +3,6 @@ class CatalogOrdersController < ApplicationController
   
   # GET /catalog_orders
   def index
-    @franchisees = can?(:manage, CatalogOrder) ?  Franchisee.order(:franchise_name) : current_user.franchisees.order(:franchise_name)
-    @addresses = @franchisees[0].nil? ? [] : @franchisees[0].addresses
 
     respond_to do |format|
       format.html 
@@ -48,7 +46,7 @@ class CatalogOrdersController < ApplicationController
   end
 
   def catalog_json
-    @items_data = Item.where('in_catalog == true').map do |item|
+    @items_data = Item.where(:in_catalog => true).map do |item|
       {
         :id => item.id,
         :name => item.name,
@@ -61,6 +59,28 @@ class CatalogOrdersController < ApplicationController
 
     respond_to do |format|
       format.js { render :json => @items_data.to_json }
+    end
+  end
+
+  def reference_data
+    @franchisees = if can?(:manage, CatalogOrder) 
+      Franchisee.order(:franchise_name) 
+    else
+      current_user.franchisees.order(:franchise_name)
+    end
+
+    respond_to do |format|
+      format.js do
+        render :json => @franchisees.inject({}) {|results, f|
+          results[f.id] = {
+            :name => f.franchise_name, 
+            :users => f.users.order(:last_name, :first_name).map{|u| {:id => u.id, :name => u.name}},
+            :addresses => f.addresses.map{|a| {:id => a.id, :single_line => a.single_line}}
+          }
+
+          results
+        }
+      end
     end
   end
 end

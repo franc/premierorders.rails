@@ -11,6 +11,73 @@
   <%= javascript_include_tag 'path.min.js' %>
   <%= javascript_include_tag 'catalog_orders.js' %>
   <script type="text/javascript">
+    var update_reference_data = function() {
+      var rd_storage_id = CatalogOrder.storage_root + '.reference_data';
+
+      var update_users_list = function(users) {
+        $("#order_primary_contact_id option").remove();
+
+        var i;
+        for (i = 0; i < users.length; i++) {
+          $("#order_primary_contact_id").append(option_html(users[i].id, users[i].name));
+        }
+      };
+
+      var update_address_lists = function(addresses) {
+        $("#order_shipping_address_id option").remove();
+        $("#order_billing_address_id option").remove();
+
+        var i;
+        for (i = 0; i < addresses.length; i++) {
+          $("#order_shipping_address_id").append(option_html(addresses[i].id, addresses[i].single_line));
+          $("#order_billing_address_id").append(option_html(addresses[i].id, addresses[i].single_line));
+        }
+      };
+
+      var update_franchisee_list = function(reference_data) {
+        $("#order_franchisee_id option").remove();
+        $("#order_franchisee_id").unbind();
+        $("#order_franchisee_id").change(function(ev) {
+          update_users_list(reference_data[$(ev.target).val()].users);
+          update_address_lists(reference_data[$(ev.target).val()].addresses);
+        });
+
+        var key;
+        for (key in reference_data) {
+          if (reference_data.hasOwnProperty(key)) {
+            $("#order_franchisee_id").append(option_html(key, reference_data[key].name));
+          }
+        }
+        
+        $("#order_franchisee_id").change();
+      };
+
+      var rd_update_success = function(data) {
+        if (supports_local_storage()) {
+          localStorage[rd_storage_id] = JSON.stringify(data);
+        } 
+
+        update_franchisee_list(data);
+      };
+
+      var rd_update_failure = function() {
+        if (supports_local_storage() && localStorage[rd_storage_id]) {
+          update_franchisee_list(JSON.parse(localStorage[rd_storage_id]));
+        } else {
+          alert("We're sorry; it appears that you are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
+          window.location = "/offline.html"
+        }
+      };
+
+      $.ajax({
+        url: "/catalog_orders/reference_data",
+        success: rd_update_success,
+        error: rd_update_failure,
+        timeout: 10000,
+        dataType: "json"
+      });
+    };
+
     var update_catalog = function(current_order) {
       var catalog_storage_id = CatalogOrder.storage_root + '.catalog';
 
@@ -89,7 +156,7 @@
           url: "/catalog_orders/catalog_json",
           success: catalog_update_success,
           error: catalog_update_failure,
-          timeout: 3000,
+          timeout: 10000,
           dataType: "json"
       });
     };
@@ -190,6 +257,8 @@
 
       Path.root("#!/new");
       Path.listen();
+
+      update_reference_data();
     });
   </script>
 <% end %>
@@ -202,24 +271,16 @@
     <dd><%= text_field_tag :order_name, '', {:class => 'required', :minlength => '2'} %><em>*</em></dd>
 
     <dt><%= label_tag :order_franchisee_id, 'Customer' %></dt>
-    <dd><%= select_tag(:order_franchisee_id, 
-            options_for_select(@franchisees.map{|v| [v.franchise_name, v.id]}), 
-            :id => 'order_franchisee_id') %></dd>
+    <dd><select id="order_franchisee_id"></select></dd>
 
     <dt><%= label_tag :primary_contact_id, 'Primary Contact' %></dt>
-    <dd><%= select_tag(:primary_contact_id, 
-            options_for_select(@franchisees[0].users.map{|v| ["#{v.last_name}, #{v.first_name}", v.id]}), 
-            :id=> 'order_primary_contact_id') %></dd>
+    <dd><select id="order_primary_contact_id"></select></dd>
 
     <dt><%= label_tag :shipping_address_id, :shipping_address %></dt>
-    <dd><%= select_tag(:shipping_address_id,
-            options_for_select(@addresses.map{|v| [v.single_line, v.id]}), 
-            :id => 'order_shipping_address_id') %></dd>
+    <dd><select id="order_shipping_address_id"></select></dd>
 
     <dt><%= label_tag :billing_address_id, :billing_address %></dt>
-    <dd><%= select_tag(:billing_address_id,
-            options_for_select(@addresses.map{|v| [v.single_line, v.id]}), 
-            :id => 'order_billing_address_id') %></dd>
+    <dd><select id="order_billing_address_id"></select></dd>
 
     <dt>Item Category</dt>
     <dd><%= select_tag 'category', 

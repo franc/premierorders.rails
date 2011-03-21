@@ -72,3 +72,6 @@ var supports_local_storage = function() {
   }
 };
 
+var option_html = function(key, value) {
+  return "<option value=\""+key+"\">"+value+"</option>";
+};

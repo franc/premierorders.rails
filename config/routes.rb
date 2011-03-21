@@ -63,6 +63,7 @@ PgRails::Application.routes.draw do
   end
 
   match 'catalog_orders/catalog_json' => 'catalog_orders#catalog_json'
+  match 'catalog_orders/reference_data' => 'catalog_orders#reference_data'
   match 'catalog_orders/:id/add_item' => 'catalog_orders#update_item'
   resources :catalog_orders
 
