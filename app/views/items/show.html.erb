@@ -81,6 +81,8 @@
   <dl>
     <dt><%= label :item, :type %></dt>
     <dd><%= @item.class.to_s.demodulize %></dd>
+    <dt><%= label :item, :category %></dt>
+    <dd><%= @item.category.try(:titlecase) %></dd>
     <dt><%= label :item, :name %></dt>
     <dd><%= @item.name %></dd>
     <dt><%= label :item, :description %></dt>
