@@ -26,6 +26,7 @@ class Job < ActiveRecord::Base
       [job_number, job_number.gsub(/\s*/,''), job_number.gsub(/so\s*-\s*/i, '')] if job_number
     end
     string :status
+    string :placement_date
     text :job_item_names do
       job_items.map{|job_item| job_item.item_name}
     end

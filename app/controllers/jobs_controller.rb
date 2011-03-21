@@ -19,7 +19,7 @@ class JobsController < ApplicationController
         paginate(:page => params[:page])
       end 
 
-      @jobs = @search.results.select{|j| can?(:read, j)}
+      @jobs = @search.results
     else
       conditions = params.reject do |k, v|
         !['status'].include?(k) || v.blank?
