@@ -45,6 +45,7 @@ class Item < ActiveRecord::Base
     string :category
     string :purchase_part_id
     string :cutrite_id
+    boolean :in_catalog
   end
 
   def self.find_by_concrete_dvinci_id(id)

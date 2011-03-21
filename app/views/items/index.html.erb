@@ -8,6 +8,7 @@
       $("#item_type_filter").change(item_filters_submit);
       $("#item_category_filter").change(item_filters_submit);
       $("#item_search").change(item_filters_submit);
+      $("#item_in_catalog").change(item_filters_submit);
     });
   </script>
 <% end %>
@@ -28,6 +29,8 @@
 
     <strong>Search: </strong> 
     <input type="text" name="search" id="item_search" value="<%= params[:search] %>"/>
+    <strong>Catalog Items Only: </strong> 
+    <input type="checkbox" name="in_catalog" id="item_in_catalog"<%= params[:in_catalog].blank? ? '' : ' checked' %>/>
   </span>
 </form>
 
@@ -47,7 +50,7 @@
     <% if can? :destroy, Item %><th>Destroy</th><% end %>
   </tr>
 
-<% @items.each do |item| %>
+<% @items.select{|j| can?(:read, j)}.each do |item| %>
   <tr>
     <% if can? :update, Item %><td><%= link_to 'Edit', edit_item_path(item) %></td><% end %>
     <td><%= link_to item.name, item_path(item) %></td>

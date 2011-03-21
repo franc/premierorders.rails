@@ -20,17 +20,19 @@ class ItemsController < ApplicationController
       @search = Item.search do 
         with(:type).equal_to(params[:type]) unless params[:type].blank?
         with(:category).equal_to(params[:category]) unless params[:category].blank?
+        with(:in_catalog).equal_to(true) unless params[:in_catalog].blank?
         keywords(params[:search])
         paginate(:page => params[:page], :per_page => 50)
       end 
 
-      @items = @search.results.select{|j| can?(:read, j)}
+      @items = @search.results
     else
       conditions = params.reject do |k, v|
         !['type', 'category'].include?(k) || v.blank?
       end
 
       @items = conditions.empty? ? @items : @items.where(conditions.to_hash)
+      @items = @items.where(:in_catalog => true) unless params[:in_catalog].blank?
       @items = @items.order(:name).paginate(:page => params[:page], :per_page => 50)
     end
 
