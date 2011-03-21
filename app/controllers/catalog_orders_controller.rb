@@ -48,7 +48,7 @@ class CatalogOrdersController < ApplicationController
   end
 
   def catalog_json
-    @items_data = Item.where('category IS NOT NULL').map do |item|
+    @items_data = Item.where('in_catalog == true').map do |item|
       {
         :id => item.id,
         :name => item.name,
