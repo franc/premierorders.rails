@@ -36,7 +36,7 @@
     <th><%=Franchisee.model_name.human%> Name</th>
     <%= render :partial => 'job_cols_headers' %>
   </tr>
-  <% @jobs.each do |job| %>
+  <% @jobs.select{|j| can? :read, j}.each do |job| %>
     <tr style="border-top: double">
       <td><%= job.franchisee.franchise_name %></td>
       <%= render :partial => 'job_cols', :locals => {:job => job} %>
