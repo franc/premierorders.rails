@@ -31,6 +31,7 @@
 
 <p id="notice"><%= notice %></p>
 
+<%= will_paginate @jobs %>
 <table>
   <tr>
     <th><%=Franchisee.model_name.human%> Name</th>
@@ -49,8 +50,7 @@
     <% end %>
   <% end %>
 </table>
-
-<%= will_paginate @jobs unless @jobs.empty? %>
+<%= will_paginate @jobs %>
 
 <% content_for :local_nav do %>
   <% if can? :create, Job %>
