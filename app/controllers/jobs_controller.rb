@@ -141,10 +141,18 @@ class JobsController < ApplicationController
           OrderMailer.order_placed_email(@job).deliver
         end
 
-        if @job.status == 'Shipped' && @job.status != prior_status
-          @job.ship_date ||= DateTime.now
-          @job.save
-          OrderMailer.order_shipped_email(@job).deliver
+        if @job.status != prior_status
+          @job.job_state_transitions.create(
+            :prior_status => prior_status,
+            :new_status => @job.status,
+            :changed_by => current_user
+          )
+
+          if @job.status == 'Shipped' 
+            @job.ship_date ||= DateTime.now
+            @job.save
+            OrderMailer.order_shipped_email(@job).deliver
+          end
         end
         
         format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110321160848) do
+ActiveRecord::Schema.define(:version => 20110322181746) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -173,6 +173,15 @@ ActiveRecord::Schema.define(:version => 20110321160848) do
   create_table "job_serial_numbers", :force => true do |t|
     t.integer  "year"
     t.integer  "max_serial"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "job_state_transitions", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "changed_by_id"
+    t.string   "prior_status"
+    t.string   "new_status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
