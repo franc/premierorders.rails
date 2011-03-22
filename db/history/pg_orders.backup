@@ -733,7 +733,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 5, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 7, true);
 
 
 --
@@ -19069,6 +19069,8 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 3	345	98	In Production	Ready to Ship	2011-03-22 20:35:27.185046	2011-03-22 20:35:27.185046
 4	346	98	In Production	Ready to Ship	2011-03-22 20:35:33.034239	2011-03-22 20:35:33.034239
 5	312	98	Shipped	Ready to Ship	2011-03-22 20:35:38.826757	2011-03-22 20:35:38.826757
+6	340	98	In Production	Shipped	2011-03-22 21:04:09.006683	2011-03-22 21:04:09.006683
+7	365	98	In Production	Shipped	2011-03-22 21:04:13.602783	2011-03-22 21:04:13.602783
 \.
 
 
@@ -19120,7 +19122,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 524	8	\N	38	Bisch Test Sushi Order 2	SO-230	\N	2011-03-19 19:45:56.841353	2011-03-19 21:27:28.729953	\N	\N	\N	\N	\N	Cancelled	\N	2011-03-19	\N	2011-03-19 19:47:38	42	\N	\N	42	\N	38	CatalogOrder
 290	15	44	18	Dave Emery	SO-158	\N	2011-02-28 20:15:34.541592	2011-03-21 11:35:38.269812	Dave Emery Parts List.xls	application/octet-stream	8203	2011-02-28 20:15:34.535412	Phoenix	Ready For Production	2011-03-23	\N		2011-03-08 19:55:42	44		PremierRoute	44	Maple.	18	\N
 319	5	99	8	DaCosta	SO-135	\N	2011-03-03 19:07:55.268151	2011-03-17 16:59:29.768051	DaCosta_home_2-16-11 Parts List.xml	application/octet-stream	17218	2011-03-03 19:07:55.265999	Phoenix	In Production	2011-03-17	\N	Notching dimensions noted no order	2011-03-03 19:10:59	99		PremierRoute	99	Bronze, CS	8	\N
-340	1	1	1	Chip_Garage	SO-143	\N	2011-03-04 19:11:29.556344	2011-03-17 18:45:46.493528	Garage Parts List.xml	text/xml	10133	2011-03-04 19:11:29.554375	Phoenix	In Production	2011-03-21	\N		2011-03-04 19:12:28	1		PremierRoute	1	(He Does not want the handles. EH)\r\n\r\nPewter	1	\N
+340	1	1	1	Chip_Garage	SO-143	\N	2011-03-04 19:11:29.556344	2011-03-22 21:04:09.010232	Garage Parts List.xml	text/xml	10133	2011-03-04 19:11:29.554375	Phoenix	Shipped	2011-03-21	2011-03-22		2011-03-04 19:12:28	1		PremierRoute	1	(He Does not want the handles. EH)\r\n\r\nPewter	1	\N
 314	41	70	50	Castor_Master Closet	SO-134	\N	2011-03-03 17:36:42.869984	2011-03-22 13:34:20.45983	Castor_Master Closet Parts List.xml	text/xml	30180	2011-03-03 17:36:42.866494	Phoenix	Shipped	2011-03-17	2011-03-22	Premier Route	2011-03-03 17:38:12	70		PremierRoute	70	White.	50	\N
 446	41	70	50	Hall_Countertop	SO-187	\N	2011-03-14 19:09:09.903311	2011-03-16 18:51:58.530705	Hall_Countertop Parts List.xml	text/xml	8391	2011-03-14 19:09:09.898645	Phoenix	Confirmed	2011-03-28	\N		2011-03-14 19:09:37	70		PremierRoute	70	Wild Apple, CS	50	Job
 155	4	4	6	Reddy - Replacement Drawer Box	SO - 41	\N	2011-02-16 00:37:32.781674	2011-03-04 21:02:49.491104	Reddy - Replacement Drawer Box.xml	application/octet-stream	6907	2011-02-16 00:37:32.779089	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n*Replacement for previously ordered materials.  "Reddy - Kartik's Closet", was ordered pre D'Vinci 4.1 so dimensions were different also I needed specific sizing for soft close slides.\r\n\r\n**Please check previous order submitted to assure correct size is sent	2011-02-16 00:37:47	4		PremierRoute	4	2/17 left msg with Tim - is this warranty?\r\n2/17 per Tim not a warranty issue, they ruined drawer.	6	\N
@@ -19272,8 +19274,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 500	17	16	20	Paresh Dabhi	SO-219	\N	2011-03-17 18:48:58.815757	2011-03-17 22:21:00.971457	Paresh Dabhi 3-15-11.dvi Parts List.xml	text/xml	16798	2011-03-17 18:48:58.813684	Phoenix	Confirmed	2011-04-01	\N		2011-03-17 18:49:42	16		PremierRoute	16	NX Bronze, CS	20	Job
 563	69	104	83	Moore Closets	SO-247	\N	2011-03-22 15:21:13.103288	2011-03-22 19:47:23.585136	Moore Designs Parts List.xml	text/xml	36668	2011-03-22 15:21:13.101264	Phoenix	Confirmed	2011-04-05	\N		2011-03-22 15:22:01	104		PremierRoute	104	Antique White, CS	83	Job
 345	50	79	59	Suzy Wilson - Jonathan's Closet - Revised	SO-145	\N	2011-03-04 20:41:08.067746	2011-03-22 20:35:27.058923	Wilson, Suzy Closet Designs.dvi Parts List.xml	text/xml	48075	2011-03-04 20:41:08.063774	Phoenix	Ready to Ship	2011-03-21	\N	This replaces SO 123.	2011-03-04 20:42:55	79		PremierRoute	79	Yo - Item #10052 is on the SO to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
-365	35	65	43	Archer walk in	SO-154	\N	2011-03-07 23:51:15.959001	2011-03-17 21:53:37.992058	Archer walk in Parts List.xml	text/xml	51530	2011-03-07 23:51:15.956746	Phoenix	In Production	2011-03-22	\N	Also Need box quantities of: 10054, 10050, 10048, 10051.	2011-03-08 00:06:19	65		PremierRoute	65	Choc Apple. 3/11 laminate top is the correct size stated. 	43	\N
 565	20	19	23	Viad Garage	SO-248	\N	2011-03-22 18:26:33.445512	2011-03-22 19:48:38.389528	Viad, Cathy Parts List.xml	text/xml	26642	2011-03-22 18:26:33.443198	Phoenix	Confirmed	2011-04-06	\N		2011-03-22 18:29:24	19		PremierRoute	19	Wild Apple, CS	23	Job
+365	35	65	43	Archer walk in	SO-154	\N	2011-03-07 23:51:15.959001	2011-03-22 21:04:13.606662	Archer walk in Parts List.xml	text/xml	51530	2011-03-07 23:51:15.956746	Phoenix	Shipped	2011-03-22	2011-03-22	Also Need box quantities of: 10054, 10050, 10048, 10051.	2011-03-08 00:06:19	65		PremierRoute	65	Choc Apple. 3/11 laminate top is the correct size stated. 	43	\N
 520	9	9	13	Temple (2)	SO-227	\N	2011-03-18 21:20:28.880085	2011-03-18 21:45:33.932059	Temple, Jerry Parts List.xls	application/vnd.ms-excel	16955	2011-03-18 21:20:28.878067	Phoenix	Cancelled	\N	\N	** Classic Order ** Powder Coated Job **	2011-03-18 21:21:51	9		PremierRoute	9	** Do Not Run Thru CutRite **	13	Job
 509	9	9	13	Temple	SO-222	\N	2011-03-17 21:26:04.683829	2011-03-18 21:45:47.860897	Temple, Jerry Parts List.xls	application/vnd.ms-excel	16308	2011-03-17 21:26:04.681707	Phoenix	Cancelled	\N	\N	8" x 3/4" pewter material is for filler strips.  It will be used as molding..	2011-03-17 21:26:57	9		PremierRoute	9	3/18 on hold due to no height on 1 drawer box, pewter material needs to be added to parts list as filler. I left msg with John to upload order again. Once new order is placed i will cancel this order #222. CS	13	Job
 518	17	16	20	Dave Skyer	SO-226	\N	2011-03-18 20:17:15.237733	2011-03-18 22:20:26.891592	Dave Skyer.dvi Parts List.xml	text/xml	10889	2011-03-18 20:17:15.233724	Phoenix	Confirmed	2011-04-04	\N		2011-03-18 20:17:36	16		PremierRoute	16	Pewter, CS	20	Job
