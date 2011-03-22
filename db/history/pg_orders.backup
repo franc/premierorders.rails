@@ -494,7 +494,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 6110, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 6111, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 14260, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 14262, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 9105, true);
+SELECT pg_catalog.setval('job_items_id_seq', 9106, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 507, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 508, true);
 
 
 --
@@ -752,7 +752,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 557, true);
+SELECT pg_catalog.setval('jobs_id_seq', 558, true);
 
 
 --
@@ -5630,6 +5630,7 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 87	6	2795	0.98	\N	8	\N	2011-03-10 18:54:30.375268	2011-03-10 18:54:30.412212
 88	217	2795	0.02	\N	4	\N	2011-03-10 18:54:30.415177	2011-03-10 18:54:30.43575
 4904	220	7700	0.04	\N	2	\N	2011-03-15 15:30:34.836544	2011-03-15 15:30:34.860304
+6111	218	9106	0.03	\N	2	\N	2011-03-21 23:33:45.017161	2011-03-21 23:33:45.046177
 96	12	2796	0.02	\N	4	\N	2011-03-10 18:54:32.933604	2011-03-10 18:54:33.078695
 97	592	2796	0.01	\N	20	\N	2011-03-10 18:54:33.082152	2011-03-10 18:54:33.107198
 98	9	2796	0.06	\N	12	\N	2011-03-10 18:54:33.110086	2011-03-10 18:54:33.139922
@@ -14799,6 +14800,8 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 14258	9103	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-21 19:50:27.573012	2011-03-21 19:50:27.573012
 14259	9104	\N	dimensions	\N		{"linear_units":"in"}	2011-03-21 19:50:27.585344	2011-03-21 19:50:27.585344
 14260	9105	\N	dimensions	\N		{"linear_units":"in"}	2011-03-21 19:50:27.599605	2011-03-21 19:50:27.599605
+14261	9106	\N	dimensions	\N	Height,Width	{"height":"45.25","width":"15.25","linear_units":"in"}	2011-03-21 23:33:44.958503	2011-03-21 23:33:44.958503
+14262	9106	\N	color	\N	Color	{"color":"White"}	2011-03-21 23:33:44.982001	2011-03-21 23:33:44.982001
 \.
 
 
@@ -14903,6 +14906,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8273	499	500	000.400.002.403.00M	1		2011-03-17 18:38:35.824764	2011-03-17 22:19:57.473533	130.99	10	NX Workbench Top (Finished Left) | Ebony Star	\N	\N	in	ok	65.29	0.00	0.31	\N	garage
 8274	499	501	000.400.003.403.00M	1		2011-03-17 18:38:35.872202	2011-03-17 22:19:57.476609	193.52	11	NX Workbench Top (Finished Right) | Ebony Star	\N	\N	in	ok	65.29	0.00	0.31	\N	garage
 8242	498	45	000.931.011.002.00M	10		2011-03-17 18:11:04.873881	2011-03-17 22:18:48.943523	7.55	1	CL Adjustable Shelf | Antique White	\N	\N	in	ok	6.51	0.00	0.03	\N	closet
+9106	558	517	000.101.000.001.00B	2	These doors to be Shaker Style to match other doors ordered for Hogan.	2011-03-21 23:33:44.946075	2011-03-21 23:33:45.23795	58.42	1	Decor Door - JR7 | White	\N	\N	in	ok	58.44	0.06	0.05	\N	\N
 8275	500	516	000.100.000.008.00M	2		2011-03-17 18:48:59.024763	2011-03-17 22:21:00.926596	26.77	1	Door - Flat | Windswept Bronze	\N	\N	in	ok	10.89	0.06	0.05	\N	garage
 8276	500	516	000.100.000.008.00M	4		2011-03-17 18:48:59.053236	2011-03-17 22:21:00.931193	75.52	2	Door - Flat | Windswept Bronze	\N	\N	in	ok	31.09	0.06	0.05	\N	garage
 8277	500	516	000.100.000.008.00M	12		2011-03-17 18:48:59.079485	2011-03-17 22:21:00.934967	87.85	3	Door - Flat | Windswept Bronze	\N	\N	in	ok	36.20	0.06	0.05	\N	garage
@@ -18728,6 +18732,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 474	520	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-18 21:20:29.075822	2011-03-18 21:20:29.075822
 475	521	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-18 21:30:31.814182	2011-03-18 21:30:31.814182
 476	522	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-18 21:44:00.992282	2011-03-18 21:44:00.992282
+508	558	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-21 23:33:44.933613	2011-03-21 23:33:44.933613
 \.
 
 
@@ -18736,7 +18741,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	245	2011-01-23 05:52:19.75042	2011-03-21 19:12:01.606601
+1	2011	246	2011-01-23 05:52:19.75042	2011-03-21 23:34:37.917157
 \.
 
 
@@ -18924,6 +18929,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 423	8	32	38	Sample Cabinets	SO-174	\N	2011-03-11 18:28:00.050482	2011-03-16 21:29:21.076141	Sample Cabinets.xml	application/xml	6329	2011-03-11 18:28:00.046165	Phoenix	Confirmed	2011-03-31	\N	Doors and Workbench tops are included in this product code. EH	2011-03-11 18:28:36	32		PremierRoute	32	Maple, CS	38	Job
 463	20	19	23	Lopez Jewel tray	SO-198	\N	2011-03-15 14:37:59.457135	2011-03-16 21:49:44.148398	Jewelry tray.xml	text/xml	6721	2011-03-15 14:37:59.454044	Phoenix	Confirmed	2011-03-31	\N		2011-03-15 14:38:33	19		PremierRoute	19	No Wood, CS	23	Job
 533	69	104	83	Sweet Garage cabinets	SO-233	\N	2011-03-20 22:24:51.202158	2011-03-21 19:31:34.924145	Sweet Garage Parts List.xml	text/xml	5683	2011-03-20 22:24:51.197739	Phoenix	Confirmed	2011-04-05	\N		2011-03-20 22:25:15	104		PremierRoute	104	White, CS	83	Job
+558	20	19	23	Hogan added doors	SO-246	\N	2011-03-21 23:33:44.699575	2011-03-21 23:34:37.921342	Hogan, added doors.xml	text/xml	5505	2011-03-21 23:33:44.696055	\N	Placed	\N	\N		2011-03-21 23:34:37	19	\N	\N	19	\N	\N	Job
 452	41	70	50	Rakouskas_Countertop	SO-191	\N	2011-03-14 20:16:39.502472	2011-03-16 20:07:20.482617	Rakouskas_Countertop Parts List.xml	text/xml	6776	2011-03-14 20:16:39.500449	Phoenix	Confirmed	2011-03-30	\N		2011-03-14 20:16:58	70		PremierRoute	70	Carmel Apple, CS	50	Job
 381	18	17	21	Cole 348	SO-166	\N	2011-03-09 03:23:09.967296	2011-03-16 20:50:47.382328	Cole2.dvi Parts List.xml	text/xml	23130	2011-03-09 03:23:09.965364	Phoenix	Confirmed	2011-03-25	\N	Please replace DR1 Decore drawer faces (qty 14)with Decore DR31 drawer faces.	2011-03-09 03:24:44	17		PremierRoute	17	3/10 sent email to Peter/Wendy on DR 31, replacement door and box amount on #1070. CS\r\n3/10 wants DRS 131, 1 box of #1070 and replacement drawer box is not a warranty. CS\r\n\r\nWhite, CS	21	\N
 373	14	13	17	Bennett	SO-161	\N	2011-03-08 20:04:37.035723	2011-03-21 11:38:49.946667	Bennett Parts List.xml	text/xml	24236	2011-03-08 20:04:37.03208	Phoenix	Ready For Production	2011-03-23	\N		2011-03-08 20:37:20	13		PremierRoute	13	NX Windswept Bronze	17	\N
@@ -21979,9 +21985,8 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	6	2011-03-09 23:46:05.435719	2011-03-07 02:48:25.9188	67.78.112.191	70.116.28.114	2011-01-01 18:53:33.181217	2011-03-09 23:46:05.43677
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	11	2011-03-15 14:10:14.759141	2011-03-10 18:21:41.175476	72.66.45.179	72.66.62.197	2011-02-17 15:18:30.360419	2011-03-15 14:10:14.760242
 3	Mr.	Mike	Lyon	(253) 261-4253		(253) 447-4575	mlyon@tailoredliving.com	$2a$10$ZQu0KnwaR.WSHW.uvxQBweQQGxLyhZxZQUzVZRLvsbLg0bZOzozM6	$2a$10$ZQu0KnwaR.WSHW.uvxQBwe	\N	FFLKATrzBLgwghpXvq_b	2011-03-08 02:03:02.02199	4	2011-03-09 23:38:23.90305	2011-03-08 02:03:02.026573	24.22.187.236	24.22.187.236	2011-01-01 18:53:32.127395	2011-03-09 23:38:23.903704
-1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@tailoredliving.com	$2a$10$qqBeeyOALViNUPJznyjMEuyImInYrz1Qz4g7mkaDoO4aRnyi0Wfsm	$2a$10$qqBeeyOALViNUPJznyjMEu	\N	SdG-Gc0XbJDMBdz7JshH	2011-03-11 04:20:48.273964	57	2011-03-21 21:42:17.920597	2011-03-21 17:01:04.172185	67.203.136.36	67.203.136.36	2011-01-01 18:53:31.856627	2011-03-21 21:42:17.921305
+19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	z5uTEp--hEDCUKXTi7va	2011-03-15 20:19:16.752546	19	2011-03-21 23:32:08.398331	2011-03-15 20:19:16.756992	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-03-21 23:32:08.398999
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	ZCVnz0HP3pa1B9n0lzt_	2011-03-16 18:22:34.555066	5	2011-03-16 18:22:34.56253	2011-03-08 19:56:53.138051	70.66.153.10	70.66.153.10	2011-01-01 18:53:37.748043	2011-03-16 18:22:34.563211
-19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	z5uTEp--hEDCUKXTi7va	2011-03-15 20:19:16.752546	18	2011-03-15 20:19:16.756992	2011-03-15 14:36:58.435744	174.76.17.14	68.231.204.109	2011-01-01 18:53:34.410377	2011-03-15 20:19:16.757699
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
 13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$YfhT4VrqnrWrIGK3pB2iaePSRgzYaT9YLa4PgSJT4U4SJLHl94ZDy	$2a$10$YfhT4VrqnrWrIGK3pB2iae	\N	OlImnuhrnZwZS1GyF7yD	2011-03-08 19:31:39.401426	3	2011-03-08 19:57:25.873311	2011-03-08 19:31:39.406049	68.89.173.85	68.89.173.85	2011-01-01 18:53:33.554435	2011-03-08 19:57:25.873992
 12	\N	Keith	Garrett	(281) 748-7403		2812923300	kdgarrett@tailoredliving.com	$2a$10$WVWyPxrxwJjfIwO3tWoalun77RTRQ7FGFfGzeL81DRqsbzahSKOD.	$2a$10$WVWyPxrxwJjfIwO3tWoalu	\N	\N	\N	7	2011-03-15 19:46:13.319941	2011-03-14 16:04:11.540785	98.200.206.1	50.15.164.149	2011-01-01 18:53:33.430408	2011-03-15 19:46:13.32125
@@ -21991,6 +21996,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 46	Mr.	Jim	Friesen	(503) 390-0522	(503) 302-6029		jfriesen@tailoredliving.com	$2a$10$d1qe/mYTbWRWl7lko.J5h.xVbtQAMF1PsQOSVpKjsmBTZMU.GJrJa	$2a$10$d1qe/mYTbWRWl7lko.J5h.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.091546	2011-02-11 16:23:31.156631
 25	Mr.	Harrison	Rushton	(423) 517-0303	(423) 322-3629	(423) 517-0531	harushton@tailoredliving.com	$2a$10$.yVK9FbYq/YoL5IlF55nbOi022KRwX/7grrDJakHYoacJI7lKxej6	$2a$10$.yVK9FbYq/YoL5IlF55nbO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.298971	2011-02-11 16:41:57.485489
 17	Mr.	Peter	Selwyn	(613) 225-5218		(613) 225-5218	pwselwyn@tailoredliving.com	$2a$10$pWLfLCr8q6m5cqWnLHd.IOE5hcI2vb9cv6Lwh.vrgwu5duFa.S.m2	$2a$10$pWLfLCr8q6m5cqWnLHd.IO	\N	\N	\N	10	2011-03-16 15:04:21.33514	2011-03-14 16:19:05.707828	209.87.226.86	209.87.226.86	2011-01-01 18:53:34.153324	2011-03-16 15:04:21.33586
+1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@tailoredliving.com	$2a$10$qqBeeyOALViNUPJznyjMEuyImInYrz1Qz4g7mkaDoO4aRnyi0Wfsm	$2a$10$qqBeeyOALViNUPJznyjMEu	\N	\N	\N	59	2011-03-21 23:15:12.982285	2011-03-21 23:10:16.73009	67.203.136.36	67.203.136.36	2011-01-01 18:53:31.856627	2011-03-21 23:15:12.983055
 34	Mrs.	Yolanda	Quihuis	623-792-2308		(480) 483-7895	yquihuis@premiergarage.com	$2a$10$./hPCbYceRBaPrNrPYAh/eFPPGRRHVHbGPPjHWKRPjRPpKEYkuSLS	$2a$10$./hPCbYceRBaPrNrPYAh/e	\N	VS-UZecfzT95ORhxjaBk	2011-02-16 13:51:40.156431	65	2011-03-21 19:49:22.439157	2011-03-18 15:24:56.042924	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.603664	2011-03-21 19:49:22.44005
 15	Mr.	Dan	Kerth	(859) 488-0078	(859) 866-8266	(859) 488-0079	dckerth@tailoredliving.com	$2a$10$bL1cr8sl4PRZFZQbzogu7ej9BnSIv1JHhtdU.2s0WTWFC5wjDh4Fe	$2a$10$bL1cr8sl4PRZFZQbzogu7e	\N	\N	\N	1	2011-03-20 16:08:59.43897	2011-03-20 16:08:59.43897	74.136.5.5	74.136.5.5	2011-01-01 18:53:33.810296	2011-03-20 16:08:59.439497
 9	\N	John	Scheschuk	(972) 740-9944		(972)767-4301	jkscheschuk@tailoredliving.com	$2a$10$.lKODjWLGeUJECuIqHoIcOrOkKsm0Ru9490fpfCiDjAbWydYHvgQ.	$2a$10$.lKODjWLGeUJECuIqHoIcO	\N	\N	\N	22	2011-03-21 19:06:04.138882	2011-03-18 21:19:58.925586	216.215.73.209	76.237.91.108	2011-01-01 18:53:33.043335	2011-03-21 19:06:04.139615
@@ -22012,7 +22018,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	10	2011-02-02 00:58:16.647804	2011-01-26 14:00:00.768041	98.227.34.3	69.174.58.44	2011-01-23 16:28:32.887677	2011-02-02 00:58:16.648734
 69	\N	Bill	Bruneman	(630) 289-7760			bkbruneman@tailoredliving.com	$2a$10$JvGmZM1XoN/T/0fecH5WWOyFW9ejX7UHKm2O1zIA5E.0YhHJuaMsG	$2a$10$JvGmZM1XoN/T/0fecH5WWO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:44:13.571037	2011-03-04 15:55:00.521575
 66	\N	Joseph	Chang	(951) 653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-03-04 15:55:20.000456
-4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	b_GFM7zKRVwLHUpWzLPA	2011-02-27 22:55:18.666809	35	2011-03-16 22:30:05.061406	2011-03-12 18:08:26.2692	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-03-16 22:30:05.062456
+4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	MllIqGn3qFxBJC5C2iqk	2011-03-21 23:32:18.626707	36	2011-03-21 23:32:18.630982	2011-03-16 22:30:05.061406	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-03-21 23:32:18.631656
 54	\N	Test	User	222-222-2222			test@hylotech.com	$2a$10$U7zCzKW787M7GA0wmwK7Fenitw2Yqx3KunqQ6x1rgISlm.HQZN86u	$2a$10$U7zCzKW787M7GA0wmwK7Fe	DBGnjCTJvWF9sMHP6Ogj	qbKwF-XFGD5uRyAZCaE2	2011-03-18 17:05:53.38705	9	2011-03-21 18:44:44.914819	2011-03-18 17:05:53.391299	98.245.88.239	98.245.88.239	2011-01-25 16:00:52.065032	2011-03-21 18:44:44.915914
 60	\N	Steve	Bisch	(636) 399-8262	(636) 399-8262	(314) 434-1976	sbisch@tailoredliving.com	$2a$10$OIKMvh3KJPb/y4smzl1kMu62KumAEkBUxb8CRZ2B5DQZzwSjf9sfa	$2a$10$OIKMvh3KJPb/y4smzl1kMu	\N	\N	\N	23	2011-03-20 22:36:52.045808	2011-03-19 19:42:08.01284	174.79.54.226	174.79.54.226	2011-01-27 18:32:44.56832	2011-03-20 22:36:52.046785
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$hiJTCKugu/62u4ca7t5mAuSZHXuN6zVXUVCRwPb1vJofUfVaDsiqy	$2a$10$hiJTCKugu/62u4ca7t5mAu	\N	\N	\N	1	2011-03-21 17:10:42.466364	2011-03-21 17:10:42.466364	67.52.165.230	67.52.165.230	2011-01-01 18:53:34.284249	2011-03-21 17:10:42.467315
@@ -22040,13 +22046,13 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 103	\N	Michael	Welborn	(214) 329-6949			mwelborn@tailoredliving.com	$2a$10$dQrJS7/T9mnGUIYBfohMxO.Hq0t38dISllzOqvvXOI5wJ64czZ4mS	$2a$10$dQrJS7/T9mnGUIYBfohMxO	\N	\N	\N	15	2011-03-21 13:25:27.369667	2011-03-18 21:24:03.307637	70.129.140.46	70.129.140.46	2011-02-23 18:11:41.960504	2011-03-21 13:25:27.370524
 35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	131	2011-03-20 22:46:03.792701	2011-03-20 19:07:05.930132	71.196.137.193	71.196.137.193	2011-01-01 18:53:36.717099	2011-03-20 22:46:03.793681
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	3fKkUt4AXqpG-i6UGliu	2011-02-22 19:00:48.119409	2	2011-02-22 19:00:51.544035	2011-02-16 20:41:30.189054	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-02-22 19:00:51.544781
+102	\N	Jayson	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/..Y0uOHPRnN4CD7hzfQPYXWc8dvO963m	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/.	\N	\N	\N	38	2011-03-21 23:47:30.732932	2011-03-21 22:51:33.12506	174.79.54.226	174.79.54.226	2011-02-21 19:54:37.738913	2011-03-21 23:47:30.733824
 100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	sFOOttVpvUb20i7PZ23b	2011-03-11 22:09:45.84513	25	2011-03-19 18:00:04.263096	2011-03-17 21:23:30.640665	76.214.105.130	76.214.105.130	2011-02-18 00:30:51.948611	2011-03-19 18:00:04.263852
 88	\N	Andrew	Amenta	(239) 949-5584		(239) 949-9923	swflorida@premiergarage.com	$2a$10$.cjW.GOIh3sr0CnoZA2NHOcGe3R0xoVPCQQnE2.EJ5JRZEp2pW8aW	$2a$10$.cjW.GOIh3sr0CnoZA2NHO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:03:58.211053	2011-03-04 15:54:26.992475
 78	\N	Dave	Galt	(701)281-0558		(701)281-0568	dgalt@tailoredliving.com	$2a$10$1kCTBmCuZB59.p7hZJkB..d/caHKpVhCKai4Uo6lJclobHPQjqgEi	$2a$10$1kCTBmCuZB59.p7hZJkB..	\N	\N	\N	2	2011-02-17 18:20:16.439636	2011-02-15 15:08:08.270598	69.178.221.211	69.178.221.211	2011-02-11 16:13:15.331096	2011-02-17 18:20:16.440675
 74	\N	Brian	Marine	(651)454-1315		(651)454-1336	bmarine@tailoredliving.com	$2a$10$pffsNm.4PZuDLiVHiBddFuXzrxU9eo1HVpod7eimQCtZDXANWhkua	$2a$10$pffsNm.4PZuDLiVHiBddFu	\N	\N	\N	2	2011-03-03 13:53:44.861619	2011-03-02 16:11:59.30949	75.168.197.137	75.168.197.137	2011-02-11 16:01:44.01807	2011-03-03 13:53:44.862477
 97	\N	Hunt	Eric	623-792-2289	602-763-2228		ehunt@premiergarage.com	$2a$10$Jsq45ZjZmGlK6.B5.f0tDunJyC0j.VoqAnNGWRH7u88UfYQgWDyiK	$2a$10$Jsq45ZjZmGlK6.B5.f0tDu	\N	\N	\N	9	2011-03-11 17:24:56.456465	2011-03-08 13:47:17.787815	174.79.54.226	174.79.54.226	2011-02-16 18:28:06.756767	2011-03-11 17:24:56.457279
 101	\N	Veny	Pirochta	650-286-9676	650-826-1000	650-286-9690	venyp@tailoredliving.com	$2a$10$iNba5BuOtSaV0HFQHfUfsed/PBOx89PRr6.yULCFsVQaQ3pBFrkLy	$2a$10$iNba5BuOtSaV0HFQHfUfse	\N	-NrVV6aDr6Qet-_L0SRb	2011-02-19 03:22:49.123982	7	2011-03-03 23:14:52.595187	2011-02-28 19:15:36.941555	69.106.226.5	69.106.226.5	2011-02-19 03:17:56.740706	2011-03-03 23:14:52.595816
-102	\N	Jayson	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/..Y0uOHPRnN4CD7hzfQPYXWc8dvO963m	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/.	\N	\N	\N	37	2011-03-21 22:51:33.12506	2011-03-21 17:46:26.155282	174.79.54.226	174.79.54.226	2011-02-21 19:54:37.738913	2011-03-21 22:51:33.12605
 92	\N	Joe	Fay	609-443-7590		732-409-7237	centralnj@premiergarage.com	$2a$10$IWKyVsGGgXYx9iu5O991vud8gvlePWOg2xPKG6HfuXe51WMvWJzcG	$2a$10$IWKyVsGGgXYx9iu5O991vu	\N	\N	\N	2	2011-03-17 17:24:49.586187	2011-03-17 11:17:37.660009	69.115.225.164	174.79.54.226	2011-02-11 18:17:00.115637	2011-03-17 18:12:07.757396
 93	\N	Ed	Brady	(888) 542-1221		(410) 569-9646	delval@PremierGarage.com	$2a$10$XVq3306yf4veXgICj5yCdOjgAvlI342p7oobfTsDA28wX49Fo9MtS	$2a$10$XVq3306yf4veXgICj5yCdO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:19:32.770532	2011-03-04 15:52:41.110484
 80	\N	Robert 	Chiavaroli	(732) 710-7426			rchiavaroli@tailoredliving.com	$2a$10$Y0mQQS3vGCrRCpA3rWPeFutYFlKyT1gVKr/kq6O3GoKwWuhIXTc9C	$2a$10$Y0mQQS3vGCrRCpA3rWPeFu	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 16:17:59.828796	2011-03-04 15:55:40.593665
