@@ -9,11 +9,8 @@
       $("#item_category_filter").change(item_filters_submit);
       $("#item_search").change(item_filters_submit);
       $("#item_in_catalog").change(item_filters_submit);
-      $(".item_catalog_status").change(function(ev) {
-        if (!$(ev.target).is(':checked')) {
-          $(ev.target).val(false);
-        }
-
+      $(".item_drop_ship").change(function(ev) {
+        $(ev.target).val($(ev.target).is(':checked') ? "drop_ship" : "standard");
         post_update($(ev.target), function() {});
       });
     });
@@ -55,7 +52,7 @@
     <th>Margin</th>
     <th>Comps</th>
     <th>Props</th>
-    <th>In Catalog</th>
+    <th>Drop Ship</th>
     <% if can? :destroy, Item %><th>Destroy</th><% end %>
   </tr>
 
@@ -72,7 +69,7 @@
     <td><%= item.margin_factor %></td>
     <td><%= raw ok_tag(item.components_ok?) %></td>
     <td><%= raw ok_tag(item.properties_ok?) %></td>
-    <td><%= check_box_tag "item[#{item.id}][in_catalog]", true, item.in_catalog?, :class => 'item_catalog_status' %></td>
+    <td><%= check_box_tag "item[#{item.id}][ship_by]", "drop_ship", item.ship_by == 'drop_ship', :class => 'item_drop_ship' %></td>
     <% if can? :destroy, Item %>
       <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
     <% end %>
