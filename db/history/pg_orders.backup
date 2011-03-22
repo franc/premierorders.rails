@@ -733,7 +733,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 2, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 5, true);
 
 
 --
@@ -19066,6 +19066,9 @@ COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdi
 COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status, created_at, updated_at) FROM stdin;
 1	563	53	Placed	Confirmed	2011-03-22 19:47:25.625816	2011-03-22 19:47:25.625816
 2	565	53	Placed	Confirmed	2011-03-22 19:48:40.388972	2011-03-22 19:48:40.388972
+3	345	98	In Production	Ready to Ship	2011-03-22 20:35:27.185046	2011-03-22 20:35:27.185046
+4	346	98	In Production	Ready to Ship	2011-03-22 20:35:33.034239	2011-03-22 20:35:33.034239
+5	312	98	Shipped	Ready to Ship	2011-03-22 20:35:38.826757	2011-03-22 20:35:38.826757
 \.
 
 
@@ -19184,16 +19187,15 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 307	41	70	50	Burton_Closet	SO-128	\N	2011-03-02 19:43:47.287756	2011-03-22 13:34:13.678475	Burton_Closet Parts List.xml	text/xml	17578	2011-03-02 19:43:47.285113	Phoenix	Shipped	2011-03-17	2011-03-22	Premier Route	2011-03-02 19:44:56	70		PremierRoute	70	Wild Apple.	50	\N
 244	5	99	8	Rubino Garage	SO-90	\N	2011-02-24 18:18:50.747896	2011-03-10 16:40:20.144145	Rubino Garage Parts List.xml	application/octet-stream	22295	2011-02-24 18:18:50.745878	Phoenix	Cancelled	2011-03-10	\N	Order Slat wall items as indicated in the notes column.	2011-02-24 18:20:18	99		PremierRoute	99		8	\N
 280	13	12	16	Leary	SO-183	\N	2011-02-28 16:39:57.526369	2011-03-14 19:11:00.69922	leary_02_28_Parts List.xml	text/xml	15841	2011-02-28 16:39:57.519293	Phoenix	Confirmed	2011-03-28	\N		2011-03-14 16:06:36	12		PremierRoute	12	White	16	\N
+312	45	74	54	Kathy Servaty	SO-132	\N	2011-03-03 14:13:09.537301	2011-03-22 20:35:38.742863	Kathy Servaty Hall Closet Parts List.xml	text/xml	23597	2011-03-03 14:13:09.535245	Phoenix	Ready to Ship	2011-03-17	2011-03-22	Need for installation by 3/21/11	2011-03-03 14:18:07	74		PremierRoute	74	White.	54	\N
 261	1	1	1	704_dorellfabric	SO-101	\N	2011-02-25 04:34:24.7025	2011-03-15 20:29:26.576347	dorellfabric Parts List.xml	text/xml	27343	2011-02-25 04:34:24.698972	Phoenix	Shipped	2011-03-11	2011-03-15		2011-02-25 04:35:26	1		PremierRoute	1		1	\N
 327	1	1	1	Sellars	SO-139	\N	2011-03-04 00:35:25.448299	2011-03-22 04:20:06.932805	sellars_0207 Parts List.xml	text/xml	20591	2011-03-04 00:35:25.44481	Phoenix	Shipped	2011-03-18	2011-03-22		2011-03-04 00:36:58	1		PremierRoute	1	White.	1	\N
-312	45	74	54	Kathy Servaty	SO-132	\N	2011-03-03 14:13:09.537301	2011-03-22 14:10:27.841302	Kathy Servaty Hall Closet Parts List.xml	text/xml	23597	2011-03-03 14:13:09.535245	Phoenix	Shipped	2011-03-17	2011-03-22	Need for installation by 3/21/11	2011-03-03 14:18:07	74		PremierRoute	74	White.	54	\N
 324	5	99	8	Perman Bonnie	SO-138	\N	2011-03-03 19:35:19.837036	2011-03-17 17:00:18.062103	Perman Bonnie Wh list.xml	text/xml	22942	2011-03-03 19:35:19.834563	Phoenix	In Production	2011-03-17	\N		2011-03-03 19:35:52	99		PremierRoute	99	White.	8	\N
 493	69	104	83	Larsen	SO-215	\N	2011-03-17 12:30:06.512276	2011-03-18 18:56:43.347278	Larsen Designs Parts List.xml	text/xml	14362	2011-03-17 12:30:06.508824	Phoenix	Confirmed	2011-03-31	\N		2011-03-17 12:33:30	104		PremierRoute	104	Chocolate Apple, CS\r\n\r\nW/T is correct size. CS	83	Job
 431	33	64	41	MacDonald, Gretchen	SO-175	\N	2011-03-11 22:15:41.119018	2011-03-16 20:45:08.088564	MacDonald, Gretchen.xml	text/xml	36655	2011-03-11 22:15:41.11649	Phoenix	Confirmed	2011-03-28	\N		2011-03-11 22:16:02	64		PremierRoute	64	White, CS	41	Job
 405	11	32	14	WARRENTY (SO-27)	SO-173	\N	2011-03-11 14:22:01.174009	2011-03-11 22:42:46.483791	Bland Master Closet.xml	application/xml	4183	2011-03-11 14:22:01.169473	Phoenix	Shipped	2011-03-16	2011-03-11		2011-03-11 14:23:23	32		PremierRoute	10	EH - NO CHARGE	14	Job
 507	9	9	13	Ray	SO-221	\N	2011-03-17 21:16:07.275027	2011-03-17 22:24:00.961557	Ray, Jason - Premier Parts List.xls	application/vnd.ms-excel	21811	2011-03-17 21:16:07.272338	Phoenix	Confirmed	2011-04-01	\N		2011-03-17 21:16:52	9		PremierRoute	9	NX Windswept Pewter, CS	13	Job
 179	4	4	6	Bergman - Master	SO - 52	\N	2011-02-17 23:41:28.757889	2011-03-08 23:34:36.721321	Bergman - Master.xml	application/octet-stream	34213	2011-02-17 23:41:28.7557	Phoenix	Shipped	2011-03-04	2011-03-08	Ship Date: 03/01/11\r\n\r\nPG Preferred Shipping	2011-02-17 23:42:54	4		PremierRoute	29	2/22 per Eric add #1070 drawer glides qty 15 to order. cs	6	\N
-346	50	79	59	Stamford Home Show Display - Revision	SO-146	\N	2011-03-04 21:58:05.026661	2011-03-17 19:03:22.721455	Corner Stamford HomeShowParts List 03.04.11.xml	text/xml	50813	2011-03-04 21:58:05.022236	Phoenix	In Production	2011-03-21	\N	This replaces SO # 144.	2011-03-04 21:59:49	79		PremierRoute	79	3/8 Item #10052 on sales order to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
 194	33	101	41	Pradhan, Shailandra	SO - 58	\N	2011-02-19 03:29:55.568528	2011-03-11 22:05:47.666905	Pradhan Shailendra.dvi Parts List.xml	text/xml	52269	2011-02-19 03:29:55.565205	Phoenix	Shipped	2011-03-07	2011-03-11		2011-02-19 03:39:44	101		PremierRoute	101		41	\N
 220	28	103	36	Paige	SO-79	\N	2011-02-23 19:58:29.086991	2011-03-14 19:13:04.595538	Paige add on Parts List.xls	application/vnd.ms-excel	6363	2011-02-23 19:58:29.085078	Phoenix	Shipped	2011-03-10	2011-03-11		2011-02-23 19:58:58	103		PremierRoute	103		36	\N
 368	28	103	36	Revised Pokorny	SO-156	\N	2011-03-08 14:40:30.092523	2011-03-18 17:33:55.308894	Pokorny, steve Parts List.xls	application/vnd.ms-excel	12378	2011-03-08 14:40:30.090306	Phoenix	In Production	2011-03-22	\N	BB Top should be stock size	2011-03-08 14:41:59	103		PremierRoute	103	NX Windswept Bronze	36	\N
@@ -19201,6 +19203,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 366	3	32	4	Harris - Office	SO-170	\N	2011-03-08 00:26:38.311951	2011-03-10 19:22:36.531136	Harris[1].dvi Parts List.xml	application/xml	18773	2011-03-08 00:26:38.307102	Phoenix	Confirmed	2011-03-25	\N	Please add 1 box of ZH MiniFix (Post) #10051 to this order.	2011-03-09 23:47:45	3		PremierRoute	3	Carmel Apple.\r\n	4	\N
 378	41	70	50	Jordan_Closet	SO-165	\N	2011-03-09 02:41:59.173127	2011-03-21 11:57:02.846698	Jordan_Closet Parts List.xml	text/xml	59928	2011-03-09 02:41:59.170953	Phoenix	Ready For Production	2011-03-22	\N		2011-03-09 02:43:12	70		PremierRoute	70	Antique White\r\n3/10 ? on filler. CS	50	\N
 376	20	19	23	Pray re order doors	SO-164	\N	2011-03-08 23:04:19.376524	2011-03-21 11:48:57.721777	Pray reorder doors.xml	text/xml	5556	2011-03-08 23:04:19.372798	Phoenix	Ready For Production	2011-03-23	\N	Please delete the last pray order and replace with this one	2011-03-08 23:04:36	19		PremierRoute	19	Pewter, CS	23	\N
+346	50	79	59	Stamford Home Show Display - Revision	SO-146	\N	2011-03-04 21:58:05.026661	2011-03-22 20:35:32.946356	Corner Stamford HomeShowParts List 03.04.11.xml	text/xml	50813	2011-03-04 21:58:05.022236	Phoenix	Ready to Ship	2011-03-21	\N	This replaces SO # 144.	2011-03-04 21:59:49	79		PremierRoute	79	3/8 Item #10052 on sales order to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
 486	41	70	50	Johnson_Closet	SO-213	\N	2011-03-16 19:48:59.187476	2011-03-16 21:28:14.939319	Johnson_Closet Parts List.xml	text/xml	17231	2011-03-16 19:48:59.183698	Phoenix	Confirmed	2011-03-31	\N		2011-03-16 19:49:32	70		PremierRoute	70	White, CS	50	Job
 375	20	19	23	Pray replacement doors	SO-163	\N	2011-03-08 22:30:27.793155	2011-03-08 23:25:28.2826	Pray reorder doors.xml	text/xml	5553	2011-03-08 22:30:27.787745	Phoenix	Cancelled	\N	\N	Please verify these doors will fit cabinets 36" wide x 19" tall	2011-03-08 22:31:03	19		PremierRoute	19	3/8 order to be cancelled upon new ordered placed	23	\N
 429	42	71	51	show room	SO-185	\N	2011-03-11 21:24:13.560941	2011-03-15 18:51:09.424119	PG Warehouse Parts List.xml	text/xml	28163	2011-03-11 21:24:13.558792	Phoenix	Cancelled	2011-03-28	\N		2011-03-14 18:30:51	71		PremierRoute	71	3/15 cancelled per Steve B. CS	51	Job
@@ -19263,12 +19266,12 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 537	16	15	19	Gehrum	SO-236	\N	2011-03-21 00:50:51.072092	2011-03-21 19:41:45.918264	gehrum.dvi Parts List.xml	application/octet-stream	13099	2011-03-21 00:50:51.069611	Phoenix	Confirmed	2011-04-05	\N		2011-03-21 01:54:58	15		PremierRoute	15	Nx Maple, CS	19	Job
 542	21	20	24	Zaumeyer Pantry	SO-238	\N	2011-03-21 17:18:32.840223	2011-03-21 19:48:18.776355	Zaumeyer-pantry.dvi Parts List.xls	application/octet-stream	10281	2011-03-21 17:18:32.838045	Phoenix	Confirmed	2011-04-05	\N		2011-03-21 17:22:55	20		PremierRoute	20	White, CS	24	Job
 539	17	16	20	HOME SHOW	SO-237	\N	2011-03-21 17:04:18.640268	2011-03-21 21:27:16.364163	10x10 Inline HomeShow DVI[1]3-21-11.dvi Parts List.xml	text/xml	62226	2011-03-21 17:04:18.637898	Phoenix	Confirmed	2011-04-05	\N	WE NEED THIS TO BE DELIVERED NO LATER THEN TUESDAY THE 5TH OF APRIL. IF WE CANNOT GUARENTEE DELIVERY PLEASE CONTACT ME AND WE WILL CANCEL THE ORDER	2011-03-21 17:08:46	16		PremierRoute	16	3/21/11 confirming ship date. CS\r\nWild Apple, CS	20	Job
-345	50	79	59	Suzy Wilson - Jonathan's Closet - Revised	SO-145	\N	2011-03-04 20:41:08.067746	2011-03-17 18:53:23.368497	Wilson, Suzy Closet Designs.dvi Parts List.xml	text/xml	48075	2011-03-04 20:41:08.063774	Phoenix	In Production	2011-03-21	\N	This replaces SO 123.	2011-03-04 20:42:55	79		PremierRoute	79	Yo - Item #10052 is on the SO to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
 517	10	36	2	Donny	SO-225	\N	2011-03-18 18:29:04.115574	2011-03-18 22:19:33.496118	Donny 3-18.xml	text/xml	16238	2011-03-18 18:29:04.111954	Phoenix	Confirmed	2011-04-04	\N		2011-03-18 18:31:52	36		PremierRoute	36	White, CS	2	Job
 498	63	92	75	Margolis	SO-217	\N	2011-03-17 18:11:04.436761	2011-03-17 22:18:49.020522	Margolis Cindy & Jeff order.xml	text/xml	22713	2011-03-17 18:11:04.434695	Phoenix	Confirmed	2011-04-01	\N		2011-03-17 18:11:33	92		PremierRoute	92	Antique White, CS	75	Job
 499	17	16	20	Rocky Sheng	SO-218	\N	2011-03-17 18:38:33.864221	2011-03-17 22:19:57.481348	Rocky Sheng.dvi Parts List.xml	text/xml	15129	2011-03-17 18:38:33.862042	Phoenix	Confirmed	2011-04-01	\N		2011-03-17 18:39:30	16		PremierRoute	16	NX Bronze, CS	20	Job
 500	17	16	20	Paresh Dabhi	SO-219	\N	2011-03-17 18:48:58.815757	2011-03-17 22:21:00.971457	Paresh Dabhi 3-15-11.dvi Parts List.xml	text/xml	16798	2011-03-17 18:48:58.813684	Phoenix	Confirmed	2011-04-01	\N		2011-03-17 18:49:42	16		PremierRoute	16	NX Bronze, CS	20	Job
 563	69	104	83	Moore Closets	SO-247	\N	2011-03-22 15:21:13.103288	2011-03-22 19:47:23.585136	Moore Designs Parts List.xml	text/xml	36668	2011-03-22 15:21:13.101264	Phoenix	Confirmed	2011-04-05	\N		2011-03-22 15:22:01	104		PremierRoute	104	Antique White, CS	83	Job
+345	50	79	59	Suzy Wilson - Jonathan's Closet - Revised	SO-145	\N	2011-03-04 20:41:08.067746	2011-03-22 20:35:27.058923	Wilson, Suzy Closet Designs.dvi Parts List.xml	text/xml	48075	2011-03-04 20:41:08.063774	Phoenix	Ready to Ship	2011-03-21	\N	This replaces SO 123.	2011-03-04 20:42:55	79		PremierRoute	79	Yo - Item #10052 is on the SO to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
 365	35	65	43	Archer walk in	SO-154	\N	2011-03-07 23:51:15.959001	2011-03-17 21:53:37.992058	Archer walk in Parts List.xml	text/xml	51530	2011-03-07 23:51:15.956746	Phoenix	In Production	2011-03-22	\N	Also Need box quantities of: 10054, 10050, 10048, 10051.	2011-03-08 00:06:19	65		PremierRoute	65	Choc Apple. 3/11 laminate top is the correct size stated. 	43	\N
 565	20	19	23	Viad Garage	SO-248	\N	2011-03-22 18:26:33.445512	2011-03-22 19:48:38.389528	Viad, Cathy Parts List.xml	text/xml	26642	2011-03-22 18:26:33.443198	Phoenix	Confirmed	2011-04-06	\N		2011-03-22 18:29:24	19		PremierRoute	19	Wild Apple, CS	23	Job
 520	9	9	13	Temple (2)	SO-227	\N	2011-03-18 21:20:28.880085	2011-03-18 21:45:33.932059	Temple, Jerry Parts List.xls	application/vnd.ms-excel	16955	2011-03-18 21:20:28.878067	Phoenix	Cancelled	\N	\N	** Classic Order ** Powder Coated Job **	2011-03-18 21:21:51	9		PremierRoute	9	** Do Not Run Thru CutRite **	13	Job
@@ -20274,7 +20277,7 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 60	NX Melamine 19	panel_material	Material	2011-01-07 18:04:26.693714	2011-03-15 22:39:31.272823
 964	Lin Inch Slatwall 12x96	linear_pricing	LinearPricing	2011-03-16 21:49:40.859045	2011-03-16 21:55:12.19354
 965	Lin Inch Slatwall Maple	linear_pricing	LinearPricing	2011-03-16 21:54:08.503739	2011-03-17 00:48:39.640428
-966	Tempo-Kensington Maple	ranged_price	RangedValue	2011-03-22 19:44:46.767057	2011-03-22 19:44:46.767057
+966	Classic-Kingstone Maple	ranged_price	RangedValue	2011-03-22 19:44:46.767057	2011-03-22 20:48:16.847581
 \.
 
 
@@ -21810,8 +21813,6 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 255	42	Margin	{"factor":".42"}	2011-01-13 05:05:01.914053	2011-01-13 05:05:01.914053
 316	Hingebore	Surcharge	{"price":"3.00","float":""}	2011-02-01 19:11:40.798519	2011-02-01 19:11:40.798519
 317	2	RangedValue	{"max":"36","variable_units":"in","value":"2","min":"10","variable":"height"}	2011-02-02 05:46:50.527764	2011-02-02 05:46:50.527764
-318	3	RangedValue	{"max":"60","variable_units":"in","value":"3","min":"36.125","variable":"height"}	2011-02-02 05:46:50.559242	2011-02-02 05:46:50.559242
-319	4	RangedValue	{"max":"92","variable_units":"in","value":"4","min":"60.125","variable":"height"}	2011-02-02 05:46:50.57086	2011-02-02 05:46:50.57086
 331	423 Carmel Apple	LinearPricing	{"price":"0.31177083333","price_units":"in"}	2011-02-22 17:36:34.884836	2011-02-28 23:43:20.036335
 322	75	Margin	{"factor":".75","float":""}	2011-02-02 21:04:26.888513	2011-02-02 21:04:26.888513
 320	Standard	Surcharge	{"price":"3","float":""}	2011-02-02 16:01:37.382011	2011-02-02 22:35:33.521485
@@ -21844,6 +21845,8 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 501	WXL Door dimensions (23.875 x 15.3125)	Area	{"width":"23.875","length":"15.3125","linear_units":"in"}	2011-03-10 00:29:35.184175	2011-03-10 00:29:35.184175
 502	WXL Door dimensions (23.875 x 15.3125)	Area	{"width":"23.875","length":"15.3125","linear_units":"in"}	2011-03-10 00:29:35.431882	2011-03-10 00:29:35.431882
 503	ZZ Nailer DON'T DELETE dimensions (22.5 x 3)	Area	{"width":"22.5","length":"3","linear_units":"in"}	2011-03-10 00:29:35.509632	2011-03-10 00:29:35.509632
+318	3	RangedValue	{"max":"60","variable_units":"in","value":"3","min":"36","variable":"height"}	2011-02-02 05:46:50.559242	2011-02-02 05:46:50.559242
+319	4	RangedValue	{"max":"92","variable_units":"in","value":"4","min":"60","variable":"height"}	2011-02-02 05:46:50.57086	2011-02-02 05:46:50.57086
 32	Laminate 7942 Cocobala	Color	{"color":"Laminate 7942 Cocobala","dvinci_id":"317"}	2011-01-01 18:54:13.985847	2011-01-01 18:54:14.006245
 34	Laminate 10776 Kingstone Maple	Color	{"color":"Laminate 10776 Kingstone Maple","dvinci_id":"319"}	2011-01-01 18:54:14.62576	2011-01-01 18:54:14.789209
 35	Laminate D92 Dove Grey	Color	{"color":"Laminate D92 Dove Grey","dvinci_id":"320"}	2011-01-01 18:54:15.122372	2011-01-01 18:54:15.306135
@@ -22128,6 +22131,7 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 657	PG Stainless Workbench 96 X 25 dimensions (96 x 25)	Area	{"width":"96","length":"25","linear_units":"in"}	2011-03-10 00:29:50.329284	2011-03-10 00:29:50.329284
 240	Wild Apple	Material	{"price":"1.13","waste_factor":".1","thickness":"1","weight":"3.3333","cutrite_code":"25-WIL-2S","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-01-13 02:52:08.231369	2011-03-10 20:53:33.948359
 667	Hardrock Maple	Material	{"price":".375","thickness":".25","waste_factor":".15","cutrite_code":"06-WHT-2S","weight":".8333","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-03-15 15:42:28.48546	2011-03-15 17:29:18.044232
+676	Lam 8	RangedValue	{"max":"96","variable_units":"in","value":"170.98","min":"0","variable":"width"}	2011-03-22 19:44:46.799258	2011-03-22 20:48:16.844468
 658	Wild Apple	Material	{"price":"1.125","thickness":"1","waste_factor":".15","cutrite_code":"25-WIL-1S","weight":"3.3333","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-03-10 21:05:19.111418	2011-03-13 17:49:43.006027
 659	Carmel Apple	Material	{"price":"1.125","thickness":"1","waste_factor":".15","cutrite_code":"25-CAR-1S","weight":"3.3333","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-03-10 21:05:19.132156	2011-03-13 17:49:43.009668
 660	Chocolate Apple	Material	{"price":"1.125","thickness":"1","waste_factor":".15","cutrite_code":"25-CHO-1S","weight":"3.3333","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-03-10 21:05:19.145434	2011-03-13 17:49:43.013223
@@ -22139,15 +22143,14 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 47	Windswept Bronze	Material	{"price":"1.038","thickness":".75","waste_factor":".1","cutrite_code":"19-BRO-2S","weight":"2.5","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 19:43:30.167045	2011-03-14 19:31:19.050301
 53	Carmel Apple	Material	{"price":".780","thickness":".75","waste_factor":".1","cutrite_code":"19-CAR-2S","weight":"2.5","color":"Carmel Apple","price_units":"ft","thickness_units":"in","dvinci_id":"004"}	2011-01-01 19:43:30.249309	2011-03-14 19:31:19.073815
 57	Windswept Bronze	Material	{"price":".726","thickness":".25","waste_factor":".15","cutrite_code":"06-BRO-2S","weight":".8333","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-01-01 20:39:20.274224	2011-03-14 19:32:41.268707
-676	Lam 8	RangedValue	{"max":"96","variable_units":"in","value":"146.46","min":"0","variable":"width"}	2011-03-22 19:44:46.799258	2011-03-22 19:44:46.799258
 670	Wild Apple	Material	{"price":".716","thickness":".25","waste_factor":".15","cutrite_code":"06-WLD-2S","weight":".8333","color":"Wild Apple","price_units":"ft","thickness_units":"in","dvinci_id":"005"}	2011-03-15 15:42:28.529697	2011-03-15 17:27:02.063797
 671	Chocolate Apple	Material	{"price":".716","thickness":".25","waste_factor":".15","cutrite_code":"06-CHO-2S","weight":".8333","color":"Chocolate Apple","price_units":"ft","thickness_units":"in","dvinci_id":"007"}	2011-03-15 15:42:28.544759	2011-03-15 17:27:02.0672
-677	Lam 10	RangedValue	{"max":"120","variable_units":"in","value":"183.08","min":"96","variable":"width"}	2011-03-22 19:44:46.82127	2011-03-22 19:44:46.82127
 663	Hardrock Maple	Material	{"price":".810","thickness":"1.000","waste_factor":".08","cutrite_code":"25-WHT-2S","weight":"3.3333","color":"Hardrock Maple","price_units":"ft","thickness_units":"in","dvinci_id":"010"}	2011-03-14 18:51:54.327381	2011-03-15 17:28:18.090513
 664	Windswept Bronze	Material	{"price":".810","thickness":"1.000","waste_factor":".08","cutrite_code":"25-WHT-2S","weight":"3.3333","color":"Windswept Bronze","price_units":"ft","thickness_units":"in","dvinci_id":"008"}	2011-03-14 19:03:52.537999	2011-03-15 17:28:18.094725
 665	Windswept Pewter	Material	{"price":".810","thickness":"1.000","waste_factor":".08","cutrite_code":"25-WHT-2S","weight":"3.3333","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-03-14 19:03:52.561926	2011-03-15 17:28:18.098284
 666	Windswept Pewter	Material	{"price":".375","thickness":".25","waste_factor":".15","cutrite_code":"06-WHT-2S","weight":".8333","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-03-15 15:42:28.45754	2011-03-15 17:29:18.039715
-678	Lam 12	RangedValue	{"max":"144","variable_units":"in","value":"219.69","min":"120","variable":"width"}	2011-03-22 19:44:46.833071	2011-03-22 19:44:46.833071
+677	Lam 10	RangedValue	{"max":"120","variable_units":"in","value":"213.72","min":"96","variable":"width"}	2011-03-22 19:44:46.82127	2011-03-22 20:48:16.835536
+678	Lam 12	RangedValue	{"max":"144","variable_units":"in","value":"256.47","min":"120","variable":"width"}	2011-03-22 19:44:46.833071	2011-03-22 20:48:16.840456
 \.
 
 
