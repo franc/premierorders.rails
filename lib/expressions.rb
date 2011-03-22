@@ -248,22 +248,22 @@ module Expressions
 
     def compile
       if min.nil?
-        mult(term("(#{@var.compile} < #{@max.compile} ? 1 : 0)"), @result).compile
+        mult(term("(#{@var.compile} <= #{@max.compile} ? 1 : 0)"), @result).compile
       elsif max.nil?
-        mult(term("(#{@var.compile} >= #{@min.compile} ? 1 : 0)"), @result).compile
+        mult(term("(#{@var.compile} > #{@min.compile} ? 1 : 0)"), @result).compile
       else
-        mult(term("(#{@var.compile} >= #{@min.compile} && #{@var.compile} < #{@max.compile} ? 1 : 0)"), @result).compile
+        mult(term("(#{@var.compile} > #{@min.compile} && #{@var.compile} <= #{@max.compile} ? 1 : 0)"), @result).compile
       end
     end
 
     def expr_eval(vars)
       if min.nil?
-        @var.evaluate(vars) < @max.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
+        @var.evaluate(vars) <= @max.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
       elsif max.nil?
-        @var.evaluate(vars) >= @min.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
+        @var.evaluate(vars) > @min.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
       else
         value = @var.evaluate(vars)
-        value >= @min.evaluate(vars) && value < @max.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
+        value > @min.evaluate(vars) && value <= @max.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
       end
     end
 
