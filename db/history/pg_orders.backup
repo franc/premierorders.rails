@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 2206, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 2311, true);
 
 
 --
@@ -733,7 +733,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 30, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 31, true);
 
 
 --
@@ -888,7 +888,7 @@ ALTER SEQUENCE properties_id_seq OWNED BY properties.id;
 -- Name: properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('properties_id_seq', 966, true);
+SELECT pg_catalog.setval('properties_id_seq', 979, true);
 
 
 --
@@ -944,7 +944,7 @@ ALTER SEQUENCE property_values_id_seq OWNED BY property_values.id;
 -- Name: property_values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('property_values_id_seq', 678, true);
+SELECT pg_catalog.setval('property_values_id_seq', 717, true);
 
 
 --
@@ -4258,6 +4258,111 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 2204	654	964	\N
 2205	648	964	\N
 2206	289	966	\N
+2207	330	967	\N
+2208	329	967	\N
+2209	287	968	\N
+2210	288	968	\N
+2211	325	969	\N
+2212	326	969	\N
+2213	315	969	\N
+2214	323	969	\N
+2215	321	969	\N
+2216	320	969	\N
+2217	327	969	\N
+2218	282	970	\N
+2219	271	970	\N
+2220	284	970	\N
+2221	283	970	\N
+2222	281	970	\N
+2223	291	970	\N
+2224	290	970	\N
+2225	279	970	\N
+2226	272	970	\N
+2227	278	970	\N
+2228	273	970	\N
+2229	280	970	\N
+2230	285	970	\N
+2231	289	970	\N
+2232	286	970	\N
+2233	309	971	\N
+2234	350	971	\N
+2235	308	971	\N
+2236	351	971	\N
+2237	324	972	\N
+2238	313	972	\N
+2239	331	972	\N
+2240	332	972	\N
+2241	333	972	\N
+2242	322	972	\N
+2243	314	972	\N
+2244	328	972	\N
+2245	359	973	\N
+2246	360	973	\N
+2247	361	973	\N
+2248	358	973	\N
+2249	295	974	\N
+2250	338	974	\N
+2251	297	974	\N
+2252	337	974	\N
+2253	298	974	\N
+2254	339	974	\N
+2255	296	974	\N
+2256	340	974	\N
+2257	317	975	\N
+2258	316	975	\N
+2259	318	975	\N
+2260	319	975	\N
+2261	371	976	\N
+2262	372	976	\N
+2263	276	977	\N
+2264	274	977	\N
+2265	277	977	\N
+2266	275	977	\N
+2267	349	978	\N
+2268	306	978	\N
+2269	354	978	\N
+2270	352	978	\N
+2271	299	978	\N
+2272	292	978	\N
+2273	300	978	\N
+2274	312	978	\N
+2275	310	978	\N
+2276	345	978	\N
+2277	353	978	\N
+2278	342	978	\N
+2279	307	978	\N
+2280	293	978	\N
+2281	334	978	\N
+2282	341	978	\N
+2283	344	978	\N
+2284	347	978	\N
+2285	346	978	\N
+2286	311	978	\N
+2287	303	978	\N
+2288	348	978	\N
+2289	336	978	\N
+2290	335	978	\N
+2291	305	978	\N
+2292	304	978	\N
+2293	301	978	\N
+2294	294	978	\N
+2295	302	978	\N
+2296	343	978	\N
+2297	369	979	\N
+2298	365	979	\N
+2299	357	979	\N
+2300	373	979	\N
+2301	356	979	\N
+2302	363	979	\N
+2303	370	979	\N
+2304	367	979	\N
+2305	368	979	\N
+2306	362	979	\N
+2307	374	979	\N
+2308	366	979	\N
+2309	364	979	\N
+2310	355	979	\N
+2311	375	979	\N
 \.
 
 
@@ -19964,6 +20069,7 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 28	568	34	Placed	Cancelled	2011-03-23 18:51:59.725829	2011-03-23 18:51:59.725829
 29	348	98	In Production	Ready to Ship	2011-03-23 19:05:28.333935	2011-03-23 19:05:28.333935
 30	349	98	In Production	Ready to Ship	2011-03-23 19:05:33.165805	2011-03-23 19:05:33.165805
+31	376	98	Ready For Production	Ready to Ship	2011-03-23 19:57:01.572466	2011-03-23 19:57:01.572466
 \.
 
 
@@ -20098,7 +20204,6 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 374	9	9	13	Westen	SO-162	\N	2011-03-08 21:22:59.669455	2011-03-21 11:44:29.913376	Westen, George and Lysha Parts List.xls	application/vnd.ms-excel	19998	2011-03-08 21:22:59.665185	Phoenix	Ready For Production	2011-03-23	\N		2011-03-08 21:24:54	9		PremierRoute	9	Chocolate Apple - (Change 3/4 Ctop to 72" EH)	13	\N
 431	33	64	41	MacDonald, Gretchen	SO-175	\N	2011-03-11 22:15:41.119018	2011-03-23 02:48:44.061726	MacDonald, Gretchen.xml	text/xml	36655	2011-03-11 22:15:41.11649	Phoenix	Ready For Production	2011-03-28	\N		2011-03-11 22:16:02	64		PremierRoute	64	White, CS	41	Job
 378	41	70	50	Jordan_Closet	SO-165	\N	2011-03-09 02:41:59.173127	2011-03-21 11:57:02.846698	Jordan_Closet Parts List.xml	text/xml	59928	2011-03-09 02:41:59.170953	Phoenix	Ready For Production	2011-03-22	\N		2011-03-09 02:43:12	70		PremierRoute	70	Antique White\r\n3/10 ? on filler. CS	50	\N
-376	20	19	23	Pray re order doors	SO-164	\N	2011-03-08 23:04:19.376524	2011-03-21 11:48:57.721777	Pray reorder doors.xml	text/xml	5556	2011-03-08 23:04:19.372798	Phoenix	Ready For Production	2011-03-23	\N	Please delete the last pray order and replace with this one	2011-03-08 23:04:36	19		PremierRoute	19	Pewter, CS	23	\N
 346	50	79	59	Stamford Home Show Display - Revision	SO-146	\N	2011-03-04 21:58:05.026661	2011-03-22 22:29:05.632093	Corner Stamford HomeShowParts List 03.04.11.xml	text/xml	50813	2011-03-04 21:58:05.022236	Phoenix	Shipped	2011-03-21	2011-03-22	This replaces SO # 144.	2011-03-04 21:59:49	79		PremierRoute	79	3/8 Item #10052 on sales order to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
 570	16	15	19	Gehrum_final	SO-251	\N	2011-03-23 02:56:31.207257	2011-03-23 03:07:45.824152	gehrum.dvi Parts List2.xml	text/xml	15820	2011-03-23 02:56:31.203122	\N	Placed	\N	\N	replaces SO 236	2011-03-23 03:07:45	15	\N	\N	15	\N	\N	Job
 486	41	70	50	Johnson_Closet	SO-213	\N	2011-03-16 19:48:59.187476	2011-03-16 21:28:14.939319	Johnson_Closet Parts List.xml	text/xml	17231	2011-03-16 19:48:59.183698	Phoenix	Confirmed	2011-03-31	\N		2011-03-16 19:49:32	70		PremierRoute	70	White, CS	50	Job
@@ -20108,6 +20213,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 441	13	12	16	Sebastian	SO-181	\N	2011-03-14 16:04:35.519321	2011-03-23 03:18:09.074789	Sebastian_03_12 Parts List.xml	text/xml	9873	2011-03-14 16:04:35.517387	Phoenix	Ready For Production	2011-03-29	\N		2011-03-14 16:05:26	12		PremierRoute	12	Pewter, CS	16	Job
 443	28	103	36	SO-184	SO-184	\N	2011-03-14 18:27:55.118751	2011-03-23 03:25:07.50274	Chetan Shah Parts List.xls	application/vnd.ms-excel	17240	2011-03-14 18:27:55.112481	Phoenix	Ready For Production	2011-03-28	\N		2011-03-14 18:28:23	103		PremierRoute	103	White, CS	36	Job
 232	20	19	23	Bramco Builders	SO-84	\N	2011-02-23 23:44:48.455371	2011-03-14 21:39:07.880096	Bramco Builders Newport Parts List.xml	text/xml	22287	2011-02-23 23:44:48.45203	Phoenix	Shipped	2011-03-10	2011-03-14		2011-02-23 23:47:23	19		PremierRoute	19		23	\N
+376	20	19	23	Pray re order doors	SO-164	\N	2011-03-08 23:04:19.376524	2011-03-23 19:57:01.548412	Pray reorder doors.xml	text/xml	5556	2011-03-08 23:04:19.372798	Phoenix	Ready to Ship	2011-03-23	\N	Please delete the last pray order and replace with this one	2011-03-08 23:04:36	19		PremierRoute	19	Pewter, CS	23	\N
 451	41	70	50	Rakouskas_Lockers	SO-190	\N	2011-03-14 20:15:38.311473	2011-03-16 19:29:29.201178	Rakouskas_Lockers Parts List.xml	text/xml	20727	2011-03-14 20:15:38.309459	Phoenix	Confirmed	2011-03-30	\N		2011-03-14 20:16:14	70		PremierRoute	70	White, CS	50	Job
 447	20	19	23	Green room 8	SO-188	\N	2011-03-14 19:54:17.548066	2011-03-16 19:08:18.53611	Green, Robert Parts List room 8.xml	text/xml	6275	2011-03-14 19:54:17.54479	Phoenix	Confirmed	2011-03-29	\N	Rush if possible.  Customer added to original order	2011-03-14 19:54:43	19		PremierRoute	19	Pewter, CS\r\nRush if possible. CS	23	Job
 439	13	12	16	Ziegler	SO-182	\N	2011-03-14 13:22:28.567857	2011-03-15 19:56:00.126583	Ziegler_03_10 Parts List.xml	text/xml	23156	2011-03-14 13:22:28.56593	Phoenix	Cancelled	2011-03-29	\N		2011-03-14 16:06:20	12		PremierRoute	12	3/15/11 order to be cancelled once Keith uploads order again, needs to add some " to the worktops. CS	16	Job
@@ -21187,6 +21293,19 @@ COPY properties (id, name, family, module_names, created_at, updated_at) FROM st
 964	Lin Inch Slatwall 12x96	linear_pricing	LinearPricing	2011-03-16 21:49:40.859045	2011-03-16 21:55:12.19354
 965	Lin Inch Slatwall Maple	linear_pricing	LinearPricing	2011-03-16 21:54:08.503739	2011-03-17 00:48:39.640428
 966	Classic-Kingstone Maple	ranged_price	RangedValue	2011-03-22 19:44:46.767057	2011-03-22 20:48:16.847581
+967	CTOP Ranged Price Tempo: Cocobala, Mambo	ranged_price	RangedValue	2011-03-23 19:48:08.970854	2011-03-23 19:48:08.970854
+968	CTOP Ranged Price Classic: Cocobala, Mambo	ranged_price	RangedValue	2011-03-23 19:48:09.242987	2011-03-23 19:48:09.242987
+969	CTOP Ranged Price Tempo: Ebony Star, Green Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Windswept Bronze, Windswept Pewter	ranged_price	RangedValue	2011-03-23 19:48:09.303811	2011-03-23 19:48:09.303811
+970	CTOP Ranged Price Classic: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter	ranged_price	RangedValue	2011-03-23 19:48:09.443228	2011-03-23 19:48:09.443228
+971	CTOP Ranged Price Futura, Nova: Cocobala, Mambo	ranged_price	RangedValue	2011-03-23 19:48:09.813469	2011-03-23 19:48:09.813469
+972	CTOP Ranged Price Tempo: Black, Flame Soapstone, Frosty White, Kingstone Maple, Oiled Soapstone, Tuscan Walnut	ranged_price	RangedValue	2011-03-23 19:48:09.9079	2011-03-23 19:48:09.9079
+973	CTOP Ranged Price Geneva: Greystone, Limestone, Sunstone, Willowstone	ranged_price	RangedValue	2011-03-23 19:48:10.144204	2011-03-23 19:48:10.144204
+974	CTOP Ranged Price Futura, Nova: Greystone, Limestone, Sunstone, Willowstone	ranged_price	RangedValue	2011-03-23 19:48:10.241583	2011-03-23 19:48:10.241583
+975	CTOP Ranged Price Tempo: Greystone, Limestone, Sunstone, Willowstone	ranged_price	RangedValue	2011-03-23 19:48:10.473343	2011-03-23 19:48:10.473343
+976	CTOP Ranged Price Geneva: Cocobala, Mambo	ranged_price	RangedValue	2011-03-23 19:48:10.587089	2011-03-23 19:48:10.587089
+977	CTOP Ranged Price Classic: Greystone, Limestone, Sunstone, Willowstone	ranged_price	RangedValue	2011-03-23 19:48:10.651013	2011-03-23 19:48:10.651013
+978	CTOP Ranged Price Futura, Nova: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter	ranged_price	RangedValue	2011-03-23 19:48:10.743257	2011-03-23 19:48:10.743257
+979	CTOP Ranged Price Geneva: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter	ranged_price	RangedValue	2011-03-23 19:48:11.439759	2011-03-23 19:48:11.439759
 \.
 
 
@@ -22377,6 +22496,45 @@ COPY property_value_selection (property_id, property_value_id) FROM stdin;
 966	676
 966	677
 966	678
+967	681
+967	691
+967	694
+968	679
+968	696
+968	697
+969	690
+969	703
+969	713
+970	687
+970	704
+970	711
+971	683
+971	698
+971	699
+972	682
+972	707
+972	715
+973	686
+973	688
+973	708
+974	684
+974	685
+974	717
+975	705
+975	706
+975	714
+976	692
+976	695
+976	716
+977	680
+977	693
+977	712
+978	700
+978	701
+978	702
+979	689
+979	709
+979	710
 \.
 
 
@@ -23060,6 +23218,45 @@ COPY property_values (id, name, module_names, value_str, created_at, updated_at)
 666	Windswept Pewter	Material	{"price":".375","thickness":".25","waste_factor":".15","cutrite_code":"06-WHT-2S","weight":".8333","color":"Windswept Pewter","price_units":"ft","thickness_units":"in","dvinci_id":"009"}	2011-03-15 15:42:28.45754	2011-03-15 17:29:18.039715
 677	Lam 10	RangedValue	{"max":"120","variable_units":"in","value":"213.72","min":"96","variable":"width"}	2011-03-22 19:44:46.82127	2011-03-22 20:48:16.835536
 678	Lam 12	RangedValue	{"max":"144","variable_units":"in","value":"256.47","min":"120","variable":"width"}	2011-03-22 19:44:46.833071	2011-03-22 20:48:16.840456
+679	CTOP Ranged Price Classic: Cocobala, Mambo 0"-96"	RangedValue	{"min":"0","max":"96","value":"194.76","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.856133	2011-03-23 19:48:08.856133
+680	CTOP Ranged Price Classic: Greystone, Limestone, Sunstone, Willowstone 96"-120"	RangedValue	{"min":"96","max":"120","value":"276.71","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.889496	2011-03-23 19:48:08.889496
+681	CTOP Ranged Price Tempo: Cocobala, Mambo 96"-120"	RangedValue	{"min":"96","max":"120","value":"185.42","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.891404	2011-03-23 19:48:08.891404
+682	CTOP Ranged Price Tempo: Black, Flame Soapstone, Frosty White, Kingstone Maple, Oiled Soapstone, Tuscan Walnut 96"-120"	RangedValue	{"min":"96","max":"120","value":"168.43","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.89328	2011-03-23 19:48:08.89328
+683	CTOP Ranged Price Futura, Nova: Cocobala, Mambo 120"-144"	RangedValue	{"min":"120","max":"144","value":"251.37","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.895174	2011-03-23 19:48:08.895174
+684	CTOP Ranged Price Futura, Nova: Greystone, Limestone, Sunstone, Willowstone 96"-120"	RangedValue	{"min":"96","max":"120","value":"242.03","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.897028	2011-03-23 19:48:08.897028
+685	CTOP Ranged Price Futura, Nova: Greystone, Limestone, Sunstone, Willowstone 0"-96"	RangedValue	{"min":"0","max":"96","value":"193.62","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.899095	2011-03-23 19:48:08.899095
+686	CTOP Ranged Price Geneva: Greystone, Limestone, Sunstone, Willowstone 120"-144"	RangedValue	{"min":"120","max":"144","value":"315.06","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.901156	2011-03-23 19:48:08.901156
+687	CTOP Ranged Price Classic: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 96"-120"	RangedValue	{"min":"96","max":"120","value":"213.72","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.903131	2011-03-23 19:48:08.903131
+688	CTOP Ranged Price Geneva: Greystone, Limestone, Sunstone, Willowstone 96"-120"	RangedValue	{"min":"96","max":"120","value":"262.55","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.905576	2011-03-23 19:48:08.905576
+689	CTOP Ranged Price Geneva: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 120"-144"	RangedValue	{"min":"120","max":"144","value":"245.43","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.907573	2011-03-23 19:48:08.907573
+690	CTOP Ranged Price Tempo: Ebony Star, Green Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Windswept Bronze, Windswept Pewter 72"-96"	RangedValue	{"min":"72","max":"96","value":"134.74","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.909561	2011-03-23 19:48:08.909561
+691	CTOP Ranged Price Tempo: Cocobala, Mambo 120"-144"	RangedValue	{"min":"120","max":"144","value":"222.50","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.911409	2011-03-23 19:48:08.911409
+692	CTOP Ranged Price Geneva: Cocobala, Mambo 96"-120"	RangedValue	{"min":"96","max":"120","value":"222.92","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.913179	2011-03-23 19:48:08.913179
+693	CTOP Ranged Price Classic: Greystone, Limestone, Sunstone, Willowstone 120"-144"	RangedValue	{"min":"120","max":"144","value":"304.87","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.914978	2011-03-23 19:48:08.914978
+694	CTOP Ranged Price Tempo: Cocobala, Mambo 0"-96"	RangedValue	{"min":"0","max":"96","value":"148.33","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.916715	2011-03-23 19:48:08.916715
+695	CTOP Ranged Price Geneva: Cocobala, Mambo 0"-96"	RangedValue	{"min":"0","max":"96","value":"178.34","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.918462	2011-03-23 19:48:08.918462
+696	CTOP Ranged Price Classic: Cocobala, Mambo 120"-144"	RangedValue	{"min":"120","max":"144","value":"292.14","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.920482	2011-03-23 19:48:08.920482
+697	CTOP Ranged Price Classic: Cocobala, Mambo 96"-120"	RangedValue	{"min":"96","max":"120","value":"243.45","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.922436	2011-03-23 19:48:08.922436
+698	CTOP Ranged Price Futura, Nova: Cocobala, Mambo 96"-120"	RangedValue	{"min":"96","max":"120","value":"209.48","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.924615	2011-03-23 19:48:08.924615
+699	CTOP Ranged Price Futura, Nova: Cocobala, Mambo 0"-96"	RangedValue	{"min":"0","max":"96","value":"167.58","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.926563	2011-03-23 19:48:08.926563
+700	CTOP Ranged Price Futura, Nova: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 120"-144"	RangedValue	{"min":"120","max":"144","value":"229.29","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.928572	2011-03-23 19:48:08.928572
+701	CTOP Ranged Price Futura, Nova: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 96"-120"	RangedValue	{"min":"96","max":"120","value":"191.08","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.930675	2011-03-23 19:48:08.930675
+702	CTOP Ranged Price Futura, Nova: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 0"-96"	RangedValue	{"min":"0","max":"96","value":"152.86","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.932683	2011-03-23 19:48:08.932683
+703	CTOP Ranged Price Tempo: Ebony Star, Green Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Windswept Bronze, Windswept Pewter 0"-72"	RangedValue	{"min":"0","max":"72","value":"101.06","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.934472	2011-03-23 19:48:08.934472
+704	CTOP Ranged Price Classic: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 120"-144"	RangedValue	{"min":"120","max":"144","value":"256.47","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.93668	2011-03-23 19:48:08.93668
+705	CTOP Ranged Price Tempo: Greystone, Limestone, Sunstone, Willowstone 120"-144"	RangedValue	{"min":"120","max":"144","value":"257.32","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.938513	2011-03-23 19:48:08.938513
+706	CTOP Ranged Price Tempo: Greystone, Limestone, Sunstone, Willowstone 96"-120"	RangedValue	{"min":"96","max":"120","value":"214.43","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.940309	2011-03-23 19:48:08.940309
+707	CTOP Ranged Price Tempo: Black, Flame Soapstone, Frosty White, Kingstone Maple, Oiled Soapstone, Tuscan Walnut 120"-144"	RangedValue	{"min":"120","max":"144","value":"202.12","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.942155	2011-03-23 19:48:08.942155
+708	CTOP Ranged Price Geneva: Greystone, Limestone, Sunstone, Willowstone 0"-96"	RangedValue	{"min":"0","max":"96","value":"210.04","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.943973	2011-03-23 19:48:08.943973
+709	CTOP Ranged Price Geneva: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 96"-120"	RangedValue	{"min":"96","max":"120","value":"204.52","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.945902	2011-03-23 19:48:08.945902
+710	CTOP Ranged Price Geneva: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 0"-96"	RangedValue	{"min":"0","max":"96","value":"163.62","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.947801	2011-03-23 19:48:08.947801
+711	CTOP Ranged Price Classic: Black, Ebony Star, Flame Soapstone, Frosty White, Green Soapstone, Kingstone Maple, Oiled Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Tuscan Walnut, Windswept Bronze, Windswept Pewter 0"-96"	RangedValue	{"min":"0","max":"96","value":"170.98","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.949698	2011-03-23 19:48:08.949698
+712	CTOP Ranged Price Classic: Greystone, Limestone, Sunstone, Willowstone 0"-96"	RangedValue	{"min":"0","max":"96","value":"221.37","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.951483	2011-03-23 19:48:08.951483
+713	CTOP Ranged Price Tempo: Ebony Star, Green Soapstone, Pearl Soapstone, Sable Soapstone, Tan Soapstone, Windswept Bronze, Windswept Pewter 96"-144"	RangedValue	{"min":"96","max":"144","value":"202.12","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.953286	2011-03-23 19:48:08.953286
+714	CTOP Ranged Price Tempo: Greystone, Limestone, Sunstone, Willowstone 0"-96"	RangedValue	{"min":"0","max":"96","value":"171.54","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.955214	2011-03-23 19:48:08.955214
+715	CTOP Ranged Price Tempo: Black, Flame Soapstone, Frosty White, Kingstone Maple, Oiled Soapstone, Tuscan Walnut 0"-96"	RangedValue	{"min":"0","max":"96","value":"134.74","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.957244	2011-03-23 19:48:08.957244
+716	CTOP Ranged Price Geneva: Cocobala, Mambo 120"-144"	RangedValue	{"min":"120","max":"144","value":"267.51","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.959083	2011-03-23 19:48:08.959083
+717	CTOP Ranged Price Futura, Nova: Greystone, Limestone, Sunstone, Willowstone 120"-144"	RangedValue	{"min":"120","max":"144","value":"290.44","variable_units":"in","variable":"width"}	2011-03-23 19:48:08.9612	2011-03-23 19:48:08.9612
 \.
 
 
@@ -23113,6 +23310,7 @@ COPY schema_migrations (version) FROM stdin;
 20110315211623
 20110321160848
 20110322181746
+20110323184504
 \.
 
 
@@ -23308,7 +23506,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 89	\N	Customer	A	(303) 578-9085			divisidera@gmail.com	$2a$10$MUZ7No7mXdh5149aCsytb.ZIppO6SdfvWLbFbnHzZ3wFm3Z2L96X2	$2a$10$MUZ7No7mXdh5149aCsytb.	\N	\N	\N	11	2011-03-20 22:44:23.049914	2011-03-14 19:47:03.794651	71.196.137.193	71.196.137.193	2011-02-11 18:07:39.459118	2011-03-20 22:44:23.050795
 76	\N	Leslie	Wells	(704)799-6679		(828)726-8453	lwells@tailoredliving.com	$2a$10$qUvdO/NBKK47da/MrpSYJ.jHPxNgbGQ4VWVWw6eZ1yEkzrdEvv4OG	$2a$10$qUvdO/NBKK47da/MrpSYJ.	\N	\N	\N	1	2011-03-17 19:34:28.746291	2011-03-17 19:34:28.746291	97.82.234.189	97.82.234.189	2011-02-11 16:08:35.174247	2011-03-17 19:34:28.747302
 87	\N	Julee	Barnett	(608) 630-0246			jtbarnett@tailoredliving.com	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.4kpaUpL9JHD1/Gq8Lv5a2SvUEJFDmlW	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.	\N	HXrOC-T3hZcEAV_3Te02	2011-03-18 15:16:44.157008	11	2011-03-23 14:55:49.959824	2011-03-21 18:28:02.922199	216.165.145.170	216.165.145.170	2011-02-11 17:57:13.665014	2011-03-23 14:55:49.960471
-98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	jOc3kkmY18DJRm0bq1PR	2011-03-16 18:41:09.828619	33	2011-03-23 16:43:52.270243	2011-03-22 22:28:38.576433	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-23 16:43:52.271113
+98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	jOc3kkmY18DJRm0bq1PR	2011-03-16 18:41:09.828619	34	2011-03-23 19:54:45.929741	2011-03-23 16:43:52.270243	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-23 19:54:45.930343
 105	\N	Jason	O'toole	602 763 0182			jotoole@premiergarage.com	$2a$10$ehHcfRTIhgDs0P39hXMxXezkf5GEcFCTvOu9sO08dA30m1ii4u6Me	$2a$10$ehHcfRTIhgDs0P39hXMxXe	\N	0TPXN-Ofl1Vpvzg6DTvK	2011-03-20 18:30:05.621281	5	2011-03-21 19:43:19.461114	2011-03-20 18:30:05.625157	174.79.54.226	174.79.54.226	2011-03-02 15:22:49.861246	2011-03-21 19:43:19.461825
 107	\N	Randy	Caravaggio	(403) 236-0026			rcaravaggio@tailoredliving.com	$2a$10$WRZYuHMP81N7L09J//mDCe.ByT8SkpQ/.Pm9pxN0jNG.4AxS9dZh.	$2a$10$WRZYuHMP81N7L09J//mDCe	\N	\N	\N	0	\N	\N	\N	\N	2011-03-18 00:01:23.725633	2011-03-18 00:01:23.725633
 71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	9	2011-03-15 18:52:31.600366	2011-03-15 15:32:33.398519	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-03-15 18:52:31.601483
