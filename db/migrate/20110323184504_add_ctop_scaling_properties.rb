@@ -37,7 +37,7 @@ class AddCtopScalingProperties < ActiveRecord::Migration
       colors = names.map{|n| color(n)}.to_set
       prop = Property.create(
         :name => %Q(CTOP Ranged Price #{styles.to_a.compact.sort.join(", ")}: #{colors.to_a.compact.sort.join(", ")}),
-        :family => 'ranged_value',
+        :family => 'ranged_price',
         :module_names => 'RangedValue'
       )
 
