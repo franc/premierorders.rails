@@ -733,7 +733,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 39, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 41, true);
 
 
 --
@@ -20077,6 +20077,8 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 37	376	98	Ready to Ship	Shipped	2011-03-23 20:42:21.562032	2011-03-23 20:42:21.562032
 38	354	98	Ready For Production	Ready to Ship	2011-03-23 21:49:12.846252	2011-03-23 21:49:12.846252
 39	290	98	Ready For Production	Ready to Ship	2011-03-23 21:55:18.285958	2011-03-23 21:55:18.285958
+40	348	98	Ready to Ship	Shipped	2011-03-23 22:17:14.650522	2011-03-23 22:17:14.650522
+41	349	98	Ready to Ship	Shipped	2011-03-23 22:17:19.413155	2011-03-23 22:17:19.413155
 \.
 
 
@@ -20131,12 +20133,12 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 314	41	70	50	Castor_Master Closet	SO-134	\N	2011-03-03 17:36:42.869984	2011-03-22 13:34:20.45983	Castor_Master Closet Parts List.xml	text/xml	30180	2011-03-03 17:36:42.866494	Phoenix	Shipped	2011-03-17	2011-03-22	Premier Route	2011-03-03 17:38:12	70		PremierRoute	70	White.	50	\N
 446	41	70	50	Hall_Countertop	SO-187	\N	2011-03-14 19:09:09.903311	2011-03-16 18:51:58.530705	Hall_Countertop Parts List.xml	text/xml	8391	2011-03-14 19:09:09.898645	Phoenix	Confirmed	2011-03-28	\N		2011-03-14 19:09:37	70		PremierRoute	70	Wild Apple, CS	50	Job
 155	4	4	6	Reddy - Replacement Drawer Box	SO - 41	\N	2011-02-16 00:37:32.781674	2011-03-04 21:02:49.491104	Reddy - Replacement Drawer Box.xml	application/octet-stream	6907	2011-02-16 00:37:32.779089	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n*Replacement for previously ordered materials.  "Reddy - Kartik's Closet", was ordered pre D'Vinci 4.1 so dimensions were different also I needed specific sizing for soft close slides.\r\n\r\n**Please check previous order submitted to assure correct size is sent	2011-02-16 00:37:47	4		PremierRoute	4	2/17 left msg with Tim - is this warranty?\r\n2/17 per Tim not a warranty issue, they ruined drawer.	6	\N
-348	11	10	14	Beaman Garage Cabinets	SO-147	\N	2011-03-07 02:50:33.369758	2011-03-23 19:05:28.300824	Beaman Garage Parts List.xls	application/vnd.ms-excel	13953	2011-03-07 02:50:33.362528	Phoenix	Ready to Ship	2011-03-21	\N		2011-03-07 02:54:49	10		PremierRoute	10	Bronze, CS	14	\N
+348	11	10	14	Beaman Garage Cabinets	SO-147	\N	2011-03-07 02:50:33.369758	2011-03-23 22:17:14.660377	Beaman Garage Parts List.xls	application/vnd.ms-excel	13953	2011-03-07 02:50:33.362528	Phoenix	Shipped	2011-03-21	2011-03-23		2011-03-07 02:54:49	10		PremierRoute	10	Bronze, CS	14	\N
 275	20	19	23	Baker back wall	SO-110	\N	2011-02-27 16:04:34.486037	2011-03-17 18:25:30.975403	Baker, Frank Parts List.xml	text/xml	8092	2011-02-27 16:04:34.484207	Phoenix	Shipped	2011-03-14	2011-03-17		2011-02-27 16:06:08	19		PremierRoute	19	Bronze	23	\N
 264	28	103	36	Littenberg	SO-102	\N	2011-02-25 15:21:31.429528	2011-03-14 19:12:29.429767	Littenberg Parts List.xls	application/vnd.ms-excel	11578	2011-02-25 15:21:31.426831	Phoenix	Shipped	2011-03-11	2011-03-11		2011-02-25 15:23:15	103		PremierRoute	103		36	\N
 350	41	70	50	Ring_Lockers_revised	SO-149	\N	2011-03-07 14:52:14.258731	2011-03-17 20:20:05.176155	Ring_Lockers Parts List.xml	text/xml	19353	2011-03-07 14:52:14.255939	Phoenix	In Production	2011-03-21	\N		2011-03-07 14:52:50	70		PremierRoute	70	White, CS	50	\N
 254	20	19	23	Green room 6	SO-98	\N	2011-02-24 21:38:37.25544	2011-03-17 18:25:17.227784	Green, Robert Parts List room 6.xml	text/xml	6258	2011-02-24 21:38:37.253336	Phoenix	Shipped	2011-03-11	2011-03-17		2011-02-24 21:39:31	19		PremierRoute	19		23	\N
-349	11	10	14	Hanly Pantry	SO-148	\N	2011-03-07 02:57:46.873881	2011-03-23 19:05:33.103997	Hanly Pantry Parts List.xls	application/vnd.ms-excel	28849	2011-03-07 02:57:46.871708	Phoenix	Ready to Ship	2011-03-21	\N		2011-03-07 02:59:21	10		PremierRoute	10	White, CS	14	\N
+349	11	10	14	Hanly Pantry	SO-148	\N	2011-03-07 02:57:46.873881	2011-03-23 22:17:19.416803	Hanly Pantry Parts List.xls	application/vnd.ms-excel	28849	2011-03-07 02:57:46.871708	Phoenix	Shipped	2011-03-21	2011-03-23		2011-03-07 02:59:21	10		PremierRoute	10	White, CS	14	\N
 290	15	44	18	Dave Emery	SO-158	\N	2011-02-28 20:15:34.541592	2011-03-23 21:55:18.259142	Dave Emery Parts List.xls	application/octet-stream	8203	2011-02-28 20:15:34.535412	Phoenix	Ready to Ship	2011-03-23	\N		2011-03-08 19:55:42	44		PremierRoute	44	Maple.	18	\N
 249	20	19	23	Green room 3	SO-95	\N	2011-02-24 21:11:19.796613	2011-03-17 18:24:57.370407	Green, Robert Parts List room 3.xml	text/xml	8778	2011-02-24 21:11:19.794634	Phoenix	Shipped	2011-03-11	2011-03-17		2011-02-24 21:12:36	19		PremierRoute	19		23	\N
 433	33	64	41	Kyo, Shila	SO-177	\N	2011-03-12 01:42:37.897052	2011-03-23 03:04:59.415772	Kyo, Sheila.dvi Parts List.xml	text/xml	31292	2011-03-12 01:42:37.893401	Phoenix	Ready For Production	2011-03-28	\N		2011-03-12 01:43:12	64		PremierRoute	64	White, CS	41	Job
