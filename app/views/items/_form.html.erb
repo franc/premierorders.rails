@@ -2,6 +2,7 @@
   <%= javascript_include_tag :ajax_ui %>
   <%= javascript_include_tag 'item_editing.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
   <style>
     .jqm_form {
         display: none;
@@ -157,6 +158,24 @@
     
       $(".component_delete_link").click(delete_clicked(".item_component_row"));
       $(".property_delete_link").click(delete_clicked(".property_row"));
+      $("#duplicate").click(function(ev) {
+        $.loading({ mask:true });
+        $.ajax({
+          url:"/items/<%=@item.try(:id)%>/dup",
+          type:"POST",
+          dataType:"json",
+          success: function(data) {
+            alert("You have successfully duplicated this item. You will now be forwarded to the page to edit the new item.")
+            window.location = "/items/"+data.new_id+"/edit";
+            $.loading();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert("Item duplication failed: "+textStatus+". Sorry!")
+            $.loading();
+          }
+        })
+        return false;
+      });
     });
   </script>
 <% end %>
@@ -231,7 +250,7 @@
   </div>
 
   <div class="form_actions">
-    <%= f.submit %>
+    <%= f.submit %> <button id="duplicate">Duplicate Item</button>
   </div>
 <% end %>
 

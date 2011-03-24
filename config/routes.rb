@@ -26,6 +26,7 @@ PgRails::Application.routes.draw do
   match 'items/add_property'                    => 'items#add_property'
   resources :items do
     member do
+      post 'dup'
       get 'properties'
       get 'components'
       post 'add_component'

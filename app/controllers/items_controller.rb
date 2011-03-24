@@ -14,7 +14,6 @@ class ItemsController < ApplicationController
   ]
 
   # GET /items
-  # GET /items.xml
   def index
     if !params[:search].blank?
       @search = Item.search do 
@@ -38,27 +37,36 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @items }
+    end
+  end
+
+  def dup
+    @new_item = @item.clone
+
+    if @new_item.save
+      @item.item_properties.each do |p| 
+        @new_item.item_properties.create(:property_id => p.property_id, :qualifier => p.qualifier)
+      end
+
+      if request.xhr?
+        render :json => {:new_id => @new_item.id}
+      end
     end
   end
 
   # GET /items/1
-  # GET /items/1.xml
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @item }
     end
   end
 
   # GET /items/new
-  # GET /items/new.xml
   def new
     @item = Item.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @item }
     end
   end
 
@@ -67,7 +75,6 @@ class ItemsController < ApplicationController
   end
 
   # POST /items
-  # POST /items.xml
   def create
     @item = Item.new(params[:item])
     @item.type = params[:item][:type]
@@ -81,16 +88,13 @@ class ItemsController < ApplicationController
         end
 
         format.html { redirect_to(@item, :notice => 'Item was successfully created.') }
-        format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /items/1
-  # PUT /items/1.xml
   def update
     if @item && params[:item][:type] 
       Item.execute_sql(["UPDATE items SET type = ? WHERE id = ?", params[:item][:type], @item.id]);
@@ -99,21 +103,17 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.update_attributes(params[:item])
         format.html { redirect_to(item_path(@item), :notice => 'Item was successfully updated.') }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /items/1
-  # DELETE /items/1.xml
   def destroy
     @item.destroy
     respond_to do |format|
       format.html { redirect_to(items_url) }
-      format.xml  { head :ok }
     end
   end
 
