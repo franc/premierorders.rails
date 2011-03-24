@@ -494,7 +494,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 6360, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 6368, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 15144, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 15276, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 9697, true);
+SELECT pg_catalog.setval('job_items_id_seq', 9776, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 540, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 542, true);
 
 
 --
@@ -797,7 +797,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 590, true);
+SELECT pg_catalog.setval('jobs_id_seq', 592, true);
 
 
 --
@@ -7192,6 +7192,7 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 6358	6	9693	0.98	\N	4	\N	2011-03-24 14:25:18.695394	2011-03-24 14:25:18.858474
 6359	199	9693	0.57	\N	4	\N	2011-03-24 14:25:18.890442	2011-03-24 14:25:18.92356
 6360	217	9693	0.02	\N	4	\N	2011-03-24 14:25:18.931867	2011-03-24 14:25:18.953521
+6368	218	9776	0.03	\N	2	\N	2011-03-24 15:25:09.70602	2011-03-24 15:25:09.735209
 1018	218	3873	0.03	\N	2	\N	2011-03-10 18:59:10.82778	2011-03-10 18:59:10.846819
 5114	220	8071	0.04	\N	2	\N	2011-03-16 15:40:36.824894	2011-03-16 15:40:36.854398
 1020	218	3874	0.03	\N	2	\N	2011-03-10 18:59:11.207095	2011-03-10 18:59:11.224994
@@ -15787,6 +15788,14 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 15032	9622	\N	dimensions	\N		{"linear_units":"in"}	2011-03-23 15:50:20.945117	2011-03-23 15:50:20.945117
 15033	9623	\N	dimensions	\N		{"linear_units":"in"}	2011-03-23 15:50:20.956691	2011-03-23 15:50:20.956691
 15034	9624	\N	dimensions	\N		{"linear_units":"in"}	2011-03-23 15:50:20.967871	2011-03-23 15:50:20.967871
+15269	9773	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"14.25","linear_units":"in"}	2011-03-24 15:25:09.044895	2011-03-24 15:25:09.044895
+15270	9773	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-24 15:25:09.057427	2011-03-24 15:25:09.057427
+15271	9774	\N	dimensions	\N	Width,Height	{"height":"2.5","width":"35","linear_units":"in"}	2011-03-24 15:25:09.068192	2011-03-24 15:25:09.068192
+15272	9774	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-24 15:25:09.217565	2011-03-24 15:25:09.217565
+15273	9775	\N	dimensions	\N	Depth,Height	{"height":"85.125","depth":"14","linear_units":"in"}	2011-03-24 15:25:09.244983	2011-03-24 15:25:09.244983
+15274	9775	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-24 15:25:09.256716	2011-03-24 15:25:09.256716
+15275	9776	\N	dimensions	\N	Width,Height	{"height":"23.811","width":"24.625","linear_units":"in"}	2011-03-24 15:25:09.267821	2011-03-24 15:25:09.267821
+15276	9776	\N	color	\N	Color	{"color":"Sable Glow"}	2011-03-24 15:25:09.282678	2011-03-24 15:25:09.282678
 \.
 
 
@@ -17576,6 +17585,10 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 6112	346	228	000.282.024.720.00I	38	need to order	2011-03-04 21:58:07.852395	2011-03-16 04:09:27.890639	0.12	54	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N	closet
 6113	346	81	000.547.036.642.00P	1		2011-03-04 21:58:07.89834	2011-03-16 04:09:27.895284	25.33	55	ZH Sliding Wire Basket (24x6x14) | Matte Nickel	\N	\N	in	ok	25.33	0.00	0.10	\N	closet
 6114	346	160	000.547.043.303.00P	1		2011-03-04 21:58:07.914296	2011-03-16 04:09:27.898749	63.48	56	ZH Tilt-Out Hamper (24)	\N	\N	in	ok	63.48	0.00	0.25	\N	closet
+9773	592	44	000.930.011.007.00M	3		2011-03-24 15:25:09.039076	2011-03-24 15:25:09.341911	16.43	1	CL Cam Shelf | Chocolate Apple	\N	\N	in	ok	4.50	0.00	0.05	\N	\N
+9774	592	563	000.970.024.007.00M	3		2011-03-24 15:25:09.06339	2011-03-24 15:25:09.507613	11.14	2	CL Toe Kick | Chocolate Apple	\N	\N	in	ok	7.09	0.00	0.10	\N	\N
+9775	592	35	000.912.171.007.00M	1		2011-03-24 15:25:09.239126	2011-03-24 15:25:09.562893	72.75	3	CL Upright Partition - BaseNotch - Left | Chocolate Apple	\N	\N	in	ok	25.56	0.00	0.05	\N	\N
+9776	592	233	000.143.000.007.00B	2		2011-03-24 15:25:09.262826	2011-03-24 15:25:09.784929	105.13	4	Decor Hamper Door - DR8 | Chocolate Apple	\N	\N	in	ok	42.05	0.06	0.05	\N	\N
 6150	349	48	000.934.092.001.00M	1		2011-03-07 02:57:47.916703	2011-03-17 20:02:51.050987	5.97	14	CL Top Shelf | White	\N	14	in	ok	9.55	0.00	0.03	\N	closet
 6151	349	48	000.934.092.001.00M	1		2011-03-07 02:57:47.937902	2011-03-17 20:02:51.054233	1.79	15	CL Top Shelf | White	\N	14	in	ok	4.78	0.00	0.03	\N	closet
 6152	349	34	000.912.270.001.00M	10	Please make base notch 1" x 4" Tall	2011-03-07 02:57:47.968439	2011-03-17 20:02:51.057374	16.09	16	CL Upright Partition - BaseNotch - Thru | White	\N	14	in	ok	16.09	0.00	0.05	\N	closet
@@ -20128,6 +20141,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 538	588	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 00:37:47.502836	2011-03-24 00:37:47.502836
 539	589	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 01:50:12.591002	2011-03-24 01:50:12.591002
 540	590	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 14:25:07.820277	2011-03-24 14:25:07.820277
+542	592	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 15:25:09.031577	2011-03-24 15:25:09.031577
 \.
 
 
@@ -20136,7 +20150,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	265	2011-01-23 05:52:19.75042	2011-03-24 14:26:16.326429
+1	2011	266	2011-01-23 05:52:19.75042	2011-03-24 15:26:06.981661
 \.
 
 
@@ -20310,6 +20324,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 265	41	70	50	Stilwell_Garage	SO-103	\N	2011-02-25 16:15:59.689229	2011-03-16 17:28:41.194401	Stilwell_Garage Parts List.xml	text/xml	7764	2011-02-25 16:15:59.685027	Phoenix	Shipped	2011-03-11	2011-03-16	Premier Route	2011-02-25 16:17:55	70		PremierRoute	70	Maple	50	\N
 352	20	19	23	Turkel Replacement door	SO-151	\N	2011-03-07 16:16:29.30774	2011-03-09 22:27:00.125526	Turkel, Catherinw Parts List replacement door.xml	text/xml	5386	2011-03-07 16:16:29.304226	Phoenix	Shipped	2011-03-09	2011-03-09		2011-03-07 16:16:46	19		PremierRoute	19	3/8 ok to add to truck leaving 3/9/11 cs	23	\N
 438	65	89	77	test	SO-179	\N	2011-03-14 03:13:14.882173	2011-03-14 04:32:52.103528	021011-1.xml	text/xml	30472	2011-03-14 03:13:14.878593	\N	Cancelled	\N	\N		2011-03-14 03:13:47	89	\N	\N	89	\N	\N	Job
+592	33	64	41	Harger, Eric - replacement parts	SO-266	\N	2011-03-24 15:25:08.938225	2011-03-24 15:26:07.09205	Harger, Eric - extra parts.dvi Parts List.xml	text/xml	8214	2011-03-24 15:25:08.936339	\N	Placed	\N	\N		2011-03-24 15:26:06	64	\N	\N	64	\N	\N	Job
 269	4	4	6	Golstein - Masters	SO-107	\N	2011-02-25 16:36:21.989662	2011-03-15 22:21:22.562833	Goldstein - Masters.xml	application/octet-stream	35798	2011-02-25 16:36:21.987389	Phoenix	Shipped	2011-03-11	2011-03-15		2011-02-25 16:38:29	4		PremierRoute	4	White	6	\N
 266	41	70	50	Riggin_Master Closet	SO-104	\N	2011-02-25 16:19:20.664875	2011-03-16 17:28:45.454258	Riggin_Master Closet Parts List.xml	text/xml	16696	2011-02-25 16:19:20.662829	Phoenix	Shipped	2011-03-11	2011-03-16	Premier Route	2011-02-25 16:22:14	70		PremierRoute	70	White	50	\N
 303	65	105	77	Reichow, Jody Closet	SO-124	\N	2011-03-02 15:31:59.333111	2011-03-22 04:19:03.495499	Reichow, Jody.dvi Parts List.xml	text/xml	22270	2011-03-02 15:31:59.329472	Phoenix	Shipped	2011-03-17	2011-03-22		2011-03-02 16:21:01	106		PremierRoute	105	White.	77	\N
@@ -23591,7 +23606,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	C4q783rJdeE5kR12xMnH	2011-03-23 17:10:06.255589	16	2011-03-23 17:36:28.559373	2011-03-23 17:10:06.262453	71.189.51.241	71.189.51.241	2011-02-11 15:27:04.739565	2011-03-23 17:36:28.55998
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$PoJWJKjl53gcV8z9Ug9biuY01vyg/iTmDp1gIAk5/bTl7en6nCrKq	$2a$10$PoJWJKjl53gcV8z9Ug9biu	\N	\N	\N	2	2011-03-24 01:46:34.857768	2011-03-16 21:44:31.947804	24.130.46.200	69.104.240.9	2011-02-11 15:36:07.879298	2011-03-24 01:46:34.858876
 63	\N	Daryl	Ellison	(205)956-3939		(205) 956-3939	dellison@tailoredliving.com	$2a$10$/iOXSNEaLvOQSAx30PhTL.r39e.XJUuKNKhw6z/CDgbDwHBIadwYG	$2a$10$/iOXSNEaLvOQSAx30PhTL.	\N	\N	\N	12	2011-03-17 17:53:30.045469	2011-03-16 20:04:03.120177	70.148.51.251	70.148.51.251	2011-02-11 14:59:30.879529	2011-03-17 17:53:30.046343
-64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$HmfXi39ROVyZzcucfZBF8.d66TKQG0AtYBTakln1zZSsJdtsh5KZ6	$2a$10$HmfXi39ROVyZzcucfZBF8.	\N	MUmqig6b0QUAoNWzPQJb	2011-03-10 16:48:50.761879	9	2011-03-23 00:30:03.276164	2011-03-21 15:53:13.233647	69.106.239.218	69.106.226.5	2011-02-11 15:09:59.375718	2011-03-23 00:30:03.276798
 70	\N	Jonathan	Elliott	(317)842-4272			jelliott@tailoredliving.com	$2a$10$69GVmRNLhgye703/6QZ41OzDdqzkcwIXghX0rnxWQP8XZorNTUTii	$2a$10$69GVmRNLhgye703/6QZ41O	\N	\N	\N	50	2011-03-23 15:49:15.874548	2011-03-23 14:04:09.839361	71.156.83.159	71.156.83.159	2011-02-11 15:47:02.028477	2011-03-23 15:49:15.875649
 51	\N	Dalawna	Dillman	(480) 483-3030		(48) 483-7895	ddillman@premiergarage.com	$2a$10$hbkI3SZwvEVZeRv8gSc5neX0yJgvyD9RmMV0c6vkcrPTDrXjYvDrC	$2a$10$hbkI3SZwvEVZeRv8gSc5ne	\N	\N	\N	22	2011-03-23 17:05:34.98786	2011-03-23 00:12:44.812443	174.79.54.226	174.79.54.226	2011-01-06 23:44:42.653941	2011-03-23 17:05:34.988937
 4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	MllIqGn3qFxBJC5C2iqk	2011-03-21 23:32:18.626707	39	2011-03-23 01:35:16.563257	2011-03-22 11:17:08.908072	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-03-23 01:35:16.563913
@@ -23600,6 +23614,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 52	\N	Shaun	Lieberman				shaunl81@gmail.com	$2a$10$tfEQ/D5/pD5zxrGO1uj/JuT.IWf8ffbvJNCsxmVCichayBpx5liMu	$2a$10$tfEQ/D5/pD5zxrGO1uj/Ju	awz0ahz3F15FpREbipK4	\N	\N	10	2011-02-02 00:58:16.647804	2011-01-26 14:00:00.768041	98.227.34.3	69.174.58.44	2011-01-23 16:28:32.887677	2011-02-02 00:58:16.648734
 69	\N	Bill	Bruneman	(630) 289-7760			bkbruneman@tailoredliving.com	$2a$10$JvGmZM1XoN/T/0fecH5WWOyFW9ejX7UHKm2O1zIA5E.0YhHJuaMsG	$2a$10$JvGmZM1XoN/T/0fecH5WWO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:44:13.571037	2011-03-04 15:55:00.521575
 66	\N	Joseph	Chang	(951) 653-7510			jchang@tailoredliving.com	$2a$10$ikYg7wRH08wxwiKYIfQnj.DF67CGFYs1JVPY9OgOrSplpWQOmOnS6	$2a$10$ikYg7wRH08wxwiKYIfQnj.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:33:26.75444	2011-03-04 15:55:20.000456
+64	\N	Nick	Granato	(650)286-9676		(650)286-9690	bayarea@tailoredliving.com	$2a$10$HmfXi39ROVyZzcucfZBF8.d66TKQG0AtYBTakln1zZSsJdtsh5KZ6	$2a$10$HmfXi39ROVyZzcucfZBF8.	\N	MUmqig6b0QUAoNWzPQJb	2011-03-10 16:48:50.761879	10	2011-03-24 15:22:30.2757	2011-03-23 00:30:03.276164	69.106.239.218	69.106.239.218	2011-02-11 15:09:59.375718	2011-03-24 15:22:30.276468
 54	\N	Test	User	222-222-2222			test@hylotech.com	$2a$10$U7zCzKW787M7GA0wmwK7Fenitw2Yqx3KunqQ6x1rgISlm.HQZN86u	$2a$10$U7zCzKW787M7GA0wmwK7Fe	DBGnjCTJvWF9sMHP6Ogj	qbKwF-XFGD5uRyAZCaE2	2011-03-18 17:05:53.38705	9	2011-03-21 18:44:44.914819	2011-03-18 17:05:53.391299	98.245.88.239	98.245.88.239	2011-01-25 16:00:52.065032	2011-03-21 18:44:44.915914
 60	\N	Steve	Bisch	(636) 399-8262	(636) 399-8262	(314) 434-1976	sbisch@tailoredliving.com	$2a$10$OIKMvh3KJPb/y4smzl1kMu62KumAEkBUxb8CRZ2B5DQZzwSjf9sfa	$2a$10$OIKMvh3KJPb/y4smzl1kMu	\N	\N	\N	23	2011-03-20 22:36:52.045808	2011-03-19 19:42:08.01284	174.79.54.226	174.79.54.226	2011-01-27 18:32:44.56832	2011-03-20 22:36:52.046785
 18	Ms.	Kathy	Graham	(760) 320-1914			kgraham@tailoredliving.com	$2a$10$hiJTCKugu/62u4ca7t5mAuSZHXuN6zVXUVCRwPb1vJofUfVaDsiqy	$2a$10$hiJTCKugu/62u4ca7t5mAu	\N	\N	\N	1	2011-03-21 17:10:42.466364	2011-03-21 17:10:42.466364	67.52.165.230	67.52.165.230	2011-01-01 18:53:34.284249	2011-03-21 17:10:42.467315
