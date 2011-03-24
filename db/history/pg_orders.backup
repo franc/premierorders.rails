@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 15108, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 15112, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 9674, true);
+SELECT pg_catalog.setval('job_items_id_seq', 9678, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 536, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 538, true);
 
 
 --
@@ -797,7 +797,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 586, true);
+SELECT pg_catalog.setval('jobs_id_seq', 588, true);
 
 
 --
@@ -14856,6 +14856,8 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 14672	9370	\N	dimensions	\N		{"linear_units":"in"}	2011-03-23 03:14:54.104699	2011-03-23 03:14:54.104699
 15107	9673	\N	dimensions	\N	Depth,Width	{"depth":"13","width":"46.5","linear_units":"in"}	2011-03-23 23:25:16.347592	2011-03-23 23:25:16.347592
 15108	9674	\N	dimensions	\N	Depth,Width	{"depth":"13","width":"46.5","linear_units":"in"}	2011-03-23 23:25:16.360692	2011-03-23 23:25:16.360692
+15111	9677	\N	dimensions	\N		{"linear_units":"in"}	2011-03-24 00:37:47.515586	2011-03-24 00:37:47.515586
+15112	9678	\N	dimensions	\N		{"linear_units":"in"}	2011-03-24 00:37:47.527367	2011-03-24 00:37:47.527367
 14681	9375	\N	dimensions	\N	Depth,Width	{"depth":"16","width":"29.625","linear_units":"in"}	2011-03-23 03:33:48.221356	2011-03-23 03:33:48.221356
 14682	9375	\N	color	\N	Color	{"color":"White"}	2011-03-23 03:33:48.234069	2011-03-23 03:33:48.234069
 14683	9376	\N	dimensions	\N	Depth,Width	{"depth":"14","width":"30","linear_units":"in"}	2011-03-23 03:33:48.245262	2011-03-23 03:33:48.245262
@@ -17310,6 +17312,8 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8653	531	12	000.102.100.000.00I	112		2011-03-20 20:23:39.2031	2011-03-21 19:33:57.573507	0.02	40	ZH Shelf Pin (Spoon)	\N	\N	in	ok	0.02	0.00	\N	\N	closet
 9673	586	\N	000.fixed shelf	3		2011-03-23 23:25:16.33744	2011-03-23 23:25:16.380608	0.00	1	fixed shelf	\N	\N	in	not_computed	\N	0.00	\N	\N	\N
 9674	586	\N	000.shelf	3		2011-03-23 23:25:16.355867	2011-03-23 23:25:16.386205	0.00	2	Shelf	\N	\N	in	not_computed	\N	0.00	\N	\N	\N
+9677	588	221	000.365.075.710.00P	2		2011-03-24 00:37:47.509406	2011-03-24 00:37:47.568264	5.77	1	ZH Flap Stay | White	\N	\N	in	ok	2.11	0.00	0.10	\N	\N
+9678	588	160	000.547.043.303.00P	1		2011-03-24 00:37:47.522531	2011-03-24 00:37:47.592761	173.91	2	ZH Tilt-Out Hamper (24)	\N	\N	in	ok	63.48	0.00	0.25	\N	\N
 6393	365	45	000.931.011.007.00M	4		2011-03-07 23:51:16.716809	2011-03-17 21:53:38.284262	7.63	1	CL Adjustable Shelf | Chocolate Apple	\N	14	in	ok	7.63	0.00	0.03	\N	closet
 6394	365	45	000.931.010.007.00M	7		2011-03-07 23:51:16.740517	2011-03-17 21:53:38.290597	6.58	2	CL Adjustable Shelf | Chocolate Apple	\N	14	in	ok	6.58	0.00	0.03	\N	closet
 6395	365	45	000.931.020.007.00M	7		2011-03-07 23:51:16.763931	2011-03-17 21:53:38.293884	8.22	3	CL Adjustable Shelf | Chocolate Apple	\N	14	in	ok	8.22	0.00	0.03	\N	closet
@@ -20026,6 +20030,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 534	584	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-23 15:50:19.993697	2011-03-23 15:50:19.993697
 535	585	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-23 17:40:06.469952	2011-03-23 17:40:06.469952
 536	586	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-23 23:25:16.326879	2011-03-23 23:25:16.326879
+538	588	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 00:37:47.502836	2011-03-24 00:37:47.502836
 \.
 
 
@@ -20109,6 +20114,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 153	41	70	50	Recktenwall_Garage	SO - 39	\N	2011-02-15 22:11:41.3838	2011-03-16 03:22:32.142711	Recktenwall_Garage Parts List.xml	text/xml	9242	2011-02-15 22:11:41.381547	Phoenix	Shipped	2011-03-01	2011-03-02	Premier Route	2011-02-15 22:13:40	70		PremierRoute	70		50	\N
 143	4	4	6	Boldebuck - Annaka	SO - 32	\N	2011-02-15 16:40:30.107612	2011-03-16 03:20:13.180272	Boldebuck - Annaka.xml	text/xml	26726	2011-02-15 16:40:30.105785	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping	2011-02-15 16:41:21	4		PremierRoute	29		6	\N
 154	13	12	16	Thatcher	SO - 40	\N	2011-02-15 23:38:21.966347	2011-03-16 03:22:57.154664	Thatcher_02_15 Parts List.xml	text/xml	21013	2011-02-15 23:38:21.963814	Phoenix	Shipped	2011-03-01	2011-03-02	Would like to ship with my SRS order I placed today if possible, thanks.	2011-02-15 23:41:01	12		PremierRoute	12		16	\N
+588	17	16	20	Hamper & Stays for SO 75	\N	\N	2011-03-24 00:37:47.27944	2011-03-24 00:37:47.27944	hamper.xml	text/xml	7385	2011-03-24 00:37:47.277608	\N	Created	\N	\N	Please drop ship ASAP!!	\N	\N	\N	\N	16	\N	\N	Job
 510	59	87	70	Haydu	SO-224	\N	2011-03-17 23:03:31.307874	2011-03-18 20:36:43.976926	haydu_ORDER.dvi Parts List.xml	text/xml	12819	2011-03-17 23:03:31.303976	Phoenix	Confirmed	2011-04-04	\N		2011-03-18 15:16:59	87		PremierRoute	87	White, CS	70	Job
 144	4	4	6	Boldebuck - Hanna	SO - 33	\N	2011-02-15 16:57:05.757071	2011-03-16 03:20:34.782022	Boldebuck - Hanna.xml	text/xml	25967	2011-02-15 16:57:05.755159	Phoenix	Shipped	2011-03-01	2011-03-04	Ship Date: 02/28/11\r\n\r\nPG Preferred Shipping\r\n\r\n**Highlighted Items were modified in excel sheet to account for 2 cut to fit sections	2011-02-15 16:59:34	4		PremierRoute	29		6	\N
 248	20	19	23	Green room 2	SO-94	\N	2011-02-24 21:07:14.74013	2011-03-17 18:24:50.066174	Green, Robert Parts List room 2.xml	text/xml	10385	2011-02-24 21:07:14.738192	Phoenix	Shipped	2011-03-11	2011-03-17		2011-02-24 21:08:47	19		PremierRoute	19		23	\N
@@ -23444,6 +23450,7 @@ COPY user_roles (user_id, role_id) FROM stdin;
 
 COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypted_password, password_salt, reset_password_token, remember_token, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at) FROM stdin;
 28	Ms.	Tiffany	Travis	(703) 707-0009		(703) 889-5133	ttravis@closettrailors.com	$2a$10$iCfva.Tv4seNOft6LTZmMu4jR5zm5bbhIsUfmwj8vqUR6.S4lgs16	$2a$10$iCfva.Tv4seNOft6LTZmMu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.671535	2011-01-01 18:53:35.691498
+16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	17	2011-03-24 00:30:36.201674	2011-03-21 19:46:44.184789	67.203.136.36	68.6.152.235	2011-01-01 18:53:33.935232	2011-03-24 00:30:36.202717
 29	Ms.	Mary Beth	Lorenz	(608) 318-1667		(608) 318-0665	ctmadison@closettailors.com	$2a$10$OHOoEpiikKAW3Jlhm.3FQeRak.JlPGt8Cx/eOR0GcYB1B46v9SBDu	$2a$10$OHOoEpiikKAW3Jlhm.3FQe	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.854706	2011-01-01 18:53:35.887619
 30	Ms.	Estela	Estrada	(714) 637-2100		(714) 998-8901	estela@homefranchiseeconcepts.com	$2a$10$cFthe26Eeb2RAC4Lj2MJ8edHzNF0SnQ5cd6EmJWJLcT57he/MLCU.	$2a$10$cFthe26Eeb2RAC4Lj2MJ8e	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:36.124513	2011-01-01 18:53:36.130825
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
@@ -23457,7 +23464,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
 13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$YfhT4VrqnrWrIGK3pB2iaePSRgzYaT9YLa4PgSJT4U4SJLHl94ZDy	$2a$10$YfhT4VrqnrWrIGK3pB2iae	\N	OlImnuhrnZwZS1GyF7yD	2011-03-08 19:31:39.401426	3	2011-03-08 19:57:25.873311	2011-03-08 19:31:39.406049	68.89.173.85	68.89.173.85	2011-01-01 18:53:33.554435	2011-03-08 19:57:25.873992
 12	\N	Keith	Garrett	(281) 748-7403		2812923300	kdgarrett@tailoredliving.com	$2a$10$WVWyPxrxwJjfIwO3tWoalun77RTRQ7FGFfGzeL81DRqsbzahSKOD.	$2a$10$WVWyPxrxwJjfIwO3tWoalu	\N	\N	\N	7	2011-03-15 19:46:13.319941	2011-03-14 16:04:11.540785	98.200.206.1	50.15.164.149	2011-01-01 18:53:33.430408	2011-03-15 19:46:13.32125
-16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	16	2011-03-21 19:46:44.184789	2011-03-21 17:03:43.617187	68.6.152.235	76.205.198.73	2011-01-01 18:53:33.935232	2011-03-21 19:46:44.185448
 26	Mr.	Calvin	Connell	(208) 733-6768	(208) 280-0880	(208) 733-6768	cconnell@tailoredliving.com	$2a$10$L34zvvTQ6Cujakc.zlzPDuZenFpHabWniwKGbngEO67wN6ThjchXa	$2a$10$L34zvvTQ6Cujakc.zlzPDu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.426306	2011-02-11 15:42:17.587949
 11	Mrs.	Meri Lynn	Bisch	(636) 728-0333	(636) 399-9529	(314)434-1976	mlbisch@tailoredliving.com	$2a$10$ADDAS8SmsuiYYeZKnzUNnOotiUtMQw4.rDlDTYZby2k/6Joy7g8La	$2a$10$ADDAS8SmsuiYYeZKnzUNnO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.30654	2011-02-11 16:03:31.935311
 46	Mr.	Jim	Friesen	(503) 390-0522	(503) 302-6029		jfriesen@tailoredliving.com	$2a$10$d1qe/mYTbWRWl7lko.J5h.xVbtQAMF1PsQOSVpKjsmBTZMU.GJrJa	$2a$10$d1qe/mYTbWRWl7lko.J5h.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.091546	2011-02-11 16:23:31.156631
