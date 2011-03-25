@@ -387,7 +387,7 @@ ALTER SEQUENCE item_properties_id_seq OWNED BY item_properties.id;
 -- Name: item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('item_properties_id_seq', 2341, true);
+SELECT pg_catalog.setval('item_properties_id_seq', 2351, true);
 
 
 --
@@ -447,7 +447,7 @@ ALTER SEQUENCE items_id_seq OWNED BY items.id;
 -- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('items_id_seq', 1527, true);
+SELECT pg_catalog.setval('items_id_seq', 1529, true);
 
 
 --
@@ -4394,6 +4394,12 @@ COPY item_properties (id, item_id, property_id, qualifier) FROM stdin;
 2339	1527	9	right
 2340	1527	6	\N
 2341	1527	62	\N
+2342	1528	6	\N
+2343	1528	9	front
+2346	1528	46	\N
+2349	1529	32	front
+2350	1529	75	\N
+2351	1529	46	\N
 \.
 
 
@@ -4490,6 +4496,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 482	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4886 Pearl Soapstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4886 Pearl Soapstone		\N	000.402.004.314.00P	\N	2011-01-01 18:54:27.362115	2011-01-30 16:46:49.304179	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N
 483	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4887 Tan Soapstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4887 Tan Soapstone		\N	000.402.004.315.00P	\N	2011-01-01 18:54:27.374587	2011-01-30 16:47:03.193539	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N
 485	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 7942 Cocobala	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 7942 Cocobala		\N	000.402.004.317.00P	\N	2011-01-01 18:54:27.399614	2011-01-30 16:47:26.689539	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N
+1529	CTOP Corner - 1 in. melamine	CTOP Corner 1 in. melamine		\N	000.502.000.x.00M	MEL-CCTOP-25	2011-01-01 18:53:39.129345	2011-03-25 00:33:44.481625	Manufactured	Worksurfaces	Items::Countertop	\N		\N	0.25	0.92000000000000004	0.40000000000000002	\N	board	f	0
 475	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4791 Willowstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4791 Willowstone		\N	000.402.004.307.00P	\N	2011-01-01 18:54:27.219394	2011-01-30 16:44:14.418842	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N
 64	ZH Belt Rack | Oil Rubbed Bronze	Belt Rack W/Slide Al Dk Oil-Rub.Bzd/Bl Pl 13 7/8	807.67.113	\N	000.807.067.113.00P		2011-01-01 18:53:52.201527	2011-02-26 18:00:27.084488	Purchased	30092	Item	22.23		\N	0.07	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N
 39	CL Upright Partition - Right	CL Upright Partition - Right 		\N	000.911.3x.x.00M	CL-VU-R	2011-01-01 18:53:39.920172	2011-02-18 22:09:45.080704	Manufactured	Closets	Items::ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N
@@ -4527,6 +4534,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 631	ZH Screw (Drawer Front Fastener)	Screw, #8 x 1' (Box Qty 500)	0167081602	\N			2011-01-13 18:10:40.066913	2011-03-10 00:29:56.438624	Inventory	1002	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	t	\N
 12	ZH Shelf Pin (Spoon)	Shelf Support St.Nip.Dia.5X24mm	7328204711	\N	000.102.100.000.00I		2011-01-01 18:53:39.072234	2011-03-10 00:29:56.814993	Inventory	1021	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	t	\N
 1485	Hose, Vacuum 25' x 2' with cuffs			\N			2011-03-10 00:29:59.039677	2011-03-20 05:41:08.551945	Buyout	7774	Item	\N		\N	\N	\N	\N	106.40	flooring_hardware	t	drop_ship
+1528	CTOP Corner - 3/4 in. melamine	CTOP Corner 3/4 in. melamine		\N	000.402.000.x.00M	MEL-CCTOP-19	2011-01-01 18:53:39.115352	2011-03-25 00:30:50.640118	Manufactured	Worksurfaces	Items::Countertop	\N		\N	0.03	0.92000000000000004	0.40000000000000002	\N	board	f	0
 1488	HTC 500 Floor Grinder - 220 volt			\N			2011-03-10 00:29:59.053591	2011-03-20 05:40:51.982357	Buyout	7701	Item	\N		\N	\N	\N	\N	9.00	flooring_hardware	t	drop_ship
 1489	Hum-B Grinder Dolly with Dewalt Grinder			\N			2011-03-10 00:29:59.058138	2011-03-20 05:40:38.007218	Buyout	7760	Item	\N		\N	\N	\N	\N	1.00	flooring_hardware	t	drop_ship
 1493	M&E, GnG Carbide replacement kit (wheels)			\N			2011-03-10 00:29:59.076317	2011-03-20 05:38:08.917075	Buyout	7037	Item	\N		\N	\N	\N	\N	194.00	flooring_hardware	t	drop_ship
@@ -23958,9 +23966,9 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 27	Mr.	William	Welborn	(972) 247-3030	(214) 251-9736		dallas@premiergarage.com	$2a$10$DFnI.5P9MkRoJUsNExSD/uP1FqMTc3pXe3yFv2u.tjJmK2d/SwRv.	$2a$10$DFnI.5P9MkRoJUsNExSD/u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.546803	2011-01-01 18:53:38.611661
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	C4q783rJdeE5kR12xMnH	2011-03-23 17:10:06.255589	20	2011-03-24 21:16:55.597277	2011-03-24 21:03:51.591672	67.203.136.36	71.189.51.241	2011-02-11 15:27:04.739565	2011-03-24 21:16:55.598172
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$PoJWJKjl53gcV8z9Ug9biuY01vyg/iTmDp1gIAk5/bTl7en6nCrKq	$2a$10$PoJWJKjl53gcV8z9Ug9biu	\N	\N	\N	2	2011-03-24 01:46:34.857768	2011-03-16 21:44:31.947804	24.130.46.200	69.104.240.9	2011-02-11 15:36:07.879298	2011-03-24 01:46:34.858876
+32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	wPlMTc-msZZV2-lqAuuF	2011-03-24 18:46:28.795152	158	2011-03-25 00:26:45.392122	2011-03-24 18:46:28.799096	70.176.124.201	174.79.54.226	2011-01-01 18:53:36.365777	2011-03-25 00:26:45.392982
 42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$fehc6g7h6Ccms63oTgO95.ZfbTdR4wLSIKpX.LfvDkeC0WTaBaHL2	$2a$10$fehc6g7h6Ccms63oTgO95.	\N	\N	\N	120	2011-03-24 16:34:01.275303	2011-03-23 12:20:59.981578	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-03-24 16:34:01.276536
 51	\N	Dalawna	Dillman	(480) 483-3030		(48) 483-7895	ddillman@premiergarage.com	$2a$10$hbkI3SZwvEVZeRv8gSc5neX0yJgvyD9RmMV0c6vkcrPTDrXjYvDrC	$2a$10$hbkI3SZwvEVZeRv8gSc5ne	\N	\N	\N	23	2011-03-24 16:51:59.824879	2011-03-23 17:05:34.98786	174.79.54.226	174.79.54.226	2011-01-06 23:44:42.653941	2011-03-24 16:51:59.825683
-32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	wPlMTc-msZZV2-lqAuuF	2011-03-24 18:46:28.795152	157	2011-03-24 18:46:28.799096	2011-03-24 17:19:48.108998	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-03-24 18:46:28.79965
 63	\N	Daryl	Ellison	(205)956-3939		(205) 956-3939	dellison@tailoredliving.com	$2a$10$/iOXSNEaLvOQSAx30PhTL.r39e.XJUuKNKhw6z/CDgbDwHBIadwYG	$2a$10$/iOXSNEaLvOQSAx30PhTL.	\N	\N	\N	13	2011-03-24 21:30:27.498681	2011-03-17 17:53:30.045469	70.148.51.251	70.148.51.251	2011-02-11 14:59:30.879529	2011-03-24 21:30:27.499823
 5	Mr.	Todd	Carter	(703) 707-0009	(703) 217-8217	(703) 889-5133	tcarter@closettailors.com	$2a$10$eJKywvdryMeEhZDIa26H3.tyvmChU3zOj0XbTQBEaB8u1.jZsh4a2	$2a$10$eJKywvdryMeEhZDIa26H3.	\N	CGJOEaRe2uICmKH_urK_	2011-03-15 14:10:26.09049	7	2011-03-21 04:32:44.173395	2011-03-15 14:10:26.094243	96.255.236.38	72.66.45.179	2011-01-01 18:53:32.475866	2011-03-21 04:32:44.174126
 58	\N	Jim	Edwards	(480) 483-3030		(480) 483-7895	jedwards@premiergarage.com	$2a$10$moAo/4mvyL3XAMJYgCyBwePloF5VDWDM2jxrZ4/0ZYt4TtPjwy1Je	$2a$10$moAo/4mvyL3XAMJYgCyBwe	\N	\N	\N	1	2011-02-18 17:58:47.287468	2011-02-18 17:58:47.287468	174.79.54.226	174.79.54.226	2011-01-27 00:20:08.250214	2011-03-04 15:57:46.428298
@@ -23995,7 +24003,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 102	\N	Jayson	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/..Y0uOHPRnN4CD7hzfQPYXWc8dvO963m	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/.	\N	\N	\N	45	2011-03-24 23:15:52.571662	2011-03-24 14:13:59.315789	174.79.54.226	174.79.54.226	2011-02-21 19:54:37.738913	2011-03-24 23:15:52.57237
 35	Mr.	Peter	Saal	303 578-9085		(480) 483-7895	peter.saal@gmail.com	$2a$10$hemGRKYA92914j1zZRi4SO7iBxSGXl8ohjBDRlIjPUt9M4oB2LqIG	$2a$10$hemGRKYA92914j1zZRi4SO	\N	\N	\N	133	2011-03-24 04:02:50.762525	2011-03-24 03:11:21.623742	173.140.187.155	70.243.100.214	2011-01-01 18:53:36.717099	2011-03-24 04:02:50.7634
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	\N	\N	3	2011-03-23 21:29:21.748308	2011-02-22 19:00:51.544035	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-03-23 21:31:37.187492
-49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$auN9mhf3YPJqlsDpQQszKee3FvMmxMBr..NZyMV1ZwQSxke70Cs2G	$2a$10$auN9mhf3YPJqlsDpQQszKe	\N	l0l3vPYXIP5sYIzWV7IL	2011-03-16 16:46:13.436407	52	2011-03-24 18:52:00.945841	2011-03-22 01:21:15.158539	98.245.88.239	75.220.149.150	2011-01-01 19:06:38.040379	2011-03-24 18:52:00.946489
+49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$auN9mhf3YPJqlsDpQQszKee3FvMmxMBr..NZyMV1ZwQSxke70Cs2G	$2a$10$auN9mhf3YPJqlsDpQQszKe	\N	l0l3vPYXIP5sYIzWV7IL	2011-03-16 16:46:13.436407	53	2011-03-25 00:59:27.747994	2011-03-24 18:52:00.945841	204.144.184.242	98.245.88.239	2011-01-01 19:06:38.040379	2011-03-25 00:59:27.748613
 88	\N	Andrew	Amenta	(239) 949-5584		(239) 949-9923	swflorida@premiergarage.com	$2a$10$.cjW.GOIh3sr0CnoZA2NHOcGe3R0xoVPCQQnE2.EJ5JRZEp2pW8aW	$2a$10$.cjW.GOIh3sr0CnoZA2NHO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:03:58.211053	2011-03-04 15:54:26.992475
 78	\N	Dave	Galt	(701)281-0558		(701)281-0568	dgalt@tailoredliving.com	$2a$10$1kCTBmCuZB59.p7hZJkB..d/caHKpVhCKai4Uo6lJclobHPQjqgEi	$2a$10$1kCTBmCuZB59.p7hZJkB..	\N	\N	\N	2	2011-02-17 18:20:16.439636	2011-02-15 15:08:08.270598	69.178.221.211	69.178.221.211	2011-02-11 16:13:15.331096	2011-02-17 18:20:16.440675
 74	\N	Brian	Marine	(651)454-1315		(651)454-1336	bmarine@tailoredliving.com	$2a$10$pffsNm.4PZuDLiVHiBddFuXzrxU9eo1HVpod7eimQCtZDXANWhkua	$2a$10$pffsNm.4PZuDLiVHiBddFu	\N	\N	\N	2	2011-03-03 13:53:44.861619	2011-03-02 16:11:59.30949	75.168.197.137	75.168.197.137	2011-02-11 16:01:44.01807	2011-03-03 13:53:44.862477
