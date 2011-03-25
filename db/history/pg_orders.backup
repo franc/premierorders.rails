@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 15729, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 15730, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 10064, true);
+SELECT pg_catalog.setval('job_items_id_seq', 10065, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 551, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 552, true);
 
 
 --
@@ -797,7 +797,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 602, true);
+SELECT pg_catalog.setval('jobs_id_seq', 603, true);
 
 
 --
@@ -16033,6 +16033,7 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 15727	10063	\N	dimensions	\N	Width,Height,Depth	{"height":"4.5","depth":"13.75","width":"29","linear_units":"in"}	2011-03-24 22:47:38.704923	2011-03-24 22:47:38.704923
 15728	10063	\N	color	\N	Color	{"color":"White"}	2011-03-24 22:47:38.71622	2011-03-24 22:47:38.71622
 15729	10064	\N	dimensions	\N		{"linear_units":"in"}	2011-03-24 22:47:38.727016	2011-03-24 22:47:38.727016
+15730	10065	\N	dimensions	\N	Width,Depth	{"depth":"25.0","width":"48.0","linear_units":"in"}	2011-03-25 14:08:45.302067	2011-03-25 14:08:45.302067
 \.
 
 
@@ -20244,6 +20245,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 7712	467	38	000.911.171.001.00M	1		2011-03-15 18:57:02.974121	2011-03-24 23:35:45.266415	19.25	9	CL Upright Partition - Left | White	\N	18	in	ok	19.25	0.00	0.05	\N	closet
 7747	468	262	000.102.433.010.00M	1		2011-03-15 19:46:35.835193	2011-03-24 23:40:25.810615	96.03	10	NX Base Cabinet 2 Door | Hardrock Maple	\N	15	in	ok	97.17	7.30	0.33	\N	garage
 7754	468	258	000.302.443.010.00M	4		2011-03-15 19:46:38.148963	2011-03-24 23:40:25.814961	79.46	17	NX Over Cabinet 2 Door | Hardrock Maple	\N	15	in	ok	80.69	7.30	0.41	\N	garage
+10065	603	327	000.401.002.315.00P	1		2011-03-25 14:08:45.290405	2011-03-25 14:08:45.350433	159.20	1	CTOP - Tempo | Laminate 4887 Tan Soapstone	\N	\N	in	ok	109.85	0.00	\N	\N	\N
 \.
 
 
@@ -20477,6 +20479,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 549	599	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 21:21:49.67484	2011-03-24 21:21:49.67484
 550	601	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 22:01:28.343774	2011-03-24 22:01:28.343774
 551	602	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-24 22:47:37.167809	2011-03-24 22:47:37.167809
+552	603	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-25 14:08:45.279509	2011-03-25 14:08:45.279509
 \.
 
 
@@ -20485,7 +20488,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	274	2011-01-23 05:52:19.75042	2011-03-24 22:48:28.869401
+1	2011	275	2011-01-23 05:52:19.75042	2011-03-25 14:09:17.978726
 \.
 
 
@@ -20730,6 +20733,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 287	59	87	84	T Patterson	SO-117	\N	2011-02-28 17:29:07.486562	2011-03-18 17:04:18.533056	Tura_FINAL ORDER.dvi Parts List.xml	text/xml	25718	2011-02-28 17:29:07.481557	Phoenix	Shipped	2011-03-15	2011-03-18	Please ship to 7182 Hwy 14, Suite 603 Middleton, WI 53562\r\n\r\nAll future shipment should go to this address.	2011-02-28 17:35:46	87		PremierRoute	87	Maple.	70	\N
 374	9	9	13	Westen	SO-162	\N	2011-03-08 21:22:59.669455	2011-03-24 17:52:30.005294	Westen, George and Lysha Parts List.xls	application/vnd.ms-excel	19998	2011-03-08 21:22:59.665185	Phoenix	Ready to Ship	2011-03-23	\N		2011-03-08 21:24:54	9		PremierRoute	9	Chocolate Apple - (Change 3/4 Ctop to 72" EH)	13	\N
 453	9	9	13	Scarborough	SO-192	\N	2011-03-14 20:16:49.018712	2011-03-15 21:31:58.516771	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	30086	2011-03-14 20:16:49.01654	Phoenix	On Hold	\N	\N	Five drawer cabinet:\r\n\r\n1. Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2. Next drawer from top down should be stationery drawer (1 vertical panel starts 2" from the back of the drawer front, and then there should be 4 additional spacers at 45 degrees\r\n\r\n3.  Next two drawers are equal in height:\r\n\r\nDrawer suspended underneath corner countertop:\r\n\r\n1.  Drawer front should be 2 1/4" if possible.  Width and depth are same dimensions Eric gave me.\r\n\r\n2.  Need hardware mounting kit for this drawer:\r\n\r\nThree drawer cabinet:\r\n\r\n1.  Should have 3 equal drawer font sizes (not file drawer and then two small drawers):\r\n\r\n30" wide file drawer cabinet\r\n\r\n1.  Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2.  Middle drawer should be file drawer with appropriate hardware\r\n\r\n3.  Bottom drawer should be whatever remaining space allows:\r\n\r\nPlease also make note the custom corner countertop should have a depth of 20" on each side in order to align with other cabinets:\r\n\r\nThere are lot of moving parts on this one so please call with questions.\r\n\r\n\r\n 	2011-03-14 20:19:19	9		PremierRoute	9	3/15/11 on hold till further instructions from Steve. CS	13	Job
+603	23	22	27	Bono, Mike	SO-275	\N	2011-03-25 14:08:45.15747	2011-03-25 14:09:17.982803	Bono, Mike Counter top Parts List.xml	text/xml	6566	2011-03-25 14:08:45.153904	\N	Placed	\N	\N		2011-03-25 14:09:17	22	\N	\N	22	\N	\N	Job
 548	59	87	84	Shoy Pantry	SO-241	\N	2011-03-21 18:32:23.829314	2011-03-21 19:59:04.637457	shoys_ORDER.dvi Parts List.xml	text/xml	23090	2011-03-21 18:32:23.824211	Phoenix	On Hold	\N	\N	Before processing order PLEASE call to discuss the corner shelves.  We have one set of corner shelves going from 16" wide on one wall to 12" wide on the wall.  We also need to cut this same set of corner shelves to a shorter length.  Please call Julee Barnett at 608-831-3150 or 608-509-3736 (cell).\r\nthanks\r\n\r\nAlso--I removed the baskets from the plan in the xml file but it did not change the grand total on the spread sheet.	2011-03-21 18:32:59	87		PremierRoute	87	3/21/11 on hold to discuss corner shelves. CS	70	Job
 572	4	4	6	Richards - Pantry	SO-252	\N	2011-03-23 03:09:49.278344	2011-03-23 20:39:42.669461	Richards - Pantry.xml	application/octet-stream	23590	2011-03-23 03:09:49.275894	Phoenix	Confirmed	2011-04-07	\N		2011-03-23 03:10:16	4		PremierRoute	4	White, CS	6	Job
 528	16	15	19	PUISIS	SO-231	\N	2011-03-20 16:21:02.943548	2011-03-23 20:42:44.544785	puisis_garage_parts2.xml	application/octet-stream	13867	2011-03-20 16:21:02.941185	Phoenix	Cancelled	\N	\N	call me to review this order with me as this is my first order	2011-03-20 16:27:13	15		PremierRoute	15	3/21 Questions on Granite, CS\r\n3/23/11 cancelled and replaced with SO#253, CS	19	Job
@@ -23944,10 +23948,10 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 3	Mr.	Mike	Lyon	(253) 261-4253		(253) 447-4575	mlyon@tailoredliving.com	$2a$10$ZQu0KnwaR.WSHW.uvxQBweQQGxLyhZxZQUzVZRLvsbLg0bZOzozM6	$2a$10$ZQu0KnwaR.WSHW.uvxQBwe	\N	FFLKATrzBLgwghpXvq_b	2011-03-08 02:03:02.02199	4	2011-03-09 23:38:23.90305	2011-03-08 02:03:02.026573	24.22.187.236	24.22.187.236	2011-01-01 18:53:32.127395	2011-03-09 23:38:23.903704
 9	\N	John	Scheschuk	(972) 740-9944		(972)767-4301	jkscheschuk@tailoredliving.com	$2a$10$.lKODjWLGeUJECuIqHoIcOrOkKsm0Ru9490fpfCiDjAbWydYHvgQ.	$2a$10$.lKODjWLGeUJECuIqHoIcO	\N	1gB28fgnHF9bBA2V8Oj0	2011-03-24 13:30:20.303642	27	2011-03-24 13:30:20.309024	2011-03-23 15:06:44.341023	216.215.73.209	76.237.91.108	2011-01-01 18:53:33.043335	2011-03-24 13:30:20.309869
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	ZCVnz0HP3pa1B9n0lzt_	2011-03-16 18:22:34.555066	5	2011-03-16 18:22:34.56253	2011-03-08 19:56:53.138051	70.66.153.10	70.66.153.10	2011-01-01 18:53:37.748043	2011-03-16 18:22:34.563211
-16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	18	2011-03-24 16:24:05.203186	2011-03-24 00:30:36.201674	76.205.198.73	67.203.136.36	2011-01-01 18:53:33.935232	2011-03-24 16:24:05.203839
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
 13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$YfhT4VrqnrWrIGK3pB2iaePSRgzYaT9YLa4PgSJT4U4SJLHl94ZDy	$2a$10$YfhT4VrqnrWrIGK3pB2iae	\N	OlImnuhrnZwZS1GyF7yD	2011-03-08 19:31:39.401426	3	2011-03-08 19:57:25.873311	2011-03-08 19:31:39.406049	68.89.173.85	68.89.173.85	2011-01-01 18:53:33.554435	2011-03-08 19:57:25.873992
-22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	5	2011-03-24 14:24:29.454838	2011-03-23 15:36:24.955767	74.178.201.191	98.82.154.27	2011-01-01 18:53:34.831371	2011-03-24 14:24:29.455709
+22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	6	2011-03-25 14:08:23.410494	2011-03-24 14:24:29.454838	74.178.244.247	74.178.201.191	2011-01-01 18:53:34.831371	2011-03-25 14:08:23.411636
+16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	19	2011-03-25 14:52:07.358566	2011-03-24 16:24:05.203186	76.205.198.73	76.205.198.73	2011-01-01 18:53:33.935232	2011-03-25 14:52:07.359304
 26	Mr.	Calvin	Connell	(208) 733-6768	(208) 280-0880	(208) 733-6768	cconnell@tailoredliving.com	$2a$10$L34zvvTQ6Cujakc.zlzPDuZenFpHabWniwKGbngEO67wN6ThjchXa	$2a$10$L34zvvTQ6Cujakc.zlzPDu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.426306	2011-02-11 15:42:17.587949
 11	Mrs.	Meri Lynn	Bisch	(636) 728-0333	(636) 399-9529	(314)434-1976	mlbisch@tailoredliving.com	$2a$10$ADDAS8SmsuiYYeZKnzUNnOotiUtMQw4.rDlDTYZby2k/6Joy7g8La	$2a$10$ADDAS8SmsuiYYeZKnzUNnO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.30654	2011-02-11 16:03:31.935311
 46	Mr.	Jim	Friesen	(503) 390-0522	(503) 302-6029		jfriesen@tailoredliving.com	$2a$10$d1qe/mYTbWRWl7lko.J5h.xVbtQAMF1PsQOSVpKjsmBTZMU.GJrJa	$2a$10$d1qe/mYTbWRWl7lko.J5h.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.091546	2011-02-11 16:23:31.156631
@@ -24022,10 +24026,10 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 31	Mrs.	Jodi & Kevin	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$RSPC2iSiggXkH7WpZiMqc.vODnp/ZV95EMAK.evGVO76OSNQ/pH6C	$2a$10$RSPC2iSiggXkH7WpZiMqc.	\N	bbSQf56twNCNntZRdcEW	2011-03-23 23:23:51.358408	4	2011-03-23 23:23:51.362385	2011-03-09 19:37:38.216385	68.151.45.0	198.53.93.114	2011-01-01 18:53:36.240116	2011-03-23 23:23:51.362948
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	jOc3kkmY18DJRm0bq1PR	2011-03-16 18:41:09.828619	37	2011-03-24 17:52:02.183833	2011-03-23 21:49:02.187656	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-24 17:52:02.184578
 106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	8	2011-03-24 21:57:00.912443	2011-03-24 16:03:33.357381	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-03-24 21:57:00.91339
+104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	KHX18bHtLzT_EOeFK4nR	2011-03-20 22:23:32.665122	11	2011-03-25 14:19:39.363803	2011-03-22 15:03:23.375562	99.27.16.134	99.27.16.134	2011-02-24 17:28:44.010247	2011-03-25 14:19:39.364513
 105	\N	Jason	O'toole	602 763 0182			jotoole@premiergarage.com	$2a$10$ehHcfRTIhgDs0P39hXMxXezkf5GEcFCTvOu9sO08dA30m1ii4u6Me	$2a$10$ehHcfRTIhgDs0P39hXMxXe	\N	0TPXN-Ofl1Vpvzg6DTvK	2011-03-20 18:30:05.621281	5	2011-03-21 19:43:19.461114	2011-03-20 18:30:05.625157	174.79.54.226	174.79.54.226	2011-03-02 15:22:49.861246	2011-03-21 19:43:19.461825
 107	\N	Randy	Caravaggio	(403) 236-0026			rcaravaggio@tailoredliving.com	$2a$10$WRZYuHMP81N7L09J//mDCe.ByT8SkpQ/.Pm9pxN0jNG.4AxS9dZh.	$2a$10$WRZYuHMP81N7L09J//mDCe	\N	\N	\N	0	\N	\N	\N	\N	2011-03-18 00:01:23.725633	2011-03-18 00:01:23.725633
 71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	9	2011-03-15 18:52:31.600366	2011-03-15 15:32:33.398519	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-03-15 18:52:31.601483
-104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	KHX18bHtLzT_EOeFK4nR	2011-03-20 22:23:32.665122	10	2011-03-22 15:03:23.375562	2011-03-22 14:48:51.107751	99.27.16.134	99.27.16.134	2011-02-24 17:28:44.010247	2011-03-22 15:03:23.376265
 \.
 
 
