@@ -49,12 +49,12 @@ class CatalogOrdersController < ApplicationController
     @items_data = Item.where(:in_catalog => true).order(:category, :name).map do |item|
       sell_price = item.sell_price
       if sell_price.nil?
-        begin
-          sell_price = item.retail_price_expr(:in, nil, []).map{|expr| expr.evaluate({})}.orSome(item.base_price)
+        sell_price = begin
+          item.retail_price_expr(:in, nil, []).map{|expr| expr.evaluate({})}.orSome(item.base_price)
         rescue
           logger.error("Error calculating price for item: #{item.name}: #{$!}")
           logger.error($!.backtrace[0])
-          sell_price = item.base_price
+          item.base_price
         end
       end
 
