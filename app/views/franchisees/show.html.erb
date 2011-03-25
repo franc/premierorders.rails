@@ -44,6 +44,8 @@
 
 
 <% content_for :local_nav do %>
-  <%= link_to 'Edit', edit_franchisee_path(@franchisee) %> |
+  <% if can? :update, @franchisee %>
+    <%= link_to 'Edit', edit_franchisee_path(@franchisee) %> |
+  <% end %>
   <%= link_to 'List', franchisees_path %>
 <% end %>

@@ -51,6 +51,14 @@ module Option
     cata(lambda {|a| Some.new(f.call(a))}, None::NONE)
   end
 
+  def maptry(&f)
+    begin
+      cata(lambda {|a| Some.new(f.call(a))}, None::NONE)
+    rescue
+      None::None
+    end
+  end
+
   # This is like map, except that null values returned from the applied
   # function result in equivalent behavior to calling bind(_ => None::NONE)
   def mapn(&f)

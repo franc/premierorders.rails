@@ -31,8 +31,7 @@ module Expressions
       begin
         expr_eval(vars)  
       rescue
-        puts "Error evaluating #{self} at #{vars.inspect}: #{$!.message}"
-        raise $!
+        raise $!, "Error evaluating #{self} at #{vars.inspect}: #{$!.message}", $!.backtrace
       end
     end
 
