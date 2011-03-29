@@ -78,21 +78,23 @@ module SushiLoader
         desc, purchase_part_id, cost = row
 
         item = Item.find_by_purchase_part_id(purchase_part_id)
-        if item 
-          begin
-            db_price = item.retail_price_expr(:in, nil, []).evaluate({})
-            f.println(row + [db_price]) unless db_price == BigDecimal.new(cost)
-          rescue
-            puts "\nError obtaining price expression: #{$!}\n#{$!.backtrace[0]}"
-          end
-          item.update_attributes(:in_catalog => true, :category => category)
-          print '.'
-        else
+        # if item 
+        #   begin
+        #     db_price = item.retail_price_expr(:in, nil, []).evaluate({})
+        #     f.println(row + [db_price]) unless db_price == BigDecimal.new(cost)
+        #   rescue
+        #     puts "\nError obtaining price expression: #{$!}\n#{$!.backtrace[0]}"
+        #   end
+        #   item.update_attributes(:in_catalog => true, :category => category)
+        #   print '.'
+        # else
+        if item.nil?
           Item.create(
             :name => desc,
             :category => category,
             :purchase_part_id => purchase_part_id,
-            :sell_price => cost
+            :sell_price => cost,
+            :in_catalog => true
           )
           print '-'
         end
