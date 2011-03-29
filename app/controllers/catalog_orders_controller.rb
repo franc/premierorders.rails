@@ -46,13 +46,24 @@ class CatalogOrdersController < ApplicationController
   end
 
   def catalog_json
-    @items_data = Item.where(:in_catalog => true).map do |item|
+    @items_data = Item.where(:in_catalog => true).order(:category, :name).map do |item|
+      sell_price = item.sell_price
+      if sell_price.nil?
+        sell_price = begin
+          item.retail_price_expr(:in, nil, []).map{|expr| expr.evaluate({})}.orSome(item.base_price)
+        rescue
+          logger.error("Error calculating price for item: #{item.name}: #{$!}")
+          logger.error($!.backtrace[0])
+          item.base_price
+        end
+      end
+
       {
         :id => item.id,
         :name => item.name,
         :category => item.category,
         :purchase_part_id => item.purchase_part_id,
-        :sell_price => item.sell_price,
+        :sell_price => sell_price,
         :ship_by => item.ship_by || 'standard'
       }
     end

@@ -47,6 +47,13 @@ class Ability
       end
     end
 
+    if user.role? :franchise_support
+      can [:read], [Job, JobProperty, JobItem, JobItemProperty, Franchisee, Address]
+      can [:create, :update], Job do |job|
+        (job.status.nil? || job.status == 'Created')
+      end
+    end
+
     if user.role? :product_admin
       can :manage, [Item, ItemComponent, ItemProperty, Property, PropertyValue]
       can [:create, :read, :update, :cutrite, :download], [Job, JobProperty, JobItem, JobItemProperty]

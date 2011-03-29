@@ -74,28 +74,29 @@ module SushiLoader
 
   def self.load_sushi_items(category)
     File.open("price_mismatch.out", "w") do |f|
-    CSV.open("db/seed_data/sushi_list/#{category}.csv", 'r') do |row|
-      desc, purchase_part_id, cost = row
+      CSV.open("db/seed_data/sushi_list/#{category}.csv", 'r') do |row|
+        desc, purchase_part_id, cost = row
 
-      item = Item.find_by_purchase_part_id(purchase_part_id)
-      if item
-        begin
-          db_price = item.retail_price_expr(:in, nil, []).evaluate({})
-          f.println(row + [db_price]) unless db_price == BigDecimal.new(cost)
-        rescue
+        item = Item.find_by_purchase_part_id(purchase_part_id)
+        if item 
+          begin
+            db_price = item.retail_price_expr(:in, nil, []).evaluate({})
+            f.println(row + [db_price]) unless db_price == BigDecimal.new(cost)
+          rescue
+            puts "\nError obtaining price expression: #{$!}\n#{$!.backtrace[0]}"
+          end
+          item.update_attributes(:in_catalog => true, :category => category)
+          print '.'
+        else
+          Item.create(
+            :name => desc,
+            :category => category,
+            :purchase_part_id => purchase_part_id,
+            :sell_price => cost
+          )
+          print '-'
         end
-        item.update_attributes(:in_catalog => true)
-        print '.'
-      else
-        Item.create(
-          :name => desc,
-          :category => category,
-          :purchase_part_id => purchase_part_id,
-          :sell_price => cost
-        )
-        print '-'
       end
-    end
     end
   end
 end

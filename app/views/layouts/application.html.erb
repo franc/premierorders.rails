@@ -33,8 +33,11 @@
       <% if user_signed_in? %>
         <li><%= link_to Job.model_name.human.pluralize, jobs_path %></li>
 
-        <% if can? :read, Item %>
+        <% if can? :read, Franchisee %>
           <li><%= link_to Franchisee.model_name.human.pluralize, franchisees_path %></li>
+        <% end %>
+
+        <% if can? :read, Item %>
           <li><%= link_to Item.model_name.human.pluralize, items_path %></li>
         <% end %>
 
