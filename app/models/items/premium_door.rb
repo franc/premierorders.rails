@@ -53,10 +53,10 @@ module Items
       }
     end
 
-    def cost_expr(units, color, contexts)
-      subtotal = sum(material_cost_expr(units, color), term(style_surcharge), term(handling_surcharge)) 
+    def cost_expr(query_context)
+      subtotal = sum(material_cost_expr(query_context.units, query_context.color), term(style_surcharge), term(handling_surcharge)) 
       item_total = apply_margin(subtotal)
-      super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+      super.map{|e| item_total + e}.orElse(Option.some(item_total))
     end
   end
 end

@@ -5,12 +5,14 @@ class QueryContext
     @data = args
   end
 
+  # This should probably return Option, but too much work to change it now.
   def color 
-    Option.new(@data[:color])
+    @data[:color]
   end
 
+  # This should probably return Option, but too much work to change it now.
   def units 
-    Option.new(@args[:units])
+    @args[:units]
   end
 
   def component_contexts 

@@ -14,7 +14,7 @@ class Items::ScaledItem < Item
       super
     else
       rp_expr = sum(*rps.map{|v| v.expr(query_context.units)})
-      super.map{|e| sum(rp_expr, e)}.orElse(Option.some(rp_expr))
+      super.map{|e| rp_expr + e}.orElse(Option.some(rp_expr))
     end
   end
 end

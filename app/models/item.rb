@@ -147,7 +147,7 @@ class Item < ActiveRecord::Base
 
   def cost_expr(query_context)
     base_expr = Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}.to_a
-    property_pricing = self.property_pricing_expr(units).to_a
+    linear_surcharge = self.linear_surcharge_expr(query_context).to_a
     
     selected_component_associations = if query_context.component_contexts.empty?
       item_components
@@ -163,7 +163,7 @@ class Item < ActiveRecord::Base
       assoc.cost_expr(query_context).map{|e| exprs << e}.orSome(exprs)
     end
 
-    subtotal_exprs = base_expr + property_pricing + component_exprs + surcharge_exprs(units)
+    subtotal_exprs = base_expr + linear_surcharge + component_exprs + surcharge_exprs(query_context.units)
     if subtotal_exprs.empty?
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()

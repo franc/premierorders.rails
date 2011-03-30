@@ -12,9 +12,9 @@ class Items::ShellBackPanel < ItemComponent
     [MARGIN]
   end
 
-  def cost_expr(context)
-    component.cost_expr(context, H, W).map do |component_cost|
-      apply_margin(qty_expr(context) * component_cost)
+  def cost_expr(query_context)
+    component.cost_expr(query_context, H, W).map do |component_cost|
+      apply_margin(qty_expr(query_context) * component_cost)
     end
   end
 end

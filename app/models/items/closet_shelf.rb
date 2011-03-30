@@ -14,13 +14,13 @@ class Items::ClosetShelf < Item
     Items::Panel::MATERIAL
   end
 
-  def cost_expr(context)
-    material_cost = material(Items::Panel::MATERIAL, context.color).cost_expr(W, D, context.units)
-    edgeband_cost = edgeband_cost_expr({:front => W, :left => D, :right => D}, context.units, context.color)
-    subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
+  def cost_expr(query_context)
+    material_cost = material(Items::Panel::MATERIAL, query_context.color).cost_expr(W, D, query_context.units)
+    edgeband_cost = edgeband_cost_expr({:front => W, :left => D, :right => D}, query_context.units, query_context.color)
+    subtotal = edgeband_cost.map{|e| material_cost + e}.orSome(material_cost)
     item_total = apply_margin(subtotal)
 
-    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    super.map{|e| item_total + e}.orElse(Option.some(item_total))
   end
 end
 

@@ -247,18 +247,18 @@ class ItemsController < ApplicationController
   end
 
   def pricing_expr
-    context = QueryContext.new(params)
+    query_context = QueryContext.new(params)
     if request.xhr?
       render :json => {
-        :retail_price_expr => @item.retail_price_expr(context).map{|e| e.compile}.orSome("No Pricing Data Available"),
-        :cost_expr => @item.cost_expr(context).map{|e| e.compile}.orSome("No Pricing Data Available"),
-        :components => component_exprs(context, @item)
+        :retail_price_expr => @item.retail_price_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available"),
+        :cost_expr => @item.cost_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available"),
+        :components => component_exprs(query_context, @item)
       }
     end
   end
 
-  def component_exprs(context, item)
-    item.item_components.map{|c| {:name => c.component.name, :cost_expr => c.cost_expr(context).map{|e| e.compile}.orSome("No Pricing Data Available")}} + 
-    item.item_components.map{|c| component_exprs(context, c.component)}.flatten
+  def component_exprs(query_context, item)
+    item.item_components.map{|c| {:name => c.component.name, :cost_expr => c.cost_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available")}} + 
+    item.item_components.map{|c| component_exprs(query_context, c.component)}.flatten
   end
 end
