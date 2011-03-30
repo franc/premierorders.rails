@@ -165,7 +165,7 @@ class JobItem < ActiveRecord::Base
   def compute_install_cost(units = :in)
     Option.new(item).bind do |i|
       begin
-        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
+        i.install_cost_expr(QueryContext.new(:units => units)).map {|expr| dimension_eval(expr)}
       rescue
         logger.error "Error computing install cost: #{$!.message}\n #{$!.backtrace.join("\n")}"
         Option.some(Either.left($!.message))
@@ -176,7 +176,7 @@ class JobItem < ActiveRecord::Base
   def compute_weight(units = :in)
     Option.new(item).bind do |i|
       begin
-        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
+        i.weight_expr(QueryContext.new(:units => units)).map {|expr| dimension_eval(expr)}
       rescue
         logger.error "Error computing weight: #{$!.message}\n #{$!.backtrace.join("\n")}"
         Option.some(Either.left($!.message))
@@ -222,7 +222,8 @@ class JobItem < ActiveRecord::Base
           lambda {|qty| component.quantity = qty}
         )
 
-        item_hardware.component.cost_expr(units, color.orSome(nil), []).each do |expr|
+        query_context = QueryContext.new(:units => units, :color => color.orSome(nil))
+        item_hardware.component.cost_expr(query_context).each do |expr|
           dimension_eval(expr).cata(
             lambda{|err|  component.cost_calc_err = err},
             lambda{|cost| component.unit_cost = cost}

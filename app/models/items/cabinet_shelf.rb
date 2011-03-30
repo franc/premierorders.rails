@@ -26,11 +26,11 @@ class Items::CabinetShelf < ItemComponent
     r_qtys.empty? ? term(quantity) : sum(*r_qtys.map{|v| v.expr(units)})
   end
 
-  def cost_expr(units, color, contexts)
-    component.cost_expr(units, color, contexts, W, D).map do |component_cost|
-      edge_cost = edgeband_cost_expr({:front => W}, units, color)
+  def cost_expr(context)
+    component.cost_expr(context, W, D).map do |component_cost|
+      edge_cost = edgeband_cost_expr({:front => W}, context.units, context.color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(qty_expr(units), subtotal))
+      apply_margin(mult(qty_expr(context.units), subtotal))
     end
   end
 end

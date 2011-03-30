@@ -22,9 +22,9 @@ class Items::Drawer < Item
     properties.find_value(HEIGHT_DESCRIPTOR).map{|v| term(v.height(units))}.orSome(H)
   end
 
-  def cost_expr(units, color, contexts)
-    material_unit_cost = material(Items::Panel::MATERIAL, color).cost_expr(term(1), term(1), units)
-    area_expr = sum(mult(term(2), height_expr(units), sum(D, W)), mult(D, W))
+  def cost_expr(query_context)
+    material_unit_cost = material(Items::Panel::MATERIAL, query_context.color).cost_expr(term(1), term(1), query_context.units)
+    area_expr = sum(mult(term(2), height_expr(query_context.units), sum(D, W)), mult(D, W))
     subtotal = mult(area_expr, material_unit_cost) 
     item_total = apply_margin(subtotal)
 

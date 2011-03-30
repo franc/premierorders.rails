@@ -17,12 +17,12 @@ class Items::CornerCabinetVerticalPanels < ItemComponent
     [Properties::PropertyDescriptor.new(:edge_band, EB_SIDES, [Property::EdgeBand]), MARGIN]
   end
 
-  def cost_expr(units, color, contexts)
-    component.cost_expr(units, color, contexts, H, side_width_expr).bind do |side_cost|
-      component.cost_expr(units, color, contexts, H, D).map do |wall_side_cost|
+  def cost_expr(query_context)
+    component.cost_expr(query_context, H, side_width_expr).bind do |side_cost|
+      component.cost_expr(query_context, H, D).map do |wall_side_cost|
         panel_cost = sum(side_cost, wall_side_cost)
-        edgeband_cost = edgeband_cost_expr({:top => side_width_expr, :bottom => side_width_expr, :front => H}, units, color)
-        subtotal = mult(edgeband_cost.map{|e| sum(panel_cost, e)}.orSome(panel_cost), term(2))
+        edgeband_cost = edgeband_cost_expr({:top => side_width_expr, :bottom => side_width_expr, :front => H}, query_context.units, query_context.color)
+        subtotal = mult(edgeband_cost.map{|e| sum(panel_cost, e)}.orSome(panel_cost), term(2)) # 2 vertical panels per cabinet
 
         apply_margin(subtotal)
       end

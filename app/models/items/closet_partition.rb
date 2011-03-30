@@ -14,12 +14,12 @@ class Items::ClosetPartition < Item
     Items::Panel::MATERIAL
   end
 
-  def cost_expr(units, color, contexts)
-    material_cost = material(Items::Panel::MATERIAL, color).cost_expr(H, D, units)
-    edge_cost = edgeband_cost_expr({:front => H, :rear => D, :top => D, :bottom => D}, units, color)
+  def cost_expr(context)
+    material_cost = material(Items::Panel::MATERIAL, context.color).cost_expr(H, D, context.units)
+    edge_cost = edgeband_cost_expr({:front => H, :rear => D, :top => D, :bottom => D}, context.units, context.color)
     subtotal = edge_cost.map{|c| sum(material_cost, c)}.orSome(material_cost)
     item_total = apply_margin(subtotal)
 
-    super(units, color, contexts).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    super(context).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end

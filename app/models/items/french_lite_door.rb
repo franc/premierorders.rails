@@ -16,7 +16,7 @@ class Items::FrenchLiteDoor < Item
     }
   end
 
-  def cost_expr(units, color)
+  def cost_expr(query_context)
     raise "Cannot generate a pricing expression for d'vinci without support for french door dividers"
 
     # subtotal = sum(material_cost_expr(units, color), handling_surcharge)

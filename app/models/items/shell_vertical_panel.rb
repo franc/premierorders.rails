@@ -15,9 +15,9 @@ class Items::ShellVerticalPanel < ItemComponent
     [MARGIN]
   end
 
-  def cost_expr(units, color, contexts)
-    component.cost_expr(units, color, contexts, H, D).map do |component_cost|
-      edge_cost = edgeband_cost_expr({:top => D, :bottom => D, :rear => H, :front => H}, units, color)
+  def cost_expr(context) 
+    component.cost_expr(context, H, D).map do |component_cost|
+      edge_cost = edgeband_cost_expr({:top => D, :bottom => D, :rear => H, :front => H}, context.units, context.color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
       apply_margin(mult(term(quantity), subtotal))
     end
