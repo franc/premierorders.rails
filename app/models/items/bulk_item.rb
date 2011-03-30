@@ -1,4 +1,4 @@
-class BulkItem < Item
+class Items::BulkItem < Item
 
   def base_cost_expr(query_context)
     if bulk_qty.nil? || query_context.use_bulk_pricing?

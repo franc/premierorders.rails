@@ -1,5 +1,6 @@
 require 'property.rb'
 require 'properties_helper.rb'
+require 'item_queries'
 require 'items/door.rb'
 
 class ItemsController < ApplicationController
