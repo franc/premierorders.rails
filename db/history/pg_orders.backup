@@ -11,6 +11,144 @@ SET escape_string_warning = off;
 
 SET search_path = public, pg_catalog;
 
+ALTER TABLE ONLY public.user_roles DROP CONSTRAINT user_roles_user_id_fkey;
+ALTER TABLE ONLY public.user_roles DROP CONSTRAINT user_roles_role_id_fkey;
+ALTER TABLE ONLY public.property_value_selection DROP CONSTRAINT property_value_selection_property_value_id_fkey;
+ALTER TABLE ONLY public.property_value_selection DROP CONSTRAINT property_value_selection_property_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_shipping_address_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_salesperson_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_primary_contact_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_placed_by_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_franchisee_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_customer_id_fkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_billing_address_id_fkey;
+ALTER TABLE ONLY public.job_properties DROP CONSTRAINT job_properties_job_id_fkey;
+ALTER TABLE ONLY public.job_items DROP CONSTRAINT job_items_production_batch_id_fkey;
+ALTER TABLE ONLY public.job_items DROP CONSTRAINT job_items_job_id_fkey;
+ALTER TABLE ONLY public.job_items DROP CONSTRAINT job_items_item_id_fkey;
+ALTER TABLE ONLY public.job_item_properties DROP CONSTRAINT job_item_properties_job_item_id_fkey;
+ALTER TABLE ONLY public.item_properties DROP CONSTRAINT item_properties_property_id_fkey;
+ALTER TABLE ONLY public.item_properties DROP CONSTRAINT item_properties_item_id_fkey;
+ALTER TABLE ONLY public.item_components DROP CONSTRAINT item_components_item_id_fkey;
+ALTER TABLE ONLY public.item_components DROP CONSTRAINT item_components_component_id_fkey;
+ALTER TABLE ONLY public.item_component_properties DROP CONSTRAINT item_component_properties_property_id_fkey;
+ALTER TABLE ONLY public.item_component_properties DROP CONSTRAINT item_component_properties_item_component_id_fkey;
+ALTER TABLE ONLY public.franchisee_contacts DROP CONSTRAINT franchisee_contacts_user_id_fkey;
+ALTER TABLE ONLY public.franchisee_contacts DROP CONSTRAINT franchisee_contacts_franchisee_id_fkey;
+ALTER TABLE ONLY public.franchisee_addresses DROP CONSTRAINT franchisee_addresses_franchisee_id_fkey;
+ALTER TABLE ONLY public.franchisee_addresses DROP CONSTRAINT franchisee_addresses_address_id_fkey;
+ALTER TABLE ONLY public.address_books DROP CONSTRAINT address_books_user_id_fkey;
+ALTER TABLE ONLY public.address_books DROP CONSTRAINT address_books_address_id_fkey;
+DROP INDEX public.unique_schema_migrations;
+DROP INDEX public.index_users_on_reset_password_token;
+DROP INDEX public.index_users_on_email;
+ALTER TABLE ONLY public.users DROP CONSTRAINT users_pkey;
+ALTER TABLE ONLY public.roles DROP CONSTRAINT roles_pkey;
+ALTER TABLE ONLY public.property_values DROP CONSTRAINT property_values_pkey;
+ALTER TABLE ONLY public.properties DROP CONSTRAINT properties_pkey;
+ALTER TABLE ONLY public.production_batches DROP CONSTRAINT production_batches_pkey;
+ALTER TABLE ONLY public.jobs DROP CONSTRAINT jobs_pkey;
+ALTER TABLE ONLY public.job_state_transitions DROP CONSTRAINT job_state_transitions_pkey;
+ALTER TABLE ONLY public.job_serial_numbers DROP CONSTRAINT job_serial_numbers_pkey;
+ALTER TABLE ONLY public.job_properties DROP CONSTRAINT job_properties_pkey;
+ALTER TABLE ONLY public.job_items DROP CONSTRAINT job_items_pkey;
+ALTER TABLE ONLY public.job_item_properties DROP CONSTRAINT job_item_properties_pkey;
+ALTER TABLE ONLY public.job_item_components DROP CONSTRAINT job_item_components_pkey;
+ALTER TABLE ONLY public.items DROP CONSTRAINT items_pkey;
+ALTER TABLE ONLY public.item_properties DROP CONSTRAINT item_properties_pkey;
+ALTER TABLE ONLY public.item_components DROP CONSTRAINT item_components_pkey;
+ALTER TABLE ONLY public.item_component_properties DROP CONSTRAINT item_component_properties_pkey;
+ALTER TABLE ONLY public.franchisees DROP CONSTRAINT franchisees_pkey;
+ALTER TABLE ONLY public.franchisee_contacts DROP CONSTRAINT franchisee_contacts_pkey;
+ALTER TABLE ONLY public.franchisee_addresses DROP CONSTRAINT franchisee_addresses_pkey;
+ALTER TABLE ONLY public.addresses DROP CONSTRAINT addresses_pkey;
+ALTER TABLE ONLY public.address_books DROP CONSTRAINT address_books_pkey;
+ALTER TABLE public.users ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.roles ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.property_values ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.properties ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.production_batches ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.jobs ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.job_state_transitions ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.job_serial_numbers ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.job_properties ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.job_items ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.job_item_properties ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.job_item_components ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.items ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.item_properties ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.item_components ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.item_component_properties ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.franchisees ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.franchisee_contacts ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.franchisee_addresses ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.addresses ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE public.address_books ALTER COLUMN id DROP DEFAULT;
+DROP SEQUENCE public.users_id_seq;
+DROP TABLE public.users;
+DROP TABLE public.user_roles;
+DROP TABLE public.schema_migrations;
+DROP SEQUENCE public.roles_id_seq;
+DROP TABLE public.roles;
+DROP SEQUENCE public.property_values_id_seq;
+DROP TABLE public.property_values;
+DROP TABLE public.property_value_selection;
+DROP SEQUENCE public.properties_id_seq;
+DROP TABLE public.properties;
+DROP SEQUENCE public.production_batches_id_seq;
+DROP TABLE public.production_batches;
+DROP SEQUENCE public.jobs_id_seq;
+DROP TABLE public.jobs;
+DROP SEQUENCE public.job_state_transitions_id_seq;
+DROP TABLE public.job_state_transitions;
+DROP SEQUENCE public.job_serial_numbers_id_seq;
+DROP TABLE public.job_serial_numbers;
+DROP SEQUENCE public.job_properties_id_seq;
+DROP TABLE public.job_properties;
+DROP SEQUENCE public.job_items_id_seq;
+DROP TABLE public.job_items;
+DROP SEQUENCE public.job_item_properties_id_seq;
+DROP TABLE public.job_item_properties;
+DROP SEQUENCE public.job_item_components_id_seq;
+DROP TABLE public.job_item_components;
+DROP SEQUENCE public.items_id_seq;
+DROP TABLE public.items;
+DROP SEQUENCE public.item_properties_id_seq;
+DROP TABLE public.item_properties;
+DROP SEQUENCE public.item_components_id_seq;
+DROP TABLE public.item_components;
+DROP SEQUENCE public.item_component_properties_id_seq;
+DROP TABLE public.item_component_properties;
+DROP SEQUENCE public.franchisees_id_seq;
+DROP TABLE public.franchisees;
+DROP SEQUENCE public.franchisee_contacts_id_seq;
+DROP TABLE public.franchisee_contacts;
+DROP SEQUENCE public.franchisee_addresses_id_seq;
+DROP TABLE public.franchisee_addresses;
+DROP TABLE public.cutrite_codes;
+DROP SEQUENCE public.addresses_id_seq;
+DROP TABLE public.addresses;
+DROP SEQUENCE public.address_books_id_seq;
+DROP TABLE public.address_books;
+DROP SCHEMA public;
+--
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+SET search_path = public, pg_catalog;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -733,7 +871,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 193, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 194, true);
 
 
 --
@@ -22251,16 +22389,16 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 11040	651	648	000.990.320.10W.00I	10		2011-03-29 23:22:38.644524	2011-03-30 14:37:25.234371	67.91	5	ZH SlatWall 12 x 96 (4/box) |White	\N	\N	in	ok	30.18	0.00	0.15	\N	
 11041	651	646	000.990.320.10S.00I	1000		2011-03-29 23:22:38.657833	2011-03-30 14:37:25.237567	0.03	6	ZH SlatWall Drywall Screws (1000/box) | White	\N	\N	in	ok	0.04	0.00	\N	\N	
 11042	651	647	000.990.320.10U.00I	10		2011-03-29 23:22:38.670303	2011-03-30 14:37:25.24071	7.84	7	ZH SlatWall U Edge Molding (4/box) | White	\N	\N	in	ok	5.22	0.00	\N	\N	
-11230	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.062256	2011-03-30 19:52:42.470792	18.26	2	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.09	0.06	0.05	\N	
-11231	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.089495	2011-03-30 19:52:42.474726	14.96	3	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.79	0.06	0.05	\N	
-11232	659	516	000.100.000.009.00M	5		2011-03-30 14:47:27.243027	2011-03-30 19:52:42.477928	12.24	4	Door - Flat | Windswept Pewter	\N	\N	in	ok	12.45	0.06	0.05	\N	
-11233	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.276072	2011-03-30 19:52:42.481253	19.37	5	Door - Flat | Windswept Pewter	\N	\N	in	ok	15.04	0.06	0.05	\N	
-11234	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.304844	2011-03-30 19:52:42.484637	8.18	6	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.26	0.06	0.05	\N	
-11235	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.333132	2011-03-30 19:52:42.487687	24.94	7	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.22	0.06	0.05	\N	
-11236	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.359669	2011-03-30 19:52:42.490716	11.18	8	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.46	0.06	0.05	\N	
-11237	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.386423	2011-03-30 19:52:42.493887	37.10	9	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.58	0.08	0.05	\N	
-11238	659	162	000.200.000.009.00M	2		2011-03-30 14:47:27.414403	2011-03-30 19:52:42.496914	18.55	10	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.96	0.08	0.05	\N	
-11239	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.593609	2011-03-30 19:52:42.499928	37.10	11	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	10.81	0.08	0.05	\N	
+11231	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.089495	2011-03-30 21:20:01.084138	14.96	3	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.79	0.06	0.05	\N	garage
+11232	659	516	000.100.000.009.00M	5		2011-03-30 14:47:27.243027	2011-03-30 21:20:01.087255	12.24	4	Door - Flat | Windswept Pewter	\N	\N	in	ok	12.45	0.06	0.05	\N	garage
+11233	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.276072	2011-03-30 21:20:01.090345	19.37	5	Door - Flat | Windswept Pewter	\N	\N	in	ok	15.04	0.06	0.05	\N	garage
+11234	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.304844	2011-03-30 21:20:01.093501	8.18	6	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.26	0.06	0.05	\N	garage
+11235	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.333132	2011-03-30 21:20:01.2065	24.94	7	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.22	0.06	0.05	\N	garage
+11236	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.359669	2011-03-30 21:20:01.211573	11.18	8	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.46	0.06	0.05	\N	garage
+11237	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.386423	2011-03-30 21:20:01.215433	37.10	9	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.58	0.08	0.05	\N	garage
+11238	659	162	000.200.000.009.00M	2		2011-03-30 14:47:27.414403	2011-03-30 21:20:01.219012	18.55	10	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.96	0.08	0.05	\N	garage
+11239	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.593609	2011-03-30 21:20:01.222605	37.10	11	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	10.81	0.08	0.05	\N	garage
+11229	659	516	000.100.000.009.00M	4	Contact us for hinge placement on all doors	2011-03-30 14:47:27.027244	2011-03-30 21:20:01.226159	17.33	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	18.06	0.06	0.05	\N	garage
 11243	663	45	000.931.981.005.00M	12		2011-03-30 15:19:45.178979	2011-03-30 20:12:00.388866	11.82	2	CL Adjustable Shelf | Wild Apple	\N	\N	in	ok	4.46	0.00	0.03	\N	closet
 11241	660	500	000.400.002.403.00M	1		2011-03-30 14:55:27.847715	2011-03-30 15:01:21.501174	77.80	2	NX Workbench Top (Finished Left) | Ebony Star	\N	15	in	ok	78.45	0.00	0.31	\N	other
 11244	663	45	000.931.030.005.00M	8		2011-03-30 15:19:45.206608	2011-03-30 20:12:00.392838	22.95	3	CL Adjustable Shelf | Wild Apple	\N	\N	in	ok	8.66	0.00	0.03	\N	closet
@@ -22272,7 +22410,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 11251	663	44	000.930.040.005.00M	2		2011-03-30 15:19:45.510825	2011-03-30 20:12:00.412272	27.81	10	CL Cam Shelf | Wild Apple	\N	\N	in	ok	10.50	0.00	0.05	\N	closet
 11252	663	44	000.930.031.005.00M	4		2011-03-30 15:19:45.536954	2011-03-30 20:12:00.415503	23.56	11	CL Cam Shelf | Wild Apple	\N	\N	in	ok	8.88	0.00	0.05	\N	closet
 11255	663	44	000.930.030.005.00M	3		2011-03-30 15:19:45.606909	2011-03-30 20:12:00.421961	26.01	14	CL Cam Shelf | Wild Apple	\N	\N	in	ok	9.82	0.00	0.05	\N	closet
-11229	659	516	000.100.000.009.00M	4	Contact us for hinge placement on all doors	2011-03-30 14:47:27.027244	2011-03-30 19:52:42.466587	17.33	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	18.06	0.06	0.05	\N	
+11230	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.062256	2011-03-30 21:20:01.078775	18.26	2	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.09	0.06	0.05	\N	garage
 10962	644	709	000.120.000.009.00M	2		2011-03-29 18:08:50.06115	2011-03-30 00:01:51.622223	23.99	1	Door - Flat NX | Windswept Pewter	\N	23	in	ok	23.99	0.06	0.15	\N	garage
 10963	644	709	000.120.000.009.00M	2	** No Charge **	2011-03-29 18:08:50.224898	2011-03-30 00:01:51.627025	0.00	2	Door - Flat NX | Windswept Pewter	\N	23	in	ok	12.29	0.06	0.15	\N	garage
 10656	629	563	000.970.012.001.00M	1		2011-03-28 23:49:15.791918	2011-03-29 18:13:12.338178	3.75	11	CL Toe Kick | White	\N	\N	in	ok	1.48	0.00	0.10	\N	closet
@@ -23117,6 +23255,7 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 191	459	98	Ready to Ship	Shipped	2011-03-30 20:28:56.043236	2011-03-30 20:28:56.043236
 192	461	98	Ready to Ship	Shipped	2011-03-30 20:29:02.205879	2011-03-30 20:29:02.205879
 193	462	98	Ready to Ship	Shipped	2011-03-30 20:29:07.375076	2011-03-30 20:29:07.375076
+194	659	53	On Hold	Confirmed	2011-03-30 21:20:02.073874	2011-03-30 21:20:02.073874
 \.
 
 
@@ -23282,8 +23421,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 453	9	9	13	Scarborough	SO-192	\N	2011-03-14 20:16:49.018712	2011-03-28 21:51:59.129872	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	30086	2011-03-14 20:16:49.01654	Phoenix	Cancelled	\N	\N	Five drawer cabinet:\r\n\r\n1. Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2. Next drawer from top down should be stationery drawer (1 vertical panel starts 2" from the back of the drawer front, and then there should be 4 additional spacers at 45 degrees\r\n\r\n3.  Next two drawers are equal in height:\r\n\r\nDrawer suspended underneath corner countertop:\r\n\r\n1.  Drawer front should be 2 1/4" if possible.  Width and depth are same dimensions Eric gave me.\r\n\r\n2.  Need hardware mounting kit for this drawer:\r\n\r\nThree drawer cabinet:\r\n\r\n1.  Should have 3 equal drawer font sizes (not file drawer and then two small drawers):\r\n\r\n30" wide file drawer cabinet\r\n\r\n1.  Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2.  Middle drawer should be file drawer with appropriate hardware\r\n\r\n3.  Bottom drawer should be whatever remaining space allows:\r\n\r\nPlease also make note the custom corner countertop should have a depth of 20" on each side in order to align with other cabinets:\r\n\r\nThere are lot of moving parts on this one so please call with questions.\r\n\r\n\r\n 	2011-03-14 20:19:19	9		PremierRoute	9	3/15/11 on hold till further instructions from Steve. CS	13	Job
 649	8	32	38	price sample SO-35	\N	\N	2011-03-29 21:31:43.369402	2011-03-29 21:31:43.369402	SO-35.xml	text/xml	6304	2011-03-29 21:31:43.365503	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job
 650	8	32	38	price sample SO-36	\N	\N	2011-03-29 21:36:31.406026	2011-03-29 21:36:31.406026	SO-36.xml	text/xml	6254	2011-03-29 21:36:31.403666	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job
-659	41	70	50	Howell_Garage Doors	SO-304	\N	2011-03-30 14:47:26.839507	2011-03-30 19:52:42.504123	Howell_Garage Doors Parts List.xml	text/xml	15211	2011-03-30 14:47:26.837346	Phoenix	On Hold	\N	\N		2011-03-30 14:47:59	70		PremierRoute	70	3/30/11 need to confirm hole placement with Eric. CS	50	Job
 449	9	9	13	Kissling	SO-189	\N	2011-03-14 20:04:30.661343	2011-03-29 21:39:00.497666	Kissling, Jeff Parts List.xls	application/vnd.ms-excel	18325	2011-03-14 20:04:30.656306	Phoenix	Shipped	2011-03-30	2011-03-29	** Classic Order ** Powder Cost ** EH	2011-03-14 20:05:19	9		PremierRoute	9	Pewter, CS\r\n\r\ngranite doors in NX hold per Steve. CS\r\n\r\nNo Need For CutRite EH	13	Job
+659	41	70	50	Howell_Garage Doors	SO-304	\N	2011-03-30 14:47:26.839507	2011-03-30 21:20:01.231717	Howell_Garage Doors Parts List.xml	text/xml	15211	2011-03-30 14:47:26.837346	Phoenix	Confirmed	2011-04-20	\N		2011-03-30 14:47:59	70		PremierRoute	70	3/30/11 need to confirm hole placement with Eric. CS\r\n3/30 ok per Eric 15 day lead time due to custom. CS\r\n\r\nPewter, CS	50	Job
 618	9	32	13	Scarborough	SO-285	\N	2011-03-27 00:53:03.36631	2011-03-30 17:34:52.285767	Scarborough, Emily.dvi Parts List.xml	text/xml	30738	2011-03-27 00:53:03.364083	Phoenix	Confirmed	2011-04-13	\N	** Custom Order ** Replaces SO-192..EH	2011-03-28 04:53:30	9		PremierRoute	9	White EH\r\n3-30 emailed John, 3 of his dwr fronts are under the minimum height of 5.5 from decore.  Emailed him to see if he wants those 3 slab or all of them.  yq	13	Job
 279	28	103	36	Walker 2 car	SO-113	\N	2011-02-28 16:39:47.706326	2011-03-18 18:14:20.726379	Walker 2 car-1 Parts List.xls	application/vnd.ms-excel	9261	2011-02-28 16:39:47.70274	Phoenix	Shipped	2011-03-14	2011-03-18		2011-02-28 16:40:30	103		PremierRoute	103	Pewter. 2/28 ? on what kind of handles they need.\r\nCS\r\n\r\n2/28 per Mike cancel handles. CS	36	\N
 477	1	1	1	McCraw-708	SO-206	\N	2011-03-15 22:36:50.704116	2011-03-28 15:54:57.048919	mccraw_final Parts List.xml	text/xml	50859	2011-03-15 22:36:50.701573	Phoenix	In Production	2011-03-31	\N		2011-03-15 22:39:48	1		PremierRoute	1	White, CS	1	Job
@@ -26541,6 +26680,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 17	Mr.	Peter	Selwyn	(613) 225-5218		(613) 225-5218	pwselwyn@tailoredliving.com	$2a$10$IEB/3S1o6WnG9NZTBZMP0ep0UwT3dN7Yfq3A4e4M331s7iXysEbPS	$2a$10$IEB/3S1o6WnG9NZTBZMP0e	\N	\N	\N	12	2011-03-29 15:04:09.507698	2011-03-28 18:23:31.81904	209.87.246.146	209.87.246.146	2011-01-01 18:53:34.153324	2011-03-29 15:04:09.508524
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	11	2011-03-15 14:10:14.759141	2011-03-10 18:21:41.175476	72.66.45.179	72.66.62.197	2011-02-17 15:18:30.360419	2011-03-15 14:10:14.760242
 3	Mr.	Mike	Lyon	(253) 261-4253		(253) 447-4575	mlyon@tailoredliving.com	$2a$10$ZQu0KnwaR.WSHW.uvxQBweQQGxLyhZxZQUzVZRLvsbLg0bZOzozM6	$2a$10$ZQu0KnwaR.WSHW.uvxQBwe	\N	FFLKATrzBLgwghpXvq_b	2011-03-08 02:03:02.02199	4	2011-03-09 23:38:23.90305	2011-03-08 02:03:02.026573	24.22.187.236	24.22.187.236	2011-01-01 18:53:32.127395	2011-03-09 23:38:23.903704
+10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	8	2011-03-30 21:22:53.121753	2011-03-29 13:58:43.263306	166.205.13.245	67.78.112.191	2011-01-01 18:53:33.181217	2011-03-30 21:22:53.122504
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	ZCVnz0HP3pa1B9n0lzt_	2011-03-16 18:22:34.555066	5	2011-03-16 18:22:34.56253	2011-03-08 19:56:53.138051	70.66.153.10	70.66.153.10	2011-01-01 18:53:37.748043	2011-03-16 18:22:34.563211
 9	\N	John	Scheschuk	(972) 740-9944		(972)767-4301	jkscheschuk@tailoredliving.com	$2a$10$.lKODjWLGeUJECuIqHoIcOrOkKsm0Ru9490fpfCiDjAbWydYHvgQ.	$2a$10$.lKODjWLGeUJECuIqHoIcO	\N	\N	\N	30	2011-03-30 14:05:56.311909	2011-03-28 20:03:08.49314	216.215.73.209	76.237.91.108	2011-01-01 18:53:33.043335	2011-03-30 14:05:56.312946
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
@@ -26555,7 +26695,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 12	\N	Keith	Garrett	(281) 748-7403		2812923300	kdgarrett@tailoredliving.com	$2a$10$WVWyPxrxwJjfIwO3tWoalun77RTRQ7FGFfGzeL81DRqsbzahSKOD.	$2a$10$WVWyPxrxwJjfIwO3tWoalu	\N	\N	\N	10	2011-03-29 19:37:20.683956	2011-03-28 20:31:41.828358	98.200.206.1	50.15.164.149	2011-01-01 18:53:33.430408	2011-03-29 19:37:20.685086
 15	Mr.	Dan	Kerth	(859) 488-0078	(859) 866-8266	(859) 488-0079	dckerth@tailoredliving.com	$2a$10$bL1cr8sl4PRZFZQbzogu7ej9BnSIv1JHhtdU.2s0WTWFC5wjDh4Fe	$2a$10$bL1cr8sl4PRZFZQbzogu7e	\N	\N	\N	2	2011-03-22 05:53:28.70596	2011-03-20 16:08:59.43897	74.136.5.5	74.136.5.5	2011-01-01 18:53:33.810296	2011-03-22 05:53:28.706775
 20	Mr.	Jeffery	Vlasak	(262) 633-8850	(262) 488-3826	(262) 866-2093	jvlasak@tailoredliving.com	$2a$10$DErS5cZVNf2sFl0TKm5ZhuDRRVabZ2MEI4cf/lHhVnJAKqOYSBI/W	$2a$10$DErS5cZVNf2sFl0TKm5Zhu	\N	\N	\N	5	2011-03-21 18:38:56.337659	2011-03-21 18:14:46.604824	99.52.123.95	99.52.123.95	2011-01-01 18:53:34.535755	2011-03-21 18:38:56.338673
-10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	7	2011-03-29 13:58:43.263306	2011-03-09 23:46:05.435719	67.78.112.191	67.78.112.191	2011-01-01 18:53:33.181217	2011-03-29 14:27:38.640478
 30	Ms.	Estela	Estrada	(714) 637-2100		(714) 998-8901	estela@homefranchiseeconcepts.com	$2a$10$GYOb/sJrng7O7MziVUq93OVOdR4C9ypM9IRjBc9A93XsVnm.QBe8G	$2a$10$GYOb/sJrng7O7MziVUq93O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:36.124513	2011-03-25 17:29:58.347647
 108	\N	Dave	Angers	(714) 279-2481			daveangers@tailoredliving.com	$2a$10$uHWP.3nzTGg72dOE1v94vuK0yayBowdaeEJnbABUSioEXUHJ02eFe	$2a$10$uHWP.3nzTGg72dOE1v94vu	\N	JW13Smk_KDyw4fWK9jSY	2011-03-30 16:41:23.831448	13	2011-03-30 16:44:13.140099	2011-03-30 16:42:32.832153	67.203.136.36	67.203.136.36	2011-03-25 17:10:27.432626	2011-03-30 16:44:13.141279
 16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	26	2011-03-30 14:39:23.635805	2011-03-29 17:11:28.829095	76.205.198.73	76.205.198.73	2011-01-01 18:53:33.935232	2011-03-30 14:39:23.636523
