@@ -38,6 +38,6 @@ class Items::Panel < Item
 
     item_total = apply_margin(material_cost)
 
-    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    super(query_context).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end

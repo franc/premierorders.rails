@@ -12,7 +12,7 @@ class QueryContext
 
   # This should probably return Option, but too much work to change it now.
   def units 
-    @args[:units]
+    @data[:units]
   end
 
   def component_contexts 
