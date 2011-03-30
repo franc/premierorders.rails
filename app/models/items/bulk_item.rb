@@ -4,7 +4,7 @@ class Items::BulkItem < Item
     if bulk_qty.nil? || query_context.use_bulk_pricing?
       super
     else
-      super.map{|base_cost| base_cost / term(bulk_qty)}
+      Option.new(base_price).filter{|p| p != 0}.map{|p| term((p / bulk_qty).round(2))}
     end
   end
 end
