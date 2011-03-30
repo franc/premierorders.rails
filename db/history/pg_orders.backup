@@ -733,7 +733,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 171, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 172, true);
 
 
 --
@@ -23135,6 +23135,7 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 169	487	102	In Production	Ready For Production	2011-03-30 11:07:04.629759	2011-03-30 11:07:04.629759
 170	487	102	Ready For Production	In Production	2011-03-30 11:07:32.439582	2011-03-30 11:07:32.439582
 171	493	102	Ready For Production	In Production	2011-03-30 11:07:39.582782	2011-03-30 11:07:39.582782
+172	485	98	Ready to Ship	Shipped	2011-03-30 12:08:17.066281	2011-03-30 12:08:17.066281
 \.
 
 
@@ -23331,7 +23332,6 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 182	31	63	39	Birmingham Home Show	SO - 53	\N	2011-02-18 16:09:56.161773	2011-03-16 03:30:29.024686	2011 Bham Home Show Parts List.xml	application/octet-stream	38291	2011-02-18 16:09:56.157867	Phoenix	Shipped	2011-03-04	2011-03-04	Need delivery by March 7 for home show that weekend. Can you drop on the way to Atlanta.\r\n\r\nNeed the following hardware:\r\n\r\nhutch base corner bracket\r\nmini fix cam\r\nhutch angle bracket\r\nmini fix post\r\nscrew corner brace\r\nscrew angle brackets	2011-02-18 16:21:29	63		PremierRoute	63		39	\N
 423	8	32	38	Sample Cabinets	SO-174	\N	2011-03-11 18:28:00.050482	2011-03-28 20:05:33.714023	Sample Cabinets.xml	application/xml	6329	2011-03-11 18:28:00.046165	Phoenix	On Hold	2011-03-31	\N	Doors and Workbench tops are included in this product code. EH	2011-03-11 18:28:36	32		PremierRoute	32	Maple, CS	38	Job
 383	6	31	9	Alpine	SO-168	\N	2011-03-09 20:48:41.967036	2011-03-28 22:25:54.681451	ALPINE STORAGE Parts List2.xml	text/xml	5665	2011-03-09 20:48:41.964875	Phoenix	Ready to Ship	2011-03-25	\N		2011-03-09 20:49:37	31		PremierRoute	31	Pewter.  ** Needs 6 More Adjustable shelves ** for this cabinet	9	\N
-485	15	44	18	jewlery tray	SO-212	\N	2011-03-16 18:23:08.836327	2011-03-29 20:44:53.195377	jewlery tray Parts List.xls	application/octet-stream	15378	2011-03-16 18:23:08.832853	Phoenix	Ready to Ship	2011-03-31	\N		2011-03-16 18:23:42	44		PremierRoute	44	Wild Apple, CS	18	Job
 619	69	104	83	Nathan Closets	SO-282	\N	2011-03-27 19:54:33.214491	2011-03-28 23:20:43.784056	NathanClosets-1 Parts List.xml	text/xml	39518	2011-03-27 19:54:33.20903	Phoenix	Confirmed	2011-04-12	\N		2011-03-27 19:56:26	104		PremierRoute	104	White,CS	83	Job
 578	59	87	84	Wade Master	SO-257	\N	2011-03-23 14:56:41.780445	2011-03-28 23:37:11.534082	Wade_ORDER.dvi Parts List.xml	text/xml	31702	2011-03-23 14:56:41.777821	Phoenix	Cancelled	2011-04-07	\N		2011-03-23 14:58:37	87		PremierRoute	87	White, CS\r\n3/24/11 will re submit per Julie. CS\r\n3/28/11 replaced by SO#284. CS	70	Job
 558	20	19	23	Hogan added doors	SO-246	\N	2011-03-21 23:33:44.699575	2011-03-24 17:02:39.391374	Hogan, added doors.xml	text/xml	5505	2011-03-21 23:33:44.696055	Phoenix	Confirmed	2011-04-05	\N		2011-03-21 23:34:37	19		Drop Ship	19	3/22/11 Yolanda will create the SO. CS\r\n3/23/2011-Sent an email to Chris and Jackie, they want Shaker doors to match hogans other job.  They have used 2 different door styles DO THEY WANT JR7 OR DRS131.YQ 3/24/11 spoke to Chris , he needs door style DRS131 in 949T White.yq	23	Job
@@ -23342,6 +23342,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 642	17	16	20	belt tie racks	SO-300	\N	2011-03-29 17:13:01.308545	2011-03-29 19:53:14.975429	Belt rack and tie rack.xml	text/xml	7649	2011-03-29 17:13:01.306533	Phoenix	Confirmed	2011-04-13	\N	please ship asap	2011-03-29 17:13:05	16		PremierRoute	16	Non Wood, drop ship. CS	20	Job
 577	4	4	6	Koob - All Closets	SO-256	\N	2011-03-23 04:24:50.962317	2011-03-29 23:57:05.016009	Koob - All Closets.xml	application/octet-stream	20391	2011-03-23 04:24:50.96019	Phoenix	In Production	2011-04-07	\N		2011-03-23 04:25:19	4		PremierRoute	4	Maple, CS	6	Job
 484	31	63	39	Garlington Residents	SO-211	\N	2011-03-16 15:40:29.624163	2011-03-28 18:12:42.961719	Garlington Residents Parts List.xml	application/octet-stream	63443	2011-03-16 15:40:29.619717	Phoenix	In Production	2011-03-31	\N	Must ship by March 31, 2011.	2011-03-16 16:55:26	63		PremierRoute	63	Antique White, CS	39	Job
+485	15	44	18	jewlery tray	SO-212	\N	2011-03-16 18:23:08.836327	2011-03-30 12:08:17.069862	jewlery tray Parts List.xls	application/octet-stream	15378	2011-03-16 18:23:08.832853	Phoenix	Shipped	2011-03-31	2011-03-30		2011-03-16 18:23:42	44		PremierRoute	44	Wild Apple, CS	18	Job
 604	17	16	20	Jennifer rauch	SO-276	\N	2011-03-25 16:13:37.437187	2011-03-29 20:29:13.355455	Jennifer Rauch 3-22.dvi Parts List.xml	text/xml	7463	2011-03-25 16:13:37.433753	Phoenix	Confirmed	2011-04-11	\N		2011-03-25 16:13:58	16		PremierRoute	16	NX WHITE.YQ	20	Job
 641	17	16	20	handles	SO-299	\N	2011-03-29 17:12:02.782709	2011-03-29 20:38:26.024879	Chrome Handles.xml	text/xml	6688	2011-03-29 17:12:02.780841	Phoenix	On Hold	\N	\N	Please ship asap	2011-03-29 17:12:10	16		PremierRoute	16	3/29/11 sent email to Bob and Dave Angers, need order with part #. CS	20	Job
 580	23	22	27	Brooke, Beverley	SO-258	\N	2011-03-23 15:35:08.465988	2011-03-23 23:45:43.891396	Brooke, Beverley Parts List.xml	text/xml	26998	2011-03-23 15:35:08.462152	Phoenix	Confirmed	2011-04-07	\N		2011-03-23 15:36:10	22		PremierRoute	22	White, CS	27	Job
@@ -26633,11 +26634,11 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 87	\N	Julee	Barnett	(608) 630-0246			jtbarnett@tailoredliving.com	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.4kpaUpL9JHD1/Gq8Lv5a2SvUEJFDmlW	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.	\N	HXrOC-T3hZcEAV_3Te02	2011-03-18 15:16:44.157008	16	2011-03-29 02:32:20.185673	2011-03-28 04:19:38.267173	216.165.151.158	216.165.151.158	2011-02-11 17:57:13.665014	2011-03-29 02:32:20.186269
 106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	8	2011-03-24 21:57:00.912443	2011-03-24 16:03:33.357381	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-03-24 21:57:00.91339
 31	Mrs.	Jodi & Kevin	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$RSPC2iSiggXkH7WpZiMqc.vODnp/ZV95EMAK.evGVO76OSNQ/pH6C	$2a$10$RSPC2iSiggXkH7WpZiMqc.	\N	bbSQf56twNCNntZRdcEW	2011-03-23 23:23:51.358408	5	2011-03-29 04:50:47.415825	2011-03-23 23:23:51.362385	68.151.45.0	68.151.45.0	2011-01-01 18:53:36.240116	2011-03-29 04:50:47.4165
-98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	jOc3kkmY18DJRm0bq1PR	2011-03-16 18:41:09.828619	39	2011-03-29 13:30:32.778235	2011-03-28 22:25:45.260095	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-29 13:30:32.77889
 105	\N	Jason	O'toole	602 763 0182			jotoole@premiergarage.com	$2a$10$ehHcfRTIhgDs0P39hXMxXezkf5GEcFCTvOu9sO08dA30m1ii4u6Me	$2a$10$ehHcfRTIhgDs0P39hXMxXe	\N	0TPXN-Ofl1Vpvzg6DTvK	2011-03-20 18:30:05.621281	5	2011-03-21 19:43:19.461114	2011-03-20 18:30:05.625157	174.79.54.226	174.79.54.226	2011-03-02 15:22:49.861246	2011-03-21 19:43:19.461825
 104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	KHX18bHtLzT_EOeFK4nR	2011-03-20 22:23:32.665122	13	2011-03-29 15:40:39.946069	2011-03-27 19:53:20.417541	99.27.16.134	99.35.96.7	2011-02-24 17:28:44.010247	2011-03-29 15:40:39.946683
 107	\N	Randy	Caravaggio	(403) 236-0026			rcaravaggio@tailoredliving.com	$2a$10$WRZYuHMP81N7L09J//mDCe.ByT8SkpQ/.Pm9pxN0jNG.4AxS9dZh.	$2a$10$WRZYuHMP81N7L09J//mDCe	\N	\N	\N	0	\N	\N	\N	\N	2011-03-18 00:01:23.725633	2011-03-18 00:01:23.725633
 71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	9	2011-03-15 18:52:31.600366	2011-03-15 15:32:33.398519	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-03-15 18:52:31.601483
+98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	jOc3kkmY18DJRm0bq1PR	2011-03-16 18:41:09.828619	40	2011-03-30 12:07:19.67301	2011-03-29 13:30:32.778235	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-03-30 12:07:19.674257
 \.
 
 
