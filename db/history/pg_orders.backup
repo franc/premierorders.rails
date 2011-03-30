@@ -632,7 +632,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 7314, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 7334, true);
 
 
 --
@@ -679,7 +679,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 17819, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 17839, true);
 
 
 --
@@ -737,7 +737,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 11331, true);
+SELECT pg_catalog.setval('job_items_id_seq', 11343, true);
 
 
 --
@@ -783,7 +783,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 617, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 619, true);
 
 
 --
@@ -871,7 +871,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 194, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 199, true);
 
 
 --
@@ -935,7 +935,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 669, true);
+SELECT pg_catalog.setval('jobs_id_seq', 671, true);
 
 
 --
@@ -9603,6 +9603,10 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 3046	13	6553	0.03	\N	6	\N	2011-03-10 19:10:20.917455	2011-03-10 19:10:20.934399
 3047	201	6553	0.02	\N	4	\N	2011-03-10 19:10:20.936514	2011-03-10 19:10:20.955178
 3048	217	6553	0.02	\N	4	\N	2011-03-10 19:10:20.957605	2011-03-10 19:10:21.298772
+7315	218	11332	0.03	\N	2	\N	2011-03-30 22:27:01.930213	2011-03-30 22:27:01.957514
+7316	12	11333	0.02	\N	4	\N	2011-03-30 22:27:02.413275	2011-03-30 22:27:02.436003
+7317	592	11333	0.01	\N	20	\N	2011-03-30 22:27:02.439047	2011-03-30 22:27:02.458431
+7318	9	11333	0.06	\N	12	\N	2011-03-30 22:27:02.461426	2011-03-30 22:27:02.614794
 3056	592	6554	0.01	\N	16	\N	2011-03-10 19:10:24.656891	2011-03-10 19:10:24.67866
 3057	9	6554	0.06	\N	12	\N	2011-03-10 19:10:24.681253	2011-03-10 19:10:24.711766
 3058	593	6554	0.02	\N	4	\N	2011-03-10 19:10:24.714366	2011-03-10 19:10:24.748864
@@ -9610,6 +9614,13 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 3060	13	6554	0.03	\N	24	\N	2011-03-10 19:10:24.771716	2011-03-10 19:10:25.171263
 3061	201	6554	0.02	\N	16	\N	2011-03-10 19:10:25.173968	2011-03-10 19:10:25.194575
 3062	217	6554	0.02	\N	8	\N	2011-03-10 19:10:25.197042	2011-03-10 19:10:25.217017
+7319	593	11333	0.02	\N	6	\N	2011-03-30 22:27:02.618128	2011-03-30 22:27:02.647701
+7320	6	11333	0.98	\N	4	\N	2011-03-30 22:27:02.650908	2011-03-30 22:27:02.677808
+7321	199	11333	0.57	\N	4	\N	2011-03-30 22:27:02.680856	2011-03-30 22:27:02.839478
+7322	217	11333	0.02	\N	3	\N	2011-03-30 22:27:02.842848	2011-03-30 22:27:02.863916
+7323	12	11334	0.02	\N	4	\N	2011-03-30 22:27:04.083465	2011-03-30 22:27:04.10675
+7324	592	11334	0.01	\N	20	\N	2011-03-30 22:27:04.110087	2011-03-30 22:27:04.130399
+7325	9	11334	0.06	\N	12	\N	2011-03-30 22:27:04.133931	2011-03-30 22:27:04.305822
 3070	12	6555	0.02	\N	4	\N	2011-03-10 19:10:28.791126	2011-03-10 19:10:28.811079
 3071	592	6555	0.01	\N	20	\N	2011-03-10 19:10:28.813701	2011-03-10 19:10:28.832186
 3072	9	6555	0.06	\N	12	\N	2011-03-10 19:10:28.834626	2011-03-10 19:10:28.863224
@@ -9617,6 +9628,13 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 3074	199	6555	0.57	\N	8	\N	2011-03-10 19:10:29.262463	2011-03-10 19:10:29.294907
 3075	6	6555	0.98	\N	8	\N	2011-03-10 19:10:29.297449	2011-03-10 19:10:29.326678
 3076	217	6555	0.02	\N	4	\N	2011-03-10 19:10:29.328971	2011-03-10 19:10:29.346822
+7326	593	11334	0.02	\N	8	\N	2011-03-30 22:27:04.30921	2011-03-30 22:27:04.342888
+7327	199	11334	0.57	\N	8	\N	2011-03-30 22:27:04.346495	2011-03-30 22:27:04.375604
+7328	6	11334	0.98	\N	8	\N	2011-03-30 22:27:04.378923	2011-03-30 22:27:04.542509
+7329	217	11334	0.02	\N	4	\N	2011-03-30 22:27:04.546268	2011-03-30 22:27:04.569752
+7330	218	11338	0.03	\N	2	\N	2011-03-30 22:51:24.125846	2011-03-30 22:51:24.274295
+7331	592	11339	0.01	\N	24	\N	2011-03-30 22:51:24.545898	2011-03-30 22:51:24.571939
+7332	594	11339	0.09	\N	19	\N	2011-03-30 22:51:24.57564	2011-03-30 22:51:24.598705
 3084	592	6556	0.01	\N	16	\N	2011-03-10 19:10:33.801283	2011-03-10 19:10:33.819878
 3085	9	6556	0.06	\N	8	\N	2011-03-10 19:10:33.822202	2011-03-10 19:10:34.161998
 3086	593	6556	0.02	\N	6	\N	2011-03-10 19:10:34.164492	2011-03-10 19:10:34.200363
@@ -9624,7 +9642,9 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 3088	6	6556	0.98	\N	4	\N	2011-03-10 19:10:34.224115	2011-03-10 19:10:34.25247
 3089	199	6556	0.57	\N	4	\N	2011-03-10 19:10:34.254727	2011-03-10 19:10:34.619817
 3090	217	6556	0.02	\N	4	\N	2011-03-10 19:10:34.622926	2011-03-10 19:10:34.642852
+7333	595	11339	0.08	\N	19	\N	2011-03-30 22:51:24.602078	2011-03-30 22:51:24.622869
 3092	218	6586	0.03	\N	2	\N	2011-03-10 19:10:38.37411	2011-03-10 19:10:38.393814
+7334	217	11339	0.02	\N	4	\N	2011-03-30 22:51:24.625936	2011-03-30 22:51:24.646154
 3094	218	6587	0.03	\N	2	\N	2011-03-10 19:10:39.218179	2011-03-10 19:10:39.237552
 3096	218	6588	0.03	\N	2	\N	2011-03-10 19:10:39.730208	2011-03-10 19:10:40.084492
 3098	220	6590	0.04	\N	2	\N	2011-03-10 19:10:40.951359	2011-03-10 19:10:40.97236
@@ -14140,6 +14160,10 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 9567	6180	\N	color	\N	Color	{"color":"White"}	2011-03-07 14:52:15.30466	2011-03-07 14:52:15.30466
 9568	6181	\N	dimensions	\N	Depth,Width	{"depth":"1.5","width":"96","linear_units":"in"}	2011-03-07 14:52:15.321237	2011-03-07 14:52:15.321237
 9569	6181	\N	color	\N	Color	{"color":"White"}	2011-03-07 14:52:15.331734	2011-03-07 14:52:15.331734
+17820	11332	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"75.465999999999994","width":"23.875"}	2011-03-30 22:27:01.028317	2011-03-30 22:27:01.028317
+17821	11332	\N	color	\N	Color	{"color":"Windswept Bronze"}	2011-03-30 22:27:01.047614	2011-03-30 22:27:01.047614
+17822	11333	\N	dimensions	\N	Height,Width,Depth	{"linear_units":"in","height":"75.590999999999994","width":"24","depth":"23"}	2011-03-30 22:27:01.373657	2011-03-30 22:27:01.373657
+17823	11333	\N	color	\N	Color	{"color":"Windswept Bronze"}	2011-03-30 22:27:01.551073	2011-03-30 22:27:01.551073
 14372	9178	\N	dimensions	\N	Width,Height	{"height":"30.111000000000001","width":"17.875","linear_units":"in"}	2011-03-22 18:26:33.76105	2011-03-22 18:26:33.76105
 14373	9178	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-22 18:26:33.777253	2011-03-22 18:26:33.777253
 14374	9179	\N	dimensions	\N	Width,Height	{"height":"75.465999999999994","width":"23.875","linear_units":"in"}	2011-03-22 18:26:33.78883	2011-03-22 18:26:33.78883
@@ -14343,6 +14367,10 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 10591	6798	\N	dimensions	\N		{"linear_units":"in"}	2011-03-09 03:23:11.024763	2011-03-09 03:23:11.024763
 10592	6799	\N	dimensions	\N	Width,Depth,Height	{"height":"9.5","depth":"13.75","width":"23","linear_units":"in"}	2011-03-09 03:23:11.036186	2011-03-09 03:23:11.036186
 10593	6799	\N	color	\N	Color	{"color":"White"}	2011-03-09 03:23:11.04611	2011-03-09 03:23:11.04611
+17824	11334	\N	dimensions	\N	Height,Width,Depth	{"linear_units":"in","height":"75.590999999999994","width":"48","depth":"23"}	2011-03-30 22:27:01.85175	2011-03-30 22:27:01.85175
+17825	11334	\N	color	\N	Color	{"color":"Windswept Bronze"}	2011-03-30 22:27:01.897501	2011-03-30 22:27:01.897501
+17826	11335	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"65.5","depth":"15.875"}	2011-03-30 22:51:23.455472	2011-03-30 22:51:23.455472
+17827	11335	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-30 22:51:23.469816	2011-03-30 22:51:23.469816
 10598	6802	\N	dimensions	\N	Height,Width	{"height":"83.025","width":"23.875","linear_units":"in"}	2011-03-09 20:48:42.061359	2011-03-09 20:48:42.061359
 10599	6802	\N	color	\N	Color	{"color":"Windswept Pewter"}	2011-03-09 20:48:42.076262	2011-03-09 20:48:42.076262
 10600	6803	\N	dimensions	\N	Height,Width,Depth	{"height":"83.150","depth":"13.000","width":"48.000","linear_units":"in"}	2011-03-09 20:48:42.365534	2011-03-09 20:48:42.365534
@@ -14386,6 +14414,7 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 10638	6822	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-09 22:11:36.04887	2011-03-09 22:11:36.04887
 10639	6823	\N	dimensions	\N	Height,Width,Depth	{"height":"42.835000000000001","depth":"16","width":"48","linear_units":"in"}	2011-03-09 22:11:36.331523	2011-03-09 22:11:36.331523
 10640	6823	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-09 22:11:36.524719	2011-03-09 22:11:36.524719
+17828	11336	\N	dimensions	\N	Width	{"linear_units":"in","width":"18.875"}	2011-03-30 22:51:23.480505	2011-03-30 22:51:23.480505
 10641	6824	\N	dimensions	\N	Height,Width,Depth	{"height":"42.835000000000001","depth":"16","width":"36","linear_units":"in"}	2011-03-09 22:11:36.817746	2011-03-09 22:11:36.817746
 10642	6824	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-09 22:11:36.866415	2011-03-09 22:11:36.866415
 10643	6825	\N	dimensions	\N	Height,Width,Depth	{"height":"30.236000000000001","depth":"16","width":"48","linear_units":"in"}	2011-03-09 22:11:37.166562	2011-03-09 22:11:37.166562
@@ -14411,6 +14440,16 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 10663	6838	\N	dimensions	\N	Height,Width	{"height":"46.875","width":"46.875","linear_units":"in"}	2011-03-09 22:11:38.890121	2011-03-09 22:11:38.890121
 10664	6839	\N	dimensions	\N	Height,Width	{"height":"96","width":"96","linear_units":"in"}	2011-03-09 22:11:38.903425	2011-03-09 22:11:38.903425
 10665	6840	\N	dimensions	\N	Height,Width	{"height":"24","width":"24","linear_units":"in"}	2011-03-09 22:11:38.91618	2011-03-09 22:11:38.91618
+17829	11337	\N	dimensions	\N	Width	{"linear_units":"in","width":"71.5"}	2011-03-30 22:51:23.492929	2011-03-30 22:51:23.492929
+17830	11338	\N	dimensions	\N	Height,Width	{"linear_units":"in","height":"82.375","width":"31.75"}	2011-03-30 22:51:23.507253	2011-03-30 22:51:23.507253
+17831	11338	\N	color	\N	Color	{"color":"Sable Glow"}	2011-03-30 22:51:23.524828	2011-03-30 22:51:23.524828
+17832	11339	\N	dimensions	\N	Height,Width,Depth	{"linear_units":"in","height":"85","width":"65.5","depth":"15.875"}	2011-03-30 22:51:23.537063	2011-03-30 22:51:23.537063
+17833	11339	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-03-30 22:51:23.730565	2011-03-30 22:51:23.730565
+17834	11340	\N	dimensions	\N	Width	{"linear_units":"in","width":"15.875"}	2011-03-30 22:51:23.742579	2011-03-30 22:51:23.742579
+17835	11340	\N	color	\N	Color	{"color":"White"}	2011-03-30 22:51:23.753442	2011-03-30 22:51:23.753442
+17836	11341	\N	dimensions	\N	Width	{"linear_units":"in","width":"65.5"}	2011-03-30 22:51:23.763644	2011-03-30 22:51:23.763644
+17837	11341	\N	color	\N	Color	{"color":"White"}	2011-03-30 22:51:23.774391	2011-03-30 22:51:23.774391
+17838	11342	\N	dimensions	\N		{"linear_units":"in"}	2011-03-30 22:51:23.784997	2011-03-30 22:51:23.784997
 10676	6858	\N	dimensions	\N	Width,Depth	{"depth":"20","linear_units":"in","width":"22.5"}	2011-03-10 17:20:33.937163	2011-03-10 17:20:33.937163
 10677	6858	\N	color	\N	Color	{"color":"White"}	2011-03-10 17:20:33.956828	2011-03-10 17:20:33.956828
 10678	6859	\N	dimensions	\N	Width,Depth	{"depth":"20","linear_units":"in","width":"22.5"}	2011-03-10 17:20:33.968511	2011-03-10 17:20:33.968511
@@ -14419,6 +14458,7 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 10681	6861	\N	dimensions	\N		{"linear_units":"in"}	2011-03-10 17:20:34.005574	2011-03-10 17:20:34.005574
 10682	6862	\N	dimensions	\N		{"linear_units":"in"}	2011-03-10 17:20:34.016742	2011-03-10 17:20:34.016742
 10683	6863	\N	dimensions	\N		{"linear_units":"in"}	2011-03-10 17:20:34.02771	2011-03-10 17:20:34.02771
+17839	11343	\N	dimensions	\N		{"linear_units":"in"}	2011-03-30 22:51:23.794928	2011-03-30 22:51:23.794928
 11783	7564	\N	dimensions	\N	Width,Height	{"height":"75.465999999999994","linear_units":"in","width":"23.875"}	2011-03-15 01:42:04.381811	2011-03-15 01:42:04.381811
 11784	7564	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-15 01:42:04.407069	2011-03-15 01:42:04.407069
 11785	7565	\N	dimensions	\N	Width,Height	{"height":"30.111000000000001","linear_units":"in","width":"23.875"}	2011-03-15 01:42:04.418895	2011-03-15 01:42:04.418895
@@ -22765,8 +22805,20 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 11299	667	45	000.931.011.001.00M	5		2011-03-30 16:39:32.408268	2011-03-30 16:39:32.71277	12.66	2	CL Adjustable Shelf | White	\N	\N	in	ok	5.06	0.00	0.03	\N	\N
 11300	667	45	000.931.981.001.00M	4		2011-03-30 16:39:32.431917	2011-03-30 16:39:32.899498	8.44	3	CL Adjustable Shelf | White	\N	\N	in	ok	3.38	0.00	0.03	\N	\N
 11301	667	109	000.102.100.000.00I	60		2011-03-30 16:39:32.455798	2011-03-30 16:39:32.930955	0.06	4	ZH Shelf Pin (Spoon)	\N	\N	in	ok	0.02	0.00	\N	\N	\N
+11335	671	48	000.934.092.007.00M	1		2011-03-30 22:51:23.448226	2011-03-30 22:51:24.039599	31.47	1	CL Top Shelf | Chocolate Apple	\N	\N	in	ok	16.58	0.00	0.03	\N	\N
+11336	671	33	000.302.000.007.00P	2		2011-03-30 22:51:23.475536	2011-03-30 22:51:24.074766	19.57	2	Decor Crown Molding - 424 | Chocolate Apple	\N	\N	in	ok	6.92	0.00	0.45	\N	\N
+11337	671	33	000.302.000.007.00P	1		2011-03-30 22:51:23.487216	2011-03-30 22:51:24.10868	58.70	3	Decor Crown Molding - 424 | Chocolate Apple	\N	\N	in	ok	26.23	0.00	0.45	\N	\N
+11338	671	520	000.104.000.007.00B	2		2011-03-30 22:51:23.501185	2011-03-30 22:51:24.327872	809.02	4	Decor Door - AMS329 | Chocolate Apple	\N	\N	in	ok	364.06	0.06	0.05	\N	\N
+11339	671	513	000.492.681.007.00M	1		2011-03-30 22:51:23.531734	2011-03-30 22:51:25.393755	376.36	5	HO Wall Bed Queen | Chocolate Apple	\N	\N	in	ok	149.93	3.57	5.00	\N	\N
+11340	671	106	000.999.010.000.00M	2		2011-03-30 22:51:23.737223	2011-03-30 22:51:25.429976	0.00	6	Molding nailer	\N	\N	in	error	\N	0.00	0.03	\N	\N
+11341	671	106	000.999.010.000.00M	1		2011-03-30 22:51:23.758545	2011-03-30 22:51:25.593424	0.00	7	Molding nailer	\N	\N	in	error	\N	0.00	0.03	\N	\N
+11342	671	\N	000.	1		2011-03-30 22:51:23.780139	2011-03-30 22:51:25.601497	0.00	8	Upgrade to "Extended Leg"	\N	\N	in	not_computed	\N	0.00	\N	\N	\N
 11254	663	44	000.930.981.005.00M	8		2011-03-30 15:19:45.583942	2011-03-30 20:12:00.418671	13.40	13	CL Cam Shelf | Wild Apple	\N	\N	in	ok	5.05	0.00	0.05	\N	closet
 11261	663	38	000.911.170.005.00M	1		2011-03-30 15:19:46.198442	2011-03-30 20:12:00.451609	58.36	20	CL Upright Partition - Left | Wild Apple	\N	\N	in	ok	22.06	0.00	0.05	\N	closet
+11332	670	516	000.100.000.008.00M	3		2011-03-30 22:27:01.018874	2011-03-30 22:27:02.188286	30.21	1	Door - Flat | Windswept Bronze	\N	\N	in	ok	31.09	0.06	0.05	\N	\N
+11333	670	257	000.402.483.008.00M	1		2011-03-30 22:27:01.36833	2011-03-30 22:27:03.841002	126.53	2	NX Tall Cabinet 1 Door | Windswept Bronze	\N	\N	in	ok	126.49	7.32	1.08	\N	\N
+11334	670	256	000.402.493.008.00M	1		2011-03-30 22:27:01.845972	2011-03-30 22:27:05.569703	177.65	3	NX Tall Cabinet 2 Door | Windswept Bronze	\N	\N	in	ok	178.01	13.54	1.41	\N	\N
+11343	671	15	000.100.620.000.00P	1		2011-03-30 22:51:23.789959	2011-03-30 22:51:25.631579	1545.79	9	ZH Murphy Bed Hardware Set Queen	\N	\N	in	ok	531.87	0.00	1.00	\N	\N
 \.
 
 
@@ -23045,6 +23097,8 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 613	665	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-30 16:33:52.282327	2011-03-30 16:33:52.282327
 614	666	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-30 16:38:45.014048	2011-03-30 16:38:45.014048
 615	667	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-30 16:39:32.374132	2011-03-30 16:39:32.374132
+618	670	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-30 22:27:01.00769	2011-03-30 22:27:01.00769
+619	671	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-03-30 22:51:23.427376	2011-03-30 22:51:23.427376
 \.
 
 
@@ -23053,7 +23107,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	307	2011-01-23 05:52:19.75042	2011-03-30 15:21:24.200643
+1	2011	309	2011-01-23 05:52:19.75042	2011-03-30 22:52:30.414212
 \.
 
 
@@ -23256,6 +23310,11 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 192	461	98	Ready to Ship	Shipped	2011-03-30 20:29:02.205879	2011-03-30 20:29:02.205879
 193	462	98	Ready to Ship	Shipped	2011-03-30 20:29:07.375076	2011-03-30 20:29:07.375076
 194	659	53	On Hold	Confirmed	2011-03-30 21:20:02.073874	2011-03-30 21:20:02.073874
+195	467	98	Ready to Ship	Shipped	2011-03-30 22:15:11.459331	2011-03-30 22:15:11.459331
+196	445	98	Ready to Ship	Shipped	2011-03-30 22:15:16.534131	2011-03-30 22:15:16.534131
+197	446	98	Ready to Ship	Shipped	2011-03-30 22:15:21.820869	2011-03-30 22:15:21.820869
+198	451	98	Ready to Ship	Shipped	2011-03-30 22:15:27.498623	2011-03-30 22:15:27.498623
+199	452	98	Ready to Ship	Shipped	2011-03-30 22:15:39.047222	2011-03-30 22:15:39.047222
 \.
 
 
@@ -23305,7 +23364,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 297	20	19	23	Hogan doors	SO-122	\N	2011-03-01 16:42:55.429231	2011-03-17 18:25:35.987759	Hogan, Dana Parts List doors.xml	text/xml	7377	2011-03-01 16:42:55.425683	Phoenix	Shipped	2011-03-16	2011-03-17		2011-03-01 17:02:30	19		PremierRoute	19	Buyout Doors only. No melamine.	23	\N
 276	4	4	6	Gunderson - Laundry	SO-111	\N	2011-02-27 23:08:31.597983	2011-03-18 17:34:40.94013	Gunderson - Laundry.xml	text/xml	7326	2011-02-27 23:08:31.595948	Phoenix	Shipped	2011-03-14	2011-03-18		2011-02-27 23:08:49	4		PremierRoute	4	Maple	6	\N
 524	8	\N	38	Bisch Test Sushi Order 2	SO-230	\N	2011-03-19 19:45:56.841353	2011-03-19 21:27:28.729953	\N	\N	\N	\N	\N	Cancelled	\N	2011-03-19	\N	2011-03-19 19:47:38	42	\N	\N	42	\N	38	CatalogOrder
-446	41	70	50	Hall_Countertop	SO-187	\N	2011-03-14 19:09:09.903311	2011-03-30 18:59:04.54366	Hall_Countertop Parts List.xml	text/xml	8391	2011-03-14 19:09:09.898645	Phoenix	Ready to Ship	2011-03-28	\N		2011-03-14 19:09:37	70		PremierRoute	70	Wild Apple, CS	50	Job
+446	41	70	50	Hall_Countertop	SO-187	\N	2011-03-14 19:09:09.903311	2011-03-30 22:15:21.824936	Hall_Countertop Parts List.xml	text/xml	8391	2011-03-14 19:09:09.898645	Phoenix	Shipped	2011-03-28	2011-03-30		2011-03-14 19:09:37	70		PremierRoute	70	Wild Apple, CS	50	Job
 319	5	99	8	DaCosta	SO-135	\N	2011-03-03 19:07:55.268151	2011-03-23 02:21:30.892335	DaCosta_home_2-16-11 Parts List.xml	application/octet-stream	17218	2011-03-03 19:07:55.265999	Phoenix	Shipped	2011-03-17	2011-03-23	Notching dimensions noted no order	2011-03-03 19:10:59	99		PremierRoute	99	Bronze, CS	8	\N
 340	1	1	1	Chip_Garage	SO-143	\N	2011-03-04 19:11:29.556344	2011-03-22 21:04:09.010232	Garage Parts List.xml	text/xml	10133	2011-03-04 19:11:29.554375	Phoenix	Shipped	2011-03-21	2011-03-22		2011-03-04 19:12:28	1		PremierRoute	1	(He Does not want the handles. EH)\r\n\r\nPewter	1	\N
 314	41	70	50	Castor_Master Closet	SO-134	\N	2011-03-03 17:36:42.869984	2011-03-22 13:34:20.45983	Castor_Master Closet Parts List.xml	text/xml	30180	2011-03-03 17:36:42.866494	Phoenix	Shipped	2011-03-17	2011-03-22	Premier Route	2011-03-03 17:38:12	70		PremierRoute	70	White.	50	\N
@@ -23389,9 +23448,9 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 194	33	101	41	Pradhan, Shailandra	SO - 58	\N	2011-02-19 03:29:55.568528	2011-03-11 22:05:47.666905	Pradhan Shailendra.dvi Parts List.xml	text/xml	52269	2011-02-19 03:29:55.565205	Phoenix	Shipped	2011-03-07	2011-03-11		2011-02-19 03:39:44	101		PremierRoute	101		41	\N
 220	28	103	36	Paige	SO-79	\N	2011-02-23 19:58:29.086991	2011-03-14 19:13:04.595538	Paige add on Parts List.xls	application/vnd.ms-excel	6363	2011-02-23 19:58:29.085078	Phoenix	Shipped	2011-03-10	2011-03-11		2011-02-23 19:58:58	103		PremierRoute	103		36	\N
 378	41	70	50	Jordan_Closet	SO-165	\N	2011-03-09 02:41:59.173127	2011-03-24 11:23:08.820015	Jordan_Closet Parts List.xml	text/xml	59928	2011-03-09 02:41:59.170953	Phoenix	In Production	2011-03-22	\N		2011-03-09 02:43:12	70		PremierRoute	70	Antique White\r\n3/10 ? on filler. CS	50	\N
-451	41	70	50	Rakouskas_Lockers	SO-190	\N	2011-03-14 20:15:38.311473	2011-03-30 18:59:11.07569	Rakouskas_Lockers Parts List.xml	text/xml	20727	2011-03-14 20:15:38.309459	Phoenix	Ready to Ship	2011-03-30	\N		2011-03-14 20:16:14	70		PremierRoute	70	White, CS	50	Job
+451	41	70	50	Rakouskas_Lockers	SO-190	\N	2011-03-14 20:15:38.311473	2011-03-30 22:15:27.502295	Rakouskas_Lockers Parts List.xml	text/xml	20727	2011-03-14 20:15:38.309459	Phoenix	Shipped	2011-03-30	2011-03-30		2011-03-14 20:16:14	70		PremierRoute	70	White, CS	50	Job
 441	13	12	16	Sebastian	SO-181	\N	2011-03-14 16:04:35.519321	2011-03-29 21:38:54.948609	Sebastian_03_12 Parts List.xml	text/xml	9873	2011-03-14 16:04:35.517387	Phoenix	Shipped	2011-03-29	2011-03-29		2011-03-14 16:05:26	12		PremierRoute	12	Pewter, CS	16	Job
-445	41	70	50	Hall_Office	SO-186	\N	2011-03-14 19:07:33.700931	2011-03-30 18:58:59.06579	Hall_Office Parts List.xml	text/xml	15854	2011-03-14 19:07:33.695054	Phoenix	Ready to Ship	2011-03-28	\N		2011-03-14 19:08:40	70		PremierRoute	70	White - CS	50	Job
+445	41	70	50	Hall_Office	SO-186	\N	2011-03-14 19:07:33.700931	2011-03-30 22:15:16.538361	Hall_Office Parts List.xml	text/xml	15854	2011-03-14 19:07:33.695054	Phoenix	Shipped	2011-03-28	2011-03-30		2011-03-14 19:08:40	70		PremierRoute	70	White - CS	50	Job
 366	3	32	4	Harris - Office	SO-170	\N	2011-03-08 00:26:38.311951	2011-03-29 20:45:13.57989	Harris[1].dvi Parts List.xml	application/xml	18773	2011-03-08 00:26:38.307102	Phoenix	Ready to Ship	2011-03-25	\N	Please add 1 box of ZH MiniFix (Post) #10051 to this order.	2011-03-09 23:47:45	3		PremierRoute	3	Carmel Apple.\r\n	4	\N
 571	16	15	19	Puisis_final	SO-253	\N	2011-03-23 03:00:51.093199	2011-03-29 23:04:38.566519	puisis_garage part3_final.xml	application/octet-stream	31280	2011-03-23 03:00:51.090917	Atlanta	In Production	2011-04-08	\N	replace SO 231 ** Classic **	2011-03-23 03:11:32	15		PremierRoute	15	NX Classic white/granite, CS\r\nShip from Atlanta	19	Job
 346	50	79	59	Stamford Home Show Display - Revision	SO-146	\N	2011-03-04 21:58:05.026661	2011-03-22 22:29:05.632093	Corner Stamford HomeShowParts List 03.04.11.xml	text/xml	50813	2011-03-04 21:58:05.022236	Phoenix	Shipped	2011-03-21	2011-03-22	This replaces SO # 144.	2011-03-04 21:59:49	79		PremierRoute	79	3/8 Item #10052 on sales order to ship from PHX. CS\r\nChocolate Apple, CS	59	\N
@@ -23423,6 +23482,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 650	8	32	38	price sample SO-36	\N	\N	2011-03-29 21:36:31.406026	2011-03-29 21:36:31.406026	SO-36.xml	text/xml	6254	2011-03-29 21:36:31.403666	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job
 449	9	9	13	Kissling	SO-189	\N	2011-03-14 20:04:30.661343	2011-03-29 21:39:00.497666	Kissling, Jeff Parts List.xls	application/vnd.ms-excel	18325	2011-03-14 20:04:30.656306	Phoenix	Shipped	2011-03-30	2011-03-29	** Classic Order ** Powder Cost ** EH	2011-03-14 20:05:19	9		PremierRoute	9	Pewter, CS\r\n\r\ngranite doors in NX hold per Steve. CS\r\n\r\nNo Need For CutRite EH	13	Job
 659	41	70	50	Howell_Garage Doors	SO-304	\N	2011-03-30 14:47:26.839507	2011-03-30 21:20:01.231717	Howell_Garage Doors Parts List.xml	text/xml	15211	2011-03-30 14:47:26.837346	Phoenix	Confirmed	2011-04-20	\N		2011-03-30 14:47:59	70		PremierRoute	70	3/30/11 need to confirm hole placement with Eric. CS\r\n3/30 ok per Eric 15 day lead time due to custom. CS\r\n\r\nPewter, CS	50	Job
+670	20	19	23	Delagado added cabs	SO-308	\N	2011-03-30 22:27:00.905352	2011-03-30 22:28:07.457703	Delgado, Laura & Jeff Parts added cabs.xml	text/xml	7106	2011-03-30 22:27:00.901894	\N	Placed	\N	\N	ASAP if possible	2011-03-30 22:28:07	19	\N	\N	19	\N	\N	Job
+671	22	46	25	Sandra Allen	SO-309	\N	2011-03-30 22:51:23.271926	2011-03-30 22:52:30.418039	Allen Murphy Bed Parts List (2).xls	application/octet-stream	12135	2011-03-30 22:51:23.269542	\N	Placed	\N	\N	This is my first order.  Can you double check this to make sure it is correct?	2011-03-30 22:52:30	46	\N	\N	46	\N	\N	Job
 618	9	32	13	Scarborough	SO-285	\N	2011-03-27 00:53:03.36631	2011-03-30 17:34:52.285767	Scarborough, Emily.dvi Parts List.xml	text/xml	30738	2011-03-27 00:53:03.364083	Phoenix	Confirmed	2011-04-13	\N	** Custom Order ** Replaces SO-192..EH	2011-03-28 04:53:30	9		PremierRoute	9	White EH\r\n3-30 emailed John, 3 of his dwr fronts are under the minimum height of 5.5 from decore.  Emailed him to see if he wants those 3 slab or all of them.  yq	13	Job
 279	28	103	36	Walker 2 car	SO-113	\N	2011-02-28 16:39:47.706326	2011-03-18 18:14:20.726379	Walker 2 car-1 Parts List.xls	application/vnd.ms-excel	9261	2011-02-28 16:39:47.70274	Phoenix	Shipped	2011-03-14	2011-03-18		2011-02-28 16:40:30	103		PremierRoute	103	Pewter. 2/28 ? on what kind of handles they need.\r\nCS\r\n\r\n2/28 per Mike cancel handles. CS	36	\N
 477	1	1	1	McCraw-708	SO-206	\N	2011-03-15 22:36:50.704116	2011-03-28 15:54:57.048919	mccraw_final Parts List.xml	text/xml	50859	2011-03-15 22:36:50.701573	Phoenix	In Production	2011-03-31	\N		2011-03-15 22:39:48	1		PremierRoute	1	White, CS	1	Job
@@ -23445,7 +23506,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 459	20	19	23	Stephenson, Jan garage	SO-195	\N	2011-03-15 01:42:04.037463	2011-03-30 20:28:56.047065	Stevenson, Jan & Skip Parts List garage.xml	text/xml	15306	2011-03-15 01:42:04.033805	Phoenix	Shipped	2011-03-30	2011-03-30		2011-03-15 01:44:57	19		PremierRoute	19	Maple, CS	23	Job
 285	17	16	20	Sean Spooner 2 	SO-116	\N	2011-02-28 16:55:02.711773	2011-03-22 04:18:38.203682	Sean Spooner 2-28 a .dvi Parts List.xml	text/xml	14250	2011-02-28 16:55:02.709871	Phoenix	Shipped	2011-03-14	2011-03-22	WE NEED ASAP PLEASE\r\n\r\nTHANKS\r\n	2011-02-28 16:55:45	16		PremierRoute	16	Wild Apple.	20	\N
 531	69	104	83	Moore Closets	SO-232	\N	2011-03-20 20:23:37.330459	2011-03-22 14:59:17.449785	Moore Designs Parts List.xml	text/xml	37948	2011-03-20 20:23:37.326693	Phoenix	Cancelled	\N	\N	The 3 extra pieces of Antique White backing panels should be 95.250x10"W if possible.\r\nI also need to order the Nickel closet rods needed for this job plus the Beige cam covers.	2011-03-20 20:30:22	104		PremierRoute	104	Antique White, CS\r\n\r\n3/21/11 Questions on 3 extra pieces. CS\r\n\r\n3/22/11 Mike is replacing this order. EH	83	Job
-467	42	71	51	PG Warehose show room	SO-201	\N	2011-03-15 18:57:02.048919	2011-03-30 18:59:20.864235	PG Warehouse Parts List.xml	text/xml	28163	2011-03-15 18:57:02.045195	Phoenix	Ready to Ship	2011-03-30	\N		2011-03-15 18:59:21	71		PremierRoute	71	White, CS	51	Job
+467	42	71	51	PG Warehose show room	SO-201	\N	2011-03-15 18:57:02.048919	2011-03-30 22:15:11.46338	PG Warehouse Parts List.xml	text/xml	28163	2011-03-15 18:57:02.045195	Phoenix	Shipped	2011-03-30	2011-03-30		2011-03-15 18:59:21	71		PremierRoute	71	White, CS	51	Job
 470	20	19	23	Stephenson stock items	SO-204	\N	2011-03-15 20:33:46.935464	2011-03-28 15:33:11.546718	Stevenson, Jan & Skip Parts List.xml	text/xml	12841	2011-03-15 20:33:46.933361	Phoenix	In Production	2011-03-31	\N		2011-03-15 20:34:27	19		PremierRoute	19	White, CS	23	Job
 466	17	32	20	Replacements for SO-42	SO-200	\N	2011-03-15 18:07:28.354307	2011-03-16 21:53:38.614644	Untitled Parts List.xml	application/xml	7204	2011-03-15 18:07:28.348815	Phoenix	Confirmed	2011-03-30	\N	* WARRANTY * ASAP - EH	2011-03-15 18:28:53	32		PremierRoute	16	Sable Glow, CS\r\n3/15/11 No Charge per EH. CS	20	Job
 557	65	105	77	Hudson, Sherry Home Office	SO-272	\N	2011-03-21 19:50:24.328179	2011-03-30 00:06:28.707826	Hudson, Sherry Office.dvi Parts List.xml	text/xml	19698	2011-03-21 19:50:24.325908	Phoenix	Confirmed	2011-04-11	\N		2011-03-24 21:59:45	106		PremierRoute	105	WILD APPLE. YQ *RAN THROUGH CUTRITE* EH\r\n	77	Job
@@ -23473,6 +23534,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 584	23	22	27	Eggleston, Dawn	SO-261	\N	2011-03-23 15:50:19.473409	2011-03-23 23:49:08.664892	Eggleston, Dawn Parts List.xml	text/xml	31988	2011-03-23 15:50:19.471277	Phoenix	Confirmed	2011-04-07	\N		2011-03-23 15:52:12	22		PremierRoute	22	White, CS	27	Job
 644	5	32	8	Rubino Garage Doors	SO-301	\N	2011-03-29 18:08:49.975925	2011-03-30 00:01:53.792056	Rubino Garage Doors.xml	application/xml	6181	2011-03-29 18:08:49.97388	Atlanta	In Production	2011-04-12	\N	** Warranty **2 Doors No Charge. EH	2011-03-29 18:10:20	32		PremierRoute	99	Pewter ** Rush Order pre Steve ** EH\r\n\r\nok to confirm per Eric, CS	8	Job
 536	59	87	84	Stanp Pantry	SO-235	\N	2011-03-21 00:20:22.447934	2011-03-21 19:39:24.520916	Stamp_ORDER.dvi Parts List.xml	text/xml	17898	2011-03-21 00:20:22.445976	Phoenix	Confirmed	2011-04-05	\N	Please change the Billing address to 7324 West Old Sauk Road, Middleton, WI 53562.  	2011-03-21 00:21:35	87		PremierRoute	87	Antique White, CS	70	Job
+452	41	70	50	Rakouskas_Countertop	SO-191	\N	2011-03-14 20:16:39.502472	2011-03-30 22:15:39.050851	Rakouskas_Countertop Parts List.xml	text/xml	6776	2011-03-14 20:16:39.500449	Phoenix	Shipped	2011-03-30	2011-03-30		2011-03-14 20:16:58	70		PremierRoute	70	Carmel Apple, CS	50	Job
 373	14	13	17	Bennett	SO-161	\N	2011-03-08 20:04:37.035723	2011-03-24 17:52:24.117547	Bennett Parts List.xml	text/xml	24236	2011-03-08 20:04:37.03208	Phoenix	Ready to Ship	2011-03-23	\N		2011-03-08 20:37:20	13		PremierRoute	13	NX Windswept Bronze	17	\N
 542	21	20	24	Zaumeyer Pantry	SO-238	\N	2011-03-21 17:18:32.840223	2011-03-21 19:48:18.776355	Zaumeyer-pantry.dvi Parts List.xls	application/octet-stream	10281	2011-03-21 17:18:32.838045	Phoenix	Confirmed	2011-04-05	\N		2011-03-21 17:22:55	20		PremierRoute	20	White, CS	24	Job
 539	17	16	20	HOME SHOW	SO-237	\N	2011-03-21 17:04:18.640268	2011-03-21 21:27:16.364163	10x10 Inline HomeShow DVI[1]3-21-11.dvi Parts List.xml	text/xml	62226	2011-03-21 17:04:18.637898	Phoenix	Confirmed	2011-04-05	\N	WE NEED THIS TO BE DELIVERED NO LATER THEN TUESDAY THE 5TH OF APRIL. IF WE CANNOT GUARENTEE DELIVERY PLEASE CONTACT ME AND WE WILL CANCEL THE ORDER	2011-03-21 17:08:46	16		PremierRoute	16	3/21/11 confirming ship date. CS\r\nWild Apple, CS	20	Job
@@ -23480,7 +23542,6 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 537	16	15	19	Gehrum	SO-236	\N	2011-03-21 00:50:51.072092	2011-03-23 20:30:36.91094	gehrum.dvi Parts List.xml	application/octet-stream	13099	2011-03-21 00:50:51.069611	Phoenix	Cancelled	2011-04-05	\N		2011-03-21 01:54:58	15		PremierRoute	15	Nx Maple, CS\r\n3/23/11 Cancelled. New SO#	19	Job
 605	20	19	23	Croul garage	SO-277	\N	2011-03-25 18:38:41.727135	2011-03-29 20:27:16.362288	Croul, Spencer and Susan Parts List.xml	text/xml	21198	2011-03-25 18:38:41.723189	Phoenix	Confirmed	2011-04-11	\N		2011-03-25 18:40:12	19		PremierRoute	19	NX maple. yq	23	Job
 593	28	103	36	wall	SO-268	\N	2011-03-24 20:09:02.186548	2011-03-29 20:27:55.630174	Wall, Kieth Parts List.xls	application/vnd.ms-excel	10571	2011-03-24 20:09:02.182508	Phoenix	Confirmed	2011-04-11	\N		2011-03-24 20:09:20	103		PremierRoute	103	NX HARDROCK MAPLE.YQ	36	Job
-452	41	70	50	Rakouskas_Countertop	SO-191	\N	2011-03-14 20:16:39.502472	2011-03-30 18:59:16.253588	Rakouskas_Countertop Parts List.xml	text/xml	6776	2011-03-14 20:16:39.500449	Phoenix	Ready to Ship	2011-03-30	\N		2011-03-14 20:16:58	70		PremierRoute	70	Carmel Apple, CS	50	Job
 620	59	87	84	Wade Master Revised	SO-284	\N	2011-03-28 01:59:11.918534	2011-03-28 23:29:37.728368	Wade_ORDER.dvi Parts List ver 3_27_11.xml	text/xml	35152	2011-03-28 01:59:11.912221	Phoenix	Confirmed	2011-04-12	\N	This replaces sales order 257	2011-03-28 04:21:35	87		PremierRoute	87	3/28/11 replaces SO#257\r\nWhite, CS	70	Job
 594	28	103	36	griffen	SO-269	\N	2011-03-24 20:10:02.403351	2011-03-29 20:28:42.093092	Groffin Parts List.xls	application/vnd.ms-excel	6354	2011-03-24 20:10:02.401158	Phoenix	Confirmed	2011-04-11	\N		2011-03-24 20:10:15	103		PremierRoute	103	NX MAPLE.YQ	36	Job
 487	37	67	46	Adam Garage	SO-214	\N	2011-03-16 21:46:59.688773	2011-03-30 11:07:32.396568	Adam Final Garage Design Parts List.xml	text/xml	17547	2011-03-16 21:46:59.684937	Phoenix	In Production	2011-03-31	\N	This is my first order using the new website. I am pretty sure that everything is correct. Please have a confirmation email sent to me when this is being made.\r\n\r\nThanks	2011-03-16 21:50:22	67		PremierRoute	67	Pewter, CS\r\n\r\n3/18/2011 sent and email to Greg, to verify that he did not need any hardware with this order.YQ\r\n3/22/11 RECEIVED an email from Greg,\r\nverified that he did not need any hardware.	46	Job
@@ -26688,7 +26749,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	6	2011-03-25 14:08:23.410494	2011-03-24 14:24:29.454838	74.178.244.247	74.178.201.191	2011-01-01 18:53:34.831371	2011-03-25 14:08:23.411636
 26	Mr.	Calvin	Connell	(208) 733-6768	(208) 280-0880	(208) 733-6768	cconnell@tailoredliving.com	$2a$10$L34zvvTQ6Cujakc.zlzPDuZenFpHabWniwKGbngEO67wN6ThjchXa	$2a$10$L34zvvTQ6Cujakc.zlzPDu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.426306	2011-02-11 15:42:17.587949
 11	Mrs.	Meri Lynn	Bisch	(636) 728-0333	(636) 399-9529	(314)434-1976	mlbisch@tailoredliving.com	$2a$10$ADDAS8SmsuiYYeZKnzUNnOotiUtMQw4.rDlDTYZby2k/6Joy7g8La	$2a$10$ADDAS8SmsuiYYeZKnzUNnO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.30654	2011-02-11 16:03:31.935311
-46	Mr.	Jim	Friesen	(503) 390-0522	(503) 302-6029		jfriesen@tailoredliving.com	$2a$10$d1qe/mYTbWRWl7lko.J5h.xVbtQAMF1PsQOSVpKjsmBTZMU.GJrJa	$2a$10$d1qe/mYTbWRWl7lko.J5h.	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:38.091546	2011-02-11 16:23:31.156631
+46	Mr.	Jim	Friesen	(503) 390-0522	(503) 302-6029		jfriesen@tailoredliving.com	$2a$10$d1qe/mYTbWRWl7lko.J5h.xVbtQAMF1PsQOSVpKjsmBTZMU.GJrJa	$2a$10$d1qe/mYTbWRWl7lko.J5h.	\N	GK3ImndfwiqI2UQqfB6c	2011-03-30 22:48:48.532372	1	2011-03-30 22:48:48.536468	2011-03-30 22:48:48.536468	97.120.2.221	97.120.2.221	2011-01-01 18:53:38.091546	2011-03-30 22:48:48.536979
 25	Mr.	Harrison	Rushton	(423) 517-0303	(423) 322-3629	(423) 517-0531	harushton@tailoredliving.com	$2a$10$.yVK9FbYq/YoL5IlF55nbOi022KRwX/7grrDJakHYoacJI7lKxej6	$2a$10$.yVK9FbYq/YoL5IlF55nbO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.298971	2011-02-11 16:41:57.485489
 36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$os/vHPzSS.5Ydokq42i5aOGxn10x0zbHdX.PsImgOslN1W8BNK/GO	$2a$10$os/vHPzSS.5Ydokq42i5aO	\N	\N	\N	19	2011-03-24 21:13:52.868579	2011-03-23 23:03:29.833658	67.203.136.36	67.203.136.36	2011-01-01 18:53:36.829115	2011-03-24 21:14:01.427657
 1	Mr.	Scott	Barnes	(714) 637-2100 Ext 6402	(714) 200-5479	(714) 637-1400	scott@tailoredliving.com	$2a$10$qqBeeyOALViNUPJznyjMEuyImInYrz1Qz4g7mkaDoO4aRnyi0Wfsm	$2a$10$qqBeeyOALViNUPJznyjMEu	\N	\N	\N	71	2011-03-30 15:19:03.452109	2011-03-30 02:25:15.524047	66.93.64.100	75.1.240.93	2011-01-01 18:53:31.856627	2011-03-30 15:19:03.45325
@@ -26757,7 +26818,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 89	\N	Customer	A	(303) 578-9085			divisidera@gmail.com	$2a$10$MUZ7No7mXdh5149aCsytb.ZIppO6SdfvWLbFbnHzZ3wFm3Z2L96X2	$2a$10$MUZ7No7mXdh5149aCsytb.	\N	\N	\N	11	2011-03-20 22:44:23.049914	2011-03-14 19:47:03.794651	71.196.137.193	71.196.137.193	2011-02-11 18:07:39.459118	2011-03-20 22:44:23.050795
 76	\N	Leslie	Wells	(704)799-6679		(828)726-8453	lwells@tailoredliving.com	$2a$10$qUvdO/NBKK47da/MrpSYJ.jHPxNgbGQ4VWVWw6eZ1yEkzrdEvv4OG	$2a$10$qUvdO/NBKK47da/MrpSYJ.	\N	\N	\N	1	2011-03-17 19:34:28.746291	2011-03-17 19:34:28.746291	97.82.234.189	97.82.234.189	2011-02-11 16:08:35.174247	2011-03-17 19:34:28.747302
 94	\N	Scott	House	(954) 797-9275		(954) 797-9726	scott.house.sf@premiergarage.com	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu/yVyH7JlGx1xEsCndFzXIqi5nAxroUS	$2a$10$hTpvqWZRRZ3iOKJjb1qRsu	\N	uYwORD2C4OQKdylfQREY	2011-03-28 23:47:23.212803	1	2011-03-28 23:47:23.217352	2011-03-28 23:47:23.217352	66.229.227.81	66.229.227.81	2011-02-11 18:25:32.24439	2011-03-28 23:47:23.217913
-19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	z5uTEp--hEDCUKXTi7va	2011-03-15 20:19:16.752546	27	2011-03-28 18:51:16.324702	2011-03-25 20:54:41.856151	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-03-28 18:51:16.325593
+19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	lyop5iK-oOYSVXCtJ6gO	2011-03-30 22:25:53.299744	28	2011-03-30 22:25:53.304161	2011-03-28 18:51:16.324702	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-03-30 22:25:53.304826
 87	\N	Julee	Barnett	(608) 630-0246			jtbarnett@tailoredliving.com	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.4kpaUpL9JHD1/Gq8Lv5a2SvUEJFDmlW	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.	\N	HXrOC-T3hZcEAV_3Te02	2011-03-18 15:16:44.157008	16	2011-03-29 02:32:20.185673	2011-03-28 04:19:38.267173	216.165.151.158	216.165.151.158	2011-02-11 17:57:13.665014	2011-03-29 02:32:20.186269
 106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	8	2011-03-24 21:57:00.912443	2011-03-24 16:03:33.357381	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-03-24 21:57:00.91339
 31	Mrs.	Jodi & Kevin	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$RSPC2iSiggXkH7WpZiMqc.vODnp/ZV95EMAK.evGVO76OSNQ/pH6C	$2a$10$RSPC2iSiggXkH7WpZiMqc.	\N	bbSQf56twNCNntZRdcEW	2011-03-23 23:23:51.358408	5	2011-03-29 04:50:47.415825	2011-03-23 23:23:51.362385	68.151.45.0	68.151.45.0	2011-01-01 18:53:36.240116	2011-03-29 04:50:47.4165
