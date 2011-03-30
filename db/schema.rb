@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323184504) do
+ActiveRecord::Schema.define(:version => 20110330173045) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20110323184504) do
     t.string   "category"
     t.boolean  "in_catalog",                                                    :default => false
     t.string   "ship_by",                                                       :default => "standard"
+    t.integer  "bulk_qty"
   end
 
   create_table "job_item_components", :force => true do |t|

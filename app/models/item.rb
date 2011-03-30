@@ -74,6 +74,7 @@ class Item < ActiveRecord::Base
   def self.item_types 
     [
       Item,
+      Items::BulkItem,
       Items::Cabinet,
       Items::CornerCabinet,
       Items::Countertop,
@@ -145,8 +146,11 @@ class Item < ActiveRecord::Base
     cost_expr(query_context).map{|e| apply_rebate_factor(e)}
   end
 
+  def base_cost_expr(query_context)
+    Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}
+  end
+
   def cost_expr(query_context)
-    base_expr = Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}.to_a
     linear_surcharge = self.linear_surcharge_expr(query_context).to_a
     
     selected_component_associations = if query_context.component_contexts.empty?
@@ -163,7 +167,7 @@ class Item < ActiveRecord::Base
       assoc.cost_expr(query_context).map{|e| exprs << e}.orSome(exprs)
     end
 
-    subtotal_exprs = base_expr + linear_surcharge + component_exprs + surcharge_exprs(query_context.units)
+    subtotal_exprs = base_cost_expr(query_context).to_a + linear_surcharge + component_exprs + surcharge_exprs(query_context.units)
     if subtotal_exprs.empty?
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()

@@ -50,7 +50,8 @@ class CatalogOrdersController < ApplicationController
       sell_price = item.sell_price
       if sell_price.nil?
         sell_price = begin
-          item.wholesale_price_expr(:in, nil, []).map{|expr| expr.evaluate({})}.orSome(item.base_price)
+          query_context = QueryContext.new(:units => :in, :bulk => true)
+          item.wholesale_price_expr(query_context).map{|expr| expr.evaluate({})}.orSome(item.base_price)
         rescue
           logger.error("Error calculating price for item: #{item.name}: #{$!}")
           logger.error($!.backtrace[0])
