@@ -49,7 +49,7 @@ class Ability
 
     if user.role? :franchise_support
       can [:read], [Job, JobProperty, JobItem, JobItemProperty, Franchisee, Address]
-      can [:create, :update], Job do |job|
+      can [:create, :update, :destroy], Job do |job|
         (job.status.nil? || job.status == 'Created')
       end
     end

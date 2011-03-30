@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def manifest
     text = <<-MANIFEST
       CACHE MANIFEST
-      # version 1.0.31
+      # version 1.0.32
       /offline.html
       /catalog_orders
 
