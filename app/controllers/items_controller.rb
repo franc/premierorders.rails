@@ -248,7 +248,7 @@ class ItemsController < ApplicationController
   end
 
   def pricing_expr
-    query_context = QueryContext.new(params)
+    query_context = ItemQueries::QueryContext.new(params)
     if request.xhr?
       render :json => {
         :retail_price_expr => @item.retail_price_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available"),

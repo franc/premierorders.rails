@@ -1,5 +1,13 @@
 class Items::BulkItem < Item
 
+  def sell_price_expr(query_context)
+    if sell_price.nil? || query_context.use_bulk_pricing?
+      super
+    else
+      Option.new(sell_price).filter{|p| p != 0}.map{|p| term((p / sell_price).round(2))}
+    end
+  end
+
   def base_cost_expr(query_context)
     if bulk_qty.nil? || query_context.use_bulk_pricing?
       super

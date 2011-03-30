@@ -12,7 +12,7 @@ namespace :pricing do
           color_keys.each_with_index do |color, i|
             unless colors[i].blank?
               begin
-                query_context = QueryContext.new(:units => :in, :color => "%03d" % color.to_i)
+                query_context = ItemQueries::QueryContext.new(:units => :in, :color => "%03d" % color.to_i)
                 pricing_expr = item.rebated_cost_expr(query_context).map{|e| e.compile}.orLazy do 
                   raise "No pricing expression found."
                 end

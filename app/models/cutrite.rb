@@ -47,26 +47,27 @@ module Cutrite
 
       #logger.info("Querying for panel material for #{job_item.item_name}")
       panel_query = ItemQueries::ColorQuery.new('panel_material', color_code, &thickness_pref) 
+      query_context = ItemQueries::QueryContext.new()
       panel_material = Option.new(job_item.item).bind do |i| 
-        i.query(panel_query, [])
+        i.query(panel_query, query_context)
       end
 
       #logger.info("Querying for door material for #{job_item.item_name}")
       door_query = ItemQueries::ColorQuery.new('door_material', color_code, &thickness_pref) 
       door_material = Option.new(job_item.item).bind do |i| 
-        i.query(door_query, [])
+        i.query(door_query, query_context)
       end
 
       eb_query = ItemQueries::ColorQuery.new('edge_band', color_code) do |v1, v2| 
         v1.width == 19 ? v1 : v2
       end
-      eb_material = Option.new(job_item.item).bind {|i| i.query(eb_query, [])}
+      eb_material = Option.new(job_item.item).bind {|i| i.query(eb_query, query_context)}
 
       eb2_query = ItemQueries::ColorQuery.new('edge_band', color_code) do |v1, v2| 
         v1.width == 25 ? v1 : v2
       end
 
-      eb2_material = Option.new(job_item.item).bind {|i| i.query(eb2_query, [])}
+      eb2_material = Option.new(job_item.item).bind {|i| i.query(eb2_query, query_context)}
 
       [
         panel_material.orElse(door_material).map{|m| m.color}.orSome(''),

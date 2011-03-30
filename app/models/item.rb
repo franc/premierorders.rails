@@ -134,10 +134,14 @@ class Item < ActiveRecord::Base
     wholesale_price_expr(query_context).map{|e| apply_retail_multiplier(e)}
   end
 
+  def sell_price_expr(query_context)
+    Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}
+  end
+
   # For the wholesale price, any explicit sell price value will override
   # a price derived from assembly component values
   def wholesale_price_expr(query_context)
-    Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}.orElseLazy do
+    sell_price_expr(query_context).orElseLazy do
       rebated_cost_expr(query_context)
     end
   end

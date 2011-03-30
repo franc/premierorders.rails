@@ -1,6 +1,6 @@
 require 'fp'
 
-class QueryContext
+class ItemQueries::QueryContext
   def initialize(args = {})
     @data = args
   end
@@ -24,6 +24,6 @@ class QueryContext
   end
 
   def left_merge(args = {})
-    QueryContext.new(@data.merge{|k, v1, v2| v1.nil? ? v2 : v1})
+    ItemQueries::QueryContext.new(@data.merge{|k, v1, v2| v1.nil? ? v2 : v1})
   end
 end

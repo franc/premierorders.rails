@@ -125,7 +125,7 @@ class JobItem < ActiveRecord::Base
   # weight
   # hardware_cost
   def update_cached_values(units = :in)
-    query_context = QueryContext.new(:units => units, :color => color.orSome(nil))
+    query_context = ItemQueries::QueryContext.new(:units => units, :color => color.orSome(nil))
     cache_inventory_hardware_components(query_context)
     self.cache_calculation_units = units.to_s
 
@@ -206,7 +206,7 @@ class JobItem < ActiveRecord::Base
 
     if item
       job_item_components.clear
-      item.query(hardware_query, []).each do |item_hardware| 
+      item.query(hardware_query, query_context).each do |item_hardware| 
         # There is a bug here. Since the expression for the quantity expression may be derived
         # from a deep traversal of the assembly tree, and since the traversal of the assembly tree
         # may result in a function being applied to a dimension variable along the way, that function
