@@ -494,7 +494,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 7248, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 7314, true);
 
 
 --
@@ -541,7 +541,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 17763, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 17819, true);
 
 
 --
@@ -599,7 +599,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 11301, true);
+SELECT pg_catalog.setval('job_items_id_seq', 11331, true);
 
 
 --
@@ -645,7 +645,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 615, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 617, true);
 
 
 --
@@ -733,7 +733,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 186, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 187, true);
 
 
 --
@@ -797,7 +797,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 667, true);
+SELECT pg_catalog.setval('jobs_id_seq', 669, true);
 
 
 --
@@ -22251,17 +22251,16 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 11040	651	648	000.990.320.10W.00I	10		2011-03-29 23:22:38.644524	2011-03-30 14:37:25.234371	67.91	5	ZH SlatWall 12 x 96 (4/box) |White	\N	\N	in	ok	30.18	0.00	0.15	\N	
 11041	651	646	000.990.320.10S.00I	1000		2011-03-29 23:22:38.657833	2011-03-30 14:37:25.237567	0.03	6	ZH SlatWall Drywall Screws (1000/box) | White	\N	\N	in	ok	0.04	0.00	\N	\N	
 11042	651	647	000.990.320.10U.00I	10		2011-03-29 23:22:38.670303	2011-03-30 14:37:25.24071	7.84	7	ZH SlatWall U Edge Molding (4/box) | White	\N	\N	in	ok	5.22	0.00	\N	\N	
-11229	659	516	000.100.000.009.00M	4	Contact us for hinge placement on all doors	2011-03-30 14:47:27.027244	2011-03-30 14:47:27.915559	17.33	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	18.06	0.06	0.05	\N	\N
-11230	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.062256	2011-03-30 14:47:28.157118	18.26	2	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.09	0.06	0.05	\N	\N
-11231	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.089495	2011-03-30 14:47:28.403223	14.96	3	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.79	0.06	0.05	\N	\N
-11232	659	516	000.100.000.009.00M	5		2011-03-30 14:47:27.243027	2011-03-30 14:47:28.792633	12.24	4	Door - Flat | Windswept Pewter	\N	\N	in	ok	12.45	0.06	0.05	\N	\N
-11233	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.276072	2011-03-30 14:47:29.059646	19.37	5	Door - Flat | Windswept Pewter	\N	\N	in	ok	15.04	0.06	0.05	\N	\N
-11234	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.304844	2011-03-30 14:47:29.314574	8.18	6	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.26	0.06	0.05	\N	\N
-11235	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.333132	2011-03-30 14:47:29.58407	24.94	7	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.22	0.06	0.05	\N	\N
-11236	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.359669	2011-03-30 14:47:29.830342	11.18	8	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.46	0.06	0.05	\N	\N
-11237	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.386423	2011-03-30 14:47:30.219947	37.10	9	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.58	0.08	0.05	\N	\N
-11238	659	162	000.200.000.009.00M	2		2011-03-30 14:47:27.414403	2011-03-30 14:47:30.481579	18.55	10	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.96	0.08	0.05	\N	\N
-11239	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.593609	2011-03-30 14:47:30.74436	37.10	11	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	10.81	0.08	0.05	\N	\N
+11230	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.062256	2011-03-30 19:52:42.470792	18.26	2	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.09	0.06	0.05	\N	
+11231	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.089495	2011-03-30 19:52:42.474726	14.96	3	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.79	0.06	0.05	\N	
+11232	659	516	000.100.000.009.00M	5		2011-03-30 14:47:27.243027	2011-03-30 19:52:42.477928	12.24	4	Door - Flat | Windswept Pewter	\N	\N	in	ok	12.45	0.06	0.05	\N	
+11233	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.276072	2011-03-30 19:52:42.481253	19.37	5	Door - Flat | Windswept Pewter	\N	\N	in	ok	15.04	0.06	0.05	\N	
+11234	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.304844	2011-03-30 19:52:42.484637	8.18	6	Door - Flat | Windswept Pewter	\N	\N	in	ok	17.26	0.06	0.05	\N	
+11235	659	516	000.100.000.009.00M	8		2011-03-30 14:47:27.333132	2011-03-30 19:52:42.487687	24.94	7	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.22	0.06	0.05	\N	
+11236	659	516	000.100.000.009.00M	2		2011-03-30 14:47:27.359669	2011-03-30 19:52:42.490716	11.18	8	Door - Flat | Windswept Pewter	\N	\N	in	ok	22.46	0.06	0.05	\N	
+11237	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.386423	2011-03-30 19:52:42.493887	37.10	9	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.58	0.08	0.05	\N	
+11238	659	162	000.200.000.009.00M	2		2011-03-30 14:47:27.414403	2011-03-30 19:52:42.496914	18.55	10	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	8.96	0.08	0.05	\N	
+11239	659	162	000.200.000.009.00M	1		2011-03-30 14:47:27.593609	2011-03-30 19:52:42.499928	37.10	11	Drawer Front - Flat | Windswept Pewter	\N	\N	in	ok	10.81	0.08	0.05	\N	
 11241	660	500	000.400.002.403.00M	1		2011-03-30 14:55:27.847715	2011-03-30 15:01:21.501174	77.80	2	NX Workbench Top (Finished Left) | Ebony Star	\N	15	in	ok	78.45	0.00	0.31	\N	other
 11243	663	45	000.931.981.005.00M	12		2011-03-30 15:19:45.178979	2011-03-30 15:19:47.471418	11.82	2	CL Adjustable Shelf | Wild Apple	\N	\N	in	ok	4.46	0.00	0.03	\N	\N
 11244	663	45	000.931.030.005.00M	8		2011-03-30 15:19:45.206608	2011-03-30 15:19:47.633677	22.95	3	CL Adjustable Shelf | Wild Apple	\N	\N	in	ok	8.66	0.00	0.03	\N	\N
@@ -22274,6 +22273,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 11252	663	44	000.930.031.005.00M	4		2011-03-30 15:19:45.536954	2011-03-30 15:19:48.437179	23.56	11	CL Cam Shelf | Wild Apple	\N	\N	in	ok	8.88	0.00	0.05	\N	\N
 11254	663	44	000.930.981.005.00M	8		2011-03-30 15:19:45.583942	2011-03-30 15:19:48.660353	13.40	13	CL Cam Shelf | Wild Apple	\N	\N	in	ok	5.05	0.00	0.05	\N	\N
 11255	663	44	000.930.030.005.00M	3		2011-03-30 15:19:45.606909	2011-03-30 15:19:48.829714	26.01	14	CL Cam Shelf | Wild Apple	\N	\N	in	ok	9.82	0.00	0.05	\N	\N
+11229	659	516	000.100.000.009.00M	4	Contact us for hinge placement on all doors	2011-03-30 14:47:27.027244	2011-03-30 19:52:42.466587	17.33	1	Door - Flat | Windswept Pewter	\N	\N	in	ok	18.06	0.06	0.05	\N	
 10962	644	709	000.120.000.009.00M	2		2011-03-29 18:08:50.06115	2011-03-30 00:01:51.622223	23.99	1	Door - Flat NX | Windswept Pewter	\N	23	in	ok	23.99	0.06	0.15	\N	garage
 10963	644	709	000.120.000.009.00M	2	** No Charge **	2011-03-29 18:08:50.224898	2011-03-30 00:01:51.627025	0.00	2	Door - Flat NX | Windswept Pewter	\N	23	in	ok	12.29	0.06	0.15	\N	garage
 10656	629	563	000.970.012.001.00M	1		2011-03-28 23:49:15.791918	2011-03-29 18:13:12.338178	3.75	11	CL Toe Kick | White	\N	\N	in	ok	1.48	0.00	0.10	\N	closet
@@ -23110,6 +23110,7 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 184	451	98	Ready For Production	Ready to Ship	2011-03-30 18:59:11.123177	2011-03-30 18:59:11.123177
 185	452	98	Ready For Production	Ready to Ship	2011-03-30 18:59:16.36638	2011-03-30 18:59:16.36638
 186	467	98	Ready For Production	Ready to Ship	2011-03-30 18:59:20.935035	2011-03-30 18:59:20.935035
+187	659	53	Placed	On Hold	2011-03-30 19:52:42.664051	2011-03-30 19:52:42.664051
 \.
 
 
@@ -23267,7 +23268,6 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 548	59	87	84	Shoy Pantry	SO-241	\N	2011-03-21 18:32:23.829314	2011-03-28 23:26:11.144647	shoys_ORDER.dvi Parts List.xml	text/xml	23090	2011-03-21 18:32:23.824211	Phoenix	Cancelled	\N	\N	Before processing order PLEASE call to discuss the corner shelves.  We have one set of corner shelves going from 16" wide on one wall to 12" wide on the wall.  We also need to cut this same set of corner shelves to a shorter length.  Please call Julee Barnett at 608-831-3150 or 608-509-3736 (cell).\r\nthanks\r\n\r\nAlso--I removed the baskets from the plan in the xml file but it did not change the grand total on the spread sheet.	2011-03-21 18:32:59	87		PremierRoute	87	3/21/11 on hold to discuss corner shelves. CS\r\n\r\n3/28/11 submitted new order SO#283 replaces this order #241. CS	70	Job
 660	8	32	38	Make-up for SO-57-43	SO-305	\N	2011-03-30 14:55:27.569095	2011-03-30 18:59:07.77107	Make up for SO-57.xml	application/xml	6333	2011-03-30 14:55:27.567156	Phoenix	In Production	2011-04-06	\N	** Warranty ** for Madison WI. EH	2011-03-30 14:57:02	32		PremierRoute	32	White EH CL-VU was to be a right. EH\r\nChanged top to 25" deep. EH	38	Job
 588	17	16	20	Hamper & Stays for SO 75	SO-267	\N	2011-03-24 00:37:47.27944	2011-03-25 21:43:02.90516	hamper.xml	text/xml	7385	2011-03-24 00:37:47.277608	Phoenix	Confirmed	2011-04-07	\N	Please drop ship ASAP!!	2011-03-24 16:25:55	16		PremierRoute	16	THIS ORDER IS A DROP SHIP FROM HAFELE. YQ	20	Job
-659	41	70	50	Howell_Garage Doors	SO-304	\N	2011-03-30 14:47:26.839507	2011-03-30 14:47:59.692792	Howell_Garage Doors Parts List.xml	text/xml	15211	2011-03-30 14:47:26.837346	\N	Placed	\N	\N		2011-03-30 14:47:59	70	\N	\N	70	\N	\N	Job
 603	23	22	27	Bono, Mike	SO-275	\N	2011-03-25 14:08:45.15747	2011-03-25 22:12:37.502681	Bono, Mike Counter top Parts List.xml	text/xml	6566	2011-03-25 14:08:45.153904	Phoenix	Confirmed	\N	\N		2011-03-25 14:09:17	22		PremierRoute	22	TOP ONLY TAN SOAPSTONE.YQ	27	Job
 572	4	4	6	Richards - Pantry	SO-252	\N	2011-03-23 03:09:49.278344	2011-03-23 20:39:42.669461	Richards - Pantry.xml	application/octet-stream	23590	2011-03-23 03:09:49.275894	Phoenix	Confirmed	2011-04-07	\N		2011-03-23 03:10:16	4		PremierRoute	4	White, CS	6	Job
 638	4	32	71	Schenk - Master	SO-298	\N	2011-03-29 14:34:43.306992	2011-03-29 19:50:24.896251	Schenk - Master.xml	application/xml	30888	2011-03-29 14:34:43.303474	Phoenix	Confirmed	2011-04-13	\N	** Custom Parts ** uploaded by EH\r\nThis Order will replace SO-274\r\n	2011-03-29 14:37:01	4		PremierRoute	4	Carmel Apple, CS	6	Job
@@ -23276,6 +23276,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 453	9	9	13	Scarborough	SO-192	\N	2011-03-14 20:16:49.018712	2011-03-28 21:51:59.129872	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	30086	2011-03-14 20:16:49.01654	Phoenix	Cancelled	\N	\N	Five drawer cabinet:\r\n\r\n1. Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2. Next drawer from top down should be stationery drawer (1 vertical panel starts 2" from the back of the drawer front, and then there should be 4 additional spacers at 45 degrees\r\n\r\n3.  Next two drawers are equal in height:\r\n\r\nDrawer suspended underneath corner countertop:\r\n\r\n1.  Drawer front should be 2 1/4" if possible.  Width and depth are same dimensions Eric gave me.\r\n\r\n2.  Need hardware mounting kit for this drawer:\r\n\r\nThree drawer cabinet:\r\n\r\n1.  Should have 3 equal drawer font sizes (not file drawer and then two small drawers):\r\n\r\n30" wide file drawer cabinet\r\n\r\n1.  Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2.  Middle drawer should be file drawer with appropriate hardware\r\n\r\n3.  Bottom drawer should be whatever remaining space allows:\r\n\r\nPlease also make note the custom corner countertop should have a depth of 20" on each side in order to align with other cabinets:\r\n\r\nThere are lot of moving parts on this one so please call with questions.\r\n\r\n\r\n 	2011-03-14 20:19:19	9		PremierRoute	9	3/15/11 on hold till further instructions from Steve. CS	13	Job
 649	8	32	38	price sample SO-35	\N	\N	2011-03-29 21:31:43.369402	2011-03-29 21:31:43.369402	SO-35.xml	text/xml	6304	2011-03-29 21:31:43.365503	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job
 650	8	32	38	price sample SO-36	\N	\N	2011-03-29 21:36:31.406026	2011-03-29 21:36:31.406026	SO-36.xml	text/xml	6254	2011-03-29 21:36:31.403666	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job
+659	41	70	50	Howell_Garage Doors	SO-304	\N	2011-03-30 14:47:26.839507	2011-03-30 19:52:42.504123	Howell_Garage Doors Parts List.xml	text/xml	15211	2011-03-30 14:47:26.837346	Phoenix	On Hold	\N	\N		2011-03-30 14:47:59	70		PremierRoute	70	3/30/11 need to confirm hole placement with Eric. CS	50	Job
 449	9	9	13	Kissling	SO-189	\N	2011-03-14 20:04:30.661343	2011-03-29 21:39:00.497666	Kissling, Jeff Parts List.xls	application/vnd.ms-excel	18325	2011-03-14 20:04:30.656306	Phoenix	Shipped	2011-03-30	2011-03-29	** Classic Order ** Powder Cost ** EH	2011-03-14 20:05:19	9		PremierRoute	9	Pewter, CS\r\n\r\ngranite doors in NX hold per Steve. CS\r\n\r\nNo Need For CutRite EH	13	Job
 618	9	32	13	Scarborough	SO-285	\N	2011-03-27 00:53:03.36631	2011-03-30 17:34:52.285767	Scarborough, Emily.dvi Parts List.xml	text/xml	30738	2011-03-27 00:53:03.364083	Phoenix	Confirmed	2011-04-13	\N	** Custom Order ** Replaces SO-192..EH	2011-03-28 04:53:30	9		PremierRoute	9	White EH\r\n3-30 emailed John, 3 of his dwr fronts are under the minimum height of 5.5 from decore.  Emailed him to see if he wants those 3 slab or all of them.  yq	13	Job
 279	28	103	36	Walker 2 car	SO-113	\N	2011-02-28 16:39:47.706326	2011-03-18 18:14:20.726379	Walker 2 car-1 Parts List.xls	application/vnd.ms-excel	9261	2011-02-28 16:39:47.70274	Phoenix	Shipped	2011-03-14	2011-03-18		2011-02-28 16:40:30	103		PremierRoute	103	Pewter. 2/28 ? on what kind of handles they need.\r\nCS\r\n\r\n2/28 per Mike cancel handles. CS	36	\N
@@ -26591,11 +26592,11 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 90	\N	Jim	Riggs	704-561-3334		704-561-3332	jriggs@premiergarage.com	$2a$10$dhytJ6R.20WB3OtczdFxi.JylSE5mPBopVqWSGWryuQya4qz12QI2	$2a$10$dhytJ6R.20WB3OtczdFxi.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:08:22.756504	2011-02-11 18:08:22.756504
 91	\N	Askari	Sabbaghi	604-464-1999		604-357-1073	askari.sabbaghi@gmail.com	$2a$10$Sq4kHxLuSRiupwKwXtKPMOtmXjBIQiBXYHw.vQ4X.plRd3vcFyDpC	$2a$10$Sq4kHxLuSRiupwKwXtKPMO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:11:12.157826	2011-02-11 18:11:12.157826
 95	\N	Frank	Pochiro	864-295-4100		864-295-9642	westerncarolinas@premiergarage.com	$2a$10$jUfQAhje/wwFlOJQmDU43.ZWB1RxFFyyWqPLYsqpXHjjCfN8EDvYK	$2a$10$jUfQAhje/wwFlOJQmDU43.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:28:30.675844	2011-02-11 18:31:33.831547
+100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	sFOOttVpvUb20i7PZ23b	2011-03-11 22:09:45.84513	29	2011-03-30 19:07:28.090448	2011-03-29 20:13:15.679268	71.156.83.159	71.156.83.159	2011-02-18 00:30:51.948611	2011-03-30 19:07:28.091436
 49	\N	Kris	Nuttycombe	303-884-9954			kris@hylotech.com	$2a$10$auN9mhf3YPJqlsDpQQszKee3FvMmxMBr..NZyMV1ZwQSxke70Cs2G	$2a$10$auN9mhf3YPJqlsDpQQszKe	\N	l0l3vPYXIP5sYIzWV7IL	2011-03-16 16:46:13.436407	54	2011-03-29 20:23:39.560762	2011-03-25 00:59:27.747994	98.245.88.239	204.144.184.242	2011-01-01 19:06:38.040379	2011-03-29 20:23:39.561417
 102	\N	Jayson	Wilson		602-509-2147		jwilson@premiergarage.com	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/..Y0uOHPRnN4CD7hzfQPYXWc8dvO963m	$2a$10$q/fjYt2rGi1Bn4P.TxBZ/.	\N	\N	\N	53	2011-03-30 15:00:59.945977	2011-03-30 11:24:01.484958	174.79.54.226	174.79.54.226	2011-02-21 19:54:37.738913	2011-03-30 15:00:59.947093
 96	\N	Chip	Tighe	(714) 637-2100 	(949) 244-5610		chip@tailoredliving.com	$2a$10$SZiAzjcOaAvo6RvXaTEgQOZGvWI5vl2eOKqvDmdsRHPqhn254Z/Iq	$2a$10$SZiAzjcOaAvo6RvXaTEgQO	\N	\N	\N	3	2011-03-23 21:29:21.748308	2011-02-22 19:00:51.544035	67.203.136.36	67.203.136.36	2011-02-16 17:56:01.176257	2011-03-23 21:31:37.187492
 79	\N	Jay	Feingold	(201)487-8989		(201)487-8980	jfeingold@tailoredliving.com	$2a$10$3fSZb2MykWeLn53mcZ7lTe0/BUHil5vwyGUb.v9uZ7y/f47y1euQi	$2a$10$3fSZb2MykWeLn53mcZ7lTe	\N	\N	\N	12	2011-03-30 15:20:09.241253	2011-03-22 15:35:20.650445	96.242.250.77	108.58.227.38	2011-02-11 16:16:07.72259	2011-03-30 15:23:02.632398
-100	\N	Tom	Fleming	317-842-4272			tfleming@tailoredliving.com	$2a$10$6gL57eeE.8FY0zX5TXC30.jDWwi7IO0H6CPeAp8caOnPCfF8W/eX6	$2a$10$6gL57eeE.8FY0zX5TXC30.	\N	sFOOttVpvUb20i7PZ23b	2011-03-11 22:09:45.84513	28	2011-03-29 20:13:15.679268	2011-03-25 19:47:20.381005	71.156.83.159	71.156.83.159	2011-02-18 00:30:51.948611	2011-03-29 20:13:15.68024
 88	\N	Andrew	Amenta	(239) 949-5584		(239) 949-9923	swflorida@premiergarage.com	$2a$10$.cjW.GOIh3sr0CnoZA2NHOcGe3R0xoVPCQQnE2.EJ5JRZEp2pW8aW	$2a$10$.cjW.GOIh3sr0CnoZA2NHO	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 18:03:58.211053	2011-03-04 15:54:26.992475
 78	\N	Dave	Galt	(701)281-0558		(701)281-0568	dgalt@tailoredliving.com	$2a$10$1kCTBmCuZB59.p7hZJkB..d/caHKpVhCKai4Uo6lJclobHPQjqgEi	$2a$10$1kCTBmCuZB59.p7hZJkB..	\N	\N	\N	2	2011-02-17 18:20:16.439636	2011-02-15 15:08:08.270598	69.178.221.211	69.178.221.211	2011-02-11 16:13:15.331096	2011-02-17 18:20:16.440675
 74	\N	Brian	Marine	(651)454-1315		(651)454-1336	bmarine@tailoredliving.com	$2a$10$pffsNm.4PZuDLiVHiBddFuXzrxU9eo1HVpod7eimQCtZDXANWhkua	$2a$10$pffsNm.4PZuDLiVHiBddFu	\N	\N	\N	2	2011-03-03 13:53:44.861619	2011-03-02 16:11:59.30949	75.168.197.137	75.168.197.137	2011-02-11 16:01:44.01807	2011-03-03 13:53:44.862477
