@@ -88,6 +88,7 @@ class JobsController < ApplicationController
       @job.status = 'Created'
       @job.customer = current_user
       @job.primary_contact = current_user
+      @job.source = 'dvinci'
 
       respond_to do |format|
         if @job.save

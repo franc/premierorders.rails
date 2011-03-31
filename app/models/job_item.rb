@@ -104,10 +104,9 @@ class JobItem < ActiveRecord::Base
     end
     
     case pricing_cache_status.to_sym
-      when :ok then computed_unit_price - unit_hardware_cost
-      when :error then 0
-      when :not_computed 
-        unit_price.nil? ? 0 : unit_price - unit_hardware_cost
+      when :ok            then computed_unit_price - unit_hardware_cost
+      when :error         then 0
+      when :not_computed  then (unit_price.nil? || item.nil?) ? 0 : unit_price - unit_hardware_cost
     end
   end
 
@@ -139,7 +138,7 @@ class JobItem < ActiveRecord::Base
     price_query_context = ItemQueries::QueryContext.new(
       :units => units, 
       :color => color.orSome(nil),
-      :bulk  => item && item.kind_of?(Items::BulkItem) && item.bulk_qty > 0
+      :bulk  => job.source == 'catalog' && item && item.kind_of?(Items::BulkItem) 
     )
 
     cup = compute_unit_price(price_query_context)
