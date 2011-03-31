@@ -15,11 +15,11 @@ class Items::ShellHorizontalPanel < ItemComponent
     [MARGIN]
   end
 
-  def cost_expr(units, color, contexts)
-    component.cost_expr(units, color, contexts, W, D).map do |component_cost|
-      edge_cost = edgeband_cost_expr({:left => D, :right => D, :rear => W, :front => W}, units, color)
-      subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(term(quantity), subtotal))
+  def cost_expr(query_context)
+    component.cost_expr(query_context, W, D).map do |component_cost|
+      edge_cost = edgeband_cost_expr({:left => D, :right => D, :rear => W, :front => W}, query_context.units, query_context.color)
+      subtotal = edge_cost.map{|c| component_cost + c}.orSome(component_cost)
+      apply_margin(qty_expr(query_context) * subtotal)
     end
   end
 end

@@ -74,6 +74,7 @@ class Item < ActiveRecord::Base
   def self.item_types 
     [
       Item,
+      Items::BulkItem,
       Items::Cabinet,
       Items::CornerCabinet,
       Items::Countertop,
@@ -129,51 +130,54 @@ class Item < ActiveRecord::Base
     Option.new(rebate_factor).map{|f| div(expr, term(f))}.orSome(expr)
   end
 
-  def retail_price_expr(units, color, contexts)
-    wholesale_price_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+  def retail_price_expr(query_context)
+    wholesale_price_expr(query_context).map{|e| apply_retail_multiplier(e)}
+  end
+
+  def sell_price_expr(query_context)
+    Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}
   end
 
   # For the wholesale price, any explicit sell price value will override
   # a price derived from assembly component values
-  def wholesale_price_expr(units, color, contexts)
-    Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}.orElseLazy do
-      rebated_cost_expr(units, color, contexts)
+  def wholesale_price_expr(query_context)
+    sell_price_expr(query_context).orElseLazy do
+      rebated_cost_expr(query_context)
     end
   end
 
-  def rebated_cost_expr(units, color, contexts)
-    cost_expr(units, color, contexts).map{|e| apply_rebate_factor(e)}
+  def rebated_cost_expr(query_context)
+    cost_expr(query_context).map{|e| apply_rebate_factor(e)}
   end
 
-  def cost_expr(units, color, contexts)
-    base_expr = Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}.to_a
-    property_pricing = self.property_pricing_expr(units).to_a
+  def base_cost_expr(query_context)
+    Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}
+  end
+
+  def cost_expr(query_context)
+    linear_surcharge = self.linear_surcharge_expr(query_context).to_a
     
-    selected_component_associations = if contexts.nil? || contexts.empty?
+    selected_component_associations = if query_context.component_contexts.empty?
       item_components
     else
-      # Find each component association where the context list for that association
+      # Find each component association where the query_context list for that association
       # contains at least one of the contexts specified to this method.
       item_components.select do |comp|
-        (comp.contexts - contexts).size < comp.contexts.size
+        (comp.contexts - query_context.component_contexts).size < comp.contexts.size
       end
     end
 
     component_exprs = selected_component_associations.inject([]) do |exprs, assoc| 
-      assoc.cost_expr(units, color, contexts).map{|e| exprs << e}.orSome(exprs)
+      assoc.cost_expr(query_context).map{|e| exprs << e}.orSome(exprs)
     end
 
-    subtotal_exprs = base_expr + property_pricing + component_exprs + surcharge_exprs(units)
+    subtotal_exprs = base_cost_expr(query_context).to_a + linear_surcharge + component_exprs + surcharge_exprs(query_context.units)
     if subtotal_exprs.empty?
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
     else
       Option.some(apply_margin(sum(*subtotal_exprs)))
     end
-  end
-
-  def component_contexts
-    item_components.inject([]) {|contexts, comp| contexts + comp.contexts}.uniq
   end
 
   def color_opts
@@ -229,16 +233,16 @@ class Item < ActiveRecord::Base
     {:missing => absent, :broken => broken}
   end
 
-  def query(item_query, contexts)
-    item_query.traverse_item(self, contexts)
+  def query(item_query, query_context)
+    item_query.traverse_item(self, query_context)
   end
 
-  def weight_expr(units, contexts)
-    query(ItemQueries::PropertySum.new(units){|item| item.weight}, contexts)
+  def weight_expr(query_context)
+    query(ItemQueries::PropertySum.new(&:weight), query_context)
   end
 
-  def install_cost_expr(units, contexts)
-    query(ItemQueries::PropertySum.new(units){|item| item.install_cost}, contexts)
+  def install_cost_expr(query_context)
+    query(ItemQueries::PropertySum.new(&:install_cost), query_context)
   end
 
   def next_item

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323184504) do
+ActiveRecord::Schema.define(:version => 20110331211131) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20110323184504) do
     t.string   "category"
     t.boolean  "in_catalog",                                                    :default => false
     t.string   "ship_by",                                                       :default => "standard"
+    t.integer  "bulk_qty"
   end
 
   create_table "job_item_components", :force => true do |t|
@@ -187,7 +188,7 @@ ActiveRecord::Schema.define(:version => 20110323184504) do
   end
 
   create_table "jobs", :force => true do |t|
-    t.integer  "franchisee_id",                                            :null => false
+    t.integer  "franchisee_id",                                               :null => false
     t.integer  "customer_id"
     t.integer  "shipping_address_id"
     t.string   "name"
@@ -212,6 +213,7 @@ ActiveRecord::Schema.define(:version => 20110323184504) do
     t.text     "notes"
     t.integer  "billing_address_id"
     t.string   "type",                                  :default => "Job"
+    t.string   "source",                                :default => "dvinci"
   end
 
   create_table "production_batches", :force => true do |t|

@@ -47,15 +47,14 @@ class Items::ConfiguredItem < Item
   end
 
   # Override rebated cost expression; no rebate on sushi list items.
-  def rebated_cost_expr(units, color, contexts)
-    cost_expr(units, color, contexts)
+  def rebated_cost_expr(query_context)
+    cost_expr(query_context)
   end
 
-  def cost_expr(units, color, contexts)
-    use_color = Option.new(color).orElse(dvinci_color_code).orSome(nil)
-    base_expr = super(units, use_color, contexts)
-    base_expr.map do |expr|
-      area.map{|v| v.replace_variables(expr, units)}.orSome(expr)
+  def cost_expr(query_context)
+    ctx = query_context.left_merge(:color => dvinci_color_code)
+    super(ctx).map do |expr|
+      area.map{|v| v.replace_variables(expr, ctx.units)}.orSome(expr)
     end
   end
 end

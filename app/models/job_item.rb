@@ -124,10 +124,24 @@ class JobItem < ActiveRecord::Base
   # weight
   # hardware_cost
   def update_cached_values(units = :in)
-    cache_inventory_hardware_components(units)
     self.cache_calculation_units = units.to_s
 
-    cup = compute_unit_price(units)
+    # hardware components of the associated item are queried in a non-bulk context
+    cache_inventory_hardware_components(
+      ItemQueries::QueryContext.new(
+        :units => units, 
+        :color => color.orSome(nil)
+      )
+    )
+
+    # directly purchased hardware is queried in a bulk context
+    price_query_context = ItemQueries::QueryContext.new(
+      :units => units, 
+      :color => color.orSome(nil),
+      :bulk  => job.source == 'catalog' && item && item.kind_of?(Items::BulkItem) 
+    )
+
+    cup = compute_unit_price(price_query_context)
     self.computed_unit_price = cup.bind{|r| r.right.toOption}.orSome(nil)
     self.pricing_cache_status = cup.cata(
       lambda {|r| r.cata(
@@ -138,14 +152,14 @@ class JobItem < ActiveRecord::Base
     )
 
     self.unit_hardware_cost = compute_hardware_cost
-    self.unit_install_cost = compute_install_cost(units).bind{|r| r.right.toOption}.orSome(nil)
-    self.unit_weight = compute_weight(units).bind{|r| r.right.toOption}.orSome(nil)
+    self.unit_install_cost = compute_install_cost(price_query_context).bind{|r| r.right.toOption}.orSome(nil)
+    self.unit_weight = compute_weight(price_query_context).bind{|r| r.right.toOption}.orSome(nil)
   end
 
-  def compute_unit_price(units = :in)
+  def compute_unit_price(query_context)
     computed_unit_price = Option.new(item).bind do |i|
       begin
-        i.wholesale_price_expr(units, color.orSome(nil), []).map {|expr| dimension_eval(expr)}
+        i.wholesale_price_expr(query_context).map {|expr| dimension_eval(expr)}
       rescue
         logger.error "Error computing unit price: #{$!.message}\n #{$!.backtrace.join("\n")}"
         Option.some(Either.left($!.message))
@@ -161,10 +175,10 @@ class JobItem < ActiveRecord::Base
     end
   end
 
-  def compute_install_cost(units = :in)
+  def compute_install_cost(query_context)
     Option.new(item).bind do |i|
       begin
-        i.install_cost_expr(units, []).map {|expr| dimension_eval(expr)}
+        i.install_cost_expr(query_context).map {|expr| dimension_eval(expr)}
       rescue
         logger.error "Error computing install cost: #{$!.message}\n #{$!.backtrace.join("\n")}"
         Option.some(Either.left($!.message))
@@ -172,10 +186,10 @@ class JobItem < ActiveRecord::Base
     end
   end
 
-  def compute_weight(units = :in)
+  def compute_weight(query_context)
     Option.new(item).bind do |i|
       begin
-        i.weight_expr(units, []).map {|expr| dimension_eval(expr)}
+        i.weight_expr(query_context).map {|expr| dimension_eval(expr)}
       rescue
         logger.error "Error computing weight: #{$!.message}\n #{$!.backtrace.join("\n")}"
         Option.some(Either.left($!.message))
@@ -197,14 +211,14 @@ class JobItem < ActiveRecord::Base
     :ok
   ]
 
-  def cache_inventory_hardware_components(units = :in)
+  def cache_inventory_hardware_components(query_context)
     hardware_query = ItemQueries::HardwareQuery.new do |i|
       i.purchasing == 'Inventory'
     end
 
     if item
       job_item_components.clear
-      item.query(hardware_query, []).each do |item_hardware| 
+      item.query(hardware_query, query_context).each do |item_hardware| 
         # There is a bug here. Since the expression for the quantity expression may be derived
         # from a deep traversal of the assembly tree, and since the traversal of the assembly tree
         # may result in a function being applied to a dimension variable along the way, that function
@@ -216,12 +230,12 @@ class JobItem < ActiveRecord::Base
         # Too complicated to tackle just now.
 
         component = self.job_item_components.create(:item => item_hardware.component)
-        dimension_eval(item_hardware.qty_expr(units)).cata(
+        dimension_eval(item_hardware.qty_expr(query_context)).cata(
           lambda {|err| component.qty_calc_err = err},
           lambda {|qty| component.quantity = qty}
         )
 
-        item_hardware.component.cost_expr(units, color.orSome(nil), []).each do |expr|
+        item_hardware.component.cost_expr(query_context).each do |expr|
           dimension_eval(expr).cata(
             lambda{|err|  component.cost_calc_err = err},
             lambda{|cost| component.unit_cost = cost}

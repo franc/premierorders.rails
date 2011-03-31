@@ -29,15 +29,15 @@ class Items::Panel < Item
     MATERIAL
   end
 
-  def cost_expr(units, color, contexts, l_expr = L, w_expr = W)
-    material_cost = material(MATERIAL, color).cost_expr(
+  def cost_expr(query_context, l_expr = L, w_expr = W)
+    material_cost = material(MATERIAL, query_context.color).cost_expr(
       length.map{|l| term(l)}.orSome(l_expr), 
       width.map{|w| term(w)}.orSome(w_expr), 
-      units
+      query_context.units
     )
 
     item_total = apply_margin(material_cost)
 
-    super(units, color, contexts).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    super(query_context).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end

@@ -22,15 +22,15 @@ class Items::CabinetShelf < ItemComponent
     properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
   end
 
-  def qty_expr(units)
-    r_qtys.empty? ? term(quantity) : sum(*r_qtys.map{|v| v.expr(units)})
+  def qty_expr(query_context)
+    r_qtys.empty? ? term(quantity) : sum(*r_qtys.map{|v| v.expr(query_context.units)})
   end
 
-  def cost_expr(units, color, contexts)
-    component.cost_expr(units, color, contexts, W, D).map do |component_cost|
-      edge_cost = edgeband_cost_expr({:front => W}, units, color)
+  def cost_expr(query_context)
+    component.cost_expr(query_context, W, D).map do |component_cost|
+      edge_cost = edgeband_cost_expr({:front => W}, query_context.units, query_context.color)
       subtotal = edge_cost.map{|c| sum(component_cost, c)}.orSome(component_cost)
-      apply_margin(mult(qty_expr(units), subtotal))
+      apply_margin(qty_expr(query_context) * subtotal)
     end
   end
 end

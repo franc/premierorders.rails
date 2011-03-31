@@ -7,8 +7,8 @@
         {units: $("#price_expr_units").val(), color:$("#price_expr_color").val()}, 
         function(data) {
           $("#pricing_expression").children().remove();
-          $("#pricing_expression").append('<dt><%=@item.name%> Sales Price</dt><dd>'+data.retail_price_expr+'</dd>');
-          $("#pricing_expression").append('<dt><%=@item.name%> Cost</dt><dd>'+data.cost_expr+'</dd>');
+          $("#pricing_expression").append('<dt><%=@item.name.gsub(/'/,"\\'")%> Sales Price</dt><dd>'+data.retail_price_expr+'</dd>');
+          $("#pricing_expression").append('<dt><%=@item.name.gsub(/'/,"\\'")%> Cost</dt><dd>'+data.cost_expr+'</dd>');
           for (var i = 0; i < data.components.length; i++) {
             $("#pricing_expression").append('<dt>'+data.components[i].name+' Cost</dt><dd>'+data.components[i].cost_expr+'</dd>');
           }
@@ -103,6 +103,8 @@
     <dd><%= @item.base_price %></dd>
     <dt><%= label :item, :sell_price %></dt>
     <dd><%= @item.sell_price %></dd>
+    <dt><%= label :item, :bulk_qty %></dt>
+    <dd><%= @item.bulk_qty %></dd>
     <dt><%= label :item, :rebate_factor %></dt>
     <dd><%= @item.rebate_factor %></dd>
     <dt><%= label :item, :retail_multiplier %></dt>

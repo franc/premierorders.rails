@@ -16,7 +16,8 @@ class CatalogOrdersController < ApplicationController
       :primary_contact_id => params[:primary_contact_id],
       :shipping_address_id => params[:shipping_address_id],
       :billing_address_id => params[:billing_address_id],
-      :status => 'Created'
+      :status => 'Created',
+      :source => 'catalog'
     )
     
     respond_to do |format|
@@ -50,7 +51,8 @@ class CatalogOrdersController < ApplicationController
       sell_price = item.sell_price
       if sell_price.nil?
         sell_price = begin
-          item.wholesale_price_expr(:in, nil, []).map{|expr| expr.evaluate({})}.orSome(item.base_price)
+          query_context = ItemQueries::QueryContext.new(:units => :in, :bulk => true)
+          item.wholesale_price_expr(query_context).map{|expr| expr.evaluate({})}.orSome(item.base_price)
         rescue
           logger.error("Error calculating price for item: #{item.name}: #{$!}")
           logger.error($!.backtrace[0])

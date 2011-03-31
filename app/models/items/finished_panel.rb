@@ -28,18 +28,18 @@ class Items::FinishedPanel < Item
     W
   end
 
-  def cost_expr(units, color, contexts)
+  def cost_expr(query_context)
     edgeband_cost = if !self.class.respond_to?(:banded_edges) || self.class.banded_edges.empty? 
       Option.none()
     else
-      edgeband_cost_expr(self.class.banded_edges, units, color)
+      edgeband_cost_expr(self.class.banded_edges, query_context.units, query_context.color)
     end
 
-    material_cost = material(Items::Panel::MATERIAL, color).cost_expr(l_expr, w_expr, units)
+    material_cost = material(Items::Panel::MATERIAL, query_context.color).cost_expr(l_expr, w_expr, query_context.units)
     subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
     item_total = apply_margin(subtotal)
     
-    super(units, color, contexts).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
   end
 end
 
