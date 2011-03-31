@@ -125,11 +125,24 @@ class JobItem < ActiveRecord::Base
   # weight
   # hardware_cost
   def update_cached_values(units = :in)
-    query_context = ItemQueries::QueryContext.new(:units => units, :color => color.orSome(nil))
-    cache_inventory_hardware_components(query_context)
     self.cache_calculation_units = units.to_s
 
-    cup = compute_unit_price(query_context)
+    # hardware components of the associated item are queried in a non-bulk context
+    cache_inventory_hardware_components(
+      ItemQueries::QueryContext.new(
+        :units => units, 
+        :color => color.orSome(nil)
+      )
+    )
+
+    # directly purchased hardware is queried in a bulk context
+    price_query_context = ItemQueries::QueryContext.new(
+      :units => units, 
+      :color => color.orSome(nil),
+      :bulk  => item && item.kind_of?(Items::BulkItem) && item.bulk_qty > 0
+    )
+
+    cup = compute_unit_price(price_query_context)
     self.computed_unit_price = cup.bind{|r| r.right.toOption}.orSome(nil)
     self.pricing_cache_status = cup.cata(
       lambda {|r| r.cata(
@@ -140,8 +153,8 @@ class JobItem < ActiveRecord::Base
     )
 
     self.unit_hardware_cost = compute_hardware_cost
-    self.unit_install_cost = compute_install_cost(query_context).bind{|r| r.right.toOption}.orSome(nil)
-    self.unit_weight = compute_weight(query_context).bind{|r| r.right.toOption}.orSome(nil)
+    self.unit_install_cost = compute_install_cost(price_query_context).bind{|r| r.right.toOption}.orSome(nil)
+    self.unit_weight = compute_weight(price_query_context).bind{|r| r.right.toOption}.orSome(nil)
   end
 
   def compute_unit_price(query_context)

@@ -238,11 +238,11 @@ class Item < ActiveRecord::Base
   end
 
   def weight_expr(query_context)
-    query(ItemQueries::PropertySum.new(query_context.units){|item| item.weight}, query_context)
+    query(ItemQueries::PropertySum.new(&:weight), query_context)
   end
 
   def install_cost_expr(query_context)
-    query(ItemQueries::PropertySum.new(query_context.units){|item| item.install_cost}, query_context)
+    query(ItemQueries::PropertySum.new(&:install_cost), query_context)
   end
 
   def next_item

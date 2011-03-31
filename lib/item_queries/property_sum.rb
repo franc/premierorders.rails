@@ -5,12 +5,9 @@ module ItemQueries
   class PropertySum < ItemQuery
     include Expressions
 
-    def initialize(units, &prop)
+    def initialize(&prop)
       super(Monoid::OptionM.new(Semigroup::SUM))
       @prop = prop
-      @units = units.orLazy do 
-        "Units must be specified to query for a property sum."
-      end
     end
 
     def query_item(item)
@@ -18,7 +15,7 @@ module ItemQueries
     end
 
     def query_item_component(assoc, query_context)
-      assoc.component.query(self, query_context).map{|expr| assoc.qty_expr(@units) * expr}
+      assoc.component.query(self, query_context).map{|expr| assoc.qty_expr(query_context) * expr}
     end
   end
 end
