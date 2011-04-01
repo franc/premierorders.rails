@@ -17,6 +17,8 @@ PgRails::Application.routes.draw do
   devise_for :users
 
   match 'items/search' => 'items#search'
+  match 'items/sort'                            => 'items#sort'
+  match 'items/sorting'                         => 'items#sorting'
   match 'items/add_property_form'               => 'items#add_property_form'
   match 'items/add_component_form'              => 'items#add_component_form'
   match 'items/:mod/property_descriptors'       => 'items#property_descriptors'

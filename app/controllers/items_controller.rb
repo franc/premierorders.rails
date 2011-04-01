@@ -41,18 +41,25 @@ class ItemsController < ApplicationController
     end
   end
 
-  def dup
-    @new_item = @item.clone
+  def sorting
+    authorize! :manage, Item
+    @items = Item.where(:in_catalog => true).order(:position)
 
-    if @new_item.save
-      @item.item_properties.each do |p| 
-        @new_item.item_properties.create(:property_id => p.property_id, :qualifier => p.qualifier)
-      end
+    respond_to do |format|
+      format.html 
+    end
+  end
 
-      if request.xhr?
-        render :json => {:new_id => @new_item.id}
+  def sort
+    authorize! :manage, Item
+    @items = Item.where(:in_catalog => true).order(:position)
+    @items.each do |item|
+      if position = params[:item_sorting].index(item.id.to_s)
+        item.update_attribute(:position, position + 1) unless item.position == position + 1
       end
     end
+
+    render :nothing => true, :status => 200
   end
 
   # GET /items/1

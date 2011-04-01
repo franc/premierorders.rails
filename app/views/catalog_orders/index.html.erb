@@ -128,7 +128,7 @@
             $(".item_qty_field", row).change();
           }
 
-          $(".totals_row").before(row);
+          $("#item_rows").append(row);
           row.show();
         }
       };
@@ -296,14 +296,16 @@
       <th>Quantity</th>
       <th>Total</th>
     </tr>
-    <tr class="prototype_item_row" style="display:none">
-      <td class="item_name"></td>
-      <td class="item_drop_ship"></td>
-      <td class="item_purchase_part_id"></td>
-      <td class="item_price"></td>
-      <td class="item_qty"><input type="text" class="item_qty_field" value="0" size="4"/></td>
-      <td class="item_total"></td>
-    </tr>
+    <tbody id="item_rows">
+      <tr class="prototype_item_row" style="display:none">
+        <td class="item_name"></td>
+        <td class="item_drop_ship"></td>
+        <td class="item_purchase_part_id"></td>
+        <td class="item_price"></td>
+        <td class="item_qty"><input type="text" class="item_qty_field" value="0" size="4"/></td>
+        <td class="item_total"></td>
+      </tr>
+    </tbody>
     <tr class="totals_row">
       <th colspan="5">Totals</th>
       <th id="items_total"></th>
