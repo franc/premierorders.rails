@@ -634,7 +634,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 7767, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 7799, true);
 
 
 --
@@ -681,7 +681,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 18978, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 19004, true);
 
 
 --
@@ -739,7 +739,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 12079, true);
+SELECT pg_catalog.setval('job_items_id_seq', 12097, true);
 
 
 --
@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 649, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 651, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 703, true);
+SELECT pg_catalog.setval('jobs_id_seq', 705, true);
 
 
 --
@@ -7772,6 +7772,8 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1100	220	3949	0.04	\N	2	\N	2011-03-10 18:59:34.225743	2011-03-10 18:59:34.244885
 1102	220	3950	0.04	\N	2	\N	2011-03-10 18:59:34.590277	2011-03-10 18:59:34.608947
 1104	218	3951	0.03	\N	2	\N	2011-03-10 18:59:34.948125	2011-03-10 18:59:35.175634
+7784	218	12089	0.03	\N	2	\N	2011-04-01 22:27:31.448514	2011-04-01 22:27:31.635883
+7785	218	12090	0.03	\N	2	\N	2011-04-01 22:27:31.888095	2011-04-01 22:27:31.912176
 1113	204	3940	0.21	\N	2	\N	2011-03-10 18:59:39.685033	2011-03-10 18:59:39.704897
 1114	203	3940	0.16	\N	2	\N	2011-03-10 18:59:39.707358	2011-03-10 18:59:39.725861
 1115	206	3940	0.01	\N	8	\N	2011-03-10 18:59:39.728306	2011-03-10 18:59:39.746537
@@ -7780,11 +7782,25 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1118	594	3940	0.09	\N	0	\N	2011-03-10 18:59:40.015113	2011-03-10 18:59:40.046267
 1119	595	3940	0.08	\N	0	\N	2011-03-10 18:59:40.048659	2011-03-10 18:59:40.076326
 1120	217	3940	0.02	\N	12	\N	2011-03-10 18:59:40.078506	2011-03-10 18:59:40.095461
+7786	592	12091	0.01	\N	16	\N	2011-04-01 22:27:32.225072	2011-04-01 22:27:32.3782
 1122	218	4023	0.03	\N	2	\N	2011-03-10 18:59:45.887754	2011-03-10 18:59:45.909975
+7787	9	12091	0.06	\N	12	\N	2011-04-01 22:27:32.381613	2011-04-01 22:27:32.409361
 1124	220	3998	0.04	\N	2	\N	2011-03-10 18:59:47.44509	2011-03-10 18:59:47.463699
+7788	593	12091	0.02	\N	8	\N	2011-04-01 22:27:32.413348	2011-04-01 22:27:32.444449
 1126	218	4024	0.03	\N	2	\N	2011-03-10 18:59:48.474694	2011-03-10 18:59:48.495414
+7789	12	12091	0.02	\N	4	\N	2011-04-01 22:27:32.447597	2011-04-01 22:27:32.464143
 1128	218	4025	0.03	\N	2	\N	2011-03-10 18:59:49.086769	2011-03-10 18:59:49.106288
+7790	6	12091	0.98	\N	8	\N	2011-04-01 22:27:32.467075	2011-04-01 22:27:32.643976
 1130	220	4028	0.04	\N	2	\N	2011-03-10 18:59:49.500047	2011-03-10 18:59:49.518226
+7791	199	12091	0.57	\N	8	\N	2011-04-01 22:27:32.647448	2011-04-01 22:27:32.673982
+7792	217	12091	0.02	\N	4	\N	2011-04-01 22:27:32.67734	2011-04-01 22:27:32.694877
+7793	12	12092	0.02	\N	4	\N	2011-04-01 22:27:34.152971	2011-04-01 22:27:34.174892
+7794	592	12092	0.01	\N	20	\N	2011-04-01 22:27:34.179353	2011-04-01 22:27:34.198184
+7795	9	12092	0.06	\N	12	\N	2011-04-01 22:27:34.201588	2011-04-01 22:27:34.227222
+7796	593	12092	0.02	\N	6	\N	2011-04-01 22:27:34.230232	2011-04-01 22:27:34.254186
+7797	6	12092	0.98	\N	4	\N	2011-04-01 22:27:34.422619	2011-04-01 22:27:34.454848
+7798	199	12092	0.57	\N	4	\N	2011-04-01 22:27:34.458297	2011-04-01 22:27:34.484202
+7799	217	12092	0.02	\N	3	\N	2011-04-01 22:27:34.487459	2011-04-01 22:27:34.504988
 5126	218	8132	0.03	\N	2	\N	2011-03-16 21:47:04.157208	2011-03-16 21:47:04.189262
 1132	220	4029	0.04	\N	2	\N	2011-03-10 18:59:50.150599	2011-03-10 18:59:50.171195
 5127	218	8133	0.03	\N	2	\N	2011-03-16 21:47:04.423547	2011-03-16 21:47:04.449185
@@ -14826,6 +14842,15 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 10682	6862	\N	dimensions	\N		{"linear_units":"in"}	2011-03-10 17:20:34.016742	2011-03-10 17:20:34.016742
 10683	6863	\N	dimensions	\N		{"linear_units":"in"}	2011-03-10 17:20:34.02771	2011-03-10 17:20:34.02771
 17839	11343	\N	dimensions	\N		{"linear_units":"in"}	2011-03-30 22:51:23.794928	2011-03-30 22:51:23.794928
+18992	12089	\N	dimensions	\N	Height,Width	{"height":"71.686000000000007","linear_units":"in","width":"20.875"}	2011-04-01 22:27:30.454535	2011-04-01 22:27:30.454535
+18993	12089	\N	color	\N	Color	{"color":"White"}	2011-04-01 22:27:30.470067	2011-04-01 22:27:30.470067
+18994	12090	\N	dimensions	\N	Height,Width	{"height":"40.19","linear_units":"in","width":"23.875"}	2011-04-01 22:27:30.48058	2011-04-01 22:27:30.48058
+18995	12090	\N	color	\N	Color	{"color":"White"}	2011-04-01 22:27:30.651521	2011-04-01 22:27:30.651521
+18996	12091	\N	dimensions	\N	Depth,Height,Width	{"height":"40.314999999999998","linear_units":"in","width":"48","depth":"16"}	2011-04-01 22:27:30.948297	2011-04-01 22:27:30.948297
+18997	12091	\N	color	\N	Color	{"color":"White"}	2011-04-01 22:27:31.000124	2011-04-01 22:27:31.000124
+18998	12092	\N	dimensions	\N	Depth,Height,Width	{"height":"71.811000000000007","linear_units":"in","width":"21","depth":"16"}	2011-04-01 22:27:31.29346	2011-04-01 22:27:31.29346
+18999	12092	\N	color	\N	Color	{"color":"White"}	2011-04-01 22:27:31.343863	2011-04-01 22:27:31.343863
+19000	12093	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 22:27:31.355064	2011-04-01 22:27:31.355064
 11783	7564	\N	dimensions	\N	Width,Height	{"height":"75.465999999999994","linear_units":"in","width":"23.875"}	2011-03-15 01:42:04.381811	2011-03-15 01:42:04.381811
 11784	7564	\N	color	\N	Color	{"color":"Hardrock Maple"}	2011-03-15 01:42:04.407069	2011-03-15 01:42:04.407069
 11785	7565	\N	dimensions	\N	Width,Height	{"height":"30.111000000000001","linear_units":"in","width":"23.875"}	2011-03-15 01:42:04.418895	2011-03-15 01:42:04.418895
@@ -17182,6 +17207,10 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 18107	11537	\N	dimensions	\N		{"linear_units":"in"}	2011-03-31 18:27:27.228823	2011-03-31 18:27:27.228823
 18108	11538	\N	dimensions	\N		{"linear_units":"in"}	2011-03-31 18:27:27.240225	2011-03-31 18:27:27.240225
 18109	11539	\N	dimensions	\N		{"linear_units":"in"}	2011-03-31 18:27:27.251532	2011-03-31 18:27:27.251532
+19001	12094	\N	dimensions	\N	Height,Width	{"height":"12","linear_units":"in","width":"96"}	2011-04-01 22:27:31.367017	2011-04-01 22:27:31.367017
+19002	12095	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 22:27:31.37899	2011-04-01 22:27:31.37899
+19003	12096	\N	dimensions	\N	Height,Width	{"height":"24","linear_units":"in","width":"96"}	2011-04-01 22:27:31.391136	2011-04-01 22:27:31.391136
+19004	12097	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 22:27:31.402431	2011-04-01 22:27:31.402431
 14219	9084	\N	dimensions	\N	Depth,Width	{"linear_units":"in","depth":"24.000","width":"46.500"}	2011-03-21 19:50:24.814244	2011-03-21 19:50:24.814244
 14220	9084	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-21 19:50:24.825944	2011-03-21 19:50:24.825944
 14221	9085	\N	dimensions	\N	Depth,Width	{"linear_units":"in","depth":"24.000","width":"66.625"}	2011-03-21 19:50:24.907017	2011-03-21 19:50:24.907017
@@ -24232,6 +24261,15 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8780	539	45	000.931.011.005.00M	8		2011-03-21 17:04:19.52569	2011-04-01 19:56:05.000382	7.63	2	CL Adjustable Shelf | Wild Apple	\N	22	in	ok	6.69	0.00	0.03	\N	closet
 12038	703	554	000.910.362.001.00M	1		2011-04-01 17:55:07.325557	2011-04-01 19:56:18.729897	12.39	21	CL Hanging Partition - Square - Right | White	\N	\N	in	ok	12.39	0.00	0.05	\N	closet
 12074	703	101	000.803.056.200.00I	7		2011-04-01 17:55:08.80603	2011-04-01 19:56:18.943506	0.96	57	ZH Pole Cup | Polished Chrome	\N	\N	in	ok	0.96	0.00	0.01	\N	closet
+12095	705	646	000.990.320.10S.00I	1000	Need 1 box	2011-04-01 22:27:31.37409	2011-04-01 22:27:36.068516	0.03	7	ZH SlatWall Drywall Screws (1000/box) | White	\N	\N	in	ok	0.04	0.00	\N	\N	\N
+12096	705	647	000.990.320.10U.00I	12	Need 3 box (12 pieces)	2011-04-01 22:27:31.385795	2011-04-01 22:27:36.101727	6.53	8	ZH SlatWall U Edge Molding (4/box) | White	\N	\N	in	ok	5.22	0.00	\N	\N	\N
+12097	705	684	000.995.301.200.00I	4	Need 1 box	2011-04-01 22:27:31.397639	2011-04-01 22:27:36.131808	18.52	9	ZH The Loop Hook (4/box)	\N	\N	in	ok	7.41	0.00	\N	\N	\N
+12089	705	516	000.100.000.001.00M	1		2011-04-01 22:27:30.449621	2011-04-01 22:27:31.86664	43.56	1	Door - Flat | White	\N	\N	in	ok	17.42	0.06	0.05	\N	\N
+12090	705	516	000.100.000.001.00M	2		2011-04-01 22:27:30.475977	2011-04-01 22:27:32.133571	32.67	2	Door - Flat | White	\N	\N	in	ok	13.07	0.06	0.05	\N	\N
+12091	705	258	000.302.443.001.00M	1		2011-04-01 22:27:30.804765	2011-04-01 22:27:33.900866	252.95	3	NX Over Cabinet 2 Door | White	\N	\N	in	ok	101.78	13.50	0.49	\N	\N
+12092	705	257	000.402.483.001.00M	1		2011-04-01 22:27:31.286571	2011-04-01 22:27:35.828259	187.49	4	NX Tall Cabinet 1 Door | White	\N	\N	in	ok	75.54	7.32	1.08	\N	\N
+12093	705	3	000.117.031.632.00I	3		2011-04-01 22:27:31.34982	2011-04-01 22:27:35.864213	2.69	5	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	\N
+12094	705	648	000.990.320.10W.00I	12	Need 3 box (12 pieces)	2011-04-01 22:27:31.361986	2011-04-01 22:27:35.896978	56.59	6	ZH SlatWall 12 x 96 (4/box) |White	\N	\N	in	ok	30.18	0.00	0.15	\N	\N
 \.
 
 
@@ -24533,6 +24571,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 647	701	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 15:46:34.050973	2011-04-01 15:46:34.050973
 648	702	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 15:53:13.615972	2011-04-01 15:53:13.615972
 649	703	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 17:55:06.342397	2011-04-01 17:55:06.342397
+651	705	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 22:27:30.442819	2011-04-01 22:27:30.442819
 \.
 
 
@@ -24541,7 +24580,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	335	2011-01-23 05:52:19.75042	2011-04-01 18:10:31.478492
+1	2011	336	2011-01-23 05:52:19.75042	2011-04-01 22:28:32.626782
 \.
 
 
@@ -25087,6 +25126,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 672	9	9	13	Mackow	SO-310	\N	2011-03-31 03:12:45.333554	2011-03-31 18:48:20.41156	Mackow, Mike Parts List.xls	application/octet-stream	21009	2011-03-31 03:12:45.329781	Phoenix	Confirmed	2011-04-15	\N		2011-03-31 03:14:51	9		PremierRoute	9	NX Bronze, CS	13	Job	\N
 487	37	67	46	Adam Garage	SO-214	\N	2011-03-16 21:46:59.688773	2011-04-01 16:51:41.298861	Adam Final Garage Design Parts List.xml	text/xml	17547	2011-03-16 21:46:59.684937	Phoenix	Shipped	2011-03-31	2011-04-01	This is my first order using the new website. I am pretty sure that everything is correct. Please have a confirmation email sent to me when this is being made.\r\n\r\nThanks	2011-03-16 21:50:22	67		PremierRoute	67	Pewter, CS\r\n\r\n3/18/2011 sent and email to Greg, to verify that he did not need any hardware with this order.YQ\r\n3/22/11 RECEIVED an email from Greg,\r\nverified that he did not need any hardware.	46	Job	\N
 691	28	103	36	Louis	SO-324	\N	2011-04-01 12:33:47.5275	2011-04-01 17:50:31.693594	Louis Cochius Parts List.xls	application/vnd.ms-excel	41963	2011-04-01 12:33:47.522379	Phoenix	Confirmed	2011-04-15	\N		2011-04-01 12:34:42	103		PremierRoute	103	White, CS	36	Job	dvinci
+705	37	67	46	Lang Garage	SO-336	\N	2011-04-01 22:27:30.294167	2011-04-01 22:28:32.631707	Lang Order List.xml	text/xml	12087	2011-04-01 22:27:30.291856	\N	Placed	\N	\N	Please confirm and include inventory items requested.	2011-04-01 22:28:32	67	\N	\N	67	\N	\N	Job	dvinci
 582	23	22	27	Blin, Tim	SO-260	\N	2011-03-23 15:43:21.453833	2011-04-01 20:27:11.326883	Carson Panels Parts List.xml	text/xml	6990	2011-03-23 15:43:21.451886	Phoenix	Ready For Production	2011-04-07	\N		2011-03-23 15:43:34	22		PremierRoute	22	White, CS	27	Job	\N
 381	18	17	21	Cole 348	SO-166	\N	2011-03-09 03:23:09.967296	2011-03-29 13:30:41.636699	Cole2.dvi Parts List.xml	text/xml	23130	2011-03-09 03:23:09.965364	Phoenix	Shipped	2011-03-25	2011-03-29	Please replace DR1 Decore drawer faces (qty 14)with Decore DR31 drawer faces.	2011-03-09 03:24:44	17		PremierRoute	17	3/10 sent email to Peter/Wendy on DR 31, replacement door and box amount on #1070. CS\r\n3/10 wants DRS 131, 1 box of #1070 and replacement drawer box is not a warranty. CS\r\n\r\nWhite, CS	21	\N	\N
 584	23	22	27	Eggleston, Dawn	SO-261	\N	2011-03-23 15:50:19.473409	2011-04-01 20:46:55.317557	Eggleston, Dawn Parts List.xml	text/xml	31988	2011-03-23 15:50:19.471277	Phoenix	Ready For Production	2011-04-07	\N		2011-03-23 15:52:12	22		PremierRoute	22	White, CS	27	Job	\N
