@@ -45,6 +45,7 @@ class Item < ActiveRecord::Base
     string :category
     string :purchase_part_id
     string :cutrite_id
+    integer :position
     boolean :in_catalog
   end
 

@@ -23,6 +23,7 @@ class ItemsController < ApplicationController
         with(:in_catalog).equal_to(true) unless params[:in_catalog].blank?
         keywords(params[:search])
         paginate(:page => params[:page], :per_page => 50)
+        order_by(:position)
       end 
 
       @items = @search.results
@@ -33,7 +34,7 @@ class ItemsController < ApplicationController
 
       @items = conditions.empty? ? @items : @items.where(conditions.to_hash)
       @items = @items.where(:in_catalog => true) unless params[:in_catalog].blank?
-      @items = @items.order(:name).paginate(:page => params[:page], :per_page => 50)
+      @items = @items.order(:position, :name).paginate(:page => params[:page], :per_page => 50)
     end
 
     respond_to do |format|
