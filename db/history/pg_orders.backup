@@ -634,7 +634,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 7799, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 7808, true);
 
 
 --
@@ -681,7 +681,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 19004, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 19014, true);
 
 
 --
@@ -739,7 +739,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 12097, true);
+SELECT pg_catalog.setval('job_items_id_seq', 12102, true);
 
 
 --
@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 651, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 652, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 705, true);
+SELECT pg_catalog.setval('jobs_id_seq', 706, true);
 
 
 --
@@ -7897,6 +7897,10 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 5195	6	8149	0.98	\N	4	\N	2011-03-16 21:47:21.193271	2011-03-16 21:47:21.221911
 5196	199	8149	0.57	\N	4	\N	2011-03-16 21:47:21.225369	2011-03-16 21:47:21.253216
 5197	217	8149	0.02	\N	4	\N	2011-03-16 21:47:21.256408	2011-03-16 21:47:21.426296
+7800	218	12099	0.03	\N	2	\N	2011-04-03 16:56:00.844698	2011-04-03 16:56:00.873404
+7801	592	12100	0.01	\N	24	\N	2011-04-03 16:56:01.182635	2011-04-03 16:56:01.371734
+7802	594	12100	0.09	\N	12	\N	2011-04-03 16:56:01.375333	2011-04-03 16:56:01.404596
+7803	595	12100	0.08	\N	12	\N	2011-04-03 16:56:01.408292	2011-04-03 16:56:01.434491
 1188	592	4033	0.01	\N	16	\N	2011-03-10 19:00:01.591751	2011-03-10 19:00:01.613405
 1189	9	4033	0.06	\N	8	\N	2011-03-10 19:00:01.616736	2011-03-10 19:00:01.857262
 1190	593	4033	0.02	\N	4	\N	2011-03-10 19:00:01.860626	2011-03-10 19:00:01.900005
@@ -7904,6 +7908,11 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 1192	6	4033	0.98	\N	2	\N	2011-03-10 19:00:01.924167	2011-03-10 19:00:01.95217
 1193	199	4033	0.57	\N	2	\N	2011-03-10 19:00:01.954866	2011-03-10 19:00:01.98365
 1194	217	4033	0.02	\N	2	\N	2011-03-10 19:00:01.98591	2011-03-10 19:00:02.201334
+7804	593	12100	0.02	\N	6	\N	2011-04-03 16:56:01.437833	2011-04-03 16:56:01.625796
+7805	12	12100	0.02	\N	4	\N	2011-04-03 16:56:01.630035	2011-04-03 16:56:01.650512
+7806	6	12100	0.98	\N	4	\N	2011-04-03 16:56:01.65401	2011-04-03 16:56:01.682632
+7807	199	12100	0.57	\N	4	\N	2011-04-03 16:56:01.686178	2011-04-03 16:56:01.710871
+7808	217	12100	0.02	\N	4	\N	2011-04-03 16:56:01.713974	2011-04-03 16:56:01.730292
 1202	592	4034	0.01	\N	16	\N	2011-03-10 19:00:05.064794	2011-03-10 19:00:05.086999
 1203	9	4034	0.06	\N	8	\N	2011-03-10 19:00:05.089552	2011-03-10 19:00:05.120427
 1204	593	4034	0.02	\N	6	\N	2011-03-10 19:00:05.122824	2011-03-10 19:00:05.155811
@@ -17440,6 +17449,16 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 18271	11635	\N	dimensions	\N		{"linear_units":"in"}	2011-03-31 21:32:29.282599	2011-03-31 21:32:29.282599
 18272	11636	\N	dimensions	\N		{"linear_units":"in"}	2011-03-31 21:32:29.297135	2011-03-31 21:32:29.297135
 18273	11637	\N	dimensions	\N		{"linear_units":"in"}	2011-03-31 21:32:29.309111	2011-03-31 21:32:29.309111
+19005	12098	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"28.125","depth":"29"}	2011-04-03 16:56:00.014751	2011-04-03 16:56:00.014751
+19006	12098	\N	color	\N	Color	{"color":"Carmel Apple"}	2011-04-03 16:56:00.031221	2011-04-03 16:56:00.031221
+19007	12099	\N	dimensions	\N	Height,Width	{"height":"30.111000000000001","linear_units":"in","width":"17.875"}	2011-04-03 16:56:00.042841	2011-04-03 16:56:00.042841
+19008	12099	\N	color	\N	Color	{"color":"Carmel Apple"}	2011-04-03 16:56:00.199063	2011-04-03 16:56:00.199063
+19009	12100	\N	dimensions	\N	Depth,Height,Width	{"height":"30.236000000000001","linear_units":"in","width":"36","depth":"13"}	2011-04-03 16:56:00.316833	2011-04-03 16:56:00.316833
+19010	12100	\N	color	\N	Color	{"color":"Carmel Apple"}	2011-04-03 16:56:00.537732	2011-04-03 16:56:00.537732
+19011	12101	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"18","depth":"14"}	2011-04-03 16:56:00.552664	2011-04-03 16:56:00.552664
+19012	12101	\N	color	\N	Color	{"color":"Carmel Apple"}	2011-04-03 16:56:00.567858	2011-04-03 16:56:00.567858
+19013	12102	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"96","depth":"1.5"}	2011-04-03 16:56:00.580844	2011-04-03 16:56:00.580844
+19014	12102	\N	color	\N	Color	{"color":"Carmel Apple"}	2011-04-03 16:56:00.594859	2011-04-03 16:56:00.594859
 18274	11638	\N	dimensions	\N	Width,Depth	{"width":"24","depth":"12","linear_units":"in"}	2011-03-31 22:38:19.165207	2011-03-31 22:38:19.165207
 18275	11638	\N	color	\N	Color	{"color":"White"}	2011-03-31 22:38:19.343709	2011-03-31 22:38:19.343709
 18276	11639	\N	dimensions	\N	Width,Depth	{"width":"30","depth":"12","linear_units":"in"}	2011-03-31 22:38:19.357739	2011-03-31 22:38:19.357739
@@ -24263,12 +24282,17 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 12095	705	646	000.990.320.10S.00I	1000	Need 1 box	2011-04-01 22:27:31.37409	2011-04-01 22:27:36.068516	0.03	7	ZH SlatWall Drywall Screws (1000/box) | White	\N	\N	in	ok	0.04	0.00	\N	\N	\N
 12096	705	647	000.990.320.10U.00I	12	Need 3 box (12 pieces)	2011-04-01 22:27:31.385795	2011-04-01 22:27:36.101727	6.53	8	ZH SlatWall U Edge Molding (4/box) | White	\N	\N	in	ok	5.22	0.00	\N	\N	\N
 12097	705	684	000.995.301.200.00I	4	Need 1 box	2011-04-01 22:27:31.397639	2011-04-01 22:27:36.131808	18.52	9	ZH The Loop Hook (4/box)	\N	\N	in	ok	7.41	0.00	\N	\N	\N
+12098	706	18	000.401.000.004.00M	1		2011-04-03 16:56:00.004621	2011-04-03 16:56:00.821648	10.46	1	CTOP - 3/4 in. melamine | Carmel Apple	\N	\N	in	ok	12.57	0.00	0.03	\N	\N
 12089	705	516	000.100.000.001.00M	1		2011-04-01 22:27:30.449621	2011-04-01 22:27:31.86664	43.56	1	Door - Flat | White	\N	\N	in	ok	17.42	0.06	0.05	\N	\N
 12090	705	516	000.100.000.001.00M	2		2011-04-01 22:27:30.475977	2011-04-01 22:27:32.133571	32.67	2	Door - Flat | White	\N	\N	in	ok	13.07	0.06	0.05	\N	\N
 12091	705	258	000.302.443.001.00M	1		2011-04-01 22:27:30.804765	2011-04-01 22:27:33.900866	252.95	3	NX Over Cabinet 2 Door | White	\N	\N	in	ok	101.78	13.50	0.49	\N	\N
 12092	705	257	000.402.483.001.00M	1		2011-04-01 22:27:31.286571	2011-04-01 22:27:35.828259	187.49	4	NX Tall Cabinet 1 Door | White	\N	\N	in	ok	75.54	7.32	1.08	\N	\N
 12093	705	3	000.117.031.632.00I	3		2011-04-01 22:27:31.34982	2011-04-01 22:27:35.864213	2.69	5	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	\N
 12094	705	648	000.990.320.10W.00I	12	Need 3 box (12 pieces)	2011-04-01 22:27:31.361986	2011-04-01 22:27:35.896978	56.59	6	ZH SlatWall 12 x 96 (4/box) |White	\N	\N	in	ok	30.18	0.00	0.15	\N	\N
+12099	706	516	000.100.000.004.00M	4		2011-04-03 16:56:00.037857	2011-04-03 16:56:01.085804	11.52	2	Door - Flat | Carmel Apple	\N	\N	in	ok	11.52	0.06	0.05	\N	\N
+12100	706	506	000.302.331.004.00M	2		2011-04-03 16:56:00.310807	2011-04-03 16:56:03.1182	78.61	3	HO Upper 2 Door | Carmel Apple	\N	\N	in	ok	78.61	8.69	1.08	\N	\N
+12101	706	45	000.931.981.004.00M	3		2011-04-03 16:56:00.545854	2011-04-03 16:56:03.173314	1.70	4	CL Adjustable Shelf | Carmel Apple	\N	\N	in	ok	5.11	0.00	0.03	\N	\N
+12102	706	48	000.934.091.004.00M	1		2011-04-03 16:56:00.574982	2011-04-03 16:56:03.354877	4.67	5	CL Top Shelf | Carmel Apple	\N	\N	in	ok	3.50	0.00	0.03	\N	\N
 \.
 
 
@@ -24571,6 +24595,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 648	702	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 15:53:13.615972	2011-04-01 15:53:13.615972
 649	703	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 17:55:06.342397	2011-04-01 17:55:06.342397
 651	705	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-01 22:27:30.442819	2011-04-01 22:27:30.442819
+652	706	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 16:55:59.896819	2011-04-03 16:55:59.896819
 \.
 
 
@@ -24579,7 +24604,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	336	2011-01-23 05:52:19.75042	2011-04-01 22:28:32.626782
+1	2011	337	2011-01-23 05:52:19.75042	2011-04-03 16:56:15.890597
 \.
 
 
@@ -25204,6 +25229,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 589	37	67	46	Henry Murphy Bed	SO-264	\N	2011-03-24 01:50:12.500209	2011-04-01 20:58:22.63585	Henry Murphy Bed Order.xml	text/xml	7011	2011-03-24 01:50:12.498406	Phoenix	Ready For Production	2011-04-11	\N	This is my first Murphy Bed order. Please add part numbers 10050 and 10051 to this. I understand fully that I will likely be purchasing the box quantity. Also I would like one box of part #10016 (nickel handles)	2011-03-24 01:54:02	67		PremierRoute	67	WHITE YQ	46	Job	\N
 628	35	65	43	Coryell Murphy bed	SO-292	\N	2011-03-28 23:25:42.180592	2011-04-01 17:32:45.430377	Coryelle murphy by Scott Parts List.xml	text/xml	36977	2011-03-28 23:25:42.176383	Phoenix	Cancelled	\N	\N	Customer has 14" mattress. Need long leg hardware to handle such	2011-03-28 23:27:47	65		PremierRoute	65	3/28/11 on hold per Eric. CS\r\n4/1/11 cancel order replaced with SO#320. CS	43	Job	\N
 383	6	31	9	Alpine	SO-168	\N	2011-03-09 20:48:41.967036	2011-04-01 18:30:37.238179	ALPINE STORAGE Parts List2.xml	text/xml	5665	2011-03-09 20:48:41.964875	Phoenix	Shipped	2011-03-25	2011-04-01		2011-03-09 20:49:37	31		PremierRoute	31	Pewter.  ** Needs 6 More Adjustable shelves ** for this cabinet	9	\N	\N
+706	4	4	6	CT - Office Uppers	SO-337	\N	2011-04-03 16:55:59.590996	2011-04-03 16:56:15.895013	Office Uppers.xml	application/octet-stream	10765	2011-04-03 16:55:59.587304	\N	Placed	\N	\N		2011-04-03 16:56:15	4	\N	\N	4	\N	\N	Job	dvinci
 522	9	9	13	Temple (3)	SO-229	\N	2011-03-18 21:44:00.642146	2011-04-01 18:40:36.182614	Temple, Jerry Parts List.xls	application/vnd.ms-excel	17195	2011-03-18 21:44:00.640103	Phoenix	In Production	2011-04-04	\N	** Classic Order ** Powder Coated Job ** EH 	2011-03-18 21:44:23	9		PremierRoute	9	// See PG-SO 36547 dd  ** Partly Run Thru CutRite ** EH\r\nSee Classic Parts.csv for parts list. EH	13	Job	\N
 \.
 
