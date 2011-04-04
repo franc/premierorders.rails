@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 660, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 664, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 714, true);
+SELECT pg_catalog.setval('jobs_id_seq', 718, true);
 
 
 --
@@ -28916,7 +28916,6 @@ COPY user_roles (user_id, role_id) FROM stdin;
 
 COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypted_password, password_salt, reset_password_token, remember_token, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at) FROM stdin;
 28	Ms.	Tiffany	Travis	(703) 707-0009		(703) 889-5133	ttravis@closettrailors.com	$2a$10$iCfva.Tv4seNOft6LTZmMu4jR5zm5bbhIsUfmwj8vqUR6.S4lgs16	$2a$10$iCfva.Tv4seNOft6LTZmMu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.671535	2011-01-01 18:53:35.691498
-16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	28	2011-04-02 14:28:30.101098	2011-04-01 13:15:45.162441	96.251.14.82	96.251.14.82	2011-01-01 18:53:33.935232	2011-04-02 14:28:30.101928
 29	Ms.	Mary Beth	Lorenz	(608) 318-1667		(608) 318-0665	ctmadison@closettailors.com	$2a$10$OHOoEpiikKAW3Jlhm.3FQeRak.JlPGt8Cx/eOR0GcYB1B46v9SBDu	$2a$10$OHOoEpiikKAW3Jlhm.3FQe	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.854706	2011-01-01 18:53:35.887619
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
 8	\N	Customer Service	PG	480-483-3030		480-483-7895	info@premiergarage.com	$2a$10$B8ij4mhstLCYA3L69NAF5OgSwt2Gl2.hjC333B9JTG9VUHWn0E8qK	$2a$10$B8ij4mhstLCYA3L69NAF5O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.919109	2011-01-27 00:32:32.680546
@@ -28927,6 +28926,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	qFBUVswtv0KDZ4Zuxc__	2011-03-31 22:35:07.535625	6	2011-03-31 22:35:07.539903	2011-03-16 18:22:34.56253	70.66.153.10	70.66.153.10	2011-01-01 18:53:37.748043	2011-03-31 22:35:07.54048
 22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	7	2011-04-01 14:29:08.964952	2011-03-25 14:08:23.410494	189.182.85.10	74.178.244.247	2011-01-01 18:53:34.831371	2011-04-01 14:29:08.965831
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
+16	Mr.	Bob	Nakamura	(760) 931-1160	(760) 522-7017	(760) 931-1105	rnakamura@tailoredliving.com	$2a$10$0pk/nm9Ra2EOBNL9qdAlMew/NxoKCm95KKP5TwgKnF6UjcERVm6OW	$2a$10$0pk/nm9Ra2EOBNL9qdAlMe	\N	eb7PTMyR4Hugui0rGbyj	2011-03-21 17:03:43.613567	29	2011-04-04 00:48:13.678603	2011-04-02 14:28:30.101098	96.251.14.82	96.251.14.82	2011-01-01 18:53:33.935232	2011-04-04 00:48:13.679289
 108	\N	Dave	Angers	(714) 279-2481			daveangers@tailoredliving.com	$2a$10$uHWP.3nzTGg72dOE1v94vuK0yayBowdaeEJnbABUSioEXUHJ02eFe	$2a$10$uHWP.3nzTGg72dOE1v94vu	\N	JW13Smk_KDyw4fWK9jSY	2011-03-30 16:41:23.831448	17	2011-04-01 20:36:49.025235	2011-04-01 00:30:16.010046	67.203.136.36	67.203.136.36	2011-03-25 17:10:27.432626	2011-04-01 20:36:49.025918
 26	Mr.	Calvin	Connell	(208) 733-6768	(208) 280-0880	(208) 733-6768	cconnell@tailoredliving.com	$2a$10$L34zvvTQ6Cujakc.zlzPDuZenFpHabWniwKGbngEO67wN6ThjchXa	$2a$10$L34zvvTQ6Cujakc.zlzPDu	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.426306	2011-02-11 15:42:17.587949
 11	Mrs.	Meri Lynn	Bisch	(636) 728-0333	(636) 399-9529	(314)434-1976	mlbisch@tailoredliving.com	$2a$10$ADDAS8SmsuiYYeZKnzUNnOotiUtMQw4.rDlDTYZby2k/6Joy7g8La	$2a$10$ADDAS8SmsuiYYeZKnzUNnO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.30654	2011-02-11 16:03:31.935311
