@@ -634,7 +634,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 7864, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 7866, true);
 
 
 --
@@ -681,7 +681,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 19256, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 19295, true);
 
 
 --
@@ -739,7 +739,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 12259, true);
+SELECT pg_catalog.setval('job_items_id_seq', 12288, true);
 
 
 --
@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 659, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 660, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 713, true);
+SELECT pg_catalog.setval('jobs_id_seq', 714, true);
 
 
 --
@@ -7993,6 +7993,8 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 7862	217	12167	0.02	\N	4	\N	2011-04-03 18:07:08.575621	2011-04-03 18:07:08.593371
 7863	220	12191	0.04	\N	2	\N	2011-04-03 19:03:39.14458	2011-04-03 19:03:39.167018
 7864	220	12192	0.04	\N	2	\N	2011-04-03 19:03:39.363554	2011-04-03 19:03:39.388497
+7865	220	12266	0.04	\N	2	\N	2011-04-03 23:15:54.039751	2011-04-03 23:15:54.065732
+7866	220	12267	0.04	\N	2	\N	2011-04-03 23:15:54.138686	2011-04-03 23:15:54.306267
 5199	218	8179	0.03	\N	2	\N	2011-03-17 12:30:08.330435	2011-03-17 12:30:08.357716
 5200	218	8180	0.03	\N	2	\N	2011-03-17 12:30:08.61327	2011-03-17 12:30:08.773382
 5201	218	8181	0.03	\N	2	\N	2011-03-17 12:30:08.991423	2011-03-17 12:30:09.019908
@@ -18029,6 +18031,13 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 19254	12257	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 22:27:20.86659	2011-04-03 22:27:20.86659
 19255	12258	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 22:27:20.879289	2011-04-03 22:27:20.879289
 19256	12259	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 22:27:20.894604	2011-04-03 22:27:20.894604
+19257	12260	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"34.5","depth":"14"}	2011-04-03 23:15:51.9954	2011-04-03 23:15:51.9954
+19258	12260	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.009031	2011-04-03 23:15:52.009031
+19259	12261	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"18","depth":"14"}	2011-04-03 23:15:52.020343	2011-04-03 23:15:52.020343
+19260	12261	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.032889	2011-04-03 23:15:52.032889
+19261	12262	\N	dimensions	\N	Depth,Height	{"height":"47.75","linear_units":"in","depth":"14"}	2011-04-03 23:15:52.231451	2011-04-03 23:15:52.231451
+19262	12262	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.247145	2011-04-03 23:15:52.247145
+19263	12263	\N	dimensions	\N	Depth,Height	{"height":"80.5","linear_units":"in","depth":"14"}	2011-04-03 23:15:52.279756	2011-04-03 23:15:52.279756
 16016	10244	\N	dimensions	\N	Width,Depth	{"width":"24","depth":"14","linear_units":"in"}	2011-03-25 20:37:26.825203	2011-03-25 20:37:26.825203
 16017	10244	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-25 20:37:26.840137	2011-03-25 20:37:26.840137
 16018	10245	\N	dimensions	\N	Width,Depth	{"width":"36","depth":"14","linear_units":"in"}	2011-03-25 20:37:26.851721	2011-03-25 20:37:26.851721
@@ -18039,6 +18048,9 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 16023	10247	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-25 20:37:26.913335	2011-03-25 20:37:26.913335
 16024	10248	\N	dimensions	\N	Width,Depth	{"width":"25.5","depth":"14","linear_units":"in"}	2011-03-25 20:37:26.924303	2011-03-25 20:37:26.924303
 16025	10248	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-25 20:37:26.936594	2011-03-25 20:37:26.936594
+19264	12263	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.291455	2011-04-03 23:15:52.291455
+19265	12264	\N	dimensions	\N	Depth,Height	{"height":"80.5","linear_units":"in","depth":"14"}	2011-04-03 23:15:52.314213	2011-04-03 23:15:52.314213
+19266	12264	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.325292	2011-04-03 23:15:52.325292
 16026	10249	\N	dimensions	\N	Width,Depth	{"width":"26.25","depth":"14","linear_units":"in"}	2011-03-25 20:37:26.947658	2011-03-25 20:37:26.947658
 16027	10249	\N	color	\N	Color	{"color":"Wild Apple"}	2011-03-25 20:37:27.131226	2011-03-25 20:37:27.131226
 16028	10250	\N	dimensions	\N	Width,Depth	{"width":"30","depth":"14","linear_units":"in"}	2011-03-25 20:37:27.144966	2011-03-25 20:37:27.144966
@@ -18830,6 +18842,18 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 17100	10901	\N	dimensions	\N	Height,Width,Depth	{"height":"4.5","width":"29","depth":"13.75","linear_units":"in"}	2011-03-29 14:34:45.496099	2011-03-29 14:34:45.496099
 17101	10901	\N	color	\N	Color	{"color":"White"}	2011-03-29 14:34:45.507345	2011-03-29 14:34:45.507345
 17102	10902	\N	dimensions	\N		{"linear_units":"in"}	2011-03-29 14:34:45.51891	2011-03-29 14:34:45.51891
+19267	12265	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"96","depth":"14"}	2011-04-03 23:15:52.336565	2011-04-03 23:15:52.336565
+19268	12265	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.349325	2011-04-03 23:15:52.349325
+19269	12266	\N	dimensions	\N	Height,Width	{"height":"8.6929999999999996","linear_units":"in","width":"18.625"}	2011-04-03 23:15:52.362635	2011-04-03 23:15:52.362635
+19270	12266	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.379653	2011-04-03 23:15:52.379653
+19271	12267	\N	dimensions	\N	Height,Width	{"height":"6.173","linear_units":"in","width":"18.625"}	2011-04-03 23:15:52.3919	2011-04-03 23:15:52.3919
+19272	12267	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.407497	2011-04-03 23:15:52.407497
+19273	12268	\N	dimensions	\N	Depth,Height,Width	{"height":"7","linear_units":"in","width":"17","depth":"13.75"}	2011-04-03 23:15:52.555018	2011-04-03 23:15:52.555018
+19274	12268	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.569242	2011-04-03 23:15:52.569242
+19275	12269	\N	dimensions	\N	Depth,Height,Width	{"height":"4.5","linear_units":"in","width":"17","depth":"13.75"}	2011-04-03 23:15:52.582001	2011-04-03 23:15:52.582001
+19276	12269	\N	color	\N	Color	{"color":"White"}	2011-04-03 23:15:52.594172	2011-04-03 23:15:52.594172
+19277	12270	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.605395	2011-04-03 23:15:52.605395
+19278	12271	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.617532	2011-04-03 23:15:52.617532
 17189	10957	\N	dimensions	\N		{"linear_units":"in"}	2011-03-29 17:12:02.87873	2011-03-29 17:12:02.87873
 17190	10958	\N	dimensions	\N		{"linear_units":"in"}	2011-03-29 17:13:01.572315	2011-03-29 17:13:01.572315
 17191	10959	\N	dimensions	\N		{"linear_units":"in"}	2011-03-29 17:13:01.584835	2011-03-29 17:13:01.584835
@@ -18933,6 +18957,23 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 17333	11041	\N	dimensions	\N		{"linear_units":"in"}	2011-03-29 23:22:38.663129	2011-03-29 23:22:38.663129
 17334	11042	\N	dimensions	\N	Width,Height	{"height":"24","width":"96","linear_units":"in"}	2011-03-29 23:22:38.675298	2011-03-29 23:22:38.675298
 17335	11043	\N	dimensions	\N		{"linear_units":"in"}	2011-03-29 23:22:38.686974	2011-03-29 23:22:38.686974
+19279	12272	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.629549	2011-04-03 23:15:52.629549
+19280	12273	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.642023	2011-04-03 23:15:52.642023
+19281	12274	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.653994	2011-04-03 23:15:52.653994
+19282	12275	\N	dimensions	\N	Width	{"linear_units":"in","width":"17.75"}	2011-04-03 23:15:52.665868	2011-04-03 23:15:52.665868
+19283	12276	\N	dimensions	\N	Width	{"linear_units":"in","width":"38.875"}	2011-04-03 23:15:52.67785	2011-04-03 23:15:52.67785
+19284	12277	\N	dimensions	\N	Width	{"linear_units":"in","width":"37.25"}	2011-04-03 23:15:52.689982	2011-04-03 23:15:52.689982
+19285	12278	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.701705	2011-04-03 23:15:52.701705
+19286	12279	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.713194	2011-04-03 23:15:52.713194
+19287	12280	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.8737	2011-04-03 23:15:52.8737
+19288	12281	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.909092	2011-04-03 23:15:52.909092
+19289	12282	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.922404	2011-04-03 23:15:52.922404
+19290	12283	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.935394	2011-04-03 23:15:52.935394
+19291	12284	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.947889	2011-04-03 23:15:52.947889
+19292	12285	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.961925	2011-04-03 23:15:52.961925
+19293	12286	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.974164	2011-04-03 23:15:52.974164
+19294	12287	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.986026	2011-04-03 23:15:52.986026
+19295	12288	\N	dimensions	\N		{"linear_units":"in"}	2011-04-03 23:15:52.997652	2011-04-03 23:15:52.997652
 18765	11945	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 15:46:34.063357	2011-04-01 15:46:34.063357
 18766	11946	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"41.375","depth":"12"}	2011-04-01 15:46:34.074299	2011-04-01 15:46:34.074299
 18767	11946	\N	color	\N	Color	{"color":"Chocolate Apple"}	2011-04-01 15:46:34.086746	2011-04-01 15:46:34.086746
@@ -24748,6 +24789,35 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 12257	713	107	000.290.011.901.00I	1		2011-04-03 22:27:20.860973	2011-04-03 22:27:22.413804	3.32	14	ZH Hang Rail	\N	\N	in	ok	3.32	0.00	\N	\N	\N
 12259	713	228	000.282.024.720.00I	8		2011-04-03 22:27:20.888609	2011-04-03 22:27:22.476206	0.12	16	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N	\N
 12258	713	590	000.290.012.781.00I	1		2011-04-03 22:27:20.874106	2011-04-03 22:27:22.445656	1.50	15	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N	\N
+12260	714	227	000.935.031.001.00M	10		2011-04-03 23:15:51.989372	2011-04-03 23:15:53.249481	8.25	1	CL Adj Safety Shelf | White	\N	\N	in	ok	8.25	0.00	0.03	\N	\N
+12261	714	227	000.935.981.001.00M	1		2011-04-03 23:15:52.015464	2011-04-03 23:15:53.302506	21.52	2	CL Adj Safety Shelf | White	\N	\N	in	ok	4.30	0.00	0.03	\N	\N
+12262	714	40	000.910.251.001.00M	7		2011-04-03 23:15:52.06576	2011-04-03 23:15:53.499271	10.88	3	CL Hanging Partition - Radius - Thru | White	\N	\N	in	ok	10.88	0.00	0.05	\N	\N
+12263	714	554	000.910.361.001.00M	1		2011-04-03 23:15:52.274042	2011-04-03 23:15:53.563432	18.22	4	CL Hanging Partition - Square - Right | White	\N	\N	in	ok	18.22	0.00	0.05	\N	\N
+12264	714	555	000.910.261.001.00M	5		2011-04-03 23:15:52.309007	2011-04-03 23:15:53.789507	18.22	5	CL Hanging Partition - Square - Thru | White	\N	\N	in	ok	18.22	0.00	0.05	\N	\N
+12265	714	48	000.934.091.001.00M	4		2011-04-03 23:15:52.331531	2011-04-03 23:15:53.84959	2.96	6	CL Top Shelf | White	\N	\N	in	ok	16.14	0.00	0.03	\N	\N
+12266	714	522	000.201.000.001.00B	3		2011-04-03 23:15:52.356242	2011-04-03 23:15:54.117954	20.31	7	Decor Drawer Front - JR7 | White	\N	\N	in	ok	20.31	0.08	0.05	\N	\N
+12267	714	522	000.201.000.001.00B	3		2011-04-03 23:15:52.386559	2011-04-03 23:15:54.36005	16.37	8	Decor Drawer Front - JR7 | White	\N	\N	in	ok	16.37	0.08	0.05	\N	\N
+12268	714	195	000.024.003.051.00B	3		2011-04-03 23:15:52.413027	2011-04-03 23:15:54.528609	21.93	9	Drawer Box | White	\N	\N	in	ok	21.93	0.00	0.05	\N	\N
+12269	714	198	000.024.002.051.00B	3		2011-04-03 23:15:52.575708	2011-04-03 23:15:54.575914	18.87	10	Drawer Box | White	\N	\N	in	ok	18.87	0.00	0.05	\N	\N
+12270	714	217	000.104.700.000.00I	12		2011-04-03 23:15:52.59957	2011-04-03 23:15:54.741294	0.02	11	ZH Bumper Stop	\N	\N	in	ok	0.02	0.00	\N	\N	\N
+12271	714	236	000.263.050.705.00I	84		2011-04-03 23:15:52.612556	2011-04-03 23:15:54.772892	0.11	12	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	\N
+12272	714	156	000.263.024.972.00I	20		2011-04-03 23:15:52.62442	2011-04-03 23:15:54.80538	0.08	13	ZH Cam (Double Stud)	\N	\N	in	ok	0.08	0.00	\N	\N	\N
+12273	714	155	000.263.020.847.00I	44		2011-04-03 23:15:52.637024	2011-04-03 23:15:54.835124	0.04	14	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N	\N
+12274	714	237	000.263.059.730.00I	84		2011-04-03 23:15:52.648984	2011-04-03 23:15:54.863894	0.01	15	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N	\N
+12275	714	100	000.801.042.100.00I	1		2011-04-03 23:15:52.660857	2011-04-03 23:15:55.02471	2.66	16	ZH Closet Rod | Oil Rubbed Bronze	\N	\N	in	ok	2.66	0.00	0.02	\N	\N
+12276	714	100	000.801.042.100.00I	4		2011-04-03 23:15:52.672606	2011-04-03 23:15:55.062276	5.83	17	ZH Closet Rod | Oil Rubbed Bronze	\N	\N	in	ok	5.83	0.00	0.02	\N	\N
+12277	714	100	000.801.042.100.00I	4		2011-04-03 23:15:52.685163	2011-04-03 23:15:55.09563	5.58	18	ZH Closet Rod | Oil Rubbed Bronze	\N	\N	in	ok	5.58	0.00	0.02	\N	\N
+12278	714	172	000.FU3.173.314.00I	6	*Send 1 Box	2011-04-03 23:15:52.696869	2011-04-03 23:15:55.125029	3.51	19	ZH Drawer Slide | Full ext | 14 inch	\N	\N	in	ok	3.51	0.00	\N	\N	\N
+12279	714	4	000.117.031.334.00I	6		2011-04-03 23:15:52.708464	2011-04-03 23:15:55.320879	1.04	20	ZH Handle Bronze | 128mm	\N	\N	in	ok	1.04	0.00	0.03	\N	\N
+12280	714	104	000.290.002.711.00I	7		2011-04-03 23:15:52.719884	2011-04-03 23:15:55.35497	1.02	21	ZH Hang Bracket | Left	\N	\N	in	ok	1.02	0.00	0.03	\N	\N
+12281	714	105	000.290.002.710.00I	6		2011-04-03 23:15:52.903345	2011-04-03 23:15:55.386195	1.02	22	ZH Hang Bracket | Right	\N	\N	in	ok	1.02	0.00	0.03	\N	\N
+12282	714	107	000.290.011.901.00I	5		2011-04-03 23:15:52.91693	2011-04-03 23:15:55.413206	3.32	23	ZH Hang Rail	\N	\N	in	ok	3.32	0.00	\N	\N	\N
+12283	714	590	000.290.012.781.00I	5		2011-04-03 23:15:52.929962	2011-04-03 23:15:55.578017	1.50	24	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N	\N
+12284	714	103	000.803.056.100.00I	9		2011-04-03 23:15:52.942683	2011-04-03 23:15:55.609326	1.11	25	ZH Pole Cup | Oil Rubbed Bronze	\N	\N	in	ok	1.11	0.00	0.01	\N	\N
+12285	714	220	000.022.035.350.00I	12		2011-04-03 23:15:52.955891	2011-04-03 23:15:55.639617	0.04	26	ZH Screw (Drawer Front Handles)	\N	\N	in	ok	0.04	0.00	\N	\N	\N
+12286	714	13	000.013.009.900.00I	48		2011-04-03 23:15:52.969043	2011-04-03 23:15:55.666433	0.03	27	ZH Screw (Drawer Slide Full Ext)	\N	\N	in	ok	0.03	0.00	\N	\N	\N
+12287	714	201	000.100.300.000.00I	24		2011-04-03 23:15:52.980994	2011-04-03 23:15:55.692899	0.02	28	ZH Screw (Euro)	\N	\N	in	ok	0.02	0.00	\N	\N	\N
+12288	714	228	000.282.024.720.00I	60		2011-04-03 23:15:52.992811	2011-04-03 23:15:55.864158	0.12	29	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N	\N
 \.
 
 
@@ -25058,6 +25128,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 657	711	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 20:37:26.596981	2011-04-03 20:37:26.596981
 658	712	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 20:46:26.592031	2011-04-03 20:46:26.592031
 659	713	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 22:27:20.258418	2011-04-03 22:27:20.258418
+660	714	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 23:15:51.98154	2011-04-03 23:15:51.98154
 \.
 
 
@@ -25066,7 +25137,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	344	2011-01-23 05:52:19.75042	2011-04-03 22:27:48.635377
+1	2011	345	2011-01-23 05:52:19.75042	2011-04-03 23:18:02.011791
 \.
 
 
@@ -25700,6 +25771,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 711	4	4	6	Brenner - Entry Closet	SO-342	\N	2011-04-03 20:37:26.046126	2011-04-03 20:39:16.753211	Brenner - Entry Closet.xml	application/octet-stream	29451	2011-04-03 20:37:26.043563	\N	Placed	\N	\N		2011-04-03 20:39:16	4	\N	\N	4	\N	\N	Job	dvinci
 712	4	4	6	Bergman - Trim	SO-343	\N	2011-04-03 20:46:26.506921	2011-04-03 20:46:40.171101	Bergman - Trim.xml	application/octet-stream	6622	2011-04-03 20:46:26.504903	\N	Placed	\N	\N		2011-04-03 20:46:40	4	\N	\N	4	\N	\N	Job	dvinci
 713	4	4	6	McCoshen - Laundry	SO-344	\N	2011-04-03 22:27:20.044169	2011-04-03 22:27:48.639064	McCoshen - Laundry.xml	application/octet-stream	19387	2011-04-03 22:27:20.041862	\N	Placed	\N	\N		2011-04-03 22:27:48	4	\N	\N	4	\N	\N	Job	dvinci
+714	4	4	6	McCoshen - Master	SO-345	\N	2011-04-03 23:15:51.45989	2011-04-03 23:18:02.015572	McCoshen - Master.xml	application/octet-stream	30396	2011-04-03 23:15:51.457653	\N	Placed	\N	\N		2011-04-03 23:18:02	4	\N	\N	4	\N	\N	Job	dvinci
 \.
 
 
