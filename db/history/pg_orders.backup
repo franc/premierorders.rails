@@ -634,7 +634,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 7866, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 7890, true);
 
 
 --
@@ -681,7 +681,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 19295, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 19579, true);
 
 
 --
@@ -739,7 +739,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 12288, true);
+SELECT pg_catalog.setval('job_items_id_seq', 12472, true);
 
 
 --
@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 664, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 668, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 718, true);
+SELECT pg_catalog.setval('jobs_id_seq', 722, true);
 
 
 --
@@ -7995,6 +7995,12 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 7864	220	12192	0.04	\N	2	\N	2011-04-03 19:03:39.363554	2011-04-03 19:03:39.388497
 7865	220	12266	0.04	\N	2	\N	2011-04-03 23:15:54.039751	2011-04-03 23:15:54.065732
 7866	220	12267	0.04	\N	2	\N	2011-04-03 23:15:54.138686	2011-04-03 23:15:54.306267
+7885	220	12440	0.04	\N	2	\N	2011-04-04 13:53:46.274946	2011-04-04 13:53:46.297735
+7886	220	12441	0.04	\N	2	\N	2011-04-04 13:53:46.540656	2011-04-04 13:53:46.563216
+7887	220	12442	0.04	\N	2	\N	2011-04-04 13:53:46.792059	2011-04-04 13:53:46.815286
+7888	220	12443	0.04	\N	2	\N	2011-04-04 13:53:47.054857	2011-04-04 13:53:47.078651
+7889	220	12444	0.04	\N	2	\N	2011-04-04 13:53:47.314092	2011-04-04 13:53:47.339
+7890	220	12445	0.04	\N	2	\N	2011-04-04 13:53:47.569478	2011-04-04 13:53:47.592293
 5199	218	8179	0.03	\N	2	\N	2011-03-17 12:30:08.330435	2011-03-17 12:30:08.357716
 5200	218	8180	0.03	\N	2	\N	2011-03-17 12:30:08.61327	2011-03-17 12:30:08.773382
 5201	218	8181	0.03	\N	2	\N	2011-03-17 12:30:08.991423	2011-03-17 12:30:09.019908
@@ -19318,6 +19324,77 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 18976	12077	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 17:55:08.850383	2011-04-01 17:55:08.850383
 18977	12078	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 17:55:08.863739	2011-04-01 17:55:08.863739
 18978	12079	\N	dimensions	\N		{"linear_units":"in"}	2011-04-01 17:55:08.876201	2011-04-01 17:55:08.876201
+19509	12427	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"21.875","depth":"14"}	2011-04-04 13:53:42.862439	2011-04-04 13:53:42.862439
+19510	12427	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:42.875586	2011-04-04 13:53:42.875586
+19511	12428	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"24","depth":"14"}	2011-04-04 13:53:42.888042	2011-04-04 13:53:42.888042
+19512	12428	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:42.90258	2011-04-04 13:53:42.90258
+19513	12429	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"29.125","depth":"14"}	2011-04-04 13:53:42.913645	2011-04-04 13:53:42.913645
+19514	12429	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:42.926396	2011-04-04 13:53:42.926396
+19515	12430	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"12","depth":"14"}	2011-04-04 13:53:42.938329	2011-04-04 13:53:42.938329
+19516	12430	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:42.951296	2011-04-04 13:53:42.951296
+19517	12431	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"29.25","depth":"14"}	2011-04-04 13:53:42.963346	2011-04-04 13:53:42.963346
+19518	12431	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:42.975391	2011-04-04 13:53:42.975391
+19519	12432	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"29.125","depth":"14"}	2011-04-04 13:53:42.987254	2011-04-04 13:53:42.987254
+19520	12432	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:42.999799	2011-04-04 13:53:42.999799
+19521	12433	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"12","depth":"14"}	2011-04-04 13:53:43.200746	2011-04-04 13:53:43.200746
+19522	12433	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.216955	2011-04-04 13:53:43.216955
+19523	12434	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"42","depth":"14"}	2011-04-04 13:53:43.230797	2011-04-04 13:53:43.230797
+19524	12434	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.246156	2011-04-04 13:53:43.246156
+19525	12435	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"39","depth":"14"}	2011-04-04 13:53:43.258675	2011-04-04 13:53:43.258675
+19526	12435	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.271787	2011-04-04 13:53:43.271787
+19527	12436	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"21.875","depth":"14"}	2011-04-04 13:53:43.28335	2011-04-04 13:53:43.28335
+19528	12436	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.296322	2011-04-04 13:53:43.296322
+19529	12437	\N	dimensions	\N	Depth,Width	{"linear_units":"in","width":"24","depth":"14"}	2011-04-04 13:53:43.307873	2011-04-04 13:53:43.307873
+19530	12437	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.320623	2011-04-04 13:53:43.320623
+19531	12438	\N	dimensions	\N	Depth,Height	{"height":"80.5","linear_units":"in","depth":"14"}	2011-04-04 13:53:43.354003	2011-04-04 13:53:43.354003
+19532	12438	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.367308	2011-04-04 13:53:43.367308
+19533	12439	\N	dimensions	\N	Depth,Height	{"height":"80.5","linear_units":"in","depth":"14"}	2011-04-04 13:53:43.579451	2011-04-04 13:53:43.579451
+19534	12439	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.592025	2011-04-04 13:53:43.592025
+19535	12440	\N	dimensions	\N	Height,Width	{"height":"11.212999999999999","linear_units":"in","width":"22.5"}	2011-04-04 13:53:43.604347	2011-04-04 13:53:43.604347
+19536	12440	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.620261	2011-04-04 13:53:43.620261
+19537	12441	\N	dimensions	\N	Height,Width	{"height":"9.9529999999999994","linear_units":"in","width":"22.5"}	2011-04-04 13:53:43.631831	2011-04-04 13:53:43.631831
+19538	12441	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.647408	2011-04-04 13:53:43.647408
+19539	12442	\N	dimensions	\N	Height,Width	{"height":"7.4329999999999998","linear_units":"in","width":"22.5"}	2011-04-04 13:53:43.659019	2011-04-04 13:53:43.659019
+19540	12442	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.674475	2011-04-04 13:53:43.674475
+19541	12443	\N	dimensions	\N	Height,Width	{"height":"9.9529999999999994","linear_units":"in","width":"24.625"}	2011-04-04 13:53:43.685807	2011-04-04 13:53:43.685807
+19542	12443	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.701886	2011-04-04 13:53:43.701886
+19543	12444	\N	dimensions	\N	Height,Width	{"height":"6.173","linear_units":"in","width":"24.625"}	2011-04-04 13:53:43.714466	2011-04-04 13:53:43.714466
+19544	12444	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.730479	2011-04-04 13:53:43.730479
+19545	12445	\N	dimensions	\N	Height,Width	{"height":"11.212999999999999","linear_units":"in","width":"24.625"}	2011-04-04 13:53:43.896901	2011-04-04 13:53:43.896901
+19546	12445	\N	color	\N	Color	{"color":"White"}	2011-04-04 13:53:43.915809	2011-04-04 13:53:43.915809
+19547	12446	\N	dimensions	\N	Depth,Height,Width	{"height":"9.5","linear_units":"in","width":"20.875","depth":"13.75"}	2011-04-04 13:53:43.927517	2011-04-04 13:53:43.927517
+19548	12446	\N	color	\N	Color	{"color":"Birch"}	2011-04-04 13:53:43.939153	2011-04-04 13:53:43.939153
+19549	12447	\N	dimensions	\N	Depth,Height,Width	{"height":"9.5","linear_units":"in","width":"23","depth":"13.75"}	2011-04-04 13:53:43.950029	2011-04-04 13:53:43.950029
+19550	12447	\N	color	\N	Color	{"color":"Birch"}	2011-04-04 13:53:43.961911	2011-04-04 13:53:43.961911
+19551	12448	\N	dimensions	\N	Depth,Height,Width	{"height":"7","linear_units":"in","width":"20.875","depth":"13.75"}	2011-04-04 13:53:43.973653	2011-04-04 13:53:43.973653
+19552	12448	\N	color	\N	Color	{"color":"Birch"}	2011-04-04 13:53:43.984285	2011-04-04 13:53:43.984285
+19553	12449	\N	dimensions	\N	Depth,Height,Width	{"height":"7","linear_units":"in","width":"23","depth":"13.75"}	2011-04-04 13:53:43.994815	2011-04-04 13:53:43.994815
+19554	12449	\N	color	\N	Color	{"color":"Birch"}	2011-04-04 13:53:44.00558	2011-04-04 13:53:44.00558
+19555	12450	\N	dimensions	\N	Depth,Height,Width	{"height":"4.5","linear_units":"in","width":"20.875","depth":"13.75"}	2011-04-04 13:53:44.016649	2011-04-04 13:53:44.016649
+19556	12450	\N	color	\N	Color	{"color":"Birch"}	2011-04-04 13:53:44.027671	2011-04-04 13:53:44.027671
+19557	12451	\N	dimensions	\N	Depth,Height,Width	{"height":"4.5","linear_units":"in","width":"23","depth":"13.75"}	2011-04-04 13:53:44.038936	2011-04-04 13:53:44.038936
+19558	12451	\N	color	\N	Color	{"color":"Birch"}	2011-04-04 13:53:44.049374	2011-04-04 13:53:44.049374
+19559	12452	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.059219	2011-04-04 13:53:44.059219
+19560	12453	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.209622	2011-04-04 13:53:44.209622
+19561	12454	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.225427	2011-04-04 13:53:44.225427
+19562	12455	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.239616	2011-04-04 13:53:44.239616
+19563	12456	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.25399	2011-04-04 13:53:44.25399
+19564	12457	\N	dimensions	\N	Width	{"linear_units":"in","width":"29"}	2011-04-04 13:53:44.267602	2011-04-04 13:53:44.267602
+19565	12458	\N	dimensions	\N	Width	{"linear_units":"in","width":"28.875"}	2011-04-04 13:53:44.279941	2011-04-04 13:53:44.279941
+19566	12459	\N	dimensions	\N	Width	{"linear_units":"in","width":"38.75"}	2011-04-04 13:53:44.293044	2011-04-04 13:53:44.293044
+19567	12460	\N	dimensions	\N	Width	{"linear_units":"in","width":"41.75"}	2011-04-04 13:53:44.305411	2011-04-04 13:53:44.305411
+19568	12461	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.317254	2011-04-04 13:53:44.317254
+19569	12462	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.329065	2011-04-04 13:53:44.329065
+19570	12463	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.340695	2011-04-04 13:53:44.340695
+19571	12464	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.352396	2011-04-04 13:53:44.352396
+19572	12465	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.364313	2011-04-04 13:53:44.364313
+19573	12466	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.376184	2011-04-04 13:53:44.376184
+19574	12467	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.554228	2011-04-04 13:53:44.554228
+19575	12468	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.567557	2011-04-04 13:53:44.567557
+19576	12469	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.581682	2011-04-04 13:53:44.581682
+19577	12470	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.596162	2011-04-04 13:53:44.596162
+19578	12471	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.609385	2011-04-04 13:53:44.609385
+19579	12472	\N	dimensions	\N		{"linear_units":"in"}	2011-04-04 13:53:44.621821	2011-04-04 13:53:44.621821
 \.
 
 
@@ -19367,6 +19444,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 7798	472	104	000.290.002.711.00I	1	 need 1 box	2011-03-15 20:49:14.30393	2011-03-16 04:29:09.884464	1.02	5	ZH Hang Bracket | Left	\N	\N	in	ok	1.02	0.00	0.03	\N	other
 9317	570	175	000.FU3.173.320.00I	4	1 box	2011-03-23 02:56:33.240693	2011-03-23 20:31:36.045795	16.96	12	ZH Drawer Slide | Full ext | 20 inch	\N	\N	in	ok	5.11	0.00	\N	\N	garage
 7774	470	48	000.934.091.001.00M	3		2011-03-15 20:33:47.094211	2011-03-28 15:33:05.803886	2.95	1	CL Top Shelf | White	\N	20	in	ok	16.14	0.00	0.03	\N	closet
+12428	722	227	000.935.011.001.00M	14		2011-04-04 13:53:42.881906	2011-04-04 13:53:44.949163	5.74	2	CL Adj Safety Shelf | White	\N	\N	in	ok	5.74	0.00	0.03	\N	\N
 8198	495	700	000.024.002.050.00B	8		2011-03-17 17:02:26.084807	2011-03-17 22:17:41.233098	45.00	10	Drawer Box | Birch	\N	\N	in	ok	18.00	0.00	0.05	\N	closet
 8199	495	217	000.104.700.000.00I	16		2011-03-17 17:02:26.104507	2011-03-17 22:17:41.236374	0.05	11	ZH Bumper Stop	\N	\N	in	ok	0.02	0.00	\N	\N	closet
 8200	495	236	000.263.050.705.00I	40		2011-03-17 17:02:26.115863	2011-03-17 22:17:41.23956	0.27	12	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	closet
@@ -19438,6 +19516,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4785	273	227	000.935.041.002.00M	4		2011-02-26 20:07:39.452856	2011-03-16 03:54:56.781424	62.98	1	CL Adj Safety Shelf | Antique White	\N	11	in	ok	13.32	0.00	0.03	\N	closet
 4796	276	45	000.931.031.010.00M	2		2011-02-27 23:08:31.828332	2011-03-16 03:55:36.573973	22.49	1	CL Adjustable Shelf | Hardrock Maple	\N	11	in	ok	8.32	0.00	0.03	\N	other
 4819	278	44	000.930.011.001.00M	5		2011-02-27 23:48:30.477199	2011-03-16 03:55:54.253501	5.74	5	CL Cam Shelf | White	\N	11	in	ok	5.74	0.00	0.05	\N	closet
+12431	722	44	000.930.031.001.00M	2		2011-04-04 13:53:42.958015	2011-04-04 13:53:45.246787	6.99	5	CL Cam Shelf | White	\N	\N	in	ok	6.99	0.00	0.05	\N	\N
 8254	498	236	000.263.050.705.00I	92		2011-03-17 18:11:05.482084	2011-03-17 22:18:48.986053	0.13	13	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	closet
 8255	498	156	000.263.024.972.00I	24		2011-03-17 18:11:05.497664	2011-03-17 22:18:48.989282	0.10	14	ZH Cam (Double Stud)	\N	\N	in	ok	0.08	0.00	\N	\N	closet
 8256	498	155	000.263.020.847.00I	40		2011-03-17 18:11:05.511164	2011-03-17 22:18:48.992482	0.06	15	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N	closet
@@ -19514,6 +19593,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 9357	573	44	000.930.011.001.00M	4		2011-03-23 03:14:53.641412	2011-04-01 19:32:00.188029	4.72	3	CL Cam Shelf | White	\N	25	in	ok	4.72	0.00	0.05	\N	closet
 8291	507	516	000.100.000.009.00M	3		2011-03-17 21:16:07.790437	2011-03-31 22:06:35.51486	13.49	4	Door - Flat | Windswept Pewter	\N	22	in	ok	13.74	0.06	0.05	\N	garage
 9356	573	44	000.930.021.001.00M	2		2011-03-23 03:14:53.616923	2011-04-01 19:32:00.197513	7.17	2	CL Cam Shelf | White	\N	25	in	ok	7.17	0.00	0.05	\N	closet
+12434	722	44	000.930.041.001.00M	2		2011-04-04 13:53:43.224429	2011-04-04 13:53:45.669109	10.04	8	CL Cam Shelf | White	\N	\N	in	ok	10.04	0.00	0.05	\N	\N
 9360	573	236	000.263.050.705.00I	24		2011-03-23 03:14:53.866329	2011-03-23 23:40:59.69271	0.11	6	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	closet
 8320	509	18	000.401.000.009.00M	2		2011-03-17 21:26:05.116413	2011-03-18 20:15:39.436212	45.19	2	CTOP - 3/4 in. melamine | Windswept Pewter	\N	\N	in	ok	16.61	0.00	0.03	\N	
 8321	509	18	000.401.000.009.00M	1		2011-03-17 21:26:05.204915	2011-03-18 20:15:39.43942	27.61	3	CTOP - 3/4 in. melamine | Windswept Pewter	\N	\N	in	ok	10.48	0.00	0.03	\N	
@@ -19694,6 +19774,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 9183	565	516	000.100.000.005.00M	2		2011-03-22 18:26:34.050398	2011-04-01 17:51:24.269675	13.72	6	Door - Flat | Wild Apple	\N	24	in	ok	12.72	0.06	0.05	\N	garage
 8341	510	236	000.263.050.705.00I	42		2011-03-17 23:03:31.847222	2011-03-18 20:36:43.950745	0.11	8	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	
 9190	565	262	000.102.433.005.00M	1		2011-03-22 18:26:34.403298	2011-04-01 17:51:24.276773	96.51	13	NX Base Cabinet 2 Door | Wild Apple	\N	24	in	ok	115.14	7.30	0.33	\N	garage
+12439	722	40	000.910.251.001.00M	11		2011-04-04 13:53:43.57308	2011-04-04 13:53:46.256796	18.22	13	CL Hanging Partition - Radius - Thru | White	\N	\N	in	ok	18.22	0.00	0.05	\N	\N
 9191	565	262	000.102.433.005.00M	1		2011-03-22 18:26:34.667178	2011-04-01 17:51:24.279956	112.50	14	NX Base Cabinet 2 Door | Wild Apple	\N	24	in	ok	138.97	7.30	0.33	\N	garage
 9179	565	516	000.100.000.005.00M	2		2011-03-22 18:26:33.783742	2011-04-01 17:51:24.283172	27.37	2	Door - Flat | Wild Apple	\N	24	in	ok	24.70	0.06	0.05	\N	garage
 9381	574	44	000.930.041.001.00M	1		2011-03-23 03:33:48.524222	2011-04-01 19:35:20.351852	10.04	11	CL Cam Shelf | White	\N	25	in	ok	10.04	0.00	0.05	\N	closet
@@ -20109,6 +20190,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 9402	574	590	000.290.012.781.00I	4		2011-03-23 03:33:49.417478	2011-03-23 23:42:10.660502	1.50	32	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N	closet
 9403	574	101	000.803.056.200.00I	12		2011-03-23 03:33:49.432678	2011-03-23 23:42:10.805811	1.92	33	ZH Pole Cups (pair) | Polished Chrome	\N	\N	in	ok	0.96	0.00	0.01	\N	closet
 9404	574	228	000.282.024.720.00I	74		2011-03-23 03:33:49.446247	2011-03-23 23:42:10.810521	0.12	34	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N	closet
+12448	722	701	000.024.003.050.00B	1		2011-04-04 13:53:43.967858	2011-04-04 13:53:48.047595	24.36	22	Drawer Box | Birch	\N	\N	in	ok	24.35	0.00	0.05	\N	\N
 10624	628	162	000.200.000.005.00M	4		2011-03-28 23:25:43.642807	2011-03-28 23:52:48.580076	22.27	17	Drawer Front - Flat | Wild Apple	\N	\N	in	ok	8.67	0.08	0.05	\N	
 9371	574	227	000.935.012.001.00M	6		2011-03-23 03:33:48.116992	2011-04-01 19:35:20.36283	5.45	1	CL Adj Safety Shelf | White	\N	25	in	ok	5.45	0.00	0.03	\N	closet
 7007	423	262	000.102.433.010.00M	10	CutRite Code (NX-SAMPLE)	2011-03-11 18:28:00.342918	2011-03-23 12:21:51.900868	5.01	1	NX Base Cabinet 2 Door | Hardrock Maple	\N	15	in	ok	18.42	7.02	0.33	\N	other
@@ -20178,6 +20260,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8390	512	155	000.263.020.847.00I	24		2011-03-18 14:16:12.824613	2011-03-18 20:35:29.045589	0.09	9	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N	closet
 8391	512	237	000.263.059.730.00I	24		2011-03-18 14:16:12.962252	2011-03-18 20:35:29.048641	0.02	10	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N	closet
 8392	512	12	000.102.100.000.00I	48		2011-03-18 14:16:12.975493	2011-03-18 20:35:29.051691	0.05	11	ZH Shelf Pin (Spoon)	\N	\N	in	ok	0.02	0.00	\N	\N	closet
+12452	722	217	000.104.700.000.00I	16		2011-04-04 13:53:44.054298	2011-04-04 13:53:48.545399	0.02	26	ZH Bumper Stop	\N	\N	in	ok	0.02	0.00	\N	\N	\N
 10633	628	236	000.263.050.705.00I	8		2011-03-28 23:25:45.363942	2011-03-28 23:52:48.649213	0.27	26	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	
 10634	628	155	000.263.020.847.00I	8		2011-03-28 23:25:45.376872	2011-03-28 23:52:48.652316	0.12	27	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N	
 10635	628	240	000.263.059.132.00I	8		2011-03-28 23:25:45.389302	2011-03-28 23:52:48.655421	0.03	28	ZH Cam Cover | Cinnamon	\N	\N	in	ok	0.01	0.00	\N	\N	
@@ -20223,6 +20306,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8048	484	45	000.931.981.002.00M	8		2011-03-16 15:40:30.818053	2011-03-28 18:12:40.957893	5.04	4	CL Adjustable Shelf | Antique White	\N	20	in	ok	4.88	0.00	0.03	\N	
 8050	484	45	000.931.021.002.00M	2		2011-03-16 15:40:31.015862	2011-03-28 18:12:40.961124	7.76	6	CL Adjustable Shelf | Antique White	\N	20	in	ok	7.53	0.00	0.03	\N	
 8051	484	45	000.931.021.002.00M	8		2011-03-16 15:40:31.043632	2011-03-28 18:12:40.964259	8.39	7	CL Adjustable Shelf | Antique White	\N	20	in	ok	8.14	0.00	0.03	\N	
+12454	722	156	000.263.024.972.00I	22		2011-04-04 13:53:44.219066	2011-04-04 13:53:48.606092	0.08	28	ZH Cam (Double Stud)	\N	\N	in	ok	0.08	0.00	\N	\N	\N
 8052	484	45	000.931.021.002.00M	2		2011-03-16 15:40:31.068924	2011-03-28 18:12:40.967456	7.27	8	CL Adjustable Shelf | Antique White	\N	20	in	ok	7.05	0.00	0.03	\N	
 8053	484	45	000.931.021.002.00M	6		2011-03-16 15:40:31.091974	2011-03-28 18:12:40.970612	7.10	9	CL Adjustable Shelf | Antique White	\N	20	in	ok	6.89	0.00	0.03	\N	
 8054	484	45	000.931.921.002.00M	6		2011-03-16 15:40:31.114478	2011-03-28 18:12:40.973831	2.94	10	CL Adjustable Shelf | Antique White	\N	20	in	ok	2.85	0.00	0.03	\N	
@@ -20546,10 +20630,29 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8146	487	256	000.402.493.009.00M	1		2011-03-16 21:47:02.875473	2011-03-28 18:21:44.752607	108.33	15	NX Tall Cabinet 2 Door | Windswept Pewter	\N	20	in	ok	108.79	13.54	1.41	\N	garage
 8147	487	256	000.402.493.009.00M	1		2011-03-16 21:47:03.240401	2011-03-28 18:21:44.755783	123.72	16	NX Tall Cabinet 2 Door | Windswept Pewter	\N	20	in	ok	124.68	13.54	1.41	\N	garage
 8148	487	256	000.402.493.009.00M	1		2011-03-16 21:47:03.602077	2011-03-28 18:21:44.758969	123.72	17	NX Tall Cabinet 2 Door | Windswept Pewter	\N	20	in	ok	124.68	13.54	1.41	\N	garage
+12427	722	227	000.935.011.001.00M	2		2011-04-04 13:53:42.857193	2011-04-04 13:53:44.895943	5.23	1	CL Adj Safety Shelf | White	\N	\N	in	ok	5.23	0.00	0.03	\N	\N
+12429	722	227	000.935.021.001.00M	1		2011-04-04 13:53:42.908597	2011-04-04 13:53:44.997897	6.96	3	CL Adj Safety Shelf | White	\N	\N	in	ok	6.96	0.00	0.03	\N	\N
+12430	722	227	000.935.921.001.00M	5		2011-04-04 13:53:42.933315	2011-04-04 13:53:45.198782	2.87	4	CL Adj Safety Shelf | White	\N	\N	in	ok	2.87	0.00	0.03	\N	\N
 8149	487	260	000.302.430.009.00M	1		2011-03-16 21:47:03.884743	2011-03-28 18:21:44.762135	66.63	18	NX Upper Cabinet 2 Door | Windswept Pewter	\N	20	in	ok	67.02	7.05	0.58	\N	garage
+12432	722	44	000.930.031.001.00M	2		2011-04-04 13:53:42.981977	2011-04-04 13:53:45.449054	6.96	6	CL Cam Shelf | White	\N	\N	in	ok	6.96	0.00	0.05	\N	\N
+12433	722	44	000.930.921.001.00M	3		2011-04-04 13:53:43.005992	2011-04-04 13:53:45.498766	2.87	7	CL Cam Shelf | White	\N	\N	in	ok	2.87	0.00	0.05	\N	\N
+12435	722	44	000.930.041.001.00M	2		2011-04-04 13:53:43.253142	2011-04-04 13:53:45.721004	9.32	9	CL Cam Shelf | White	\N	\N	in	ok	9.32	0.00	0.05	\N	\N
+12436	722	44	000.930.011.001.00M	3		2011-04-04 13:53:43.27823	2011-04-04 13:53:45.91039	5.23	10	CL Cam Shelf | White	\N	\N	in	ok	5.23	0.00	0.05	\N	\N
+12437	722	44	000.930.011.001.00M	9		2011-04-04 13:53:43.302716	2011-04-04 13:53:45.966085	5.74	11	CL Cam Shelf | White	\N	\N	in	ok	5.74	0.00	0.05	\N	\N
+12438	722	42	000.910.351.001.00M	1		2011-04-04 13:53:43.348501	2011-04-04 13:53:46.19114	18.22	12	CL Hanging Partition - Radius - Right | White	\N	\N	in	ok	18.22	0.00	0.05	\N	\N
+12440	722	526	000.205.000.001.00B	1		2011-04-04 13:53:43.598842	2011-04-04 13:53:46.519845	13.61	14	Decor Drawer Front - KB732 | White	\N	\N	in	ok	13.61	0.08	0.05	\N	\N
+12441	722	526	000.205.000.001.00B	1		2011-04-04 13:53:43.626658	2011-04-04 13:53:46.772091	12.13	15	Decor Drawer Front - KB732 | White	\N	\N	in	ok	12.13	0.08	0.05	\N	\N
+12442	722	526	000.205.000.001.00B	2		2011-04-04 13:53:43.653885	2011-04-04 13:53:47.033634	9.16	16	Decor Drawer Front - KB732 | White	\N	\N	in	ok	9.16	0.08	0.05	\N	\N
+12443	722	526	000.205.000.001.00B	1		2011-04-04 13:53:43.680799	2011-04-04 13:53:47.290351	13.24	17	Decor Drawer Front - KB732 | White	\N	\N	in	ok	13.24	0.08	0.05	\N	\N
+12466	722	590	000.290.012.781.00I	3		2011-04-04 13:53:44.370869	2011-04-04 13:53:49.425431	1.50	40	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N	\N
+12467	722	591	000.803.056.600.00I	7		2011-04-04 13:53:44.382913	2011-04-04 13:53:49.456112	0.97	41	ZH Pole Cup | Matte Nickel	\N	\N	in	ok	0.97	0.00	0.01	\N	\N
 9559	582	38	000.911.173.001.00M	1		2011-03-23 15:43:21.719169	2011-04-01 20:27:08.518343	34.09	1	CL Upright Partition - Left | White	\N	25	in	ok	27.28	0.00	0.05	\N	closet
 9560	582	39	000.911.371.001.00M	1		2011-03-23 15:43:21.750072	2011-04-01 20:27:08.522255	24.06	2	CL Upright Partition - Right | White	\N	25	in	ok	19.25	0.00	0.05	\N	closet
 8150	487	5	000.117.031.330.00I	19		2011-03-16 21:47:03.943249	2011-03-16 22:04:24.899349	0.98	19	ZH Handle Black | 128mm	\N	\N	in	ok	0.98	0.00	0.03	\N	garage
+12468	722	220	000.022.035.350.00I	16		2011-04-04 13:53:44.561967	2011-04-04 13:53:49.64688	0.04	42	ZH Screw (Drawer Front Handles)	\N	\N	in	ok	0.04	0.00	\N	\N	\N
+12469	722	13	000.013.009.900.00I	64		2011-04-04 13:53:44.574947	2011-04-04 13:53:49.676121	0.03	43	ZH Screw (Drawer Slide Full Ext)	\N	\N	in	ok	0.03	0.00	\N	\N	\N
+12470	722	201	000.100.300.000.00I	32		2011-04-04 13:53:44.59045	2011-04-04 13:53:49.706103	0.02	44	ZH Screw (Euro)	\N	\N	in	ok	0.02	0.00	\N	\N	\N
+12472	722	72	000.547.036.242.00P	2		2011-04-04 13:53:44.616526	2011-04-04 13:53:49.932187	22.07	46	ZH Sliding Wire Basket (24x6x14) | Matte Nickel	\N	\N	in	ok	22.07	0.00	0.10	\N	\N
 8135	487	516	000.100.000.009.00M	2		2011-03-16 21:47:00.180738	2011-03-28 18:21:44.705384	27.40	4	Door - Flat | Windswept Pewter	\N	20	in	ok	28.09	0.06	0.05	\N	garage
 8136	487	516	000.100.000.009.00M	2		2011-03-16 21:47:00.207526	2011-03-28 18:21:44.709673	27.40	5	Door - Flat | Windswept Pewter	\N	20	in	ok	28.09	0.06	0.05	\N	garage
 8137	487	516	000.100.000.009.00M	2		2011-03-16 21:47:00.38254	2011-03-28 18:21:44.713067	36.79	6	Door - Flat | Windswept Pewter	\N	20	in	ok	37.80	0.06	0.05	\N	garage
@@ -20566,6 +20669,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 9557	581	258	000.302.443.001.00M	1		2011-03-23 15:38:50.059683	2011-03-29 23:37:41.570964	71.30	4	NX Over Cabinet 2 Door | White	\N	23	in	ok	57.37	7.30	0.41	\N	garage
 7561	458	48	000.934.091.007.00M	1		2011-03-14 23:00:34.895245	2011-03-24 23:21:17.987733	46.68	2	CL Top Shelf | Chocolate Apple	\N	15	in	ok	21.42	0.00	0.03	\N	closet
 7562	458	19	000.501.000.007.00M	1		2011-03-14 23:00:34.919801	2011-03-24 23:21:17.991403	82.25	3	CTOP - 1 in. melamine | Chocolate Apple	\N	15	in	ok	32.90	0.00	0.25	\N	closet
+12444	722	526	000.205.000.001.00B	2		2011-04-04 13:53:43.709015	2011-04-04 13:53:47.549695	8.37	18	Decor Drawer Front - KB732 | White	\N	\N	in	ok	8.37	0.08	0.05	\N	\N
 7563	458	2	000.117.031.230.00I	5	NEED TO ORDER BOX OF HANDLES	2011-03-14 23:00:34.944605	2011-03-16 04:31:08.429595	15.09	4	ZH Handle Chrome | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	closet
 8533	517	45	000.931.014.001.00M	2		2011-03-18 18:29:04.317538	2011-03-31 23:04:39.255229	8.04	1	CL Adjustable Shelf | White	\N	22	in	ok	8.04	0.00	0.03	\N	garage
 8534	517	516	000.100.000.001.00M	1		2011-03-18 18:29:04.34729	2011-03-31 23:04:39.259247	9.92	2	Door - Flat | White	\N	22	in	ok	9.92	0.06	0.05	\N	garage
@@ -20606,6 +20710,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 9622	584	201	000.100.300.000.00I	28		2011-03-23 15:50:20.939556	2011-03-23 23:49:08.637695	0.02	30	ZH Screw (Euro)	\N	\N	in	ok	0.02	0.00	\N	\N	closet
 9623	584	12	000.102.100.000.00I	32		2011-03-23 15:50:20.951867	2011-03-23 23:49:08.640843	0.03	31	ZH Shelf Pin (Spoon)	\N	\N	in	ok	0.02	0.00	\N	\N	closet
 7560	458	44	000.930.041.007.00M	3		2011-03-14 23:00:34.870411	2011-03-24 23:21:17.983453	21.46	1	CL Cam Shelf | Chocolate Apple	\N	15	in	ok	10.82	0.00	0.05	\N	closet
+12445	722	526	000.205.000.001.00B	1		2011-04-04 13:53:43.89006	2011-04-04 13:53:47.78445	14.86	19	Decor Drawer Front - KB732 | White	\N	\N	in	ok	14.86	0.08	0.05	\N	\N
 2667	162	45	000.931.021.001.00M	1		2011-02-17 00:05:07.893588	2011-03-16 03:28:26.959474	5.99	1	CL Adjustable Shelf | White	\N	5	in	ok	5.99	0.00	0.03	\N	closet
 2671	162	44	000.930.031.001.00M	2		2011-02-17 00:05:08.120907	2011-03-16 03:28:26.963209	6.78	5	CL Cam Shelf | White	\N	5	in	ok	6.78	0.00	0.05	\N	closet
 5210	306	\N	000.	10		2011-03-02 19:41:53.05686	2011-03-16 04:01:40.2044	5.00	1	96" x 1" Scribe, Carmel Apple	\N	\N	in	not_computed	\N	0.00	\N	\N	other
@@ -20620,6 +20725,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 7574	459	256	000.402.493.010.00M	3		2011-03-15 01:42:06.272167	2011-03-24 23:26:28.395767	135.31	11	NX Tall Cabinet 2 Door | Hardrock Maple	\N	18	in	ok	136.87	13.54	1.41	\N	garage
 7575	459	260	000.302.430.010.00M	1		2011-03-15 01:42:06.387209	2011-03-24 23:26:28.399116	62.14	12	NX Upper Cabinet 2 Door | Hardrock Maple	\N	18	in	ok	62.64	7.05	0.58	\N	garage
 7576	459	502	000.400.004.403.00M	1		2011-03-15 01:42:06.619851	2011-03-24 23:26:28.402348	40.02	13	NX Workbench Top (Finished Ends) | Ebony Star	\N	18	in	ok	40.60	0.00	0.16	\N	garage
+12446	722	702	000.024.004.050.00B	1		2011-04-04 13:53:43.921755	2011-04-04 13:53:47.827552	27.87	20	Drawer Box | Birch	\N	\N	in	ok	27.87	0.00	0.05	\N	\N
 8548	518	516	000.100.000.009.00M	4		2011-03-18 20:17:15.42576	2011-03-31 23:09:56.271488	74.51	2	Door - Flat | Windswept Pewter	\N	22	in	ok	30.58	0.06	0.05	\N	garage
 5208	305	44	000.930.982.001.00M	2		2011-03-02 19:39:32.663536	2011-03-16 16:49:43.409788	3.10	4	CL Cam Shelf | White	\N	12	in	ok	3.10	0.00	0.05	\N	closet
 5209	305	555	000.910.262.001.00M	3		2011-03-02 19:39:32.705205	2011-03-16 16:49:43.413136	33.19	5	CL Hanging Partition - Square - Thru | White	\N	12	in	ok	20.75	0.00	0.05	\N	closet
@@ -20651,6 +20757,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 4838	280	45	000.931.982.001.00M	3		2011-02-28 16:39:57.989774	2011-03-23 03:22:12.900902	11.53	1	CL Adjustable Shelf | White	\N	17	in	ok	4.32	0.00	0.03	\N	closet
 7607	461	45	000.931.011.001.00M	2		2011-03-15 01:53:05.184856	2011-03-24 23:29:58.558638	5.06	2	CL Adjustable Shelf | White	\N	18	in	ok	5.06	0.00	0.03	\N	closet
 7608	461	45	000.931.010.001.00M	2		2011-03-15 01:53:05.210386	2011-03-24 23:29:58.561714	4.36	3	CL Adjustable Shelf | White	\N	18	in	ok	4.36	0.00	0.03	\N	closet
+12447	722	702	000.024.004.050.00B	1		2011-04-04 13:53:43.944689	2011-04-04 13:53:48.00236	29.28	21	Drawer Box | Birch	\N	\N	in	ok	29.28	0.00	0.05	\N	\N
 7609	461	44	000.930.031.001.00M	3		2011-03-15 01:53:05.234245	2011-03-24 23:29:58.564758	7.35	4	CL Cam Shelf | White	\N	18	in	ok	7.35	0.00	0.05	\N	closet
 7610	461	44	000.930.980.001.00M	3		2011-03-15 01:53:05.2577	2011-03-24 23:29:58.567815	3.71	5	CL Cam Shelf | White	\N	18	in	ok	3.71	0.00	0.05	\N	closet
 7611	461	44	000.930.011.001.00M	4		2011-03-15 01:53:05.281657	2011-03-24 23:29:58.570896	5.74	6	CL Cam Shelf | White	\N	18	in	ok	5.74	0.00	0.05	\N	closet
@@ -20709,10 +20816,12 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 5354	312	107	000.290.011.901.00I	1		2011-03-03 14:13:11.485175	2011-03-16 04:03:22.477756	8.30	18	ZH Hang Rail	\N	\N	in	ok	3.32	0.00	\N	\N	closet
 7638	462	44	000.930.980.001.00M	3		2011-03-15 01:55:55.718943	2011-03-24 23:32:35.581807	3.71	4	CL Cam Shelf | White	\N	18	in	ok	3.71	0.00	0.05	\N	closet
 7643	462	39	000.911.370.001.00M	2		2011-03-15 01:55:55.860206	2011-03-24 23:32:35.584862	16.58	9	CL Upright Partition - Right | White	\N	18	in	ok	16.58	0.00	0.05	\N	closet
+12449	722	701	000.024.003.050.00B	1		2011-04-04 13:53:43.989651	2011-04-04 13:53:48.259808	25.55	23	Drawer Box | Birch	\N	\N	in	ok	25.55	0.00	0.05	\N	\N
 8571	521	198	000.024.002.051.00B	2		2011-03-18 21:30:31.849763	2011-03-18 22:21:41.799888	21.36	2	Drawer Box	\N	\N	in	ok	21.36	0.00	0.05	\N	garage
 8572	521	194	000.024.005.051.00B	1		2011-03-18 21:30:31.869737	2011-03-18 22:21:41.802908	30.69	3	Drawer Box	\N	\N	in	ok	30.69	0.00	0.05	\N	garage
 8574	521	162	000.200.000.010.00M	1		2011-03-18 21:30:32.072419	2011-03-31 23:17:11.170627	11.86	5	Drawer Front - Flat | Hardrock Maple	\N	22	in	ok	11.97	0.08	0.05	\N	garage
 8575	521	262	000.102.433.010.00M	1		2011-03-18 21:30:32.157903	2011-03-31 23:17:11.173965	79.46	6	NX Base Cabinet 2 Door | Hardrock Maple	\N	22	in	ok	80.69	7.30	0.33	\N	garage
+12450	722	700	000.024.002.050.00B	2		2011-04-04 13:53:44.011279	2011-04-04 13:53:48.304202	20.84	24	Drawer Box | Birch	\N	\N	in	ok	20.84	0.00	0.05	\N	\N
 7650	462	236	000.263.050.705.00I	52		2011-03-15 01:55:56.185544	2011-03-16 04:26:08.514465	0.11	16	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	closet
 7654	462	99	000.801.042.600.00I	2		2011-03-15 01:55:56.387474	2011-03-16 04:26:08.53987	6.59	20	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	5.28	0.00	0.02	\N	closet
 7655	462	99	000.801.042.600.00I	2		2011-03-15 01:55:56.399762	2011-03-16 04:26:08.572654	4.94	21	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	4.31	0.00	0.02	\N	closet
@@ -20730,6 +20839,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8591	522	575	000.880.310.b12.00P	1		2011-03-18 21:44:02.583867	2011-03-18 21:47:42.796291	22.08	12	Powder Coated Door (23.875 x 30) | RED	\N	\N	in	ok	22.08	0.06	0.05	\N	garage
 8582	522	48	000.934.090.009.00M	1	Filler	2011-03-18 21:44:01.044883	2011-03-18 21:47:42.799518	23.99	3	Filler strips	\N	\N	in	ok	17.04	0.00	0.03	\N	garage
 8583	522	19	000.501.000.009.00M	1		2011-03-18 21:44:01.070592	2011-03-18 21:47:42.772126	25.73	4	CTOP - 1 in. melamine | Windswept Pewter	\N	\N	in	ok	25.73	0.00	0.25	\N	garage
+12451	722	700	000.024.002.050.00B	2		2011-04-04 13:53:44.03381	2011-04-04 13:53:48.511581	21.82	25	Drawer Box | Birch	\N	\N	in	ok	21.82	0.00	0.05	\N	\N
 7666	464	43	000.960.000.001.00M	1		2011-03-15 14:52:18.19791	2011-03-15 18:53:24.034571	10.98	4	CL Backing Panel | White	\N	\N	in	ok	10.97	0.00	0.25	\N	
 7667	464	44	000.930.981.001.00M	9		2011-03-15 14:52:18.220603	2011-03-15 18:53:24.037723	4.30	5	CL Cam Shelf | White	\N	\N	in	ok	4.30	0.00	0.05	\N	
 7668	464	44	000.930.011.001.00M	4		2011-03-15 14:52:18.365359	2011-03-15 18:53:24.040857	5.74	6	CL Cam Shelf | White	\N	\N	in	ok	5.74	0.00	0.05	\N	
@@ -20781,6 +20891,19 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 8593	522	581	000.880.500.b12.00P	2		2011-03-18 21:44:02.613985	2011-03-18 21:47:42.818817	8.62	14	Powder Coated Drawer Front (23.875 x 7.5625) | RED	\N	\N	in	ok	8.61	0.08	0.05	\N	garage
 9619	584	101	000.803.056.200.00I	6		2011-03-23 15:50:20.905226	2011-03-23 23:49:08.657173	2.40	27	ZH Pole Cups (pair) | Polished Chrome	\N	\N	in	ok	0.96	0.00	0.01	\N	closet
 9624	584	159	000.547.043.301.00P	1	Need item	2011-03-23 15:50:20.963026	2011-03-23 23:49:08.660275	65.46	32	ZH Tilt-Out Hamper (18)	\N	\N	in	ok	52.37	0.00	0.25	\N	closet
+12453	722	236	000.263.050.705.00I	92		2011-04-04 13:53:44.065974	2011-04-04 13:53:48.576142	0.11	27	ZH Cam - Flush | White	\N	\N	in	ok	0.11	0.00	\N	\N	\N
+12455	722	155	000.263.020.847.00I	48		2011-04-04 13:53:44.233694	2011-04-04 13:53:48.787309	0.04	29	ZH Cam (Screw-In Stud)	\N	\N	in	ok	0.04	0.00	\N	\N	\N
+12456	722	237	000.263.059.730.00I	92		2011-04-04 13:53:44.24758	2011-04-04 13:53:48.821646	0.01	30	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N	\N
+12457	722	99	000.801.042.600.00I	2		2011-04-04 13:53:44.262034	2011-04-04 13:53:48.855587	3.98	31	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	3.98	0.00	0.02	\N	\N
+12458	722	99	000.801.042.600.00I	1		2011-04-04 13:53:44.274808	2011-04-04 13:53:48.888105	3.96	32	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	3.96	0.00	0.02	\N	\N
+12459	722	99	000.801.042.600.00I	2		2011-04-04 13:53:44.287738	2011-04-04 13:53:49.076584	5.32	33	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	5.32	0.00	0.02	\N	\N
+12460	722	99	000.801.042.600.00I	2		2011-04-04 13:53:44.30019	2011-04-04 13:53:49.112484	5.73	34	ZH Closet Rod | Matte Nickel	\N	\N	in	ok	5.73	0.00	0.02	\N	\N
+12461	722	172	000.FU3.173.314.00I	8		2011-04-04 13:53:44.312297	2011-04-04 13:53:49.140443	3.51	35	ZH Drawer Slide | Full ext | 14 inch	\N	\N	in	ok	3.51	0.00	\N	\N	\N
+12462	722	3	000.117.031.632.00I	8		2011-04-04 13:53:44.324097	2011-04-04 13:53:49.168862	1.08	36	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	\N
+12463	722	104	000.290.002.711.00I	4		2011-04-04 13:53:44.335812	2011-04-04 13:53:49.330852	1.02	37	ZH Hang Bracket | Left	\N	\N	in	ok	1.02	0.00	0.03	\N	\N
+12464	722	105	000.290.002.710.00I	5		2011-04-04 13:53:44.347418	2011-04-04 13:53:49.367681	1.02	38	ZH Hang Bracket | Right	\N	\N	in	ok	1.02	0.00	0.03	\N	\N
+12465	722	107	000.290.011.901.00I	3		2011-04-04 13:53:44.359457	2011-04-04 13:53:49.39825	3.32	39	ZH Hang Rail	\N	\N	in	ok	3.32	0.00	\N	\N	\N
+12471	722	228	000.282.024.720.00I	88		2011-04-04 13:53:44.603893	2011-04-04 13:53:49.735434	0.12	45	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N	\N
 7705	467	45	000.931.981.001.00M	3		2011-03-15 18:57:02.584809	2011-03-24 23:35:45.244695	3.80	2	CL Adjustable Shelf | White	\N	18	in	ok	3.80	0.00	0.03	\N	closet
 7706	467	43	000.960.000.001.00M	2		2011-03-15 18:57:02.614556	2011-03-24 23:35:45.248166	8.32	3	CL Backing Panel | White	\N	18	in	ok	8.31	0.00	0.25	\N	closet
 7707	467	43	000.960.000.001.00M	1		2011-03-15 18:57:02.64294	2011-03-24 23:35:45.251237	10.98	4	CL Backing Panel | White	\N	18	in	ok	10.97	0.00	0.25	\N	closet
@@ -25129,6 +25252,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 658	712	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 20:46:26.592031	2011-04-03 20:46:26.592031
 659	713	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 22:27:20.258418	2011-04-03 22:27:20.258418
 660	714	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-03 23:15:51.98154	2011-04-03 23:15:51.98154
+668	722	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-04 13:53:42.849714	2011-04-04 13:53:42.849714
 \.
 
 
@@ -25137,7 +25261,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	345	2011-01-23 05:52:19.75042	2011-04-03 23:18:02.011791
+1	2011	346	2011-01-23 05:52:19.75042	2011-04-04 13:54:05.255799
 \.
 
 
@@ -25773,6 +25897,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 713	4	4	6	McCoshen - Laundry	SO-344	\N	2011-04-03 22:27:20.044169	2011-04-03 22:27:48.639064	McCoshen - Laundry.xml	application/octet-stream	19387	2011-04-03 22:27:20.041862	\N	Placed	\N	\N		2011-04-03 22:27:48	4	\N	\N	4	\N	\N	Job	dvinci
 714	4	4	6	McCoshen - Master	SO-345	\N	2011-04-03 23:15:51.45989	2011-04-03 23:18:02.015572	McCoshen - Master.xml	application/octet-stream	30396	2011-04-03 23:15:51.457653	\N	Placed	\N	\N		2011-04-03 23:18:02	4	\N	\N	4	\N	\N	Job	dvinci
 614	17	16	20	Robert sayson 3 	SO-281	\N	2011-03-25 21:25:38.275422	2011-04-04 12:51:17.403539	Robert Sayson 3-25-11.dvi Parts List.xml	text/xml	6669	2011-03-25 21:25:38.2722	Phoenix	Ready For Production	2011-04-01	\N	CAN YOU PLEASE SHIP ASAP NEED YESTERDAY	2011-03-25 21:25:42	16		PremierRoute	16	3/28/11 on hold to confirm ship method. CS\r\n3/29/11 ok to ship 4/1/11, CS\r\nChocolate Apple, CS	20	Job	\N
+722	18	17	21	Hoskin 367	SO-346	\N	2011-04-04 13:53:42.159741	2011-04-04 13:54:05.259563	Hoskin.dvi Parts List.xml	text/xml	42273	2011-04-04 13:53:42.157538	\N	Placed	\N	\N		2011-04-04 13:54:05	17	\N	\N	17	\N	\N	Job	dvinci
 \.
 
 
@@ -28921,11 +29046,11 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 29	Ms.	Mary Beth	Lorenz	(608) 318-1667		(608) 318-0665	ctmadison@closettailors.com	$2a$10$OHOoEpiikKAW3Jlhm.3FQeRak.JlPGt8Cx/eOR0GcYB1B46v9SBDu	$2a$10$OHOoEpiikKAW3Jlhm.3FQe	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.854706	2011-01-01 18:53:35.887619
 2	Mr.	Vince	Hunter	(250) 452-9575	(250) 878-2790	(250) 764-9576	lvhunter@closettailors.com	$2a$10$8dtzeTjVukPkXVnrZoUsBODyg1uzt8N5MNdRRNjzO4XaNFKvTANyK	$2a$10$8dtzeTjVukPkXVnrZoUsBO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.001854	2011-01-01 18:53:36.009949
 8	\N	Customer Service	PG	480-483-3030		480-483-7895	info@premiergarage.com	$2a$10$B8ij4mhstLCYA3L69NAF5OgSwt2Gl2.hjC333B9JTG9VUHWn0E8qK	$2a$10$B8ij4mhstLCYA3L69NAF5O	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.919109	2011-01-27 00:32:32.680546
-17	Mr.	Peter	Selwyn	(613) 225-5218		(613) 225-5218	pwselwyn@tailoredliving.com	$2a$10$IEB/3S1o6WnG9NZTBZMP0ep0UwT3dN7Yfq3A4e4M331s7iXysEbPS	$2a$10$IEB/3S1o6WnG9NZTBZMP0e	\N	\N	\N	12	2011-03-29 15:04:09.507698	2011-03-28 18:23:31.81904	209.87.246.146	209.87.246.146	2011-01-01 18:53:34.153324	2011-03-29 15:04:09.508524
 99	\N	Jennifer	Heflin	703-707-0009	703-909-6164		jheflin@tailoredliving.com	$2a$10$wCaqPPesQRJdzHw.Yd6dwunDJSDjTyzOgYiHWgCKqs27WntOmUohe	$2a$10$wCaqPPesQRJdzHw.Yd6dwu	\N	\N	\N	11	2011-03-15 14:10:14.759141	2011-03-10 18:21:41.175476	72.66.45.179	72.66.62.197	2011-02-17 15:18:30.360419	2011-03-15 14:10:14.760242
 3	Mr.	Mike	Lyon	(253) 261-4253		(253) 447-4575	mlyon@tailoredliving.com	$2a$10$ZQu0KnwaR.WSHW.uvxQBweQQGxLyhZxZQUzVZRLvsbLg0bZOzozM6	$2a$10$ZQu0KnwaR.WSHW.uvxQBwe	\N	FFLKATrzBLgwghpXvq_b	2011-03-08 02:03:02.02199	4	2011-03-09 23:38:23.90305	2011-03-08 02:03:02.026573	24.22.187.236	24.22.187.236	2011-01-01 18:53:32.127395	2011-03-09 23:38:23.903704
 10	\N	Brian	Perry	512-966-6736		512-986-5892	bperry@tailoredliving.com	$2a$10$mnKl8AFMGJZYVMmFY5.fRexsEtCRzKo4vqLknnCOw.g9QyD8plDVO	$2a$10$mnKl8AFMGJZYVMmFY5.fRe	\N	\N	\N	8	2011-03-30 21:22:53.121753	2011-03-29 13:58:43.263306	166.205.13.245	67.78.112.191	2011-01-01 18:53:33.181217	2011-03-30 21:22:53.122504
 44	Mr.	Cory	Goldney	(866) 947-9427	(250) 228-7768	(250)947-9428	cgoldney@tailoredliving.com	$2a$10$SkFO42imT6qi7YTj0YfVFO31zKvO92mFSVCQX3ZkuW5RoUaJ55ZYa	$2a$10$SkFO42imT6qi7YTj0YfVFO	\N	qFBUVswtv0KDZ4Zuxc__	2011-03-31 22:35:07.535625	6	2011-03-31 22:35:07.539903	2011-03-16 18:22:34.56253	70.66.153.10	70.66.153.10	2011-01-01 18:53:37.748043	2011-03-31 22:35:07.54048
+17	Mr.	Peter	Selwyn	(613) 225-5218		(613) 225-5218	pwselwyn@tailoredliving.com	$2a$10$IEB/3S1o6WnG9NZTBZMP0ep0UwT3dN7Yfq3A4e4M331s7iXysEbPS	$2a$10$IEB/3S1o6WnG9NZTBZMP0e	\N	\N	\N	13	2011-04-04 13:44:00.129517	2011-03-29 15:04:09.507698	209.87.246.146	209.87.246.146	2011-01-01 18:53:34.153324	2011-04-04 13:44:00.130474
 7	Mr.	Kevin	Kinney	(480) 298-5200	(480) 298-5200	(480) 614-9414	kkinney@closettailors.com	$2a$10$58JySWgSlSOTLNpBvtxwyeqj1.247pjPyEuFyxxnFzNqaRJ72T9G6	$2a$10$58JySWgSlSOTLNpBvtxwye	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:32.727983	2011-02-11 15:00:35.38979
 22	Mr.	Tim	Blin	(904) 645-0885	(904) 234-1699	(904)645-0875	tblin@tailoredliving.com	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKeaDHDcpkY8YKTrtbkxgAzNjklsjm5Kwq	$2a$10$VQ5n7TMVeK1JIX2Mhi6YKe	\N	\N	\N	8	2011-04-04 12:24:18.534529	2011-04-01 14:29:08.964952	98.82.107.36	189.182.85.10	2011-01-01 18:53:34.831371	2011-04-04 12:24:18.535835
 108	\N	Dave	Angers	(714) 279-2481			daveangers@tailoredliving.com	$2a$10$uHWP.3nzTGg72dOE1v94vuK0yayBowdaeEJnbABUSioEXUHJ02eFe	$2a$10$uHWP.3nzTGg72dOE1v94vu	\N	JW13Smk_KDyw4fWK9jSY	2011-03-30 16:41:23.831448	17	2011-04-01 20:36:49.025235	2011-04-01 00:30:16.010046	67.203.136.36	67.203.136.36	2011-03-25 17:10:27.432626	2011-04-01 20:36:49.025918
