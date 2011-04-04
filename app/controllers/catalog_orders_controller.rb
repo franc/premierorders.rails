@@ -47,7 +47,7 @@ class CatalogOrdersController < ApplicationController
   end
 
   def catalog_json
-    @items_data = Item.where(:in_catalog => true).order(:category, :name).map do |item|
+    @items_data = Item.where(:in_catalog => true).order(:position).map do |item|
       sell_price = item.sell_price
       if sell_price.nil?
         sell_price = begin
