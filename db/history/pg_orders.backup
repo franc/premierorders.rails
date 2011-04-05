@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 706, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 707, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 761, true);
+SELECT pg_catalog.setval('jobs_id_seq', 762, true);
 
 
 --
@@ -26490,8 +26490,8 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 701	755	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-05 16:10:00.010091	2011-04-05 16:10:00.010091
 702	756	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-05 17:09:12.024579	2011-04-05 17:09:12.024579
 703	757	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-05 18:03:42.10679	2011-04-05 18:03:42.10679
-705	759	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-05 18:10:43.067482	2011-04-05 18:10:43.067482
 706	760	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-05 19:13:53.51507	2011-04-05 19:13:53.51507
+707	762	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-05 22:14:41.251843	2011-04-05 22:14:41.251843
 \.
 
 
@@ -27131,7 +27131,6 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 672	9	9	13	Mackow	SO-310	\N	2011-03-31 03:12:45.333554	2011-03-31 18:48:20.41156	Mackow, Mike Parts List.xls	application/octet-stream	21009	2011-03-31 03:12:45.329781	Phoenix	Confirmed	2011-04-15	\N		2011-03-31 03:14:51	9		PremierRoute	9	NX Bronze, CS	13	Job	\N
 691	28	103	36	Louis	SO-324	\N	2011-04-01 12:33:47.5275	2011-04-01 17:50:31.693594	Louis Cochius Parts List.xls	application/vnd.ms-excel	41963	2011-04-01 12:33:47.522379	Phoenix	Confirmed	2011-04-15	\N		2011-04-01 12:34:42	103		PremierRoute	103	White, CS	36	Job	dvinci
 705	37	67	46	Lang Garage	SO-336	\N	2011-04-01 22:27:30.294167	2011-04-04 18:53:27.845058	Lang Order List.xml	text/xml	12087	2011-04-01 22:27:30.291856	Phoenix	Confirmed	2011-04-18	\N	Please confirm and include inventory items requested.	2011-04-01 22:28:32	67		PremierRoute	67	Nx White, CS\r\nReplaces SO#302, CS	46	Job	dvinci
-759	9	9	13	Valles - butcher block	\N	\N	2011-04-05 18:10:42.947401	2011-04-05 18:10:42.947401	Valles, Carlos and Natalie Parts List - butcher block.xls	application/octet-stream	5233	2011-04-05 18:10:42.942107	\N	Created	\N	\N		\N	\N	\N	\N	9	\N	\N	Job	dvinci
 584	23	22	27	Eggleston, Dawn	SO-261	\N	2011-03-23 15:50:19.473409	2011-04-04 19:51:38.374548	Eggleston, Dawn Parts List.xml	text/xml	31988	2011-03-23 15:50:19.471277	Phoenix	In Production	2011-04-07	\N		2011-03-23 15:52:12	22		PremierRoute	22	White, CS	27	Job	\N
 381	18	17	21	Cole 348	SO-166	\N	2011-03-09 03:23:09.967296	2011-03-29 13:30:41.636699	Cole2.dvi Parts List.xml	text/xml	23130	2011-03-09 03:23:09.965364	Phoenix	Shipped	2011-03-25	2011-03-29	Please replace DR1 Decore drawer faces (qty 14)with Decore DR31 drawer faces.	2011-03-09 03:24:44	17		PremierRoute	17	3/10 sent email to Peter/Wendy on DR 31, replacement door and box amount on #1070. CS\r\n3/10 wants DRS 131, 1 box of #1070 and replacement drawer box is not a warranty. CS\r\n\r\nWhite, CS	21	\N	\N
 539	17	16	20	HOME SHOW	SO-237	\N	2011-03-21 17:04:18.640268	2011-04-05 03:51:21.008437	10x10 Inline HomeShow DVI[1]3-21-11.dvi Parts List.xml	text/xml	62226	2011-03-21 17:04:18.637898	Phoenix	Shipped	2011-04-05	2011-04-05	WE NEED THIS TO BE DELIVERED NO LATER THEN TUESDAY THE 5TH OF APRIL. IF WE CANNOT GUARENTEE DELIVERY PLEASE CONTACT ME AND WE WILL CANCEL THE ORDER	2011-03-21 17:08:46	16		PremierRoute	16	3/21/11 confirming ship date. CS\r\nWild Apple, CS	20	Job	\N
@@ -27164,6 +27163,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 500	17	16	20	Paresh Dabhi	SO-219	\N	2011-03-17 18:48:58.815757	2011-04-05 03:50:17.809686	Paresh Dabhi 3-15-11.dvi Parts List.xml	text/xml	16798	2011-03-17 18:48:58.813684	Phoenix	Shipped	2011-04-01	2011-04-05		2011-03-17 18:49:42	16		PremierRoute	16	NX Bronze, CS	20	Job	\N
 664	10	108	2	Chuck Self Drop Ship	\N	\N	2011-03-30 16:29:00.495104	2011-03-30 16:29:00.495104	Chuck Self.xml	text/xml	6518	2011-03-30 16:29:00.491964	\N	Created	\N	\N	Drop ship durectly to customer:\r\n\r\nChuck Self\r\n541 Summer Hill Rd.\r\nCullowhee, NC 28723\r\n828-743-1240 (home phone)\r\n	\N	\N	\N	\N	108	\N	\N	Job	\N
 499	17	16	20	Rocky Sheng	SO-218	\N	2011-03-17 18:38:33.864221	2011-04-05 03:50:18.755818	Rocky Sheng.dvi Parts List.xml	text/xml	15129	2011-03-17 18:38:33.862042	Phoenix	Shipped	2011-04-01	2011-04-05		2011-03-17 18:39:30	16		PremierRoute	16	NX Bronze, CS	20	Job	\N
+762	9	9	13	Valles - Butcher block	\N	\N	2011-04-05 22:14:41.171765	2011-04-05 22:14:41.171765	Valles, Carlos - butcher block.xml	application/octet-stream	5153	2011-04-05 22:14:41.167023	\N	Created	\N	\N		\N	\N	\N	\N	9	\N	\N	Job	dvinci
 268	41	70	50	Smith_Office	SO-106	\N	2011-02-25 16:26:13.435457	2011-04-01 14:31:57.012679	Smith_Office Parts List.xml	text/xml	28115	2011-02-25 16:26:13.432795	Phoenix	Shipped	2011-03-23	2011-04-01	Premier Route	2011-02-25 16:30:06	70		PremierRoute	70	White\r\n3/2- SPOKE TO JON REGARDING DRAWING, IT SHOULD BE AN L-SPAPED TOP, JON SENT DRAWINGS.  THREE WEEKS START 3-2-2011.  (Please Ignore item #2 fillers, he is going to order this the right way with "Ring-Lockers" order. EH)\r\n3/22/2011-spoke to Jon Elliot, he wants all the other items shipped to him with out the top.  This way his customer will not be upset if he can install part of the order. yq	50	\N	\N
 345	50	79	59	Suzy Wilson - Jonathan's Closet - Revised	SO-145	\N	2011-03-04 20:41:08.067746	2011-03-22 22:20:46.53888	Wilson, Suzy Closet Designs.dvi Parts List.xml	text/xml	48075	2011-03-04 20:41:08.063774	Phoenix	Shipped	2011-03-21	2011-03-22	This replaces SO 123.	2011-03-04 20:42:55	79		PremierRoute	79	Yo - Item #10052 is on the SO to ship from PHX. CS\r\nChocolate Apple, CS	59	\N	\N
 612	14	13	17	Watts 3822 Winter Creek	SO-279	\N	2011-03-25 20:42:38.037456	2011-04-04 18:01:56.805335	Watts dvi Parts List.xml	text/xml	15916	2011-03-25 20:42:38.034997	Phoenix	Ready For Production	2011-04-12	\N		2011-03-25 20:44:25	13		PremierRoute	13	NX Maple, YQ	17	Job	\N
