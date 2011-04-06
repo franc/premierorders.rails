@@ -634,7 +634,7 @@ ALTER SEQUENCE job_item_components_id_seq OWNED BY job_item_components.id;
 -- Name: job_item_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_components_id_seq', 8345, true);
+SELECT pg_catalog.setval('job_item_components_id_seq', 8354, true);
 
 
 --
@@ -681,7 +681,7 @@ ALTER SEQUENCE job_item_properties_id_seq OWNED BY job_item_properties.id;
 -- Name: job_item_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_item_properties_id_seq', 20972, true);
+SELECT pg_catalog.setval('job_item_properties_id_seq', 21181, true);
 
 
 --
@@ -739,7 +739,7 @@ ALTER SEQUENCE job_items_id_seq OWNED BY job_items.id;
 -- Name: job_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_items_id_seq', 13262, true);
+SELECT pg_catalog.setval('job_items_id_seq', 13380, true);
 
 
 --
@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 714, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 722, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 769, true);
+SELECT pg_catalog.setval('jobs_id_seq', 777, true);
 
 
 --
@@ -4594,7 +4594,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 555	CL Hanging Partition - Square - Thru	Closet system hanging partition -square bottom - thru drilled		\N	000.910.26x.x.00M	CL-HPS-T	2011-01-02 02:02:33.954763	2011-02-18 22:02:20.683684	Manufactured	Closets	Items::ClosetPartition	\N		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 1178	EZ C2 Double Segment Gold 25 Grit, very soft concrete (Qty 9)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.651554	2011-04-06 04:18:21.19282	\N	7732	\N	\N	\N	\N	\N	\N	\N	79.05	flooring_expendables	t	\N	\N	258
 684	ZH The Loop Hook (4/box)	~ The Loop Hook (4/box)	7110-5601-50	\N	000.995.301.200.00I		2011-01-21 01:24:55.211782	2011-04-06 04:18:25.230453	Inventory	3012	Items::BulkItem	24.60		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	449
-656	ZH SlatWall Corner Molding (4/box) | Maple	SlatWall Corner Molding (4/box) | Maple	HST9008M	\N	000.990.320.3IO.00I		2011-01-21 01:24:55.068208	2011-04-06 04:18:26.091878	Inventory	3203-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	489
 1199	Mesh Screen, 18' - 100 Grit (Box Qty. 10)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.759001	2011-04-06 04:18:21.513656	\N	2006	\N	\N	\N	\N	\N	\N	\N	9.00	flooring_expendables	t	\N	\N	271
 1519	Twist on/off filter kit - 3 each PTFE...Coated spun bond polyester filters in box. RETRO FIT KIT			\N			2011-03-10 00:29:59.415084	2011-04-06 04:18:22.542137	Buyout	7780	Item	\N		\N	\N	\N	\N	198.00	flooring_hardware	t	drop_ship	\N	323
 123	ZH Sliding Wire Basket (24x11x12) | Matte Nickel	Closet Basket, steel, matt nickel, 12"d x 23"w x 11"h	547.36.626	\N	000.547.036.626.00P		2011-01-01 18:53:53.893371	2011-04-06 01:51:27.703205	Purchased	30038-1	Item	24.00		\N	0.10	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	111
@@ -4605,6 +4604,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 14	ZH Murphy Bed Hardware Set Full	Murphy Bed Hardware Set Full	SBF-M/SBF-D	\N	000.100.610.000.00P		2011-01-01 18:53:39.081271	2011-04-06 04:18:24.59175	Purchased	10061	Item	438.83		\N	1.00	0.92000000000000004	0.40000000000000002	\N	hardware	t	\N	\N	424
 202	ZH Screw (Drawer Slide 3/4 Ext)	Screw Epoxy Slides steel, zinc-plated T17 undercut flat head phillips drive #7 x 7/16" (1000/box)	0161050802	\N	000.104.900.000.00I		2011-01-01 18:53:57.225669	2011-04-06 04:18:24.846166	Inventory	1049	Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002	\N	hardware	t	\N	\N	432
 1301	PremierFlex-RibFlex Corner 15-3/4in. - Tropical Orange			\N			2011-03-10 00:29:54.45609	2011-04-06 18:37:48.829641	Buyout	68113	Item	\N		\N	\N	\N	\N	1.25	flooring	t	drop_ship	\N	244
+656	ZH SlatWall Corner Molding (4/box) | Maple	SlatWall Corner Molding (4/box) | Maple	HST9008M	\N	000.990.320.3IO.00I		2011-01-21 01:24:55.068208	2011-04-06 20:11:05.917666	Inventory	3203-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	477
 1684	Edgebanding - Sable Glow 1- 5/16in.	\N	\N	\N	\N	\N	2011-03-29 22:23:20.458708	2011-04-03 01:54:53.905342	\N	4012-SableGlow - 1- 5/16"	\N	\N	\N	\N	\N	\N	\N	0.07	board	t	standard	\N	8
 1685	Edgebanding - Sable Glow 15/16in.	\N	\N	\N	\N	\N	2011-03-29 22:23:20.475818	2011-04-03 01:54:53.918255	\N	4012-SableGlow - 15/16"	\N	\N	\N	\N	\N	\N	\N	0.04	board	t	standard	\N	9
 1686	Edgebanding - Victorian White 1- 5/16in.	\N	\N	\N	\N	\N	2011-03-29 22:23:20.590977	2011-04-03 01:54:53.931019	\N	4012-VictorianWht - 1- 5/16"	\N	\N	\N	\N	\N	\N	\N	0.11	board	t	standard	\N	10
@@ -4663,9 +4663,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 450	CTOP Corner - Futura | Laminate 4552 Ebony Star	CTOP Corner - Futura | Laminate 4552 Ebony Star		\N	000.402.003.303.00P	\N	2011-01-01 18:54:26.073479	2011-01-30 16:41:00.044608	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 470	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 1595 Black	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 1595 Black		\N	000.402.004.302.00P	\N	2011-01-01 18:54:27.039552	2011-01-30 16:43:01.776981	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 1704	Kit - Sliding Door | 78x17	Kit includes: Hardware Fitting Kit; Running Guide Kit; Handle, Medium Tail; Handle, Long Tail; Deck Filler		\N			2011-03-17 16:10:38.633223	2011-04-06 04:18:23.304104	Purchased		Item	\N		\N	\N	\N	\N	115.00	hardware	t	0	\N	364
-650	ZH SlatWall Corner Molding (4/box) | Taupe	SlatWall Corner Molding (4/box) | Taupe	HST2008M	\N	000.990.320.2IO.00I		2011-01-21 01:24:55.038209	2011-04-06 04:18:26.30587	Inventory	3202-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	504
 62	ZH Belt Rack | Polished Chrome	Belt Rack W/Slide-ATL Al Chr Pol/Bl Pl 13 7/8	807.67.213	\N	000.807.067.213.00P		2011-01-01 18:53:51.535374	2011-04-06 04:18:36.041529	Purchased	30093	Item	20.06		\N	0.07	0.92000000000000004	0.40000000000000002	\N	\N	t	\N	\N	860
 1703	Kit - Sliding Door | 84x17	Kit includes: Hardware Fitting Kit; Running Guide Kit; Handle, Medium Tail; Handle, Long Tail; Deck Filler		\N			2011-03-17 16:10:38.633223	2011-04-06 04:18:23.333249	Purchased		Item	\N		\N	\N	\N	\N	115.00	hardware	t	0	\N	366
+650	ZH SlatWall Corner Molding (4/box) | Taupe	SlatWall Corner Molding (4/box) | Taupe	HST2008M	\N	000.990.320.2IO.00I		2011-01-21 01:24:55.038209	2011-04-06 20:11:06.27278	Inventory	3202-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	492
 1702	Kit - Sliding Door | 90x17	Kit includes: Hardware Fitting Kit; Running Guide Kit; Handle, Medium Tail; Handle, Long Tail; Deck Filler		\N			2011-03-17 16:10:38.633223	2011-04-06 04:18:23.36087	Purchased		Item	\N		\N	\N	\N	\N	115.00	hardware	t	0	\N	368
 476	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4794 Windswept Bronze	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4794 Windswept Bronze		\N	000.402.004.308.00P	\N	2011-01-01 18:54:27.233121	2011-01-30 16:44:28.866218	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 1400	Hinge, Blind Corner (Box Qty 25)	\N	\N	\N	\N	\N	2011-03-10 00:29:55.907655	2011-04-06 04:18:23.261631	\N	1033	Items::BulkItem	\N	\N	\N	\N	\N	\N	88.00	hardware	t	\N	25	361
@@ -4679,7 +4679,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 485	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 7942 Cocobala	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 7942 Cocobala		\N	000.402.004.317.00P	\N	2011-01-01 18:54:27.399614	2011-01-30 16:47:26.689539	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 886	Drawer Front,23.875 x 15.3125 HARDROCK MAPLE(Unit pack 2 pcs.)	\N	\N	\N	\N	\N	2011-03-10 00:29:34.995071	2011-04-06 04:18:31.160007	\N	800501	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	8.40	wood	t	\N	\N	685
 1529	CTOP Corner - 1 in. melamine	CTOP Corner 1 in. melamine		\N	000.502.000.x.00M	MEL-CCTOP-25	2011-01-01 18:53:39.129345	2011-03-25 00:33:44.481625	Manufactured	Worksurfaces	Items::Countertop	\N		\N	0.25	0.92000000000000004	0.40000000000000002	\N	board	f	0	\N	\N
+644	ZH SlatWall Corner Molding (4/box) | White	SlatWall Corner Molding (4/box) | White	HST1008M	\N	000.990.320.1IO.00I		2011-01-21 01:24:55.008372	2011-04-06 20:11:06.199127	Inventory	3201-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	487
 1401	Hinge, Plastic Cap with Logo (Box Qty 300)	\N	\N	\N	\N	\N	2011-03-10 00:29:55.912612	2011-04-06 04:18:23.276166	\N	1019	Items::BulkItem	\N	\N	\N	\N	\N	\N	30.00	hardware	t	\N	300	362
+662	ZH SlatWall Corner Molding (4/box) | Black	SlatWall Corner Molding (4/box) | Black	HST4008M	\N	000.990.320.4IO.00I		2011-01-21 01:24:55.097949	2011-04-06 20:11:06.351287	Inventory	3204-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	497
 475	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4791 Willowstone	CTOP Corner - Geneva (3 Week Lead Time) | Laminate 4791 Willowstone		\N	000.402.004.307.00P	\N	2011-01-01 18:54:27.219394	2011-01-30 16:44:14.418842	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 1404	Leg, Adjustable (Box Qty 50)	\N	\N	\N	\N	\N	2011-03-10 00:29:55.956903	2011-04-06 04:18:23.527171	\N	1013	Items::BulkItem	\N	\N	\N	\N	\N	\N	41.00	hardware	t	\N	50	370
 916	Side,1 & 4 Drawer 16 x 31 Windswept WINDSWEPT BRONZE	\N	\N	\N	\N	\N	2011-03-10 00:29:37.144425	2011-04-06 04:18:32.47647	\N	810904	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	13.40	wood	t	\N	\N	730
@@ -4688,11 +4690,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 588	ZH Hinge Sleeve with Screws	Hinge Sleeve Set (for half overlay hinges)	267.00.013/267.00.720	\N			2011-01-07 00:24:54.992986	2011-04-06 04:18:36.09367	Inventory	Needed	Item	\N		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	t	\N	\N	864
 1403	Leg,  Extension 50mm (Box Qty 50)	\N	\N	\N	\N	\N	2011-03-10 00:29:55.951464	2011-04-06 04:18:23.570707	\N	1020	Items::BulkItem	\N	\N	\N	\N	\N	\N	27.50	hardware	t	\N	50	373
 1409	Leg, Socket Adjustable (Box Qty 50)	\N	\N	\N	\N	\N	2011-03-10 00:29:55.980404	2011-04-06 04:18:23.613531	\N	1014	Items::BulkItem	\N	\N	\N	\N	\N	\N	22.00	hardware	t	\N	50	376
-671	ZH SlatWall U Edge Molding (4/box) | Gray	SlatWall U Edge Molding (4/box) | Gray	HST3008E	\N	000.990.320.50U.00I		2011-01-21 01:24:55.143909	2011-04-06 04:18:26.136014	Inventory	3205-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	492
-644	ZH SlatWall Corner Molding (4/box) | White	SlatWall Corner Molding (4/box) | White	HST1008M	\N	000.990.320.1IO.00I		2011-01-21 01:24:55.008372	2011-04-06 04:18:26.237278	Inventory	3201-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	499
-662	ZH SlatWall Corner Molding (4/box) | Black	SlatWall Corner Molding (4/box) | Black	HST4008M	\N	000.990.320.4IO.00I		2011-01-21 01:24:55.097949	2011-04-06 04:18:26.493858	Inventory	3204-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	509
 587	ZH Screw (Hinge Fastening) PART OF A SET	M4 screw with raised head and cross-slot Z, size 2 nickel-plated 11mm\r\n	267.00.720	\N			2011-01-07 00:22:48.609149	2011-04-06 04:18:36.313834	Manufactured		Item	0.01		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	t	\N	\N	871
 586	ZH Screw (Hinge Sleeve) PART OF A SET	Sleeves with M4 Internal Thread 22mm	267.00.013	\N			2011-01-07 00:18:14.026608	2011-04-06 04:18:36.328839	Inventory		Item	0.05		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	t	\N	\N	872
+671	ZH SlatWall U Edge Molding (4/box) | Gray	SlatWall U Edge Molding (4/box) | Gray	HST3008E	\N	000.990.320.50U.00I		2011-01-21 01:24:55.143909	2011-04-06 20:11:05.959526	Inventory	3205-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	480
 574	Powder Coated Door (23.875 x 23) | RED	Powder Coated Door (23.875 x 23) | RED	NX 23.875 x 22.552 Red	\N	000.880.300.b12.00P	PC-D	2011-01-04 06:35:34.405158	2011-02-18 22:45:09.433122	Purchased	880300b	Item	16.16		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 565	Powder Coated Door (23.875 x 30) | GRANITE	Powder Coated Door (23.875 x 30) | GRANITE	NX 23.875 x 30.111 Granite	\N	000.880.310.a12.00P	PC-D	2011-01-04 06:35:34.356161	2011-02-18 22:45:19.369682	Purchased	880310a	Item	20.25		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 575	Powder Coated Door (23.875 x 30) | RED	Powder Coated Door (23.875 x 30) | RED	NX 23.875 x 30.111 Red	\N	000.880.310.b12.00P	PC-D	2011-01-04 06:35:34.410484	2011-02-18 22:45:30.512397	Purchased	880310b	Item	20.25		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
@@ -4795,8 +4795,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 654	ZH SlatWall 12 x 96 (4/box) |Taupe	SlatWall 12 x 96 (4/box) |Taupe	HSW2008	\N	000.990.320.20W.00I		2011-01-21 01:24:55.058333	2011-04-06 01:51:26.95565	Inventory	3202-W	Items::BulkItem	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	organizers	t	0	4	75
 180	ZH Wardrobe Lift (20-26) | Matte Nickel	Wardrobe Lift, steel, nickel-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.601 	\N	000.805.031.601.00P		2011-01-01 18:53:56.083546	2011-04-06 01:51:28.613176	Purchased	30116	Item	68.46		\N	0.13	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	158
 177	ZH Wardrobe Lift (20-26) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 21 1/4" - 26", 26 lbs load capacity	805.31.201	\N	000.805.031.201.00P		2011-01-01 18:53:56.010967	2011-04-06 01:51:28.627588	Purchased	30074	Item	38.92		\N	0.13	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	159
-660	ZH SlatWall 12 x 96 (4/box) |Maple	SlatWall 12 x 96 (4/box) |Maple	HSW5008	\N	000.990.320.30W.00I		2011-01-21 01:24:55.088016	2011-04-06 04:18:25.871457	Inventory	3203-W	Items::BulkItem	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	organizers	t	0	4	485
 998	Side,23 x 31 Windswept WINDSWEPT PEWTER	\N	\N	\N	\N	\N	2011-03-10 00:29:45.98873	2011-04-06 04:18:34.477088	\N	830812	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	18.87	wood	t	\N	\N	803
+660	ZH SlatWall 12 x 96 (4/box) |Maple	SlatWall 12 x 96 (4/box) |Maple	HSW5008	\N	000.990.320.30W.00I		2011-01-21 01:24:55.088016	2011-04-06 20:11:05.858677	Inventory	3203-W	Items::BulkItem	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	organizers	t	0	4	473
 672	ZH SlatWall 12 x 96 (4/box) |Gray	SlatWall 12 x 96 (4/box) |Gray	HSW3008	\N	000.990.320.50W.00I		2011-01-21 01:24:55.149093	2011-04-06 01:45:42.473382	Inventory	3205-W	Items::BulkItem	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	organizers	t	0	4	74
 272	CTOP - Classic (3 Week Lead Time) | Laminate 1595 Black	CTOP - Classic (3 Week Lead Time) | Laminate 1595 Black		\N	000.401.000.302.00P	\N	2011-01-01 18:54:11.855812	2011-01-30 16:16:32.378973	Purchased		Items::ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 598	ZZ NXp Panel 25 DON'T DELETE	building block: 1 inch panel		\N			2011-01-07 17:24:43.476855	2011-01-12 20:23:08.623935	Manufactured		Items::Panel	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
@@ -4827,7 +4827,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 1423	Screw, Zip-R, Fl Csk, T17, Nibs, Sq Drv, #8 X 1 1/4	\N	\N	\N	\N	\N	2011-03-10 00:29:56.758021	2011-04-06 04:18:23.707978	\N	10028	\N	\N	\N	\N	\N	\N	\N	0.01	hardware	t	\N	\N	383
 1424	Screw, Zip-R, Fl Csk, T17, Ph Drv #6 X 5/8	\N	\N	\N	\N	\N	2011-03-10 00:29:56.763339	2011-04-06 04:18:23.71971	\N	10029	\N	\N	\N	\N	\N	\N	\N	\N	hardware	t	\N	\N	384
 1498	M&E, GnG Replacement Scarifing Heads ( Boxed Set)			\N			2011-03-10 00:29:59.0996	2011-04-06 04:18:22.357169	Buyout	7018	Item	\N		\N	\N	\N	\N	630.00	flooring_hardware	t	drop_ship	\N	309
-667	ZH SlatWall T Molding (4/box) | Gray	SlatWall T Molding (4/box) | Gray	HST3008D	\N	000.990.320.5DM.00I		2011-01-21 01:24:55.123367	2011-04-06 04:18:26.149962	Inventory	3205-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	493
+667	ZH SlatWall T Molding (4/box) | Gray	SlatWall T Molding (4/box) | Gray	HST3008D	\N	000.990.320.5DM.00I		2011-01-21 01:24:55.123367	2011-04-06 20:11:05.973363	Inventory	3205-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	481
 307	CTOP - Nova (3 Week Lead Time) | Laminate 7921 Tuscan Walnut	CTOP - Nova (3 Week Lead Time) | Laminate 7921 Tuscan Walnut		\N	000.401.001.316.00P	\N	2011-01-01 18:54:16.789013	2011-01-30 17:32:19.13919	Purchased		Items::ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 20	CTOP Corner - 3/4 in. melamine	CTOP Corner 3/4 in. melamine		\N	000.402.000.x.00M	MEL-CCTOP-19	2011-01-01 18:53:39.14284	2011-01-02 02:35:37.884026	Manufactured		Item	\N	\N	\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 143	ZH Sliding Wire Basket (18x17x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 17"w x 17"h	547.35.668	\N	000.547.035.668.00P		2011-01-01 18:53:54.758167	2011-04-06 01:51:27.468023	Purchased	30051-1	Item	25.57		\N	0.10	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	102
@@ -4907,8 +4907,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 400	CTOP Corner - Classic (3 Week Lead Time) | Laminate 7921 Tuscan Walnut	CTOP Corner - Classic (3 Week Lead Time) | Laminate 7921 Tuscan Walnut		\N	000.402.000.316.00P	\N	2011-01-01 18:54:23.318118	2011-01-30 16:34:28.886155	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 402	CTOP Corner - Classic (3 Week Lead Time) | Laminate 7948 Mambo	CTOP Corner - Classic (3 Week Lead Time) | Laminate 7948 Mambo		\N	000.402.000.318.00P	\N	2011-01-01 18:54:23.343289	2011-01-30 16:35:01.676147	Purchased		Item	178.83		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 60	ZH Tie Rack | Matte Nickel	Synergy Tie Rack with Slide, aluminum, nickel-plated matt, plastic, black, 13 7/8" length	807.67.603	\N	000.807.067.603.00P		2011-01-01 18:53:51.399991	2011-04-06 01:51:28.342393	Purchased	30109	Item	21.87		\N	0.07	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	148
-1261	Crack Sealer,Crown 120  1-kit  Mix ratio 2:1	\N	\N	\N	\N	\N	2011-03-10 00:29:54.265949	2011-04-06 04:18:19.825594	\N	6024	\N	\N	\N	\N	\N	\N	\N	176.34	flooring	t	\N	\N	182
-1262	Hardener, Premier Nx100 5 Gal (Ratio 2R:1H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.270999	2011-04-06 04:18:19.840264	\N	6610-H	\N	\N	\N	\N	\N	\N	\N	303.58	flooring	t	\N	\N	183
+1262	Hardener, Premier Nx100 5 Gal (Ratio 2R:1H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.270999	2011-04-06 20:13:08.093023	\N	6610-H	\N	\N	\N	\N	\N	\N	\N	303.58	flooring	t	\N	\N	168
+1265	Hardener, Premier Nx400 5 Gal (Ratio 1R kit:2H bucket)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.285589	2011-04-06 20:13:08.119538	\N	6613-H	\N	\N	\N	\N	\N	\N	\N	213.63	flooring	t	\N	\N	170
 366	CTOP - Geneva (3 Week Lead Time) | Laminate 4884 Flame Soapstone	CTOP - Geneva (3 Week Lead Time) | Laminate 4884 Flame Soapstone		\N	000.401.004.312.00P	\N	2011-01-01 18:54:21.340418	2011-01-30 17:26:01.775282	Purchased		Items::ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 368	CTOP - Geneva (3 Week Lead Time) | Laminate 4886 Pearl Soapstone	CTOP - Geneva (3 Week Lead Time) | Laminate 4886 Pearl Soapstone		\N	000.401.004.314.00P	\N	2011-01-01 18:54:21.592802	2011-01-30 17:26:22.734908	Purchased		Items::ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 370	CTOP - Geneva (3 Week Lead Time) | Laminate 7921 Tuscan Walnut	CTOP - Geneva (3 Week Lead Time) | Laminate 7921 Tuscan Walnut		\N	000.401.004.316.00P	\N	2011-01-01 18:54:21.701903	2011-01-30 17:26:44.500967	Purchased		Items::ScaledItem	\N		\N	\N	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
@@ -4922,15 +4922,15 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 570	Powder Coated Door (23.875 x 90) | GRANITE	Powder Coated Door (23.875 x 90) | GRANITE	NX 23.875 x 90.584 Granite	\N	000.880.309.a12.00P	PC-D	2011-01-04 06:35:34.384454	2011-02-18 22:47:21.587567	Purchased		Item	55.20		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 580	Powder Coated Door (23.875 x 90) | RED	Powder Coated Door (23.875 x 90) | RED	NX 23.875 x 90.584 Red	\N	000.880.309.b12.00P	PC-D	2011-01-04 06:35:34.435866	2011-02-18 22:47:34.258997	Purchased		Item	55.20		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 571	Powder Coated Drawer Front (23.875 x 7.5625) | GRANITE	Powder Coated Drawer Front (23.875 x 7.5625) | GRANITE	NX 23.875 x 7.434 Granite	\N	000.880.500.a12.00P	PC-DF	2011-01-04 06:35:34.389702	2011-02-18 22:48:46.842024	Purchased	880500a	Item	7.84		\N	0.05	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
-1265	Hardener, Premier Nx400 5 Gal (Ratio 1R kit:2H bucket)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.285589	2011-04-06 04:18:19.865096	\N	6613-H	\N	\N	\N	\N	\N	\N	\N	213.63	flooring	t	\N	\N	185
-1266	Hardener, SikaFloor 510 LPL, 5-Gal (Ratio 3R:2H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.290337	2011-04-06 04:18:19.877194	\N	6618-H	\N	\N	\N	\N	\N	\N	\N	624.27	flooring	t	\N	\N	187
+1266	Hardener, SikaFloor 510 LPL, 5-Gal (Ratio 3R:2H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.290337	2011-04-06 20:13:08.147048	\N	6618-H	\N	\N	\N	\N	\N	\N	\N	624.27	flooring	t	\N	\N	172
+1267	Kit-Premier Nx315-Large - 9 gal Kit, 4500 sq.ft./kit	\N	\N	\N	\N	\N	2011-03-10 00:29:54.29514	2011-04-06 20:13:08.172216	\N	6617	\N	\N	\N	\N	\N	\N	\N	1.00	flooring	t	\N	\N	174
+1268	Kit-Premier Nx315-Small - 3 gal Kit, 1500 sq.ft./kit	\N	\N	\N	\N	\N	2011-03-10 00:29:54.299885	2011-04-06 20:13:08.184397	\N	6616	\N	\N	\N	\N	\N	\N	\N	462.83	flooring	t	\N	\N	175
+1269	Patch-Sika Injection Gel, (1-2 gal. can part A, 1-2 gal. can part B = 1 KIT)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.304771	2011-04-06 20:13:08.19662	\N	6027	\N	\N	\N	\N	\N	\N	\N	261.25	flooring	t	\N	\N	167
 207	Decor Crown Molding - 423 | Hardrock Maple	Decor Crown Molding - 423 | Hardrock Maple		\N	000.301.000.010.00P		2011-01-01 18:53:57.251766	2011-02-24 14:49:33.595284	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 17	Decor Crown Molding - 424 | White	Decor Crown Molding - 424 | White		\N	000.302.000.001.00P		2011-01-01 18:53:39.10285	2011-02-24 14:50:40.999138	Purchased		Item	\N		\N	0.45	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
-1267	Kit-Premier Nx315-Large - 9 gal Kit, 4500 sq.ft./kit	\N	\N	\N	\N	\N	2011-03-10 00:29:54.29514	2011-04-06 04:18:19.901379	\N	6617	\N	\N	\N	\N	\N	\N	\N	1.00	flooring	t	\N	\N	189
-1268	Kit-Premier Nx315-Small - 3 gal Kit, 1500 sq.ft./kit	\N	\N	\N	\N	\N	2011-03-10 00:29:54.299885	2011-04-06 04:18:19.91336	\N	6616	\N	\N	\N	\N	\N	\N	\N	462.83	flooring	t	\N	\N	190
-1269	Patch-Sika Injection Gel, (1-2 gal. can part A, 1-2 gal. can part B = 1 KIT)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.304771	2011-04-06 04:18:19.925517	\N	6027	\N	\N	\N	\N	\N	\N	\N	261.25	flooring	t	\N	\N	191
 1270	Pigment, Beige Rose 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.309439	2011-04-06 04:18:19.938416	\N	6630-BR	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	192
 648	ZH SlatWall 12 x 96 (4/box) |White	SlatWall 12 x 96 (4/box) |White	HSW1008	\N	000.990.320.10W.00I		2011-01-21 01:24:55.02821	2011-04-06 01:51:26.975004	Inventory	3201-W	Items::BulkItem	\N		\N	0.15	0.92000000000000004	0.40000000000000002	\N	organizers	t	0	4	76
+1261	Crack Sealer,Crown 120  1-kit  Mix ratio 2:1	\N	\N	\N	\N	\N	2011-03-10 00:29:54.265949	2011-04-06 20:13:08.076953	\N	6024	\N	\N	\N	\N	\N	\N	\N	176.34	flooring	t	\N	\N	166
 544	HO Base 2 Drawer (Lateral File)	HO Base 2 Drawer (Lateral File)		\N	000.224.322.x.00M	HO-BC	2011-01-01 18:54:33.697399	2011-02-18 22:30:10.142883	Manufactured	HomeOffice_Cabinets	Items::Cabinet	\N		\N	0.25	0.92000000000000004	0.40000000000000002	\N	\N	\N	\N	\N	\N
 156	ZH Cam (Double Stud)	Rafix Dbl.Bolt St.Zip 5/7 F.19Mm	263.24.972	\N	000.263.024.972.00I		2011-01-01 18:53:55.385639	2011-04-06 04:18:23.987448	Inventory	10019	Item	0.07		\N	\N	0.92000000000000004	0.40000000000000002	\N	hardware	t	\N	\N	392
 67	ZH Valet Rod | Oil Rubbed Bronze	Synergy Closet Valet, aluminum, dark oil rubbed bronzed, plastic, black, 14 1/8" length	808.71.103	\N	000.808.071.103.00P		2011-01-01 18:53:52.492961	2011-04-06 01:51:28.570413	Purchased	30113	Item	17.79		\N	0.07	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	155
@@ -5085,10 +5085,6 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 990	Side,20 x 90 Windswept WINDSWEPT PEWTER	\N	\N	\N	\N	\N	2011-03-10 00:29:45.19714	2011-04-06 04:18:34.175662	\N	830828	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	33.01	wood	t	\N	\N	795
 991	Side,23 x 23.25 HARDROCK MAPLE	\N	\N	\N	\N	\N	2011-03-10 00:29:45.269423	2011-04-06 04:18:34.339593	\N	800821	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	11.56	wood	t	\N	\N	796
 992	Side,23 x 23.25 White	\N	\N	\N	\N	\N	2011-03-10 00:29:45.339859	2011-04-06 04:18:34.358083	\N	820821	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	11.56	wood	t	\N	\N	797
-1271	Pigment,Bright Red 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.3141	2011-04-06 04:18:19.951804	\N	6640-RD	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	193
-1273	Pigment,Colonial Blue 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.323424	2011-04-06 04:18:19.962933	\N	6635-CB	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	194
-1274	Pigment,Gray 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.32801	2011-04-06 04:18:19.977262	\N	6636-GR	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	195
-1275	Pigment,Oxford Gray 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.332665	2011-04-06 04:18:19.990578	\N	6631-OG	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	196
 1277	Pigment,Raffia 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.341842	2011-04-06 04:18:20.002209	\N	6632-RA	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	197
 1278	Pigment,Steel Gray 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.34645	2011-04-06 04:18:20.015451	\N	6633-SG	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	198
 1279	Pigment,Tile Red 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.351015	2011-04-06 04:18:20.029449	\N	6638-TR	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	199
@@ -5096,6 +5092,10 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 1281	Pigment,Val Light Gray 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.360151	2011-04-06 04:18:20.052885	\N	6637-LG	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	201
 1282	Pigment,Val White 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.364705	2011-04-06 04:18:20.064437	\N	6638-VW	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	202
 1288	PremierFlex-RibFlex Clips for 15-3/4in. Tiles, Slate Grey (50 clips/oz.)			\N			2011-03-10 00:29:54.394862	2011-04-06 04:18:20.228313	Buyout	68510-C	Item	\N		\N	\N	\N	\N	0.10	flooring	t	0	\N	206
+1271	Pigment,Bright Red 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.3141	2011-04-06 20:13:08.209883	\N	6640-RD	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	194
+1273	Pigment,Colonial Blue 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.323424	2011-04-06 20:13:08.22498	\N	6635-CB	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	195
+1274	Pigment,Gray 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.32801	2011-04-06 20:13:08.236801	\N	6636-GR	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	196
+1275	Pigment,Oxford Gray 32 oz (Unit Pack 4 cans)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.332665	2011-04-06 20:13:08.248433	\N	6631-OG	\N	\N	\N	\N	\N	\N	\N	46.36	flooring	t	\N	\N	193
 1079	Thermo-Fused Melamine Panel - ¾in.x61in.x97in. Maple - Hardrk Mpl/Lily White			\N			2011-03-10 00:29:50.706563	2011-04-01 12:25:46.647019	Buyout	4005-Maple-1-Side-¾	Item	\N		\N	\N	\N	\N	59.04	board	t	0	\N	39
 1080	Thermo-Fused Melamine Panel - ¾in.x61in.x97in. White -White/White			\N			2011-03-10 00:29:50.71145	2011-04-01 12:25:46.661132	Buyout	4005-White-2-Side-¾	Item	\N		\N	\N	\N	\N	48.88	board	t	0	\N	40
 1081	Thermo-Fused Melamine Panel - ¾in.x61in.x97in. Windsw Pewter - Windsw Pewter/Lily White			\N			2011-03-10 00:29:50.716488	2011-04-01 12:25:46.674375	Buyout	4005-Pewter-1-Side-¾	Item	\N		\N	\N	\N	\N	69.20	board	t	0	\N	41
@@ -5269,9 +5269,7 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 139	ZH Sliding Wire Basket (30x6x16) | Matte Nickel	Closet Basket, steel, matt nickel, 16"d x 29"w x 6"h	547.37.662	\N	000.547.037.662.00P		2011-01-01 18:53:54.668509	2011-04-06 01:51:28.302972	Purchased	30058-1	Item	26.21		\N	0.10	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	145
 148	ZH Sliding Wire Basket (30x6x16) | Oil Rubbed Bronze	Closet Basket, steel, dark oil rubbed bronze, 16"d x 29"w x 6"h	547.37.162	\N	000.547.037.162.00P		2011-01-01 18:53:54.991918	2011-04-06 01:51:28.316173	Purchased	30037-1	Item	25.08		\N	0.10	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	146
 84	ZH Sliding Wire Basket (24x11x14) | Matte Nickel	Closet Basket, steel, matt nickel, 14"d x 17"w x 11"h	547.36.646	\N	000.547.036.646.00P		2011-01-01 18:53:53.097122	2011-04-06 01:51:27.719464	Purchased	30044-1	Item	24.03		\N	0.10	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	112
-1243	Chips, ¼' Blended, Blue Ice, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.961488	2011-04-06 04:18:19.488528	\N	6651	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	166
-1246	Chips, ¼' Blended, Camouflage, 55 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.974913	2011-04-06 04:18:19.509173	\N	6005-Camouflage	\N	\N	\N	\N	\N	\N	\N	160.00	flooring	t	\N	\N	167
-1247	Chips, ¼' Blended, Desert, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.979564	2011-04-06 04:18:19.521719	\N	6653	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	168
+1246	Chips, ¼' Blended, Camouflage, 55 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.974913	2011-04-06 20:13:07.724014	\N	6005-Camouflage	\N	\N	\N	\N	\N	\N	\N	160.00	flooring	t	\N	\N	177
 59	ZH Tie Rack | Polished Chrome	Synergy Tie Rack with Slide, aluminum, chrome-plated polished, plastic, black, 13 7/8" length	807.67.203	\N	000.807.067.203.00P		2011-01-01 18:53:51.385759	2011-04-06 01:51:28.49523	Purchased	30111	Item	21.30		\N	0.07	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	150
 159	ZH Tilt-Out Hamper (18)	Synergy Tilt-Out Hamper, steel, black, 16 1/4" width, 1 black nylon bag included	547.43.301	\N	000.547.043.301.00P		2011-01-01 18:53:55.535954	2011-04-06 01:51:28.512578	Purchased	30085	Item	47.13		\N	0.25	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	151
 160	ZH Tilt-Out Hamper (24)	Synergy Tilt-Out Hamper, steel, black, 22 1/4" width, 2 black nylon bags included	547.43.303	\N	000.547.043.303.00P		2011-01-01 18:53:55.633423	2011-04-06 01:51:28.527538	Purchased	30086	Item	57.13		\N	0.25	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	152
@@ -5283,19 +5281,21 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 178	ZH Wardrobe Lift (26-35) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 26" - 35 1/16", 26 lbs load capacity	805.31.202	\N	000.805.031.202.00P		2011-01-01 18:53:56.023107	2011-04-06 01:51:28.67283	Purchased	30075	Item	39.54		\N	0.13	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	162
 185	ZH Wardrobe Lift (35-47) | Black	Wardrobe Lift, steel, black, plastic, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.303	\N	000.805.031.303.00P		2011-01-01 18:53:56.342484	2011-04-06 01:51:28.688161	Purchased	30119	Item	49.50		\N	0.13	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	0	\N	163
 179	ZH Wardrobe Lift (35-47) | Polished Chrome	Wardrobe Lift, steel, chrome-plated, black, 35 1/16" - 47 5/8", 26 lbs load capacity	805.31.203	\N	000.805.031.203.00P		2011-01-01 18:53:56.068112	2011-04-06 01:51:28.715881	Purchased	30076	Item	40.82		\N	0.13	0.92000000000000004	0.40000000000000002	\N	closet_accessories	t	\N	\N	165
-1248	Chips, ¼' Blended, Graphite, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.984219	2011-04-06 04:18:19.534798	\N	6654	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	169
-1249	Chips, ¼' Blended, Mojave, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.98881	2011-04-06 04:18:19.547881	\N	6655	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	170
-1250	Chips, ¼' Blended, Quartzsite, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.993537	2011-04-06 04:18:19.560592	\N	6656	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	171
-1251	Chips, ¼' Blended, Scottsdale, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.99846	2011-04-06 04:18:19.574359	\N	6657	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	172
-1253	Chips, ¼' Blended, Sedona, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:54.222184	2011-04-06 04:18:19.587704	\N	6658	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	173
-1254	Chips, ¼' Blended, Silverado, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:54.228375	2011-04-06 04:18:19.600414	\N	6659	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	174
-1255	Chips, ¼' Blended, Smoke, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:54.23385	2011-04-06 04:18:19.613214	\N	6660	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	175
-1237	Chips, 1/8' Blended, Desert, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.934094	2011-04-06 04:18:19.62607	\N	6671	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	176
-1238	Chips, 1/8' Blended, Graphite, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.938657	2011-04-06 04:18:19.638953	\N	6672	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	177
-1239	Chips, 1/8' Blended, Scottsdale, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.94336	2011-04-06 04:18:19.652459	\N	6673	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	178
-1240	Chips, 1/8' Blended, Sedona, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.947817	2011-04-06 04:18:19.666222	\N	6674	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	179
-1241	Chips, 1/8' Blended, Smoke, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.952627	2011-04-06 04:18:19.678635	\N	6675	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	180
-1242	Chips, 1/8' Blended, Terra Cotta, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.957102	2011-04-06 04:18:19.69103	\N	6676	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	181
+1247	Chips, ¼' Blended, Desert, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.979564	2011-04-06 20:13:07.737771	\N	6653	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	178
+1248	Chips, ¼' Blended, Graphite, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.984219	2011-04-06 20:13:07.750173	\N	6654	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	179
+1249	Chips, ¼' Blended, Mojave, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.98881	2011-04-06 20:13:07.762633	\N	6655	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	180
+1250	Chips, ¼' Blended, Quartzsite, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.993537	2011-04-06 20:13:07.775363	\N	6656	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	181
+1251	Chips, ¼' Blended, Scottsdale, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.99846	2011-04-06 20:13:07.790785	\N	6657	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	182
+1253	Chips, ¼' Blended, Sedona, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:54.222184	2011-04-06 20:13:07.804336	\N	6658	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	183
+1254	Chips, ¼' Blended, Silverado, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:54.228375	2011-04-06 20:13:07.81867	\N	6659	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	184
+1255	Chips, ¼' Blended, Smoke, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:54.23385	2011-04-06 20:13:07.833429	\N	6660	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	185
+1237	Chips, 1/8' Blended, Desert, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.934094	2011-04-06 20:13:07.846549	\N	6671	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	186
+1238	Chips, 1/8' Blended, Graphite, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.938657	2011-04-06 20:13:07.858656	\N	6672	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	187
+1239	Chips, 1/8' Blended, Scottsdale, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.94336	2011-04-06 20:13:08.016766	\N	6673	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	188
+1240	Chips, 1/8' Blended, Sedona, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.947817	2011-04-06 20:13:08.03218	\N	6674	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	189
+1241	Chips, 1/8' Blended, Smoke, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.952627	2011-04-06 20:13:08.047113	\N	6675	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	190
+1242	Chips, 1/8' Blended, Terra Cotta, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.957102	2011-04-06 20:13:08.061821	\N	6676	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	191
+1243	Chips, ¼' Blended, Blue Ice, 50 lbs	\N	\N	\N	\N	\N	2011-03-10 00:29:53.961488	2011-04-06 20:13:07.701784	\N	6651	\N	\N	\N	\N	\N	\N	\N	135.00	flooring	t	\N	\N	176
 1606	Premier Flexcoat - ATC#2 - Adobe (Pigmented Exterior Acrylic Topcoat) 1-pail	\N	\N	\N	\N	\N	2011-03-29 22:22:56.746985	2011-04-06 04:18:20.075944	\N	6028	\N	\N	\N	\N	\N	\N	\N	206.25	flooring	t	standard	\N	203
 1607	Premier Flexcoat - ATC#2 - Bright Gray (Pigmented Exterior Acrylic Topcoat) 1-pail	\N	\N	\N	\N	\N	2011-03-29 22:22:56.763464	2011-04-06 04:18:20.202188	\N	6029	\N	\N	\N	\N	\N	\N	\N	206.25	flooring	t	standard	\N	204
 1608	Premier Flexcoat ATC#2 - Ivory Cream (Pigmented Exterior Acrylic Topcoat),  1-pail	\N	\N	\N	\N	\N	2011-03-29 22:22:56.779325	2011-04-06 04:18:20.215406	\N	6026	\N	\N	\N	\N	\N	\N	\N	206.25	flooring	t	standard	\N	205
@@ -5340,11 +5340,8 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 1329	PremierFlex-RibFlex Tile 15-3/4in. x 15-3/4in. - Tropical Orange			\N			2011-03-10 00:29:54.813721	2011-04-06 18:37:49.339608	Buyout	68013	Item	\N		\N	\N	\N	\N	2.49	flooring	t	drop_ship	\N	243
 1330	PremierFlex-RibFlex Tile 15-3/4in. x 15-3/4in. - Turf Green			\N			2011-03-10 00:29:54.819406	2011-04-06 18:37:49.351809	Buyout	68011	Item	\N		\N	\N	\N	\N	2.49	flooring	t	drop_ship	\N	246
 1289	PremierFlex-RibFlex Corner 15-3/4in. - Arctic White			\N			2011-03-10 00:29:54.399531	2011-04-06 18:37:48.509848	Buyout	68110	Item	\N		\N	\N	\N	\N	1.25	flooring	t	drop_ship	\N	226
-1340	Resin, Premier Nx100 5 Gal (Ratio 2R:1H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.873783	2011-04-06 04:18:19.852942	\N	6610-R	\N	\N	\N	\N	\N	\N	\N	335.70	flooring	t	\N	\N	184
-1344	Resin, SikaFloor 510LPL; 5-Gal. (Ratio 3R:2H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.895482	2011-04-06 04:18:19.889268	\N	6618-R	\N	\N	\N	\N	\N	\N	\N	521.34	flooring	t	\N	\N	188
 1609	Premier Repel 701W Clear - Sikagard 701W (5gal/pail)	\N	\N	\N	\N	\N	2011-03-29 22:22:56.797255	2011-04-06 04:18:21.055553	\N	6614	\N	\N	\N	\N	\N	\N	\N	513.00	flooring	t	standard	\N	249
 1610	Premier Repel 701W-VOC Clear - Sikagard 701W (5gal/pail)	\N	\N	\N	\N	\N	2011-03-29 22:22:56.812923	2011-04-06 04:18:21.068819	\N	6615	\N	\N	\N	\N	\N	\N	\N	682.00	flooring	t	standard	\N	250
-1343	Resin, Premier Nx400 Carton (2-1gal) (Ratio 1R kit:2H buckets)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.890262	2011-04-06 04:18:21.082237	\N	6613-R	\N	\N	\N	\N	\N	\N	\N	119.95	flooring	t	\N	\N	186
 1167	18' Sherlock Wide Boy Frame	\N	\N	\N	\N	\N	2011-03-10 00:29:53.38766	2011-04-06 04:18:21.095384	\N	2061	\N	\N	\N	\N	\N	\N	\N	21.50	flooring_expendables	t	\N	\N	251
 1168	18' Super Doo-Z 3/8' Nap (Box Qty 6)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.392396	2011-04-06 04:18:21.109058	\N	2060	Items::BulkItem	\N	\N	\N	\N	\N	\N	36.30	flooring_expendables	t	\N	6	252
 1170	Black Pad, 18'	\N	\N	\N	\N	\N	2011-03-10 00:29:53.401266	2011-04-06 04:18:21.124106	\N	2001	\N	\N	\N	\N	\N	\N	\N	9.00	flooring_expendables	t	\N	\N	253
@@ -5364,6 +5361,9 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 1191	EZ SF3 Single Segment Grey 40 Grit, medium to hard concrete (Qty 9)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.720495	2011-04-06 04:18:21.473792	\N	7725	\N	\N	\N	\N	\N	\N	\N	32.55	flooring_expendables	t	\N	\N	268
 1196	EZ T-Rex DOME A (without protective segment), high capacity coating removal, Clockwise (Qty 9)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.744625	2011-04-06 04:18:21.487085	\N	7739	\N	\N	\N	\N	\N	\N	\N	138.57	flooring_expendables	t	\N	\N	269
 1195	EZ T-Rex DOME A (with protective segment), high capacity coating removal, Clockwise (Qty 9)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.739782	2011-04-06 04:18:21.500412	\N	7738	\N	\N	\N	\N	\N	\N	\N	157.17	flooring_expendables	t	\N	\N	270
+1340	Resin, Premier Nx100 5 Gal (Ratio 2R:1H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.873783	2011-04-06 20:13:08.106575	\N	6610-R	\N	\N	\N	\N	\N	\N	\N	335.70	flooring	t	\N	\N	169
+1343	Resin, Premier Nx400 Carton (2-1gal) (Ratio 1R kit:2H buckets)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.890262	2011-04-06 20:13:08.132695	\N	6613-R	\N	\N	\N	\N	\N	\N	\N	119.95	flooring	t	\N	\N	171
+1344	Resin, SikaFloor 510LPL; 5-Gal. (Ratio 3R:2H)	\N	\N	\N	\N	\N	2011-03-10 00:29:54.895482	2011-04-06 20:13:08.159797	\N	6618-R	\N	\N	\N	\N	\N	\N	\N	521.34	flooring	t	\N	\N	173
 1200	Mixing Bucket, 1 Quart	\N	\N	\N	\N	\N	2011-03-10 00:29:53.76373	2011-04-06 04:18:21.526657	\N	2007	\N	\N	\N	\N	\N	\N	\N	0.41	flooring_expendables	t	\N	\N	272
 1201	Mixing Bucket, 5 Quart (Box Qty. 12)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.768257	2011-04-06 04:18:21.540261	\N	2008	\N	\N	\N	\N	\N	\N	\N	1.40	flooring_expendables	t	\N	\N	273
 1202	Paint Paddle, 1 Gallon 14' (100 / Box)	\N	\N	\N	\N	\N	2011-03-10 00:29:53.772943	2011-04-06 04:18:21.554291	\N	2053	Items::BulkItem	\N	\N	\N	\N	\N	\N	7.00	flooring_expendables	t	\N	100	274
@@ -5493,39 +5493,38 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 1454	Shelf, Ventilated 12' Deep x 30' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.280934	2011-04-06 04:18:25.672357	\N	3041	\N	\N	\N	\N	\N	\N	\N	8.00	organizers	t	\N	\N	470
 1455	Shelf, Ventilated 12' Deep x 60' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.285601	2011-04-06 04:18:25.686692	\N	3043	\N	\N	\N	\N	\N	\N	\N	14.25	organizers	t	\N	\N	471
 1453	Shelf, Ventilated  - 12' Deep X 90' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.27628	2011-04-06 04:18:25.700109	\N	3027	\N	\N	\N	\N	\N	\N	\N	21.00	organizers	t	\N	\N	472
-1431	Freedom Hanging Rail - 80' (8)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.166183	2011-04-06 04:18:25.713043	\N	3037	\N	\N	\N	\N	\N	\N	\N	19.50	organizers	t	\N	\N	473
-1451	Shelf Bracket - FreedomRail - 12' (10)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.26677	2011-04-06 04:18:25.749257	\N	3030	\N	\N	\N	\N	\N	\N	\N	3.75	organizers	t	\N	\N	476
-1452	Shelf Bracket - FreedomRail - 16' (10)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.271469	2011-04-06 04:18:25.761159	\N	3031	\N	\N	\N	\N	\N	\N	\N	4.75	organizers	t	\N	\N	477
-1456	Shelf, Ventilated 16' Deep x 30' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.290243	2011-04-06 04:18:25.774153	\N	3042	\N	\N	\N	\N	\N	\N	\N	9.50	organizers	t	\N	\N	478
-668	ZH SlatWall Corner Molding (4/box) | Gray	SlatWall Corner Molding (4/box) | Gray	HST3008M	\N	000.990.320.5IO.00I		2011-01-21 01:24:55.128521	2011-04-06 04:18:26.163789	Inventory	3205-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	494
-1457	Shelf, Ventilated 16' Deep x 60' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.294877	2011-04-06 04:18:25.787757	\N	3044	\N	\N	\N	\N	\N	\N	\N	16.75	organizers	t	\N	\N	479
-1458	Shelf, Ventilated 16' Deep x 90' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.299514	2011-04-06 04:18:25.801766	\N	3029	\N	\N	\N	\N	\N	\N	\N	24.00	organizers	t	\N	\N	480
+1457	Shelf, Ventilated 16' Deep x 60' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.294877	2011-04-06 20:11:05.783453	\N	3044	\N	\N	\N	\N	\N	\N	\N	16.75	organizers	t	\N	\N	505
+1458	Shelf, Ventilated 16' Deep x 90' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.299514	2011-04-06 20:11:05.796226	\N	3029	\N	\N	\N	\N	\N	\N	\N	24.00	organizers	t	\N	\N	506
+1459	Shoe Rack Rod 8' Black	\N	\N	\N	\N	\N	2011-03-10 00:29:57.304215	2011-04-06 20:11:05.8088	\N	3110	\N	\N	\N	\N	\N	\N	\N	4.75	organizers	t	\N	\N	507
+1460	Shoe Rack Socket Black	\N	\N	\N	\N	\N	2011-03-10 00:29:57.30914	2011-04-06 20:11:05.821397	\N	3111	\N	\N	\N	\N	\N	\N	\N	0.43	organizers	t	\N	\N	508
 975	Side,20 x 72 HARDROCK MAPLE	\N	\N	\N	\N	\N	2011-03-10 00:29:43.548087	2011-04-06 04:18:33.770883	\N	800825	Items::ConfiguredItem	\N	\N	\N	\N	\N	\N	21.44	wood	t	\N	\N	780
+1431	Freedom Hanging Rail - 80' (8)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.166183	2011-04-06 20:11:05.552154	\N	3037	\N	\N	\N	\N	\N	\N	\N	19.50	organizers	t	\N	\N	499
+1463	Waste Bin - Double Bin 50L	\N	\N	\N	\N	\N	2011-03-10 00:29:58.93163	2011-04-06 20:11:05.833947	\N	3101	\N	\N	\N	\N	\N	\N	\N	130.00	organizers	t	\N	\N	509
 1434	Gravity Bike Rack (Box Qty. 2)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.181709	2011-04-06 04:18:25.4757	\N	3022	\N	\N	\N	\N	\N	\N	\N	52.00	organizers	t	\N	\N	465
-1459	Shoe Rack Rod 8' Black	\N	\N	\N	\N	\N	2011-03-10 00:29:57.304215	2011-04-06 04:18:25.815761	\N	3110	\N	\N	\N	\N	\N	\N	\N	4.75	organizers	t	\N	\N	481
-1432	Freedom Hanging Upright - 48' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.171296	2011-04-06 04:18:25.725488	\N	3032	\N	\N	\N	\N	\N	\N	\N	11.00	organizers	t	\N	\N	474
-1433	Freedom Hanging Upright - 78' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.176557	2011-04-06 04:18:25.737505	\N	3033	\N	\N	\N	\N	\N	\N	\N	17.60	organizers	t	\N	\N	475
-1460	Shoe Rack Socket Black	\N	\N	\N	\N	\N	2011-03-10 00:29:57.30914	2011-04-06 04:18:25.829335	\N	3111	\N	\N	\N	\N	\N	\N	\N	0.43	organizers	t	\N	\N	482
-1463	Waste Bin - Double Bin 50L	\N	\N	\N	\N	\N	2011-03-10 00:29:58.93163	2011-04-06 04:18:25.843239	\N	3101	\N	\N	\N	\N	\N	\N	\N	130.00	organizers	t	\N	\N	483
-1464	Waste Bin - Single Bin 40L	\N	\N	\N	\N	\N	2011-03-10 00:29:58.938603	2011-04-06 04:18:25.857209	\N	3100	\N	\N	\N	\N	\N	\N	\N	115.00	organizers	t	\N	\N	484
+1464	Waste Bin - Single Bin 40L	\N	\N	\N	\N	\N	2011-03-10 00:29:58.938603	2011-04-06 20:11:05.846323	\N	3100	\N	\N	\N	\N	\N	\N	\N	115.00	organizers	t	\N	\N	510
+1432	Freedom Hanging Upright - 48' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.171296	2011-04-06 20:11:05.572515	\N	3032	\N	\N	\N	\N	\N	\N	\N	11.00	organizers	t	\N	\N	500
+668	ZH SlatWall Corner Molding (4/box) | Gray	SlatWall Corner Molding (4/box) | Gray	HST3008M	\N	000.990.320.5IO.00I		2011-01-21 01:24:55.128521	2011-04-06 20:11:05.987398	Inventory	3205-IOC	Items::BulkItem	26.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	482
+1433	Freedom Hanging Upright - 78' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.176557	2011-04-06 20:11:05.585612	\N	3033	\N	\N	\N	\N	\N	\N	\N	17.60	organizers	t	\N	\N	501
+1451	Shelf Bracket - FreedomRail - 12' (10)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.26677	2011-04-06 20:11:05.744018	\N	3030	\N	\N	\N	\N	\N	\N	\N	3.75	organizers	t	\N	\N	502
+1452	Shelf Bracket - FreedomRail - 16' (10)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.271469	2011-04-06 20:11:05.757476	\N	3031	\N	\N	\N	\N	\N	\N	\N	4.75	organizers	t	\N	\N	503
+1456	Shelf, Ventilated 16' Deep x 30' (6)	\N	\N	\N	\N	\N	2011-03-10 00:29:57.290243	2011-04-06 20:11:05.770554	\N	3042	\N	\N	\N	\N	\N	\N	\N	9.50	organizers	t	\N	\N	504
 693	ZH The Grid (3/box)	~ The Grid (3/box)	7110-5700-50	\N	000.995.302.100.00I		2011-01-21 01:24:55.257434	2011-04-06 04:18:24.975978	Inventory	3021	Items::BulkItem	39.54		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	3	441
 691	ZH The Basket (6/box)	~ The Basket (6/box)	7110-5620-50	\N	000.995.301.900.00I		2011-01-21 01:24:55.247347	2011-04-06 04:18:24.992789	Inventory	3019	Items::BulkItem	53.40		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	6	442
-669	ZH SlatWall J Molding (4/box) | Gray	SlatWall J Molding (4/box) | Gray	HST3088L	\N	000.990.320.5JM.00I		2011-01-21 01:24:55.133653	2011-04-06 04:18:26.121691	Inventory	3205-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	491
-663	ZH SlatWall J Molding (4/box) | Black	SlatWall J Molding (4/box) | Black	HST4088L	\N	000.990.320.4JM.00I		2011-01-21 01:24:55.102906	2011-04-06 04:18:26.450345	Inventory	3204-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	506
-651	ZH SlatWall J Molding (4/box) | Taupe	SlatWall J Molding (4/box) | Taupe	HST2088L	\N	000.990.320.2JM.00I		2011-01-21 01:24:55.043128	2011-04-06 04:18:26.264616	Inventory	3202-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	501
-665	ZH SlatWall U Edge Molding (4/box) | Black	SlatWall U Edge Molding (4/box) | Black	HST4008E	\N	000.990.320.40U.00I		2011-01-21 01:24:55.112983	2011-04-06 04:18:26.465256	Inventory	3204-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	507
-670	ZH SlatWall Drywall Screws (1000/box) | Gray	SlatWall Drywall Screws (1000/box) | Gray	HSWS300G	\N	000.990.320.50S.00I		2011-01-21 01:24:55.138712	2011-04-06 04:18:26.17768	Inventory	3205-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	495
-659	ZH SlatWall U Edge Molding (4/box) | Maple	SlatWall U Edge Molding (4/box) | Maple	HST9008E	\N	000.990.320.30U.00I		2011-01-21 01:24:55.083025	2011-04-06 04:18:26.057102	Inventory	3203-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	487
-653	ZH SlatWall U Edge Molding (4/box) | Taupe	SlatWall U Edge Molding (4/box) | Taupe	HST2008E	\N	000.990.320.20U.00I		2011-01-21 01:24:55.053099	2011-04-06 04:18:26.278294	Inventory	3202-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	502
-647	ZH SlatWall U Edge Molding (4/box) | White	SlatWall U Edge Molding (4/box) | White	HST1008E	\N	000.990.320.10U.00I		2011-01-21 01:24:55.023174	2011-04-06 04:18:26.207927	Inventory	3201-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	497
-664	ZH SlatWall Drywall Screws (1000/box) | Black	SlatWall Drywall Screws (1000/box) | Black	HSWS400B	\N	000.990.320.40S.00I		2011-01-21 01:24:55.107741	2011-04-06 04:18:26.507758	Inventory	3204-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	510
-658	ZH SlatWall Drywall Screws (1000/box) | Maple	SlatWall Drywall Screws (1000/box) | Maple	HSWS500M	\N	000.990.320.30S.00I		2011-01-21 01:24:55.078039	2011-04-06 04:18:26.107461	Inventory	3203-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	490
-652	ZH SlatWall Drywall Screws (1000/box) | Taupe	SlatWall Drywall Screws (1000/box) | Taupe	HSWS200T	\N	000.990.320.20S.00I		2011-01-21 01:24:55.0481	2011-04-06 04:18:26.31952	Inventory	3202-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	505
-646	ZH SlatWall Drywall Screws (1000/box) | White	SlatWall Drywall Screws (1000/box) | White	HSWS100W	\N	000.990.320.10S.00I		2011-01-21 01:24:55.018215	2011-04-06 04:18:26.250903	Inventory	3201-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	500
-661	ZH SlatWall T Molding (4/box) | Black	SlatWall T Molding (4/box) | Black	HST4008D	\N	000.990.320.4DM.00I		2011-01-21 01:24:55.092916	2011-04-06 04:18:26.47966	Inventory	3204-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	508
-655	ZH SlatWall T Molding (4/box) | Maple	SlatWall T Molding (4/box) | Maple	HST9008D	\N	000.990.320.3DM.00I		2011-01-21 01:24:55.063253	2011-04-06 04:18:26.074668	Inventory	3203-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	488
-649	ZH SlatWall T Molding (4/box) | Taupe	SlatWall T Molding (4/box) | Taupe	HST2008D	\N	000.990.320.2DM.00I		2011-01-21 01:24:55.033244	2011-04-06 04:18:26.292307	Inventory	3202-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	503
-643	ZH SlatWall T Molding (4/box) | White	SlatWall T Molding (4/box) | White	HST1008D	\N	000.990.320.1DM.00I		2011-01-21 01:24:55.003315	2011-04-06 04:18:26.221744	Inventory	3201-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	498
+670	ZH SlatWall Drywall Screws (1000/box) | Gray	SlatWall Drywall Screws (1000/box) | Gray	HSWS300G	\N	000.990.320.50S.00I		2011-01-21 01:24:55.138712	2011-04-06 20:11:06.133551	Inventory	3205-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	483
+665	ZH SlatWall U Edge Molding (4/box) | Black	SlatWall U Edge Molding (4/box) | Black	HST4008E	\N	000.990.320.40U.00I		2011-01-21 01:24:55.112983	2011-04-06 20:11:06.320796	Inventory	3204-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	495
+653	ZH SlatWall U Edge Molding (4/box) | Taupe	SlatWall U Edge Molding (4/box) | Taupe	HST2008E	\N	000.990.320.20U.00I		2011-01-21 01:24:55.053099	2011-04-06 20:11:06.243789	Inventory	3202-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	490
+661	ZH SlatWall T Molding (4/box) | Black	SlatWall T Molding (4/box) | Black	HST4008D	\N	000.990.320.4DM.00I		2011-01-21 01:24:55.092916	2011-04-06 20:11:06.337264	Inventory	3204-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	496
+645	ZH SlatWall J Molding (4/box) | White	SlatWall J Molding (4/box) | White	HST1088L	\N	000.990.320.1JM.00I		2011-01-21 01:24:55.013337	2011-04-06 20:11:06.148755	Inventory	3201-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	484
+655	ZH SlatWall T Molding (4/box) | Maple	SlatWall T Molding (4/box) | Maple	HST9008D	\N	000.990.320.3DM.00I		2011-01-21 01:24:55.063253	2011-04-06 20:11:05.903877	Inventory	3203-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	476
+649	ZH SlatWall T Molding (4/box) | Taupe	SlatWall T Molding (4/box) | Taupe	HST2008D	\N	000.990.320.2DM.00I		2011-01-21 01:24:55.033244	2011-04-06 20:11:06.258426	Inventory	3202-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	491
+643	ZH SlatWall T Molding (4/box) | White	SlatWall T Molding (4/box) | White	HST1008D	\N	000.990.320.1DM.00I		2011-01-21 01:24:55.003315	2011-04-06 20:11:06.184782	Inventory	3201-DM	Items::BulkItem	21.52		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	486
+669	ZH SlatWall J Molding (4/box) | Gray	SlatWall J Molding (4/box) | Gray	HST3088L	\N	000.990.320.5JM.00I		2011-01-21 01:24:55.133653	2011-04-06 20:11:05.945588	Inventory	3205-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	479
+663	ZH SlatWall J Molding (4/box) | Black	SlatWall J Molding (4/box) | Black	HST4088L	\N	000.990.320.4JM.00I		2011-01-21 01:24:55.102906	2011-04-06 20:11:06.304502	Inventory	3204-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	494
+651	ZH SlatWall J Molding (4/box) | Taupe	SlatWall J Molding (4/box) | Taupe	HST2088L	\N	000.990.320.2JM.00I		2011-01-21 01:24:55.043128	2011-04-06 20:11:06.22946	Inventory	3202-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	489
+664	ZH SlatWall Drywall Screws (1000/box) | Black	SlatWall Drywall Screws (1000/box) | Black	HSWS400B	\N	000.990.320.40S.00I		2011-01-21 01:24:55.107741	2011-04-06 20:11:06.365243	Inventory	3204-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	498
+658	ZH SlatWall Drywall Screws (1000/box) | Maple	SlatWall Drywall Screws (1000/box) | Maple	HSWS500M	\N	000.990.320.30S.00I		2011-01-21 01:24:55.078039	2011-04-06 20:11:05.9316	Inventory	3203-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	478
+652	ZH SlatWall Drywall Screws (1000/box) | Taupe	SlatWall Drywall Screws (1000/box) | Taupe	HSWS200T	\N	000.990.320.20S.00I		2011-01-21 01:24:55.0481	2011-04-06 20:11:06.286889	Inventory	3202-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	493
+646	ZH SlatWall Drywall Screws (1000/box) | White	SlatWall Drywall Screws (1000/box) | White	HSWS100W	\N	000.990.320.10S.00I		2011-01-21 01:24:55.018215	2011-04-06 20:11:06.213948	Inventory	3201-S	Items::BulkItem	30.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	1000	488
 687	ZH The Everything Hook (6/box)	~ The Everything Hook (6/box)	7110-5610-50	\N	000.995.301.500.00I		2011-01-21 01:24:55.227204	2011-04-06 04:18:25.024193	Inventory	3015	Items::BulkItem	21.66		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	6	444
 688	ZH The Big Everything Hook (6/box)	~ The Big Everything Hook (6/box)	7110-5611-50	\N	000.995.301.600.00I		2011-01-21 01:24:55.232273	2011-04-06 04:18:25.040818	Inventory	3016	Items::BulkItem	25.98		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	6	445
 683	ZH The Grip Everything Hook (6/box)	~ The Grip Everything Hook (6/box)	7110-5600-50	\N	000.995.301.100.00I		2011-01-21 01:24:55.206755	2011-04-06 04:18:25.214305	Inventory	3011	Items::BulkItem	21.66		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	6	448
@@ -5535,9 +5534,10 @@ COPY items (id, name, description, sku, units, dvinci_id, cutrite_id, created_at
 690	ZH The Big Work Hook (6/box)	~ The Big Work Hook (6/box)	7110-5613-50	\N	000.995.301.800.00I		2011-01-21 01:24:55.242324	2011-04-06 04:18:25.196214	Inventory	3018	Items::BulkItem	30.48		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	6	447
 681	ZH The Garden Rack & Basket (4/box)	~ The Garden Rack & Basket (4/box)	7110-5200-50	\N	000.995.300.900.00I		2011-01-21 01:24:55.196604	2011-04-06 04:18:25.295399	Inventory	3009	Items::BulkItem	72.20		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	453
 676	ZH The Bike Rack & Basket (4/box)	~ The Bike Rack & Basket (4/box)	7110-5040-50	\N	000.995.300.400.00I		2011-01-21 01:24:55.171361	2011-04-06 04:18:25.326917	Inventory	3004	Items::BulkItem	50.80		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	455
-657	ZH SlatWall J Molding (4/box) | Maple	SlatWall J Molding (4/box) | Maple	HST9088L	\N	000.990.320.3JM.00I		2011-01-21 01:24:55.073155	2011-04-06 04:18:25.886921	Inventory	3203-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	486
+659	ZH SlatWall U Edge Molding (4/box) | Maple	SlatWall U Edge Molding (4/box) | Maple	HST9008E	\N	000.990.320.30U.00I		2011-01-21 01:24:55.083025	2011-04-06 20:11:05.889835	Inventory	3203-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	475
 677	ZH The Bike Hook (4/box)	~ The Bike Hook (4/box)	7110-5041-50	\N	000.995.300.500.00I		2011-01-21 01:24:55.176356	2011-04-06 04:18:25.311302	Inventory	3005	Items::BulkItem	26.44		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	454
-645	ZH SlatWall J Molding (4/box) | White	SlatWall J Molding (4/box) | White	HST1088L	\N	000.990.320.1JM.00I		2011-01-21 01:24:55.013337	2011-04-06 04:18:26.191501	Inventory	3201-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	496
+647	ZH SlatWall U Edge Molding (4/box) | White	SlatWall U Edge Molding (4/box) | White	HST1008E	\N	000.990.320.10U.00I		2011-01-21 01:24:55.023174	2011-04-06 20:11:06.167331	Inventory	3201-U	Items::BulkItem	14.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	485
+657	ZH SlatWall J Molding (4/box) | Maple	SlatWall J Molding (4/box) | Maple	HST9088L	\N	000.990.320.3JM.00I		2011-01-21 01:24:55.073155	2011-04-06 20:11:05.875825	Inventory	3203-JM	Items::BulkItem	21.00		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	474
 689	ZH The Work Hook (6/box)	~ The Work Hook (6/box)	7110-5612-50	\N	000.995.301.700.00I		2011-01-21 01:24:55.237306	2011-04-06 04:18:25.055148	Inventory	3017	Items::BulkItem	24.60		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	6	446
 685	ZH The Shelf with Hooks (4/box)	~ The Shelf with Hooks (4/box)	7110-5602-50	\N	000.995.301.300.00I		2011-01-21 01:24:55.216885	2011-04-06 04:18:25.263086	Inventory	3013	Items::BulkItem	56.16		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	451
 680	ZH The Sports Rack & Basket (4/box)	~ The Sports Rack & Basket (4/box)	7110-5070-50	\N	000.995.300.800.00I		2011-01-21 01:24:55.191514	2011-04-06 04:18:25.343465	Inventory	3008	Items::BulkItem	76.16		\N	\N	0.92000000000000004	0.40000000000000002	\N	organizers	t	\N	4	456
@@ -9931,6 +9931,7 @@ COPY job_item_components (id, item_id, job_item_id, unit_cost, cost_calc_err, qu
 7180	6	11039	0.98	\N	4	\N	2011-03-29 23:22:41.483232	2011-03-29 23:22:41.64617
 7181	199	11039	0.57	\N	4	\N	2011-03-29 23:22:41.649439	2011-03-29 23:22:41.67753
 7182	217	11039	0.02	\N	3	\N	2011-03-29 23:22:41.680812	2011-03-29 23:22:41.700417
+8352	220	13352	0.04	\N	2	\N	2011-04-06 20:18:17.039646	2011-04-06 20:18:17.063988
 2765	204	6408	0.21	\N	2	\N	2011-03-10 19:08:48.325842	2011-03-10 19:08:48.345265
 2766	203	6408	0.16	\N	2	\N	2011-03-10 19:08:48.347555	2011-03-10 19:08:48.366281
 2767	206	6408	0.01	\N	8	\N	2011-03-10 19:08:48.368769	2011-03-10 19:08:48.677676
@@ -20271,6 +20272,40 @@ COPY job_item_properties (id, job_item_id, ingest_id, family, qualifier, module_
 20970	13261	\N	dimensions	\N		{"linear_units":"in"}	2011-04-06 15:46:51.570014	2011-04-06 15:46:51.570014
 20971	13262	\N	dimensions	\N	Width,Height	{"height":"68","linear_units":"in","width":"22.375"}	2011-04-06 15:46:51.58271	2011-04-06 15:46:51.58271
 20972	13262	\N	color	\N	Color	{"color":"White"}	2011-04-06 15:46:51.598545	2011-04-06 15:46:51.598545
+21092	13336	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"18","depth":"12"}	2011-04-06 20:18:14.145727	2011-04-06 20:18:14.145727
+21093	13336	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.184582	2011-04-06 20:18:14.184582
+21094	13337	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"13.375","depth":"12"}	2011-04-06 20:18:14.197211	2011-04-06 20:18:14.197211
+21095	13337	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.210338	2011-04-06 20:18:14.210338
+21096	13338	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"22.375","depth":"14"}	2011-04-06 20:18:14.22163	2011-04-06 20:18:14.22163
+21097	13338	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.368024	2011-04-06 20:18:14.368024
+21098	13339	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"24","depth":"12"}	2011-04-06 20:18:14.382697	2011-04-06 20:18:14.382697
+21099	13339	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.397872	2011-04-06 20:18:14.397872
+21100	13340	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"18","depth":"12"}	2011-04-06 20:18:14.409866	2011-04-06 20:18:14.409866
+21101	13340	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.423346	2011-04-06 20:18:14.423346
+21102	13341	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"13.375","depth":"12"}	2011-04-06 20:18:14.434796	2011-04-06 20:18:14.434796
+21103	13341	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.447444	2011-04-06 20:18:14.447444
+21104	13342	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"22.375","depth":"14"}	2011-04-06 20:18:14.459458	2011-04-06 20:18:14.459458
+21105	13342	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.473181	2011-04-06 20:18:14.473181
+21106	13343	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"21.375","depth":"12"}	2011-04-06 20:18:14.483868	2011-04-06 20:18:14.483868
+21107	13343	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.496524	2011-04-06 20:18:14.496524
+21108	13344	\N	dimensions	\N	Width,Depth	{"linear_units":"in","width":"24","depth":"12"}	2011-04-06 20:18:14.507221	2011-04-06 20:18:14.507221
+21109	13344	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.519371	2011-04-06 20:18:14.519371
+21110	13345	\N	dimensions	\N	Height,Depth	{"height":"80.5","linear_units":"in","depth":"12"}	2011-04-06 20:18:14.703595	2011-04-06 20:18:14.703595
+21111	13345	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.716428	2011-04-06 20:18:14.716428
+21112	13346	\N	dimensions	\N	Width,Height	{"height":"2.5","linear_units":"in","width":"22.375"}	2011-04-06 20:18:14.743103	2011-04-06 20:18:14.743103
+21113	13346	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.756109	2011-04-06 20:18:14.756109
+21114	13347	\N	dimensions	\N	Width,Height	{"height":"2.5","linear_units":"in","width":"13.375"}	2011-04-06 20:18:14.768937	2011-04-06 20:18:14.768937
+21115	13347	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.781662	2011-04-06 20:18:14.781662
+21116	13348	\N	dimensions	\N	Width,Height	{"height":"2.5","linear_units":"in","width":"18"}	2011-04-06 20:18:14.793965	2011-04-06 20:18:14.793965
+21117	13348	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.807487	2011-04-06 20:18:14.807487
+21118	13349	\N	dimensions	\N	Height,Depth	{"height":"85.125","linear_units":"in","depth":"14"}	2011-04-06 20:18:14.834989	2011-04-06 20:18:14.834989
+21119	13349	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:14.845689	2011-04-06 20:18:14.845689
+21120	13350	\N	dimensions	\N	Height,Depth	{"height":"85.125","linear_units":"in","depth":"12"}	2011-04-06 20:18:14.995747	2011-04-06 20:18:14.995747
+21121	13350	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:15.008535	2011-04-06 20:18:15.008535
+21122	13351	\N	dimensions	\N	Width,Height,Depth	{"height":"7","linear_units":"in","width":"23","depth":"11.75"}	2011-04-06 20:18:15.034008	2011-04-06 20:18:15.034008
+21123	13351	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:15.045268	2011-04-06 20:18:15.045268
+21124	13352	\N	dimensions	\N	Width,Height	{"height":"8.6929999999999996","linear_units":"in","width":"24.625"}	2011-04-06 20:18:15.071198	2011-04-06 20:18:15.071198
+21125	13352	\N	color	\N	Color	{"color":"White"}	2011-04-06 20:18:15.105739	2011-04-06 20:18:15.105739
 \.
 
 
@@ -26197,6 +26232,23 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 13260	769	256	000.402.493.001.00M	3	1 partition for these cabs;  	2011-04-06 15:46:51.505135	2011-04-06 17:47:50.924171	169.96	2	NX Tall Cabinet 2 Door | White	\N	\N	in	ok	171.00	13.54	1.41	\N	garage
 13261	769	3	000.117.031.632.00I	6		2011-04-06 15:46:51.564996	2011-04-06 17:47:50.927522	1.08	3	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	garage
 13262	769	516	000.100.000.001.00M	2	no hige prep	2011-04-06 15:46:51.57784	2011-04-06 17:47:50.930862	68.23	4	Door - Flat | White	\N	\N	in	ok	17.60	0.06	0.05	\N	garage
+13336	776	45	000.931.980.001.00M	3		2011-04-06 20:18:14.135945	2011-04-06 20:18:15.332488	3.27	1	CL Adjustable Shelf | White	\N	\N	in	ok	3.27	0.00	0.03	\N	\N
+13337	776	45	000.931.980.001.00M	1		2011-04-06 20:18:14.191564	2011-04-06 20:18:15.38505	2.43	2	CL Adjustable Shelf | White	\N	\N	in	ok	2.43	0.00	0.03	\N	\N
+13338	776	45	000.931.011.001.00M	3		2011-04-06 20:18:14.21672	2011-04-06 20:18:15.567472	4.72	3	CL Adjustable Shelf | White	\N	\N	in	ok	4.72	0.00	0.03	\N	\N
+13339	776	45	000.931.010.001.00M	3		2011-04-06 20:18:14.376462	2011-04-06 20:18:15.622588	4.36	4	CL Adjustable Shelf | White	\N	\N	in	ok	4.36	0.00	0.03	\N	\N
+13340	776	44	000.930.980.001.00M	5		2011-04-06 20:18:14.404509	2011-04-06 20:18:15.803233	3.71	5	CL Cam Shelf | White	\N	\N	in	ok	3.71	0.00	0.05	\N	\N
+13341	776	44	000.930.980.001.00M	6		2011-04-06 20:18:14.429718	2011-04-06 20:18:15.859016	2.75	6	CL Cam Shelf | White	\N	\N	in	ok	2.75	0.00	0.05	\N	\N
+13342	776	44	000.930.021.001.00M	6		2011-04-06 20:18:14.453784	2011-04-06 20:18:15.909536	5.35	7	CL Cam Shelf | White	\N	\N	in	ok	5.35	0.00	0.05	\N	\N
+13343	776	44	000.930.010.001.00M	2		2011-04-06 20:18:14.479138	2011-04-06 20:18:16.095282	4.40	8	CL Cam Shelf | White	\N	\N	in	ok	4.40	0.00	0.05	\N	\N
+13344	776	44	000.930.010.001.00M	3		2011-04-06 20:18:14.502503	2011-04-06 20:18:16.145995	4.94	9	CL Cam Shelf | White	\N	\N	in	ok	4.94	0.00	0.05	\N	\N
+13345	776	40	000.910.250.001.00M	3		2011-04-06 20:18:14.696954	2011-04-06 20:18:16.349773	22.81	10	CL Hanging Partition - Radius - Thru | White	\N	\N	in	ok	15.69	0.00	0.05	\N	\N
+13346	776	563	000.970.024.001.00M	2		2011-04-06 20:18:14.737426	2011-04-06 20:18:16.402837	2.79	11	CL Toe Kick | White	\N	\N	in	ok	3.23	0.00	0.10	\N	\N
+13347	776	563	000.970.018.001.00M	2		2011-04-06 20:18:14.763477	2011-04-06 20:18:16.577976	1.67	12	CL Toe Kick | White	\N	\N	in	ok	1.93	0.00	0.10	\N	\N
+13348	776	563	000.970.018.001.00M	1		2011-04-06 20:18:14.789097	2011-04-06 20:18:16.629578	2.24	13	CL Toe Kick | White	\N	\N	in	ok	2.60	0.00	0.10	\N	\N
+13349	776	37	000.911.271.001.00M	3		2011-04-06 20:18:14.829878	2011-04-06 20:18:16.807361	19.25	14	CL Upright Partition - Thru | White	\N	\N	in	ok	19.25	0.00	0.05	\N	\N
+13350	776	37	000.911.270.001.00M	4		2011-04-06 20:18:14.988879	2011-04-06 20:18:16.863951	16.58	15	CL Upright Partition - Thru | White	\N	\N	in	ok	16.58	0.00	0.05	\N	\N
+13351	776	195	000.024.003.051.00B	3		2011-04-06 20:18:15.028242	2011-04-06 20:18:17.011808	23.78	16	Drawer Box	\N	\N	in	ok	23.78	0.00	0.05	\N	\N
+13352	776	162	000.200.000.001.00M	3		2011-04-06 20:18:15.065763	2011-04-06 20:18:17.246947	9.11	17	Drawer Front - Flat | White	\N	\N	in	ok	9.10	0.08	0.05	\N	\N
 \.
 
 
@@ -26537,6 +26589,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 711	766	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-06 00:38:33.732155	2011-04-06 00:38:33.732155
 712	767	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-06 00:40:05.671775	2011-04-06 00:40:05.671775
 714	769	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-06 15:46:51.167942	2011-04-06 15:46:51.167942
+721	776	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-06 20:18:14.106407	2011-04-06 20:18:14.106407
 \.
 
 
@@ -26545,7 +26598,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 --
 
 COPY job_serial_numbers (id, year, max_serial, created_at, updated_at) FROM stdin;
-1	2011	373	2011-01-23 05:52:19.75042	2011-04-06 15:47:39.68867
+1	2011	374	2011-01-23 05:52:19.75042	2011-04-06 20:18:50.052332
 \.
 
 
@@ -27307,6 +27360,7 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 730	63	92	75	Landa Foyer	SO-356	\N	2011-04-04 19:15:53.1544	2011-04-04 23:06:44.548973	Foyer ..xml	text/xml	15466	2011-04-04 19:15:53.151189	Phoenix	Confirmed	2011-04-19	\N		2011-04-04 20:42:37	92		PremierRoute	92	4/4 sent Dave email to help Joe resubmit this order do to the molding nailers. CS\r\n4/4/11 ok per EH, CS\r\nCL-White, CS\r\n	75	Job	dvinci
 743	49	78	58	Galt Craft	SO-352	\N	2011-04-04 20:22:22.234934	2011-04-04 22:02:36.857841	Galt Craft Closet.xml	text/xml	24553	2011-04-04 20:22:22.230189	Phoenix	Confirmed	2011-04-19	\N	Pleaes call 701-281-0558 for delivery.	2011-04-04 20:23:26	78		PremierRoute	78	Please call 701-281-0558 for delivery\r\nNx White, CS	58	Job	dvinci
 618	9	32	13	Scarborough	SO-285	\N	2011-03-27 00:53:03.36631	2011-04-05 14:57:24.362791	Scarborough, Emily.dvi Parts List.xml	text/xml	30738	2011-03-27 00:53:03.364083	Phoenix	Ready For Production	2011-04-18	\N	** Custom Order ** Replaces SO-192..EH	2011-03-28 04:53:30	9		PremierRoute	9	White EH\r\n3-30 emailed John, 3 of his dwr fronts are under the minimum height of 5.5 from decore.  3/30 Emailed him to see if he wants those 3 slab or all of them.  yq\r\n3/31/2011- emailed John again I do not have an answer on the dwr fronts. yq\r\n4/1 received an email from John he still does not have an answer on the dwr fronts, I have moved his order to 4-18-2011 yq\r\n4/4- received ok from John to make the 3 small dwr fronts slab, forwarded info to decore. yq	13	Job	\N
+776	50	79	59	Garett Rosenblum	SO-374	\N	2011-04-06 20:18:13.730216	2011-04-06 20:18:50.057035	Rosenblum, Garett Closets 04.05.11.dvi Parts List.xml	application/octet-stream	18459	2011-04-06 20:18:13.726688	\N	Placed	\N	\N		2011-04-06 20:18:50	79	\N	\N	79	\N	\N	Job	dvinci
 \.
 
 
@@ -30485,6 +30539,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 27	Mr.	William	Welborn	(972) 247-3030	(214) 251-9736		dallas@premiergarage.com	$2a$10$DFnI.5P9MkRoJUsNExSD/uP1FqMTc3pXe3yFv2u.tjJmK2d/SwRv.	$2a$10$DFnI.5P9MkRoJUsNExSD/u	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.546803	2011-01-01 18:53:38.611661
 60	\N	Steve	Bisch	(636) 399-8262	(636) 399-8262	(314) 434-1976	sbisch@tailoredliving.com	$2a$10$Df3cgNhltEDqOiCnlWQsAOaQZBgenSxJNg9UfBOQ3cqXczfYQ4z.q	$2a$10$Df3cgNhltEDqOiCnlWQsAO	\N	\N	\N	26	2011-04-06 16:29:10.689333	2011-04-06 16:25:40.379888	174.79.54.226	174.79.54.226	2011-01-27 18:32:44.56832	2011-04-06 16:29:10.69021
 4	Mr.	Tim	Woollen	(608) 318-1667	(608) 345-3967	(608) 318-0665	twoollen@tailoredliving.com	$2a$10$HBD6m7dMcZSlsCEk1toKkekIU6eqtggEI/cBqqAPUeR/mBbcPTrXu	$2a$10$HBD6m7dMcZSlsCEk1toKke	\N	MllIqGn3qFxBJC5C2iqk	2011-03-21 23:32:18.626707	53	2011-04-01 21:24:05.210127	2011-04-01 02:25:19.596601	24.158.3.198	24.158.3.198	2011-01-01 18:53:32.256749	2011-04-01 21:24:05.210811
+42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$fehc6g7h6Ccms63oTgO95.ZfbTdR4wLSIKpX.LfvDkeC0WTaBaHL2	$2a$10$fehc6g7h6Ccms63oTgO95.	\N	\N	\N	146	2011-04-06 20:08:25.064602	2011-04-06 19:14:08.788848	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-04-06 20:08:25.065475
 5	Mr.	Todd	Carter	(703) 707-0009	(703) 217-8217	(703) 889-5133	tcarter@closettailors.com	$2a$10$eJKywvdryMeEhZDIa26H3.tyvmChU3zOj0XbTQBEaB8u1.jZsh4a2	$2a$10$eJKywvdryMeEhZDIa26H3.	\N	CGJOEaRe2uICmKH_urK_	2011-03-15 14:10:26.09049	9	2011-04-01 21:30:51.199892	2011-03-25 17:28:39.529637	72.66.36.115	72.66.36.115	2011-01-01 18:53:32.475866	2011-04-01 21:30:51.200654
 67	\N	Jeff	McDonald	(707)545-9794	(707)571-8950		sanfrancisco@tailoredliving.com	$2a$10$PoJWJKjl53gcV8z9Ug9biuY01vyg/iTmDp1gIAk5/bTl7en6nCrKq	$2a$10$PoJWJKjl53gcV8z9Ug9biu	\N	vd3Se2cONJvW3i1RbBQG	2011-04-01 20:23:43.888492	6	2011-04-01 20:23:43.893213	2011-03-31 02:14:21.341999	69.104.240.9	24.130.46.200	2011-02-11 15:36:07.879298	2011-04-01 20:23:43.893929
 32	Mr.	Eric	Hunt	(623) 792-2289	(602) 763-2228	(480) 483-7895	trimmer27@gmail.com	$2a$10$CT7wKcOoI/V3l3d1qp4bkekvTTlkM5l.1asMzH/2ShkytQ7XHCMaq	$2a$10$CT7wKcOoI/V3l3d1qp4bke	9leByFUSq_JW11-Qd7f-	\N	\N	185	2011-04-06 19:24:13.472243	2011-04-06 16:21:12.078144	174.79.54.226	174.79.54.226	2011-01-01 18:53:36.365777	2011-04-06 19:24:13.473224
@@ -30501,7 +30556,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 70	\N	Jonathan	Elliott	(317)842-4272			jelliott@tailoredliving.com	$2a$10$69GVmRNLhgye703/6QZ41OzDdqzkcwIXghX0rnxWQP8XZorNTUTii	$2a$10$69GVmRNLhgye703/6QZ41O	\N	\N	\N	65	2011-04-05 18:41:24.233217	2011-04-05 18:16:26.616517	98.238.66.215	98.238.66.215	2011-02-11 15:47:02.028477	2011-04-05 18:41:24.234108
 57	\N	Starla	Reichow	480-483-3030		480-483-7895	sreichow@premiergarage.com	$2a$10$T4Lrm08rGA8p749rc7PNPepYB2xQkmFocezJ4k1TwcH7vrtZjh1Ei	$2a$10$T4Lrm08rGA8p749rc7PNPe	\N	\N	\N	3	2011-02-05 03:50:59.191057	2011-02-05 03:49:57.120622	71.196.137.193	71.196.137.193	2011-01-27 00:19:16.5581	2011-02-11 18:21:54.712844
 109	\N	Scott	Barnes	(714) 637-2100			scott@closettailors.com	$2a$10$PYBiDXYFGrqeMjyzQxAI8eXcZW.Ev9j.WWohr1QjyOwF6yCs7JQju	$2a$10$PYBiDXYFGrqeMjyzQxAI8e	\N	\N	\N	8	2011-04-06 15:49:24.983276	2011-04-05 19:12:03.597817	67.203.136.36	174.79.54.230	2011-03-25 17:21:18.258201	2011-04-06 15:49:24.984145
-42	Mr.	Steve	Bisch	(636) 399-8262		(314) 434-1976	sbisch@premiergarage.com	$2a$10$fehc6g7h6Ccms63oTgO95.ZfbTdR4wLSIKpX.LfvDkeC0WTaBaHL2	$2a$10$fehc6g7h6Ccms63oTgO95.	\N	\N	\N	145	2011-04-06 19:14:08.788848	2011-04-06 16:59:35.2505	174.79.54.226	174.79.54.226	2011-01-01 18:53:37.503767	2011-04-06 19:14:08.789557
 51	\N	Dalawna	Dillman	(480) 483-3030		(48) 483-7895	ddillman@premiergarage.com	$2a$10$hbkI3SZwvEVZeRv8gSc5neX0yJgvyD9RmMV0c6vkcrPTDrXjYvDrC	$2a$10$hbkI3SZwvEVZeRv8gSc5ne	\N	\N	\N	34	2011-04-05 21:33:36.913697	2011-04-04 16:45:40.311477	174.79.54.226	174.79.54.226	2011-01-06 23:44:42.653941	2011-04-05 21:33:36.914474
 68	\N	Dave	Williamson	(813)909-2957		(813)909-2967	dwilliamson@tailoredliving.com	$2a$10$0lA6JZrGpaBBGTWOr1Jju./bZUOxpBhUopLErh4XeLKYpC2Yf2Lhm	$2a$10$0lA6JZrGpaBBGTWOr1Jju.	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:40:12.31394	2011-02-11 15:40:12.31394
 72	\N	Samantha	Hebert	(337)564-0322		(337)564-0323	shebert@tailoredliving.com	$2a$10$5dKxgGtmnPC7piB3M/o3CeJ2B1biE3rBx4ucOXxbuneILSQ4QmPim	$2a$10$5dKxgGtmnPC7piB3M/o3Ce	\N	\N	\N	0	\N	\N	\N	\N	2011-02-11 15:52:08.12167	2011-02-11 15:52:08.12167
