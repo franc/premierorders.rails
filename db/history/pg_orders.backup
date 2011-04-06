@@ -873,7 +873,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 402, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 404, true);
 
 
 --
@@ -26193,10 +26193,10 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 10544	623	44	000.930.011.001.00M	2		2011-03-28 19:21:05.64066	2011-04-06 11:31:58.341921	10.40	5	CL Cam Shelf | White	\N	27	in	ok	5.20	0.00	0.05	\N	closet
 10573	625	40	000.910.251.001.00M	3		2011-03-28 19:23:09.308529	2011-04-06 11:47:44.578062	31.64	5	CL Hanging Partition - Radius - Thru | White	\N	27	in	ok	10.88	0.00	0.05	\N	closet
 13208	760	45	000.931.022.001.00M	6		2011-04-05 19:13:53.523488	2011-04-06 15:28:07.66272	8.25	1	CL Adjustable Shelf | White	\N	\N	in	ok	6.19	0.00	0.03	\N	closet
-13259	769	516	000.100.000.001.00M	6		2011-04-06 15:46:51.175399	2011-04-06 15:46:52.029798	22.74	1	Door - Flat | White	\N	\N	in	ok	22.74	0.06	0.05	\N	\N
-13260	769	256	000.402.493.001.00M	3	1 partition for these cabs;  	2011-04-06 15:46:51.505135	2011-04-06 15:46:53.656024	169.96	2	NX Tall Cabinet 2 Door | White	\N	\N	in	ok	171.00	13.54	1.41	\N	\N
-13261	769	3	000.117.031.632.00I	6		2011-04-06 15:46:51.564996	2011-04-06 15:46:53.852578	1.08	3	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	\N
-13262	769	516	000.100.000.001.00M	2	no hige prep	2011-04-06 15:46:51.57784	2011-04-06 15:46:54.098742	68.23	4	Door - Flat | White	\N	\N	in	ok	17.60	0.06	0.05	\N	\N
+13259	769	516	000.100.000.001.00M	6		2011-04-06 15:46:51.175399	2011-04-06 17:47:50.920183	22.74	1	Door - Flat | White	\N	\N	in	ok	22.74	0.06	0.05	\N	garage
+13260	769	256	000.402.493.001.00M	3	1 partition for these cabs;  	2011-04-06 15:46:51.505135	2011-04-06 17:47:50.924171	169.96	2	NX Tall Cabinet 2 Door | White	\N	\N	in	ok	171.00	13.54	1.41	\N	garage
+13261	769	3	000.117.031.632.00I	6		2011-04-06 15:46:51.564996	2011-04-06 17:47:50.927522	1.08	3	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	garage
+13262	769	516	000.100.000.001.00M	2	no hige prep	2011-04-06 15:46:51.57784	2011-04-06 17:47:50.930862	68.23	4	Door - Flat | White	\N	\N	in	ok	17.60	0.06	0.05	\N	garage
 \.
 
 
@@ -26956,6 +26956,8 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 400	765	53	Placed	Confirmed	2011-04-06 15:29:48.250197	2011-04-06 15:29:48.250197
 401	767	53	Placed	On Hold	2011-04-06 15:31:04.624119	2011-04-06 15:31:04.624119
 402	701	32	Confirmed	Ready For Production	2011-04-06 16:24:03.276685	2011-04-06 16:24:03.276685
+403	754	53	On Hold	Cancelled	2011-04-06 17:46:56.571284	2011-04-06 17:46:56.571284
+404	769	53	Placed	Confirmed	2011-04-06 17:47:51.698508	2011-04-06 17:47:51.698508
 \.
 
 
@@ -27114,10 +27116,10 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 548	59	87	84	Shoy Pantry	SO-241	\N	2011-03-21 18:32:23.829314	2011-03-28 23:26:11.144647	shoys_ORDER.dvi Parts List.xml	text/xml	23090	2011-03-21 18:32:23.824211	Phoenix	Cancelled	\N	\N	Before processing order PLEASE call to discuss the corner shelves.  We have one set of corner shelves going from 16" wide on one wall to 12" wide on the wall.  We also need to cut this same set of corner shelves to a shorter length.  Please call Julee Barnett at 608-831-3150 or 608-509-3736 (cell).\r\nthanks\r\n\r\nAlso--I removed the baskets from the plan in the xml file but it did not change the grand total on the spread sheet.	2011-03-21 18:32:59	87		PremierRoute	87	3/21/11 on hold to discuss corner shelves. CS\r\n\r\n3/28/11 submitted new order SO#283 replaces this order #241. CS	70	Job	\N
 660	8	32	38	Make-up for SO-57-43	SO-305	\N	2011-03-30 14:55:27.569095	2011-03-30 18:59:07.77107	Make up for SO-57.xml	application/xml	6333	2011-03-30 14:55:27.567156	Phoenix	In Production	2011-04-06	\N	** Warranty ** for Madison WI. EH	2011-03-30 14:57:02	32		PremierRoute	32	White EH CL-VU was to be a right. EH\r\nChanged top to 25" deep. EH	38	Job	\N
 603	23	22	27	Bono, Mike	SO-275	\N	2011-03-25 14:08:45.15747	2011-03-25 22:12:37.502681	Bono, Mike Counter top Parts List.xml	text/xml	6566	2011-03-25 14:08:45.153904	Phoenix	Confirmed	\N	\N		2011-03-25 14:09:17	22		PremierRoute	22	TOP ONLY TAN SOAPSTONE.YQ	27	Job	\N
-754	20	19	23	Santos	SO-367	\N	2011-04-05 02:40:04.312276	2011-04-06 15:27:23.479737	Santos, Eddie Parts List.xml	text/xml	7498	2011-04-05 02:40:04.310322	Phoenix	On Hold	\N	\N		2011-04-05 02:40:43	19		PremierRoute	19	4/6/11 Chris will reorder this correctly with additional parts. CS	23	Job	dvinci
 638	4	32	71	Schenk - Master	SO-298	\N	2011-03-29 14:34:43.306992	2011-03-29 19:50:24.896251	Schenk - Master.xml	application/xml	30888	2011-03-29 14:34:43.303474	Phoenix	Confirmed	2011-04-13	\N	** Custom Parts ** uploaded by EH\r\nThis Order will replace SO-274\r\n	2011-03-29 14:37:01	4		PremierRoute	4	Carmel Apple, CS	6	Job	\N
 528	16	15	19	PUISIS	SO-231	\N	2011-03-20 16:21:02.943548	2011-03-23 20:42:44.544785	puisis_garage_parts2.xml	application/octet-stream	13867	2011-03-20 16:21:02.941185	Phoenix	Cancelled	\N	\N	call me to review this order with me as this is my first order	2011-03-20 16:27:13	15		PremierRoute	15	3/21 Questions on Granite, CS\r\n3/23/11 cancelled and replaced with SO#253, CS	19	Job	\N
 690	4	4	6	Booth - Office Cabinets	SO-323	\N	2011-04-01 02:25:53.785369	2011-04-01 21:53:12.187742	Booth - Office Cabinets.xml	application/octet-stream	29673	2011-04-01 02:25:53.783282	Phoenix	Confirmed	2011-04-15	\N		2011-04-01 02:37:58	4		PremierRoute	4	Wild Apple, CS\r\nTim sending pdf of countertop configuration. CS\r\n\r\n4/1 per Tim Please route 1 end of each top, which end will not matter.CS	6	Job	dvinci
+754	20	19	23	Santos	SO-367	\N	2011-04-05 02:40:04.312276	2011-04-06 17:46:56.544953	Santos, Eddie Parts List.xml	text/xml	7498	2011-04-05 02:40:04.310322	Phoenix	Cancelled	\N	\N		2011-04-05 02:40:43	19		PremierRoute	19	4/6/11 Chris will reorder this correctly with additional parts. CS\r\n4/6/11 re ordered on SO#373. CS	23	Job	dvinci
 453	9	9	13	Scarborough	SO-192	\N	2011-03-14 20:16:49.018712	2011-03-28 21:51:59.129872	Scarborough, Emily Parts List.xls	application/vnd.ms-excel	30086	2011-03-14 20:16:49.01654	Phoenix	Cancelled	\N	\N	Five drawer cabinet:\r\n\r\n1. Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2. Next drawer from top down should be stationery drawer (1 vertical panel starts 2" from the back of the drawer front, and then there should be 4 additional spacers at 45 degrees\r\n\r\n3.  Next two drawers are equal in height:\r\n\r\nDrawer suspended underneath corner countertop:\r\n\r\n1.  Drawer front should be 2 1/4" if possible.  Width and depth are same dimensions Eric gave me.\r\n\r\n2.  Need hardware mounting kit for this drawer:\r\n\r\nThree drawer cabinet:\r\n\r\n1.  Should have 3 equal drawer font sizes (not file drawer and then two small drawers):\r\n\r\n30" wide file drawer cabinet\r\n\r\n1.  Top drawer should be pull out shelf - 1" thick melamine on drawer runners\r\n\r\n2.  Middle drawer should be file drawer with appropriate hardware\r\n\r\n3.  Bottom drawer should be whatever remaining space allows:\r\n\r\nPlease also make note the custom corner countertop should have a depth of 20" on each side in order to align with other cabinets:\r\n\r\nThere are lot of moving parts on this one so please call with questions.\r\n\r\n\r\n 	2011-03-14 20:19:19	9		PremierRoute	9	3/15/11 on hold till further instructions from Steve. CS	13	Job	\N
 649	8	32	38	price sample SO-35	\N	\N	2011-03-29 21:31:43.369402	2011-03-29 21:31:43.369402	SO-35.xml	text/xml	6304	2011-03-29 21:31:43.365503	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job	\N
 650	8	32	38	price sample SO-36	\N	\N	2011-03-29 21:36:31.406026	2011-03-29 21:36:31.406026	SO-36.xml	text/xml	6254	2011-03-29 21:36:31.403666	\N	Created	\N	\N		\N	\N	\N	\N	32	\N	\N	Job	\N
@@ -27276,8 +27278,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 614	17	16	20	Robert sayson 3 	SO-281	\N	2011-03-25 21:25:38.275422	2011-04-05 03:52:08.417137	Robert Sayson 3-25-11.dvi Parts List.xml	text/xml	6669	2011-03-25 21:25:38.2722	Phoenix	Shipped	2011-04-01	2011-04-05	CAN YOU PLEASE SHIP ASAP NEED YESTERDAY	2011-03-25 21:25:42	16		PremierRoute	16	3/28/11 on hold to confirm ship method. CS\r\n3/29/11 ok to ship 4/1/11, CS\r\nChocolate Apple, CS	20	Job	\N
 484	31	63	39	Garlington Residents	SO-211	\N	2011-03-16 15:40:29.624163	2011-04-05 03:55:07.038424	Garlington Residents Parts List.xml	application/octet-stream	63443	2011-03-16 15:40:29.619717	Phoenix	Shipped	2011-03-31	2011-04-05	Must ship by March 31, 2011.	2011-03-16 16:55:26	63		PremierRoute	63	Antique White, CS	39	Job	\N
 634	11	10	14	Traweek Closet 	SO-294	\N	2011-03-29 13:59:36.60512	2011-04-06 11:56:19.606255	Closet Conversion Parts List.xls	application/vnd.ms-excel	21002	2011-03-29 13:59:36.602413	Phoenix	Ready For Production	2011-04-13	\N		2011-03-29 14:00:23	10		PremierRoute	10	3-29 Antique White. yq	14	Job	\N
-769	20	19	23	santos	SO-373	\N	2011-04-06 15:46:50.855029	2011-04-06 15:47:39.692643	Santos, Eddie Parts List.xml	text/xml	9077	2011-04-06 15:46:50.853042	\N	Placed	\N	\N	replace other santos order per cindy	2011-04-06 15:47:39	19	\N	\N	19	\N	\N	Job	dvinci
 701	6	31	9	KHADOUR_MASTER	SO-333	\N	2011-04-01 15:46:33.173776	2011-04-06 16:24:03.178254	KHADOUR_MASTER_ORDER Parts List.xml	text/xml	62364	2011-04-01 15:46:33.171278	Phoenix	Ready For Production	2011-04-15	\N		2011-04-01 15:51:42	31		PremierRoute	31	Chocolate Apple, CS\r\nRan thru CutRide for Door Drawings. EH	9	Job	dvinci
+769	20	19	23	santos	SO-373	\N	2011-04-06 15:46:50.855029	2011-04-06 17:47:50.936024	Santos, Eddie Parts List.xml	text/xml	9077	2011-04-06 15:46:50.853042	Phoenix	Confirmed	2011-04-20	\N	replace other santos order per cindy	2011-04-06 15:47:39	19		PremierRoute	19	Nx - White CS	23	Job	dvinci
 708	4	4	6	White - 2 Closets	SO-339	\N	2011-04-03 17:42:19.54382	2011-04-04 19:02:52.29002	White - 2 Closets.xml	application/octet-stream	26910	2011-04-03 17:42:19.541643	Phoenix	Confirmed	2011-04-18	\N		2011-04-03 17:43:43	4		PremierRoute	4	CL-White, CS	6	Job	dvinci
 709	4	4	6	White - Exercise	SO-340	\N	2011-04-03 18:06:56.034578	2011-04-04 19:04:18.851574	White - Exercise.xml	application/octet-stream	20026	2011-04-03 18:06:56.032438	Phoenix	Confirmed	2011-04-18	\N		2011-04-03 18:07:41	4		PremierRoute	4	HO-Carmel Apple, CS	6	Job	dvinci
 710	4	4	6	Brummel - 2 Masters	SO-341	\N	2011-04-03 19:03:34.151011	2011-04-04 19:06:56.585982	Brummel - Closets.xml	application/octet-stream	43129	2011-04-03 19:03:34.148903	Phoenix	Confirmed	2011-04-18	\N		2011-04-03 19:04:23	4		PremierRoute	4	CL-White, CS	6	Job	dvinci
