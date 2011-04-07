@@ -120,7 +120,12 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1
   def destroy
-    @item.destroy
+    begin
+      @item.destroy
+    rescue 
+      flash[:error] = "Item deletion failed! Please ensure that no jobs reference this item."
+    end
+
     respond_to do |format|
       format.html { redirect_to(items_url) }
     end

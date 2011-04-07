@@ -111,11 +111,11 @@ class JobItem < ActiveRecord::Base
   end
 
   def net_total
-    net_unit_price * quantity
+    net_unit_price * (quantity || 0)
   end
 
   def hardware_total
-    unit_hardware_cost * quantity
+    unit_hardware_cost * (quantity || 0)
   end
 
   # The following price attributes are used for display:

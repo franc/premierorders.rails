@@ -6,10 +6,12 @@ module JobItemsHelper
     if job_item.computed_unit_price
       job_item.unit_price_mismatch.empty? ? '' : 'unit_price_mismatch'
     else
-      case job_item.pricing_cache_status.to_sym
+      case job_item.pricing_cache_status.try(:to_sym)
         when :ok    then ''
         when :error then 'price_calculation_error'
         when :not_computed then 'price_not_computed'
+        else
+          'price_not_computed'
       end
     end
   end
