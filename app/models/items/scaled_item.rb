@@ -4,8 +4,14 @@ require 'fp'
 class Items::ScaledItem < Item
   RANGED_PRICE = Properties::PropertyDescriptor.new(:ranged_price, [], [Property::RangedValue])
 
+  RANGED_WEIGHT = Properties::PropertyDescriptor.new(:ranged_weight, [], [Property::RangedValue])
+
   def self.required_properties
     [RANGED_PRICE]
+  end
+
+  def self.optional_properties
+    super + [RANGED_WEIGHT]
   end
 
   def cost_expr(query_context)

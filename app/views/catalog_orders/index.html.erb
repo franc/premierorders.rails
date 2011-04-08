@@ -215,16 +215,26 @@
 
       $("#item_category_filter").change(apply_filter);
 
-      $("#preview").click(function() {
+      $(".preview").click(function() {
         $(".item_row").hide();
         show_selected_rows();
 
         return false;
       });
 
-      $("#keep_shopping").click(apply_filter);
+      $(".keep_shopping").click(apply_filter);
 
-      $("#create_order").click(function(ev) {
+      $(".save").click(function(ev) {
+        if (current_order.order_data.id === undefined) {
+          current_order.order_data.id = Math.floor((Math.random()*65535)+1);
+        }
+
+        CatalogOrder.save_local(current_order.order_data);
+        alert("Your order has been saved.");
+        return false;
+      });
+
+      $(".create_order").click(function(ev) {
         if ($("#catalog_form").validate().element("#order_name")) {
           if (current_order.order_data.id === undefined) {
             current_order.order_data.id = Math.floor((Math.random()*65535)+1);
@@ -287,6 +297,13 @@
             options_for_select(Item::categories.map{|v| [v.titlecase, v]}, params[:category]),
             :id => 'item_category_filter', :include_blank => true %></dd>
   </dl>
+  <br/>
+  <div class="actions" style="clear: both">
+    <input type="submit" class="preview" value="Preview"/>
+    <input type="submit" class="keep_shopping" value="Keep Shopping"/>
+    <input type="submit" class="save" value="Save"/>
+    <input type="submit" class="create_order" value="Create Order"/>
+  </div>
   <table>
     <tr>
       <th>Description</th>
@@ -313,9 +330,10 @@
   </table>
 
   <div class="actions">
-    <input type="submit" id="preview" value="Preview"/>
-    <input type="submit" id="keep_shopping" value="Keep Shopping"/>
-    <input type="submit" id="create_order" value="Create Order"/>
+    <input type="submit" class="preview" value="Preview"/>
+    <input type="submit" class="keep_shopping" value="Keep Shopping"/>
+    <input type="submit" class="save" value="Save"/>
+    <input type="submit" class="create_order" value="Create Order"/>
   </div>
 </form>
 
