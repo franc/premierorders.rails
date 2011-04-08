@@ -229,6 +229,7 @@
           current_order.order_data.id = Math.floor((Math.random()*65535)+1);
         }
 
+        current_order.read_form();
         CatalogOrder.save_local(current_order.order_data);
         alert("Your order has been saved.");
         return false;

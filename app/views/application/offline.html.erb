@@ -12,7 +12,7 @@
       var add_order_row = function(order) {
         var row = $("#offline_orders .order_row.prototype").clone();
 
-        $(".order_name a", row).attr('href', "/catalog_orders/#!/edit/"+order.id).html(order.name);
+        $(".order_name a", row).attr('href', "/catalog_orders/#!/edit/"+order.id).html(order.name ? order.name : order.id);
         $(".place_order button", row).click(function() {
           CatalogOrder.place(order);
         });
