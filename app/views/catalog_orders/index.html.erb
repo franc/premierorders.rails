@@ -43,11 +43,21 @@
         });
 
         var key;
+        var farr = [];
         for (key in reference_data) {
           if (reference_data.hasOwnProperty(key)) {
-            $("#order_franchisee_id").append(option_html(key, reference_data[key].name));
+            reference_data[key].id = key;
+            farr.push(reference_data[key]);
           }
         }
+
+        farr.sort(function(a, b) { 
+          return a.name < b.name ? -1 : 1
+        }).forEach(
+          function(v) {
+            $("#order_franchisee_id").append(option_html(v.id, v.name));
+          }
+        );
         
         $("#order_franchisee_id").change();
       };
