@@ -91,6 +91,10 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def placed?
+    !(placement_date.nil? || status == 'Created')
+  end
+
   def decompose_xml(xml)
     doc = REXML::Document.new(xml)
     doc.get_elements("//Row").inject([]) do |rows, row_element|

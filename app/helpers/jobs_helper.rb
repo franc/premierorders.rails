@@ -25,11 +25,11 @@ module JobsHelper
     end
   end
 
-  def job_ship_method_select(job)
+  def job_ship_method_select(job, options = {})
     select_tag(
       "job[#{job.id}][ship_method]", 
       options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, job.ship_method), 
-      :class => 'job_ship_method'
+      options.merge({ :class => 'job_ship_method'})
     )
   end
 end
