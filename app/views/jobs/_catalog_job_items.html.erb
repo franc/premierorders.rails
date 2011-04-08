@@ -1,0 +1,22 @@
+<dl class="items">
+  <dt>
+    Manufactured Items ($<%= "%0.2f" % job.total{|i| i.item_category?('wood') && !i.purchasing_type?('Buyout')} %>) 
+    <% if can? :pg_internal_cap, Job %><%= link_to "recalculate", recalculate_job_path(job) %><% end %>
+  </dt>
+  <dd><%= render :partial => 'items_table', 
+                 :locals => {:job_items => job.job_items.order('tracking_id').select{|i| i.item_category?('wood') && !i.purchasing_type?('Buyout')}} %></dd>
+</dl>
+
+<dl class="items">
+  <dt>Other Items ($<%= "%0.2f" % job.total{|i| !(i.item_category?('wood') || i.purchasing_type?('Buyout'))} %>)</dt>
+  <dd><%= render :partial => 'items_table', 
+                 :locals => {:job_items => job.job_items.order('tracking_id NULLS LAST').select{|i| !(i.item_category?('wood') || i.purchasing_type?('Buyout'))}} %></dd>
+</dl>
+
+<dl class="items">
+  <p id="inventory-items">THE FOLLOWING BUYOUT ITEMS WILL BE DROP SHIPPED:</p>
+  <dt>Buyout Items ($<%= "%0.2f" % job.total{|i| !i.item_category?('wood') && i.purchasing_type?('Buyout')} %>)</dt>
+  <dd><%= render :partial => 'items_table', 
+                 :locals => {:job_items => job.job_items.includes(:item).order('items.vendor, tracking_id NULLS LAST').select{|i| !i.item_category?('wood') && i.purchasing_type?('Buyout')}} %></dd>
+</dl>
+

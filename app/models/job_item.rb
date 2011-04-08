@@ -24,6 +24,10 @@ class JobItem < ActiveRecord::Base
     end
   end
 
+  def item_category?(*categories) 
+    item && item.category && categories.any? {|c| c.casecmp(item.category) == 0}
+  end
+
   def production_batch_closed?
     production_batch && production_batch.closed?
   end
