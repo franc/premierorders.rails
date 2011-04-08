@@ -22,7 +22,8 @@
   <tr>
     <% if can? :update, Item %><th>Edit</th><% end %>
     <th>Item Name</th>
-    <th>Item Type</th>
+    <th>Type</th>
+    <th>Category</th>
     <th>D'Vinci</th>
     <th>CutRite</th>
     <th>MPN</th>
@@ -40,7 +41,8 @@
   <tr>
     <% if can? :update, Item %><td><%= link_to 'Edit', edit_item_path(item) %></td><% end %>
     <td><%= link_to item.name, item_path(item) %></td>
-    <td><%= item.class.to_s.demodulize %></td>
+    <td><%= item.class.to_s.demodulize.humanize %></td>
+    <td><%= item.category.try(:humanize).try(:titlecase) %></td>
     <td><%= item.dvinci_id %></td>
     <td><%= item.cutrite_id %></td>
     <td><%= item.sku %></td>
