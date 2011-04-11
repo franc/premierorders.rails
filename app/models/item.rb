@@ -157,7 +157,7 @@ class Item < ActiveRecord::Base
 
   def cost_expr(query_context)
     subtotal_exprs = base_cost_expr(query_context).to_a + 
-                     self.linear_surcharge_expr(query_context).to_a + 
+                     linear_surcharge_expr(query_context).to_a + 
                      component_exprs(query_context) {|assoc| assoc.cost_expr(query_context)} + 
                      surcharge_exprs(query_context.units)
 

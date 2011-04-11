@@ -15,8 +15,8 @@ class Items::ClosetPartition < Item
 
   def cost_expr(query_context)
     material_cost = material(Items::Panel::MATERIAL, query_context.color).cost_expr(H, D, query_context.units)
-    edge_cost = edgeband_cost_expr({:front => H, :rear => D, :top => D, :bottom => D}, query_context.units, query_context.color)
-    subtotal = edge_cost.map{|e| material_cost + e}.orSome(material_cost)
+    edge_cost  = edgeband_cost_expr({:front => H, :rear => D, :top => D, :bottom => D}, query_context.units, query_context.color)
+    subtotal   = edge_cost.map{|e| material_cost + e}.orSome(material_cost)
     item_total = apply_margin(subtotal)
 
     Option.append(item_total, super, Semigroup::SUM)
