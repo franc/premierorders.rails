@@ -309,6 +309,12 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def total_weight
+    job_items.inject(0.00) do |tot, job_item|
+      job_item.quantity * (job_item.unit_weight || 0)
+    end
+  end
+
   def component_inventory_hardware
     aggregated = job_items.inject({}) do |m, job_item|
       m.merge(job_item.inventory_hardware) do |k, h1, h2|

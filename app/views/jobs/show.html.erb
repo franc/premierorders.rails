@@ -108,6 +108,11 @@
     <dd><%= @job.comment -%></dd>
   </dl>
 
+  <dl class="total_weight">
+    <dt><%= label :job, :total_weight %></dt>
+    <dd><%= "%.3f" % @job.total_weight  -%></dd>
+  </dl>
+
   <dl class="job_total">
     <dt><%= label :job, :total %></dt>
     <dd>
@@ -180,15 +185,16 @@
       margin: 0;
       float: left;
     }
-    dl.items, dl.inventory_items, dl.shipping_address, dl.billing_address,
+    dl.items, dl.inventory_items, dl.shipping_address, dl.billing_address, 
     dl.special_instructions dt, dl.items dt, dl.inventory_items dt, dl.shipping_address dt, dl.billing_address dt,
     dl.special_instructions dd, dl.items dd, dl.inventory_items dd, dl.shipping_address dd, dl.billing_address dd,
     dl.franchisee-name dt, dl.franchisee-phone dt, dl.franchisee-fax dt, dl.franchisee-web dt,
     dl.franchisee-name dd, dl.franchisee-phone dd, dl.franchisee-fax dd, dl.franchisee-web dd{
       clear: both; float: none; width: 100%;
     }
-    dl.special_instructions, dl.job_total {width: 55%; margin-top: 2em; float: left;}
+    dl.special_instructions, dl.total_weight, dl.job_total {width: 55%; margin-top: 2em; float: left;}
     dl.job_total dt {text-align: left;}
+    dl.total_weight dt {text-align: left;}
     dl.ship_date {margin-top: 1em;}
     dl.job_total {margin: 1.5em 0;}
     dl.inventory_items {margin-bottom: 5em;}
