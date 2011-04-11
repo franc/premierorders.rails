@@ -332,7 +332,7 @@ class Job < ActiveRecord::Base
   end
 
   def sales_categories
-    job_items.inject(Set.new) {|m, v| v.sales_category.blank? ? m : m.add(v.sales_category)}.to_a.join(", ")
+    "#{source} #{job_items.inject(Set.new) {|m, v| v.sales_category.blank? ? m : m.add(v.sales_category)}.to_a.sort.join(", ")}".titlecase
   end
 
   def to_s
