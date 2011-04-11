@@ -311,7 +311,7 @@ class Job < ActiveRecord::Base
 
   def total_weight
     job_items.inject(0.00) do |tot, job_item|
-      job_item.quantity * (job_item.unit_weight || 0)
+      tot + job_item.quantity * (job_item.unit_weight || 0)
     end
   end
 
