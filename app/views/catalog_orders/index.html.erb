@@ -88,7 +88,7 @@
       });
     };
 
-    var update_catalog = function(current_order) {
+    var update_catalog = function(current_order, set_controls) {
       var catalog_storage_id = CatalogOrder.storage_root + '.catalog';
 
       /**
@@ -141,6 +141,8 @@
           $("#item_rows").append(row);
           row.show();
         }
+
+        set_controls(catalog_data);
       };
 
       var catalog_update_success = function(catalog_data) {
@@ -201,63 +203,68 @@
         }
       };
 
-      var show_selected_rows = function() {
-        var item_id;
-        for (item_id in current_order.order_data.quantities) {
-          if (current_order.order_data.quantities[item_id] != 0) {
-            $(".prototype_item_row").after($(".row_"+item_id).show());
+      var show_selected_rows = function(catalog_data) {
+        var items = [];
+        for (i = 0; i < catalog_data.length; i++) {
+          var qty = current_order.order_data.quantities[catalog_data[i].id];
+          if (qty) items.push(catalog_data[i])
+        }
+
+        items.sort(function(a, b) {return b.position - a.position;}).forEach(function(item) {
+          $(".prototype_item_row").after($(".row_"+item.id).show());
+        });
+      };
+
+      var set_controls = function(catalog_data) {
+        var apply_filter = function() {
+          var category = $("#item_category_filter").val();
+          if (category === "") {
+            $(".item_row").show();
+          } else {
+            $(".item_row").hide();
+            show_selected_rows(catalog_data);
+            $("."+category).show();
           }
-        }
-      };
 
-      var apply_filter = function() {
-        var category = $("#item_category_filter").val();
-        if (category === "") {
-          $(".item_row").show();
-        } else {
+          return false;
+        };
+
+        $("#item_category_filter").change(apply_filter);
+
+        $(".preview").click(function() {
           $(".item_row").hide();
-          show_selected_rows();
-          $("."+category).show();
-        }
+          show_selected_rows(catalog_data);
 
-        return false;
-      };
+          return false;
+        });
 
-      $("#item_category_filter").change(apply_filter);
+        $(".keep_shopping").click(apply_filter);
 
-      $(".preview").click(function() {
-        $(".item_row").hide();
-        show_selected_rows();
-
-        return false;
-      });
-
-      $(".keep_shopping").click(apply_filter);
-
-      $(".save").click(function(ev) {
-        if (current_order.order_data.id === undefined) {
-          current_order.order_data.id = Math.floor((Math.random()*65535)+1);
-        }
-
-        current_order.read_form();
-        CatalogOrder.save_local(current_order.order_data);
-        alert("Your order has been saved.");
-        return false;
-      });
-
-      $(".create_order").click(function(ev) {
-        if ($("#catalog_form").validate().element("#order_name")) {
+        $(".save").click(function(ev) {
           if (current_order.order_data.id === undefined) {
             current_order.order_data.id = Math.floor((Math.random()*65535)+1);
           }
+
           current_order.read_form();
-          CatalogOrder.place(current_order.order_data);
-        } 
+          CatalogOrder.save_local(current_order.order_data);
+          alert("Your order has been saved.");
+          return false;
+        });
 
-        return false;
-      });
+        $(".create_order").click(function(ev) {
+          if ($("#catalog_form").validate().element("#order_name")) {
+            if (current_order.order_data.id === undefined) {
+              current_order.order_data.id = Math.floor((Math.random()*65535)+1);
+            }
+            current_order.read_form();
+            CatalogOrder.place(current_order.order_data);
+          } 
 
-      update_catalog(current_order);
+          return false;
+        });
+      };
+
+      update_catalog(current_order, set_controls);
       current_order.fill_form();
     };
 

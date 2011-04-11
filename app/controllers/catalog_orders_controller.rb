@@ -66,7 +66,8 @@ class CatalogOrdersController < ApplicationController
         :category => item.category,
         :purchase_part_id => item.purchase_part_id,
         :sell_price => sell_price,
-        :ship_by => item.ship_by || 'standard'
+        :ship_by => item.ship_by || 'standard',
+        :position => item.position
       }
     end
 
