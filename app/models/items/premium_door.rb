@@ -54,9 +54,17 @@ module Items
     end
 
     def cost_expr(query_context)
-      subtotal = sum(material_cost_expr(query_context.units, query_context.color), term(style_surcharge), term(handling_surcharge)) 
+      subtotal = material_cost_expr(query_context.units, query_context.color) + 
+                 term(style_surcharge) + 
+                 term(handling_surcharge) 
+
       item_total = apply_margin(subtotal)
-      super.map{|e| item_total + e}.orElse(Option.some(item_total))
+      Option.append(item_total, super, Semigroup::SUM)
+    end
+
+    def weight_expr(query_context)
+      material_weight = material(DOOR_MATERIAL, color).weight_expr(H, W, units)
+      Option.append(material_weight, super, Semigroup::SUM)
     end
   end
 end

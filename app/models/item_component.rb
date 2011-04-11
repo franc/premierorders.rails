@@ -25,11 +25,6 @@ class ItemComponent < ActiveRecord::Base
     component.nil? ? opts : component.color_opts + opts  
   end
 
-  def cost_expr(query_context)
-    component.cost_expr(query_context).map do |component_cost|
-      mult(term(quantity), component_cost)
-    end
-  end
 
   def component_ok?
     !component.nil? && component.components_ok? && component.properties_ok?
@@ -60,5 +55,17 @@ class ItemComponent < ActiveRecord::Base
 
   def qty_expr(query_context)
     term(quantity)
+  end
+
+  def cost_expr(query_context)
+    component.cost_expr(query_context).map do |component_cost|
+      qty_expr(query_context) * component_cost
+    end
+  end
+
+  def weight_expr(query_context)
+    component.weight_expr(query_context).map do |component_weight|
+      qty_expr(query_context) * component_weight
+    end
   end
 end

@@ -40,6 +40,8 @@ class Items::ConfiguredItem < Item
     None::NONE
   end
 
+  # Returns an Option containing any color code that can be determined from the
+  # edge banding or materials.
   def dvinci_color_code
     properties.find_value(EDGE_BANDING).mapn{|v| v.dvinci_id}.orElseLazy do
       properties.find_value(Items::Panel::MATERIAL).mapn{|v| v.dvinci_id}
@@ -52,7 +54,14 @@ class Items::ConfiguredItem < Item
   end
 
   def cost_expr(query_context)
-    ctx = query_context.left_merge(:color => dvinci_color_code)
+    ctx = query_context.left_merge(dvinci_color_code.to_m(:color))
+    super(ctx).map do |expr|
+      area.map{|v| v.replace_variables(expr, ctx.units)}.orSome(expr)
+    end
+  end
+
+  def weight_expr(query_context)
+    ctx = query_context.left_merge(dvinci_color_code.to_m(:color))
     super(ctx).map do |expr|
       area.map{|v| v.replace_variables(expr, ctx.units)}.orSome(expr)
     end

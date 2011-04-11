@@ -33,5 +33,11 @@ class Items::CabinetShelf < ItemComponent
       apply_margin(qty_expr(query_context) * subtotal)
     end
   end
+
+  def weight_expr(query_context)
+    component.weight_expr(query_context, W, D).map do |component_weight|
+      qty_expr(query_context) * component_weight
+    end
+  end
 end
 

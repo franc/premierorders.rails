@@ -22,5 +22,11 @@ class Items::ShellVerticalPanel < ItemComponent
       apply_margin(qty_expr(query_context) * subtotal)
     end
   end
+
+  def weight_expr(query_context)
+    component.weight_expr(query_context, H, D).map do |component_weight|
+      component_weight * qty_expr(query_context)
+    end
+  end
 end
 

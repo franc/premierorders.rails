@@ -283,9 +283,13 @@ class Property < ActiveRecord::Base
     end
 
     def cost_expr(l_expr, w_expr, units)
-      sqft_expr = mult(l_expr, w_expr)
-      sqft_expr_waste = waste_factor.map{|f| mult(sqft_expr, term(f))}.orSome(sqft_expr)
-      mult(sqft_expr_waste, term(sq_convert(price, units, price_units)))
+      sqft_expr = l_expr * w_expr
+      sqft_expr_waste = waste_factor.map{|f| sqft_expr * term(f)}.orSome(sqft_expr)
+      sqft_expr_waste * term(sq_convert(price, units, price_units))
+    end
+
+    def weight_expr(l_expr, w_expr, units)
+      l_expr * w_expr * term(sq_convert(extract(:weight, :decimal), units, price_units))
     end
   end
 

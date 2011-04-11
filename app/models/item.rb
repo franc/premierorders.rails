@@ -156,8 +156,20 @@ class Item < ActiveRecord::Base
   end
 
   def cost_expr(query_context)
-    linear_surcharge = self.linear_surcharge_expr(query_context).to_a
-    
+    subtotal_exprs = base_cost_expr(query_context).to_a + 
+                     self.linear_surcharge_expr(query_context).to_a + 
+                     component_exprs(query_context) {|assoc| assoc.cost_expr(query_context)} + 
+                     surcharge_exprs(query_context.units)
+
+    if subtotal_exprs.empty?
+      logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
+      Option.none()
+    else
+      Option.some(apply_margin(sum(*subtotal_exprs)))
+    end
+  end
+
+  def component_exprs(query_context, &assoc_reader)
     selected_component_associations = if query_context.component_contexts.empty?
       item_components
     else
@@ -169,16 +181,28 @@ class Item < ActiveRecord::Base
     end
 
     component_exprs = selected_component_associations.inject([]) do |exprs, assoc| 
-      assoc.cost_expr(query_context).map{|e| exprs << e}.orSome(exprs)
+      assoc_reader.call(assoc).map{|e| exprs << e}.orSome(exprs)
+    end
+  end
+
+  def weight_expr(query_context)
+    component_weights = component_exprs(query_context) do |assoc|
+      assoc.weight_expr(query_context)
     end
 
-    subtotal_exprs = base_cost_expr(query_context).to_a + linear_surcharge + component_exprs + surcharge_exprs(query_context.units)
-    if subtotal_exprs.empty?
-      logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
-      Option.none()
-    else
-      Option.some(apply_margin(sum(*subtotal_exprs)))
+    weight_subtotals = component_weights + Option.new(weight).to_a
+
+    Option.iif(!weight_subtotals.empty?) do
+      sum(*weight_subtotals)
     end
+  end
+
+  def query(item_query, query_context)
+    item_query.traverse_item(self, query_context)
+  end
+
+  def install_cost_expr(query_context)
+    query(ItemQueries::PropertySum.new(&:install_cost), query_context)
   end
 
   def color_opts
@@ -232,18 +256,6 @@ class Item < ActiveRecord::Base
     end
 
     {:missing => absent, :broken => broken}
-  end
-
-  def query(item_query, query_context)
-    item_query.traverse_item(self, query_context)
-  end
-
-  def weight_expr(query_context)
-    query(ItemQueries::PropertySum.new(&:weight), query_context)
-  end
-
-  def install_cost_expr(query_context)
-    query(ItemQueries::PropertySum.new(&:install_cost), query_context)
   end
 
   def next_item
