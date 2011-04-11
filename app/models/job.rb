@@ -5,6 +5,7 @@ require 'fp'
 require 'item_queries'
 require 'properties'
 require 'format_exception'
+require 'set'
 
 class Job < ActiveRecord::Base
   include Cutrite
@@ -328,6 +329,10 @@ class Job < ActiveRecord::Base
       job_item.update_cached_values
       job_item.save
     end
+  end
+
+  def sales_categories
+    job_items.inject(Set.new) {|m, v| v.sales_category.blank? ? m : m.add(v.sales_category)}.to_a.join(", ")
   end
 
   def to_s

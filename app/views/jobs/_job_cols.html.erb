@@ -1,5 +1,6 @@
       <td><%= link_to job.name, job_path(job) %></td>
       <td><%= job.job_number %></td>
+      <td><%= job.sales_categories -%></td>
       <td><%= job.placement_date %></td>
       <% if current_user.role?(:product_admin, :customer_service, :accounting, :admin) %>
         <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
