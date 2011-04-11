@@ -39,7 +39,13 @@ class Items::FinishedPanel < Item
     subtotal = edgeband_cost.map{|e| sum(material_cost, e)}.orSome(material_cost)
     item_total = apply_margin(subtotal)
     
-    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    Option.append(item_total, super, Semigroup::SUM)
+  end
+
+  def weight_expr(query_context)
+    material_weight = material(Items::Panel::MATERIAL, query_context.color).weight_expr(l_expr, w_expr, query_context.units)
+    Option.append(material_weight, super, Semigroup::SUM)
   end
 end
+
 

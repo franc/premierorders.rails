@@ -42,16 +42,16 @@ end
       <% end %>
       <td class="item_purchase_part_id"><%= job_item.item ? job_item.item.purchase_part_id.try(:titlecase) : nil %></td>
       <td class="item_color"><%= job_item.color.orSome('') %></td>
-      <td class="item_quantity"><%= job_item.quantity.to_i %></td>
-      <td class="item_width"><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
-      <td class="item_height"><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
-      <td class="item_depth"><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
-      <td class="item_weight"><%= Option.new(job_item.unit_weight).map{|w| "%.3f" % w}.orSome("(none)") %></td>
-      <td class="item_unit_price">
+      <td class="item_quantity decimal_value"><%= job_item.quantity.to_i %></td>
+      <td class="item_width decimal_value"><%= job_item.width.map{|w| "%.3f" % w}.orSome('') %></td>
+      <td class="item_height decimal_value"><%= job_item.height.map{|h| "%.3f" % h}.orSome('') %></td>
+      <td class="item_depth decimal_value"><%= job_item.depth.map{|d| "%.3f" % d}.orSome('') %></td>
+      <td class="item_weight decimal_value"><%= Option.new(job_item.unit_weight).map{|w| "%.3f" % w}.orSome("(none)") %></td>
+      <td class="item_unit_price decimal_value">
         <%= "$%.2f" % job_item.net_unit_price %>
         <%= job_item.unit_price_mismatch.map{|m| "($%.2f)" % job_item.unit_price}.orSome('') %>
       </td>
-      <td class="item_total"><%= "$%.2f" % job_item.net_total %></td>
+      <td class="item_total decimal_value"><%= "$%.2f" % job_item.net_total %></td>
       <td class="item_special_instruction"><%= job_item.comment %></td>
       <% if render_for == :web && can?(:pg_internal_cap, Job) %>
         <td class="item_actions">

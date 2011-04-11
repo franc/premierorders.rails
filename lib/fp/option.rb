@@ -27,6 +27,10 @@ module Option
     value.nil? ? None::NONE : (value.strip.empty? ? None::NONE : Some.new(value))
   end
 
+  def self.append(value, other, semigroup)
+    other.map{|v| semigroup.append(value, v)}.orElse(Some.new(value))
+  end
+
   def any?(&f)
     cata(f, false)
   end
@@ -69,6 +73,10 @@ module Option
     cata(lambda {|a| [a]}, [])
   end
 
+  def to_m(key)
+    cata(lambda {|a| {key => a}}, {})
+  end
+
   def orSome(default)
     cata(Functions::IDENTITY, default)
   end
@@ -86,6 +94,10 @@ module Option
   end
 
   alias_method :each, :map
+
+  def append(other, semigroup)
+    self.map{|v1| other.map{|v2| semigroup.append(v1, v2)}.orSome(v1)}.orElse(other)
+  end
 end
 
 class Some

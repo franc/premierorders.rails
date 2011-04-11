@@ -29,4 +29,8 @@ class Items::CornerCabinetHorizontalPanel < ItemComponent
       apply_margin(subtotal)
     end
   end
+
+  def weight_expr(query_context)
+    component.weight_expr(query_context, self_side_expr, shelf_side_expr)
+  end
 end

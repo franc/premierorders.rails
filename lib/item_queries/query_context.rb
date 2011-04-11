@@ -24,6 +24,6 @@ class ItemQueries::QueryContext
   end
 
   def left_merge(args = {})
-    ItemQueries::QueryContext.new(@data.merge{|k, v1, v2| v1.nil? ? v2 : v1})
+    ItemQueries::QueryContext.new(@data.merge(args){|k, v1, v2| v1.nil? ? v2 : v1})
   end
 end

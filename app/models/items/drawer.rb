@@ -22,12 +22,22 @@ class Items::Drawer < Item
     properties.find_value(HEIGHT_DESCRIPTOR).map{|v| term(v.height(units))}.orSome(H)
   end
 
+  def area_expr(units)
+    (term(2) * height_expr(units) * (D + W)) + (D * W)
+  end
+
   def cost_expr(query_context)
-    material_unit_cost = material(Items::Panel::MATERIAL, query_context.color).cost_expr(term(1), term(1), query_context.units)
-    area_expr = sum(mult(term(2), height_expr(query_context.units), sum(D, W)), mult(D, W))
-    subtotal = mult(area_expr, material_unit_cost) 
+    unit_cost = material(Items::Panel::MATERIAL, query_context.color).cost_expr(term(1), term(1), query_context.units)
+    subtotal = area_expr(query_context.units) * unit_cost
     item_total = apply_margin(subtotal)
 
-    super.map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    Option.append(item_total, super, Semigroup::SUM)
+  end
+
+  def weight_expr(query_context)
+    unit_weight = material(Items::Panel::MATERIAL, query_context.color).weight_expr(term(1), term(1), query_context.units)
+    total_weight = area_expr(query_context.units) * unit_weight
+
+    Option.append(total_weight, super, Semigroup::SUM)
   end
 end

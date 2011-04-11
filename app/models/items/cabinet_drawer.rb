@@ -17,8 +17,16 @@ class Items::CabinetDrawer < ItemComponent
   end
 
   def cost_expr(query_context)
-    component.cost_expr(query_context).map do |component_cost|
-      width_factor.map{|f| component_cost.replace(W, mult(W, term(f)))}.orSome(component_cost)
+    rewrite_component_expr(component.cost_expr(query_context))
+  end
+
+  def weight_expr(query_context)
+    rewrite_component_expr(component.weight_expr(query_context))
+  end
+
+  def rewrite_component_expr(expr_option)
+    expr_option.map do |component_expr|
+      width_factor.map{|f| component_expr.replace(W, mult(W, term(f)))}.orSome(component_expr)
     end
   end
 end

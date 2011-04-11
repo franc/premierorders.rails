@@ -17,4 +17,10 @@ class Items::ShellBackPanel < ItemComponent
       apply_margin(qty_expr(query_context) * component_cost)
     end
   end
+
+  def weight_expr(query_context)
+    component.weight_expr(query_context, H, W).map do |component_weight|
+      component_weight * qty_expr(query_context)
+    end
+  end
 end

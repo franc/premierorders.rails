@@ -46,12 +46,4 @@ class Items::ItemHardware < ItemComponent
       sum(*qty_exprs)
     end
   end
-
-  def unit_cost_expr(query_context)
-    component.cost_expr(query_context)
-  end
-
-  def cost_expr(query_context)
-    unit_cost_expr(query_context).map{|e| qty_expr(query_context) * e}
-  end
 end

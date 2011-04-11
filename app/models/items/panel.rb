@@ -38,6 +38,16 @@ class Items::Panel < Item
 
     item_total = apply_margin(material_cost)
 
-    super(query_context).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    Option.append(item_total, super(query_context), Semigroup::SUM)
+  end
+
+  def weight_expr(query_context, l_expr = L, w_expr = W)
+    material_weight = material(MATERIAL, query_context.color).weight_expr(
+      length.map{|l| term(l)}.orSome(l_expr), 
+      width.map{|w| term(w)}.orSome(w_expr), 
+      query_context.units
+    )
+
+    Option.append(material_weight, super(query_context), Semigroup::SUM)
   end
 end
