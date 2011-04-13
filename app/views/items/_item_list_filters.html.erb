@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      var item_filters_submit = function(ev) {
+        $("#item_filters").submit();
+      };
+
+      $("#item_type_filter").change(item_filters_submit);
+      $("#item_category_filter").change(item_filters_submit);
+      $("#item_search").change(item_filters_submit);
+      $("#item_in_catalog").change(item_filters_submit);
+    });
+  </script>
+<% end %>
+
+<form id="item_filters">
+  <span id="item_filters">
+    <strong>Item Type: </strong> 
+    <%= select_tag 'type', 
+                   options_for_select(item_type_option_values, params[:type]),
+                   :id => 'item_type_filter', :include_blank => true %>
+
+    <strong>Item Category: </strong> 
+    <%= select_tag 'category', 
+                   options_for_select(Item::categories.map{|v| [v.titlecase, v]}, params[:category]),
+                   :id => 'item_category_filter', :include_blank => true %>
+
+    <% if search %> 
+      <strong>Search: </strong> 
+      <input type="text" name="search" id="item_search" value="<%= params[:search] %>"/>
+      <strong>Catalog Items Only: </strong> 
+      <input type="checkbox" name="in_catalog" id="item_in_catalog"<%= params[:in_catalog].blank? ? '' : ' checked' %>/>
+    <% end %>
+  </span>
+</form>

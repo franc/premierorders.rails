@@ -1,0 +1,23 @@
+      <td><%= link_to job.name, job_path(job) %></td>
+      <td><%= job.job_number %></td>
+      <td><%= job.sales_categories -%></td>
+      <td><%= job.placement_date %></td>
+      <% if current_user.role?(:product_admin, :customer_service, :accounting, :admin) %>
+        <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
+        <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
+        <td><%= job_status_select(job) -%></td>
+        <td><%= job_ship_method_select(job) -%></td>
+      <% else %>
+        <td><%= job.due_date %></td>
+        <td><%= job.ship_date %></td>
+        <td><%= job.status %></td>
+        <td><%= job.ship_method %></td>
+      <% end %>
+      <% if can? :update, ProductionBatch %>
+        <td><%= job_production_batch_select(job)%></td>
+      <% end %>
+      <% if can? :update, Franchisee %>
+        <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
+      <% end %>
+      <td><%= raw action_links(job).join("&nbsp;|&nbsp;") %></td>
+

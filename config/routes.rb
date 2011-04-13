@@ -1,11 +1,24 @@
 PgRails::Application.routes.draw do
-  resources :job_items
+  resources :production_batches do
+    member do
+      get 'cutrite'
+      get 'download'
+    end
+  end
+ 
+  resources :job_items do
+    member do
+      get 'compute_unit_price'
+    end
+  end
 
   resources :franchisee_addresses
 
   devise_for :users
 
   match 'items/search' => 'items#search'
+  match 'items/sort'                            => 'items#sort'
+  match 'items/sorting'                         => 'items#sorting'
   match 'items/add_property_form'               => 'items#add_property_form'
   match 'items/add_component_form'              => 'items#add_component_form'
   match 'items/:mod/property_descriptors'       => 'items#property_descriptors'
@@ -15,6 +28,7 @@ PgRails::Application.routes.draw do
   match 'items/add_property'                    => 'items#add_property'
   resources :items do
     member do
+      post 'dup'
       get 'properties'
       get 'components'
       post 'add_component'
@@ -37,16 +51,24 @@ PgRails::Application.routes.draw do
   resources :item_component_properties
 
   match 'properties/search' => 'properties#search'
-  resources :properties 
+  resources :properties do
+    resources :property_values
+  end
 
+  match 'jobs/dashboard' => 'jobs#dashboard'
   resources :jobs do
     member do
-      get 'quote'
       get 'cutrite'
       get 'download'
+      get 'recalculate'
       post 'place_order'
     end
   end
+
+  match 'catalog_orders/catalog_json' => 'catalog_orders#catalog_json'
+  match 'catalog_orders/reference_data' => 'catalog_orders#reference_data'
+  match 'catalog_orders/:id/add_item' => 'catalog_orders#update_item'
+  resources :catalog_orders
 
   resources :franchisees do
     member do
@@ -58,6 +80,11 @@ PgRails::Application.routes.draw do
   resources :users
 
   resources :addresses
+
+  match 'reports/:action', :controller => 'reports'
+  match '/cache.manifest' => 'application#manifest'
+  match '/offline.html' => 'application#offline'
+  match '/ping' => 'application#ping'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -114,5 +141,4 @@ PgRails::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
 end

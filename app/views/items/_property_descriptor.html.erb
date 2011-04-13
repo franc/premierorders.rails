@@ -3,8 +3,6 @@
   <dl>
     <dt>Value Name:</dt>
     <dd><%= text_field_tag :value_name %></dd>
-    <dt>D'Vinci ID:</dt>
-    <dd><%= text_field_tag :dvinci_id %></dd>
     <% descriptor.value_structure.each do |name, type| %>
       <dt><%= name.to_s.titlecase %>:</dt>
       <dd><%= property_value_field_tag(name, type) %></dd>

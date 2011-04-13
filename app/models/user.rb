@@ -17,8 +17,10 @@ class User < ActiveRecord::Base
     "#{last_name}, #{first_name}"
   end
 
-  def role?(role)
-    !self.roles.find_by_name(role.to_s).nil?
+  def role?(*check_roles)
+    check_roles.any? do |role| 
+      !self.roles.find_by_name(role.to_s).nil?
+    end
   end
 
   def eql?(other)

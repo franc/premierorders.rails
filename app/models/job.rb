@@ -1,12 +1,15 @@
 require 'rexml/document'
 require 'csv'
 require 'json'
-require 'item.rb'
-require 'property.rb'
-require 'util/option'
-require 'monoid'
+require 'fp'
+require 'item_queries'
+require 'properties'
+require 'format_exception'
+require 'set'
 
 class Job < ActiveRecord::Base
+  include Cutrite
+
   belongs_to :franchisee, :include => :users
   belongs_to :primary_contact, :class_name => 'User'
   belongs_to :customer, :class_name => 'User'
@@ -15,36 +18,82 @@ class Job < ActiveRecord::Base
   belongs_to :shipping_address, :class_name => 'Address'
   has_many   :job_items, :dependent => :destroy
   has_many   :job_properties, :dependent => :destroy, :extend => Properties::Association
+  has_many   :job_state_transitions, :dependent => :destroy
 
   has_attached_file :dvinci_xml
 
-  STATUS_OPTIONS = [
-    "Created",
-    "Placed",
-    "Confirmed",
-    "On Hold",
-    "Ready For Production",
-    "In Production",
-    "Ready to Ship",
-    "Hold Shipment",
-    "Shipped",
-    "Cancelled",
+  searchable do
+    text :name, :boost => 2.0
+    text :so_number do 
+      [job_number, job_number.gsub(/\s*/,''), job_number.gsub(/so\s*-\s*/i, '')] if job_number
+    end
+    string :status
+    string :placement_date
+    text :job_item_names do
+      job_items.map{|job_item| job_item.item_name}
+    end
+  end
+
+  STATUS_GROUPS = [
+    [
+      "Created",
+      "Placed",
+      "On Hold",
+      "Confirmed"
+    ],
+    [
+      "Ready For Production",
+      "In Production"
+    ],
+    [
+      "Ready for Packing",
+      "Ready to Ship",
+      "Hold Shipment",
+    ],
+    [
+      "Shipped",
+      "Cancelled"
+    ]
   ]
+
+  STATUS_OPTIONS = STATUS_GROUPS.flatten
 
   SHIPMENT_OPTIONS = ["PremierRoute", "LTL", "Drop Ship", "Ground", "2nd Day", "Overnight"]
 
+  MFG_PLANT_OPTIONS = ['Phoenix', 'Atlanta']
+
+  def self.status_group_changed?(before, after)
+    STATUS_GROUPS.select{|v| v.include?(before)} != STATUS_GROUPS.select{|v| v.include?(after)}
+  end
+
   def is_manageable_by(user)
-    franchisee.users.any?{|u| u.id == user.id} || primary_contact == user || placed_by == user
+    (franchisee && franchisee.users.any?{|u| u.id == user.id}) || 
+    primary_contact == user || 
+    placed_by == user
+  end
+
+  def bill_to
+    Option.new(billing_address).orElse(Option.new(franchisee.billing_address).map{|ba| ba.address}).orElse(ship_to)
   end
 
   def ship_to
-    shipping_address || franchisee.shipping_address
+    Option.new(shipping_address).orElse(Option.new(franchisee.shipping_address).map{|sa| sa.address})
   end
 
   def property_names
     job_items.inject([]) do |names, job_item|
       names + job_item.job_item_properties.map{|a| a.name}
     end
+  end
+
+  def has_status?(*statii)
+    statii.any? do |stat|
+      (status.nil? && stat == 'Created') || (status && stat.casecmp(status) == 0)
+    end
+  end
+
+  def placed?
+    !(placement_date.nil? || status == 'Created')
   end
 
   def decompose_xml(xml)
@@ -104,7 +153,7 @@ class Job < ActiveRecord::Base
       !SKIP_ROWS.any?{|l| r[0].to_s =~ l}
     end
 
-    item_rows.each_with_index do |row, i|
+    item_rows.each_with_index do |row, tracking_id|
       logger.info "Processing data row: #{row.inspect}"
       dvinci_product_id = row[column_indices['Part Number']]
 
@@ -128,7 +177,7 @@ class Job < ActiveRecord::Base
           :quantity  => item_quantity,
           :comment   => special_instructions,
           :unit_price => unit_price,
-          :tracking_id => i + 1
+          :tracking_id => tracking_id + 1
       }
 
       # Add the item reference to the job item, if an item is known
@@ -177,7 +226,7 @@ class Job < ActiveRecord::Base
         serial_no = JobSerialNumber.find_by_year(date.year) || JobSerialNumber.new(:year => date.year, :max_serial => 2000)
         serial_no.max_serial += 1
         self.status = 'Placed' 
-        self.job_number = "SO - #{serial_no.max_serial}"
+        self.job_number = "SO-#{serial_no.max_serial}"
         self.placement_date = date 
         self.placed_by = current_user
         logger.info( self.inspect)
@@ -187,84 +236,86 @@ class Job < ActiveRecord::Base
     logger.info( self.inspect)
   end
 
+  # returns any common batch id for the order; nil if no batch is set, and -1 if items
+  # are in multiple batches.
+  def production_batches
+    job_items.inject(Set.new) do |v, job_item|
+      job_item.production_batch.nil? ? v : v.add(job_item.production_batch)
+    end
+  end
+
+  def production_batches_closed?
+    job_items.select{|i| i.purchasing_type?('Manufactured')}.all?{|i| i.production_batch_closed?}
+  end
+
+  def update_production_batch(batch)
+    if batch && batch.closed?
+      Left.new("Unable to update production batch for #{name}: batch is closed.")
+    elsif production_batches_closed?
+      Left.new("Unable to update production batch for #{name}: all items already assigned to closed batches.")
+    else
+      job_items.each do |job_item|
+        if job_item.purchasing_type?('Manufactured') && !job_item.production_batch_closed?
+          job_item.production_batch = batch
+          job_item.save
+        end
+      end
+
+      Right.new(batch)
+    end
+  end
+
+  CUTRITE_JOB_HEADER = ['', 'Job Name', '', '', ''] + CUTRITE_ADDRESS_HEADER
+
   def to_cutrite_data
-    job_lines  = [cutrite_job_header, cutrite_job_data]
-    item_lines = [cutrite_items_header] + cutrite_items_data
+    job_lines  = [CUTRITE_JOB_HEADER, cutrite_job_data]
+    item_lines = [CUTRITE_ITEMS_HEADER] + cutrite_items_data
 
     (job_lines + item_lines)
   end
 
-  def to_cutrite_csv
-    to_cutrite_data.map{|l| CSV.generate_line(l)}.join("\n")
-  end
-
-  def cutrite_job_header
-    [
-      '',
-      'Job Name',
-      '',
-      '',
-      '',
-      'Account Name',
-      'Shipping Address',
-      'Shipping City Shipping State Shipping Postal Code',
-      'Phone',
-      'Fax',
-      'MFG Plant'
-    ]
-  end
-
   def cutrite_job_data
+    (['', name, '', '', '',] + cutrite_address_data).map do |v|
+      v.to_s.gsub(/[,'"]/,'')
+    end
+  end
+
+  def cutrite_address_data
     [
-      '',
-      name,
-      '', '', '',
       franchisee.franchise_name,
-      shipping_address.address1 + (shipping_address.address2 || ''),
-      "#{ship_to.city} #{ship_to.state} #{ship_to.postal_code}",
+      ship_to.map{|addr| "#{addr.address1} #{addr.address2}"}.orSome(''),
+      ship_to.map{|addr| "#{addr.city}, #{addr.state} #{addr.postal_code}"}.orSome(''),
       franchisee.phone,
       franchisee.fax,
       mfg_plant
     ]
   end
 
-  def cutrite_items_header
-    [
-      'qty', 'comment', 'width', 'height', 'depth', 'CutRite Product ID', 'Description',
-      'Cabinet Color', 'Case Material', 'Case Edge', 'Case Edge 2',
-      'Door Material', 'Door Edge'
-    ]
-  end
-
-  def cutrite_items_data
-    job_items.order('tracking_id').select{|job_item| job_item.item && job_item.item.cutrite_id && !job_item.item.cutrite_id.strip.empty?}.map{|job_item| cutrite_item_data(job_item)}
-  end
-
   def inventory_items_total
-    order_items_total = job_items.inject(0.0) do |total, job_item|
-      job_item.inventory? ? total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity) : total
+    @inventory_items_total ||= component_inventory_hardware.inject(total{|i| i.inventory?}) do |tot, hardware_item|
+      tot + hardware_item.net_total
     end
 
-    component_inventory_hardware.inject(order_items_total) do |total, hardware_item|
-      total + hardware_item.compute_total.bind{|t| t.right.toOption}.orSome(0.0)
-    end
-  end
-
-  def non_inventory_items_total
-    job_items.inject(0.0) do |total, job_item|
-      job_item.inventory? ? total : total + job_item.compute_total.bind{|t| t.right.toOption}.orSome(job_item.unit_price * job_item.quantity)
-    end
+    @inventory_items_total
   end
 
   def total 
-    non_inventory_items_total
+    if block_given?
+      job_items.select{|i| yield(i)}.inject(BigDecimal.new("0.00")) do |tot, job_item|
+        tot + job_item.net_total
+      end
+    else
+      total{|i| !i.inventory?}
+    end
+  end
+
+  def total_weight
+    job_items.inject(0.00) do |tot, job_item|
+      tot + job_item.quantity * (job_item.unit_weight || 0)
+    end
   end
 
   def component_inventory_hardware
-    hardware_query = HardwareQuery.new do |item|
-      item.purchasing == 'Inventory'
-    end
-
     aggregated = job_items.inject({}) do |m, job_item|
       m.merge(job_item.inventory_hardware) do |k, h1, h2|
         h1 + h2
@@ -275,67 +326,23 @@ class Job < ActiveRecord::Base
   end
 
   def inventory_items
-    inventory_items_on_order = job_items.order('tracking_id').select{|i| i.inventory?}
-    inventory_items_on_order + component_inventory_hardware
+    @inventory_items ||= job_items.order('tracking_id').select{|i| i.inventory?} + component_inventory_hardware
+    @inventory_items
   end
 
-  private
-
-  def cutrite_item_data(job_item)
-    basic_attr_values = [
-      job_item.quantity.to_i,
-      job_item.comment,
-      job_item.width,
-      job_item.height,
-      job_item.depth,
-      job_item.item.nil? ? nil : job_item.item.cutrite_id,
-      job_item.item_name      
-    ]
-
-    panel_query = ColorQuery.new('panel_material', job_item.dvinci_color_code) {|v| v.thickness(:in) != 0.25}
-    panel_material = Option.new(job_item.item).bind {|i| i.query(panel_query, [])}
-
-    eb_query = ColorQuery.new('edge_band', job_item.dvinci_color_code) {|v| v.width == 19 }
-    eb_material = Option.new(job_item.item).bind {|i| i.query(eb_query, [])}
-
-    eb2_query = ColorQuery.new('edge_band', job_item.dvinci_color_code) {|v| v.width == 25 }
-    eb2_material = Option.new(job_item.item).bind {|i| i.query(eb2_query, [])}
-
-    custom_attr_values = [
-      panel_material.map{|m| m.color}.orSome(''),
-      panel_material.map{|m| m.cutrite_code}.orSome(''),
-      eb_material.map{|m| m.cutrite_code}.orSome(''),
-      eb2_material.map{|m| m.cutrite_code}.orSome(''),
-      panel_material.map{|m| m.cutrite_code}.orSome(''),
-      eb_material.map{|m| m.cutrite_code}.orSome('')
-    ]
-
-    basic_attr_values + custom_attr_values
-  end
-end
-
-class ColorQuery < ItemQuery
-  def initialize(property_family, dvinci_color_code, &value_test)
-    super(Monoid::UNIQ)
-    @property_family = property_family
-    @dvinci_color_code = dvinci_color_code
-    @value_test = value_test
-  end  
-
-  def query_property(property)
-    pv = Option.iif(property.family == @property_family) do
-      property.property_values.detect do |v|
-        v.respond_to?(:dvinci_id) && 
-        v.dvinci_id == @dvinci_color_code &&
-        (@value_test.nil? || @value_test.call(v))
-      end
+  def update_cached_values
+    job_items.each do |job_item|
+      job_item.update_cached_values
+      job_item.save
     end
   end
-end
 
-class FormatException < RuntimeError
-  attr :message
-  def initialize(message)
-    @message = message
+  def sales_categories
+    "#{source} #{job_items.inject(Set.new) {|m, v| v.sales_category.blank? ? m : m.add(v.sales_category)}.to_a.sort.join(", ")}".titlecase
+  end
+
+  def to_s
+    "#{Job.model_name.human} #{name}"
   end
 end
+

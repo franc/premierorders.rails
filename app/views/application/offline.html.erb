@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html manifest="/cache.manifest">
+<head>
+  <title>Premier Garage Orders Offline</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
+  <%= javascript_include_tag 'catalog_orders.js' %>
+  
+  <script type="text/javascript">
+    jQuery(function($) {
+      var add_order_row = function(order) {
+        var row = $("#offline_orders .order_row.prototype").clone();
+
+        $(".order_name a", row).attr('href', "/catalog_orders/#!/edit/"+order.id).html(order.name ? order.name : order.id);
+        $(".place_order button", row).click(function() {
+          CatalogOrder.place(order);
+        });
+        
+        $("#offline_orders .order_row.prototype").after(row.removeClass('prototype'));
+      };
+
+      var build_order_list = function(online) {
+        return function() {
+          var i = 0;
+          var orders = CatalogOrder.local_orders();
+          for (i = 0; i < orders.length; i++) {
+            add_order_row(orders[i]);
+          }
+            
+          if (online) {
+            $(".place_order").show();
+          } else {
+            $(".place_order").hide();
+          }
+        };
+      };
+
+      $.ajax({
+          url: "/ping",
+          success: build_order_list(true),
+          error: build_order_list(false),
+          timeout: 3000,
+          dataType: "json"
+      });
+    });
+  </script>
+</head>
+<body>
+  <nav id="nav">
+  </nav>
+  <nav id="local_nav">
+    <%= link_to "New Catalog Order", catalog_orders_path %>
+  </nav>
+
+  <h1>Your offline catalog orders are listed below</h1>
+
+  <table id="offline_orders">
+    <tr class="table_header">
+      <th>Order Name</th>
+      <th class="place_order">Place Order</th>
+    </tr>
+    <tr class="order_row prototype">
+      <td class="order_name"><a href=""></a></td>
+      <td class="place_order"><button>Place Order</button></td>
+    </tr>
+  </table>
+</body>
+</html>
+

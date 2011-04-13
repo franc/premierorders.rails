@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<dl>
+  <dt>Name:</dt>
+  <dd><%= @production_batch.name %></dd>
+  <dt>Batch no:</dt>
+  <dd><%= @production_batch.batch_no %></dd>
+  <dt>Mfg plant:</dt>
+  <dd><%= @production_batch.mfg_plant %></dd>
+  <dt>Description:</dt>
+  <dd><%= @production_batch.description %></dd>
+  <dt>Closing date:</dt>
+  <dd><%= @production_batch.closing_date %></dd>
+  <dt>Orders</dt>
+  <dd>
+    <table>
+      <tr>
+        <th><%=Franchisee.model_name.human%> Name</th>
+        <%= render :partial => 'jobs/job_cols_headers' %>
+      </tr>
+      <% @production_batch.jobs.each do |job| %>
+        <tr>
+          <td><%= job.franchisee.franchise_name %></td>
+          <%= render :partial => 'jobs/job_cols', :locals => {:job => job} %>
+        </tr>
+      <% end %>
+    </table>
+  </dd>
+</dl>
+
+<%= content_for :local_nav do %>
+  <%= link_to 'Edit', edit_production_batch_path(@production_batch) %> |
+  <%= link_to 'Back', production_batches_path %>
+<% end %>

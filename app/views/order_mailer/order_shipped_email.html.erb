@@ -1,0 +1,20 @@
+<% require 'fp' %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>Dear <%= @job.primary_contact.first_name %> <%= @job.primary_contact.last_name %>,</p>
+    <p>
+      Your order <%= @job.job_number %> ("<%= @job.name %>") was shipped 
+      from our <%= @job.mfg_plant %> manufacturing facility 
+      on <%= @job.ship_date.strftime("%m/%d/%Y") %>.
+    </p>
+
+    <p>Please feel free to contact us with any questions you may have.</p>
+
+    <p>Thanks again for your business.</p>
+  </body>
+</html>
+

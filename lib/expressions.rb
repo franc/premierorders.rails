@@ -1,3 +1,6 @@
+require 'bigdecimal'
+require 'fp'
+
 module Expressions
   class Expr
     include Expressions
@@ -17,6 +20,26 @@ module Expressions
     def /(other)
       div(self, other)
     end
+
+    def reduce(values, &block)
+      values.inject(Option.none) do |t, v| 
+        t.map{|ct| block.call(ct, v)}.orElse(Option.some(v))
+      end
+    end
+
+    def evaluate(vars)
+      begin
+        expr_eval(vars)  
+      rescue
+        raise $!, "Error evaluating #{self} at #{vars.inspect}: #{$!.message}", $!.backtrace
+      end
+    end
+
+    def inspect
+      compile
+    end
+
+    alias_method :to_s, :inspect
   end
 
   class Sum < Expr
@@ -30,13 +53,16 @@ module Expressions
       if self.eql?(expr)
         replacement
       else
-        exprs = @exprs.inject([]){|m, e| m << e.replace(expr, replacement)}
-        Sum.new(exprs)
+        Sum.new(*(@exprs.inject([]){|m, e| m << e.replace(expr, replacement)}))
       end
     end
 
     def compile
       @exprs.length > 1 ? "(#{@exprs.map{|e| e.compile}.join(" + ")})" : @exprs[0].compile
+    end
+
+    def expr_eval(vars)
+      reduce(@exprs.map{|e| e.evaluate(vars)}){|m, v| m + v}.some
     end
 
     def eql?(other)
@@ -55,13 +81,16 @@ module Expressions
       if self.eql?(expr)
         replacement
       else
-        exprs = @exprs.inject([]){|m, e| m << e.replace(expr, replacement)}
-        Mult.new(exprs)
+        Mult.new(*(@exprs.inject([]){|m, e| m << e.replace(expr, replacement)}))
       end
     end
 
     def compile
       @exprs.length > 1 ? "(#{@exprs.map{|e| e.compile}.join(" * ")})" : @exprs[0].compile
+    end
+
+    def expr_eval(vars)
+      reduce(@exprs.map{|e| e.evaluate(vars)}){|m, v| m * v}.some
     end
 
     def eql?(other)
@@ -90,6 +119,10 @@ module Expressions
       "(#{@numerator.compile} / #{@denominator.compile})"
     end
 
+    def expr_eval(vars)
+      @numerator.evaluate(vars) / @denominator.evaluate(vars)
+    end
+
     def eql?(other)
       other.kind_of?(Div) && @numerator.eql?(other.numerator) && @denominator.eql?(other.denominator)
     end
@@ -116,6 +149,10 @@ module Expressions
       "(#{@minuend.compile} - #{@subtrahend.compile})"
     end
 
+    def expr_eval(vars)
+      @minuend.evaluate(vars) / @subtrahend.evaluate(vars)
+    end
+
     def eql?(other)
       other.kind_of?(Sub) && @minuend.eql?(other.minuend) && @subtrahend.eql?(other.subtrahend)
     end
@@ -138,11 +175,48 @@ module Expressions
     end
 
     def compile
-      @value.to_s
+      expr_eval(nil).to_s
+    end
+
+    def expr_eval(vars)
+      begin
+        @value.round(11)
+      rescue
+        @value
+      end
     end
 
     def eql?(other)
       other.kind_of?(Term) && @value.eql?(other.value)
+    end
+
+    alias_method :==, :eql?
+  end
+
+  class Var < Expr
+    attr_reader :var
+    def initialize(var)
+      @var = var
+    end
+
+    def replace(expr, replacement)
+      if self.eql?(expr)
+        replacement
+      else
+        self
+      end
+    end
+
+    def compile
+      @var.to_s
+    end
+
+    def expr_eval(vars)
+      vars[self]
+    end
+
+    def eql?(other)
+      other.kind_of?(Var) && @var.eql?(other.var)
     end
 
     alias_method :==, :eql?
@@ -173,11 +247,22 @@ module Expressions
 
     def compile
       if min.nil?
-        mult(term("(#{@var.compile} < #{@max.compile} ? 1 : 0)"), @result).compile
+        mult(term("(#{@var.compile} <= #{@max.compile} ? 1 : 0)"), @result).compile
       elsif max.nil?
-        mult(term("(#{@var.compile} >= #{@min.compile} ? 1 : 0)"), @result).compile
+        mult(term("(#{@var.compile} > #{@min.compile} ? 1 : 0)"), @result).compile
       else
-        mult(term("(#{@var.compile} >= #{@min.compile} && #{@var.compile} < #{@max.compile} ? 1 : 0)"), @result).compile
+        mult(term("(#{@var.compile} > #{@min.compile} && #{@var.compile} <= #{@max.compile} ? 1 : 0)"), @result).compile
+      end
+    end
+
+    def expr_eval(vars)
+      if min.nil?
+        @var.evaluate(vars) <= @max.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
+      elsif max.nil?
+        @var.evaluate(vars) > @min.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
+      else
+        value = @var.evaluate(vars)
+        value > @min.evaluate(vars) && value <= @max.evaluate(vars) ? @result.evaluate(vars) : vars[ZERO]
       end
     end
 
@@ -216,8 +301,9 @@ module Expressions
     Term.new(value)
   end
 
-  W = Term.new('W')
-  D = Term.new('D')
-  H = Term.new('H')
-  L = Term.new('L')
+  W = Var.new('W')
+  D = Var.new('D')
+  H = Var.new('H')
+  L = Var.new('L')
+  ZERO = Var.new('0')
 end

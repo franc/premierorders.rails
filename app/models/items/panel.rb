@@ -1,17 +1,17 @@
-require 'property.rb'
-require 'items/item_materials.rb'
+require 'properties'
+require 'fp'
 
-class Panel < Item
-  include ItemMaterials
+class Items::Panel < Item
+  include Items::ItemMaterials
 
-  MATERIAL = PropertyDescriptor.new(:panel_material, [], [Property::Material])
+  MATERIAL = Properties::PropertyDescriptor.new(:panel_material, [], [Property::Material])
 
   def self.required_properties
     [MATERIAL]
   end
 
-  WIDTH  = PropertyDescriptor.new(:width, [], [Property::Width], 1)
-  LENGTH = PropertyDescriptor.new(:length, [], [Property::Length], 1)
+  WIDTH  = Properties::PropertyDescriptor.new(:width, [], [Property::Width], 1)
+  LENGTH = Properties::PropertyDescriptor.new(:length, [], [Property::Length], 1)
 
   def self.optional_properties
     super + [WIDTH, LENGTH]
@@ -29,15 +29,25 @@ class Panel < Item
     MATERIAL
   end
 
-  def cost_expr(units, color, contexts, l_expr = L, w_expr = W)
-    material_cost = material(MATERIAL, color).cost_expr(
+  def cost_expr(query_context, l_expr = L, w_expr = W)
+    material_cost = material(MATERIAL, query_context.color).cost_expr(
       length.map{|l| term(l)}.orSome(l_expr), 
       width.map{|w| term(w)}.orSome(w_expr), 
-      units
+      query_context.units
     )
 
     item_total = apply_margin(material_cost)
 
-    super(units, color, contexts).map{|e| sum(e, item_total)}.orElse(Option.some(item_total))
+    Option.append(item_total, super(query_context), Semigroup::SUM)
+  end
+
+  def weight_expr(query_context, l_expr = L, w_expr = W)
+    material_weight = material(MATERIAL, query_context.color).weight_expr(
+      length.map{|l| term(l)}.orSome(l_expr), 
+      width.map{|w| term(w)}.orSome(w_expr), 
+      query_context.units
+    )
+
+    Option.append(material_weight, super(query_context), Semigroup::SUM)
   end
 end

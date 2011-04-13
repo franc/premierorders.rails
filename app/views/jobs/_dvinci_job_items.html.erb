@@ -1,0 +1,17 @@
+  <dl class="items">
+    <dt>Manufactured Items ($<%= "%0.2f" % job.total{|i| i.purchasing_type? 'Manufactured'} %>) <% if can? :pg_internal_cap, Job %><%= link_to "recalculate", recalculate_job_path(job) %><% end %></dt>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => job.job_items.order('tracking_id').select{|i| i.purchasing_type? 'Manufactured'}} %></dd>
+  </dl>
+  
+  <dl class="items">
+    <dt>Purchased, Buyout &amp; Other Items ($<%= "%0.2f" % job.total{|i| i.purchasing_type? 'Purchased', 'Buyout', '(unavailable)'} %>)</dt>
+    <dd><%= render :partial => 'items_table', :locals => {:job_items => job.job_items.order('tracking_id').select{|i| i.purchasing_type? 'Purchased', 'Buyout', '(unavailable)'}} %></dd>
+  </dl>
+
+  <div class="inventory_items<%= job.inventory_items.empty? ? " inventory_items_empty" : "" %>">
+    <p id="inventory-items">THE FOLLOWING INVENTORY ITEMS ARE REQUIRED BUT NOT INCLUDED WITH THIS ORDER:</p>
+    <dl class="inventory_items">
+      <dt>Inventory Items ($<%= "%0.2f" % job.inventory_items_total %>)</dt>
+      <dd><%= render :partial => 'items_table', :locals => {:job_items => job.inventory_items} %></dd>
+    </dl>
+  </div>

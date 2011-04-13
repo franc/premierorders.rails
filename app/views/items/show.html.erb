@@ -7,9 +7,10 @@
         {units: $("#price_expr_units").val(), color:$("#price_expr_color").val()}, 
         function(data) {
           $("#pricing_expression").children().remove();
-          $("#pricing_expression").append('<dt><%=@item.name%></dt><dd>'+data.expr+'</dd>');
+          $("#pricing_expression").append('<dt><%=@item.name.gsub(/'/,"\\'")%> Sales Price</dt><dd>'+data.retail_price_expr+'</dd>');
+          $("#pricing_expression").append('<dt><%=@item.name.gsub(/'/,"\\'")%> Cost</dt><dd>'+data.cost_expr+'</dd>');
           for (var i = 0; i < data.components.length; i++) {
-            $("#pricing_expression").append('<dt>'+data.components[i].name+'</dt><dd>'+data.components[i].expr+'</dd>');
+            $("#pricing_expression").append('<dt>'+data.components[i].name+' Cost</dt><dd>'+data.components[i].cost_expr+'</dd>');
           }
         },
         "json"
@@ -80,6 +81,8 @@
   <dl>
     <dt><%= label :item, :type %></dt>
     <dd><%= @item.class.to_s.demodulize %></dd>
+    <dt><%= label :item, :category %></dt>
+    <dd><%= @item.category.try(:titlecase) %></dd>
     <dt><%= label :item, :name %></dt>
     <dd><%= @item.name %></dd>
     <dt><%= label :item, :description %></dt>
@@ -98,6 +101,18 @@
     <dd><%= @item.purchase_part_id %></dd>
     <dt><%= label :item, :base_price %></dt>
     <dd><%= @item.base_price %></dd>
+    <dt><%= label :item, :sell_price %></dt>
+    <dd><%= @item.sell_price %></dd>
+    <dt><%= label :item, :bulk_qty %></dt>
+    <dd><%= @item.bulk_qty %></dd>
+    <dt><%= label :item, :rebate_factor %></dt>
+    <dd><%= @item.rebate_factor %></dd>
+    <dt><%= label :item, :retail_multiplier %></dt>
+    <dd><%= @item.retail_multiplier %></dd>
+    <dt><%= label :item, :ship_by %></dt>
+    <dd><%= Option.new(@item.ship_by).map{|v| v.titlecase}.orSome('Standard') %></dd>
+    <dt><%= label :item, :in_catalog %></dt>
+    <dd><%= @item.in_catalog ? 'Yes' : 'No' %></dd>
     <dt><%= label :item, :pricing_expression %></dt>
     <dd>
       <%= select_tag("price_expr_units", options_for_select(Properties::LinearConversions::UNITS.map{|u| [u, u]})) %>

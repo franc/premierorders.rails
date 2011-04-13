@@ -1,11 +1,9 @@
-require 'property.rb'
-require 'util/option'
+require 'properties'
 require 'expressions'
-require 'monoid'
-require 'semigroup'
+require 'fp'
 
 class Item < ActiveRecord::Base
-  include Expressions, Items::Margins, Items::Surcharges
+  include Expressions, Items::Margins, Items::Surcharges, Items::Pricing
 
   has_many :item_properties, :dependent => :destroy
 	has_many :properties, :through => :item_properties, :extend => Properties::Association
@@ -20,8 +18,35 @@ class Item < ActiveRecord::Base
     self.connection.execute(sql)
   end
 
-  def self.search(types, term)
-    Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"]);
+  def self.simple_search(types, term)
+    if (types.empty? || (types.length == 1 && types[0] == 'Item'))
+      Item.find_by_sql(["SELECT * FROM items WHERE name ILIKE ?", "%#{term}%"])
+    else
+      Item.find_by_sql(["SELECT * FROM items WHERE type in(?) and name ILIKE ?", types, "%#{term}%"])
+    end
+  end
+
+  searchable do
+    text :name, :boost => 2.0
+    text :description
+    text :dvinci_id do
+      if dvinci_id
+        tokens = dvinci_id.split(/\./)
+        subsets = (1..tokens.length).inject([]) do |m, l|
+          (0..(tokens.length - l)).inject(m) do |mm, i|
+            mm << (tokens[i, l].join("."))
+          end
+        end
+
+        subsets.select{|tok| tok != 'x'}
+      end
+    end
+    string :type
+    string :category
+    string :purchase_part_id
+    string :cutrite_id
+    integer :position
+    boolean :in_catalog
   end
 
   def self.find_by_concrete_dvinci_id(id)
@@ -50,21 +75,29 @@ class Item < ActiveRecord::Base
   def self.item_types 
     [
       Item,
-      Cabinet,
-      CornerCabinet,
-      Countertop,
-      Shell,
-      Panel,
-      Door,
-      PremiumDoor,
-      PremiumDrawerfront,
-      FrenchLiteDoor,
-      Drawer,
-      ClosetPartition,
-      ClosetShelf,
-      BackingPanel,
-      ScaledItem
+      Items::BulkItem,
+      Items::Cabinet,
+      Items::CornerCabinet,
+      Items::Countertop,
+      Items::Shell,
+      Items::Panel,
+      Items::Door,
+      Items::PremiumDoor,
+      Items::PremiumDrawerfront,
+      Items::FrenchLiteDoor,
+      Items::Drawer,
+      Items::ClosetPartition,
+      Items::ClosetShelf,
+      Items::BackingPanel,
+      Items::MoldingNailer,
+      Items::FinishedPanel,
+      Items::ConfiguredItem,
+      Items::ScaledItem
     ]
+  end
+
+  def self.categories
+    self.connection.execute("SELECT DISTINCT category FROM items ORDER BY category").map{|row| row['category']}.compact
   end
 
   def self.component_association_modules(mod)
@@ -79,11 +112,11 @@ class Item < ActiveRecord::Base
   end
 
   def self.component_association_types
-    {:optional => [ItemHardware]}
+    {:optional => [Items::ItemHardware]}
   end
 
   def self.optional_properties
-    [MARGIN, SURCHARGE, RANGED_SURCHARGE]
+    [MARGIN, SURCHARGE, RANGED_SURCHARGE, LINEAR]
   end
 
   def property_value(descriptor)
@@ -91,39 +124,43 @@ class Item < ActiveRecord::Base
   end
 
   def apply_retail_multiplier(expr)
-    div(expr, term(0.4))
+    Option.new(retail_multiplier).map{|m| div(expr, term(m))}.orSome(expr)
   end
 
   def apply_rebate_factor(expr)
-    div(expr, term(0.92))
+    Option.new(rebate_factor).map{|f| div(expr, term(f))}.orSome(expr)
   end
 
-  def price_expr(units, color, contexts)
-    rebated_cost_expr(units, color, contexts).map{|e| apply_retail_multiplier(e)}
+  def retail_price_expr(query_context)
+    wholesale_price_expr(query_context).map{|e| apply_retail_multiplier(e)}
   end
 
-  def rebated_cost_expr(units, color, contexts)
-    cost_expr(units, color, contexts).map{|e| apply_rebate_factor(e)}
+  def sell_price_expr(query_context)
+    Option.new(sell_price).filter{|p| p != 0}.map{|p| term(p)}
   end
 
-  def cost_expr(units, color, contexts)
-    base_expr = self.base_price.nil? || self.base_price == 0 ? [] : [term(self.base_price)]
-    
-    selected_component_associations = if contexts.nil? || contexts.empty?
-      item_components
-    else
-      # Find each component association where the context list for that association
-      # contains at least one of the contexts specified to this method.
-      item_components.select do |comp|
-        (comp.contexts - contexts).size < comp.contexts.size
-      end
+  # For the wholesale price, any explicit sell price value will override
+  # a price derived from assembly component values
+  def wholesale_price_expr(query_context)
+    sell_price_expr(query_context).orElseLazy do
+      rebated_cost_expr(query_context)
     end
+  end
 
-    component_exprs = selected_component_associations.inject([]) do |exprs, assoc| 
-      assoc.cost_expr(units, color, contexts).map{|e| exprs << e}.orSome(exprs)
-    end
+  def rebated_cost_expr(query_context)
+    cost_expr(query_context).map{|e| apply_rebate_factor(e)}
+  end
 
-    subtotal_exprs = base_expr + component_exprs + surcharge_exprs(units)
+  def base_cost_expr(query_context)
+    Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}
+  end
+
+  def cost_expr(query_context)
+    subtotal_exprs = base_cost_expr(query_context).to_a + 
+                     linear_surcharge_expr(query_context).to_a + 
+                     component_exprs(query_context) {|assoc| assoc.cost_expr(query_context)} + 
+                     surcharge_exprs(query_context.units)
+
     if subtotal_exprs.empty?
       logger.info("No pricing expression derived for #{self.name} (base price #{self.base_price})")
       Option.none()
@@ -132,8 +169,40 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def component_contexts
-    item_components.inject([]) {|contexts, comp| contexts + comp.contexts}.uniq
+  def component_exprs(query_context, &assoc_reader)
+    selected_component_associations = if query_context.component_contexts.empty?
+      item_components
+    else
+      # Find each component association where the query_context list for that association
+      # contains at least one of the contexts specified to this method.
+      item_components.select do |comp|
+        (comp.contexts - query_context.component_contexts).size < comp.contexts.size
+      end
+    end
+
+    component_exprs = selected_component_associations.inject([]) do |exprs, assoc| 
+      assoc_reader.call(assoc).map{|e| exprs << e}.orSome(exprs)
+    end
+  end
+
+  def weight_expr(query_context)
+    component_weights = component_exprs(query_context) do |assoc|
+      assoc.weight_expr(query_context)
+    end
+
+    weight_subtotals = component_weights + Option.new(weight).to_a
+
+    Option.iif(!weight_subtotals.empty?) do
+      sum(*weight_subtotals)
+    end
+  end
+
+  def query(item_query, query_context)
+    item_query.traverse_item(self, query_context)
+  end
+
+  def install_cost_expr(query_context)
+    query(ItemQueries::PropertySum.new(&:install_cost), query_context)
   end
 
   def color_opts
@@ -189,18 +258,6 @@ class Item < ActiveRecord::Base
     {:missing => absent, :broken => broken}
   end
 
-  def query(item_query, contexts)
-    item_query.traverse_item(self, contexts)
-  end
-
-  def weight_expr(units, contexts)
-    query(PropertySum.new(units){|item| item.weight}, contexts)
-  end
-
-  def install_cost_expr(units, contexts)
-    query(PropertySum.new(units){|item| item.install_cost}, contexts)
-  end
-
   def next_item
     Item.find_by_sql(['SELECT * FROM items where name in (select min(name) from items where name > ?)', self.name])
   end
@@ -209,47 +266,3 @@ class Item < ActiveRecord::Base
     Item.find_by_sql(['SELECT * FROM items where name in (select max(name) from items where name < ?)', self.name])
   end
 end
-
-class HardwareQuery < ItemQuery
-  def initialize(&item_test)
-    super(Monoid::ARRAY_APPEND)
-    @item_test = item_test
-  end
-
-  def query_item_component(assoc, contexts)
-    hardware = assoc.kind_of?(ItemHardware) && (@item_test.nil? || @item_test.call(assoc.component)) ? [assoc] : []
-    super(assoc, contexts) + hardware
-  end
-end
-
-class PropertySum < ItemQuery
-  include Expressions
-
-  def initialize(units, &prop)
-    super(Monoid::OptionM.new(Semigroup::SUM))
-    @prop = prop
-    @units = units
-  end
-
-  def query_item(item)
-    Option.new(@prop.call(item)).map{|w| term(w)}
-  end
-
-  def query_item_component(assoc, contexts)
-    assoc.component.query(self, contexts).map{|expr| assoc.qty_expr(@units) * expr}
-  end
-end
-
-require 'items/cabinet.rb'
-require 'items/corner_cabinet.rb'
-require 'items/shell.rb'
-require 'items/panel.rb'
-require 'items/countertop.rb'
-require 'items/door.rb'
-require 'items/drawer.rb'
-require 'items/closet_partition.rb'
-require 'items/closet_shelf.rb'
-require 'items/backing_panel.rb'
-require 'items/item_hardware.rb'
-require 'items/scaled_item.rb'
-

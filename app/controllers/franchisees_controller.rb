@@ -68,7 +68,7 @@ class FranchiseesController < ApplicationController
     )
 
     if request.xhr?
-      render :partial => 'addresses'
+      render :partial => 'addresses', :locals => {:mode => nil}
     else
       redirect_to franchisee_url(@franchisee)
     end

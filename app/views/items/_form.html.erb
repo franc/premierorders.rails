@@ -1,8 +1,8 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
+  <%= javascript_include_tag :ajax_ui %>
   <%= javascript_include_tag 'item_editing.js' %>
   <%= javascript_include_tag 'jqModal.js' %>
-  <%= javascript_include_tag 'json2.js' %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
   <style>
     .jqm_form {
         display: none;
@@ -158,6 +158,24 @@
     
       $(".component_delete_link").click(delete_clicked(".item_component_row"));
       $(".property_delete_link").click(delete_clicked(".property_row"));
+      $("#duplicate").click(function(ev) {
+        $.loading({ mask:true });
+        $.ajax({
+          url:"/items/<%=@item.try(:id)%>/dup",
+          type:"POST",
+          dataType:"json",
+          success: function(data) {
+            alert("You have successfully duplicated this item. You will now be forwarded to the page to edit the new item.")
+            window.location = "/items/"+data.new_id+"/edit";
+            $.loading();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            alert("Item duplication failed: "+textStatus+". Sorry!")
+            $.loading();
+          }
+        })
+        return false;
+      });
     });
   </script>
 <% end %>
@@ -180,13 +198,15 @@
   <div id="item_form_fields" class="form_fields">
     <dl>
     <dt><%= f.label :type %></dt>
-    <dd><%= f.select(:type, Item.item_types.map{|t| t.to_s}) %></dd>
+    <dd><%= f.select(:type, item_type_option_values) %></dd>
     <dt><%= f.label :name %></dt>
     <dd><%= f.text_field :name %></dd>
+    <dt><%= f.label :category %></dt>
+    <dd><%= f.select(:category, Item.categories.map{|c| [c.titlecase, c]}, :include_blank => true) %></dd>
     <dt><%= f.label :description %></dt>
     <dd><%= f.text_area :description %></dd>
 	  <dt><%= f.label :purchasing %></dt>
-	  <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Per Order" => "Purchased", "Bulk" => "Inventory"}) %></dd>
+	  <dd><%= f.select(:purchasing, {"Manufactured" => "Manufactured", "Per Order" => "Purchased", "Bulk" => "Inventory", "Buyout" => "Buyout"}) %></dd>
 	  <dt><%= f.label :dvinci_id %></dt>
 	  <dd><%= f.text_field :dvinci_id %></dd>
 	  <dt><%= f.label :cutrite_id %></dt>
@@ -199,10 +219,22 @@
 	  <dd><%= f.text_field :purchase_part_id %></dd>
 	  <dt><%= f.label :base_price %></dt>
 	  <dd><%= f.text_field :base_price %></dd>
+	  <dt><%= f.label :bulk_qty %></dt>
+	  <dd><%= f.text_field :bulk_qty %></dd>
+	  <dt><%= f.label :sell_price %></dt>
+	  <dd><%= f.text_field :sell_price %></dd>
 	  <dt><%= f.label :weight %></dt>
 	  <dd><%= f.text_field :weight %></dd>
 	  <dt><%= f.label :install_cost %></dt>
 	  <dd><%= f.text_field :install_cost %></dd>
+	  <dt><%= f.label :rebate_factor %></dt>
+	  <dd><%= f.text_field :rebate_factor %></dd>
+	  <dt><%= f.label :retail_multiplier %></dt>
+	  <dd><%= f.text_field :retail_multiplier %></dd>
+	  <dt><%= f.label :ship_by, "Drop Ship" %></dt>
+	  <dd><%= f.check_box(:ship_by, {}, 'drop_ship') %></dd>
+	  <dt><%= f.label :in_catalog, "In Catalog" %></dt>
+	  <dd><%= f.check_box(:in_catalog, {}, 'true') %></dd>
 	</dl>
   </div>
   <div>
@@ -220,7 +252,7 @@
   </div>
 
   <div class="form_actions">
-    <%= f.submit %>
+    <%= f.submit %> <button id="duplicate">Duplicate Item</button>
   </div>
 <% end %>
 

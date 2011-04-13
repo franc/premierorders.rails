@@ -2,15 +2,11 @@ require 'json'
 
 module PropertiesHelper
   def self.create_property(property_json)
-    descriptor = Property.descriptors(Items.const_get(property_json[:descriptor_mod]))[property_json[:descriptor_id].to_i]
+    descriptor = Property.descriptors(Items.const_get(property_json[:descriptor_mod].demodulize))[property_json[:descriptor_id].to_i]
     property = descriptor.create_property(property_json[:name])
 
     property_json[:values].values.each do |v|
-      property.property_values.create(
-        :name => v[:name],
-        :module_names => descriptor.module_names,
-        :value_str => JSON.generate(v[:fields])
-      )
+      property.create_value(v[:name], v[:fields])
     end
 
     property

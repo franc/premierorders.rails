@@ -4,28 +4,43 @@
   <%= javascript_include_tag 'item_editing.js' %>
   <script type="text/javascript">
     jQuery(function($) {
-      $("#price_expr_units").change(update_pricing_expr);
-      $("#price_expr_color").change(update_pricing_expr);
-      $(".property_delete_link").click(delete_clicked(".property_row"));
-      update_pricing_expr();
+      //$("#price_expr_units").change(update_pricing_expr);
+      //$("#price_expr_color").change(update_pricing_expr);
+      //$(".property_delete_link").click(delete_clicked(".property_row"));
+      $("#recompute_price").click(
+        function(ev) {
+          $.get(
+            "/job_items/<%=@job_item.id%>/compute_unit_price",
+            function(data) {
+              if (data['error']) {
+                $("#unit_price").toggleClass("error_explanation").html("<pre>"+data['error']+"<pre>");
+              } else {
+                $("#unit_price").toggleClass("error_explanation").html(data['success']);
+              }
+            },
+            "json"
+          );
+        }
+      );
+      //update_pricing_expr();
     });
   </script>
 <% end %>
 
 <div class="form_fields">
   <dl>
+    <dt><%= label :job_item, :tracking_id %></dt>
+    <dd><%= @job_item.tracking_id %></dd>
     <dt><%= label :job_item, :quantity %></dt>
     <dd><%= @job_item.quantity %></dd>
     <dt><%= label :job_item, :item_name %></dt>
-    <dd><%= @job_item.item_name %></dd>
+    <dd><%= @job_item.item.nil? ? @job_item.item_name : link_to(@job_item.item_name, item_path(@job_item.item)) %></dd>
     <dt><%= label :job_item, :description %></dt>
     <dd><%= @job_item.ingest_desc %></dd>
     <dt><%= label :job_item, :dvinci_id %></dt>
     <dd><%= @job_item.ingest_id %></dd>
-    <% if can? :manage, Job %>
-      <dt><%= label :job_item, :purchase_part_id %></dt>
-      <dd><%= @job_item.item ? @job_item.item.purchase_part_id : nil %></dd>
-    <% end %>
+    <dt><%= label :job_item, :purchase_part_id %></dt>
+    <dd><%= @job_item.item ? @job_item.item.purchase_part_id : nil %></dd>
     <dt><%= label :job_item, :color %></dt>
     <dd><%= @job_item.color.orSome('(not found)') %></dd>
     <dt><%= label :job_item, :width %></dt>
@@ -34,20 +49,25 @@
     <dd><%= @job_item.height.map{|w| "%.3f" % w}.orSome('(not specified)') %></dd>
     <dt><%= label :job_item, :depth %></dt>
     <dd><%= @job_item.depth.map{|w| "%.3f" % w}.orSome('(not specified)') %></dd>
-    <dt><%= label :job_item, :weight %></dt>
-    <dd><%= @job_item.weight.map{|e| e.cata(Functions::IDENTITY, lambda{|p| "%0.3f" % p})}.orSome("(not found)") %></dd>
+    <dt><%= label :job_item, :unit_weight %></dt>
+    <dd><%= Option.new(@job_item.unit_weight).map{|p| "%0.3f" % p}.orSome("(not found)") %></dd>
     <dt><%= label :job_item, :unit_price %></dt>
-    <dd>
-      <%= @job_item.compute_unit_price.cata(
-            lambda{|e| e.cata(Functions::IDENTITY, lambda{|p| "$%0.2f" % p})},
-            "$%.2f" % @job_item.unit_price
-          ) %>
-      <%= unit_price_mismatch(@job_item).map{|m| "($%.2f)" % @job_item.unit_price}.orSome('') %>
+    <dd class="<%= unit_price_class(@job_item) %>">
+      <% if @job_item.pricing_cache_status == 'error' %>
+        <%= raw price_computation_error(@job_item) %>
+      <% else %>
+        <span id="unit_price"><%= "$%.2f" % @job_item.net_unit_price %></span> 
+      <% end %>
+
+      <%= @job_item.unit_price_mismatch.map{|m| "($%.2f)" % @job_item.unit_price}.orSome('') %>
+      <a href="#" id="recompute_price">(recompute)</a>
     </dd>
     <dt><%= label :job_item, :special_instructions %></dt>
     <dd><%= @job_item.comment %></dd>
     <dt><%= label :job_item, :properties %></dt>
     <dd></dd>
+    <dt>Component Hardware</dt>
+    <dd><%= render :partial => 'jobs/items_table', :locals => {:job_items => @job_item.inventory_hardware.values} %></dd>
   </dl>
 </div>
 

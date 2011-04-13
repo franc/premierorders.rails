@@ -1,14 +1,13 @@
-require 'property.rb'
-require 'items/cabinet_components.rb'
+require 'properties'
 
-class Cabinet < Item
+class Items::Cabinet < Item
   def self.component_association_types
-    super.merge({:required => [CabinetShell], :optional => [CabinetDrawer, CabinetShelf]}) do |k, v1, v2|
+    super.merge({:required => [Items::CabinetShell], :optional => [Items::CabinetDrawer, Items::CabinetShelf]}) do |k, v1, v2|
       v1 + v2
     end
   end
 
-  DIMENSIONS_DESCRIPTOR = PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height, Property::Depth])
+  DIMENSIONS_DESCRIPTOR = Properties::PropertyDescriptor.new(:dimensions,  [], [Property::Width, Property::Height, Property::Depth])
 
   def self.job_properties
     [Property::LinearUnits::DESCRIPTOR]

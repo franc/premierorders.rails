@@ -1,105 +1,242 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'jquery-ui-1.8.7.custom.min.js' %>
   <script type="text/javascript">
-    jQuery(function($) {
-      ajax_date($(".job_date").hover(editIn, editOut));
-      $(".job_status").change(post_this_update);
-      $(".job_ship_method").change(post_this_update);
-    })
+    jQuery(function() {
+      $("#job_ship_method").change(post_this_update);
+      $("#place_order").click(function(ev) {
+        if (!$("#job_ship_method").val()) {
+          alert("You must choose a ship method for this job!");
+          return false;
+        }
+
+        return true;
+      });
+    });    
   </script>
 <% end %>
 
-<dl class="form_fields">
+<div class="form_fields">
+
+  <p id="quote-title">ORDER CONFIRMATION</p>
+
   <div id="header-leftcol">
-    <dt><%= label :job, :job_number %></dt>
-    <dd><%= @job.job_number -%></dd>
-
-    <dt><%= label :job, :name %></dt>
-    <dd><%= @job.name -%></dd>
-
-    <dt><%= label :job, :status %></dt>
-    <dd>
-      <% if can? :manage, @job %>
-        <%= select_tag("job[#{@job.id}][status]", options_for_select(Job::STATUS_OPTIONS.map{|v|[v,v]}, @job.status), :class => 'job_status') -%>
-      <% else %>
-        <%= @job.status %>
-      <% end %>
-    </dd>
-
-    <dt><%= label :job, :franchisee %></dt>
-    <dd><%= @job.franchisee.franchise_name -%> (Credit status: <span style="color: <%= @job.franchisee.credit_status -%>"><%= @job.franchisee.credit_status -%></span>) </dd>
-
-    <dt><%= label :job, :ship_to %></dt>
-    <dd><%= @job.ship_to && @job.ship_to.single_line -%></dd>
-
-    <dt><%= label :job, :comment %></dt>
-    <dd><%= @job.comment -%></dd>
-
-    <% if can? :manage, Job %>
-      <dt><%= label :job, :notes %></dt>
-      <dd><%= @job.notes -%></dd>
-    <% end %>
-
-    <dt><%= label :job, :total %></dt>
-    <dd>
-      <%= "$%.2f" % @job.total -%><br/>
-      <% if @job.placement_date.nil? %><%= button_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?' %><% end %>
-    </dd>
-
+    <img id="print-logo" src="/images/Premier Logo.jpg" />
+    <div class="left50 clear">
+      <dl class="billing_address">
+        <dt>Bill To</dt>
+        <dd>
+          <%= @job.franchisee.franchise_name -%>
+          <% @job.bill_to.each do |addr| %>
+            <br/><%= addr.address1 -%>
+            <% if addr.address2 %>
+              <br/><%= addr.address2 -%>
+            <% end %>
+            <br/><%= addr.city -%>, <%= addr.state -%> <%= addr.postal_code -%>
+          <% end %>
+        </dd>
+      </dl>
+    </div>
+    <div class="right50">
+      <dl class="shipping_address">
+        <dt>Ship To</dt>
+        <dd>
+          <%= @job.franchisee.franchise_name -%>
+          <% @job.ship_to.each do |addr| %>
+            <br/><%= addr.address1 -%>
+            <% if addr.address2 %>
+              <br/><%= addr.address2 -%>
+            <% end %>
+            <br/><%= addr.city -%>, <%= addr.state -%> <%= addr.postal_code -%>
+          <% end %>
+        </dd>
+      </dl>
+    </div>
   </div>
 
   <div id="header-rightcol">
-    <dt><%= label :job, :created_at %></dt>
-    <dd><%= @job.created_at %></dd>
+    <dl class="job_number">
+      <dt><%= label :job, :job_number %></dt>
+      <dd><%= @job.job_number -%></dd>
+    </dl>
 
-    <dt><%= label :job, :placement_date %></dt>
-    <dd><%= @job.placement_date %></dd>
-    
-    <dt><%= label :job, :due_date %></dt>
-    <% if can? :manage, @job %>
-      <dd><span class="job_date" id="job[<%=@job.id%>][due_date]"><%= @job.due_date %></span></dd>
-    <% else %>
+    <dl class="job_name">
+      <dt><%= label :job, :name %></dt>
+      <dd><%= @job.name -%></dd>
+    </dl>
+
+    <dl class="primary_contact">
+      <dt><%= label :job, :primary_contact %></dt>
+      <dd>
+        <%= @job.primary_contact.name -%> 
+        (<a href="mailto:<%= @job.primary_contact.email %>"><%= @job.primary_contact.email %></a>)
+      </dd>
+    </dl>
+
+    <dl class="mfg_plant">
+      <dt><%= label :job, :mfg_plant %></dt>
+      <dd><%= @job.mfg_plant -%></dd>
+    </dl>
+
+    <dl class="due_date">
+      <dt><%= label :job, :due_date %></dt>
       <dd><%= @job.due_date %></dd>
-    <% end %>
+    </dl>
 
-    <dt><%= label :job, :mfg_plant %></dt>
-    <dd><%= @job.mfg_plant -%></dd>
-
-    <dt><%= label :job, :ship_method %></dt>
-    <dd>
-      <% if can? :manage, @job %>
-        <%= select_tag("job[#{@job.id}][ship_method]", options_for_select(Job::SHIPMENT_OPTIONS.map{|v|[v,v]}, @job.ship_method), :class => 'job_ship_method') -%>
-      <% else %>
-        <%= @job.ship_method %>
-      <% end %>
-    </dd>
-
-    <dt><%= label :job, :ship_date %></dt>
-    <% if can? :manage, @job %>
-      <dd><span class="job_date" id="job[<%=@job.id%>][ship_date]"><%= @job.ship_date %></span></dd>
-    <% else %>
+    <dl class="ship_date">
+      <dt><%= label :job, :ship_date %></dt>
       <dd><%= @job.ship_date %></dd>
-    <% end %>
+    </dl>
 
-    <dt><%= label :job, :tracking_number %></dt>
-    <dd><%= @job.tracking_number -%></dd>
+    <dl class="ship_method">
+      <dt><%= label :job, :ship_method %></dt>
+      <dd>
+        <% if @job.placed? %>
+          <%= @job.ship_method %>
+        <% else %>
+          <%= job_ship_method_select(@job, :id => "job_ship_method", :include_blank => true) -%>
+        <% end %>
+      </dd>
+    </dl>
+
+    <dl class="tracking_number">
+      <dt><%= label :job, :tracking_number %></dt>
+      <dd><%= @job.tracking_number %></dd>
+    </dl>
   </div>
 
-  <dt>Items</dt>
-  <dd><%= render :partial => 'items_table', :locals => {:job_items => @job.job_items.order('tracking_id')} %></dd>
-</dl>
+  <dl class="special_instructions">
+    <dt><%= label :job, :comment %></dt>
+    <dd><%= @job.comment -%></dd>
+  </dl>
+
+  <dl class="total_weight">
+    <dt><%= label :job, :total_weight %></dt>
+    <dd><%= "%.3f" % @job.total_weight  -%></dd>
+  </dl>
+
+  <dl class="job_total">
+    <dt><%= label :job, :total %></dt>
+    <dd>
+      <%= "$%.2f" % @job.total -%><br/>
+      <% if !@job.placed? %>
+        <%= button_to 'Place Order', place_order_job_path(@job), :confirm => 'Are you sure you wish to place this order?', :id => 'place_order' %>
+      <% end %>
+    </dd>
+  </dl>
+
+  <% if @job.source == 'dvinci' %>
+    <%= render :partial => 'dvinci_job_items', :locals => {:job => @job} %>
+  <% else %>
+    <%= render :partial => 'catalog_job_items', :locals => {:job => @job} %>
+  <% end %>
+
+  <hr />
+
+  <div id="quote-footer">
+    <dl class="franchisee-name">
+        <dt>PremierGarage Systems</dt>
+    </dl>
+
+    <dl class="franchisee-phone">
+      <dt>Toll Free: 866-761-8981</dt>
+      <dd></dd>
+    </dl>
+
+    <dl class="franchisee-fax">
+      <dt>Fax: 480.483.3795</dt>
+      <dd></dd>
+    </dl>
+
+    <dl class="franchisee-web">
+      <dt>www.premiergarage.com</dt>
+      <dd></dd>
+    </dl>
+  </div>
+</div>
 
 <% content_for :local_nav do %>
-  <%= link_to t(:edit), edit_job_path(@job) %> |
-  <%= link_to t(:quote), quote_job_path(@job) %> |
-  <% if can? :manage, @job %>
-    <%= link_to t(:cutrite), cutrite_job_path(@job) %> |
+  <% if can? :update, Job %>
+    <%= link_to 'Edit', edit_job_path(@job) %> |
   <% end %>
-  <%= link_to t(:list), jobs_path %>
+  <% if can? :pg_internal_cap, Job %>
+    <%= link_to 'Cutrite', cutrite_job_path(@job) %> |
+  <% end %>
+  <%= link_to 'List', jobs_path %>
 <% end %>
 
 <% content_for :head do %>
-    <style type="text/css">
-      #header-leftcol, #header-rightcol {float: left; width: 50%;}
-    </style>
+
+  <style type="text/css" media="screen">
+    #print-logo, #quote-title {display: none;}
+  </style>
+  <style type="text/css" media="all">
+    dl {
+      overflow: hidden;
+      margin: 0;
+    }
+    dt {
+      font-weight: bold;
+      float: left;
+      clear: left;
+      width: 10em;
+      margin: 0 0 .25em;
+    }
+    dd {
+      width: auto !important;
+      margin: 0;
+      float: left;
+    }
+    dl.items, dl.inventory_items, dl.shipping_address, dl.billing_address, 
+    dl.special_instructions dt, dl.items dt, dl.inventory_items dt, dl.shipping_address dt, dl.billing_address dt,
+    dl.special_instructions dd, dl.items dd, dl.inventory_items dd, dl.shipping_address dd, dl.billing_address dd,
+    dl.franchisee-name dt, dl.franchisee-phone dt, dl.franchisee-fax dt, dl.franchisee-web dt,
+    dl.franchisee-name dd, dl.franchisee-phone dd, dl.franchisee-fax dd, dl.franchisee-web dd{
+      clear: both; float: none; width: 100%;
+    }
+    dl.special_instructions, dl.total_weight, dl.job_total {width: 55%; margin-top: 2em; float: left;}
+    dl.job_total dt {text-align: left;}
+    dl.total_weight dt {text-align: left;}
+    dl.ship_date {margin-top: 1em;}
+    dl.job_total {margin: 1.5em 0;}
+    dl.inventory_items {margin-bottom: 5em;}
+    dl.franchisee-name, dl.franchisee-phone, dl.franchisee-fax, dl.franchisee-web {
+      float: left;
+      width: 25%;
+      text-align: right;
+      margin-top: 1em;
+    }
+    table {width: 100%; border-collapse: collapse;}
+    td, th {border: 1px solid #ccc; padding: .1em .25em;}
+    th {background-color: #aaa;}
+    /* tr:nth-child(odd)   { background-color:#eee; } */
+
+    #header-leftcol {float: left; width: 55%;}
+    #header-rightcol {float: right; width: 45%;}
+
+    .clear {clear: both;}
+    .left50 {float: left; width: 50%;}
+    .right50 {float: right; width: 50%;}
+    .decimal_value {text-align: right;}
+  </style>
+
+  <style type="text/css" media="print">
+    #quote-title {text-align: center;}
+    #quote-footer {font-size: .9em;}
+    #print-logo {float: left;}
+    body {
+      background-color: white;
+      color: black;
+      font: 9pt/12pt Arial, Helvetica, sans-serif;
+    }
+    a {color: black; text-decoration: none;}
+    #auth_nav, #nav, #local_nav {display: none;}
+    table.item_table td.item_purchase_part_id,
+    table.item_table th.item_purchase_part_id {
+      display: none
+    }
+    table.item_table td.item_actions,
+    table.item_table th.item_actions {
+      display: none;
+    }
+    div.inventory_items_empty {display: none;}
+  </style>
 <% end %>

@@ -39,7 +39,6 @@
                 }
               },
               function(address_list_html) {
-                alert("Got " + address_list_html);
                 var elem = $(address_list_html);
                 $("#franchisee_addresses").replaceWith(elem);
               }
@@ -73,7 +72,7 @@
       <dt><%= f.label :franchise_name %></dt>
       <dd><%= f.text_field :franchise_name %></dd>
       <dt><%= f.label :primary_contact%></dt>
-      <dd><%= collection_select(:primary_contact, :user_id, User.order(:last_name, :first_name), :id, :name, {:selected => @franchisee.primary_contact.try(:user_id)}) %></dd> 
+      <dd><%= collection_select(:primary_contact, :user_id, User.order(:last_name, :first_name), :id, :name, {:selected => @franchisee.primary_contact.try(:user_id), :include_blank => true}) %></dd> 
       <dt><%= f.label :phone %></dt>
       <dd><%= f.text_field :phone %></dd>
       <dt><%= f.label :fax %></dt>
@@ -84,8 +83,10 @@
       <dd><%= f.select(:credit_status, [["Green", "Green"], ["Yellow", "Yellow"], ["Red", "Red"]]) %></dd>
       <dt><%= f.label :notes %></dt>
       <dd><%= f.text_area :notes %></dd>
-      <dt><%= f.label :addresses %> <span id="create_franchisee_address">(+)</span></dt>
-      <dd><%= render :partial => 'addresses', :locals => {:mode => :edit} %></dd>
+      <% unless @franchisee.new_record? %>
+        <dt><%= f.label :addresses %> <span id="create_franchisee_address">(+)</span></dt>
+        <dd><%= render :partial => 'addresses', :locals => {:mode => :edit} %></dd>
+      <% end %>
     </dl>
   </div>
 
@@ -94,25 +95,27 @@
   </div>
 <% end %>
 
-<div id="address_form" class="jqm_form">
-  <div class="form_fields">
-    <dl>
-      <dt><%= label :address, :address_type %></dt>
-      <dd><%= select_tag :address_type, options_for_select([['Billing', 'Billing'], ['Shipping', 'Shipping']], 'Billing') %></dd>
-      <dt><%= label :address, :address1 %></dt>
-      <dd><%= text_field :address, :address1 %></dd>
-      <dt><%= label :address, :address2 %></dt>
-      <dd><%= text_field :address, :address2 %></dd>
-      <dt><%= label :address, :city %></dt>
-      <dd><%= text_field :address, :city %></dd>
-      <dt><%= label :address, :state %></dt>
-      <dd><%= text_field :address, :state %></dd>
-      <dt><%= label :address, :postal_code %></dt>
-      <dd><%= text_field :address, :postal_code %></dd>
-      <dt></dt>
-      <dd><%= submit_tag 'Create Address', {:id => 'submit_address'} %></dd>
+<% unless @franchisee.new_record? %>
+  <div id="address_form" class="jqm_form">
+    <div class="form_fields">
+      <dl>
+        <dt><%= label :address, :address_type %></dt>
+        <dd><%= select_tag :address_type, options_for_select([['Billing', 'billing'], ['Shipping', 'shipping']], 'billing') %></dd>
+        <dt><%= label :address, :address1 %></dt>
+        <dd><%= text_field :address, :address1 %></dd>
+        <dt><%= label :address, :address2 %></dt>
+        <dd><%= text_field :address, :address2 %></dd>
+        <dt><%= label :address, :city %></dt>
+        <dd><%= text_field :address, :city %></dd>
+        <dt><%= label :address, :state %></dt>
+        <dd><%= text_field :address, :state %></dd>
+        <dt><%= label :address, :postal_code %></dt>
+        <dd><%= text_field :address, :postal_code %></dd>
+        <dt></dt>
+        <dd><%= submit_tag 'Create Address', {:id => 'submit_address'} %></dd>
 
-    </dl>
+      </dl>
+    </div>
   </div>
-</div>
+<% end %>
 

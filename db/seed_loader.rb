@@ -1,6 +1,6 @@
 require 'csv'
 require 'set'
-require 'util/option'
+require 'fp'
 
 class SeedLoader
   PASSWORD_SYMBOLS = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
@@ -371,10 +371,25 @@ class SeedLoader
   end
 
   def dump_tab_file(filename)
+    tab_headers = [
+      'PartID',
+      'CatalogID',
+      'PartString',
+      'Description',
+      'Quantity',
+      'Price',
+      'Labor',
+      'SpecialFlags',
+      'Weight',
+      'Image'
+    ]
+
     File.open("generated_tab_errors.out", "w") do |err|
     File.open("generated_tab_missing.out", "w") do |missing|
     File.open("generated_tab_mismatch.out", "w") do |mismatch|
     File.open("bridge_generated.tab", "w") do |out|
+      out.puts(tab_headers.join("\t"))
+
       with_tabfile_rows(filename) do |row, item_dvinci_key, item_desc, purchasing, category, color, color_key, color_match|
         part_id, catalog_id, dvinci_id, description, flag, price, *xs = row
 
@@ -382,10 +397,10 @@ class SeedLoader
         if item.nil? 
           err.puts "Could not find item with dvinci id #{item_dvinci_key} for row #{row.inspect}" 
           missing.puts(row.join("\t"))
-          out.puts(row.join("\t"))
+          out.puts(row.join("\t").strip)
         else
           begin
-            item_pricing_expr = item.price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
+            item_pricing_expr = item.retail_price_expr(:in, color_key.gsub(/^[19]/,'0'), []).map{|e| e.compile}.orLazy do
               err.puts "Could not determine pricing expression for row #{row.inspect}"
             end
 
@@ -394,9 +409,9 @@ class SeedLoader
             end
 
             display_name = color_match ? "#{item.name.gsub(/ \| #{color}/, '')} | #{color}" : item.name
-            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t"))
+            out.puts(([part_id, catalog_id, dvinci_id, display_name, flag, item_pricing_expr] + xs).join("\t").strip)
           rescue
-            err.puts("Error in calculating prices for row #{row.inspect}: #{$!}")
+            err.puts("Error in calculating prices for row #{row.inspect}: #{$!.backtrace[0]}")
           end
         end
 

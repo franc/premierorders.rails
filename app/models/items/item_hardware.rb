@@ -1,10 +1,11 @@
-require 'property.rb'
+require 'property'
+require 'properties'
 
-class ItemHardware < ItemComponent
-  HEIGHT_QTY = PropertyDescriptor.new(:quantity_by_height, [], [Property::Height])
-  WIDTH_QTY  = PropertyDescriptor.new(:quantity_by_width,  [], [Property::Width])
-  DEPTH_QTY  = PropertyDescriptor.new(:quantity_by_depth,  [], [Property::Depth])
-  RANGED_QTY = PropertyDescriptor.new(:qty_by_range, [], [Property::RangedValue])
+class Items::ItemHardware < ItemComponent
+  HEIGHT_QTY = Properties::PropertyDescriptor.new(:quantity_by_height, [], [Property::Height])
+  WIDTH_QTY  = Properties::PropertyDescriptor.new(:quantity_by_width,  [], [Property::Width])
+  DEPTH_QTY  = Properties::PropertyDescriptor.new(:quantity_by_depth,  [], [Property::Depth])
+  RANGED_QTY = Properties::PropertyDescriptor.new(:qty_by_range, [], [Property::RangedValue])
 
   def self.component_types
     [Item]
@@ -30,7 +31,8 @@ class ItemHardware < ItemComponent
     properties.find_all_by_descriptor(RANGED_QTY).map{|v| v.property_values}.flatten
   end
 
-  def qty_expr(units)
+  def qty_expr(query_context)
+    units = query_context.units
     if h_qty(units).empty? && w_qty(units).empty? && d_qty(units).empty? && r_qtys.empty?
       term(quantity)
     else
@@ -43,13 +45,5 @@ class ItemHardware < ItemComponent
       qty_exprs = quantities.inject([]){|a, v| v.map{|expr| a << expr}.orSome(a)} + r_qtys.map{|v| v.expr(units)}
       sum(*qty_exprs)
     end
-  end
-
-  def unit_cost_expr(units, color, contexts)
-    component.cost_expr(units, color, contexts)
-  end
-
-  def cost_expr(units, color, contexts)
-    unit_cost_expr(units, color, contexts).map{|e| mult(qty_expr(units), e)}
   end
 end

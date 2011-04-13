@@ -1,32 +1,37 @@
-require 'util/option'
-require 'util/either'
+require 'fp'
 
 class AssemblyHardwareItem
-  attr_reader :item, :quantity, :weight, :install_cost, :total_price
+  attr_reader :item, :quantity, :total_price, :errors
 
-  def initialize(item, quantity = 0.0, total_price = 0.0)
+  def initialize(item, quantity = 0, total_price = BigDecimal.new("0.0"))
     @item = item
+    @errors = []
     @quantity = quantity
     @total_price = total_price
   end
 
-  def add_hardware(job_item, assoc)
-    job_item.dimension_eval(assoc.qty_expr(:in)).right.each do |qty|
-      @quantity += qty
-    end
+  def add_hardware(job_item_component, job_item_qty)
+    raise "Item mismatch: #{@item} is not equal to #{job_item_component.item}" unless @item == job_item_component.item
+    component_quantity = job_item_component.quantity.cata(
+      lambda {|err| errors << err; 0},
+      lambda {|qty| qty}
+    )
 
-    assoc.cost_expr(:in, color.orSome(nil), []).each do |expr| 
-      job_item.dimension_eval(expr).right.each do |price|
-        @total_price += price
-      end
-    end
-
-    self
+    @quantity += (component_quantity * job_item_qty)
+    @total_price += job_item_component.unit_price.cata(
+      lambda {|err| errors << err; 0},
+      lambda {|price| price * (component_quantity * job_item_qty)}
+    )
   end
 
   def +(other)
     raise "Item mismatch: #{@item} is not equal to #{other.item}" unless @item == other.item
     AssemblyHardwareItem.new(@item, @quantity + other.quantity, @total_price + other.total_price)
+  end
+
+  def *(qty)
+    @quantity *= qty
+    @total_price *= qty
   end
 
   def tracking_id
@@ -38,7 +43,6 @@ class AssemblyHardwareItem
   end
 
   def color
-    #@job_item.color.bind{|c| Option.new(item.color_opts.find{|o| o.color == c})}
     Option.none
   end
 
@@ -56,34 +60,23 @@ class AssemblyHardwareItem
     Option.none
   end
 
-  def hardware_cost
-    0.0
-  end
-
-  def compute_unit_price
-    Option.iif(@quantity > 0) do
-      Either.right(@total_price / @quantity)
-    end
-  end
-
   def unit_price
-    # This is wrong, but it requires rework of the display to correct it. So this is a hack
-    # to allow continued reuse of jobs/_items_table.html.erb
-    compute_unit_price.bind{|e| e.right.toOption}.orSome(0.0)
+    @total_price / @quantity
   end
 
-  def compute_total
-    Option.some(Either.right(@total_price))
+  alias_method :net_unit_price, :unit_price
+  alias_method :computed_unit_price, :unit_price
+
+  def net_total
+    @total_price
   end
 
-  def hardware_total
-    0.0
+  def unit_price_mismatch
+    None::NONE
   end
 
-  def weight
-    Option.new(item.weight).map do |w|
-      Either.right(w * @quantity)
-    end
+  def unit_weight
+    nil
   end
 
   def install_cost

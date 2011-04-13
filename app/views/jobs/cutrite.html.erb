@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <table class="cutrite_csv_header">
-  <tr><% @job.cutrite_job_header.each do |label| -%><th><%= label -%></th><% end %></tr>
+  <tr><% Job::CUTRITE_JOB_HEADER.each do |label| -%><th><%= label -%></th><% end %></tr>
   <tr><% @job.cutrite_job_data.each do |value| -%><td><%= value -%></td><% end %></tr>
 </table>
 <table class="cutrite_csv_items">
-  <tr><% @job.cutrite_items_header.each do |label| -%><th><%= label -%></th><% end %></tr>
+  <tr><% Job::CUTRITE_ITEMS_HEADER[0...14].each do |label| -%><th><%= label -%></th><% end %></tr>
   <% @job.cutrite_items_data.each_with_index do |row, i| -%>
-    <tr><% row.each do |col| -%><td><%= col -%></td><% end %></tr>
+    <tr><% row[0...14].each do |col| -%><td><%= col -%></td><% end %></tr>
   <% end %>
 </table>
 
@@ -15,5 +15,5 @@
   <%= link_to t(:show), job_path(@job) %> |
   <%= link_to t(:edit), edit_job_path(@job) %> |
   <%= link_to t(:download), download_job_path(@job) %> |
-  <%= link_to t(:jobs), jobs_path %>
+  <%= link_to t('activerecord.models.job').pluralize, jobs_path %>
 <% end %>

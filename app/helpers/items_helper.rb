@@ -7,6 +7,10 @@ module ItemsHelper
     select_tag :component, options_for_select(option_values), options
   end
 
+  def item_type_option_values
+    Item.item_types.map{|t| [t.to_s.demodulize.underscore.humanize.titlecase, t.to_s]}
+  end
+
   def descriptors_json(mod)
   end
 

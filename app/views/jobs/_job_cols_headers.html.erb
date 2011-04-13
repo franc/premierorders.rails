@@ -1,0 +1,12 @@
+    <th><%=Job.model_name.human%> Name</th>
+    <th><%=Job.model_name.human%> Number</th>
+    <th>Sales Category</th>
+    <th>Placement Date</th>
+    <th>Due Date</th>
+    <th>Ship Date</th>
+    <th>Status</th>
+    <th>Ship Via</th>
+    <% if can? :update, ProductionBatch %><th>Production Batch</th><% end %>
+    <% if can? :update, Franchisee %><th>Credit Status</th><% end %>
+    <th>Actions</th>
+

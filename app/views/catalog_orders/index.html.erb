@@ -1,0 +1,360 @@
+<% content_for :html do %>manifest="/cache.manifest"<% end %>
+<% content_for :head do %>
+  <style type="text/css">
+    label { width: 10em; float: left; }
+    label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+    em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+  </style>
+
+  <%= javascript_include_tag 'jquery.validate.min.js' %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
+  <%= javascript_include_tag 'path.min.js' %>
+  <%= javascript_include_tag 'catalog_orders.js' %>
+  <script type="text/javascript">
+    var update_reference_data = function() {
+      var rd_storage_id = CatalogOrder.storage_root + '.reference_data';
+
+      var update_users_list = function(users) {
+        $("#order_primary_contact_id option").remove();
+
+        var i;
+        for (i = 0; i < users.length; i++) {
+          $("#order_primary_contact_id").append(option_html(users[i].id, users[i].name));
+        }
+      };
+
+      var update_address_lists = function(addresses) {
+        $("#order_shipping_address_id option").remove();
+        $("#order_billing_address_id option").remove();
+
+        var i;
+        for (i = 0; i < addresses.length; i++) {
+          $("#order_shipping_address_id").append(option_html(addresses[i].id, addresses[i].single_line));
+          $("#order_billing_address_id").append(option_html(addresses[i].id, addresses[i].single_line));
+        }
+      };
+
+      var update_franchisee_list = function(reference_data) {
+        $("#order_franchisee_id option").remove();
+        $("#order_franchisee_id").unbind();
+        $("#order_franchisee_id").change(function(ev) {
+          update_users_list(reference_data[$(ev.target).val()].users);
+          update_address_lists(reference_data[$(ev.target).val()].addresses);
+        });
+
+        var key;
+        var farr = [];
+        for (key in reference_data) {
+          if (reference_data.hasOwnProperty(key)) {
+            reference_data[key].id = key;
+            farr.push(reference_data[key]);
+          }
+        }
+
+        farr.sort(function(a, b) { 
+          return a.name < b.name ? -1 : 1
+        }).forEach(
+          function(v) {
+            $("#order_franchisee_id").append(option_html(v.id, v.name));
+          }
+        );
+        
+        $("#order_franchisee_id").change();
+      };
+
+      var rd_update_success = function(data) {
+        if (supports_local_storage()) {
+          localStorage[rd_storage_id] = JSON.stringify(data);
+        } 
+
+        update_franchisee_list(data);
+      };
+
+      var rd_update_failure = function() {
+        if (supports_local_storage() && localStorage[rd_storage_id]) {
+          update_franchisee_list(JSON.parse(localStorage[rd_storage_id]));
+        } else {
+          alert("We're sorry; it appears that you are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
+          window.location = "/offline.html"
+        }
+      };
+
+      $.ajax({
+        url: "/catalog_orders/reference_data",
+        success: rd_update_success,
+        error: rd_update_failure,
+        timeout: 10000,
+        dataType: "json"
+      });
+    };
+
+    var update_catalog = function(current_order, set_controls) {
+      var catalog_storage_id = CatalogOrder.storage_root + '.catalog';
+
+      /**
+       * Catalog data format is:
+       * {
+       *   version: int,
+       *   items: {
+       *     id: {
+       *       name: string,
+       *       category: string,
+       *       purchase_part_id: int,
+       *       sell_price: float
+       *     }
+       *   }
+       * }
+       */
+      var rerender_catalog = function(catalog_data) {
+        var build_item_row = function(item) {
+          var row = $(".prototype_item_row").clone();
+          row.removeClass("prototype_item_row");
+          row.addClass("item_row").addClass(item.category);
+          row.addClass("row_"+item.id);
+          $(".item_name", row).html(item.name);
+          $(".item_drop_ship", row).html((item.ship_by === 'drop_ship' ? "&#10003;" : ""));
+          $(".item_purchase_part_id", row).html(item.purchase_part_id);
+          $(".item_price", row).html("$"+parseFloat(item.sell_price).toFixed(2));
+          $(".item_qty_field", row).val(0);
+          $(".item_qty_field", row).change(
+            function(ev) {
+              var quantity = $(ev.target).val();
+              current_order.order_data.quantities[item.id] = quantity;
+              $(".item_total", row).html("$"+(parseFloat(item.sell_price) * quantity).toFixed(2));
+              $("#items_total").html("$"+current_order.total(catalog_data).toFixed(2));
+            }
+          );
+          return row;
+        };
+
+        $(".item_row").remove();
+        var i;
+        for (i = 0; i < catalog_data.length; i++) {
+          var item = catalog_data[i];
+          var row = build_item_row(item);
+
+          if (current_order.order_data.quantities[item.id]) {
+            $(".item_qty_field", row).val(current_order.order_data.quantities[item.id]);
+            $(".item_qty_field", row).change();
+          }
+
+          $("#item_rows").append(row);
+          row.show();
+        }
+
+        set_controls(catalog_data);
+      };
+
+      var catalog_update_success = function(catalog_data) {
+        if (supports_local_storage()) {
+          //TODO: check version compatibility on the data.
+          localStorage[catalog_storage_id] = JSON.stringify(catalog_data);
+          alert("Local storage has been initialized. You can use this webpage offline.");
+        } 
+
+        rerender_catalog(catalog_data);
+      };
+
+      var catalog_update_failure = function(jqXHR, textStatus, errorThrown) {
+        if (supports_local_storage() && localStorage[catalog_storage_id]) {
+          rerender_catalog(JSON.parse(localStorage[catalog_storage_id]));
+        } else {
+          alert("We're sorry; it appears that you are offline and that your browser doesn't support local storage. Please connect to the internet to use the catalog ordering functionality.");
+          window.location = "/offline.html"
+        }
+      }      
+
+      $.ajax({
+          url: "/catalog_orders/catalog_json",
+          success: catalog_update_success,
+          error: catalog_update_failure,
+          timeout: 10000,
+          dataType: "json"
+      });
+    };
+
+    var load_order_page = function(current_order_data) {
+      var current_order = {
+        order_data: current_order_data,
+        total: function(catalog_data) {
+          var i;
+          var result = 0.0;
+          for (i = 0; i < catalog_data.length; i++) {
+            var qty = this.order_data.quantities[catalog_data[i].id];
+            result = (qty === undefined) ? result : result + (catalog_data[i].sell_price * qty);
+          }
+          return result;
+        },
+        fill_form: function() {
+          if (this.order_data['name'] !== undefined) {
+            $("#order_name").val(this.order_data.name);
+            $("#order_franchisee_id").val(this.order_data.franchisee_id);
+            $("#order_primary_contact_id").val(this.order_data.primary_contact_id);
+            $("#order_billing_address_id").val(this.order_data.billing_address_id);
+            $("#order_shipping_address_id").val(this.order_data.shipping_address_id);
+          }
+        },
+        read_form: function() {
+          this.order_data.name = $("#order_name").val();
+          this.order_data.franchisee_id = $("#order_franchisee_id").val();
+          this.order_data.primary_contact_id = $("#order_primary_contact_id").val();
+          this.order_data.billing_address_id = $("#order_billing_address_id").val();
+          this.order_data.shipping_address_id = $("#order_shipping_address_id").val();
+        }
+      };
+
+      var show_selected_rows = function(catalog_data) {
+        var items = [];
+        for (i = 0; i < catalog_data.length; i++) {
+          var qty = current_order.order_data.quantities[catalog_data[i].id];
+          if (qty) items.push(catalog_data[i])
+        }
+
+        items.sort(function(a, b) {return b.position - a.position;}).forEach(function(item) {
+          $(".prototype_item_row").after($(".row_"+item.id).show());
+        });
+      };
+
+      var set_controls = function(catalog_data) {
+        var apply_filter = function() {
+          var category = $("#item_category_filter").val();
+          if (category === "") {
+            $(".item_row").show();
+          } else {
+            $(".item_row").hide();
+            show_selected_rows(catalog_data);
+            $("."+category).show();
+          }
+
+          return false;
+        };
+
+        $("#item_category_filter").change(apply_filter);
+
+        $(".preview").click(function() {
+          $(".item_row").hide();
+          show_selected_rows(catalog_data);
+
+          return false;
+        });
+
+        $(".keep_shopping").click(apply_filter);
+
+        $(".save").click(function(ev) {
+          if (current_order.order_data.id === undefined) {
+            current_order.order_data.id = Math.floor((Math.random()*65535)+1);
+          }
+
+          current_order.read_form();
+          CatalogOrder.save_local(current_order.order_data);
+          alert("Your order has been saved.");
+          return false;
+        });
+
+        $(".create_order").click(function(ev) {
+          if ($("#catalog_form").validate().element("#order_name")) {
+            if (current_order.order_data.id === undefined) {
+              current_order.order_data.id = Math.floor((Math.random()*65535)+1);
+            }
+            current_order.read_form();
+            CatalogOrder.place(current_order.order_data);
+          } 
+
+          return false;
+        });
+      };
+
+      update_catalog(current_order, set_controls);
+      current_order.fill_form();
+    };
+
+    // Set up paths, then force the path to #!/new unless this was reached via an edit link.
+    jQuery(function() {
+      Path.map("#!/new").to(function() {
+        load_order_page({ quantities: {} });
+      });
+
+      Path.map("#!/edit/:id").to(function() {
+        var order_data = CatalogOrder.find_order(this.params['id']);
+        if (order_data === undefined) {
+          order_data = { quantities: {} };
+        }
+
+        load_order_page(order_data);
+      });
+
+      Path.root("#!/new");
+      Path.listen();
+
+      update_reference_data();
+    });
+  </script>
+<% end %>
+
+<h1>Catalog Order</h1>
+
+<form id="catalog_form">
+  <dl style="clear: both">
+    <dt><%= label_tag :order_name %></dt>
+    <dd><%= text_field_tag :order_name, '', {:class => 'required', :minlength => '2'} %><em>*</em></dd>
+
+    <dt><%= label_tag :order_franchisee_id, 'Customer' %></dt>
+    <dd><select id="order_franchisee_id"></select></dd>
+
+    <dt><%= label_tag :primary_contact_id, 'Primary Contact' %></dt>
+    <dd><select id="order_primary_contact_id"></select></dd>
+
+    <dt><%= label_tag :shipping_address_id, :shipping_address %></dt>
+    <dd><select id="order_shipping_address_id"></select></dd>
+
+    <dt><%= label_tag :billing_address_id, :billing_address %></dt>
+    <dd><select id="order_billing_address_id"></select></dd>
+
+    <dt>Item Category</dt>
+    <dd><%= select_tag 'category', 
+            options_for_select(Item::categories.map{|v| [v.titlecase, v]}, params[:category]),
+            :id => 'item_category_filter', :include_blank => true %></dd>
+  </dl>
+  <br/>
+  <div class="actions" style="clear: both">
+    <input type="submit" class="preview" value="Preview"/>
+    <input type="submit" class="keep_shopping" value="Keep Shopping"/>
+    <input type="submit" class="save" value="Save"/>
+    <input type="submit" class="create_order" value="Create Order"/>
+  </div>
+  <table>
+    <tr>
+      <th>Description</th>
+      <th>Drop Ship?</th>
+      <th>Part #</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+    <tbody id="item_rows">
+      <tr class="prototype_item_row" style="display:none">
+        <td class="item_name"></td>
+        <td class="item_drop_ship"></td>
+        <td class="item_purchase_part_id"></td>
+        <td class="item_price"></td>
+        <td class="item_qty"><input type="text" class="item_qty_field" value="0" size="4"/></td>
+        <td class="item_total"></td>
+      </tr>
+    </tbody>
+    <tr class="totals_row">
+      <th colspan="5">Totals</th>
+      <th id="items_total"></th>
+    </tr>
+  </table>
+
+  <div class="actions">
+    <input type="submit" class="preview" value="Preview"/>
+    <input type="submit" class="keep_shopping" value="Keep Shopping"/>
+    <input type="submit" class="save" value="Save"/>
+    <input type="submit" class="create_order" value="Create Order"/>
+  </div>
+</form>
+
+<% content_for :local_nav do %>
+  <%= link_to 'Back', jobs_path %>
+<% end %>

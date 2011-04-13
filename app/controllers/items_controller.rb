@@ -1,5 +1,6 @@
 require 'property.rb'
 require 'properties_helper.rb'
+require 'item_queries'
 require 'items/door.rb'
 
 class ItemsController < ApplicationController
@@ -14,33 +15,67 @@ class ItemsController < ApplicationController
   ]
 
   # GET /items
-  # GET /items.xml
   def index
-    @items = @items.order(:name).paginate(:page => params[:page], :per_page => 50)
+    if !params[:search].blank?
+      @search = Item.search do 
+        with(:type).equal_to(params[:type]) unless params[:type].blank?
+        with(:category).equal_to(params[:category]) unless params[:category].blank?
+        with(:in_catalog).equal_to(true) unless params[:in_catalog].blank?
+        keywords(params[:search])
+        paginate(:page => params[:page], :per_page => 50)
+        order_by(:position)
+      end 
+
+      @items = @search.results
+    else
+      conditions = params.reject do |k, v|
+        !['type', 'category'].include?(k) || v.blank?
+      end
+
+      @items = conditions.empty? ? @items : @items.where(conditions.to_hash)
+      @items = @items.where(:in_catalog => true) unless params[:in_catalog].blank?
+      @items = @items.order(:position, :name).paginate(:page => params[:page], :per_page => 50)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @items }
     end
   end
 
+  def sorting
+    authorize! :manage, Item
+    @items = Item.where(:in_catalog => true).order(:position)
+
+    respond_to do |format|
+      format.html 
+    end
+  end
+
+  def sort
+    authorize! :manage, Item
+    @items = Item.where(:in_catalog => true).order(:position)
+    @items.each do |item|
+      if position = params[:item_sorting].index(item.id.to_s)
+        item.update_attribute(:position, position + 1) unless item.position == position + 1
+      end
+    end
+
+    render :nothing => true, :status => 200
+  end
+
   # GET /items/1
-  # GET /items/1.xml
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @item }
     end
   end
 
   # GET /items/new
-  # GET /items/new.xml
   def new
     @item = Item.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @item }
     end
   end
 
@@ -49,7 +84,6 @@ class ItemsController < ApplicationController
   end
 
   # POST /items
-  # POST /items.xml
   def create
     @item = Item.new(params[:item])
     @item.type = params[:item][:type]
@@ -63,16 +97,13 @@ class ItemsController < ApplicationController
         end
 
         format.html { redirect_to(@item, :notice => 'Item was successfully created.') }
-        format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /items/1
-  # PUT /items/1.xml
   def update
     if @item && params[:item][:type] 
       Item.execute_sql(["UPDATE items SET type = ? WHERE id = ?", params[:item][:type], @item.id]);
@@ -81,26 +112,27 @@ class ItemsController < ApplicationController
     respond_to do |format|
       if @item.update_attributes(params[:item])
         format.html { redirect_to(item_path(@item), :notice => 'Item was successfully updated.') }
-        format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /items/1
-  # DELETE /items/1.xml
   def destroy
-    @item.destroy
+    begin
+      @item.destroy
+    rescue 
+      flash[:error] = "Item deletion failed! Please ensure that no jobs reference this item."
+    end
+
     respond_to do |format|
       format.html { redirect_to(items_url) }
-      format.xml  { head :ok }
     end
   end
 
   def search
-    @items = Item.search(params[:types], params[:term])
+    @items = Item.simple_search(params[:types], params[:term])
     if request.xhr?
       render :json => @items.map{|item| item_select_json(item)}
     end
@@ -199,7 +231,7 @@ class ItemsController < ApplicationController
 
   def property_descriptors
     if request.xhr?
-      render :json => Property.descriptors(Items.const_get(params[:mod])).to_json
+      render :json => Property.descriptors(Items.const_get(params[:mod].demodulize)).to_json
     end
   end
 
@@ -207,7 +239,7 @@ class ItemsController < ApplicationController
     authorize! :create, Property
 
     descriptor_id = params[:id].to_i
-    descriptor = Property.descriptors(Items.const_get(params[:mod]))[descriptor_id]
+    descriptor = Property.descriptors(Items.const_get(params[:mod].demodulize))[descriptor_id]
 
     render :partial => 'property_descriptor', :layout => false, :locals => {
       :descriptor => descriptor,
@@ -215,14 +247,8 @@ class ItemsController < ApplicationController
     }
   end
   
-  # def component_types
-  #   if request.xhr?
-  #     render :json => ItemComponent.component_modules(Items.const_get(params[:mod])).to_json
-  #   end
-  # end
-
   def component_association_types
-    type_map = Item.component_association_modules(Items.const_get(params[:mod])).values.flatten.inject([]) do |result, cmod|
+    type_map = Item.component_association_modules(Items.const_get(params[:mod].demodulize)).values.flatten.inject([]) do |result, cmod|
       result << { 
         :association_type => cmod.to_s.demodulize,
         :component_types  => ItemComponent.component_modules(cmod).map{|ct| ct.to_s.demodulize} 
@@ -235,19 +261,18 @@ class ItemsController < ApplicationController
   end
 
   def pricing_expr
-    units = params[:units]
-    color = params[:color]
-    expr = @item.price_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available")
+    query_context = ItemQueries::QueryContext.new(params)
     if request.xhr?
       render :json => {
-        :expr => expr,
-        :components => component_exprs(units, color, @item)
+        :retail_price_expr => @item.retail_price_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available"),
+        :cost_expr => @item.cost_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available"),
+        :components => component_exprs(query_context, @item)
       }
     end
   end
 
-  def component_exprs(units, color, item)
-    item.item_components.map{|c| {:name => c.component.name, :expr => c.cost_expr(units, color, []).map{|e| e.compile}.orSome("No Pricing Data Available")}} + 
-    item.item_components.map{|c| component_exprs(units, color, c.component)}.flatten
+  def component_exprs(query_context, item)
+    item.item_components.map{|c| {:name => c.component.name, :cost_expr => c.cost_expr(query_context).map{|e| e.compile}.orSome("No Pricing Data Available")}} + 
+    item.item_components.map{|c| component_exprs(query_context, c.component)}.flatten
   end
 end

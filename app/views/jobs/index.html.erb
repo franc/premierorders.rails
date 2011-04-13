@@ -1,71 +1,60 @@
 <% content_for :head do %>
+  <%= stylesheet_link_tag :ajax_ui %>
+  <%= javascript_include_tag :ajax_ui %>
   <script type="text/javascript">
     jQuery(function($) {
       ajax_date($(".job_date").hover(editIn, editOut));
       $(".job_status").change(post_this_update);
+      $(".job_ship_method").change(post_this_update);
+      $(".job_production_batch").change(post_this_update);
+      $("#job_search").change(
+        function(ev) {
+          $("#job_filters").submit();
+        }
+      );
+      $("#job_status_filter").change(
+        function(ev) {
+          $("#job_filters").submit();
+        }
+      );
     });
   </script>
 <% end %>
 
 <h2><%= Job.model_name.human.pluralize %></h2>
+<form id="job_filters">
+  <span id="job_filters">
+    <strong>Status: </strong> <%= select_tag 'status', options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, params[:status]), :id => 'job_status_filter', :include_blank => true %>
+    <strong>Search: </strong> <input type="text" name="search" id="job_search" value="<%= params[:search] %>"/>
+  </span>
+</form>
+
 <p id="notice"><%= notice %></p>
 
+<%= will_paginate @jobs %>
 <table>
   <tr>
     <th><%=Franchisee.model_name.human%> Name</th>
-    <th><%=Job.model_name.human%> Name</th>
-    <th><%=Job.model_name.human%> Number</th>
-    <th>Upload Date</th>
-    <th>Due Date</th>
-    <th>Ship Date</th>
-    <th>Status</th>
-    <th>Ship Via</th>
-    <th>Special Instructions</th>
-    <% if can? :manage, Job %>
-      <th>Credit Status</th>
-      <th colspan="5">Actions</th>
-    <% else %>
-      <th colspan="2">Actions</th>
-    <% end %>
+    <%= render :partial => 'job_cols_headers' %>
   </tr>
-  <% @jobs.each do |job| %>
-    <tr>
+  <% @jobs.select{|j| can? :read, j}.each do |job| %>
+    <tr style="border-top: double">
       <td><%= job.franchisee.franchise_name %></td>
-      <td><%= link_to job.name, quote_job_path(job) %></td>
-      <td><%= job.job_number %></td>
-      <td><%= job.created_at %></td>
-      <% if can? :manage, job %>
-        <td><span class="job_date" id="job[<%=job.id%>][due_date]"><%= job.due_date %></span></td>
-        <td><span class="job_date" id="job[<%=job.id%>][ship_date]"><%= job.ship_date %></span></td>
-        <td><%= select_tag("job[#{job.id}][status]", options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, job.status), :class => 'job_status') -%></td>
-        <td><%= select_tag("job[#{job.id}][ship_method]", options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, job.ship_method), :class => 'job_status') -%></td>
-      <% else %>
-        <td><%= job.due_date %></td>
-        <td><%= job.ship_date %></td>
-        <td><%= job.status %></td>
-        <td><%= job.ship_method %></td>
-      <% end %>
-      <td><%= job.comment %></td>
-
-      <% if can? :manage, job %>
-        <td><span style="color: <%= job.franchisee.credit_status %>"><%= job.franchisee.credit_status %></span></td>
-        <td><%= link_to 'Manage', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-        <td><%= link_to 'Cutrite', cutrite_job_path(job) %></td>
-      <% else %>
-        <td><%= link_to 'Manage', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-      <% end %>
-
-      <% if can? :destroy, job %>
-        <td><%= link_to 'Delete', job, :confirm => 'Are you sure?', :method => :delete %></td>
-      <% end %>
+      <%= render :partial => 'job_cols', :locals => {:job => job} %>
     </tr>
+    <% if !job.comment.blank? %>
+      <tr><td colspan="2"><td colspan="<%= can?(:pg_internal_cap, Job) ? 9 : 7 %>"><%=job.comment%></td></tr>
+    <% end %>
+    <% if can?(:pg_internal_cap, Job) && !job.notes.blank? %>
+      <tr><td colspan="2"><td colspan="9"><%=job.notes%></td></tr>
+    <% end %>
   <% end %>
 </table>
-
-<%= will_paginate @jobs unless @jobs.empty? %>
+<%= will_paginate @jobs %>
 
 <% content_for :local_nav do %>
-  <%= link_to "New #{Job.model_name.human}", new_job_path %>
+  <% if can? :create, Job %>
+    <%= link_to "Dashboard", url_for(:action => 'dashboard', :controller => 'jobs') %> | 
+    <%= link_to "Upload #{Job.model_name.human}", new_job_path %>
+  <% end %>
 <% end %>

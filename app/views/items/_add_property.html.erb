@@ -40,7 +40,6 @@
             function(index, pv_element) {
               var new_value = {
                 name: $("input:text[name=value_name]", pv_element).val(),
-                dvinci_id: $("input:text[name=dvinci_id]", pv_element).val(),
                 fields: {}
               };
 
@@ -155,7 +154,7 @@
           $("#selected_property_name").html(ui.item.value.property_name);
           var values = ui.item.value.property_values
           for (i = 0; i < values.length; i++) {
-            $("#selected_property_values ul").append('<li>'+values[i].value_name+' ('+values[i].dvinci_id+')');
+            $("#selected_property_values ul").append('<li>'+values[i].value_name);
           }
           $("#existing_property_display").show();
 

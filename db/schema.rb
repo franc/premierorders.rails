@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110206042757) do
+ActiveRecord::Schema.define(:version => 20110331232754) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -58,12 +58,12 @@ ActiveRecord::Schema.define(:version => 20110206042757) do
     t.string   "phone"
     t.string   "fax"
     t.string   "website"
-    t.float    "margin_cabinets"
-    t.float    "margin_accessoried"
-    t.float    "margin_flooring"
+    t.decimal  "margin_cabinets",                  :precision => 8, :scale => 2
+    t.decimal  "margin_accessories",               :precision => 8, :scale => 2
+    t.decimal  "margin_flooring",                  :precision => 8, :scale => 2
     t.string   "job_number_prefix"
-    t.float    "variance_max"
-    t.float    "variance_min"
+    t.decimal  "variance_max",                     :precision => 8, :scale => 2
+    t.decimal  "variance_min",                     :precision => 8, :scale => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "credit_status",      :limit => 32
@@ -101,13 +101,32 @@ ActiveRecord::Schema.define(:version => 20110206042757) do
     t.string   "cutrite_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "purchasing",       :limit => 32
+    t.string   "purchasing",        :limit => 32
     t.string   "purchase_part_id"
     t.string   "type"
-    t.float    "base_price"
+    t.decimal  "base_price",                      :precision => 8, :scale => 2
     t.string   "vendor"
     t.float    "weight"
-    t.float    "install_cost"
+    t.decimal  "install_cost",                    :precision => 8, :scale => 2
+    t.float    "rebate_factor"
+    t.float    "retail_multiplier"
+    t.decimal  "sell_price",                      :precision => 8, :scale => 2
+    t.string   "category"
+    t.boolean  "in_catalog",                                                    :default => false
+    t.string   "ship_by",                                                       :default => "standard"
+    t.integer  "bulk_qty"
+    t.integer  "position"
+  end
+
+  create_table "job_item_components", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "job_item_id"
+    t.decimal  "unit_cost",     :precision => 8, :scale => 2
+    t.string   "cost_calc_err"
+    t.integer  "quantity"
+    t.string   "qty_calc_err"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "job_item_properties", :force => true do |t|
@@ -122,17 +141,25 @@ ActiveRecord::Schema.define(:version => 20110206042757) do
   end
 
   create_table "job_items", :force => true do |t|
-    t.integer  "job_id",         :null => false
+    t.integer  "job_id",                                                :null => false
     t.integer  "item_id"
     t.string   "ingest_id"
     t.float    "quantity"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "unit_price"
+    t.decimal  "unit_price",              :precision => 8, :scale => 2
     t.integer  "tracking_id"
     t.string   "ingest_desc"
-    t.float    "override_price"
+    t.decimal  "override_price",          :precision => 8, :scale => 2
+    t.integer  "production_batch_id"
+    t.string   "cache_calculation_units"
+    t.string   "pricing_cache_status"
+    t.decimal  "computed_unit_price",     :precision => 8, :scale => 2
+    t.decimal  "unit_hardware_cost",      :precision => 8, :scale => 2
+    t.decimal  "unit_install_cost",       :precision => 8, :scale => 2
+    t.float    "unit_weight"
+    t.string   "sales_category"
   end
 
   create_table "job_properties", :force => true do |t|
@@ -152,8 +179,17 @@ ActiveRecord::Schema.define(:version => 20110206042757) do
     t.datetime "updated_at"
   end
 
+  create_table "job_state_transitions", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "changed_by_id"
+    t.string   "prior_status"
+    t.string   "new_status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "jobs", :force => true do |t|
-    t.integer  "franchisee_id",                         :null => false
+    t.integer  "franchisee_id",                                               :null => false
     t.integer  "customer_id"
     t.integer  "shipping_address_id"
     t.string   "name"
@@ -176,6 +212,20 @@ ActiveRecord::Schema.define(:version => 20110206042757) do
     t.string   "ship_method"
     t.integer  "primary_contact_id"
     t.text     "notes"
+    t.integer  "billing_address_id"
+    t.string   "type",                                  :default => "Job"
+    t.string   "source",                                :default => "dvinci"
+  end
+
+  create_table "production_batches", :force => true do |t|
+    t.string   "name"
+    t.string   "batch_no"
+    t.string   "mfg_plant"
+    t.string   "status"
+    t.text     "description"
+    t.date     "closing_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "properties", :force => true do |t|

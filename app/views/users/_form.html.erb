@@ -19,7 +19,7 @@
       <dd><%= f.text_field :last_name %></dd>
       <% if can? :manage, User %>
         <dt><%= f.label :franchisees %></dt>
-        <dd><%= f.collection_select(:franchisees, Franchisee.order(:franchise_name), :id, :franchise_name, {:selected => @user.franchisees.map{|fr| fr.id}, :multiple => true}) %></dd>
+        <dd><%= f.collection_select(:franchisees, Franchisee.order(:franchise_name), :id, :franchise_name, {:selected => @user.franchisees.map{|fr| fr.id}, :multiple => true, :include_blank => true}) %></dd>
       <% end %>
       <dt><%= f.label :phone %></dt>
       <dd><%= f.text_field :phone %></dd>

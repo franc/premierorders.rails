@@ -1,0 +1,2 @@
+class CatalogOrder < Job
+end

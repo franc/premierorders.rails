@@ -1,4 +1,5 @@
 require 'csv'
+require 'item_queries'
 
 namespace :pricing do 
   task :compare => :environment do
@@ -11,7 +12,8 @@ namespace :pricing do
           color_keys.each_with_index do |color, i|
             unless colors[i].blank?
               begin
-                pricing_expr = item.rebated_cost_expr(:in, "%03d" % color.to_i, []).map{|e| e.compile}.orLazy do 
+                query_context = ItemQueries::QueryContext.new(:units => :in, :color => "%03d" % color.to_i)
+                pricing_expr = item.rebated_cost_expr(query_context).map{|e| e.compile}.orLazy do 
                   raise "No pricing expression found."
                 end
 

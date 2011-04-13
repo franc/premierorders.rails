@@ -1,3 +1,14 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery.validate.min.js' %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      $("#job_submit").click(function(ev) {
+        return $("#new_job").validate();
+      });
+    });
+  </script>
+<% end %>
+
 <%= render 'form_js' %>
 
 <h1>New job</h1>
@@ -12,7 +23,7 @@
       <dt><%= f.label :shipping_address %></dt>
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
-      <dd><%= f.text_field :name %></dd>
+      <dd><%= f.text_field :name, {:class => 'required', :minlength => '2'} %></dd>
       <dt><%= f.label :dvinci_xml %></dt>
       <dd><%= f.file_field :dvinci_xml %></dd>
       <dt><%= f.label :special_instructions %></dt>

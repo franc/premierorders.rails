@@ -1,6 +1,10 @@
+require 'properties'
+require 'expressions'
+
 module Items::Margins
   include Expressions
-  MARGIN = PropertyDescriptor.new(:margin, [], [Property::Margin])
+
+  MARGIN = Properties::PropertyDescriptor.new(:margin, [], [Property::Margin])
 
   def margin_factor
     properties.find_value(MARGIN).map{|f| f.factor}

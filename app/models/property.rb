@@ -1,167 +1,14 @@
 require 'json'
-require 'util/option.rb'
-require 'expressions.rb'
+require 'bigdecimal'
+require 'fp'
+require 'expressions'
+require 'properties'
 
-module ModularProperty
-  def value_structure
-    modules.inject([]){|m, mod| m + mod.value_structure}.uniq  
-  end
-end
-
-module NamedModules
-  def modules
-    (module_names || '').split(/\s*,\s*/).map do |mod_name|
-      Property.const_get(mod_name.demodulize.to_sym)
-    end
-  end
-end
-
-module Properties
-  module Polymorphic
-    include NamedModules, ModularProperty
-
-    def morph
-      modules.each {|mod| self.extend(mod) unless self.kind_of?(mod)}
-    end
-  end
-
-  module Association
-    def find_by_family_with_qualifier(family, qualifier)
-      find(:all, :conditions => ['family = ? and qualifier = ?', family, qualifier])
-    end
-
-    def find_all_by_descriptor(descriptor)
-      conditions = descriptor.qualifiers.empty? ? ['family = ?', descriptor.family] : ['family = ? and qualifier in (?)', descriptor.family, descriptor.qualifiers]
-      find(:all, :conditions => conditions)
-    end
-
-
-    def find_by_descriptor(descriptor)
-      conditions = descriptor.qualifiers.empty? ? ['family = ?', descriptor.family] : ['family = ? and qualifier in (?)', descriptor.family, descriptor.qualifiers]
-      find(:first, :conditions => conditions)
-    end
-
-    def find_value(descriptor)
-      Option.new(find_by_descriptor(descriptor)).mapn{|p| p.property_values.first}
-    end
-  end
-
-  module JSONProperty
-    def extract(json_property = nil, type = nil)
-      @value_hash ||= JSON.parse(value_str)
-      if json_property
-        string_value = @value_hash[json_property.to_s]
-        case type
-          when :int   then string_value.to_i
-          when :float then string_value.to_f
-          else string_value
-        end
-      else
-        @value_hash
-      end
-    end
-  end
-
-  module LinearConversions
-    UNITS = [:mm, :in, :ft]
-
-    def convert(value, from, to)
-      case from.to_sym
-      when :mm
-        case to.to_sym
-        when :mm then value
-        when :in then value / 25.4
-        when :ft then (value / 25.4) / 12
-        end
-      when :in
-        case to.to_sym
-        when :in then value
-        when :mm then value * 25.4
-        when :ft then value / 12
-        end
-      when :ft
-        case to.to_sym
-        when :in then value * 12
-        when :mm then value * 12 * 25.4
-        when :ft then value
-        end
-      end
-    end
-  end
-
-  module SquareConversions
-    UNITS = [:mm, :in, :ft]
-
-    def sq_convert(value, from, to)
-      case from.to_sym
-      when :mm
-        case to.to_sym
-        when :mm then value
-        when :in then value / (25.4**2)
-        when :ft then (value / (25.4**2)) / (12**2)
-        end
-      when :in
-        case to.to_sym
-        when :in then value
-        when :mm then value * (25.4**2)
-        when :ft then value / (12**2)
-        end
-      when :ft
-        case to.to_sym
-        when :in then value * (12**2)
-        when :mm then value * (12**2) * (25.4**2)
-        when :ft then value
-        end
-      end
-    end
-  end
-
-  module Dimensions
-    include Properties::JSONProperty, Properties::LinearConversions
-
-    def dimension_value(property, in_units, out_units)
-      convert(extract(property).to_f, in_units, out_units)
-    end
-  end
-end
-
-class PropertyDescriptor
-  include ModularProperty
-  attr_reader :family, :qualifiers, :modules, :value_arity
-
-  def initialize(family, qualifiers, modules, value_arity = nil, options = nil)
-    @family = family
-    @qualifiers = qualifiers
-    @modules = modules
-    @value_arity = value_arity
-    @options = options # a list of lambdas that can extract value options from an item or item_component
-  end
-
-  def options(item)
-    @options.nil? ? [] : @options.call(item)
-  end
-
-  def module_names
-    modules.map{|m| m.to_s.demodulize}.join(", ")
-  end
-
-  def create_property(name)
-    Property.create(
-      :name => name,
-      :family => family,
-      :module_names => module_names
-    )
-  end
-
-  def <=>(other)
-    family.to_s <=> other.family.to_s 
-  end
-end
 
 # Each item may have a number of properties. Each property for a given
 # item may take on one or more of a number of possible values.
 class Property < ActiveRecord::Base
-  include NamedModules, ModularProperty
+  include Properties::NamedModules, Properties::ModularProperty
 
   def self.descriptors(mod, type = :all)
     descriptors = []
@@ -180,13 +27,21 @@ class Property < ActiveRecord::Base
     Property.find_by_sql(["SELECT * FROM properties WHERE family = ? and name ILIKE ?", family, "%#{term}%"]);
   end
 
+  def create_value(name, value_data = {})
+    property_values.create(
+      :name => name,
+      :module_names => module_names,
+      :value_str => JSON.generate(value_data)
+    )
+  end
+
   module Length
     include Properties::Dimensions
 
     def self.value_structure
       [
         [:length , :float],
-        [:linear_units , LinearConversion::UNITS]
+        [:linear_units , Properties::LinearConversion::UNITS]
       ]
     end
 
@@ -256,6 +111,47 @@ class Property < ActiveRecord::Base
     end
   end
 
+  module Area
+    include Length, Width, Expressions
+
+    def self.value_structure
+      [
+        [:length, :float],
+        [:length_dimension, [:L, :W, :H, :D]],
+        [:width, :float],
+        [:width_dimension, [:L, :W, :H, :D]],
+        [:linear_units, Properties::LinearConversions::UNITS]
+      ]
+    end
+
+    def dimension_var(sym)
+      Option.new(extract(sym)).map do |dim|
+        case dim
+          when 'L' then L
+          when 'W' then W
+          when 'H' then H
+          when 'D' then D
+        end
+      end
+    end
+
+    # Replace any width and length variables in the specified expression
+    # with terms derived from this property value. The variables chosen
+    # to be replaced can be specified by the length_dimension and width_dimension
+    # attributes, or will default to L and W respectively if these are unspecified.
+    def replace_variables(expr, units = nil)
+      lx = Option.new(length(units)).map do |l| 
+        expr.replace(dimension_var(:length_dimension).orSome(L), term(l))
+      end
+
+      wx = lambda do |ex|
+        Option.new(width(units)).map {|w| ex.replace(dimension_var(:width_dimension).orSome(W), term(w))}.orSome(ex)
+      end
+
+      lx.map(&wx).orLazy{wx.call(expr)}
+    end
+  end
+
   module ScalingFactor
     def self.value_structure
       [ :factor , :float ]
@@ -289,7 +185,7 @@ class Property < ActiveRecord::Base
   module Color
     include Properties::JSONProperty
 
-    DESCRIPTOR = PropertyDescriptor.new(:color, [], [Color])
+    DESCRIPTOR = Properties::PropertyDescriptor.new(:color, [], [Color])
 
     def self.value_structure
       [
@@ -332,11 +228,11 @@ class Property < ActiveRecord::Base
   module Surcharge
     include Properties::JSONProperty
     def self.value_structure
-      [[:price , :float]]
+      [[:price , :decimal]]
     end
 
     def price
-      extract(:price).to_f
+      extract(:price, :decimal)
     end
   end
 
@@ -351,7 +247,7 @@ class Property < ActiveRecord::Base
         [:cutrite_code , :string],
         [:thickness , :float],
         [:thickness_units , Properties::LinearConversions::UNITS],
-        [:price , :float],
+        [:price , :decimal],
         [:price_units , Properties::SquareConversions::UNITS],
         [:weight , :float],
         [:waste_factor , :float]
@@ -378,14 +274,22 @@ class Property < ActiveRecord::Base
       extract(:price_units).to_sym
     end
 
+    def price
+      extract(:price, :decimal)
+    end
+
     def waste_factor
       Option.fromString(extract(:waste_factor)).map{|f| f.to_f + 1.0}
     end
 
     def cost_expr(l_expr, w_expr, units)
-      sqft_expr = mult(l_expr, w_expr)
-      sqft_expr_waste = waste_factor.map{|f| mult(sqft_expr, term(f))}.orSome(sqft_expr)
-      mult(sqft_expr_waste, term(sq_convert(extract(:price).to_f, units, price_units)))
+      sqft_expr = l_expr * w_expr
+      sqft_expr_waste = waste_factor.map{|f| sqft_expr * term(f)}.orSome(sqft_expr)
+      sqft_expr_waste * term(sq_convert(price, units, price_units))
+    end
+
+    def weight_expr(l_expr, w_expr, units)
+      l_expr * w_expr * term(sq_convert(extract(:weight, :decimal), units, price_units))
     end
   end
 
@@ -420,18 +324,35 @@ class Property < ActiveRecord::Base
     end
   end
 
-  module EdgeBand
+  module LinearPricing
     include Expressions, Properties::JSONProperty, Properties::LinearConversions
+
+    def self.value_structure
+      [
+        [:price , :decimal],
+        [:price_units , Properties::LinearConversions::UNITS]
+      ]
+    end
+
+    def price(units)
+      convert(extract(:price, :decimal), units, extract(:price_units).to_sym)
+    end
+
+    def cost_expr(units, length_expr)
+      mult(term(price(units)), length_expr)
+    end
+  end
+
+  module EdgeBand
+    include LinearPricing
     def self.value_structure
       [
         [:color , :string],
         [:dvinci_id , :string],
         [:cutrite_code , :string],
         [:width , :float],
-        [:width_units , Properties::LinearConversions::UNITS],
-        [:price , :float],
-        [:price_units , Properties::LinearConversions::UNITS]
-      ]
+        [:width_units , Properties::LinearConversions::UNITS]
+      ] + LinearPricing.value_structure
     end
 
     def color
@@ -449,20 +370,12 @@ class Property < ActiveRecord::Base
     def width
       extract(:width).to_f
     end
-
-    def price(units)
-      convert(extract(:price).to_f, units, extract(:price_units).to_sym)
-    end
-
-    def cost_expr(units, length_expr)
-      mult(term(price(units)), length_expr)
-    end
   end
 
   module LinearUnits
     include Properties::JSONProperty
 
-    DESCRIPTOR = PropertyDescriptor.new(:linear_units, [], [LinearUnits])
+    DESCRIPTOR = Properties::PropertyDescriptor.new(:linear_units, [], [LinearUnits])
 
     def self.value_structure
       [[:linear_units , Properties::LinearConversions::UNITS]]

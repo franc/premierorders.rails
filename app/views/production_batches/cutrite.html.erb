@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<table class="cutrite_csv_header">
+  <tr><% ProductionBatch::CUTRITE_BATCH_HEADER.each do |label| -%><th><%= label -%></th><% end %></tr>
+  <tr><% @production_batch.cutrite_batch_data.each do |value| -%><td><%= value -%></td><% end %></tr>
+</table>
+<table class="cutrite_csv_items">
+  <tr><% Cutrite::CUTRITE_ITEMS_HEADER[0...14].each do |label| -%><th><%= label -%></th><% end %></tr>
+  <% @production_batch.cutrite_items_data.each_with_index do |row, i| -%>
+    <tr><% row[0...14].each do |col| -%><td><%= col -%></td><% end %></tr>
+  <% end %>
+</table>
+
+<% content_for :local_nav do %>
+  <%= link_to t(:download), download_production_batch_path(@production_batch) %> |
+  <%= link_to t(:list), production_batches_path %> 
+<% end %>

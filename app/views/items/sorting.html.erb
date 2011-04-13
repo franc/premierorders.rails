@@ -1,0 +1,44 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'jquery.tablednd_0_5.js' %>
+  <%= javascript_include_tag 'jquery.loading.1.6.4.min.js' %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      $('#item_sorting').tableDnD();
+      $('#sort_complete').click(function(ev) {  
+        $.loading({ mask:true });
+        $.ajax({
+          type: "POST",
+          url: "<%= url_for(:action => 'sort') %>",
+          processData: false,
+          data: $('#item_sorting').tableDnDSerialize() + "&category="+ $("#item_category_filter").val() + "&type="+ $("#item_type_filter").val(),
+          success: function() {
+            $.loading();
+            window.location = "<%= url_for(:action => 'index') %>";
+          }
+        });
+
+        return false;
+      });
+    });
+  </script>
+<% end %>
+
+<h2>Item List</h2>
+
+<table>
+    <tr>
+      <th>Item Name</th>
+      <th>Item Type</th>
+      <th>Category</th>
+    </tr>
+    <tbody id="item_sorting">
+      <% @items.each do |item| %>
+        <tr id="<%=item.id%>">
+          <td><%= item.name %></td>
+          <td><%= item.class.name.demodulize.humanize.titlecase %></td>
+          <td><%= item.category.try(:humanize).try(:titlecase) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+<input type="submit" id="sort_complete" value="Done Sorting"/>

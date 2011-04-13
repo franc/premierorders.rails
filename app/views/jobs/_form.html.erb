@@ -1,6 +1,6 @@
 <%= render 'form_js' %>
 
-<%= form_for @job, :html => { :multipart => true } do |f| %>
+<%= form_for @job, :as => :job, :url => job_path(@job), :html => { :multipart => true } do |f| %>
   <%= render :partial => 'form_errors' %>
   <div class="form_fields">
     <dl>
@@ -10,11 +10,13 @@
       <dd><%= collection_select(:job, :primary_contact_id, Option.new(@job.franchisee).map{|v| v.users}.orSome([]), :id, :name) %></dd>
       <dt><%= f.label :shipping_address %></dt>
       <dd><%= collection_select(:job, :shipping_address_id, @addresses, :id, :single_line) %></dd>
+      <dt><%= f.label :billing_address %></dt>
+      <dd><%= collection_select(:job, :billing_address_id, @addresses, :id, :single_line) %></dd>
       <dt><%= f.label :name %></dt>
       <dd><%= f.text_field :name %></dd>
-      <% if can? :manage, @job %>
+      <% if can? :pg_internal_cap, @job %>
         <dt><%= f.label :mfg_plant %></dt>
-        <dd><%= f.select(:mfg_plant, {"Phoenix" => "Phoenix", "Atlanta" => "Atlanta"}) %></dd>
+        <dd><%= f.select :mfg_plant, options_for_select(Job::MFG_PLANT_OPTIONS.map{|v| [v,v]}, @job.mfg_plant)  -%></dd>
         <dt><%= f.label :status %></dt>
         <dd><%= f.select :status, options_for_select(Job::STATUS_OPTIONS.map{|v| [v,v]}, @job.status) -%></dd>
         <dt><%= f.label :due_date %></dt>
@@ -25,12 +27,15 @@
         <dd><%= f.select :ship_method, options_for_select(Job::SHIPMENT_OPTIONS.map{|v| [v,v]}, @job.ship_method) -%></dd>
         <dt><%= f.label :tracking_number %></dt>
         <dd><%= f.text_field :tracking_number %></dd>
-      <% end %>
-      <dt><%= f.label :special_instructions %></dt>
-      <dd><%= f.text_area :comment %></dd>
-      <% if can? :manage, Job %>
+        <dt><%= f.label :special_instructions %></dt>
+        <dd><%= f.text_area :comment %></dd>
         <dt><%= f.label :notes %></dt>
         <dd><%= f.text_area :notes %></dd>
+        <dt><%= f.label :sales_category %></dt>
+        <dd><%= select_tag 'job[sales_category]', options_for_select({'Garage' => 'garage', 'Home Office' => 'home office', 'Closet' => 'closet', 'Other' => 'other'}, @job.job_items[0].sales_category), :include_blank => true %></dd>
+      <% else %>
+        <dt><%= f.label :special_instructions %></dt>
+        <dd><%= f.text_area(:comment) %></dd>
       <% end %>
     </dl>
   </div>

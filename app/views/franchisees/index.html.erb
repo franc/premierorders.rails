@@ -14,8 +14,8 @@
     <td><%= link_to franchisee.franchise_name, franchisee %></td>
     <td><%= franchisee.phone %></td>
     <td><%= franchisee.primary_contact.nil? ? '' : franchisee.primary_contact.user.email %></td>
-    <td><%= link_to 'Edit', edit_franchisee_path(franchisee) %></td>
-    <td><%= link_to 'Delete', franchisee, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><% if can? :update, franchisee %><%= link_to 'Edit', edit_franchisee_path(franchisee) %><% end %></td>
+    <td><% if can? :destroy, franchisee %><%= link_to 'Delete', franchisee, :confirm => 'Are you sure?', :method => :delete %><% end %></td>
   </tr>
 <% end %>
 </table>

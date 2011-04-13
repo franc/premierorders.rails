@@ -1,0 +1,29 @@
+<%= form_for(@production_batch) do |f| %>
+  <% if @production_batch.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@production_batch.errors.count, "error") %> prohibited this production_batch from being saved:</h2>
+
+      <ul>
+      <% @production_batch.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <dl>
+    <dt><%= f.label :name %></dt>
+    <dd><%= f.text_field :name %></dd>
+    <dt><%= f.label :batch_no %></dt>
+    <dd><%= f.text_field :batch_no %></dd>
+    <dt><%= f.label :mfg_plant %></dt>
+    <dd><%= f.select(:mfg_plant, options_for_select(Job::MFG_PLANT_OPTIONS.map{|v| [v,v]}, @production_batch.mfg_plant)) -%></dd>
+    <dt><%= f.label :description %></dt>
+    <dd><%= f.text_area :description %></dd>
+    <dt><%= f.label :status %></dt>
+    <dd><%= f.select(:status, options_for_select(ProductionBatch::STATES.map{|v| [v.to_s.titlecase, v]}, @production_batch.status)) %></dd>
+    <dt><%= f.label :closing_date %></dt>
+    <dd><%= f.date_select :closing_date %></dd>
+    <dt></dt><dd><%= f.submit %></dd>
+  </dl>
+<% end %>

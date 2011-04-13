@@ -1,10 +1,29 @@
+<% content_for :head do %>
+  <script type="text/javascript">
+    jQuery(function($) {
+      $(".item_drop_ship").change(function(ev) {
+        $(ev.target).val($(ev.target).is(':checked') ? "drop_ship" : "standard");
+        post_update($(ev.target), function() {});
+      });
+      
+      $(".item_in_catalog").change(function(ev) {
+        $(ev.target).val($(ev.target).is(':checked') ? "true" : "false");
+        post_update($(ev.target), function() {});
+      });
+    });
+  </script>
+<% end %>
+
 <h2>Item List</h2>
 
+<%= render :partial => 'item_list_filters', :locals => {:search => true} %>
+<%= will_paginate @items %>
 <table>
   <tr>
     <% if can? :update, Item %><th>Edit</th><% end %>
     <th>Item Name</th>
-    <th>Item Type</th>
+    <th>Type</th>
+    <th>Category</th>
     <th>D'Vinci</th>
     <th>CutRite</th>
     <th>MPN</th>
@@ -13,14 +32,17 @@
     <th>Margin</th>
     <th>Comps</th>
     <th>Props</th>
+    <th>Drop Ship</th>
+    <th>In Catalog</th>
     <% if can? :destroy, Item %><th>Destroy</th><% end %>
   </tr>
 
-<% @items.each do |item| %>
+<% @items.select{|j| can?(:read, j)}.each do |item| %>
   <tr>
     <% if can? :update, Item %><td><%= link_to 'Edit', edit_item_path(item) %></td><% end %>
     <td><%= link_to item.name, item_path(item) %></td>
-    <td><%= item.class.to_s.demodulize %></td>
+    <td><%= item.class.to_s.demodulize.humanize %></td>
+    <td><%= item.category.try(:humanize).try(:titlecase) %></td>
     <td><%= item.dvinci_id %></td>
     <td><%= item.cutrite_id %></td>
     <td><%= item.sku %></td>
@@ -29,6 +51,8 @@
     <td><%= item.margin_factor %></td>
     <td><%= raw ok_tag(item.components_ok?) %></td>
     <td><%= raw ok_tag(item.properties_ok?) %></td>
+    <td><%= check_box_tag "item[#{item.id}][ship_by]", "drop_ship", item.ship_by == 'drop_ship', :class => 'item_drop_ship' %></td>
+    <td><%= check_box_tag "item[#{item.id}][in_catalog]", "in_catalog", item.in_catalog, :class => 'item_in_catalog' %></td>
     <% if can? :destroy, Item %>
       <td><%= link_to 'Destroy', item_path(item), :confirm => 'Are you sure?', :method => :delete %></td>
     <% end %>
@@ -39,4 +63,7 @@
 
 <% content_for :local_nav do %>
   <%= link_to 'New Item', new_item_path %>
+  <% if can? :manage, Item %>
+    | <%= link_to 'Sorting',  url_for(:action => 'sorting') %>
+  <% end %>
 <% end %>
