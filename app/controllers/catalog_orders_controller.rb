@@ -1,9 +1,8 @@
 class CatalogOrdersController < ApplicationController
-  load_and_authorize_resource :except => [:catalog_data]
+  load_and_authorize_resource :except => [:catalog_json, :reference_data]
   
   # GET /catalog_orders
   def index
-
     respond_to do |format|
       format.html 
     end
