@@ -40,6 +40,12 @@ class JobItem < ActiveRecord::Base
     purchasing_type?('Buyout')
   end
 
+  def ship_by?(*types)
+    types.any? do |type|
+      item && item.ship_by && item.ship_by.casecmp(type) == 0
+    end
+  end
+
   def width(units = :in)
     dimensions_property.bind {|p| Option.call(:width, p, units)}.orElseLazy do
       item && item.respond_to?(:width) ? item.width(units) : None::NONE
