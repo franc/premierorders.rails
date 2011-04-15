@@ -785,7 +785,7 @@ ALTER SEQUENCE job_properties_id_seq OWNED BY job_properties.id;
 -- Name: job_properties_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_properties_id_seq', 793, true);
+SELECT pg_catalog.setval('job_properties_id_seq', 794, true);
 
 
 --
@@ -873,7 +873,7 @@ ALTER SEQUENCE job_state_transitions_id_seq OWNED BY job_state_transitions.id;
 -- Name: job_state_transitions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('job_state_transitions_id_seq', 638, true);
+SELECT pg_catalog.setval('job_state_transitions_id_seq', 642, true);
 
 
 --
@@ -938,7 +938,7 @@ ALTER SEQUENCE jobs_id_seq OWNED BY jobs.id;
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: pg_orders
 --
 
-SELECT pg_catalog.setval('jobs_id_seq', 858, true);
+SELECT pg_catalog.setval('jobs_id_seq', 859, true);
 
 
 --
@@ -25582,6 +25582,7 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 10871	637	256	000.402.493.008.00M	3		2011-03-29 14:05:27.159707	2011-04-07 11:27:44.596254	191.49	13	NX Tall Cabinet 2 Door | Windswept Bronze	\N	27	in	ok	192.31	13.54	1.41	\N	garage
 10859	637	19	000.501.000.008.00M	2		2011-03-29 14:05:25.01645	2011-04-07 11:27:44.599734	13.06	1	CTOP - 1 in. melamine | Windswept Bronze	\N	27	in	ok	27.79	0.00	0.25	\N	garage
 10872	637	4	000.117.031.334.00I	19	Box Qty	2011-03-29 14:05:27.21923	2011-03-29 19:42:11.346925	1.04	14	ZH Handle Bronze | 128mm	\N	\N	in	ok	1.04	0.00	0.03	\N	garage
+13199	757	263	000.101.233.010.00M	1		2011-04-05 18:03:42.541929	2011-04-14 23:11:09.815568	167.40	5	NX Base Cabinet 1 Door | Hardrock Maple	\N	32	in	ok	61.94	4.14	0.29	\N	garage
 10847	636	196	000.024.004.051.00B	2		2011-03-29 14:03:05.336468	2011-03-29 19:40:58.315487	17.91	2	Drawer Box	\N	\N	in	error	\N	0.00	0.05	\N	
 10850	636	267	000.207.715.009.00M	2		2011-03-29 14:03:06.016593	2011-03-29 19:40:58.318723	66.49	5	NX Base Cabinet 3 Drawer (7/7/15) | Windswept Pewter	\N	\N	in	ok	67.08	1.92	0.25	\N	
 10857	636	572	000.880.501.a12.00P	2		2011-03-29 14:03:06.682349	2011-03-29 19:40:58.321919	12.46	12	Powder Coated Drawer Front (23.875 x 15.3125) | GRANITE	\N	\N	in	ok	12.45	0.08	0.05	\N	
@@ -29323,21 +29324,23 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 13163	752	40	000.910.251.001.00M	5		2011-04-04 23:51:58.985857	2011-04-14 22:35:23.560957	58.88	7	CL Hanging Partition - Radius - Thru | White	\N	31	in	ok	18.22	0.00	0.05	\N	closet
 13165	752	162	000.200.000.001.00M	2		2011-04-04 23:51:59.029172	2011-04-14 22:35:23.564638	17.90	9	Drawer Front - Flat | White	\N	31	in	ok	8.04	0.08	0.05	\N	closet
 13157	752	45	000.931.981.001.00M	5		2011-04-04 23:51:58.624487	2011-04-14 22:35:23.569264	6.44	1	CL Adjustable Shelf | White	\N	31	in	ok	2.90	0.00	0.03	\N	closet
+13177	755	48	000.934.091.001.00M	2		2011-04-05 16:10:00.021098	2011-04-14 23:04:13.720979	8.07	1	CL Top Shelf | White	\N	32	in	ok	16.14	0.00	0.03	\N	closet
+13178	755	48	000.934.091.002.00M	2		2011-04-05 16:10:00.077697	2011-04-14 23:04:13.725017	10.42	2	CL Top Shelf | Antique White	\N	32	in	ok	20.84	0.00	0.03	\N	closet
+13179	755	48	000.934.091.004.00M	2		2011-04-05 16:10:00.10098	2011-04-14 23:04:13.728326	10.96	3	CL Top Shelf | Carmel Apple	\N	32	in	ok	21.91	0.00	0.03	\N	closet
+13181	755	48	000.934.091.007.00M	2		2011-04-05 16:10:00.266471	2011-04-14 23:04:13.731572	10.71	5	CL Top Shelf | Chocolate Apple	\N	32	in	ok	21.42	0.00	0.03	\N	closet
+13182	755	48	000.934.091.010.00M	2		2011-04-05 16:10:00.291475	2011-04-14 23:04:13.734812	10.78	6	CL Top Shelf | Hardrock Maple	\N	32	in	ok	21.56	0.00	0.03	\N	closet
+13197	757	709	000.120.000.010.00M	2		2011-04-05 18:03:42.177951	2011-04-14 23:11:09.810958	27.00	3	Door - Flat NX | Hardrock Maple	\N	32	in	ok	9.99	0.06	0.15	\N	garage
+13201	757	262	000.102.433.010.00M	1		2011-04-05 18:03:43.06816	2011-04-14 23:11:09.819099	219.55	7	NX Base Cabinet 2 Door | Hardrock Maple	\N	32	in	ok	81.23	7.26	0.33	\N	garage
+13202	757	257	000.402.483.010.00M	5		2011-04-05 18:03:43.402955	2011-04-14 23:11:09.822193	338.72	8	NX Tall Cabinet 1 Door | Hardrock Maple	\N	32	in	ok	125.33	7.32	1.08	\N	garage
 13164	752	198	000.024.002.051.00B	2		2011-04-04 23:51:59.007947	2011-04-05 18:12:19.825678	41.93	8	Drawer Box	\N	\N	in	ok	18.87	0.00	0.05	\N	closet
 13166	752	237	000.263.059.730.00I	46		2011-04-04 23:51:59.207141	2011-04-05 18:12:19.833436	0.03	10	ZH Cam Cover | White	\N	\N	in	ok	0.01	0.00	\N	\N	closet
 13167	752	165	007.111.KSC.14W.00I	2		2011-04-04 23:51:59.221595	2011-04-05 18:12:19.836686	2.11	11	ZH Drawer Slide | 3/4 ext | 14 inch	\N	\N	in	ok	0.95	0.00	\N	\N	closet
 13168	752	2	000.117.031.230.00I	2		2011-04-04 23:51:59.236623	2011-04-05 18:12:19.839832	2.40	12	ZH Handle Chrome | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	closet
 13169	752	74	000.547.035.246.00P	1		2011-04-04 23:51:59.249208	2011-04-05 18:12:19.843021	48.52	13	ZH Sliding Wire Basket (18x11x14) | Polished Chrome	\N	\N	in	ok	21.83	0.00	0.10	\N	closet
 13170	752	77	000.547.035.248.00P	1		2011-04-04 23:51:59.261516	2011-04-05 18:12:19.846187	55.58	14	ZH Sliding Wire Basket (18x17x14) | Polished Chrome	\N	\N	in	ok	25.01	0.00	0.10	\N	closet
-13177	755	48	000.934.091.001.00M	2		2011-04-05 16:10:00.021098	2011-04-05 18:17:11.957594	8.07	1	CL Top Shelf | White	\N	\N	in	ok	16.14	0.00	0.03	\N	closet
 13175	754	256	000.402.493.001.00M	3	need 1 partition for these cabs and 6 extra 46.5 x 21.75 shelves;  	2011-04-05 02:40:04.870025	2011-04-06 15:27:23.472441	169.96	2	NX Tall Cabinet 2 Door | White	\N	\N	in	ok	171.00	13.54	1.41	\N	
 13176	754	3	000.117.031.632.00I	6		2011-04-05 02:40:04.931229	2011-04-06 15:27:23.475667	1.08	3	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	
 12995	746	45	000.931.021.001.00M	2		2011-04-04 20:36:57.326371	2011-04-14 11:33:16.834871	6.53	2	CL Adjustable Shelf | White	\N	31	in	ok	5.22	0.00	0.03	\N	closet
-13178	755	48	000.934.091.002.00M	2		2011-04-05 16:10:00.077697	2011-04-05 18:17:11.961438	10.42	2	CL Top Shelf | Antique White	\N	\N	in	ok	20.84	0.00	0.03	\N	closet
-13179	755	48	000.934.091.004.00M	2		2011-04-05 16:10:00.10098	2011-04-05 18:17:11.964686	10.96	3	CL Top Shelf | Carmel Apple	\N	\N	in	ok	21.91	0.00	0.03	\N	closet
-13181	755	48	000.934.091.007.00M	2		2011-04-05 16:10:00.266471	2011-04-05 18:17:11.971489	10.71	5	CL Top Shelf | Chocolate Apple	\N	\N	in	ok	21.42	0.00	0.03	\N	closet
-13182	755	48	000.934.091.010.00M	2		2011-04-05 16:10:00.291475	2011-04-05 18:17:11.97463	10.78	6	CL Top Shelf | Hardrock Maple	\N	\N	in	ok	21.56	0.00	0.03	\N	closet
-13197	757	709	000.120.000.010.00M	2		2011-04-05 18:03:42.177951	2011-04-05 18:30:45.81793	27.00	3	Door - Flat NX | Hardrock Maple	\N	\N	in	ok	9.99	0.06	0.15	\N	garage
 13198	757	198	000.024.002.051.00B	2		2011-04-05 18:03:42.206755	2011-04-05 18:30:45.821675	0.50	4	Drawer Box | White	\N	\N	in	ok	25.32	0.00	0.05	\N	garage
 13183	756	227	000.935.982.001.00M	6		2011-04-05 17:09:12.032357	2011-04-05 17:09:12.459959	10.67	1	CL Adj Safety Shelf | White	\N	\N	in	ok	3.95	0.00	0.03	\N	\N
 13184	756	44	000.930.982.001.00M	4		2011-04-05 17:09:12.061583	2011-04-05 17:09:12.638041	10.67	2	CL Cam Shelf | White	\N	\N	in	ok	3.95	0.00	0.05	\N	\N
@@ -29351,36 +29354,34 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 13192	756	107	000.290.011.901.00I	1		2011-04-05 17:09:12.347859	2011-04-05 17:09:13.17849	8.98	10	ZH Hang Rail	\N	\N	in	ok	3.32	0.00	\N	\N	\N
 13193	756	590	000.290.012.781.00I	1		2011-04-05 17:09:12.361349	2011-04-05 17:09:13.209471	4.05	11	ZH Hang Rail Cover | White	\N	\N	in	ok	1.50	0.00	\N	\N	\N
 13194	756	228	000.282.024.720.00I	36		2011-04-05 17:09:12.376058	2011-04-05 17:09:13.2399	0.33	12	ZH Shelf Pin (Safety Shelf)	\N	\N	in	ok	0.12	0.00	\N	\N	\N
-13199	757	263	000.101.233.010.00M	1		2011-04-05 18:03:42.541929	2011-04-05 18:30:45.824707	167.40	5	NX Base Cabinet 1 Door | Hardrock Maple	\N	\N	in	ok	61.94	4.14	0.29	\N	garage
-13201	757	262	000.102.433.010.00M	1		2011-04-05 18:03:43.06816	2011-04-05 18:30:45.82771	219.55	7	NX Base Cabinet 2 Door | Hardrock Maple	\N	\N	in	ok	81.23	7.26	0.33	\N	garage
-13202	757	257	000.402.483.010.00M	5		2011-04-05 18:03:43.402955	2011-04-05 18:30:45.831043	338.72	8	NX Tall Cabinet 1 Door | Hardrock Maple	\N	\N	in	ok	125.33	7.32	1.08	\N	garage
 13174	754	516	000.100.000.001.00M	6	also need 2 white doors 22.375 x 68 with no hinge prep	2011-04-05 02:40:04.557572	2011-04-06 15:27:23.468599	22.74	1	Door - Flat | White	\N	\N	in	ok	22.74	0.06	0.05	\N	
 12994	746	45	000.931.022.001.00M	2		2011-04-04 20:36:57.255741	2011-04-14 11:33:16.838649	9.01	1	CL Adjustable Shelf | White	\N	31	in	ok	7.21	0.00	0.03	\N	closet
 12627	730	38	000.911.181.001.00M	1		2011-04-04 19:15:53.772816	2011-04-14 11:39:41.35999	26.90	6	CL Upright Partition - Left | White	\N	31	in	ok	21.52	0.00	0.05	\N	closet
-13180	755	48	000.934.091.005.00M	2		2011-04-05 16:10:00.240947	2011-04-05 18:17:11.968027	10.71	4	CL Top Shelf | Wild Apple	\N	\N	in	ok	21.42	0.00	0.03	\N	closet
-13195	757	709	000.120.000.010.00M	5		2011-04-05 18:03:42.114211	2011-04-05 18:30:45.834812	68.43	1	Door - Flat NX | Hardrock Maple	\N	\N	in	ok	25.32	0.06	0.15	\N	garage
-13196	757	709	000.120.000.010.00M	1		2011-04-05 18:03:42.150563	2011-04-05 18:30:45.837917	29.42	2	Door - Flat NX | Hardrock Maple	\N	\N	in	ok	10.89	0.06	0.15	\N	garage
-13200	757	262	000.102.433.010.00M	2	*Custom sized to be used as Bench	2011-04-05 18:03:42.803893	2011-04-05 18:30:45.841065	149.83	6	NX Base Cabinet 2 Door | Hardrock Maple	\N	\N	in	ok	49.47	7.05	0.33	\N	garage
-13203	757	502	000.400.004.403.00M	1		2011-04-05 18:03:43.473298	2011-04-05 18:30:45.844238	139.38	9	NX Workbench Top (Finished Ends) | Ebony Star	\N	\N	in	ok	48.66	0.00	0.16	\N	garage
-13204	757	500	000.400.002.403.00M	1		2011-04-05 18:03:43.662675	2011-04-05 18:30:45.847273	141.61	10	NX Workbench Top (Finished Left) | Ebony Star	\N	\N	in	ok	53.44	0.00	0.31	\N	garage
+13180	755	48	000.934.091.005.00M	2		2011-04-05 16:10:00.240947	2011-04-14 23:04:13.738055	10.71	4	CL Top Shelf | Wild Apple	\N	32	in	ok	21.42	0.00	0.03	\N	closet
+13195	757	709	000.120.000.010.00M	5		2011-04-05 18:03:42.114211	2011-04-14 23:11:09.825408	68.43	1	Door - Flat NX | Hardrock Maple	\N	32	in	ok	25.32	0.06	0.15	\N	garage
+13196	757	709	000.120.000.010.00M	1		2011-04-05 18:03:42.150563	2011-04-14 23:11:09.82866	29.42	2	Door - Flat NX | Hardrock Maple	\N	32	in	ok	10.89	0.06	0.15	\N	garage
+13200	757	262	000.102.433.010.00M	2	*Custom sized to be used as Bench	2011-04-05 18:03:42.803893	2011-04-14 23:11:09.831751	149.83	6	NX Base Cabinet 2 Door | Hardrock Maple	\N	32	in	ok	49.47	7.05	0.33	\N	garage
+13203	757	502	000.400.004.403.00M	1		2011-04-05 18:03:43.473298	2011-04-14 23:11:09.834835	139.38	9	NX Workbench Top (Finished Ends) | Ebony Star	\N	32	in	ok	48.66	0.00	0.16	\N	garage
+13204	757	500	000.400.002.403.00M	1		2011-04-05 18:03:43.662675	2011-04-14 23:11:09.976293	141.61	10	NX Workbench Top (Finished Left) | Ebony Star	\N	32	in	ok	53.44	0.00	0.31	\N	garage
+13209	760	45	000.931.022.001.00M	3		2011-04-05 19:13:53.58016	2011-04-14 23:19:40.521112	16.50	2	CL Adjustable Shelf | White	\N	32	in	ok	2.88	0.00	0.03	\N	closet
 13205	757	660	000.990.320.30W.00I	28	*7 Boxes	2011-04-05 18:03:43.68914	2011-04-05 18:30:45.850834	19.53	11	ZH SlatWall 12 x 96 (4/box) |Maple	\N	\N	in	ok	30.49	0.00	0.15	\N	garage
 13206	757	658	000.990.320.30S.00I	1000	*1 Box	2011-04-05 18:03:43.702166	2011-04-05 18:30:45.853999	0.06	12	ZH SlatWall Drywall Screws (1000/box) | Maple	\N	\N	in	ok	0.04	0.00	\N	\N	garage
 13207	757	659	000.990.320.30U.00I	16	*4 Boxes	2011-04-05 18:03:43.714773	2011-04-05 18:30:45.857416	3.53	13	ZH SlatWall U Edge Molding (4/box) | Maple	\N	\N	in	ok	5.22	0.00	\N	\N	garage
-13209	760	45	000.931.022.001.00M	3		2011-04-05 19:13:53.58016	2011-04-06 15:28:07.66653	16.50	2	CL Adjustable Shelf | White	\N	\N	in	ok	2.88	0.00	0.03	\N	closet
-13228	765	516	000.100.000.010.00M	10		2011-04-06 00:34:06.920658	2011-04-06 15:29:08.518978	59.26	1	Door - Flat | Hardrock Maple	\N	\N	in	ok	24.16	0.06	0.05	\N	garage
+13208	760	45	000.931.022.001.00M	6		2011-04-05 19:13:53.523488	2011-04-14 23:19:40.525168	8.25	1	CL Adjustable Shelf | White	\N	32	in	ok	6.19	0.00	0.03	\N	closet
+13229	765	516	000.100.000.010.00M	3		2011-04-06 00:34:06.9499	2011-04-14 23:25:19.435923	27.78	2	Door - Flat | Hardrock Maple	\N	32	in	ok	11.25	0.06	0.05	\N	garage
+13228	765	516	000.100.000.010.00M	10		2011-04-06 00:34:06.920658	2011-04-14 23:25:19.432021	59.26	1	Door - Flat | Hardrock Maple	\N	32	in	ok	24.16	0.06	0.05	\N	garage
 13247	767	517	000.101.000.001.00B	4		2011-04-06 00:40:05.679037	2011-04-07 19:45:25.724716	275.52	1	Decor Door - JR7 | White	\N	\N	in	ok	110.40	0.06	0.05	\N	home office
+13230	765	516	000.100.000.010.00M	3		2011-04-06 00:34:06.978419	2011-04-14 23:25:19.439085	27.78	3	Door - Flat | Hardrock Maple	\N	32	in	ok	11.25	0.06	0.05	\N	garage
 13249	767	513	000.492.681.001.00M	1		2011-04-06 00:40:06.017081	2011-04-12 01:33:52.952111	281.00	3	HO Wall Bed Queen | White	\N	29	in	ok	112.42	3.57	5.00	\N	home office
+13232	765	162	000.200.000.010.00M	3		2011-04-06 00:34:07.202865	2011-04-14 23:25:19.442479	23.61	5	Drawer Front - Flat | Hardrock Maple	\N	32	in	ok	9.49	0.08	0.05	\N	garage
+13233	765	264	000.211.233.010.00M	3		2011-04-06 00:34:07.301786	2011-04-14 23:25:19.445616	172.52	6	NX Base Cabinet 1 Drawer 1 Door | Hardrock Maple	\N	32	in	ok	70.21	4.44	0.29	\N	garage
+13234	765	256	000.402.493.010.00M	2		2011-04-06 00:34:07.6797	2011-04-14 23:25:19.448713	322.38	7	NX Tall Cabinet 2 Door | Hardrock Maple	\N	32	in	ok	130.89	13.54	1.41	\N	garage
 13250	767	3	000.117.031.632.00I	2		2011-04-06 00:40:06.239281	2011-04-07 19:45:25.735453	2.69	4	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	home office
-13229	765	516	000.100.000.010.00M	3		2011-04-06 00:34:06.9499	2011-04-06 15:29:08.522607	27.78	2	Door - Flat | Hardrock Maple	\N	\N	in	ok	11.25	0.06	0.05	\N	garage
-13230	765	516	000.100.000.010.00M	3		2011-04-06 00:34:06.978419	2011-04-06 15:29:08.525777	27.78	3	Door - Flat | Hardrock Maple	\N	\N	in	ok	11.25	0.06	0.05	\N	garage
+13235	765	256	000.402.493.010.00M	3		2011-04-06 00:34:08.254764	2011-04-14 23:25:19.451836	0.33	8	NX Tall Cabinet 2 Door | Hardrock Maple	\N	32	in	ok	168.71	13.54	1.41	\N	garage
+13236	765	261	000.301.430.010.00M	1		2011-04-06 00:34:08.634543	2011-04-14 23:25:19.454951	96.48	9	NX Upper Cabinet 1 Door | Hardrock Maple	\N	32	in	ok	39.24	3.90	0.37	\N	garage
+13237	765	260	000.302.430.010.00M	1		2011-04-06 00:34:08.933648	2011-04-14 23:25:19.458098	155.35	10	NX Upper Cabinet 2 Door | Hardrock Maple	\N	32	in	ok	62.95	7.05	0.58	\N	garage
+13238	765	502	000.400.004.403.00M	1		2011-04-06 00:34:09.005047	2011-04-14 23:25:19.461288	196.44	11	NX Workbench Top (Finished Ends) | Ebony Star	\N	32	in	ok	78.58	0.00	0.16	\N	garage
 13231	765	198	000.024.002.051.00B	3		2011-04-06 00:34:07.006701	2011-04-06 15:29:08.528919	64.05	4	Drawer Box	\N	\N	in	ok	25.62	0.00	0.05	\N	garage
-13232	765	162	000.200.000.010.00M	3		2011-04-06 00:34:07.202865	2011-04-06 15:29:08.532038	23.61	5	Drawer Front - Flat | Hardrock Maple	\N	\N	in	ok	9.49	0.08	0.05	\N	garage
-13233	765	264	000.211.233.010.00M	3		2011-04-06 00:34:07.301786	2011-04-06 15:29:08.535149	172.52	6	NX Base Cabinet 1 Drawer 1 Door | Hardrock Maple	\N	\N	in	ok	70.21	4.44	0.29	\N	garage
-13234	765	256	000.402.493.010.00M	2		2011-04-06 00:34:07.6797	2011-04-06 15:29:08.538278	322.38	7	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N	in	ok	130.89	13.54	1.41	\N	garage
-13235	765	256	000.402.493.010.00M	3		2011-04-06 00:34:08.254764	2011-04-06 15:29:08.541406	0.33	8	NX Tall Cabinet 2 Door | Hardrock Maple	\N	\N	in	ok	168.71	13.54	1.41	\N	garage
-13236	765	261	000.301.430.010.00M	1		2011-04-06 00:34:08.634543	2011-04-06 15:29:08.544492	96.48	9	NX Upper Cabinet 1 Door | Hardrock Maple	\N	\N	in	ok	39.24	3.90	0.37	\N	garage
-13237	765	260	000.302.430.010.00M	1		2011-04-06 00:34:08.933648	2011-04-06 15:29:08.547576	155.35	10	NX Upper Cabinet 2 Door | Hardrock Maple	\N	\N	in	ok	62.95	7.05	0.58	\N	garage
-13238	765	502	000.400.004.403.00M	1		2011-04-06 00:34:09.005047	2011-04-06 15:29:08.550661	196.44	11	NX Workbench Top (Finished Ends) | Ebony Star	\N	\N	in	ok	78.58	0.00	0.16	\N	garage
 13239	765	175	000.FU3.173.320.00I	3		2011-04-06 00:34:09.026027	2011-04-06 15:29:08.553808	12.77	12	ZH Drawer Slide | Full ext | 20 inch	\N	\N	in	ok	5.11	0.00	\N	\N	garage
 13240	765	5	000.117.031.330.00I	19		2011-04-06 00:34:09.03891	2011-04-06 15:29:08.556851	2.44	13	ZH Handle Black | 128mm	\N	\N	in	ok	0.98	0.00	0.03	\N	garage
 13241	765	693	000.995.302.100.00I	5		2011-04-06 00:34:09.219745	2011-04-06 15:29:08.559923	39.71	14	ZH The Grid (3/box)	\N	\N	in	ok	15.88	0.00	\N	\N	garage
@@ -29393,7 +29394,6 @@ COPY job_items (id, job_id, item_id, ingest_id, quantity, comment, created_at, u
 13248	767	514	000.400.181.001.00M	2		2011-04-06 00:40:05.953684	2011-04-12 01:33:52.94773	216.18	2	HO Bookcase | White	\N	29	in	ok	86.45	2.86	0.25	\N	home office
 10544	623	44	000.930.011.001.00M	2		2011-03-28 19:21:05.64066	2011-04-06 11:31:58.341921	10.40	5	CL Cam Shelf | White	\N	27	in	ok	5.20	0.00	0.05	\N	closet
 10573	625	40	000.910.251.001.00M	3		2011-03-28 19:23:09.308529	2011-04-06 11:47:44.578062	31.64	5	CL Hanging Partition - Radius - Thru | White	\N	27	in	ok	10.88	0.00	0.05	\N	closet
-13208	760	45	000.931.022.001.00M	6		2011-04-05 19:13:53.523488	2011-04-06 15:28:07.66272	8.25	1	CL Adjustable Shelf | White	\N	\N	in	ok	6.19	0.00	0.03	\N	closet
 13259	769	516	000.100.000.001.00M	6		2011-04-06 15:46:51.175399	2011-04-06 17:47:50.920183	22.74	1	Door - Flat | White	\N	\N	in	ok	22.74	0.06	0.05	\N	garage
 13260	769	256	000.402.493.001.00M	3	1 partition for these cabs;  	2011-04-06 15:46:51.505135	2011-04-06 17:47:50.924171	169.96	2	NX Tall Cabinet 2 Door | White	\N	\N	in	ok	171.00	13.54	1.41	\N	garage
 13261	769	3	000.117.031.632.00I	6		2011-04-06 15:46:51.564996	2011-04-06 17:47:50.927522	1.08	3	ZH Handle Nickel | 128mm	\N	\N	in	ok	1.08	0.00	0.03	\N	garage
@@ -31165,6 +31165,7 @@ COPY job_properties (id, job_id, family, qualifier, module_names, value_str, cre
 791	856	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-14 21:54:20.724603	2011-04-14 21:54:20.724603
 792	857	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-14 22:02:43.681875	2011-04-14 22:02:43.681875
 793	858	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-14 22:09:09.415186	2011-04-14 22:09:09.415186
+794	859	linear_units	\N	Property::LinearUnits	{"linear_units":"in"}	2011-04-14 23:41:35.59359	2011-04-14 23:41:35.59359
 \.
 
 
@@ -31820,6 +31821,10 @@ COPY job_state_transitions (id, job_id, changed_by_id, prior_status, new_status,
 636	743	32	Confirmed	Ready For Production	2011-04-14 22:27:06.838211	2011-04-14 22:27:06.838211
 637	855	53	Placed	Confirmed	2011-04-14 22:33:50.439422	2011-04-14 22:33:50.439422
 638	752	32	Confirmed	Ready For Production	2011-04-14 22:35:25.544977	2011-04-14 22:35:25.544977
+639	755	32	Confirmed	Ready For Production	2011-04-14 23:04:15.054056	2011-04-14 23:04:15.054056
+640	757	32	Confirmed	Ready For Production	2011-04-14 23:11:11.615583	2011-04-14 23:11:11.615583
+641	760	32	Confirmed	Ready For Production	2011-04-14 23:19:42.807767	2011-04-14 23:19:42.807767
+642	765	32	Confirmed	Ready For Production	2011-04-14 23:25:21.321674	2011-04-14 23:25:21.321674
 \.
 
 
@@ -31861,16 +31866,17 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 857	49	78	58	Tyler Brandt	SO-437	\N	2011-04-14 22:02:43.485935	2011-04-14 22:10:45.845445	Brandt, Tyler Parts List.xml	text/xml	15383	2011-04-14 22:02:43.483865	\N	Placed	\N	\N	Please call for delivery 701-281-0558.	2011-04-14 22:10:45	78	\N	PremierRoute	78	\N	58	Job	dvinci
 855	22	46	25	Friesen base cab	SO-434	\N	2011-04-14 20:56:14.262517	2011-04-14 22:33:49.463797	Friesen base cab Parts List.xml	text/xml	8818	2011-04-14 20:56:14.258504	Phoenix	Confirmed	2011-04-29	\N		2011-04-14 20:57:30	46		PremierRoute	46	4/14 Antique White, CS	25	Job	dvinci
 279	28	103	36	Walker 2 car	SO-113	\N	2011-02-28 16:39:47.706326	2011-03-18 18:14:20.726379	Walker 2 car-1 Parts List.xls	application/vnd.ms-excel	9261	2011-02-28 16:39:47.70274	Phoenix	Shipped	2011-03-14	2011-03-18		2011-02-28 16:40:30	103		PremierRoute	103	Pewter. 2/28 ? on what kind of handles they need.\r\nCS\r\n\r\n2/28 per Mike cancel handles. CS	36	\N	dvinci
+755	4	4	6	TL Top Shelf Stock	SO-368	\N	2011-04-05 16:09:59.85654	2011-04-14 23:04:15.024701	TL Top Shelf Stock.xml	application/octet-stream	10993	2011-04-05 16:09:59.852737	Phoenix	Ready For Production	2011-04-19	\N		2011-04-05 16:10:43	4		PremierRoute	4	CL-Shelves, White, Antique White, Carmel Apple, Maple, Wild Apple, Chocolate Apple, CS	6	Job	dvinci
+757	4	4	6	Meister - Garage	SO-369	\N	2011-04-05 18:03:41.881945	2011-04-14 23:11:11.567271	Meister - Garage.xml	application/octet-stream	17586	2011-04-05 18:03:41.717442	Phoenix	Ready For Production	2011-04-19	\N		2011-04-05 18:04:35	4		PremierRoute	4	Nx Maple, CS	6	Job	dvinci
+859	14	13	17	Anderson	\N	\N	2011-04-14 23:41:35.409768	2011-04-14 23:41:35.409768	Anderson dvi Parts List.xml	text/xml	14664	2011-04-14 23:41:35.405997	\N	Created	\N	\N		\N	\N	\N	\N	13	\N	\N	Job	dvinci
 705	37	67	46	Lang Garage	SO-336	\N	2011-04-01 22:27:30.294167	2011-04-12 17:56:16.875257	Lang Order List.xml	text/xml	12087	2011-04-01 22:27:30.291856	Phoenix	Ready For Production	2011-04-18	\N	Please confirm and include inventory items requested.	2011-04-01 22:28:32	67		PremierRoute	67	Nx White, CS\r\nReplaces SO#302, CS	46	Job	dvinci
-757	4	4	6	Meister - Garage	SO-369	\N	2011-04-05 18:03:41.881945	2011-04-05 18:30:45.862089	Meister - Garage.xml	application/octet-stream	17586	2011-04-05 18:03:41.717442	Phoenix	Confirmed	2011-04-19	\N		2011-04-05 18:04:35	4		PremierRoute	4	Nx Maple, CS	6	Job	dvinci
 756	4	4	6	Acker Parade - Pantry	\N	\N	2011-04-05 17:09:11.666719	2011-04-05 17:09:11.666719	Acker - Pantry.xml	application/octet-stream	15997	2011-04-05 17:09:11.664792	\N	Created	\N	\N		\N	\N	\N	\N	4	\N	\N	Job	dvinci
-755	4	4	6	TL Top Shelf Stock	SO-368	\N	2011-04-05 16:09:59.85654	2011-04-05 18:23:54.189965	TL Top Shelf Stock.xml	application/octet-stream	10993	2011-04-05 16:09:59.852737	Phoenix	Confirmed	2011-04-19	\N		2011-04-05 16:10:43	4		PremierRoute	4	CL-Shelves, White, Antique White, Carmel Apple, Maple, Wild Apple, Chocolate Apple, CS	6	Job	dvinci
 781	59	87	84	Feurbringer Master	SO-378	\N	2011-04-07 03:18:27.661246	2011-04-07 16:38:06.365396	Fuerbringer_Master ORDER Parts List.xml	text/xml	37726	2011-04-07 03:18:27.658448	Phoenix	Confirmed	2011-04-21	\N		2011-04-07 03:18:56	87		PremierRoute	87	CL-White, CS	70	Job	dvinci
 691	28	103	36	Louis	SO-324	\N	2011-04-01 12:33:47.5275	2011-04-12 00:26:16.220859	Louis Cochius Parts List.xls	application/vnd.ms-excel	41963	2011-04-01 12:33:47.522379	Phoenix	Ready For Production	2011-04-15	\N		2011-04-01 12:34:42	103		PremierRoute	103	White, CS	36	Job	dvinci
 619	69	104	83	Nathan Closets	SO-282	\N	2011-03-27 19:54:33.214491	2011-04-12 21:03:16.281512	NathanClosets-1 Parts List.xml	text/xml	39518	2011-03-27 19:54:33.20903	Phoenix	Shipped	2011-04-12	2011-04-12		2011-03-27 19:56:26	104		PremierRoute	104	White,CS	83	Job	dvinci
 677	8	\N	38	Test Sushi order	\N	\N	2011-03-31 16:21:57.011872	2011-03-31 16:21:57.011872	\N	\N	\N	\N	\N	Created	\N	\N	\N	\N	\N	\N	\N	32	\N	38	CatalogOrder	dvinci
 582	23	22	27	Blin, Tim	SO-260	\N	2011-03-23 15:43:21.453833	2011-04-14 00:49:01.712991	Carson Panels Parts List.xml	text/xml	6990	2011-03-23 15:43:21.451886	Phoenix	Shipped	2011-04-07	2011-04-14		2011-03-23 15:43:34	22		PremierRoute	22	White, CS	27	Job	dvinci
-760	4	4	6	Booth - Office Closet Add	SO-370	\N	2011-04-05 19:13:53.262366	2011-04-06 15:28:07.671431	Booth - Office Closet Add.xml	application/octet-stream	7374	2011-04-05 19:13:53.260285	Phoenix	Confirmed	2011-04-20	\N		2011-04-05 19:14:10	4		PremierRoute	4	CL-White, CS	6	Job	dvinci
+760	4	4	6	Booth - Office Closet Add	SO-370	\N	2011-04-05 19:13:53.262366	2011-04-14 23:19:42.783663	Booth - Office Closet Add.xml	application/octet-stream	7374	2011-04-05 19:13:53.260285	Phoenix	Ready For Production	2011-04-20	\N		2011-04-05 19:14:10	4		PremierRoute	4	CL-White, CS	6	Job	dvinci
 692	17	16	20	Liat benzur Adai's	SO-325	\N	2011-04-01 13:18:05.204771	2011-04-12 00:36:15.262323	lIAT bENZUR Adai's  Room 3-30-11.dvi Parts List.xml	text/xml	12880	2011-04-01 13:18:05.20031	Phoenix	Ready For Production	2011-04-15	\N		2011-04-01 13:18:31	16		PremierRoute	16	White, CS	20	Job	dvinci
 693	17	16	20	Liat Benzer Blue Room	SO-326	\N	2011-04-01 13:19:24.322214	2011-04-12 00:43:10.323475	lIAT bENZUR Upstairs Blue Room.dvi Parts List.xml	text/xml	12878	2011-04-01 13:19:24.320055	Phoenix	Ready For Production	2011-04-15	\N		2011-04-01 13:19:53	16		PremierRoute	16	White, CS	20	Job	dvinci
 694	17	16	20	Liat benzer office	SO-328	\N	2011-04-01 13:20:49.315622	2011-04-12 00:48:55.680014	Liat benzur Office Closet 3-30-11.dvi Parts List.xml	text/xml	12155	2011-04-01 13:20:49.313575	Phoenix	Ready For Production	2011-04-15	\N		2011-04-01 13:21:10	16		PremierRoute	16	White, CS	20	Job	dvinci
@@ -31888,8 +31894,8 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 646	63	92	75	LANDA BEDROOM A	SO-354	\N	2011-03-29 20:36:24.122307	2011-04-14 11:31:03.064707	Bedroom A.xml	text/xml	30656	2011-03-29 20:36:24.116675	Phoenix	Ready For Production	2011-04-19	\N		2011-04-04 20:41:23	92		PremierRoute	92	CL-White, CS	75	Job	dvinci
 745	63	92	75	Landa Bedroom C1	SO-358	\N	2011-04-04 20:33:37.594712	2011-04-14 11:46:01.241422	Bedroom C.xml	text/xml	34644	2011-04-04 20:33:37.592488	Phoenix	Ready For Production	2011-04-19	\N		2011-04-04 20:43:32	92		PremierRoute	92	CL-White, CS	75	Job	dvinci
 735	63	92	75	Landa Stairs	SO-360	\N	2011-04-04 19:51:27.037138	2011-04-14 11:48:56.061371	Stairs.xml	text/xml	28060	2011-04-04 19:51:27.031521	Phoenix	Ready For Production	2011-04-19	\N		2011-04-04 20:44:57	92		PremierRoute	92	CL-White, CS	75	Job	dvinci
+765	17	16	20	Robin Nordhoff	SO-371	\N	2011-04-06 00:34:06.726598	2011-04-14 23:25:21.271371	Robein Nordhoff 4-3-11.dvi Parts List.xml	text/xml	14568	2011-04-06 00:34:06.724396	Phoenix	Ready For Production	2011-04-20	\N		2011-04-06 00:35:25	16		PremierRoute	16	Nx - Maple, CS	20	Job	dvinci
 698	17	16	20	Martha Roth Right side	SO-332	\N	2011-04-01 13:25:41.020575	2011-04-04 17:51:20.548487	Martha Roth Right Side.dvi Parts List.xml	text/xml	9326	2011-04-01 13:25:41.018258	Phoenix	Cancelled	2011-04-15	\N		2011-04-01 13:26:05	16		PremierRoute	16	Nx White, CS\r\n4/4/11 cancel per Bob. CS	20	Job	dvinci
-765	17	16	20	Robin Nordhoff	SO-371	\N	2011-04-06 00:34:06.726598	2011-04-06 15:29:46.934186	Robein Nordhoff 4-3-11.dvi Parts List.xml	text/xml	14568	2011-04-06 00:34:06.724396	Phoenix	Confirmed	2011-04-20	\N		2011-04-06 00:35:25	16		PremierRoute	16	Nx - Maple, CS	20	Job	dvinci
 766	17	16	20	Margaret Wilson	\N	\N	2011-04-06 00:38:33.609427	2011-04-06 00:38:33.609427	Margaret Wilson 4-2-11.dvi Parts List.xml	text/xml	9947	2011-04-06 00:38:33.607036	\N	Created	\N	\N		\N	\N	\N	\N	16	\N	\N	Job	dvinci
 688	22	46	25	Sandra Allen order with Dave	SO-322	\N	2011-03-31 23:58:35.847206	2011-04-12 14:31:34.763229	Allen Murphy Bed Parts List.xml	text/xml	10765	2011-03-31 23:58:35.84317	Phoenix	In Production	2011-04-15	\N		2011-04-01 00:00:34	46		PremierRoute	46	Chocolate Apple, CS\r\nreplaces SO#309, CS	25	Job	dvinci
 547	21	20	24	Smith Office	SO-240	\N	2011-03-21 17:39:54.961473	2011-04-07 17:45:34.932402	Smith- Office.dvi Parts List.xls	application/vnd.ms-excel	14548	2011-03-21 17:39:54.959427	Phoenix	Shipped	2011-04-05	2011-04-07		2011-03-21 17:40:24	20		PremierRoute	20	White, Carmel apple, CS	24	Job	dvinci
@@ -32001,7 +32007,6 @@ COPY jobs (id, franchisee_id, customer_id, shipping_address_id, name, job_number
 743	49	78	58	Galt Craft	SO-352	\N	2011-04-04 20:22:22.234934	2011-04-14 22:27:06.777068	Galt Craft Closet.xml	text/xml	24553	2011-04-04 20:22:22.230189	Phoenix	Ready For Production	2011-04-19	\N	Pleaes call 701-281-0558 for delivery.	2011-04-04 20:23:26	78		PremierRoute	78	Please call 701-281-0558 for delivery\r\nNx White, CS	58	Job	dvinci
 776	50	79	59	Garett Rosenblum	SO-374	\N	2011-04-06 20:18:13.730216	2011-04-06 21:48:43.312729	Rosenblum, Garett Closets 04.05.11.dvi Parts List.xml	application/octet-stream	18459	2011-04-06 20:18:13.726688	Phoenix	Confirmed	2011-04-21	\N		2011-04-06 20:18:50	79		PremierRoute	79	CL-White, CS	59	Job	dvinci
 789	12	\N	15	Bisch Test Catalog Order	\N	\N	2011-04-07 19:45:17.113234	2011-04-08 12:21:59.65091	\N	\N	\N	\N	Phoenix	Created	\N	\N		\N	\N		PremierRoute	11		15	CatalogOrder	catalog
-844	14	13	17	Anderson	\N	\N	2011-04-13 22:09:28.07229	2011-04-13 22:13:22.890342	Anderson dvi.dvi	application/octet-stream	3286	2011-04-13 22:09:28.070153	\N	Created	\N	\N		\N	\N	\N	\N	13	\N	17	Job	dvinci
 833	41	100	50	Klavon Garage	SO-416	\N	2011-04-13 16:11:33.592639	2011-04-13 22:37:19.597225	Klavon garage Parts List.xml	text/xml	26325	2011-04-13 16:11:33.588381	Atlanta	Confirmed	2011-04-28	\N	ship from Atlanta	2011-04-13 16:14:13	100		PremierRoute	100	4/13 Maple, CS\r\nShip from Atlanta	50	Job	dvinci
 750	65	105	77	Hanes, Jayne Cabinet	SO-365	\N	2011-04-04 21:28:51.982926	2011-04-13 15:27:47.206159	Hanes, Jane.dvi Parts List.xml	application/octet-stream	7137	2011-04-04 21:28:51.980945	Phoenix	Cancelled	2011-04-19	\N		2011-04-04 21:32:57	105		PremierRoute	105	Nx Maple, CS\r\n4/13 cancelled per Steve B. CS	77	Job	dvinci
 843	22	46	25	Friesen Crown	SO-426	\N	2011-04-13 22:03:03.441333	2011-04-13 22:50:49.168325	Friesen crown molding Parts List.xml	text/xml	6198	2011-04-13 22:03:03.43735	Phoenix	Confirmed	2011-04-28	\N		2011-04-13 22:03:22	46		PremierRoute	46	4/13 molding, CS	25	Job	dvinci
@@ -35393,7 +35398,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 11	Mrs.	Meri Lynn	Bisch	(636) 728-0333	(636) 399-9529	(314)434-1976	mlbisch@tailoredliving.com	$2a$10$ADDAS8SmsuiYYeZKnzUNnOotiUtMQw4.rDlDTYZby2k/6Joy7g8La	$2a$10$ADDAS8SmsuiYYeZKnzUNnO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:33.30654	2011-02-11 16:03:31.935311
 12	\N	Keith	Garrett	(281) 748-7403		2812923300	kdgarrett@tailoredliving.com	$2a$10$WVWyPxrxwJjfIwO3tWoalun77RTRQ7FGFfGzeL81DRqsbzahSKOD.	$2a$10$WVWyPxrxwJjfIwO3tWoalu	\N	\N	\N	12	2011-04-11 14:16:47.03305	2011-04-04 15:06:21.813064	98.200.206.1	98.200.206.1	2011-01-01 18:53:33.430408	2011-04-11 14:16:47.033889
 25	Mr.	Harrison	Rushton	(423) 517-0303	(423) 322-3629	(423) 517-0531	harushton@tailoredliving.com	$2a$10$.yVK9FbYq/YoL5IlF55nbOi022KRwX/7grrDJakHYoacJI7lKxej6	$2a$10$.yVK9FbYq/YoL5IlF55nbO	\N	\N	\N	0	\N	\N	\N	\N	2011-01-01 18:53:35.298971	2011-02-11 16:41:57.485489
-36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$RmL/m9bZq9YvBAjMJBp.4eNuZX/P4UrnmMTV1fZNd98vA6P2sB5ku	$2a$10$RmL/m9bZq9YvBAjMJBp.4e	\N	\N	\N	24	2011-04-14 19:52:24.33241	2011-04-13 21:45:08.062848	67.203.136.36	67.203.136.36	2011-01-01 18:53:36.829115	2011-04-14 19:52:24.333286
+36	Mr.	Dave	Angers	(714) 279-2481	(714) 496-0868	(714) 637-1400	davea@closettailors.com	$2a$10$RmL/m9bZq9YvBAjMJBp.4eNuZX/P4UrnmMTV1fZNd98vA6P2sB5ku	$2a$10$RmL/m9bZq9YvBAjMJBp.4e	\N	\N	\N	25	2011-04-14 23:27:50.165294	2011-04-14 19:52:24.33241	67.203.136.36	67.203.136.36	2011-01-01 18:53:36.829115	2011-04-14 23:27:50.166136
 17	Mr.	Peter	Selwyn	(613) 225-5218		(613) 225-5218	pwselwyn@tailoredliving.com	$2a$10$IEB/3S1o6WnG9NZTBZMP0ep0UwT3dN7Yfq3A4e4M331s7iXysEbPS	$2a$10$IEB/3S1o6WnG9NZTBZMP0e	\N	kvULJJf9yLMikDtY0xvI	2011-04-14 18:43:28.22569	17	2011-04-14 18:43:28.229746	2011-04-14 12:58:59.105245	209.87.226.59	209.87.226.59	2011-01-01 18:53:34.153324	2011-04-14 18:43:28.23034
 15	Mr.	Dan	Kerth	(859) 488-0078	(859) 866-8266	(859) 488-0079	dckerth@tailoredliving.com	$2a$10$bL1cr8sl4PRZFZQbzogu7ej9BnSIv1JHhtdU.2s0WTWFC5wjDh4Fe	$2a$10$bL1cr8sl4PRZFZQbzogu7e	\N	\N	\N	2	2011-03-22 05:53:28.70596	2011-03-20 16:08:59.43897	74.136.5.5	74.136.5.5	2011-01-01 18:53:33.810296	2011-03-22 05:53:28.706775
 20	Mr.	Jeffery	Vlasak	(262) 633-8850	(262) 488-3826	(262) 866-2093	jvlasak@tailoredliving.com	$2a$10$DErS5cZVNf2sFl0TKm5ZhuDRRVabZ2MEI4cf/lHhVnJAKqOYSBI/W	$2a$10$DErS5cZVNf2sFl0TKm5Zhu	\N	\N	\N	9	2011-04-14 18:15:07.542638	2011-04-14 18:11:59.683314	99.52.123.95	99.52.123.95	2011-01-01 18:53:34.535755	2011-04-14 18:16:21.471103
@@ -35464,6 +35469,7 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 74	\N	Brian	Marine	(651)454-1315		(651)454-1336	bmarine@tailoredliving.com	$2a$10$pffsNm.4PZuDLiVHiBddFuXzrxU9eo1HVpod7eimQCtZDXANWhkua	$2a$10$pffsNm.4PZuDLiVHiBddFu	\N	\N	\N	4	2011-04-13 18:54:35.811976	2011-04-13 17:20:32.017402	75.168.178.62	75.168.178.62	2011-02-11 16:01:44.01807	2011-04-13 18:54:35.81294
 104	\N	Michael	Greco	248-669-8900			mgreco@tailoredliving.com	$2a$10$tbpSAMhDoBogx6AaLkgIzOAe5/jz9OJzDsZ2gfvzZWPj4qCKI4qOq	$2a$10$tbpSAMhDoBogx6AaLkgIzO	\N	JZpOEMrIBKqvgyb-R7FR	2011-04-13 00:01:41.745595	15	2011-04-13 00:01:41.750108	2011-04-04 15:42:16.502084	99.35.96.7	99.27.16.134	2011-02-24 17:28:44.010247	2011-04-13 00:01:41.750691
 65	\N	Bob	Parizo	(805)988-0900		(805)988-0020	bparizo@tailoredliving.com	$2a$10$LJ2tYoloCVxlo7kGsRIA/OUamlgqPqn47lTO98XkUXNysUOvernJW	$2a$10$LJ2tYoloCVxlo7kGsRIA/O	\N	yGalwxQVwpuwMwtviaYG	2011-03-28 23:22:00.418492	30	2011-04-11 15:20:40.799196	2011-04-05 15:24:37.008604	71.189.51.241	71.189.51.241	2011-02-11 15:27:04.739565	2011-04-11 15:20:40.799875
+13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$YfhT4VrqnrWrIGK3pB2iaePSRgzYaT9YLa4PgSJT4U4SJLHl94ZDy	$2a$10$YfhT4VrqnrWrIGK3pB2iae	\N	OHtVbUeONBc-eIO_EU4I	2011-03-25 20:23:55.26127	13	2011-04-14 23:42:02.168085	2011-04-14 23:41:12.673912	99.190.179.25	99.190.179.25	2011-01-01 18:53:33.554435	2011-04-14 23:42:02.168965
 106	\N	Matt	O'Brien	(602) 373-3578			mobrien@premiergarage.com	$2a$10$UiSKeVTAWmx/6tPWCsMYEuVvvYc8CgjQl/qCj6P8A6NxUdNINsny.	$2a$10$UiSKeVTAWmx/6tPWCsMYEu	\N	\N	\N	14	2011-04-14 16:59:58.628553	2011-04-13 15:14:38.383838	174.79.54.226	174.79.54.226	2011-03-02 16:02:36.426666	2011-04-14 16:59:58.629601
 71	\N	Kenny	Keeling	(859)881-0760	cell (859)621-7510		kkeeling@tailoredliving.com	$2a$10$ppIlw1y/mt77KsuDYz916.ZGgdurAIDX1nVfoPaP4bY6dVhEA87zS	$2a$10$ppIlw1y/mt77KsuDYz916.	\N	\N	\N	11	2011-04-13 19:06:22.0835	2011-04-01 17:52:56.274815	74.131.133.112	74.131.133.112	2011-02-11 15:49:15.873043	2011-04-13 19:06:22.084543
 107	\N	Randy	Caravaggio	(403) 236-0026			rcaravaggio@tailoredliving.com	$2a$10$WRZYuHMP81N7L09J//mDCe.ByT8SkpQ/.Pm9pxN0jNG.4AxS9dZh.	$2a$10$WRZYuHMP81N7L09J//mDCe	\N	\N	\N	1	2011-04-11 20:06:47.751185	2011-04-11 20:06:47.751185	70.73.150.202	70.73.150.202	2011-03-18 00:01:23.725633	2011-04-11 20:06:47.75211
@@ -35471,7 +35477,6 @@ COPY users (id, title, first_name, last_name, phone, phone2, fax, email, encrypt
 31	Mrs.	Jodi & Kevin	Duchesne	(780) 444-4495	(780 983-5522	(780) 444-4344	duchesne@tailoredliving.com	$2a$10$RSPC2iSiggXkH7WpZiMqc.vODnp/ZV95EMAK.evGVO76OSNQ/pH6C	$2a$10$RSPC2iSiggXkH7WpZiMqc.	\N	bbSQf56twNCNntZRdcEW	2011-03-23 23:23:51.358408	8	2011-04-06 19:05:42.292876	2011-04-05 16:49:42.58729	198.53.93.114	68.151.45.0	2011-01-01 18:53:36.240116	2011-04-06 19:05:42.29353
 19	Mr.	Chris	Poehlman	(949) 297-3951	(949) 297-3953	(949) 297-3953	cpoehlman@tailoredliving.com	$2a$10$4DyN.ctlx1bJsm7nPg7skeGBzQYEdLf74iUwJ9Yt3ZZJYHtqyuvE6	$2a$10$4DyN.ctlx1bJsm7nPg7ske	\N	K1QO5XkKUhyqy1TfAR6z	2011-04-14 21:08:20.31711	41	2011-04-14 21:08:20.321162	2011-04-13 18:01:05.354189	174.76.17.14	174.76.17.14	2011-01-01 18:53:34.410377	2011-04-14 21:08:20.321747
 87	\N	Julee	Barnett	(608) 630-0246			jtbarnett@tailoredliving.com	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.4kpaUpL9JHD1/Gq8Lv5a2SvUEJFDmlW	$2a$10$Fi27FiWEOx9eJgYYv4Rc2.	\N	l6Dvsnk5WABjBgtG6Pp4	2011-04-07 13:51:44.013812	30	2011-04-14 21:39:58.141232	2011-04-11 20:05:30.471527	216.165.151.158	216.165.151.158	2011-02-11 17:57:13.665014	2011-04-14 21:39:58.142197
-13	Mr.	Eddie	Stribling	(713) 996-8510	(281) 381-7866	(713) 996-8511	shouston@tailoredliving.com	$2a$10$YfhT4VrqnrWrIGK3pB2iaePSRgzYaT9YLa4PgSJT4U4SJLHl94ZDy	$2a$10$YfhT4VrqnrWrIGK3pB2iae	\N	OHtVbUeONBc-eIO_EU4I	2011-03-25 20:23:55.26127	10	2011-04-13 22:11:58.645093	2011-04-13 22:04:08.096686	68.90.239.146	68.90.239.146	2011-01-01 18:53:33.554435	2011-04-13 22:11:58.645809
 105	\N	Jason	O'toole	602 763 0182			jotoole@premiergarage.com	$2a$10$ehHcfRTIhgDs0P39hXMxXezkf5GEcFCTvOu9sO08dA30m1ii4u6Me	$2a$10$ehHcfRTIhgDs0P39hXMxXe	\N	v1niCx70VccLQfjUc7j0	2011-04-14 21:56:05.711635	8	2011-04-14 21:56:05.71676	2011-04-14 21:53:28.340827	174.79.54.226	174.79.54.226	2011-03-02 15:22:49.861246	2011-04-14 21:56:05.717392
 98	\N	Brandon	Sudeith	623-792-2296			bsudeith@premiergarage.com	$2a$10$y5ESWY4qVd427VC6YqKGz.Qgny4pqhrjfeGluXtejP6DiNlvBuxHK	$2a$10$y5ESWY4qVd427VC6YqKGz.	\N	kJX2hVNnonvrUeiHyNEk	2011-04-01 16:51:13.004082	70	2011-04-14 15:34:30.054086	2011-04-13 22:48:45.438191	174.79.54.226	174.79.54.226	2011-02-16 23:04:54.013023	2011-04-14 15:34:30.054709
 \.
