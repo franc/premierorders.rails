@@ -70,7 +70,7 @@
         update_franchisee_list(data);
       };
 
-      var rd_update_failure = function() {
+      var rd_update_failure = function(jqXHR, textStatus, errorThrown) {
         if (supports_local_storage() && localStorage[rd_storage_id]) {
           update_franchisee_list(JSON.parse(localStorage[rd_storage_id]));
         } else {
