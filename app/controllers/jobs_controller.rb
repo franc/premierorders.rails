@@ -99,7 +99,7 @@ class JobsController < ApplicationController
 
           @job.update_cached_values
 
-          format.html { redirect_to(@job, :notice => 'Job was successfully created.') }
+          format.html { redirect_to(job_path(@job), :notice => 'Job was successfully created.') }
         else
           format.html { render :action => "new" }
         end
@@ -125,7 +125,7 @@ class JobsController < ApplicationController
           end,
           lambda do |error|
             format.js   { render :json => {:updated => 'success'} }
-            format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+            format.html { redirect_to(job_path(@job), :notice => 'Job was successfully updated.') }
           end
         )
       end
@@ -156,7 +156,7 @@ class JobsController < ApplicationController
           end
         end
         
-        format.html { redirect_to(@job, :notice => 'Job was successfully updated.') }
+        format.html { redirect_to(job_path(@job), :notice => 'Job was successfully updated.') }
         format.js   do
           success_json = {:updated => 'success'} 
           success_json[:status_group_changed] = true if Job.status_group_changed?(prior_status, @job.status)
