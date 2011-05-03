@@ -4,7 +4,7 @@ class ProductionBatchesController < ApplicationController
   # GET /production_batches
   # GET /production_batches.xml
   def index
-    @production_batches = ProductionBatch.all
+    @production_batches = ProductionBatch.order(:created_at)
 
     respond_to do |format|
       format.html # index.html.erb

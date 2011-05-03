@@ -1,6 +1,6 @@
 <%
 manufactured_item = lambda do |i|
-  i.item_category?('wood') && !(i.ship_by?('drop_ship') || i.purchasing_type?('Buyout'))
+  i.item_sort_group?('wood') && !(i.ship_by?('drop_ship') || i.purchasing_type?('Buyout'))
 end
 
 drop_ship_item = lambda do |i|
@@ -18,7 +18,7 @@ end
     <% if can? :pg_internal_cap, Job %><%= link_to "recalculate", recalculate_job_path(job) %><% end %>
   </dt>
   <dd><%= render :partial => 'items_table', 
-                 :locals => {:job_items => job.job_items.order('tracking_id').select(&manufactured_item)} %></dd>
+                 :locals => {:job_items => job.job_items.includes(:item).order('items.category NULLS LAST, tracking_id').select(&manufactured_item)} %></dd>
 </dl>
 
 <dl class="items">

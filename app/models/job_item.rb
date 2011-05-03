@@ -24,8 +24,9 @@ class JobItem < ActiveRecord::Base
     end
   end
 
-  def item_category?(*categories) 
-    item && item.category && categories.any? {|c| c.casecmp(item.category) == 0}
+  def item_sort_group?(sort_group) 
+    cat = ItemCategory.find_by_sort_group(sort_group)
+    cat && item && item.category == cat.category
   end
 
   def production_batch_closed?

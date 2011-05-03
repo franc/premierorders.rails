@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110331232754) do
+ActiveRecord::Schema.define(:version => 20110503144638) do
 
   create_table "address_books", :force => true do |t|
     t.string  "address_type"
@@ -68,6 +68,11 @@ ActiveRecord::Schema.define(:version => 20110331232754) do
     t.datetime "updated_at"
     t.string   "credit_status",      :limit => 32
     t.text     "notes"
+  end
+
+  create_table "item_categories", :force => true do |t|
+    t.string "category"
+    t.string "sort_group"
   end
 
   create_table "item_component_properties", :force => true do |t|

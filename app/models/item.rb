@@ -97,7 +97,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.categories
-    self.connection.execute("SELECT DISTINCT category FROM items ORDER BY category").map{|row| row['category']}.compact
+    self.connection.execute("SELECT DISTINCT category FROM item_categories ORDER BY category").map{|row| row['category']}.compact
   end
 
   def self.component_association_modules(mod)
