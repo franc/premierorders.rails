@@ -155,6 +155,8 @@ class Item < ActiveRecord::Base
     Option.new(base_price).filter{|p| p != 0}.map{|p| term(p)}
   end
 
+  # Compute the cost of the item by adding to the base cost any surcharges and
+  # the cost of components.
   def cost_expr(query_context)
     subtotal_exprs = base_cost_expr(query_context).to_a + 
                      linear_surcharge_expr(query_context).to_a + 
@@ -169,7 +171,10 @@ class Item < ActiveRecord::Base
     end
   end
 
+  # Compose a list of cost expressions by recursively computing cost expressions for each 
+  # component. 
   def component_exprs(query_context, &assoc_reader)
+    # select the associations to include; by default all associations are included.
     selected_component_associations = if query_context.component_contexts.empty?
       item_components
     else
